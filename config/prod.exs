@@ -12,8 +12,7 @@ config :fuschia, FuschiaWeb.Endpoint,
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
-config :fuschia, :socket,
-  check_origin: []
+config :fuschia, :socket, check_origin: []
 
 # Do not print debug messages in production
 config :logger, level: :info
