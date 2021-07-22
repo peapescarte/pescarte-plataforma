@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: [24.0.0]
+        otp: [24.0.3]
         elixir: [1.12.1]
     steps:
       - name: Cancels previous run
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: [24.0.0]
+        otp: [24.0.3]
         elixir: [1.12.1]
     steps:
       - name: Checkout
