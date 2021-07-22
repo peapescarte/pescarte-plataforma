@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  fuschia:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      args:
+        MIX_ENV: dev
+    container_name: pescarte_fuschia
+    command: iex -S mix phx.server
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+      - "4001:4001"
+    volumes:
+      - .:/fuschia
+    env_file:
+      - .env
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "10"
+    networks:
+      - pescarte
+
+networks:
+  pescarte:
+    external:
+      name: pescarte
