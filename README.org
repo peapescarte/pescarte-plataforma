@@ -1,0 +1,11 @@
+#+title: Fuschia
+#+description: API Plataforma Digital PEA Pescarte
+
+#+caption: CI
+[[https://github.com/cciuenf/fuschia/workflows/test/badge.svg?branch=main]]
+
+Documentação em construção…
+
+** Materiais, Tutoriais, Relatórios e extras
+
+Todo o material do projeto (tanto backend ou frontend) pode ser encontrado no repositório [[https://github.com/cciuenf/documentos_pea_pescarte][documentos_pea_pescarte]], que abriga diversos artigos.
