@@ -12,4 +12,3 @@ config :sentry,
     env: "production"
   },
   included_environments: [System.get_env("SENTRY_ENV")]
-
