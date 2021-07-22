@@ -3,6 +3,9 @@ import Config
 config :fuschia,
   ecto_repos: [Fuschia.Repo]
 
+config :fuschia, Fuschia.Repo,
+  migration_timestamps: [inserted_at: :created_at, type: :utc_datetime_usec]
+
 # Configures the endpoint
 config :fuschia, FuschiaWeb.Endpoint,
   url: [host: "localhost"],
@@ -14,7 +17,8 @@ config :fuschia, FuschiaWeb.Endpoint,
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+  metadata: [:request_id],
+  backends: [:console, Sentry.LoggerBackend]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
