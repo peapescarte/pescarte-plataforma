@@ -4,7 +4,106 @@
 #+caption: CI
 [[https://github.com/cciuenf/fuschia/workflows/test/badge.svg?branch=main]]
 
-Documentação em construção…
+API para a Plataforma Digital PEA Pescarte
+
+---
+
+** Setup
+
+*** GitHub Packages
+
+Antes de subir o ambiente com Docker, é necessário autenticar-se no GitHub Packages. Crie um token acessando
+as [[https://github.com/settings/profile][configurações do seu perfil GitHub]] > Developer Settings >
+Personal Access Tokens. Para saber quais são as permissões necessárias para o token, leia a
+[[https://docs.github.com/pt/packages/learn-github-packages/about-permissions-for-github-packages][documentação]]
+sobre o GitHub Packages.
+
+Após criar o token, já é possível fazer a autenticação no GitHub Packages:
+
+#+begin_src sh
+echo "<personal_token>" | docker login ghcr.io -u USERNAME --password-stdin 
+#+end_src
+
+*** Requerimentos mínimos
+
+| requirement                                                     | release  |
+| --------------------------------------------------------------- | -------- |
+| [[https://docs.docker.com/get-docker/][docker]]                 | 19.03.0+ |
+| [[https://github.com/docker/compose/releases/][docker-compose]] | 1.26.0+  |
+
+---
+
+** Ambiente de desenvolvimento
+
+*** Primeira vez rodando
+Copie o arquivo [[./.env-sample][.env-sample]] para um novo arquivo =.env= e defina os valores necessários
+nas variáveis de ambiente. Em seguida, execute o build dos containers e obtenha as dependencias do =mix=.
+
+#+begin_src sh
+docker-compose build
+docker-compose run --rm fuschia mix deps.get
+#+end_src
+
+*** Sempre que for rodar o projeto
+
+Basta executar:
+
+#+begin_src sh
+docker-compose up
+#+end_src
+
+*** Para atualizar ou instalar novas dependências
+
+#+begin_src sh
+docker-compose run --rm fuschia mix deps.get
+#+end_src
+
+*** Para executar migrações
+
+#+begin_src sh
+docker-compose run --rm fuschia mix ecto.migrate
+#+end_src
+
+*** Após as migrações, para popular o banco
+
+#+begin_src sh
+docker-compose run --rm fuschia mix run /lib/mix/tasks/seeds.exs
+#+end_src
+
+*** Para reverter migrações
+
+#+begin_src sh
+docker-compose run --rm fushcia mix ecto.rollback
+#+end_src
+
+É possível executar as migrações e os seeds com o comando:
+
+#+begin_src sh
+docker-compose run --rm fuschia mix ecto.setup
+#+end_src
+
+*** Portas expostas no sistema do host
+
+| container    | port |
+| ------------ | ---- |
+| fuschia      | 4000 |
+
+---
+
+
+** Rodando os testes
+
+Para rodar os testes localmente execute o comando:
+
+#+begin_src sh
+docker-compose run --rm fuschia mix test
+#+end_src
+
+E para rodar todos os testes (=format=, =credo= e =test=) use:
+
+#+begin_src sh
+docker-compose run --rm fuschia mix ci
+#+end_src
 
 ** Materiais, Tutoriais, Relatórios e extras
 
