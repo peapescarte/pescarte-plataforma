@@ -1,0 +1,25 @@
+name: Update docker image for CI
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  build_ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PERSONAL_TOKEN }}
+
+      - name: Docker push
+        run: |
+          docker-compose -f docker-compose-ci.yml pull
+          docker-compose -f docker-compose-ci.yml build
+          docker-compose -f docker-compose-ci.yml push fuschia
