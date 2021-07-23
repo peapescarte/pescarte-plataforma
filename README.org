@@ -6,7 +6,7 @@
 
 API para a Plataforma Digital PEA Pescarte
 
----
+-----
 
 ** Setup
 
@@ -27,11 +27,11 @@ echo "<personal_token>" | docker login ghcr.io -u USERNAME --password-stdin
 *** Requerimentos mínimos
 
 | requirement                                                     | release  |
-| --------------------------------------------------------------- | -------- |
+|-----------------------------------------------------------------+----------+
 | [[https://docs.docker.com/get-docker/][docker]]                 | 19.03.0+ |
 | [[https://github.com/docker/compose/releases/][docker-compose]] | 1.26.0+  |
 
----
+-----
 
 ** Ambiente de desenvolvimento
 
@@ -85,10 +85,10 @@ docker-compose run --rm fuschia mix ecto.setup
 *** Portas expostas no sistema do host
 
 | container    | port |
-| ------------ | ---- |
+|--------------+------+
 | fuschia      | 4000 |
 
----
+-----
 
 
 ** Rodando os testes
