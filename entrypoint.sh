@@ -12,8 +12,8 @@ echo "Conectada ao banco de dados!"
 
 echo "Executando migrações..."
 
-./prod/rel/conts/bin/conts eval Fuschia.Release.migrate
+./prod/rel/fuschia/bin/fuschia eval Fuschia.Release.migrate
 
 echo "Inicializando API Fuschia!"
 
-./prod/rel/conts/bin/conts start
+./prod/rel/fuschia/bin/fuschia start

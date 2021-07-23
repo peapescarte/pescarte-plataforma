@@ -16,6 +16,10 @@ services:
       - "4001:4001"
     volumes:
       - .:/fuschia
+    depends_on:
+      - db
+    networks:
+      - pescarte
     env_file:
       - .env
     logging:
@@ -23,10 +27,30 @@ services:
       options:
         max-size: "50m"
         max-file: "10"
+
+  db:
+    image: ghcr.io/cciuenf/pescarte_db:latest
+    container_name: pescarte_fuschia_db
+    environment:
+      POSTGRES_PASSWORD: pescarte
+      POSTGRES_USER: pescarte
+      POSTGRES_DB: pescarte
+    ports:
+      - "5432:5432"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pescarte"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     networks:
       - pescarte
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "10"
 
 networks:
   pescarte:
-    external:
-      name: pescarte
+    name: pescarte

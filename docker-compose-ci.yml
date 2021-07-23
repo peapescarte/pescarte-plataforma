@@ -7,8 +7,8 @@ services:
       args:
         MIX_ENV: test
       cache_from:
-        - docker.pkg.github.com/uenf/pescarte/fuschia_ci:latest
-    image: docker.pkg.github.com/uenf/pescarte/fuschia_ci:latest
+        - ghcr.io/cciuenf/fuschia_ci:latest
+    image: ghcr.io/cciuenf/fuschia_ci:latest
     container_name: pescarte_fuschia_ci
     depends_on:
       - db
@@ -21,7 +21,7 @@ services:
       - MIX_ENV=test
 
   db:
-    image: docker.pkg.github.com/uenf/pescarte/postgres_db:latest
+    image: ghcr.io/cciuenf/pescarte_db:latest
     container_name: pescarte_fuschia_db
     environment:
       - POSTGRES_USER=pescarte

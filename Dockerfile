@@ -1,44 +1,25 @@
-# ---- Builder Stage ----
-FROM bitwalker/alpine-elixir:latest AS builder
+FROM bitwalker/alpine-elixir:latest
 
 MAINTAINER matdsoupe
 
-RUN apk add --no-cache build-base
+RUN apk update \
+    && apk add --no-cache tzdata ncurses-libs postgresql-client build-base \
+    && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+    && echo "America/Sao_Paulo" > /etc/timezone \
+    && apk del tzdata
 
-RUN mkdir /app
-WORKDIR /app
+WORKDIR /fuschia
 
-ENV MIX_ENV=prod
+ARG MIX_ENV=prod
 
-# Cache elixir deps
-ADD ./mix.exs ./mix.lock ./
-RUN mix do local.rebar, local.hex --force
+RUN mix do local.hex --force, local.rebar --force
+
+COPY mix.exs mix.lock ./
+COPY config config
+
 RUN mix do deps.get, deps.compile
 
-COPY lib ./lib
-COPY config ./config
-COPY priv ./priv
+COPY . ./
+RUN mix compile
 
-RUN mix release
-
-# ---- Application Stage ----
-FROM alpine AS app
-
-ENV MIX_ENV=prod
-
-# Install needed packages
-RUN apk add --no-cache openssl \
-      ncurses-libs postgresql-client
-
-# Copy over the build artifact from the previous step and create a non root user
-RUN adduser -D -h /home/fuschia fuschia
-WORKDIR /home/fuschia
-COPY --from=builder /app/_build .
-RUN chown -R fuschia: ./prod
-
-USER fuschia
-
-COPY entrypoint.sh .
-
-# Run the Phoenix app
-CMD ["./entrypoint.sh"]
+CMD ["sh", "./entrypoint.sh"]
