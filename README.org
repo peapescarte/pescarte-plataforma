@@ -2,7 +2,7 @@
 #+description: API Plataforma Digital PEA Pescarte
 
 #+caption: CI
-[[https://github.com/cciuenf/fuschia/workflows/test/badge.svg?branch=main]]
+[[https://github.com/cciuenf/fuschia/workflows/elixir_ci/badge.svg?branch=dev]]
 
 API para a Plataforma Digital PEA Pescarte
 
