@@ -1,0 +1,32 @@
+name: elixir_ci
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PERSONAL_TOKEN }}
+
+      - name: Docker
+        run: |
+          docker-compose -f docker-compose-ci.yml pull --quiet
+          docker-compose -f docker-compose-ci.yml build fuschia
+          docker-compose -f docker-compose-ci.yml up -d
+
+      - name: Format
+        run: docker exec pescarte_fuschia_ci mix format --check-formatted
+
+      - name: Credo
+        run: docker exec pescarte_fuschia_ci mix credo --strict
+
+      - name: Test
+        run: docker exec pescarte_fuschia_ci mix coveralls.post --token ${{ secrets.COVERALLS_TOKEN }} --branch ${GITHUB_REF#refs/heads/} --name "GitHub Actions" --committer $GITHUB_ACTOR --message "${{ github.event.head_commit.message }}" --sha $GITHUB_SHA
