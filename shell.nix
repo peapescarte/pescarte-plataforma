@@ -45,11 +45,6 @@ in mkShell {
     mkdir -p .nix-hex
   '';
 
-  # elixir local PATH
-  # this allows mix to work on the local directory
-  MIX_HOME = "./.nix-mix";
-  HEX_HOME = "./.nix-hex";
-  PATH = "$MIX_HOME/bin:$HEX_HOME/bin::$PATH";
   ERL_AFLAGS = "-kernel shell_history enabled";
   # to not conflict with your host elixir
   # version and supress warnings about standard
