@@ -43,18 +43,20 @@ in mkShell {
     # create local tmp folders
     mkdir -p .nix-mix
     mkdir -p .nix-hex
-
-    # elixir local PATH
-    # this allows mix to work on the local directory
-    export MIX_HOME=$PWD/.nix-mix
-    export HEX_HOME=$PWD/.nix-hex
-    export PATH=$MIX_HOME/bin:$PATH
-    export PATH=$HEX_HOME/bin:$PATH
-    export LANG=en_US.UTF-8
-    export ERL_AFLAGS="-kernel shell_history enabled"
-    # to not conflict with your host elixir
-    # version and supress warnings about standard
-    # libraries
-    export ERL_LIBS=$HEX_HOME/lib/erlang/lib
   '';
-}
+
+  # elixir local PATH
+  # this allows mix to work on the local directory
+  MIX_HOME = "./.nix-mix";
+  HEX_HOME = "./.nix-hex";
+  PATH = "$MIX_HOME/bin:$HEX_HOME/bin::$PATH";
+  ERL_AFLAGS = "-kernel shell_history enabled";
+  # to not conflict with your host elixir
+  # version and supress warnings about standard
+  # libraries
+  ERL_LIBS = "$HEX_HOME/lib/erlang/lib";
+
+  # PpostgrSQL vars
+  PGUSER = "pescarte";
+  PGPASSWORD = "pescarte";
+  }
