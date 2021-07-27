@@ -52,6 +52,7 @@ defmodule Fuschia.MixProject do
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:hackney, "~> 1.8"},
+      {:cors_plug, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:sentry, "~> 8.0"},
       {:telemetry_metrics, "~> 0.4"},
