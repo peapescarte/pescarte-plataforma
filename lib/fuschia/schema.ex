@@ -43,28 +43,4 @@ defmodule Fuschia.Schema do
         changeset
     end
   end
-
-  defmodule Parser do
-    @moduledoc """
-    Defines the contract to parse custom attributes
-    """
-
-    @doc """
-    Parses the given `map` with nested ids in order to conform to current schema definition.
-
-    ## Examples
-
-        iex> parse_nested_ids(%{"linha_pesquisa" => %{"id" => 1}, "pesquisador_id" => 2})
-        %{"linha_pesquisa" => %{"id" => 1}, "linha_pesquisa_id" => 1, "pesquisador_id" => 2}
-
-    """
-    @callback parse_nested_ids(map) :: map
-
-    @spec reject_empty(map) :: map
-    def reject_empty(attrs) do
-      attrs
-      |> Enum.reject(fn {_, v} -> is_nil(v) end)
-      |> Enum.into(%{})
-    end
-  end
 end
