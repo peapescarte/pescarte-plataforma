@@ -51,6 +51,26 @@ defmodule Fuschia.Context.Users do
     |> put_is_admin()
   end
 
+  @doc """
+  Gets the user by reset password token.
+
+  ## Examples
+
+      iex> one_by_reset_password_token("validtoken")
+      %User{}
+
+      iex> one_by_reset_password_token("invalidtoken")
+      nil
+
+  """
+  @spec one_by_reset_password_token(String.t()) :: %User{} | nil
+  def one_by_reset_password_token(token) do
+    with {:ok, query} <- UserTokens.verify_email_token_query(token, "reset_password"),
+         %User{} = user <- Repo.one(query) do
+      user
+    end
+  end
+
   @impl true
   def create(attrs) do
     with {:ok, user} <-
@@ -109,6 +129,23 @@ defmodule Fuschia.Context.Users do
     end
   end
 
+  @doc """
+  Confirms a user by the given token.
+
+  If the token matches, the user account is marked as confirmed
+  and the token is deleted.
+  """
+  @spec confirm_user(String.t()) :: {:ok, %User{}} | :error
+  def confirm_user(token) do
+    with {:ok, query} <- UserTokens.verify_email_token_query(token, "confirm"),
+         %User{} = user <- Repo.one(query),
+         {:ok, %{user: user}} <- Repo.transaction(confirm_user_multi(user)) do
+      {:ok, user}
+    else
+      _ -> :error
+    end
+  end
+
   @spec exists?(integer | String.t()) :: boolean
   def exists?(id) do
     User
@@ -144,5 +181,14 @@ defmodule Fuschia.Context.Users do
   defp put_permissions(%User{} = user) do
     # TODO
     Map.put(user, :permissoes, nil)
+  end
+
+  defp confirm_user_multi(user) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, User.confirm_changeset(user))
+    |> Ecto.Multi.delete_all(
+      :tokens,
+      UserTokens.user_and_contexts_query(user, ["confirm"])
+    )
   end
 end
