@@ -165,6 +165,36 @@ defmodule Fuschia.Context.Users do
     end
   end
 
+  @doc """
+  Updates the user password.
+
+  ## Examples
+
+      iex> update_password(user, "valid password", %{password: ...})
+      {:ok, %User{}}
+
+      iex> update_password(user, "invalid password", %{password: ...})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec update_password(integer, String.t(), map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  def update_password(id, password, attrs) do
+    with %User{} = user <- one(id),
+         changeset <-
+           user
+           |> User.password_changeset(attrs)
+           |> User.validate_current_password(password),
+         {:ok, %{user: user}} <-
+           Ecto.Multi.new()
+           |> Ecto.Multi.update(:user, changeset)
+           |> Ecto.Multi.delete_all(:tokens, UserTokens.user_and_contexts_query(user, :all))
+           |> Repo.transaction() do
+      {:ok, user}
+    else
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
+  end
+
   @spec exists?(integer | String.t()) :: boolean
   def exists?(id) do
     User
