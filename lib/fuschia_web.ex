@@ -26,6 +26,7 @@ defmodule FuschiaWeb do
 
       import Plug.Conn
       import FuschiaWeb.Gettext
+      import FuschiaWeb, only: [render_response: 2, render_response: 3]
       alias FuschiaWeb.Router.Helpers, as: Routes
     end
   end
