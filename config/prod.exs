@@ -6,6 +6,9 @@ protocol =
     _ -> [scheme: "http", port: 80]
   end
 
+config :cors_plug,
+  origin: ~r/https?.pea-pescarte\.uenf\.br$/
+
 config :fuschia, FuschiaWeb.Endpoint,
   http: [port: System.get_env("PORT" || 80)],
   url: [host: System.get_env("FUSCHIA_HOST")] ++ protocol,

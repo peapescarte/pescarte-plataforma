@@ -3,6 +3,8 @@ defmodule FuschiaWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug FuschiaWeb.LocalePlug
+    plug ProperCase.Plug.SnakeCaseParams
   end
 
   scope "/api", FuschiaWeb do
