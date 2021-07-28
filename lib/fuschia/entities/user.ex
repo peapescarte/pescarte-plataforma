@@ -36,7 +36,6 @@ defmodule Fuschia.Entities.User do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_inclusion(:perfil, @valid_perfil)
-    |> cast_assoc(:contato)
   end
 
   @doc """
@@ -50,7 +49,6 @@ defmodule Fuschia.Entities.User do
     |> validate_length(:password, min: 8)
     |> validate_confirmation(:password)
     |> put_hashed_password()
-    |> cast_assoc(:contato, required: true)
   end
 
   @doc """
@@ -60,7 +58,6 @@ defmodule Fuschia.Entities.User do
     struct
     |> changeset(attrs)
     |> validate_required([:perfil])
-    |> cast_assoc(:contato, required: true)
   end
 
   def for_jwt(%__MODULE__{} = struct) do
