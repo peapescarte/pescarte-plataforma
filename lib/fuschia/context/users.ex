@@ -6,7 +6,7 @@ defmodule Fuschia.Context.Users do
   import Ecto.Query
 
   alias Fuschia.Context.UserTokens
-  alias Fuschia.Entities.User
+  alias Fuschia.Entities.{User, UserToken}
   alias Fuschia.Repo
 
   @behaviour Fuschia.ContextBehaviour
@@ -139,8 +139,27 @@ defmodule Fuschia.Context.Users do
   def confirm_user(token) do
     with {:ok, query} <- UserTokens.verify_email_token_query(token, "confirm"),
          %User{} = user <- Repo.one(query),
-         {:ok, %{user: user}} <- Repo.transaction(confirm_user_multi(user)) do
+         {:ok, %{user: user}} <- Repo.transaction(confirm_multi(user)) do
       {:ok, user}
+    else
+      _ -> :error
+    end
+  end
+
+  @doc """
+  Updates the user email using the given token.
+
+  If the token matches, the user email is updated and the token is deleted.
+  The confirmed_at date is also updated to the current time.
+  """
+  @spec update_email(integer, String.t()) :: :ok | :error
+  def update_email(id, token) do
+    with %User{} = user <- one(id),
+         context <- "change:#{user.email}",
+         {:ok, query} <- UserTokens.verify_change_email_token_query(token, context),
+         %UserToken{sent_to: email} <- Repo.one(query),
+         {:ok, _} <- Repo.transaction(email_multi(user, email, context)) do
+      :ok
     else
       _ -> :error
     end
@@ -183,12 +202,20 @@ defmodule Fuschia.Context.Users do
     Map.put(user, :permissoes, nil)
   end
 
-  defp confirm_user_multi(user) do
+  defp confirm_multi(user) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, User.confirm_changeset(user))
     |> Ecto.Multi.delete_all(
       :tokens,
       UserTokens.user_and_contexts_query(user, ["confirm"])
     )
+  end
+
+  defp email_multi(user, email, context) do
+    changeset = user |> User.email_changeset(%{email: email}) |> User.confirm_changeset()
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
+    |> Ecto.Multi.delete_all(:tokens, UserTokens.user_and_contexts_query(user, [context]))
   end
 end
