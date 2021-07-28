@@ -107,7 +107,7 @@ defmodule Fuschia.Entities.User do
       id: struct.id,
       permissoes: struct.permissoes,
       cpf: struct.cpf,
-      data_nasc: struct.data_nasc
+      dataNasc: struct.data_nasc
     }
   end
 

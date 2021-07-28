@@ -35,7 +35,7 @@ defmodule Fuschia.Context.Users do
       |> String.trim()
 
     query()
-    |> where([u], fragment("lower(?)", u.email == ^email))
+    |> where([u], fragment("lower(?)", u.email) == ^email)
     |> where([u], u.ativo == true)
     |> order_by([u], desc: u.created_at)
     |> limit(1)
