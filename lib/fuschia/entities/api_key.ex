@@ -1,4 +1,4 @@
-defmodule Fuschia.ApiKey do
+defmodule Fuschia.Entities.ApiKey do
   @moduledoc """
   API Key Schema
   """
