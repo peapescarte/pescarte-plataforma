@@ -15,6 +15,10 @@ defmodule Fuschia.Entities.User do
 
   @valid_perfil ~w(pesquisador pescador admin avulso)
 
+  @lower_pass_format ~r/[a-z]/
+  @upper_pass_format ~r/[A-Z]/
+  @special_pass_format ~r/[!?@#$%^&*_0-9]/
+
   schema "users" do
     field :password_hash, TrimmedString
     field :confirmed, :boolean
@@ -36,6 +40,8 @@ defmodule Fuschia.Entities.User do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_inclusion(:perfil, @valid_perfil)
+    |> validate_length(:email, max: 160)
+    |> unsafe_validate_unique(:email, Fuschia.Repo)
   end
 
   @doc """
@@ -46,7 +52,12 @@ defmodule Fuschia.Entities.User do
     |> changeset(attrs)
     |> put_change(:perfil, "avulso")
     |> validate_required([:password])
-    |> validate_length(:password, min: 8)
+    |> validate_length(:password, min: 8, max: 80)
+    |> validate_format(:password, @lower_pass_format, message: "at least one lower case character")
+    |> validate_format(:password, @upper_pass_format, message: "at least one upper case character")
+    |> validate_format(:password, @special_pass_format,
+      message: "at least one digit or punctuation character"
+    )
     |> validate_confirmation(:password)
     |> put_hashed_password()
   end
