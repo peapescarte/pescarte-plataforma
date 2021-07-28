@@ -1,6 +1,13 @@
 import Config
 
 # ---------------------------#
+# Guardian
+# ---------------------------#
+config :fuschia, FuschiaWeb.Auth.Pipeline,
+  module: FuschiaWeb.Auth.Guardian,
+  error_handler: FuschiaWeb.Auth.ErrorHandler
+
+# ---------------------------#
 # Sentry
 # ---------------------------#
 config :sentry,

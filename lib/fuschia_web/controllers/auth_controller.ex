@@ -6,8 +6,8 @@ defmodule FuschiaWeb.AuthController do
   use FuschiaWeb, :controller
   use OpenApiSpex.ControllerSpecs
 
-  alias Fuschia.Auth.Guardian
   alias Fuschia.Context.Users
+  alias FuschiaWeb.Auth.Guardian
   alias FuschiaWeb.Swagger.{AuthSchemas, Response, Security, UserSchemas}
 
   action_fallback FuschiaWeb.FallbackController

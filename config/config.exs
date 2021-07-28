@@ -20,18 +20,13 @@ config :logger, :console,
   metadata: [:request_id],
   backends: [:console, Sentry.LoggerBackend]
 
-# Use Jason for JSON parsing in Phoenix
-config :phoenix, :json_library, Jason
-
-# Guardian Auth
 config :fuschia, FuschiaWeb.Auth.Guardian,
   issuer: "pea_pescarte",
   ttl: {3, :days},
-  secret_key: ""
+  secret_key: "BGfPrVpwxq8wpwuRRIyMQtihongnh98GAQPl0awRxCn432HLit9Wo/Q83yrjHH2P"
 
-config :fuschia, FuschiaWeb.Auth.Pipeline,
-  module: FuschiaWeb.Auth.Guardian,
-  error_handler: FuschiaWeb.Auth.ErrorHandler
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

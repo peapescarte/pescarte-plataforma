@@ -1,4 +1,4 @@
-defmodule Fuschia.Auth.Guardian do
+defmodule FuschiaWeb.Auth.Guardian do
   @moduledoc """
   Guardian serializer for Fuschia app
   """

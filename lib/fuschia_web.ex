@@ -20,6 +20,8 @@ defmodule FuschiaWeb do
   import Phoenix.Controller, only: [put_view: 2, render: 3]
   import Plug.Conn, only: [put_status: 2]
 
+  alias FuschiaWeb.FuschiaView
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: FuschiaWeb
