@@ -8,7 +8,7 @@ defmodule FuschiaWeb.AuthController do
 
   alias Fuschia.Auth.Guardian
   alias Fuschia.Context.Users
-  alias FuschiaWeb.Swagger.{AuthSchemas, Response, Security}
+  alias FuschiaWeb.Swagger.{AuthSchemas, Response, Security, UserSchemas}
 
   action_fallback FuschiaWeb.FallbackController
 
@@ -40,12 +40,10 @@ defmodule FuschiaWeb.AuthController do
   """
   operation(:signup,
     request_body:
-      {"The user attributes", "application/json", UsuarioSchemas.UsuarioSignupRequest,
-       required: true},
+      {"The user attributes", "application/json", UserSchemas.UserSignupRequest, required: true},
     responses:
       [
-        ok:
-          {"Successful Signup with User Data", "application/json", UsuarioSchemas.UsuarioResponse}
+        ok: {"Successful Signup with User Data", "application/json", UserSchemas.UserResponse}
       ] ++ Response.errors(:unauthorized)
   )
 

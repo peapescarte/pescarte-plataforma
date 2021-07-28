@@ -33,6 +33,7 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       description: "POST body for Signup",
       type: :object,
       properties: %{
+        dataNasc: %Schema{type: :string, format: :"date-time", description: "User Birthday"},
         nomeCompleto: %Schema{type: :string, description: "User full name"},
         email: %Schema{type: :string, description: "User Email"},
         cpf: %Schema{type: :string, description: "User CPF"},
@@ -43,8 +44,9 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
           format: "password"
         }
       },
-      required: [:email, :password, :cpf, :passwordConfirmation],
+      required: [:email, :password, :cpf, :passwordConfirmation, :dataNasc],
       example: %{
+        "dataNasc" => "2001-07-27",
         "nomeCompleto" => "Joãozinho Testinho",
         "contato" => %{
           "email" => "teste@uenf.com.br",
@@ -65,6 +67,7 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       description: "User Data Claim",
       type: :object,
       properties: %{
+        dataNasc: %Schema{type: :string, format: :"date-time", description: "User Birthday"},
         cpf: %Schema{type: :string, description: "User CPF"},
         email: %Schema{type: :string, description: "User Email"},
         nomeCompleto: %Schema{type: :string, description: "User Full Name"},
@@ -137,6 +140,7 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       example: %{
         "data" => %{
           "user" => %{
+            "dataNasc" => "2021-07-27",
             "cpf" => "999.999.999-99",
             "email" => "teste@solfacil.com.br",
             "nomeCompleto" => "Joãozinho Testinho",
