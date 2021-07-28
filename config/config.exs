@@ -20,6 +20,11 @@ config :logger, :console,
   metadata: [:request_id],
   backends: [:console, Sentry.LoggerBackend]
 
+config :fuschia, FuschiaWeb.Auth.Guardian,
+  issuer: "pea_pescarte",
+  ttl: {3, :days},
+  secret_key: "BGfPrVpwxq8wpwuRRIyMQtihongnh98GAQPl0awRxCn432HLit9Wo/Q83yrjHH2P"
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

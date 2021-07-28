@@ -1,6 +1,13 @@
 import Config
 
 # ---------------------------#
+# Guardian
+# ---------------------------#
+config :fuschia, FuschiaWeb.Auth.Pipeline,
+  module: FuschiaWeb.Auth.Guardian,
+  error_handler: FuschiaWeb.Auth.ErrorHandler
+
+# ---------------------------#
 # Sentry
 # ---------------------------#
 config :sentry,
@@ -12,3 +19,5 @@ config :sentry,
     env: "production"
   },
   included_environments: [System.get_env("SENTRY_ENV")]
+
+config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
