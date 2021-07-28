@@ -1,7 +1,7 @@
 defmodule Fuschia.AuthLogFactory do
   @moduledoc false
 
-  alias Fuschia.AuthLog
+  alias Fuschia.Entities.AuthLog
 
   defmacro __using__(_opts) do
     quote do

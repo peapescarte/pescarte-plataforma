@@ -7,7 +7,7 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
     execute &execute_up/0, &execute_down/0
 
     create table(:user) do
-      add :cpf, :string, null: false
+      add :cpf, :citext, null: false
       add :nome_completo, :string, null: false
       add :data_nasc, :date, null: false
       add :email, :citext, null: false
