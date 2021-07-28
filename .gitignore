@@ -32,3 +32,9 @@ fuschia-*.tar
 
 # Environment variables
 .env
+
+# Nix stuff
+/.nix-mix/
+/.nix-hex/
+/.postgres/
+/.direnv/
