@@ -5,6 +5,7 @@ defmodule Fuschia.Context.Users do
 
   import Ecto.Query
 
+  alias Fuschia.Context.UserTokens
   alias Fuschia.Entities.User
   alias Fuschia.Repo
 
@@ -78,6 +79,33 @@ defmodule Fuschia.Context.Users do
            |> User.registration_changeset(attrs)
            |> Repo.insert() do
       {:ok, preload_all(user)}
+    end
+  end
+
+  @doc """
+  Resets the user password.
+
+  ## Examples
+
+      iex> reset_password(user, %{password: "new long password", password_confirmation: "new long password"})
+      {:ok, %User{}}
+
+      iex> reset_password(user, %{password: "valid", password_confirmation: "not the same"})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec reset_password(integer, map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  def reset_password(id, attrs) do
+    with %User{} = user <- one(id),
+         {:ok, %{user: reseted}} <-
+           Ecto.Multi.new()
+           |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
+           |> Ecto.Multi.delete_all(:tokens, UserTokens.user_and_contexts_query(user, :all))
+           |> Repo.transaction() do
+      {:ok, reseted}
+    else
+      {:error, :user, changeset, _} ->
+        {:error, changeset}
     end
   end
 
