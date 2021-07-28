@@ -59,6 +59,7 @@ defmodule Fuschia.MixProject do
       {:guardian, "~> 2.0"},
       {:cors_plug, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
+      {:open_api_spex, "~> 3.10"},
       {:sentry, "~> 8.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
