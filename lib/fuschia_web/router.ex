@@ -8,6 +8,7 @@ defmodule FuschiaWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug FuschiaWeb.LocalePlug
+    plug FuschiaWeb.RequireApiKeyPlug
     plug ProperCase.Plug.SnakeCaseParams
   end
 
