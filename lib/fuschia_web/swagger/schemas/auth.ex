@@ -47,7 +47,7 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       example: %{
         "nomeCompleto" => "Joãozinho Testinho",
         "contato" => %{
-          "email" => "teste@solfacil.com.br",
+          "email" => "teste@uenf.com.br",
           "celular" => "+55 (71) 99999-9999"
         },
         "password" => "201763",
