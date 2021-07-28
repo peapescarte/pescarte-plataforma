@@ -4,8 +4,8 @@ defmodule CoreWeb.TestSupport do
   """
   import Plug.Conn
 
-  alias Fuschia.Context.ApiKey
-  alias Fuschia.Entities.{ApiKeys, User}
+  alias Fuschia.Context.ApiKeys
+  alias Fuschia.Entities.{ApiKey, User}
   alias FuschiaWeb.Auth.Guardian
 
   @doc """
