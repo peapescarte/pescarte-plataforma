@@ -19,7 +19,7 @@ defmodule Fuschia.Entities.User do
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
-  schema "users" do
+  schema "user" do
     field :password_hash, TrimmedString
     field :confirmed, :boolean
     field :email, TrimmedString
