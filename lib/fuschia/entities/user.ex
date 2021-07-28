@@ -40,8 +40,7 @@ defmodule Fuschia.Entities.User do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_inclusion(:perfil, @valid_perfil)
-    |> validate_length(:email, max: 160)
-    |> unsafe_validate_unique(:email, Fuschia.Repo)
+    |> validate_email()
   end
 
   @doc """
@@ -51,14 +50,9 @@ defmodule Fuschia.Entities.User do
     struct
     |> changeset(attrs)
     |> put_change(:perfil, "avulso")
+    |> cast(attrs, [:password])
     |> validate_required([:password])
-    |> validate_length(:password, min: 8, max: 80)
-    |> validate_format(:password, @lower_pass_format, message: "at least one lower case character")
-    |> validate_format(:password, @upper_pass_format, message: "at least one upper case character")
-    |> validate_format(:password, @special_pass_format,
-      message: "at least one digit or punctuation character"
-    )
-    |> validate_confirmation(:password)
+    |> validate_password()
     |> put_hashed_password()
   end
 
@@ -71,6 +65,39 @@ defmodule Fuschia.Entities.User do
     |> validate_required([:perfil])
   end
 
+  @doc """
+  A user changeset for changing the email.
+
+  It requires the email to change otherwise an error is added.
+  """
+  def email_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email])
+    |> validate_email()
+    |> case do
+      %{changes: %{email: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :email, "did not change")
+    end
+  end
+
+  @doc """
+  A user changeset for changing the password.
+  """
+  def password_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
+    |> validate_password()
+    |> put_hashed_password()
+  end
+
+  @doc """
+  Confirms the account by setting `confirmed`.
+  """
+  def confirm_changeset(user) do
+    change(user, confirmed: true)
+  end
+
   def for_jwt(%__MODULE__{} = struct) do
     %{
       email: struct.email,
@@ -80,6 +107,23 @@ defmodule Fuschia.Entities.User do
       permissoes: struct.permissoes,
       cpf: struct.cpf
     }
+  end
+
+  defp validate_password(changeset) do
+    changeset
+    |> validate_length(:password, min: 8, max: 80)
+    |> validate_format(:password, @lower_pass_format, message: "at least one lower case character")
+    |> validate_format(:password, @upper_pass_format, message: "at least one upper case character")
+    |> validate_format(:password, @special_pass_format,
+      message: "at least one digit or punctuation character"
+    )
+    |> validate_confirmation(:password, required: true)
+  end
+
+  defp validate_email(changeset) do
+    changeset
+    |> validate_length(:email, max: 160)
+    #|> unsafe_validate_unique(:email, Fuschia.Repo)
   end
 
   defp put_hashed_password(changeset) do
