@@ -12,3 +12,5 @@ config :sentry,
     env: "production"
   },
   included_environments: [System.get_env("SENTRY_ENV")]
+
+config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")

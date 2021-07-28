@@ -54,6 +54,7 @@ defmodule Fuschia.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:proper_case, "~> 1.0.2"},
       {:hackney, "~> 1.8"},
+      {:timex, "~> 3.0"},
       {:guardian, "~> 2.0"},
       {:cors_plug, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
