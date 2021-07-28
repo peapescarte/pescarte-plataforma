@@ -1,16 +1,52 @@
 defmodule FuschiaWeb.ErrorView do
   use FuschiaWeb, :view
 
-  # If you want to customize a particular status code
-  # for a certain format, you may uncomment below.
-  # def render("500.json", _assigns) do
-  #   %{errors: %{detail: "Internal Server Error"}}
-  # end
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  end
 
-  # By default, Phoenix returns the status message from
-  # the template name. For example, "404.json" becomes
-  # "Not Found".
+  @doc """
+  Error for template not found
+  """
   def template_not_found(template, _assigns) do
-    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+    %{
+      error: %{
+        details: Phoenix.Controller.status_message_from_template(template)
+      }
+    }
+  end
+
+  @doc """
+  Error for Ecto Changeset validation
+  """
+  def render("error.json", %{changeset: %Ecto.Changeset{} = changeset}) do
+    %{
+      error: %{
+        details: translate_errors(changeset)
+      }
+    }
+  end
+
+  @doc """
+  Error specifying the resource id related
+  """
+  def render("error.json", %{reason: reason, resource_id: resource_id}) do
+    %{
+      error: %{
+        details: reason,
+        resourceId: resource_id
+      }
+    }
+  end
+
+  @doc """
+  Error default with detials only
+  """
+  def render("error.json", %{reason: reason}) do
+    %{
+      error: %{
+        details: reason
+      }
+    }
   end
 end
