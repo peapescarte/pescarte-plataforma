@@ -57,6 +57,7 @@ defmodule Fuschia.MixProject do
       {:hackney, "~> 1.8"},
       {:timex, "~> 3.0"},
       {:guardian, "~> 2.0"},
+      {:ex_machina, "~> 2.7.0"},
       {:cors_plug, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:open_api_spex, "~> 3.10"},
