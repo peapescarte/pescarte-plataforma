@@ -5,7 +5,7 @@ defmodule Fuschia.Context.ApiKeys do
 
   import Ecto.Query
 
-  alias Fuschia.ApiKey
+  alias Fuschia.Entities.ApiKey
   alias Fuschia.Repo
 
   @spec one :: %ApiKey{}
