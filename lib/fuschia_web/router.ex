@@ -30,5 +30,8 @@ defmodule FuschiaWeb.Router do
 
   scope "/api", FuschiaWeb do
     pipe_through :api
+
+    post "/login", AuthController, :login
+    post "/signup", AuthController, :signup
   end
 end
