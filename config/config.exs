@@ -23,6 +23,16 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Guardian Auth
+config :fuschia, FuschiaWeb.Auth.Guardian,
+  issuer: "pea_pescarte",
+  ttl: {3, :days},
+  secret_key: ""
+
+config :fuschia, FuschiaWeb.Auth.Pipeline,
+  module: FuschiaWeb.Auth.Guardian,
+  error_handler: FuschiaWeb.Auth.ErrorHandler
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
