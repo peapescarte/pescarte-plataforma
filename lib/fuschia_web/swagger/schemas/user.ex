@@ -146,14 +146,16 @@ defmodule FuschiaWeb.Swagger.UserSchemas do
         nomeCompleto: %Schema{type: :string, description: "User Full Name"},
         email: %Schema{type: :string, description: "User Email"},
         cpf: %Schema{type: :string, description: "User CPF"},
-        password: %Schema{type: :string, description: "User Password", format: "password"}
+        password: %Schema{type: :string, description: "User Password", format: "password"},
+        dataNasc: %Schema{type: :string, format: :"date-time", description: "User Birthday"}
       },
-      required: [:nomeCompleto, :password, :email, :cpf],
+      required: [:nomeCompleto, :password, :email, :cpf, :dataNasc],
       example: %{
         "nomeCompleto" => "Joãozinho Testinho",
         "cpf" => "999.999.999-99",
         "password" => "201763",
-        "email" => "teste@uenf.com.br"
+        "email" => "teste@uenf.com.br",
+        "dataNasc" => "2001-07-27"
       }
     })
   end
