@@ -10,7 +10,7 @@ defmodule Fuschia.Entities.User do
   alias Fuschia.Entities.User
   alias Fuschia.Types.TrimmedString
 
-  @required_fields ~w(nome_completo email cpf)a
+  @required_fields ~w(nome_completo email cpf data_nasc)a
   @optional_fields ~w(password confirmed last_seen nome_completo ativo perfil)a
 
   @valid_perfil ~w(pesquisador pescador admin avulso)
@@ -23,6 +23,7 @@ defmodule Fuschia.Entities.User do
     field :password_hash, TrimmedString
     field :confirmed, :boolean
     field :email, TrimmedString
+    field :data_nasc, :date
     field :cpf, TrimmedString
     field :last_seen, :utc_datetime_usec
     field :perfil, TrimmedString
@@ -105,7 +106,8 @@ defmodule Fuschia.Entities.User do
       perfil: struct.perfil,
       id: struct.id,
       permissoes: struct.permissoes,
-      cpf: struct.cpf
+      cpf: struct.cpf,
+      data_nasc: struct.data_nasc
     }
   end
 
@@ -172,7 +174,8 @@ defmodule Fuschia.Entities.User do
         perfil: struct.perfil,
         ultimo_login: struct.last_seen,
         confirmado: struct.confirmed,
-        ativo: struct.ativo
+        ativo: struct.ativo,
+        data_nasc: struct.data_nasc
       }
       |> Fuschia.Encoder.encode(opts)
     end
