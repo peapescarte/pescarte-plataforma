@@ -6,7 +6,20 @@ defmodule Fuschia.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
+    opts = [strategy: :one_for_one, name: Fuschia.Supervisor]
+
+    Supervisor.start_link(children(), opts)
+  end
+
+  # Tell Phoenix to update the endpoint configuration
+  # whenever the application is updated.
+  def config_change(changed, _new, removed) do
+    FuschiaWeb.Endpoint.config_change(changed, removed)
+    :ok
+  end
+
+  defp children do
+    base_children = [
       # Start the Ecto repository
       Fuschia.Repo,
       # Start the Telemetry supervisor
@@ -15,20 +28,17 @@ defmodule Fuschia.Application do
       {Phoenix.PubSub, name: Fuschia.PubSub},
       # Start the Endpoint (http/https)
       FuschiaWeb.Endpoint
-      # Start a worker by calling: Fuschia.Worker.start_link(arg)
-      # {Fuschia.Worker, arg}
+      # Start Oban jobs
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Fuschia.Supervisor]
-    Supervisor.start_link(children, opts)
-  end
+    start_oban? =
+      Application.get_env(:fuschia, :jobs)[:start]
+      |> Fuschia.Parser.to_boolean()
 
-  # Tell Phoenix to update the endpoint configuration
-  # whenever the application is updated.
-  def config_change(changed, _new, removed) do
-    FuschiaWeb.Endpoint.config_change(changed, removed)
-    :ok
+    if start_oban? do
+      base_children ++ [{Oban, Application.get_env(:fuschia, Oban)}]
+    else
+      base_children
+    end
   end
 end
