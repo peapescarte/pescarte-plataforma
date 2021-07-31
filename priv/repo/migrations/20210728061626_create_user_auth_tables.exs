@@ -19,6 +19,9 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
       timestamps()
     end
 
+    create unique_index(:user, [:cpf])
+    create unique_index(:user, [:nome_completo])
+
     create table(:user_token) do
       add :token, :binary, null: false
       add :context, :string, null: false
