@@ -1,4 +1,4 @@
-defmodule Fuschia.AuthLogTest do
+defmodule Fuschia.Entities.AuthLogTest do
   use Fuschia.DataCase, async: true
 
   alias Fuschia.Entities.AuthLog
