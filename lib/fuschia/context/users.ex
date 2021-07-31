@@ -6,7 +6,7 @@ defmodule Fuschia.Context.Users do
   import Ecto.Query
 
   alias Fuschia.Context.UserTokens
-  alias Fuschia.Entities.{User, UserToken}
+  alias Fuschia.Entities.User
   alias Fuschia.Repo
 
   @behaviour Fuschia.ContextBehaviour
@@ -35,7 +35,7 @@ defmodule Fuschia.Context.Users do
       |> String.trim()
 
     query()
-    |> where([u], fragment("lower(?)", u.email) == ^email)
+    |> where([u, contato], fragment("lower(?)", contato.email) == ^email)
     |> where([u], u.ativo == true)
     |> order_by([u], desc: u.created_at)
     |> limit(1)
@@ -146,24 +146,24 @@ defmodule Fuschia.Context.Users do
     end
   end
 
-  @doc """
-  Updates the user email using the given token.
+  # @doc """
+  # Updates the user email using the given token.
 
-  If the token matches, the user email is updated and the token is deleted.
-  The confirmed_at date is also updated to the current time.
-  """
-  @spec update_email(integer, String.t()) :: :ok | :error
-  def update_email(id, token) do
-    with %User{} = user <- one(id),
-         context <- "change:#{user.email}",
-         {:ok, query} <- UserTokens.verify_change_email_token_query(token, context),
-         %UserToken{sent_to: email} <- Repo.one(query),
-         {:ok, _} <- Repo.transaction(email_multi(user, email, context)) do
-      :ok
-    else
-      _ -> :error
-    end
-  end
+  # If the token matches, the user email is updated and the token is deleted.
+  # The confirmed_at date is also updated to the current time.
+  # """
+  # @spec update_email(integer, String.t()) :: :ok | :error
+  # def update_email(id, token) do
+  #   with %User{} = user <- one(id),
+  #        context <- "change:#{user.email}",
+  #        {:ok, query} <- UserTokens.verify_change_email_token_query(token, context),
+  #        %UserToken{sent_to: email} <- Repo.one(query),
+  #        {:ok, _} <- Repo.transaction(email_multi(user, email, context)) do
+  #     :ok
+  #   else
+  #     _ -> :error
+  #   end
+  # end
 
   @doc """
   Updates the user password.
@@ -204,7 +204,9 @@ defmodule Fuschia.Context.Users do
 
   @impl true
   def query do
-    from u in User, order_by: [desc: u.id]
+    from u in User,
+      left_join: contato in assoc(u, :contato),
+      order_by: [desc: u.id]
   end
 
   @impl true
@@ -241,11 +243,11 @@ defmodule Fuschia.Context.Users do
     )
   end
 
-  defp email_multi(user, email, context) do
-    changeset = user |> User.email_changeset(%{email: email}) |> User.confirm_changeset()
+  # defp email_multi(user, email, context) do
+  #   changeset = user |> User.email_changeset(%{email: email}) |> User.confirm_changeset()
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserTokens.user_and_contexts_query(user, [context]))
-  end
+  #   Ecto.Multi.new()
+  #   |> Ecto.Multi.update(:user, changeset)
+  #   |> Ecto.Multi.delete_all(:tokens, UserTokens.user_and_contexts_query(user, [context]))
+  # end
 end

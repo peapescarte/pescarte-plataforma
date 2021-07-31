@@ -7,10 +7,11 @@ defmodule Fuschia.Entities.User do
 
   import Ecto.Changeset
 
-  alias Fuschia.Entities.User
+  alias Fuschia.Common.Formats
+  alias Fuschia.Entities.{Contato, User}
   alias Fuschia.Types.TrimmedString
 
-  @required_fields ~w(nome_completo email cpf data_nasc)a
+  @required_fields ~w(nome_completo cpf data_nascimento)a
   @optional_fields ~w(password confirmed last_seen nome_completo ativo perfil)a
 
   @valid_perfil ~w(pesquisador pescador admin avulso)
@@ -19,11 +20,12 @@ defmodule Fuschia.Entities.User do
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
+  @cpf_format Formats.cpf()
+
   schema "user" do
     field :password_hash, TrimmedString
     field :confirmed, :boolean
-    field :email, TrimmedString
-    field :data_nasc, :date
+    field :data_nascimento, :date
     field :cpf, TrimmedString
     field :last_seen, :utc_datetime_usec
     field :perfil, TrimmedString
@@ -33,6 +35,8 @@ defmodule Fuschia.Entities.User do
     field :permissoes, :map, virtual: true
     field :is_admin, :boolean, virtual: true
 
+    belongs_to :contato, Contato
+
     timestamps()
   end
 
@@ -40,8 +44,9 @@ defmodule Fuschia.Entities.User do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> validate_format(:cpf, @cpf_format)
     |> validate_inclusion(:perfil, @valid_perfil)
-    |> validate_email()
+    |> cast_assoc(:contato)
   end
 
   @doc """
@@ -55,6 +60,7 @@ defmodule Fuschia.Entities.User do
     |> validate_required([:password])
     |> validate_password()
     |> put_hashed_password()
+    |> cast_assoc(:contato, required: true)
   end
 
   @doc """
@@ -64,21 +70,7 @@ defmodule Fuschia.Entities.User do
     struct
     |> changeset(attrs)
     |> validate_required([:perfil])
-  end
-
-  @doc """
-  A user changeset for changing the email.
-
-  It requires the email to change otherwise an error is added.
-  """
-  def email_changeset(user, attrs) do
-    user
-    |> cast(attrs, [:email])
-    |> validate_email()
-    |> case do
-      %{changes: %{email: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :email, "did not change")
-    end
+    |> cast_assoc(:contato, required: true)
   end
 
   @doc """
@@ -101,13 +93,15 @@ defmodule Fuschia.Entities.User do
 
   def for_jwt(%__MODULE__{} = struct) do
     %{
-      email: struct.email,
+      email: struct.contato.email,
+      endereco: struct.contato.endereco,
+      celular: struct.contato.celular,
       nomeCompleto: struct.nome_completo,
       perfil: struct.perfil,
       id: struct.id,
       permissoes: struct.permissoes,
       cpf: struct.cpf,
-      dataNasc: struct.data_nasc
+      dataNasc: struct.data_nascimento
     }
   end
 
@@ -149,13 +143,6 @@ defmodule Fuschia.Entities.User do
     |> validate_confirmation(:password, required: true)
   end
 
-  defp validate_email(changeset) do
-    changeset
-    |> validate_length(:email, max: 160)
-
-    # |> unsafe_validate_unique(:email, Fuschia.Repo)
-  end
-
   defp put_hashed_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
@@ -175,7 +162,7 @@ defmodule Fuschia.Entities.User do
         ultimo_login: struct.last_seen,
         confirmado: struct.confirmed,
         ativo: struct.ativo,
-        data_nasc: struct.data_nasc
+        data_nasc: struct.data_nascimento
       }
       |> Fuschia.Encoder.encode(opts)
     end

@@ -2,25 +2,22 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
   use Ecto.Migration
 
   def change do
-    execute "CREATE EXTENSION IF NOT EXISTS citext", ""
-
     execute &execute_up/0, &execute_down/0
 
     create table(:user) do
       add :cpf, :citext, null: false
       add :nome_completo, :string, null: false
-      add :data_nasc, :date, null: false
-      add :email, :citext, null: false
+      add :data_nascimento, :date, null: false
       add :perfil, :papel, default: "avulso", null: false
       add :last_seen, :utc_datetime_usec
       add :ativo, :boolean, default: true, null: false
       add :password_hash, :string, null: false
       add :confirmed, :boolean, default: false
 
+      add :contato_id, references(:contato, on_replace: :update), null: false
+
       timestamps()
     end
-
-    create unique_index(:user, [:email])
 
     create table(:user_token) do
       add :token, :binary, null: false
