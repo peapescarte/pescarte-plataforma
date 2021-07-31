@@ -53,6 +53,7 @@ defmodule Fuschia.MixProject do
       {:bcrypt_elixir, "~> 2.0"},
       {:paginator, "~> 1.0.3"},
       {:ecto_sql, "~> 3.4"},
+      {:oban, "~> 2.8"},
       {:proper_case, "~> 1.0.2"},
       {:hackney, "~> 1.8"},
       {:timex, "~> 3.0"},
