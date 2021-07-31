@@ -17,6 +17,7 @@ defmodule Fuschia.PesquisadorTables.Nucleo do
     nucleo
     |> cast(attrs, [:nome, :descricao_nucleo])
     |> validate_required([:nome, :descricao_nucleo])
+    |> validate_length(:descricao_nucleo, max: 400)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
