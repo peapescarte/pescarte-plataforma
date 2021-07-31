@@ -29,7 +29,8 @@ defmodule Fuschia.Context.UserTokens do
         query =
           from token in token_and_context_query(hashed_token, context),
             join: user in assoc(token, :user),
-            where: token.inserted_at > ago(^days, "day") and token.sent_to == user.email,
+            join: contato in assoc(user, :contato),
+            where: token.inserted_at > ago(^days, "day") and token.sent_to == contato.email,
             select: user
 
         {:ok, query}
