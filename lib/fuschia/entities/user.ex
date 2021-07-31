@@ -24,7 +24,7 @@ defmodule Fuschia.Entities.User do
 
   schema "user" do
     field :password_hash, TrimmedString
-    field :confirmed, :boolean
+    field :confirmed, :boolean, default: false
     field :data_nascimento, :date
     field :cpf, TrimmedString
     field :last_seen, :utc_datetime_usec
@@ -33,9 +33,9 @@ defmodule Fuschia.Entities.User do
     field :ativo, :boolean, default: true
     field :password, TrimmedString, virtual: true
     field :permissoes, :map, virtual: true
-    field :is_admin, :boolean, virtual: true
+    field :is_admin, :boolean, virtual: true, default: false
 
-    belongs_to :contato, Contato
+    belongs_to :contato, Contato, on_replace: :update
 
     timestamps()
   end
