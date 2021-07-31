@@ -7,10 +7,9 @@ defmodule Fuschia.UserFactory do
 
       def user_factory(attrs) do
         cpf = Map.get(attrs, :cpf, sequence(:cpf, ["325.956.490-00", "726.541.170-65"]))
-        email = Map.get(attrs, :email, sequence(:email, &"test-#{&1}@example.com"))
         nome_completo = sequence(:nome_completo, &"User #{&1})")
         password = Map.get(attrs, :password, "Mdsp9070")
-        data_nasc = Map.get(attrs, :data_nasc, ~D[2001-07-27])
+        data_nascimento = Map.get(attrs, :data_nascimento, ~D[2001-07-27])
 
         user =
           %User{
@@ -18,9 +17,9 @@ defmodule Fuschia.UserFactory do
             nome_completo: nome_completo,
             ativo: true,
             password: password,
-            email: email,
             cpf: cpf,
-            data_nasc: data_nasc
+            data_nascimento: data_nascimento,
+            contato: build(:contato)
           }
           |> hash_password()
 
