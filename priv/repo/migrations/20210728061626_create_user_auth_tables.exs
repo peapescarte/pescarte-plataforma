@@ -11,7 +11,7 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
       add :perfil, :papel, default: "avulso", null: false
       add :last_seen, :utc_datetime_usec
       add :ativo, :boolean, default: true, null: false
-      add :password_hash, :string, null: false
+      add :password_hash, :string
       add :confirmed, :boolean, default: false
 
       add :contato_id, references(:contato, on_replace: :update), null: false
