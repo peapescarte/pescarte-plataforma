@@ -7,6 +7,8 @@ config :fuschia, Fuschia.Repo,
   hostname: "db",
   pool: Ecto.Adapters.SQL.Sandbox
 
+config :fuschia, Oban, queues: false, plugins: false
+
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :fuschia, FuschiaWeb.Endpoint,

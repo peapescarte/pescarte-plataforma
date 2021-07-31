@@ -140,6 +140,11 @@ defmodule Fuschia.Parser do
   #### HELPERS ####
   ####         ####
 
+  @spec to_boolean(String.t()) :: boolean | nil
+  def to_boolean("true"), do: true
+  def to_boolean("false"), do: false
+  def to_boolean(_), do: nil
+
   # Only execute a function if the condition is truthy
   # otherwise returns the same value
   @spec apply_if(term, boolean, fun, list) :: term
