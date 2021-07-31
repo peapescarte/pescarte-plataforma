@@ -220,10 +220,14 @@ defmodule Fuschia.Context.Users do
     Map.put(user, :is_admin, false)
   end
 
+  defp put_is_admin(nil), do: nil
+
   defp put_permissions(%User{} = user) do
     # TODO
     Map.put(user, :permissoes, nil)
   end
+
+  defp put_permissions(nil), do: nil
 
   defp confirm_multi(user) do
     Ecto.Multi.new()
