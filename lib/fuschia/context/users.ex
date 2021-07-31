@@ -211,14 +211,14 @@ defmodule Fuschia.Context.Users do
 
   @impl true
   def preload_all(%Ecto.Query{} = query) do
-    # TODO
     query
+    |> Ecto.Query.preload([:contato])
   end
 
   @impl true
   def preload_all(%User{} = user) do
-    # TODO
     user
+    |> Repo.preload([:contato])
   end
 
   defp put_is_admin(%User{perfil: "admin"} = user) do
