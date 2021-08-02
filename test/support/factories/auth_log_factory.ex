@@ -12,7 +12,7 @@ defmodule Fuschia.AuthLogFactory do
         %AuthLog{
           ip: "127.0.0.1",
           user_agent: user_agent,
-          user_id: 1
+          user_cpf: 1
         }
       end
     end

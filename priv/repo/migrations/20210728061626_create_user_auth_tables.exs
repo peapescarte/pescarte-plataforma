@@ -4,8 +4,8 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
   def change do
     execute &execute_up/0, &execute_down/0
 
-    create table(:user) do
-      add :cpf, :citext, null: false
+    create table(:user, primary_key: false) do
+      add :cpf, :citext, primary_key: true, null: false
       add :nome_completo, :string, null: false
       add :data_nascimento, :date, null: false
       add :perfil, :papel, default: "avulso", null: false
@@ -27,12 +27,13 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
       add :context, :string, null: false
       add :sent_to, :string
 
-      add :user_id, references(:user, on_delete: :delete_all), null: false
+      add :user_cpf, references(:user, column: :cpf, type: :citext, on_delete: :delete_all),
+        null: false
 
       timestamps(updated_at: false)
     end
 
-    create index(:user_token, [:user_id])
+    create index(:user_token, [:user_cpf])
     create unique_index(:user_token, [:context, :token])
   end
 

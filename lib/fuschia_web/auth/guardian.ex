@@ -9,7 +9,7 @@ defmodule FuschiaWeb.Auth.Guardian do
   alias Fuschia.Entities.User
 
   def subject_for_token(user, _claims) do
-    sub = to_string(user.id)
+    sub = to_string(user.cpf)
 
     {:ok, sub}
   end
