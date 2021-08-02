@@ -75,10 +75,10 @@ defmodule Fuschia.Context.UserTokens do
   Gets all tokens for the given user for the given contexts.
   """
   def user_and_contexts_query(user, :all) do
-    from t in UserToken, where: t.user_id == ^user.id
+    from t in UserToken, where: t.user_cpf == ^user.cpf
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in UserToken, where: t.user_id == ^user.id and t.context in ^contexts
+    from t in UserToken, where: t.user_cpf == ^user.cpf and t.context in ^contexts
   end
 end

@@ -24,11 +24,11 @@ defmodule Fuschia.Context.UsersTest do
         |> insert()
         |> Users.preload_all()
 
-      assert user == Users.one(user.id)
+      assert user == Users.one(user.cpf)
     end
 
     test "when id is invalid, returns nil" do
-      assert is_nil(Users.one(0))
+      assert is_nil(Users.one(""))
     end
   end
 
@@ -145,7 +145,7 @@ defmodule Fuschia.Context.UsersTest do
 
     test "when all params are valid, updates a user" do
       assert {:ok, user} = Users.register(@valid_attrs)
-      assert {:ok, updated_user} = Users.update(user.id, @update_attrs)
+      assert {:ok, updated_user} = Users.update(user.cpf, @update_attrs)
 
       for key <- Map.keys(@update_attrs) do
         if key == :contato do
@@ -162,18 +162,18 @@ defmodule Fuschia.Context.UsersTest do
 
     test "when params are invalid, returns an error changeset" do
       assert {:ok, user} = Users.register(@valid_attrs)
-      assert {:error, %Ecto.Changeset{}} = Users.update(user.id, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Users.update(user.cpf, @invalid_attrs)
     end
   end
 
   describe "exists?/1" do
     test "when id is valid, returns true" do
       user = insert(:user)
-      assert true == Users.exists?(user.id)
+      assert true == Users.exists?(user.cpf)
     end
 
     test "when id is invalid, returns false" do
-      assert false == Users.exists?(0)
+      assert false == Users.exists?("")
     end
   end
 end

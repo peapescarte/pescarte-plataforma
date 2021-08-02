@@ -22,11 +22,11 @@ defmodule Fuschia.Entities.User do
 
   @cpf_format Formats.cpf()
 
+  @primary_key {:cpf, TrimmedString, [autogenerate: false]}
   schema "user" do
     field :password_hash, TrimmedString
     field :confirmed, :boolean, default: false
     field :data_nascimento, :date
-    field :cpf, TrimmedString
     field :last_seen, :utc_datetime_usec
     field :perfil, TrimmedString
     field :nome_completo, TrimmedString
@@ -98,7 +98,6 @@ defmodule Fuschia.Entities.User do
       celular: struct.contato.celular,
       nomeCompleto: struct.nome_completo,
       perfil: struct.perfil,
-      id: struct.id,
       permissoes: struct.permissoes,
       cpf: struct.cpf,
       dataNasc: struct.data_nascimento
@@ -156,7 +155,6 @@ defmodule Fuschia.Entities.User do
   defimpl Jason.Encoder, for: User do
     def encode(struct, opts) do
       %{
-        id: struct.id,
         nome_completo: struct.nome_completo,
         perfil: struct.perfil,
         ultimo_login: struct.last_seen,
