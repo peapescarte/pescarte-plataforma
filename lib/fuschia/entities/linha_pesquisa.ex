@@ -14,6 +14,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     field :descricao_curta, :string
     field :descricao_longa, :string
     field :numero_linha, :integer
+
     belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nome_nucleo
 
     timestamps()
@@ -25,6 +26,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint([:numero_linha, :nome_nucleo], name: :numero_linha_nome_nucleo_index)
+    |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
   end
 
