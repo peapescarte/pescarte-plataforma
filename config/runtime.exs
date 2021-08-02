@@ -25,9 +25,36 @@ config :sentry,
 # ---------------------------#
 config :fuschia, Oban,
   repo: Fuschia.Repo,
-  queues: [mailers: 5]
+  queues: [mailer: 5]
 
 config :fuschia, :jobs, start: System.get_env("START_OBAN_JOBS", "true")
+
+# ---------------------------#
+# Mailer
+# ---------------------------#
+adapter =
+  case System.get_env("MAIL_SERVICE", "local") do
+    "gmail" -> Swoosh.Adapters.SMTP
+    _ -> Swoosh.Adapters.Local
+  end
+
+if adapter == Swoosh.Adapters.Local do
+  config :swoosh, serve_mailbox: true, preview_port: 4001
+end
+
+config :fuschia, Fuschia.Mailer,
+  adapter: adapter,
+  relay: System.get_env("MAIL_SERVER", "smtp.gmail.com"),
+  username: System.get_env("MAIL_USERNAME", "notificacoes-noreply@peapescarte.uenf.br"),
+  password: System.get_env("MAIL_PASSWORD", ""),
+  ssl: false,
+  tls: :always,
+  auth: :always,
+  port: System.get_env("MAIL_PORT", "587")
+
+config :fuschia, :pea_pescarte_contact,
+  notifications_mail: "notifications-noreply@peapescarte.uenf.br",
+  telephone: " 0800 026 2828"
 
 # ---------------------------#
 # Timex

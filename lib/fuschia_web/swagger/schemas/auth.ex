@@ -142,7 +142,7 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
           "user" => %{
             "dataNasc" => "2021-07-27",
             "cpf" => "999.999.999-99",
-            "email" => "teste@solfacil.com.br",
+            "email" => "teste@pescarte.com.br",
             "nomeCompleto" => "Joãozinho Testinho",
             "perfil" => "pesquisador",
             "permissoes" => %{
