@@ -17,12 +17,10 @@ defmodule Fuschia.Entities.Cidade do
     |> validate_required([:municipio])
   end
 
-
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
       %{
-        nome: struct.nome,
-        descricao_nucleo: struct.descricao_nucleo
+        municipio: struct.municipio
       }
       |> Fuschia.Encoder.encode(opts)
     end
