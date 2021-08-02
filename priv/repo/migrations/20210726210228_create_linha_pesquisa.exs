@@ -8,7 +8,7 @@ defmodule Fuschia.Repo.Migrations.CreateLinhaPesquisa do
       add :nome_nucleo, references(:nucleo, column: :nome, type: :string, on_delete: :delete_all),
         null: false
 
-      add :descricao_curta, :string, null: false
+      add :descricao_curta, :string, size: 50, null: false
       add :descricao_longa, :string, size: 280
 
       timestamps()
