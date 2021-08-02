@@ -1,22 +1,25 @@
-defmodule Fuschia.PesquisadorTables.Nucleo do
+defmodule Fuschia.Entities.Nucleo do
   @moduledoc """
-  Esquema que representa um nucleo de Pesquisa no BD
+  Nucleo schema
   """
-  use Ecto.Schema
+  use Fuschia.Schema
   import Ecto.Changeset
+
+  @required_fields ~w(nome descricao)a
+  @optional_fields ~w()a
 
   @primary_key {:nome, :string, []}
   schema "nucleo" do
-    field :descricao_nucleo, :string
+    field :descricao, :string
 
     timestamps()
   end
 
   @doc false
-  def changeset(nucleo, attrs) do
-    nucleo
-    |> cast(attrs, [:nome, :descricao_nucleo])
-    |> validate_required([:nome, :descricao_nucleo])
+  def changeset(%__MODULE__{} = struct, attrs) do
+    struct
+    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> validate_length(:descricao_nucleo, max: 400)
   end
 
