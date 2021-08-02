@@ -10,7 +10,7 @@ defmodule Fuschia.Entities.Universidade do
   @required_fields ~w(nome nome_cidade)a
   @optional_fields ~w()a
 
-  schema "universidades" do
+  schema "universidade" do
     field :nome, :string
 
     belongs_to :cidade, Cidade,
