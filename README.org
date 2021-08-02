@@ -103,7 +103,7 @@ Esse projeto está dividio em diversas sub-aplicações que possuem diferentes r
 
 *** Fuschia.Mailer
 
-Responsável pelo processamento e envio/disparo dos emails. Estamos utilizando o [Swoosh](https://github.com/swoosh/swoosh).
+Responsável pelo processamento e envio/disparo dos emails. Estamos utilizando o [[Swoosh][https://github.com/swoosh/swoosh]].
 
 Para testar o preview de email, siga a seguinte documentação:
 
