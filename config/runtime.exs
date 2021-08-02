@@ -34,7 +34,6 @@ config :fuschia, :jobs, start: System.get_env("START_OBAN_JOBS", "true")
 # ---------------------------#
 adapter =
   case System.get_env("MAIL_SERVICE", "local") do
-    "mailgun" -> Swoosh.Adapters.Mailgun
     "gmail" -> Swoosh.Adapters.SMTP
     _ -> Swoosh.Adapters.Local
   end
@@ -45,9 +44,6 @@ end
 
 config :fuschia, Fuschia.Mailer,
   adapter: adapter,
-  domain: System.get_env("MAILGUN_DOMAIN", "email.uenf.br"),
-  api_key: System.get_env("MAILGUN_PRIVATE_API_KEY"),
-  base_url: System.get_env("MAILGUN_BASE_URL"),
   relay: System.get_env("MAIL_SERVER", "smtp.gmail.com"),
   username: System.get_env("MAIL_USERNAME", "notificacoes-noreply@peapescarte.uenf.br"),
   password: System.get_env("MAIL_PASSWORD", ""),
