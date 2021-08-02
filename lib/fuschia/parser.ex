@@ -106,6 +106,8 @@ defmodule Fuschia.Parser do
     |> Map.new()
   end
 
+  def atomize_map(value), do: value
+
   @doc ~S"""
   Converts an antom map to a string map
 
