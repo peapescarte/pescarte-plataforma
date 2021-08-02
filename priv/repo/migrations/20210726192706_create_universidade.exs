@@ -3,11 +3,11 @@ defmodule Fuschia.Repo.Migrations.CreateUniversidade do
 
   def change do
     create table(:universidade) do
+      add :nome, :string, null: false
+
       add :nome_cidade,
           references(:cidade, column: :municipio, type: :string, on_delete: :delete_all),
           null: false
-
-      add :nome, :string, null: false
 
       timestamps()
     end
