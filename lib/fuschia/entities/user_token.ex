@@ -12,12 +12,13 @@ defmodule Fuschia.Entities.UserToken do
   @hash_algorithm :sha256
   @rand_size 32
 
+  @foreign_key_type :string
   schema "users_token" do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
 
-    belongs_to :user, User
+    belongs_to :user, User, foreign_key: :user_cpf, references: :cpf
 
     timestamps(updated_at: false)
   end
@@ -31,7 +32,7 @@ defmodule Fuschia.Entities.UserToken do
   their email.
   """
   def build_email_token(user, context) do
-    build_hashed_token(user, context, user.email)
+    build_hashed_token(user, context, user.contato.email)
   end
 
   defp build_hashed_token(user, context, sent_to) do
@@ -43,7 +44,7 @@ defmodule Fuschia.Entities.UserToken do
        token: hashed_token,
        context: context,
        sent_to: sent_to,
-       user_id: user.id
+       user_cpf: user.cpf
      }}
   end
 end

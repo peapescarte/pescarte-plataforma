@@ -15,10 +15,10 @@ defmodule Fuschia.Context.Users do
     |> Repo.all()
   end
 
-  def one(id) do
+  def one(cpf) do
     query()
     |> preload_all()
-    |> Repo.get(id)
+    |> Repo.get(cpf)
     |> put_permissions()
     |> put_is_admin()
   end
@@ -76,8 +76,8 @@ defmodule Fuschia.Context.Users do
     end
   end
 
-  def update(id, attrs) do
-    with %User{} = user <- one(id),
+  def update(cpf, attrs) do
+    with %User{} = user <- one(cpf),
          {:ok, updated} <-
            user
            |> User.changeset(attrs)
@@ -108,9 +108,9 @@ defmodule Fuschia.Context.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec reset_password(integer, map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
-  def reset_password(id, attrs) do
-    with %User{} = user <- one(id),
+  @spec reset_password(String.t(), map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  def reset_password(cpf, attrs) do
+    with %User{} = user <- one(cpf),
          {:ok, %{user: reseted}} <-
            Ecto.Multi.new()
            |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
@@ -146,9 +146,9 @@ defmodule Fuschia.Context.Users do
   If the token matches, the user email is updated and the token is deleted.
   The confirmed_at date is also updated to the current time.
   """
-  @spec update_email(integer, String.t()) :: :ok | :error
-  def update_email(id, token) do
-    with %User{} = user <- one(id),
+  @spec update_email(String.t(), String.t()) :: :ok | :error
+  def update_email(cpf, token) do
+    with %User{} = user <- one(cpf),
          context <- "change:#{user.contato.email}",
          {:ok, query} <- UserTokens.verify_change_email_token_query(token, context),
          %UserToken{sent_to: email} <- Repo.one(query),
@@ -171,9 +171,10 @@ defmodule Fuschia.Context.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_password(integer, String.t(), map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
-  def update_password(id, password, attrs) do
-    with %User{} = user <- one(id),
+  @spec update_password(String.t(), String.t(), map) ::
+          {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  def update_password(cpf, password, attrs) do
+    with %User{} = user <- one(cpf),
          changeset <-
            user
            |> User.password_changeset(attrs)
@@ -189,17 +190,17 @@ defmodule Fuschia.Context.Users do
     end
   end
 
-  @spec exists?(integer | String.t()) :: boolean
-  def exists?(id) do
+  @spec exists?(String.t()) :: boolean
+  def exists?(cpf) do
     User
-    |> where([u], u.id == ^id)
+    |> where([u], u.cpf == ^cpf)
     |> Repo.exists?()
   end
 
   def query do
     from u in User,
       left_join: contato in assoc(u, :contato),
-      order_by: [desc: u.id]
+      order_by: [desc: u.created_at]
   end
 
   def preload_all(%Ecto.Query{} = query) do

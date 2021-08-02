@@ -18,18 +18,18 @@ defmodule Fuschia.AuthLogsTest do
 
       user = insert(:user)
 
-      result = AuthLogs.create(%{"ip" => @ip, "user_agent" => ua, "user_id" => user.id})
+      result = AuthLogs.create(%{"ip" => @ip, "user_agent" => ua, "user_cpf" => user.cpf})
       auth_log = get_log(@ip)
 
       assert result == :ok
       assert Map.get(auth_log, :ip) == @ip
       assert Map.get(auth_log, :user_agent) == ua
-      assert Map.get(auth_log, :user_id) == user.id
+      assert Map.get(auth_log, :user_cpf) == user.cpf
     end
 
     test "with error should return :ok" do
       user = build(:user)
-      result = AuthLogs.create(%{"user_id" => user})
+      result = AuthLogs.create(%{"user_cpf" => user})
       auth_log = get_log(@ip)
 
       assert result == :ok
@@ -50,7 +50,7 @@ defmodule Fuschia.AuthLogsTest do
       assert result == :ok
       assert Map.get(auth_log, :ip) == @ip
       assert Map.get(auth_log, :user_agent) == ua
-      assert Map.get(auth_log, :user_id) == user.id
+      assert Map.get(auth_log, :user_cpf) == user.cpf
     end
 
     test "with error should return :ok" do
