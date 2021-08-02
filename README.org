@@ -93,6 +93,48 @@ docker-compose run --rm fuschia mix ecto.setup
 
 -----
 
+** Aplicações
+
+Esse projeto está dividio em diversas sub-aplicações que possuem diferentes responsabilidades.
+
+#+begin_example
+
+#+end_example
+
+*** Fuschia.Mailer
+
+Responsável pelo processamento e envio/disparo dos emails. Estamos utilizando o [Swoosh](https://github.com/swoosh/swoosh).
+
+Para testar o preview de email, siga a seguinte documentação:
+
+**** Variáveis de ambiente
+Necessárias em produção:
+- =MAIL_SERVER=: Server do smtp (default: =smtp.gmail.com=)
+- =MAIL_USERNAME=: User do smtp (default: =notificacoes-noreply@peapescarte.uenf.br=)
+- =MAIL_PASSWORD=: Senha do smtp
+- =MAIL_PORT=: Porta do smtp (default: =587=)
+- =MAIL_SERVICE=: O serviço de email a ser usado. Pode ser =gmail= ou =local=.
+  (default prod: =gmail=, default dev: =local=)
+
+*Observação*: Em ambiente de desenvolvimento, toda vez que a variável de ambiente =MAIL_SERVICE= é alterada
+para trocar o adapter, toda a aplicação deve ser compilada usando
+
+#+begin_src sh
+mix compile --force
+#+end_src
+
+**** Rodando localmente
+Essa aplicação também conta com um servidor para visualizar os emails enviados usando o adaptador local,
+basta entrar na aplicação/container e utilizar:
+
+#+begin_src sh
+iex -S mix swoosh.mailbox.server
+#+end_src
+
+Que um servidor no local https://127.0.0.1:4001 vai apresentar uma página web listando os emails
+enviados localmente através do `iex` que ficou aberto com o comando anterior.
+
+-----
 
 ** Rodando os testes
 
