@@ -43,7 +43,7 @@ if adapter == Swoosh.Adapters.Local do
   config :swoosh, serve_mailbox: true, preview_port: 4001
 end
 
-config :fuschia, Mailer,
+config :fuschia, Fuschia.Mailer,
   adapter: adapter,
   domain: System.get_env("MAILGUN_DOMAIN", "email.uenf.br"),
   api_key: System.get_env("MAILGUN_PRIVATE_API_KEY"),

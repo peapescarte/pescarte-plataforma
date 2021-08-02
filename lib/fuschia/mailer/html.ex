@@ -16,7 +16,7 @@ defmodule Fuschia.Mailer.HTML do
     |> render_layout(base)
   end
 
-  def templates_path, do: "#{:code.priv_dir(:mailer)}/templates"
+  def templates_path, do: "#{:code.priv_dir(:fuschia)}/templates"
 
   defp pea_pescarte_contact do
     :fuschia

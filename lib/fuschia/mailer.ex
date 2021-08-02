@@ -3,7 +3,7 @@ defmodule Fuschia.Mailer do
   Mailer public API
   """
 
-  use Swoosh.Mailer, otp_app: :mailer
+  use Swoosh.Mailer, otp_app: :fuschia
 
   alias Fuschia.Mailer.HTML
   alias Swoosh.Email
