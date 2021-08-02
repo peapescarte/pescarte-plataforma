@@ -8,7 +8,7 @@ defmodule Fuschia.Entities.AuthLogTest do
       %{
         ip: "127.0.0.1",
         user_agent: "Mozilla/5.0",
-        user_id: 1
+        user_cpf: "665.171.560-70"
       }
     end
 
@@ -28,10 +28,10 @@ defmodule Fuschia.Entities.AuthLogTest do
       assert %{user_agent: ["can't be blank"]} = errors_on(AuthLog.changeset(%AuthLog{}, params))
     end
 
-    test "user_id must be required", default_params do
-      params = Map.delete(default_params, :user_id)
+    test "user_cpf must be required", default_params do
+      params = Map.delete(default_params, :user_cpf)
 
-      assert %{user_id: ["can't be blank"]} = errors_on(AuthLog.changeset(%AuthLog{}, params))
+      assert %{user_cpf: ["can't be blank"]} = errors_on(AuthLog.changeset(%AuthLog{}, params))
     end
   end
 end
