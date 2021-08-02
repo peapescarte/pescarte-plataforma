@@ -25,7 +25,7 @@ config :sentry,
 # ---------------------------#
 config :fuschia, Oban,
   repo: Fuschia.Repo,
-  queues: [mailers: 5]
+  queues: [mailer: 5]
 
 config :fuschia, :jobs, start: System.get_env("START_OBAN_JOBS", "true")
 
