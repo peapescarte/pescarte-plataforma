@@ -54,7 +54,7 @@ config :fuschia, Fuschia.Mailer,
 
 config :fuschia, :pea_pescarte_contact,
   notifications_mail: "notifications-noreply@peapescarte.uenf.br",
-  telephone: "(11) 3038-1738"
+  telephone: " 0800 026 2828"
 
 # ---------------------------#
 # Timex
