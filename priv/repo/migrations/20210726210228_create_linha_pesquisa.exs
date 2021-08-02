@@ -1,0 +1,21 @@
+defmodule Fuschia.Repo.Migrations.CreateLinhaPesquisa do
+  use Ecto.Migration
+
+  def change do
+    create table(:linha_pesquisa) do
+      add :numero_linha, :integer, null: false
+
+      add :nome_nucleo, references(:nucleo, column: :nome, type: :string, on_delete: :delete_all),
+        null: false
+
+      add :descricao_curta, :string, null: false
+      add :descricao_longa, :string, size: 280
+
+      timestamps()
+    end
+
+    create unique_index(:linha_pesquisa, [:numero_linha, :nome_nucleo],
+             name: :numero_linha_nome_nucleo_index
+           )
+  end
+end
