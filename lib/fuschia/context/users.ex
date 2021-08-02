@@ -9,12 +9,14 @@ defmodule Fuschia.Context.Users do
   alias Fuschia.Entities.{Contato, User, UserToken}
   alias Fuschia.Repo
 
+  @spec list :: [%User{}]
   def list do
     query()
     |> preload_all()
     |> Repo.all()
   end
 
+  @spec one(String.t()) :: %User{} | nil
   def one(cpf) do
     query()
     |> preload_all()
@@ -67,6 +69,7 @@ defmodule Fuschia.Context.Users do
     end
   end
 
+  @spec create(map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
   def create(attrs) do
     with {:ok, user} <-
            %User{}
@@ -76,6 +79,7 @@ defmodule Fuschia.Context.Users do
     end
   end
 
+  @spec update(String.t(), map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
   def update(cpf, attrs) do
     with %User{} = user <- one(cpf),
          {:ok, updated} <-
@@ -197,17 +201,20 @@ defmodule Fuschia.Context.Users do
     |> Repo.exists?()
   end
 
+  @spec query :: %Ecto.Query{}
   def query do
     from u in User,
       left_join: contato in assoc(u, :contato),
       order_by: [desc: u.created_at]
   end
 
+  @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
     query
     |> Ecto.Query.preload([:contato])
   end
 
+  @spec preload_all(%User{}) :: %User{}
   def preload_all(%User{} = user) do
     user
     |> Repo.preload([:contato])
