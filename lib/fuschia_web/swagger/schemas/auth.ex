@@ -2,6 +2,8 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
   @moduledoc false
 
   require OpenApiSpex
+
+  alias FuschiaWeb.Swagger.ContatoSchemas
   alias OpenApiSpex.Schema
 
   defmodule Login do
@@ -33,9 +35,9 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       description: "POST body for Signup",
       type: :object,
       properties: %{
-        dataNasc: %Schema{type: :string, format: :"date-time", description: "User Birthday"},
+        dataNascimento: %Schema{type: :string, format: :date, description: "User Birthday"},
         nomeCompleto: %Schema{type: :string, description: "User full name"},
-        email: %Schema{type: :string, description: "User Email"},
+        contato: ContatoSchemas.Contato,
         cpf: %Schema{type: :string, description: "User CPF"},
         password: %Schema{type: :string, description: "User Password", format: "password"},
         passwordConfirmation: %Schema{
@@ -44,13 +46,14 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
           format: "password"
         }
       },
-      required: [:email, :password, :cpf, :passwordConfirmation, :dataNasc],
+      required: [:contato, :password, :cpf, :passwordConfirmation, :dataNascimento],
       example: %{
-        "dataNasc" => "2001-07-27",
+        "dataNascimento" => "2001-07-27",
         "nomeCompleto" => "Joãozinho Testinho",
         "contato" => %{
           "email" => "teste@uenf.com.br",
-          "celular" => "+55 (71) 99999-9999"
+          "celular" => "+55 (71) 99999-9999",
+          "endereco" => "Av. Teste João, 123"
         },
         "password" => "201763",
         "passwordConfirmation" => "201763",
@@ -67,9 +70,11 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       description: "User Data Claim",
       type: :object,
       properties: %{
-        dataNasc: %Schema{type: :string, format: :"date-time", description: "User Birthday"},
+        dataNascimento: %Schema{type: :string, format: :date, description: "User Birthday"},
         cpf: %Schema{type: :string, description: "User CPF"},
         email: %Schema{type: :string, description: "User Email"},
+        endereco: %Schema{type: :string, description: "User Address"},
+        celular: %Schema{type: :string, description: "User Mobile"},
         nomeCompleto: %Schema{type: :string, description: "User Full Name"},
         perfil: %Schema{
           type: :string,
@@ -143,14 +148,16 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
             "dataNasc" => "2021-07-27",
             "cpf" => "999.999.999-99",
             "email" => "teste@pescarte.com.br",
+            "endereco" => "Av. Teste João, 123",
+            "celular" => "(22)12345-6789",
             "nomeCompleto" => "Joãozinho Testinho",
             "perfil" => "pesquisador",
             "permissoes" => %{
               "relatorio" => ["read", "write"]
-            }
-          },
-          "token" =>
-            "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJzb2xmYWNpbF92MSIsImV4cCI6MTYwMzM4ODIzOCwiaWF0IjoxNjAzMTI5MDM4LCJpc3MiOiJzb2xmYWNpbF92MSIsImp0aSI6ImU1Y2YwZmQzLTQ4MTYtNGQ5OC05MWViLWRjZTFmZDQwYTI2NyIsIm5iZiI6MTYwMzEyOTAzNywic3ViIjoiNiIsInR5cCI6ImFjY2VzcyJ9.eQcZphC32O-oKSmz4ivysDVps4WqMOG6I3H7CHS__2ER_oAxgT1CetmjKaQnIvblfSLpuwDAe7zTlY3VvfkzrQ"
+            },
+            "token" =>
+              "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJzb2xmYWNpbF92MSIsImV4cCI6MTYwMzM4ODIzOCwiaWF0IjoxNjAzMTI5MDM4LCJpc3MiOiJzb2xmYWNpbF92MSIsImp0aSI6ImU1Y2YwZmQzLTQ4MTYtNGQ5OC05MWViLWRjZTFmZDQwYTI2NyIsIm5iZiI6MTYwMzEyOTAzNywic3ViIjoiNiIsInR5cCI6ImFjY2VzcyJ9.eQcZphC32O-oKSmz4ivysDVps4WqMOG6I3H7CHS__2ER_oAxgT1CetmjKaQnIvblfSLpuwDAe7zTlY3VvfkzrQ"
+          }
         }
       }
     })
