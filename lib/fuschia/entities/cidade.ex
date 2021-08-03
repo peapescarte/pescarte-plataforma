@@ -5,8 +5,12 @@ defmodule Fuschia.Entities.Cidade do
   use Fuschia.Schema
   import Ecto.Changeset
 
+  alias Fuschia.Entities.Universidade
+
   @primary_key {:municipio, :string, []}
   schema "cidade" do
+    has_many :universidade, Universidade
+
     timestamps()
   end
 
