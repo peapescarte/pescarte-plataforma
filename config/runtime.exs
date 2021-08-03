@@ -1,8 +1,21 @@
 import Config
 
 # ---------------------------#
-# Guardian
+# Logger
 # ---------------------------#
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id],
+  backends: [:console, Sentry.LoggerBackend]
+
+# ---------------------------#
+# Guardian Auth
+# ---------------------------#
+config :fuschia, FuschiaWeb.Auth.Guardian,
+  issuer: "pea_pescarte",
+  ttl: {3, :days},
+  secret_key: System.get_env("GUARDIAN_SECRET")
+
 config :fuschia, FuschiaWeb.Auth.Pipeline,
   module: FuschiaWeb.Auth.Guardian,
   error_handler: FuschiaWeb.Auth.ErrorHandler
@@ -55,6 +68,22 @@ config :fuschia, Fuschia.Mailer,
 config :fuschia, :pea_pescarte_contact,
   notifications_mail: "notifications-noreply@peapescarte.uenf.br",
   telephone: " 0800 026 2828"
+
+# ---------------------------#
+# CORS
+# ---------------------------#
+config :cors_plug,
+  headers: [
+    "Authorization",
+    "Content-Type",
+    "Referer",
+    "Accept",
+    "Origin",
+    "User-Agent",
+    "Cache-Control",
+    "Keep-Alive",
+    "X-Api-Key"
+  ]
 
 # ---------------------------#
 # Timex
