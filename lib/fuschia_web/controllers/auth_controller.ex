@@ -31,7 +31,7 @@ defmodule FuschiaWeb.AuthController do
   def login(conn, params) do
     with {:ok, token} <- Guardian.authenticate(params),
          {:ok, user} <- Guardian.user_claims(params) do
-      render_response(%{token: token, user: user}, conn)
+      render_response(%{user: Map.put(user, :token, token)}, conn)
     end
   end
 
