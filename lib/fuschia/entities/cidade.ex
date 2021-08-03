@@ -9,7 +9,7 @@ defmodule Fuschia.Entities.Cidade do
 
   @primary_key {:municipio, :string, []}
   schema "cidade" do
-    has_many :universidade, Universidade
+    has_many :universidades, Universidade
 
     timestamps()
   end
