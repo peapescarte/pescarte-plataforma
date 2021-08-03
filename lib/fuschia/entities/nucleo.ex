@@ -5,12 +5,16 @@ defmodule Fuschia.Entities.Nucleo do
   use Fuschia.Schema
   import Ecto.Changeset
 
+  alias Fuschia.Entities.LinhaPesquisa
+
   @required_fields ~w(nome descricao)a
   @optional_fields ~w()a
 
   @primary_key {:nome, :string, []}
   schema "nucleo" do
     field :descricao, :string
+
+    has_many :linhas_pesquisa, LinhaPesquisa
 
     timestamps()
   end
