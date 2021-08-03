@@ -1,6 +1,6 @@
 defmodule Fuschia.Entities.Universidade do
   @moduledoc """
-  Esquema que representa uma Universidade no BD
+  Universidade Schema
   """
   use Fuschia.Schema
   import Ecto.Changeset
@@ -8,7 +8,7 @@ defmodule Fuschia.Entities.Universidade do
   alias Fuschia.Entities.Cidade
   alias Fuschia.Entities.Pesquisador
 
-  @required_fields ~w(nome nome_cidade)a
+  @required_fields ~w(nome cidade_municipio)a
   @optional_fields ~w()a
 
   schema "universidade" do
@@ -18,7 +18,7 @@ defmodule Fuschia.Entities.Universidade do
 
     belongs_to :cidade, Cidade,
       references: :municipio,
-      foreign_key: :nome_cidade
+      foreign_key: :cidade_municipio
 
     timestamps()
   end
@@ -34,7 +34,7 @@ defmodule Fuschia.Entities.Universidade do
     def encode(struct, opts) do
       %{
         nome: struct.nome,
-        nome_cidade: struct.nome_cidade
+        cidade_municipio: struct.cidade_municipio
       }
       |> Fuschia.Encoder.encode(opts)
     end
