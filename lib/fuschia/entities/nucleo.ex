@@ -14,7 +14,7 @@ defmodule Fuschia.Entities.Nucleo do
   schema "nucleo" do
     field :descricao, :string
 
-    has_many :linha_pesquisa, LinhaPesquisa
+    has_many :linhas_pesquisa, LinhaPesquisa
 
     timestamps()
   end
