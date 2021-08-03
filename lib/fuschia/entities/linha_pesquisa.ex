@@ -7,7 +7,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
 
   alias Fuschia.Entities.Nucleo
 
-  @required_fields ~w(descricao_curta numero_linha nome_nucleo)a
+  @required_fields ~w(descricao_curta numero_linha nucleo_nome)a
   @optional_fields ~w(descricao_longa)a
 
   schema "linha_pesquisa" do
@@ -15,7 +15,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     field :descricao_longa, :string
     field :numero_linha, :integer
 
-    belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nome_nucleo
+    belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nucleo_nome
 
     timestamps()
   end
@@ -25,7 +25,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint([:numero_linha, :nome_nucleo], name: :numero_linha_nome_nucleo_index)
+    |> unique_constraint([:numero_linha, :nucleo_nome], name: :numero_linha_nucleo_nome_index)
     |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
   end
@@ -36,7 +36,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
         descricao_curta: struct.descricao_curta,
         descricao_longa: struct.descricao_longa,
         numero_linha: struct.numero_linha,
-        nome_nucleo: struct.nome_nucleo
+        nucleo_nome: struct.nucleo_nome
       }
       |> Fuschia.Encoder.encode(opts)
     end
