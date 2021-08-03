@@ -100,7 +100,7 @@ defmodule Fuschia.Entities.User do
       perfil: struct.perfil,
       permissoes: struct.permissoes,
       cpf: struct.cpf,
-      dataNasc: struct.data_nascimento
+      dataNascimento: struct.data_nascimento
     }
   end
 
@@ -160,7 +160,7 @@ defmodule Fuschia.Entities.User do
         ultimo_login: struct.last_seen,
         confirmado: struct.confirmed,
         ativo: struct.ativo,
-        data_nasc: struct.data_nascimento
+        data_nascimento: struct.data_nascimento
       }
       |> Fuschia.Encoder.encode(opts)
     end
