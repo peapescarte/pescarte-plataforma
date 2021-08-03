@@ -32,6 +32,7 @@ defmodule Fuschia.Entities.Pesquisador do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> validate_length(:minibibliografia, max: 280)
     |> foreign_key_constraint(:cod_orientador)
     |> foreign_key_constraint(:cpf_usuario)
     |> foreign_key_constraint(:universidade_id)
