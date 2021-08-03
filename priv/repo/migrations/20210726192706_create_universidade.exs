@@ -5,13 +5,15 @@ defmodule Fuschia.Repo.Migrations.CreateUniversidade do
     create table(:universidade) do
       add :nome, :string, null: false
 
-      add :nome_cidade,
+      add :cidade_municipio,
           references(:cidade, column: :municipio, type: :string, on_delete: :delete_all),
           null: false
 
       timestamps()
     end
 
-    create unique_index(:universidade, [:nome, :nome_cidade], name: :universidade_cidade_index)
+    create unique_index(:universidade, [:nome, :cidade_municipio],
+             name: :universidade_cidade_index
+           )
   end
 end
