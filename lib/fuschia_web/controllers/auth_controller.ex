@@ -6,14 +6,26 @@ defmodule FuschiaWeb.AuthController do
   use FuschiaWeb, :controller
   use OpenApiSpex.ControllerSpecs
 
-  alias Fuschia.Context.Users
+  alias Fuschia.Context.{AuthLogs, Users}
   alias FuschiaWeb.Auth.Guardian
+  alias FuschiaWeb.{RemoteIp, UserAgent}
   alias FuschiaWeb.Swagger.{AuthSchemas, Response, Security, UserSchemas}
 
   action_fallback FuschiaWeb.FallbackController
 
   tags(["authentication"])
   security(Security.public())
+
+  @doc """
+  Parse headers before handling the route
+  """
+  def action(conn, _) do
+    ip = RemoteIp.get(conn)
+    user_agent = UserAgent.get(conn)
+    args = [conn, ip, user_agent, conn.params]
+
+    apply(__MODULE__, action_name(conn), args)
+  end
 
   @doc """
   Logs-in an user, requires an email and a matching password
@@ -28,9 +40,10 @@ defmodule FuschiaWeb.AuthController do
       ] ++ Response.errors(:unauthorized)
   )
 
-  def login(conn, params) do
+  def login(conn, ip, user_agent, params) do
     with {:ok, token} <- Guardian.authenticate(params),
-         {:ok, user} <- Guardian.user_claims(params) do
+         {:ok, user} <- Guardian.user_claims(params),
+         :ok <- AuthLogs.create(ip, user_agent, user) do
       render_response(%{user: Map.put(user, :token, token)}, conn)
     end
   end
@@ -47,7 +60,7 @@ defmodule FuschiaWeb.AuthController do
       ] ++ Response.errors(:unauthorized)
   )
 
-  def signup(conn, params) do
+  def signup(conn, _ip, _user_agent, params) do
     with {:ok, user} <- Users.register(params) do
       render_response(user, conn, :created)
     end
