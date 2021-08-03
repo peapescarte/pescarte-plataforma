@@ -6,12 +6,15 @@ defmodule Fuschia.Entities.Universidade do
   import Ecto.Changeset
 
   alias Fuschia.Entities.Cidade
+  alias Fuschia.Entities.Pesquisador
 
   @required_fields ~w(nome nome_cidade)a
   @optional_fields ~w()a
 
   schema "universidade" do
     field :nome, :string
+
+    has_many :pesquisadores, Pesquisador
 
     belongs_to :cidade, Cidade,
       references: :municipio,
