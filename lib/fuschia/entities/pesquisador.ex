@@ -5,9 +5,9 @@ defmodule Fuschia.Entities.Pesquisador do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.User
   alias Fuschia.Entities.Pesquisador
   alias Fuschia.Entities.Universidade
+  alias Fuschia.Entities.User
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(cpf_usuario minibibliografia tipo_bolsa link_lattes id_universidade)a
