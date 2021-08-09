@@ -11,7 +11,7 @@ defmodule Fuschia.Entities.Pesquisador do
   @required_fields ~w(cpf_usuario minibibliografia tipo_bolsa link_lattes universidade_id)a
   @optional_fields ~w(orientador_id)a
 
-  @tipos_bolsa ~w(IC pesquisador)
+  @tipos_bolsa ~w(ic pesquisador)
 
   @primary_key {:cpf_usuario, TrimmedString, []}
   schema "pesquisador" do
@@ -38,6 +38,7 @@ defmodule Fuschia.Entities.Pesquisador do
     |> foreign_key_constraint(:orientador_id)
     |> foreign_key_constraint(:cpf_usuario)
     |> foreign_key_constraint(:universidade_id)
+    |> unique_constraint(:cpf_usuario)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
@@ -47,8 +48,8 @@ defmodule Fuschia.Entities.Pesquisador do
         minibibliografia: struct.minibibliografia,
         tipo_bolsa: struct.tipo_bolsa,
         link_lattes: struct.link_lattes,
-        orientador_id: struct.orientador_id,
-        universidade_id: struct.universidade_id
+        orientador: struct.orientador,
+        universidade: struct.universidade
       }
       |> Fuschia.Encoder.encode(opts)
     end
