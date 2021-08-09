@@ -2,8 +2,10 @@ defmodule Fuschia.Repo.Migrations.CreatePesquisador do
   use Ecto.Migration
 
   def change do
+    execute &execute_up/0, &execute_down/0
+
     create table(:pesquisador, primary_key: false) do
-      add :tipo_bolsa, :string, null: false
+      add :tipo_bolsa, :tipos_bolsa, default: "pesquisador", null: false
       add :minibibliografia, :string, null: false, size: 280
       add :link_lattes, :string, null: false
 
@@ -11,7 +13,7 @@ defmodule Fuschia.Repo.Migrations.CreatePesquisador do
           references(:user, column: :cpf, type: :citext, on_delete: :delete_all),
           primary_key: true
 
-      add :cod_orientador,
+      add :orientador_id,
           references(:pesquisador, column: :cpf_usuario, type: :citext, on_delete: :delete_all)
 
       add :universidade_id,
@@ -21,6 +23,16 @@ defmodule Fuschia.Repo.Migrations.CreatePesquisador do
       timestamps()
     end
 
-    create index(:pesquisador, [:cod_orientador])
+    create index(:pesquisador, [:orientador_id])
   end
+
+  defp execute_up,
+    do:
+      repo().query!(
+        "CREATE TYPE tipos_bolsa AS ENUM ('pesquisador', 'IC')",
+        [],
+        log: :info
+      )
+
+  defp execute_down, do: repo().query!("DROP TYPE tipos_bolsa", [], log: :info)
 end
