@@ -8,13 +8,13 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   alias Fuschia.Entities.Nucleo
   alias Fuschia.Types.TrimmedString
 
-  @required_fields ~w(descricao_curta numero_linha nucleo_nome)a
+  @required_fields ~w(descricao_curta numero nucleo_nome)a
   @optional_fields ~w(descricao_longa)a
 
   schema "linha_pesquisa" do
     field :descricao_curta, TrimmedString
     field :descricao_longa, TrimmedString
-    field :numero_linha, :integer
+    field :numero, :integer
 
     belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nucleo_nome
 
@@ -36,8 +36,8 @@ defmodule Fuschia.Entities.LinhaPesquisa do
       %{
         descricao_curta: struct.descricao_curta,
         descricao_longa: struct.descricao_longa,
-        numero_linha: struct.numero_linha,
-        nucleo_nome: struct.nucleo_nome
+        numero: struct.numero,
+        nucleo: struct.nucleo
       }
       |> Fuschia.Encoder.encode(opts)
     end
