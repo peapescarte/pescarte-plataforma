@@ -1,7 +1,9 @@
-defmodule Fuschia.Types.UpcaseString do
+defmodule Fuschia.Types.CapitalizedString do
   @moduledoc """
-  Provides an upcased String Type
+  Provides a capitalized String Type
   """
+
+  import Fuschia.Parser, only: [capitalize_all_words: 1]
 
   @behaviour Ecto.Type
 
@@ -11,7 +13,7 @@ defmodule Fuschia.Types.UpcaseString do
     {:ok,
      binary
      |> String.trim()
-     |> String.upcase()}
+     |> capitalize_all_words()}
   end
 
   def cast(other), do: Ecto.Type.cast(:string, other)

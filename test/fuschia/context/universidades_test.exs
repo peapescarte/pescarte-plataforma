@@ -70,7 +70,7 @@ defmodule Fuschia.Context.UniversidadesTest do
     }
 
     @update_attrs %{
-      nome: "Universidade Federal de São Carlos"
+      nome: "Universidade Federal De São Carlos"
     }
 
     @invalid_attrs %{

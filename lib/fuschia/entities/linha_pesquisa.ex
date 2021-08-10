@@ -6,13 +6,14 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   import Ecto.Changeset
 
   alias Fuschia.Entities.Nucleo
+  alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(descricao_curta numero_linha nucleo_nome)a
   @optional_fields ~w(descricao_longa)a
 
   schema "linha_pesquisa" do
-    field :descricao_curta, :string
-    field :descricao_longa, :string
+    field :descricao_curta, TrimmedString
+    field :descricao_longa, TrimmedString
     field :numero_linha, :integer
 
     belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nucleo_nome

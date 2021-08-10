@@ -6,10 +6,11 @@ defmodule Fuschia.Entities.Universidade do
   import Ecto.Changeset
 
   alias Fuschia.Entities.Cidade
+  alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome)a
 
-  @primary_key {:nome, :string, []}
+  @primary_key {:nome, CapitalizedString, []}
   schema "universidade" do
     belongs_to :cidade, Cidade,
       type: :string,
