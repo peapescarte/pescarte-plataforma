@@ -5,7 +5,7 @@ defmodule Fuschia.Context.Pesquisadores do
 
   import Ecto.Query
 
-  alias Fuschia.Entities.{Pesquisador}
+  alias Fuschia.Entities.Pesquisador
   alias Fuschia.Repo
 
   @spec list :: [%Pesquisador{}]
