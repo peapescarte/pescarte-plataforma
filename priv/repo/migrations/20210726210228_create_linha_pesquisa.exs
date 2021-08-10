@@ -3,7 +3,7 @@ defmodule Fuschia.Repo.Migrations.CreateLinhaPesquisa do
 
   def change do
     create table(:linha_pesquisa) do
-      add :numero_linha, :integer, null: false
+      add :numero, :integer, null: false
 
       add :nucleo_nome, references(:nucleo, column: :nome, type: :string, on_delete: :delete_all),
         null: false
@@ -14,7 +14,7 @@ defmodule Fuschia.Repo.Migrations.CreateLinhaPesquisa do
       timestamps()
     end
 
-    create unique_index(:linha_pesquisa, [:numero_linha, :nucleo_nome],
+    create unique_index(:linha_pesquisa, [:numero, :nucleo_nome],
              name: :numero_linha_nucleo_nome_index
            )
   end
