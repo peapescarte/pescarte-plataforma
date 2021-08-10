@@ -6,11 +6,11 @@ defmodule Fuschia.Entities.Nucleo do
   import Ecto.Changeset
 
   alias Fuschia.Entities.LinhaPesquisa
+  alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome descricao)a
-  @optional_fields ~w()a
 
-  @primary_key {:nome, :string, []}
+  @primary_key {:nome, CapitalizedString, []}
   schema "nucleo" do
     field :descricao, :string
 
@@ -22,16 +22,17 @@ defmodule Fuschia.Entities.Nucleo do
   @doc false
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
-    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> validate_length(:descricao_nucleo, max: 400)
+    |> validate_length(:descricao, max: 400)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
       %{
         nome: struct.nome,
-        descricao_nucleo: struct.descricao_nucleo
+        descricao: struct.descricao,
+        linhas_pesquisa: struct.linhas_pesquisa
       }
       |> Fuschia.Encoder.encode(opts)
     end

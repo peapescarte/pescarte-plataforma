@@ -125,7 +125,7 @@ defmodule Fuschia.Context.UsersTest do
 
     @update_attrs %{
       cpf: "435.618.970-10",
-      nome_completo: "Juninho teste",
+      nome_completo: "Juninho Teste",
       data_nascimento: ~D[1990-07-27],
       contato: %{
         endereco: "Av Teste, Rua Teste, numero 765",
