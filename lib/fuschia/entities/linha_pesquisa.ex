@@ -11,10 +11,10 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   @required_fields ~w(descricao_curta numero nucleo_nome)a
   @optional_fields ~w(descricao_longa)a
 
+  @primary_key {:numero, :integer, []}
   schema "linha_pesquisa" do
     field :descricao_curta, TrimmedString
     field :descricao_longa, TrimmedString
-    field :numero, :integer
 
     belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nucleo_nome
 
@@ -26,7 +26,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint([:numero_linha, :nucleo_nome], name: :numero_linha_nucleo_nome_index)
+    |> unique_constraint([:numero, :nucleo_nome], name: :numero_linha_nucleo_nome_index)
     |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
   end

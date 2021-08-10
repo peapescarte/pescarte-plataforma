@@ -45,8 +45,8 @@ defmodule Fuschia.Context.Cidades do
 
   @spec query :: %Ecto.Query{}
   def query do
-    from u in Cidade,
-      order_by: [desc: u.created_at]
+    from c in Cidade,
+      order_by: [desc: c.created_at]
   end
 
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}

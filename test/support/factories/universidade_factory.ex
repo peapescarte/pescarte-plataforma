@@ -7,7 +7,7 @@ defmodule Fuschia.UniversidadeFactory do
 
       def universidade_factory do
         %Universidade{
-          nome: sequence(:nome_completo, &"Universidade #{&1}"),
+          nome: sequence(:nome, &"Universidade #{&1}"),
           cidade: build(:cidade)
         }
       end
