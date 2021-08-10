@@ -7,6 +7,8 @@ defmodule Fuschia.Entities.Cidade do
 
   alias Fuschia.Entities.Universidade
 
+  @required_fields ~w(municipio)a
+
   @primary_key {:municipio, :string, []}
   schema "cidade" do
     has_many :universidades, Universidade
@@ -14,17 +16,17 @@ defmodule Fuschia.Entities.Cidade do
     timestamps()
   end
 
-  @doc false
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
-    |> cast(attrs, [:municipio])
-    |> validate_required([:municipio])
+    |> cast(attrs, @required_fields)
+    |> validate_required(@required_fields)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
       %{
-        municipio: struct.municipio
+        municipio: struct.municipio,
+        universidades: struct.universidades
       }
       |> Fuschia.Encoder.encode(opts)
     end

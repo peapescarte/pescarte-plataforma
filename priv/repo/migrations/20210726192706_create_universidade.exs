@@ -2,7 +2,7 @@ defmodule Fuschia.Repo.Migrations.CreateUniversidade do
   use Ecto.Migration
 
   def change do
-    create table(:universidade) do
+    create table(:universidade, primary_key: false) do
       add :nome, :string, null: false
 
       add :cidade_municipio,
@@ -12,8 +12,7 @@ defmodule Fuschia.Repo.Migrations.CreateUniversidade do
       timestamps()
     end
 
-    create unique_index(:universidade, [:nome, :cidade_municipio],
-             name: :universidade_cidade_index
-           )
+    create unique_index(:universidade, [:nome])
+    create unique_index(:universidade, [:cidade_municipio])
   end
 end
