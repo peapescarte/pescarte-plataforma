@@ -6,9 +6,11 @@ defmodule Fuschia.UniversidadeFactory do
       alias Fuschia.Entities.Universidade
 
       def universidade_factory do
+        %{municipio: cidade_municipio} = insert(:cidade)
+
         %Universidade{
           nome: sequence(:nome_completo, &"Universidade #{&1}"),
-          cidade: build(:cidade)
+          cidade_municipio: cidade_municipio
         }
       end
     end

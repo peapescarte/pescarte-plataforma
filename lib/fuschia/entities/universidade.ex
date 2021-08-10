@@ -7,11 +7,12 @@ defmodule Fuschia.Entities.Universidade do
 
   alias Fuschia.Entities.Cidade
 
-  @required_fields ~w(nome)a
+  @required_fields ~w(nome cidade_municipio)a
 
   @primary_key {:nome, :string, []}
   schema "universidade" do
     belongs_to :cidade, Cidade,
+      type: :string,
       references: :municipio,
       foreign_key: :cidade_municipio
 
@@ -23,7 +24,7 @@ defmodule Fuschia.Entities.Universidade do
     struct
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> cast_assoc(:cidade, required: true)
+    |> foreign_key_constraint(:cidade_municipio)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
