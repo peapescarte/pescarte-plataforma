@@ -2,7 +2,7 @@ alias Fuschia.{Context, Entities}
 
 alias Fuschia.Context.Users
 
-alias Fuschia.Entities.{Contato, User}
+alias Fuschia.Entities.{Contato, User, Universidade}
 
 colors_opts = [
   syntax_colors: [
