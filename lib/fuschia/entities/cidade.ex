@@ -11,7 +11,7 @@ defmodule Fuschia.Entities.Cidade do
 
   @primary_key {:municipio, :string, []}
   schema "cidade" do
-    has_many :universidades, Universidade
+    has_many :universidades, Universidade, on_replace: :delete
 
     timestamps()
   end

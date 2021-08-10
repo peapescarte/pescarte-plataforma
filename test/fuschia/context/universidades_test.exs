@@ -30,11 +30,9 @@ defmodule Fuschia.Context.UniversidadesTest do
 
   describe "one/1" do
     test "when nome is valid, returns a universidade" do
-      %{municipio: cidade_municipio} = insert(:cidade)
-
       universidade =
         :universidade
-        |> insert(cidade_municipio: cidade_municipio)
+        |> insert()
         |> Universidades.preload_all()
 
       assert universidade == Universidades.one(universidade.nome)
@@ -48,7 +46,7 @@ defmodule Fuschia.Context.UniversidadesTest do
   describe "create/1" do
     @valid_attrs %{
       nome: "Universidade Estadual do Norte Fluminence Darcy Ribeiro",
-      cidade_municipio: "Campos dos Goytacazes"
+      cidade: %{municipio: "Campos dos Goytacazes"}
     }
 
     @invalid_attrs %{
@@ -57,12 +55,7 @@ defmodule Fuschia.Context.UniversidadesTest do
     }
 
     test "when all params are valid, creates an admin universidade" do
-      %{municipio: cidade_municipio} = insert(:cidade)
-
-      assert {:ok, %Universidade{}} =
-               @valid_attrs
-               |> Map.put(:cidade_municipio, cidade_municipio)
-               |> Universidades.create()
+      assert {:ok, %Universidade{}} = Universidades.create(@valid_attrs)
     end
 
     test "when params are invalid, returns an error changeset" do
@@ -71,12 +64,9 @@ defmodule Fuschia.Context.UniversidadesTest do
   end
 
   describe "update/1" do
-    setup do
-      %{cidade: insert(:cidade)}
-    end
-
     @valid_attrs %{
-      nome: "Universidade Estadual do Norte Fluminence Darcy Ribeiro"
+      nome: "Universidade Estadual do Norte Fluminence Darcy Ribeiro",
+      cidade: %{municipio: "Campos dos Goytacazes"}
     }
 
     @update_attrs %{
@@ -84,27 +74,19 @@ defmodule Fuschia.Context.UniversidadesTest do
     }
 
     @invalid_attrs %{
-      nome: nil,
-      cidade_municipio: nil
+      nome: nil
     }
 
-    test "when all params are valid, updates a universidade", %{cidade: cidade} do
-      assert {:ok, universidade} =
-               @valid_attrs
-               |> Map.put(:cidade_municipio, cidade.municipio)
-               |> Universidades.create()
+    test "when all params are valid, updates a universidade" do
+      assert {:ok, universidade} = Universidades.create(@valid_attrs)
 
       assert {:ok, updated_universidade} = Universidades.update(universidade.nome, @update_attrs)
 
       assert updated_universidade.nome == @update_attrs.nome
-      assert updated_universidade.cidade_municipio == cidade.municipio
     end
 
-    test "when params are invalid, returns an error changeset", %{cidade: cidade} do
-      assert {:ok, universidade} =
-               @valid_attrs
-               |> Map.put(:cidade_municipio, cidade.municipio)
-               |> Universidades.create()
+    test "when params are invalid, returns an error changeset" do
+      assert {:ok, universidade} = Universidades.create(@valid_attrs)
 
       assert {:error, %Ecto.Changeset{}} = Universidades.update(universidade.nome, @invalid_attrs)
     end

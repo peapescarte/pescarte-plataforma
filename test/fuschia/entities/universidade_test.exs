@@ -9,8 +9,12 @@ defmodule Fuschia.Entities.UniversidadeTest do
     @invalid_params %{nome: nil, cidade: nil}
 
     test "when all params are valid, return a valid changeset" do
-      %{municipio: cidade_municipio} = insert(:cidade)
-      default_params = params_for(:universidade) |> Map.put(:cidade_municipio, cidade_municipio)
+      cidade = params_for(:cidade)
+
+      default_params =
+        :universidade
+        |> params_for()
+        |> Map.put(:cidade, cidade)
 
       assert %Ecto.Changeset{valid?: true} =
                Universidade.changeset(%Universidade{}, default_params)
