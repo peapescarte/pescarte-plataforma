@@ -4,6 +4,8 @@ defmodule Fuschia.Factory do
   use ExMachina.Ecto, repo: Fuschia.Repo
 
   use Fuschia.AuthLogFactory
+  use Fuschia.CidadeFactory
   use Fuschia.ContatoFactory
   use Fuschia.UserFactory
+  use Fuschia.UniversidadeFactory
 end
