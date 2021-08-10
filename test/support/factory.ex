@@ -6,4 +6,7 @@ defmodule Fuschia.Factory do
   use Fuschia.AuthLogFactory
   use Fuschia.ContatoFactory
   use Fuschia.UserFactory
+  use Fuschia.CidadeFactory
+  use Fuschia.UniversidadeFactory
+  use Fuschia.PesquisadorFactory
 end
