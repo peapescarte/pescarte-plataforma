@@ -42,7 +42,7 @@ defmodule Fuschia.Context.Universidades do
   end
 
   @spec update(String.t(), map) :: {:ok, %Universidade{}} | {:error, %Ecto.Changeset{}}
-  def update(nome, attrs) do
+  def update(nome, %{nome: _} = attrs) do
     with %Universidade{} = universidade <- one(nome),
          {:ok, updated} <-
            universidade
@@ -61,12 +61,12 @@ defmodule Fuschia.Context.Universidades do
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
     query
-    |> Ecto.Query.preload([:cidade])
+    |> Ecto.Query.preload(cidade: [:universidades])
   end
 
   @spec preload_all(%Universidade{}) :: %Universidade{}
   def preload_all(%Universidade{} = universidade) do
     universidade
-    |> Repo.preload([:cidade])
+    |> Repo.preload(cidade: [:universidades])
   end
 end

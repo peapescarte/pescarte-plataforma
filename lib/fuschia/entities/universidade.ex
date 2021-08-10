@@ -7,24 +7,24 @@ defmodule Fuschia.Entities.Universidade do
 
   alias Fuschia.Entities.Cidade
 
-  @required_fields ~w(nome cidade_municipio)a
+  @required_fields ~w(nome)a
 
   @primary_key {:nome, :string, []}
   schema "universidade" do
     belongs_to :cidade, Cidade,
       type: :string,
+      on_replace: :delete,
       references: :municipio,
       foreign_key: :cidade_municipio
 
     timestamps()
   end
 
-  @doc false
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> foreign_key_constraint(:cidade_municipio)
+    |> cast_assoc(:cidade, required: true)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
