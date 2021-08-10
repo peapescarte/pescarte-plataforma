@@ -8,8 +8,7 @@ defmodule Fuschia.NucleoFactory do
       def nucleo_factory do
         %Nucleo{
           nome: sequence(:nome, &"Nucleo #{&1}"),
-          descricao: sequence(:descricao, &"Descricao Nucleo #{&1}"),
-          linhas_pesquisa: build_list(2, :linha_pesquisa)
+          descricao: sequence(:descricao, &"Descricao Nucleo #{&1}")
         }
       end
     end

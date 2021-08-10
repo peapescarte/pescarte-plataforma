@@ -6,7 +6,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   import Ecto.Changeset
 
   alias Fuschia.Entities.Nucleo
-  alias Fuschia.Types.TrimmedString
+  alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(descricao_curta numero nucleo_nome)a
   @optional_fields ~w(descricao_longa)a
@@ -16,7 +16,10 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     field :descricao_curta, TrimmedString
     field :descricao_longa, TrimmedString
 
-    belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nucleo_nome
+    belongs_to :nucleo, Nucleo,
+      references: :nome,
+      foreign_key: :nucleo_nome,
+      type: CapitalizedString
 
     timestamps()
   end
