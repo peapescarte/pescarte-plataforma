@@ -6,16 +6,20 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   import Ecto.Changeset
 
   alias Fuschia.Entities.Nucleo
+  alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
-  @required_fields ~w(descricao_curta numero_linha nucleo_nome)a
+  @required_fields ~w(descricao_curta numero nucleo_nome)a
   @optional_fields ~w(descricao_longa)a
 
+  @primary_key {:numero, :integer, []}
   schema "linha_pesquisa" do
-    field :descricao_curta, :string
-    field :descricao_longa, :string
-    field :numero_linha, :integer
+    field :descricao_curta, TrimmedString
+    field :descricao_longa, TrimmedString
 
-    belongs_to :nucleo, Nucleo, references: :nome, foreign_key: :nucleo_nome
+    belongs_to :nucleo, Nucleo,
+      references: :nome,
+      foreign_key: :nucleo_nome,
+      type: CapitalizedString
 
     timestamps()
   end
@@ -25,7 +29,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint([:numero_linha, :nucleo_nome], name: :numero_linha_nucleo_nome_index)
+    |> unique_constraint([:numero, :nucleo_nome])
     |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
   end
@@ -35,8 +39,8 @@ defmodule Fuschia.Entities.LinhaPesquisa do
       %{
         descricao_curta: struct.descricao_curta,
         descricao_longa: struct.descricao_longa,
-        numero_linha: struct.numero_linha,
-        nucleo_nome: struct.nucleo_nome
+        numero: struct.numero,
+        nucleo: struct.nucleo
       }
       |> Fuschia.Encoder.encode(opts)
     end

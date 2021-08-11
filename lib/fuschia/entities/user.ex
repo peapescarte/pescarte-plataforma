@@ -9,7 +9,7 @@ defmodule Fuschia.Entities.User do
 
   alias Fuschia.Common.Formats
   alias Fuschia.Entities.{Contato, User}
-  alias Fuschia.Types.TrimmedString
+  alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(nome_completo cpf data_nascimento)a
   @optional_fields ~w(password confirmed last_seen nome_completo ativo perfil)a
@@ -29,7 +29,7 @@ defmodule Fuschia.Entities.User do
     field :data_nascimento, :date
     field :last_seen, :utc_datetime_usec
     field :perfil, TrimmedString
-    field :nome_completo, TrimmedString
+    field :nome_completo, CapitalizedString
     field :ativo, :boolean, default: true
     field :password, TrimmedString, virtual: true
     field :permissoes, :map, virtual: true

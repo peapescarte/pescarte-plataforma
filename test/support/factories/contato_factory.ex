@@ -8,7 +8,7 @@ defmodule Fuschia.ContatoFactory do
       def contato_factory do
         %Contato{
           email: sequence(:email, &"test-#{&1}@example.com"),
-          celular: sequence(:celular, &"(11)98765432#{&1}"),
+          celular: sequence(:celular, ["(22)12345-6789"]),
           endereco: sequence(:endereco, &"Teste, Rua teste, número #{&1}")
         }
       end
