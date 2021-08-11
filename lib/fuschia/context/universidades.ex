@@ -71,12 +71,12 @@ defmodule Fuschia.Context.Universidades do
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
     query
-    |> Ecto.Query.preload(cidade: [:universidades])
+    |> Ecto.Query.preload([:pesquisadores, cidade: [:universidades]])
   end
 
   @spec preload_all(%Universidade{}) :: %Universidade{}
   def preload_all(%Universidade{} = universidade) do
     universidade
-    |> Repo.preload(cidade: [:universidades])
+    |> Repo.preload([:pesquisadores, cidade: [:universidades]])
   end
 end
