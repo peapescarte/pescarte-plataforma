@@ -19,7 +19,7 @@ defmodule Fuschia.Entities.Universidade do
       references: :municipio,
       foreign_key: :cidade_municipio
 
-    has_many :pesquisadores, Pesquisador, foreign_key: :universidade_id
+    has_many :pesquisadores, Pesquisador, foreign_key: :universidade_nome
 
     timestamps()
   end

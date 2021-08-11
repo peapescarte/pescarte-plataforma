@@ -5,31 +5,31 @@ defmodule Fuschia.Repo.Migrations.CreatePesquisador do
     execute &execute_up/0, &execute_down/0
 
     create table(:pesquisador, primary_key: false) do
-      add :tipo_bolsa, :tipos_bolsa, default: "pesquisador", null: false
-      add :minibibliografia, :string, null: false, size: 280
+      add :tipo_bolsa, :tipos_bolsa, default: "pesquisa", null: false
+      add :minibiografia, :string, null: false, size: 280
       add :link_lattes, :string, null: false
 
-      add :cpf_usuario,
+      add :usuario_cpf,
           references(:user, column: :cpf, type: :citext, on_delete: :delete_all),
           primary_key: true
 
-      add :orientador_id,
-          references(:pesquisador, column: :cpf_usuario, type: :citext, on_delete: :delete_all)
+      add :orientador_cpf,
+          references(:pesquisador, column: :usuario_cpf, type: :citext, on_delete: :delete_all)
 
-      add :universidade_id,
-          references(:universidade, on_delete: :nothing),
+      add :universidade_nome,
+          references(:universidade, on_delete: :nothing, column: :nome, type: :string),
           null: false
 
       timestamps()
     end
 
-    create index(:pesquisador, [:orientador_id])
+    create index(:pesquisador, [:orientador_cpf])
   end
 
   defp execute_up,
     do:
       repo().query!(
-        "CREATE TYPE tipos_bolsa AS ENUM ('pesquisador', 'IC')",
+        "CREATE TYPE tipos_bolsa AS ENUM ('pesquisa', 'ic')",
         [],
         log: :info
       )
