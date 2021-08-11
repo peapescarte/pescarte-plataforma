@@ -29,7 +29,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint([:numero, :nucleo_nome], name: :numero_linha_nucleo_nome_index)
+    |> unique_constraint([:numero, :nucleo_nome])
     |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
   end
