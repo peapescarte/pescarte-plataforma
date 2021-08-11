@@ -25,6 +25,7 @@ defmodule Fuschia.Entities.Universidade do
     struct
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:nome)
     |> cast_assoc(:cidade, required: true)
   end
 
