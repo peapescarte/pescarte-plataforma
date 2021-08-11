@@ -10,13 +10,16 @@ defmodule Fuschia.Entities.Universidade do
 
   @required_fields ~w(nome)a
 
-  @primary_key {:nome, CapitalizedString, []}
   schema "universidade" do
+    field :nome, CapitalizedString
+
     belongs_to :cidade, Cidade,
       type: :string,
       on_replace: :delete,
       references: :municipio,
       foreign_key: :cidade_municipio
+
+    has_many :pesquisadores, Pesquisador
 
     timestamps()
   end
