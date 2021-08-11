@@ -12,7 +12,8 @@ defmodule Fuschia.Repo.Migrations.CreateUniversidade do
       timestamps()
     end
 
-    create unique_index(:universidade, [:nome])
-    create unique_index(:universidade, [:cidade_municipio])
+    create unique_index(:universidade, [:nome, :cidade_municipio],
+             name: :universidade_nome_municipio_index
+           )
   end
 end

@@ -43,7 +43,7 @@ defmodule Fuschia.Context.UniversidadesTest do
     end
   end
 
-  describe "create/1" do
+  describe "create_with_cidade/1" do
     @valid_attrs %{
       nome: "Universidade Estadual do Norte Fluminence Darcy Ribeiro",
       cidade: %{municipio: "Campos dos Goytacazes"}
@@ -55,6 +55,27 @@ defmodule Fuschia.Context.UniversidadesTest do
     }
 
     test "when all params are valid, creates an admin universidade" do
+      assert {:ok, %Universidade{}} = Universidades.create_with_cidade(@valid_attrs)
+    end
+
+    test "when params are invalid, returns an error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Universidades.create_with_cidade(@invalid_attrs)
+    end
+  end
+
+  describe "create/1" do
+    @valid_attrs %{
+      nome: "Universidade Estadual do Norte Fluminence Darcy Ribeiro",
+      cidade_municipio: "Campos Dos Goytacazes"
+    }
+
+    @invalid_attrs %{
+      nome: nil,
+      cidade_municipio: nil
+    }
+
+    test "when all params are valid, creates an admin universidade" do
+      insert(:cidade, municipio: "Campos dos Goytacazes")
       assert {:ok, %Universidade{}} = Universidades.create(@valid_attrs)
     end
 
@@ -78,7 +99,7 @@ defmodule Fuschia.Context.UniversidadesTest do
     }
 
     test "when all params are valid, updates a universidade" do
-      assert {:ok, universidade} = Universidades.create(@valid_attrs)
+      assert {:ok, universidade} = Universidades.create_with_cidade(@valid_attrs)
 
       assert {:ok, updated_universidade} = Universidades.update(universidade.nome, @update_attrs)
 
@@ -86,7 +107,7 @@ defmodule Fuschia.Context.UniversidadesTest do
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:ok, universidade} = Universidades.create(@valid_attrs)
+      assert {:ok, universidade} = Universidades.create_with_cidade(@valid_attrs)
 
       assert {:error, %Ecto.Changeset{}} = Universidades.update(universidade.nome, @invalid_attrs)
     end
