@@ -1,8 +1,7 @@
 alias Fuschia.{Context, Entities}
-
-alias Fuschia.Context.Users
-
-alias Fuschia.Entities.{Contato, User}
+alias Fuschia.Context.{Cidades, LinhasPesquisas, Nucleos, Universidades, Users}
+alias Fuschia.Entities.{Cidade, Contato, LinhaPesquisa, Nucleo, User, Universidade}
+alias Fuschia.Repo
 
 colors_opts = [
   syntax_colors: [

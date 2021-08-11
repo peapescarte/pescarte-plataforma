@@ -6,25 +6,28 @@ defmodule Fuschia.Entities.Cidade do
   import Ecto.Changeset
 
   alias Fuschia.Entities.Universidade
+  alias Fuschia.Types.CapitalizedString
 
-  @primary_key {:municipio, :string, []}
+  @required_fields ~w(municipio)a
+
+  @primary_key {:municipio, CapitalizedString, []}
   schema "cidade" do
-    has_many :universidades, Universidade
+    has_many :universidades, Universidade, on_replace: :delete
 
     timestamps()
   end
 
-  @doc false
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
-    |> cast(attrs, [:municipio])
-    |> validate_required([:municipio])
+    |> cast(attrs, @required_fields)
+    |> validate_required(@required_fields)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
       %{
-        municipio: struct.municipio
+        municipio: struct.municipio,
+        universidades: struct.universidades
       }
       |> Fuschia.Encoder.encode(opts)
     end
