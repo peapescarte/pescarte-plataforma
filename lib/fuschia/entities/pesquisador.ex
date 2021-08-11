@@ -23,7 +23,7 @@ defmodule Fuschia.Entities.Pesquisador do
     has_one :orientador, Pesquisador, references: :cpf_usuario, foreign_key: :orientador_id
     has_many :orientandos, Pesquisador
     belongs_to :usuario, User, references: :cpf, define_field: false, foreign_key: :cpf_usuario
-    belongs_to :universidade, Universidade, foreign_key: :universidade_id
+    belongs_to :universidade, Universidade, references: :nome, foreign_key: :universidade_id
 
     timestamps()
   end

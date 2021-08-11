@@ -19,7 +19,7 @@ defmodule Fuschia.Entities.Universidade do
       references: :municipio,
       foreign_key: :cidade_municipio
 
-    has_many :pesquisadores, Pesquisador
+    has_many :pesquisadores, Pesquisador, foreign_key: :universidade_id
 
     timestamps()
   end
@@ -44,7 +44,8 @@ defmodule Fuschia.Entities.Universidade do
     def encode(struct, opts) do
       %{
         nome: struct.nome,
-        cidade: struct.cidade
+        cidade: struct.cidade,
+        pesquisadores: struct.pesquisadores
       }
       |> Fuschia.Encoder.encode(opts)
     end
