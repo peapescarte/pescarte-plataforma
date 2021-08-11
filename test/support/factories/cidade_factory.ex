@@ -7,7 +7,7 @@ defmodule Fuschia.CidadeFactory do
 
       def cidade_factory do
         %Cidade{
-          municipio: sequence(:municipio, &"Cidade Test #{&1}")
+          municipio: sequence(:municipio, &"Cidade #{&1}")
         }
       end
     end
