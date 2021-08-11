@@ -31,11 +31,21 @@ defmodule Fuschia.Context.Universidades do
     |> Repo.get(nome)
   end
 
+  @spec create_with_cidade(map) :: {:ok, %Universidade{}} | {:error, %Ecto.Changeset{}}
+  def create_with_cidade(attrs) do
+    with {:ok, universidade} <-
+           %Universidade{}
+           |> Universidade.changeset(attrs)
+           |> Repo.insert() do
+      {:ok, preload_all(universidade)}
+    end
+  end
+
   @spec create(map) :: {:ok, %Universidade{}} | {:error, %Ecto.Changeset{}}
   def create(attrs) do
     with {:ok, universidade} <-
            %Universidade{}
-           |> Universidade.changeset(attrs)
+           |> Universidade.foreign_changeset(attrs)
            |> Repo.insert() do
       {:ok, preload_all(universidade)}
     end

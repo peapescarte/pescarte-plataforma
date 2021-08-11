@@ -29,6 +29,14 @@ defmodule Fuschia.Entities.Universidade do
     |> cast_assoc(:cidade, required: true)
   end
 
+  def foreign_changeset(%__MODULE__{} = struct, attrs) do
+    struct
+    |> cast(attrs, [:cidade_municipio | @required_fields])
+    |> validate_required([:cidade_municipio | @required_fields])
+    |> unique_constraint([:nome, :cidade_municipio], name: :universidade_nome_municipio_index)
+    |> foreign_key_constraint(:cidade_municipio)
+  end
+
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
       %{
