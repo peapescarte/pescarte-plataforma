@@ -5,7 +5,7 @@ defmodule Fuschia.Context.Campi do
 
   import Ecto.Query
 
-  alias Fuschia.Entities.{Cidade, Campus}
+  alias Fuschia.Entities.{Campus, Cidade}
   alias Fuschia.Repo
 
   @spec list :: [%Campus{}]
