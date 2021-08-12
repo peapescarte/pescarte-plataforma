@@ -23,9 +23,9 @@ defmodule Fuschia.Context.Pesquisadores do
   end
 
   @spec list_by_orientador(String.t()) :: [%Pesquisador{}]
-  def list_by_orientador(orientador_id) do
+  def list_by_orientador(orientador_cpf) do
     query()
-    |> where([p], p.orientador_id == ^orientador_id)
+    |> where([p], p.orientador_cpf == ^orientador_cpf)
     |> order_by([p], desc: p.created_at)
     |> preload_all()
     |> Repo.one()
@@ -42,8 +42,8 @@ defmodule Fuschia.Context.Pesquisadores do
   end
 
   @spec update(String.t(), map) :: {:ok, %Pesquisador{}} | {:error, %Ecto.Changeset{}}
-  def update(cpf_usuario, attrs) do
-    with %Pesquisador{} = pesquisador <- one(cpf_usuario),
+  def update(usuario_cpf, attrs) do
+    with %Pesquisador{} = pesquisador <- one(usuario_cpf),
          {:ok, updated} <-
            pesquisador
            |> Pesquisador.changeset(attrs)
@@ -62,7 +62,7 @@ defmodule Fuschia.Context.Pesquisadores do
   @spec query :: %Ecto.Query{}
   def query do
     from p in Pesquisador,
-      left_join: universidade in assoc(p, :universidade),
+      left_join: campus in assoc(p, :campus),
       left_join: pesquisador in assoc(p, :orientador),
       order_by: [desc: p.created_at]
   end
@@ -70,12 +70,12 @@ defmodule Fuschia.Context.Pesquisadores do
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
     query
-    |> Ecto.Query.preload([:universidade])
+    |> Ecto.Query.preload([:campus])
   end
 
   @spec preload_all(%Pesquisador{}) :: %Pesquisador{}
   def preload_all(%Pesquisador{} = pesquisador) do
     pesquisador
-    |> Repo.preload([:universidade])
+    |> Repo.preload([:campus])
   end
 end

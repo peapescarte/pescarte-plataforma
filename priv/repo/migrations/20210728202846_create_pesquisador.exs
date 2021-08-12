@@ -16,8 +16,8 @@ defmodule Fuschia.Repo.Migrations.CreatePesquisador do
       add :orientador_cpf,
           references(:pesquisador, column: :usuario_cpf, type: :citext, on_delete: :delete_all)
 
-      add :universidade_nome,
-          references(:universidade, on_delete: :nothing, column: :nome, type: :string),
+      add :campus_id,
+          references(:campus, on_delete: :nothing),
           null: false
 
       timestamps()
