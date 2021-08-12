@@ -7,12 +7,12 @@ defmodule Fuschia.Entities.PesquisadorTest do
 
   describe "changeset/2" do
     @invalid_params %{
-      cpf_usuario: nil,
-      minibibliografia: nil,
+      usuario_cpf: nil,
+      minibiografia: nil,
       tipo_bolsa: nil,
       link_lattes: nil,
-      orientador_id: nil,
-      universidade_id: nil
+      orientador_cpf: nil,
+      campus_id: nil
     }
 
     test "when all params are valid, return a valid changeset" do

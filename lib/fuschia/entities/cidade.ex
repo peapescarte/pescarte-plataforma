@@ -5,14 +5,14 @@ defmodule Fuschia.Entities.Cidade do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.Universidade
+  alias Fuschia.Entities.Campus
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(municipio)a
 
   @primary_key {:municipio, CapitalizedString, []}
   schema "cidade" do
-    has_many :universidades, Universidade, on_replace: :delete
+    has_many :campi, Campus, on_replace: :delete
 
     timestamps()
   end
@@ -27,7 +27,7 @@ defmodule Fuschia.Entities.Cidade do
     def encode(struct, opts) do
       %{
         municipio: struct.municipio,
-        universidades: struct.universidades
+        campi: struct.campi
       }
       |> Fuschia.Encoder.encode(opts)
     end

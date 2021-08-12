@@ -10,5 +10,5 @@ defmodule Fuschia.Factory do
   use Fuschia.NucleoFactory
   use Fuschia.PesquisadorFactory
   use Fuschia.UserFactory
-  use Fuschia.UniversidadeFactory
+  use Fuschia.CampusFactory
 end
