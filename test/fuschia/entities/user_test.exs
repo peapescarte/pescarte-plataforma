@@ -14,7 +14,13 @@ defmodule Fuschia.Entities.UserTest do
     }
 
     test "when all params are valid, return a valid changeset" do
-      default_params = params_for(:user)
+      contato_params = params_for(:contato)
+
+      default_params =
+        :user
+        |> params_for()
+        |> Map.put(:contato, contato_params)
+
       assert %Ecto.Changeset{valid?: true} = User.changeset(%User{}, default_params)
     end
 

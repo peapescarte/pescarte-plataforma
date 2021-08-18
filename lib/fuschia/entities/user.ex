@@ -46,7 +46,7 @@ defmodule Fuschia.Entities.User do
     |> validate_required(@required_fields)
     |> validate_format(:cpf, @cpf_format)
     |> validate_inclusion(:perfil, @valid_perfil)
-    |> cast_assoc(:contato)
+    |> cast_assoc(:contato, required: true)
   end
 
   @doc """
