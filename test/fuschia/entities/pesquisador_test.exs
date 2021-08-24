@@ -16,7 +16,16 @@ defmodule Fuschia.Entities.PesquisadorTest do
     }
 
     test "when all params are valid, return a valid changeset" do
-      default_params = params_for(:pesquisador)
+      usuario_params =
+        :user
+        |> params_for()
+        |> Map.put(:contato, params_for(:contato))
+
+      default_params =
+        :pesquisador
+        |> params_for()
+        |> Map.put(:usuario, usuario_params)
+
       assert %Ecto.Changeset{valid?: true} = Pesquisador.changeset(%Pesquisador{}, default_params)
     end
 
