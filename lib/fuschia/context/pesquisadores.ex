@@ -53,9 +53,9 @@ defmodule Fuschia.Context.Pesquisadores do
   end
 
   @spec exists?(String.t()) :: boolean
-  def exists?(cpf) do
-    User
-    |> where([p], p.cpf == ^cpf)
+  def exists?(usuario_cpf) do
+    Pesquisador
+    |> where([p], p.usuario_cpf == ^usuario_cpf)
     |> Repo.exists?()
   end
 
@@ -70,12 +70,12 @@ defmodule Fuschia.Context.Pesquisadores do
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
     query
-    |> Ecto.Query.preload([:campus])
+    |> Ecto.Query.preload(campus: :cidade)
   end
 
   @spec preload_all(%Pesquisador{}) :: %Pesquisador{}
   def preload_all(%Pesquisador{} = pesquisador) do
     pesquisador
-    |> Repo.preload([:campus])
+    |> Repo.preload(campus: :cidade, usuario: :contato)
   end
 end

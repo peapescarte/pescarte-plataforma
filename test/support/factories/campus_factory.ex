@@ -6,10 +6,12 @@ defmodule Fuschia.CampusFactory do
       alias Fuschia.Entities.Campus
 
       def campus_factory do
+        cidade = insert(:cidade)
+
         %Campus{
           id: sequence(:id, Enum.to_list(1..12)),
           nome: sequence(:nome, &"Campus #{&1}"),
-          cidade: build(:cidade)
+          cidade: cidade
         }
       end
     end
