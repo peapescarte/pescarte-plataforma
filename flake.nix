@@ -50,6 +50,11 @@
           # create local tmp folders
           mkdir -p .nix-mix
           mkdir -p .nix-hex
+
+          # to not conflict with your host elixir
+          # version and supress warnings about standard
+          # libraries
+          export ERL_LIBS="$HEX_HOME/lib/erlang/lib"
         '';
       };
     });
