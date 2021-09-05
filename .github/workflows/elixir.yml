@@ -29,4 +29,4 @@ jobs:
         run: docker exec pescarte_fuschia_ci mix credo --strict
 
       - name: Test
-        run: docker exec pescarte_fuschia_ci mix do ecto.setup, test
+        run: docker exec pescarte_fuschia_ci mix test

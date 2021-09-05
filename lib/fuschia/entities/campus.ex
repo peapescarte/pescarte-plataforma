@@ -2,6 +2,7 @@ defmodule Fuschia.Entities.Campus do
   @moduledoc """
   Campus Schema
   """
+
   use Fuschia.Schema
   import Ecto.Changeset
 
@@ -10,16 +11,15 @@ defmodule Fuschia.Entities.Campus do
 
   @required_fields ~w(nome)a
 
+  @primary_key {:nome, CapitalizedString, autogenerate: false}
   schema "campus" do
-    field :nome, CapitalizedString
-
     belongs_to :cidade, Cidade,
       type: :string,
       on_replace: :delete,
       references: :municipio,
       foreign_key: :cidade_municipio
 
-    has_many :pesquisadores, Pesquisador, foreign_key: :campus_id
+    has_many :pesquisadores, Pesquisador, foreign_key: :campus_nome
 
     timestamps()
   end

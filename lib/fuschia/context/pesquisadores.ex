@@ -63,19 +63,19 @@ defmodule Fuschia.Context.Pesquisadores do
   def query do
     from p in Pesquisador,
       left_join: campus in assoc(p, :campus),
-      left_join: pesquisador in assoc(p, :orientador),
+      left_join: orientador in assoc(p, :orientador),
       order_by: [desc: p.created_at]
   end
 
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
     query
-    |> Ecto.Query.preload(campus: :cidade)
+    |> Ecto.Query.preload([:orientador, :orientandos, campus: :cidade, usuario: :contato])
   end
 
   @spec preload_all(%Pesquisador{}) :: %Pesquisador{}
   def preload_all(%Pesquisador{} = pesquisador) do
     pesquisador
-    |> Repo.preload(campus: :cidade, usuario: :contato)
+    |> Repo.preload([:orientador, :orientandos, campus: :cidade, usuario: :contato])
   end
 end
