@@ -18,8 +18,8 @@ defmodule Fuschia.Context.Campi do
   @spec list_by_municipio(String.t()) :: [%Campus{}]
   def list_by_municipio(municipio) do
     query()
-    |> join(:inner, [u], c in Cidade, on: u.cidade_municipio == c.municipio)
-    |> where([u], u.cidade_municipio == ^municipio)
+    |> join(:inner, [campus], c in Cidade, on: campus.cidade_municipio == c.municipio)
+    |> where([campus], campus.cidade_municipio == ^municipio)
     |> preload_all()
     |> Repo.all()
   end
@@ -64,8 +64,8 @@ defmodule Fuschia.Context.Campi do
 
   @spec query :: %Ecto.Query{}
   def query do
-    from u in Campus,
-      order_by: [desc: u.created_at]
+    from campus in Campus,
+      order_by: [desc: campus.created_at]
   end
 
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}

@@ -12,7 +12,7 @@ defmodule Fuschia.Entities.PesquisadorTest do
       tipo_bolsa: nil,
       link_lattes: nil,
       orientador_cpf: nil,
-      campus_id: nil
+      campus_nome: nil
     }
 
     test "when all params are valid, return a valid changeset" do

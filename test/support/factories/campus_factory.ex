@@ -9,7 +9,6 @@ defmodule Fuschia.CampusFactory do
         cidade = insert(:cidade)
 
         %Campus{
-          id: sequence(:id, Enum.to_list(1..12)),
           nome: sequence(:nome, &"Campus #{&1}"),
           cidade: cidade
         }

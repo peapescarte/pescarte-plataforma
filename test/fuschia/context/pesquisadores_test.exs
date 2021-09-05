@@ -45,14 +45,9 @@ defmodule Fuschia.Context.PesquisadoresTest do
 
   describe "create/1" do
     @valid_attrs %{
-      usuario_cpf: "264.722.590-70",
       minibiografia: "minibibliografia aaa",
       tipo_bolsa: "ic",
       link_lattes: "www.lattes",
-      campus: %{
-        nome: "Campus Estadual do Norte Fluminence Darcy Ribeiro",
-        cidade: %{municipio: "Campos dos Goytacazes"}
-      },
       usuario: %{
         nome_completo: "Matheus de Souza Pessanha",
         cpf: "264.722.590-70",
@@ -67,18 +62,22 @@ defmodule Fuschia.Context.PesquisadoresTest do
     }
 
     @invalid_attrs %{
-      usuario_cpf: nil,
       minibiografia: nil,
       tipo_bolsa: nil,
       link_lattes: nil,
       orientador: nil,
-      campus: nil,
+      campus_nome: nil,
       usuario: nil,
       orientandos: nil
     }
 
     test "when all params are valid, creates an admin pesquisador" do
-      assert {:ok, %Pesquisador{}} = Pesquisadores.create(@valid_attrs)
+      %{nome: campus_nome} = insert(:campus)
+
+      assert {:ok, %Pesquisador{}} =
+               @valid_attrs
+               |> Map.put(:campus_nome, campus_nome)
+               |> Pesquisadores.create()
     end
 
     test "when params are invalid, returns an error changeset" do
@@ -87,15 +86,14 @@ defmodule Fuschia.Context.PesquisadoresTest do
   end
 
   describe "update/1" do
+    setup do
+      %{campus_nome: insert(:campus).nome}
+    end
+
     @valid_attrs %{
-      usuario_cpf: "264.722.590-70",
       minibiografia: "minibibliografia aaa",
       tipo_bolsa: "ic",
-      link_lattes: "www.lattes",
-      campus: %{
-        nome: "Campus Estadual do Norte Fluminence Darcy Ribeiro",
-        cidade: %{municipio: "Campos dos Goytacazes"}
-      },
+      link_lattes: "www.lattes.com",
       usuario: %{
         nome_completo: "Matheus de Souza Pessanha",
         cpf: "264.722.590-70",
@@ -110,7 +108,6 @@ defmodule Fuschia.Context.PesquisadoresTest do
     }
 
     @update_attrs %{
-      usuario_cpf: "457.458.188-02",
       tipo_bolsa: "pesquisador",
       link_lattes: "www.lattes/novo_link",
       usuario: %{
@@ -128,18 +125,20 @@ defmodule Fuschia.Context.PesquisadoresTest do
     }
 
     @invalid_attrs %{
-      cpf: nil,
       minibiografia: nil,
       tipo_bolsa: nil,
       link_lattes: nil,
       orientador: nil,
-      campus: nil,
+      campus_nome: nil,
       usuario: nil,
       orientandos: nil
     }
 
-    test "when all params are valid, updates a pesquisador" do
-      assert {:ok, pesquisador} = Pesquisadores.create(@valid_attrs)
+    test "when all params are valid, updates a pesquisador", %{campus_nome: campus_nome} do
+      assert {:ok, pesquisador} =
+               @valid_attrs
+               |> Map.put(:campus_nome, campus_nome)
+               |> Pesquisadores.create()
 
       assert {:ok, updated_pesquisador} =
                Pesquisadores.update(pesquisador.usuario_cpf, @update_attrs)
@@ -157,8 +156,11 @@ defmodule Fuschia.Context.PesquisadoresTest do
       end
     end
 
-    test "when params are invalid, returns an error changeset" do
-      assert {:ok, pesquisador} = Pesquisadores.create(@valid_attrs)
+    test "when params are invalid, returns an error changeset", %{campus_nome: campus_nome} do
+      assert {:ok, pesquisador} =
+               @valid_attrs
+               |> Map.put(:campus_nome, campus_nome)
+               |> Pesquisadores.create()
 
       assert {:error, %Ecto.Changeset{}} =
                Pesquisadores.update(pesquisador.usuario_cpf, @invalid_attrs)
