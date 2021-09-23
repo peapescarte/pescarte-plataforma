@@ -28,7 +28,7 @@ defmodule Fuschia.Context.Pesquisadores do
     |> where([p], p.orientador_cpf == ^orientador_cpf)
     |> order_by([p], desc: p.created_at)
     |> preload_all()
-    |> Repo.one()
+    |> Repo.all()
   end
 
   @spec create(map) :: {:ok, %Pesquisador{}} | {:error, %Ecto.Changeset{}}
@@ -70,12 +70,22 @@ defmodule Fuschia.Context.Pesquisadores do
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
     query
-    |> Ecto.Query.preload([:orientador, :orientandos, campus: :cidade, usuario: :contato])
+    |> Ecto.Query.preload(
+      orientador: [usuario: :contato],
+      orientandos: [usuario: :contato],
+      usuario: :contato,
+      campus: :cidade
+    )
   end
 
   @spec preload_all(%Pesquisador{}) :: %Pesquisador{}
   def preload_all(%Pesquisador{} = pesquisador) do
     pesquisador
-    |> Repo.preload([:orientador, :orientandos, campus: :cidade, usuario: :contato])
+    |> Repo.preload(
+      orientador: [usuario: :contato],
+      orientandos: [usuario: :contato],
+      usuario: :contato,
+      campus: :cidade
+    )
   end
 end

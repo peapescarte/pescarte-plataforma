@@ -22,13 +22,13 @@ defmodule Fuschia.Entities.User do
 
   @cpf_format Formats.cpf()
 
-  @primary_key {:cpf, TrimmedString, [autogenerate: false]}
+  @primary_key {:cpf, TrimmedString, autogenerate: false}
   schema "user" do
     field :password_hash, TrimmedString
     field :confirmed, :boolean, default: false
     field :data_nascimento, :date
     field :last_seen, :utc_datetime_usec
-    field :perfil, TrimmedString
+    field :perfil, TrimmedString, default: "avulso"
     field :nome_completo, CapitalizedString
     field :ativo, :boolean, default: true
     field :password, TrimmedString, virtual: true
@@ -45,6 +45,7 @@ defmodule Fuschia.Entities.User do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_format(:cpf, @cpf_format)
+    |> unique_constraint(:cpf, name: :user_pkey)
     |> validate_inclusion(:perfil, @valid_perfil)
     |> cast_assoc(:contato, required: true)
   end
