@@ -15,7 +15,12 @@ defmodule Fuschia.Repo.Migrations.CreatePesquisador do
 
       add(
         :orientador_cpf,
-        references(:pesquisador, column: :usuario_cpf, type: :citext, on_delete: :delete_all)
+        references(
+          :pesquisador,
+          column: :usuario_cpf,
+          type: :citext,
+          on_delete: :delete_all
+        )
       )
 
       add(

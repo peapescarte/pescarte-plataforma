@@ -9,30 +9,43 @@ defmodule Fuschia.Entities.Pesquisador do
   alias Fuschia.Entities.{Campus, Pesquisador, User}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
-  @required_fields ~w(minibiografia tipo_bolsa link_lattes campus_nome)a
+  @required_fields ~w(
+    minibiografia
+    tipo_bolsa
+    link_lattes
+    campus_nome
+  )a
+
   @optional_fields ~w(orientador_cpf)a
 
   @tipos_bolsa ~w(ic pesquisa voluntario)
 
-  @primary_key {:usuario_cpf, TrimmedString, []}
-  @foreign_key_type CapitalizedString
+  @primary_key {:usuario_cpf, TrimmedString, autogenerate: false}
   schema "pesquisador" do
     field :minibiografia, TrimmedString
     field :tipo_bolsa, TrimmedString
     field :link_lattes, TrimmedString
-    field :orientador_cpf, TrimmedString
 
-    has_many :orientandos, Pesquisador
+    has_many :orientandos, Pesquisador, foreign_key: :orientador_cpf
 
     belongs_to :usuario, User,
       references: :cpf,
-      define_field: false,
       foreign_key: :usuario_cpf,
-      type: TrimmedString
+      type: TrimmedString,
+      primary_key: true,
+      define_field: false,
+      on_replace: :delete
 
-    belongs_to :campus, Campus, foreign_key: :campus_nome, references: :nome
+    belongs_to :campus, Campus,
+      foreign_key: :campus_nome,
+      references: :nome,
+      type: CapitalizedString
 
-    has_one :orientador, Pesquisador, references: :usuario_cpf, foreign_key: :orientador_cpf
+    belongs_to :orientador, Pesquisador,
+      references: :usuario_cpf,
+      foreign_key: :orientador_cpf,
+      type: TrimmedString,
+      on_replace: :update
 
     timestamps()
   end
@@ -43,8 +56,8 @@ defmodule Fuschia.Entities.Pesquisador do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_length(:minibiografia, max: 280)
-    |> cast_assoc(:usuario, required: true)
     |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
+    |> cast_assoc(:usuario, required: true)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
   end
