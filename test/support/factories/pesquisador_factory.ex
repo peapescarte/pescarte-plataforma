@@ -7,13 +7,13 @@ defmodule Fuschia.PesquisadorFactory do
 
       def pesquisador_factory do
         campus = insert(:campus)
+        usuario = build(:user)
 
         %Pesquisador{
-          usuario: build(:user),
+          usuario: usuario,
           minibiografia: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
           tipo_bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),
           link_lattes: sequence(:link_lattes, &"http://buscatextual.cnpq.br/buscatextual/:#{&1}"),
-          orientador_cpf: nil,
           campus_nome: campus.nome
         }
       end

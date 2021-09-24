@@ -34,7 +34,7 @@ defmodule Fuschia.Entities.Pesquisador do
       type: TrimmedString,
       primary_key: true,
       define_field: false,
-      on_replace: :delete
+      on_replace: :update
 
     belongs_to :campus, Campus,
       foreign_key: :campus_nome,
@@ -58,6 +58,17 @@ defmodule Fuschia.Entities.Pesquisador do
     |> validate_length(:minibiografia, max: 280)
     |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
     |> cast_assoc(:usuario, required: true)
+    |> foreign_key_constraint(:orientador_cpf)
+    |> foreign_key_constraint(:campus_nome)
+  end
+
+  def update_changeset(%__MODULE__{} = struct, attrs) do
+    struct
+    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> validate_required([:minibiografia, :link_lattes, :campus_nome])
+    |> validate_length(:minibiografia, max: 280)
+    |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
+    |> put_assoc(:usuario, attrs["usuario"])
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
   end

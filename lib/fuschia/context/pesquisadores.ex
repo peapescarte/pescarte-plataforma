@@ -5,8 +5,9 @@ defmodule Fuschia.Context.Pesquisadores do
 
   import Ecto.Query
 
-  alias Fuschia.Entities.Pesquisador
-  alias Fuschia.Repo
+  alias Fuschia.Context.Users
+  alias Fuschia.Entities.{Pesquisador, User}
+  alias Fuschia.{Parser, Repo}
 
   @spec list :: [%Pesquisador{}]
   def list do
@@ -43,12 +44,29 @@ defmodule Fuschia.Context.Pesquisadores do
 
   @spec update(String.t(), map) :: {:ok, %Pesquisador{}} | {:error, %Ecto.Changeset{}}
   def update(usuario_cpf, attrs) do
-    with %Pesquisador{} = pesquisador <- one(usuario_cpf),
-         {:ok, updated} <-
-           pesquisador
-           |> Pesquisador.changeset(attrs)
-           |> Repo.update() do
-      {:ok, updated}
+    attrs
+    |> Parser.stringfy_map()
+    |> case do
+      %{"usuario" => usuario_attrs} = attrs when not is_nil(usuario_attrs) ->
+        with %User{} = _user <- Users.one(usuario_cpf),
+             %Ecto.Changeset{valid?: true} = usuario_changeset <-
+               User.changeset(%User{}, usuario_attrs),
+             {:ok, pesquisador} <-
+               attrs
+               |> Map.replace("usuario", usuario_changeset)
+               |> then(&Pesquisador.update_changeset(%Pesquisador{}, &1))
+               |> Repo.insert(on_conflict: :nothing) do
+          {:ok, preload_all(pesquisador)}
+        end
+
+      _ ->
+        with %Pesquisador{} = pesquisador <- one(usuario_cpf),
+             {:ok, updated} <-
+               pesquisador
+               |> Pesquisador.changeset(attrs)
+               |> Repo.update() do
+          {:ok, preload_all(updated)}
+        end
     end
   end
 

@@ -46,8 +46,20 @@ defmodule Fuschia.Entities.User do
     |> validate_required(@required_fields)
     |> validate_format(:cpf, @cpf_format)
     |> unique_constraint(:cpf, name: :user_pkey)
+    |> unique_constraint(:cpf, name: :user_nome_completo_index)
     |> validate_inclusion(:perfil, @valid_perfil)
     |> cast_assoc(:contato, required: true)
+    |> foreign_key_constraint(:cpf, name: :pesquisador_usuario_cpf_fkey)
+  end
+
+  def update_changeset(%__MODULE__{} = struct, attrs) do
+    struct
+    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> validate_format(:cpf, @cpf_format)
+    |> unique_constraint(:cpf, name: :user_pkey)
+    |> unique_constraint(:cpf, name: :user_nome_completo_index)
+    |> validate_inclusion(:perfil, @valid_perfil)
+    |> cast_assoc(:contato)
   end
 
   @doc """
