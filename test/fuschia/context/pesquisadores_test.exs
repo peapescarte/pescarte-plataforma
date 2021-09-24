@@ -34,9 +34,11 @@ defmodule Fuschia.Context.PesquisadoresTest do
 
   describe "list_by_orientador/1" do
     test "return all pesquisadores in database with orientador of a cpf" do
+      orientador = insert(:pesquisador)
+
       pesquisador =
         :pesquisador
-        |> insert()
+        |> insert(orientador_cpf: orientador.usuario_cpf)
         |> Pesquisadores.preload_all()
 
       assert [pesquisador] == Pesquisadores.list_by_orientador(pesquisador.orientador_cpf)
@@ -108,19 +110,17 @@ defmodule Fuschia.Context.PesquisadoresTest do
     }
 
     @update_attrs %{
-      tipo_bolsa: "pesquisador",
       link_lattes: "www.lattes/novo_link",
+      minibiografia: "updated bio",
       usuario: %{
         nome_completo: "Eduardo Ravagnani",
         cpf: "457.458.188-02",
         data_nascimento: ~D[2001-06-28],
         contato: %{
           endereco: "Av Teste, Rua Teste, numero 100",
-          email: "teste@exemplo.com",
+          email: "updated_teste@exemplo.com",
           celular: "(22)12345-6769"
-        },
-        password: "Teste1234",
-        password_confirmation: "Teste1234"
+        }
       }
     }
 
@@ -140,18 +140,29 @@ defmodule Fuschia.Context.PesquisadoresTest do
                |> Map.put(:campus_nome, campus_nome)
                |> Pesquisadores.create()
 
+      update_attrs = Map.put(@update_attrs, :campus_nome, campus_nome)
+
       assert {:ok, updated_pesquisador} =
-               Pesquisadores.update(pesquisador.usuario_cpf, @update_attrs)
+               Pesquisadores.update(pesquisador.usuario_cpf, update_attrs)
 
       for key <- Map.keys(@update_attrs) do
-        if key == :contato do
-          contato = Map.get(updated_pesquisador, key)
-          contato_attrs = Map.get(@update_attrs, key)
-          assert contato.email == contato_attrs.email
-          assert contato.endereco == contato_attrs.endereco
-          assert contato.celular == contato_attrs.celular
-        else
-          assert Map.get(updated_pesquisador, key) == Map.get(@update_attrs, key)
+        cond do
+          key == :contato ->
+            contato = Map.get(updated_pesquisador, key)
+            contato_attrs = Map.get(@update_attrs, key)
+            assert contato.email == contato_attrs.email
+            assert contato.endereco == contato_attrs.endereco
+            assert contato.celular == contato_attrs.celular
+
+          key == :usuario ->
+            usuario = Map.get(updated_pesquisador, key)
+            usuario_attrs = Map.get(@update_attrs, key)
+            assert usuario.cpf == usuario_attrs.cpf
+            assert usuario.nome_completo == usuario_attrs.nome_completo
+            assert usuario.data_nascimento == usuario_attrs.data_nascimento
+
+          true ->
+            assert Map.get(updated_pesquisador, key) == Map.get(@update_attrs, key)
         end
       end
     end
