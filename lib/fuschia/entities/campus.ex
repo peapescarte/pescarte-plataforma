@@ -1,22 +1,25 @@
-defmodule Fuschia.Entities.Universidade do
+defmodule Fuschia.Entities.Campus do
   @moduledoc """
-  Universidade Schema
+  Campus Schema
   """
+
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.Cidade
+  alias Fuschia.Entities.{Cidade, Pesquisador}
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome)a
 
-  @primary_key {:nome, CapitalizedString, []}
-  schema "universidade" do
+  @primary_key {:nome, CapitalizedString, autogenerate: false}
+  schema "campus" do
     belongs_to :cidade, Cidade,
       type: :string,
       on_replace: :delete,
       references: :municipio,
       foreign_key: :cidade_municipio
+
+    has_many :pesquisadores, Pesquisador, foreign_key: :campus_nome
 
     timestamps()
   end
@@ -33,7 +36,7 @@ defmodule Fuschia.Entities.Universidade do
     struct
     |> cast(attrs, [:cidade_municipio | @required_fields])
     |> validate_required([:cidade_municipio | @required_fields])
-    |> unique_constraint([:nome, :cidade_municipio], name: :universidade_nome_municipio_index)
+    |> unique_constraint([:nome, :cidade_municipio], name: :campus_nome_municipio_index)
     |> foreign_key_constraint(:cidade_municipio)
   end
 
@@ -41,7 +44,8 @@ defmodule Fuschia.Entities.Universidade do
     def encode(struct, opts) do
       %{
         nome: struct.nome,
-        cidade: struct.cidade
+        cidade: struct.cidade,
+        pesquisadores: struct.pesquisadores
       }
       |> Fuschia.Encoder.encode(opts)
     end
