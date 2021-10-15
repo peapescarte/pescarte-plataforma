@@ -73,7 +73,6 @@ defmodule Fuschia.Entities.User do
     |> validate_required([:password])
     |> validate_password()
     |> put_hashed_password()
-    |> cast_assoc(:contato, required: true)
   end
 
   @doc """
@@ -83,7 +82,6 @@ defmodule Fuschia.Entities.User do
     struct
     |> changeset(attrs)
     |> validate_required([:perfil])
-    |> cast_assoc(:contato, required: true)
   end
 
   @doc """
