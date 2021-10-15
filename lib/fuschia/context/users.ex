@@ -25,15 +25,15 @@ defmodule Fuschia.Context.Users do
     |> put_is_admin()
   end
 
-  @spec one_by_email(String.t()) :: %User{} | nil
-  def one_by_email(email) do
-    email =
-      email
+  @spec one_by_cpf(String.t()) :: %User{} | nil
+  def one_by_cpf(cpf) do
+    cpf =
+      cpf
       |> String.downcase()
       |> String.trim()
 
     query()
-    |> where([u, contato], fragment("lower(?)", contato.email) == ^email)
+    |> where([u, cpf], fragment("lower(?)", cpf) == ^cpf)
     |> where([u], u.ativo == true)
     |> order_by([u], desc: u.created_at)
     |> limit(1)
@@ -42,9 +42,9 @@ defmodule Fuschia.Context.Users do
   end
 
   @spec one_with_permissions(String.t()) :: %User{} | nil
-  def one_with_permissions(email) do
-    email
-    |> one_by_email()
+  def one_with_permissions(cpf) do
+    cpf
+    |> one_by_cpf()
     |> put_permissions()
     |> put_is_admin()
   end

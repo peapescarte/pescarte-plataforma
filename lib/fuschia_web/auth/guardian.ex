@@ -14,6 +14,27 @@ defmodule FuschiaWeb.Auth.Guardian do
     {:ok, sub}
   end
 
+  @spec resource_from_claims(map) ::
+          {:ok,
+           nil
+           | %Fuschia.Entities.User{
+               __meta__: any,
+               ativo: any,
+               confirmed: any,
+               contato: any,
+               contato_id: any,
+               cpf: any,
+               created_at: any,
+               data_nascimento: any,
+               is_admin: boolean,
+               last_seen: any,
+               nome_completo: any,
+               password: any,
+               password_hash: any,
+               perfil: any,
+               permissoes: nil,
+               updated_at: any
+             }}
   def resource_from_claims(claims) do
     user =
       claims
@@ -23,15 +44,15 @@ defmodule FuschiaWeb.Auth.Guardian do
     {:ok, user}
   end
 
-  def authenticate(%{"email" => email, "password" => password}) do
-    case Users.one_by_email(email) do
+  def authenticate(%{"cpf" => cpf, "password" => password}) do
+    case Users.one_by_cpf(cpf) do
       nil -> {:error, :unauthorized}
       user -> validate_password(user, password)
     end
   end
 
-  def user_claims(%{"email" => email}) do
-    case user = Users.one_with_permissions(email) do
+  def user_claims(%{"cpf" => cpf}) do
+    case user = Users.one_with_permissions(cpf) do
       nil -> {:error, :unauthorized}
       _ -> {:ok, User.for_jwt(user)}
     end
