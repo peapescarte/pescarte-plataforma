@@ -32,6 +32,21 @@ defmodule Fuschia.Context.UsersTest do
     end
   end
 
+  describe "one_by_cpf/1" do
+    test "when CPF is valid, returns a user" do
+      user =
+        :user
+        |> insert()
+        |> Users.preload_all()
+
+      assert user == Users.one_by_cpf(user.cpf)
+    end
+
+    test "when CPF is invalid, return nil" do
+      assert is_nil(Users.one_by_cpf(""))
+    end
+  end
+
   describe "one_by_email/1" do
     test "when email is valid, returns a user" do
       user =
