@@ -15,26 +15,7 @@ defmodule FuschiaWeb.Auth.Guardian do
   end
 
   @spec resource_from_claims(map) ::
-          {:ok,
-           nil
-           | %Fuschia.Entities.User{
-               __meta__: any,
-               ativo: any,
-               confirmed: any,
-               contato: any,
-               contato_id: any,
-               cpf: any,
-               created_at: any,
-               data_nascimento: any,
-               is_admin: boolean,
-               last_seen: any,
-               nome_completo: any,
-               password: any,
-               password_hash: any,
-               perfil: any,
-               permissoes: nil,
-               updated_at: any
-             }}
+          {:error, nil} | {:ok, %User{}}
   def resource_from_claims(claims) do
     user =
       claims

@@ -27,13 +27,22 @@ defmodule Fuschia.Context.Users do
 
   @spec one_by_cpf(String.t()) :: %User{} | nil
   def one_by_cpf(cpf) do
-    cpf =
-      cpf
+    cpf = String.trim(cpf)
+
+    query()
+    |> preload_all()
+    |> Repo.get_by(cpf: cpf)
+  end
+
+  @spec one_by_email(String.t()) :: %User{} | nil
+  def one_by_email(email) do
+    email =
+      email
       |> String.downcase()
       |> String.trim()
 
     query()
-    |> where([u, cpf], fragment("lower(?)", cpf) == ^cpf)
+    |> where([u, contato], fragment("lower(?)", contato.email) == ^email)
     |> where([u], u.ativo == true)
     |> order_by([u], desc: u.created_at)
     |> limit(1)
