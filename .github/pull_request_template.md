@@ -2,8 +2,8 @@
 Descrição do que é esperado deste PR
 
 
-## Stories relacionadas (clubhouse)
-- [ch-xxx]
+## Stories relacionadas (Shortcut)
+- [sc-xxxx]
 
 
 ## Pontos para atenção
