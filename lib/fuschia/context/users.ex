@@ -25,6 +25,15 @@ defmodule Fuschia.Context.Users do
     |> put_is_admin()
   end
 
+  @spec one_by_cpf(String.t()) :: %User{} | nil
+  def one_by_cpf(cpf) do
+    cpf = String.trim(cpf)
+
+    query()
+    |> preload_all()
+    |> Repo.get_by(cpf: cpf)
+  end
+
   @spec one_by_email(String.t()) :: %User{} | nil
   def one_by_email(email) do
     email =
@@ -42,9 +51,9 @@ defmodule Fuschia.Context.Users do
   end
 
   @spec one_with_permissions(String.t()) :: %User{} | nil
-  def one_with_permissions(email) do
-    email
-    |> one_by_email()
+  def one_with_permissions(cpf) do
+    cpf
+    |> one_by_cpf()
     |> put_permissions()
     |> put_is_admin()
   end
