@@ -17,12 +17,12 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       ],
       type: :object,
       properties: %{
-        email: %Schema{type: :string, description: "User Email"},
+        cpf: %Schema{type: :string, description: "User CPF"},
         password: %Schema{type: :string, description: "User Password", format: "password"}
       },
-      required: [:email, :password],
+      required: [:cpf, :password],
       example: %{
-        "email" => "admin.dev@example.com",
+        "cpf" => "123.456.789-12",
         "password" => "123456"
       }
     })
@@ -121,12 +121,12 @@ defmodule FuschiaWeb.Swagger.AuthSchemas do
       description: "POST body for user login",
       type: :object,
       properties: %{
-        email: %Schema{type: :string, description: "User E-mail"},
+        cpf: %Schema{type: :string, description: "User CPF"},
         password: %Schema{type: :string, description: "User Password", format: "password"}
       },
-      required: [:email, :password],
+      required: [:cpf, :password],
       example: %{
-        "email" => "admin.dev@example.com",
+        "cpf" => "123.456.789-12",
         "password" => "123456"
       }
     })

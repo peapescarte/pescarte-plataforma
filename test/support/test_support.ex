@@ -13,7 +13,7 @@ defmodule CoreWeb.TestSupport do
   """
   @spec login(%Plug.Conn{}, %User{}) :: %Plug.Conn{}
   def login(conn, user) do
-    params = %{"email" => user.contato.email, "password" => user.password}
+    params = %{"cpf" => user.cpf, "password" => user.password}
 
     with {:ok, token} <- Guardian.authenticate(params),
          {:ok, _user} <- Guardian.user_claims(params) do
