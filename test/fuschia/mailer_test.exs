@@ -37,7 +37,8 @@ defmodule Fuschia.MailerTest.GenerateTests do
     template_path = "#{:code.priv_dir(:fuschia)}/templates"
     path = Path.expand("#{template_path}/email/#{project}", __DIR__)
 
-    Path.wildcard(path <> "/*")
+    (path <> "/*")
+    |> Path.wildcard()
     |> Enum.map(&String.replace(&1, [path <> "/", ".html.eex"], ""))
   end
 end
@@ -49,7 +50,8 @@ defmodule Fuschia.MailerTest do
 
   test "add_attachment/2 always returns the email structure" do
     assert %Email{} =
-             Mailer.new_email(nil, nil, "user", "confirmation", @general_assigns)
+             nil
+             |> Mailer.new_email(nil, "user", "confirmation", @general_assigns)
              |> Mailer.add_attachment("")
   end
 end

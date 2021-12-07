@@ -77,17 +77,19 @@ defmodule Fuschia.Entities.Pesquisador do
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
-      %{
-        cpf: struct.cpf,
-        minibiografia: struct.minibibliografia,
-        tipo_bolsa: struct.tipo_bolsa,
-        link_lattes: struct.link_lattes,
-        orientador: struct.orientador,
-        campus: struct.campus,
-        usuario: struct.usuario,
-        orientandos: struct.orientandos
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          cpf: struct.cpf,
+          minibiografia: struct.minibibliografia,
+          tipo_bolsa: struct.tipo_bolsa,
+          link_lattes: struct.link_lattes,
+          orientador: struct.orientador,
+          campus: struct.campus,
+          usuario: struct.usuario,
+          orientandos: struct.orientandos
+        },
+        opts
+      )
     end
   end
 end

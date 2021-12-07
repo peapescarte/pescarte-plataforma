@@ -42,12 +42,14 @@ defmodule Fuschia.Entities.Campus do
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
-      %{
-        nome: struct.nome,
-        cidade: struct.cidade,
-        pesquisadores: struct.pesquisadores
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          nome: struct.nome,
+          cidade: struct.cidade,
+          pesquisadores: struct.pesquisadores
+        },
+        opts
+      )
     end
   end
 end

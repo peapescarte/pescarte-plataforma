@@ -51,13 +51,11 @@ defmodule Fuschia.Context.Nucleos do
 
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
-    query
-    |> Ecto.Query.preload([:linhas_pesquisa])
+    Ecto.Query.preload(query, [:linhas_pesquisa])
   end
 
   @spec preload_all(%Nucleo{}) :: %Nucleo{}
   def preload_all(%Nucleo{} = nucleo) do
-    nucleo
-    |> Repo.preload([:linhas_pesquisa])
+    Repo.preload(nucleo, [:linhas_pesquisa])
   end
 end

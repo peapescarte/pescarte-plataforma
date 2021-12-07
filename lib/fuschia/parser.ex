@@ -83,8 +83,7 @@ defmodule Fuschia.Parser do
   """
   @spec map_to_keyword(map) :: keyword
   def map_to_keyword(map) when is_map(map) do
-    map
-    |> Enum.map(fn {k, v} ->
+    Enum.map(map, fn {k, v} ->
       k = apply_if(k, is_binary(k), &String.to_existing_atom/1)
       {k, v}
     end)

@@ -87,8 +87,8 @@ defmodule Fuschia.Context.Pesquisadores do
 
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
-    query
-    |> Ecto.Query.preload(
+    Ecto.Query.preload(
+      query,
       orientador: [usuario: :contato],
       orientandos: [usuario: :contato],
       usuario: :contato,
@@ -98,8 +98,8 @@ defmodule Fuschia.Context.Pesquisadores do
 
   @spec preload_all(%Pesquisador{}) :: %Pesquisador{}
   def preload_all(%Pesquisador{} = pesquisador) do
-    pesquisador
-    |> Repo.preload(
+    Repo.preload(
+      pesquisador,
       orientador: [usuario: :contato],
       orientandos: [usuario: :contato],
       usuario: :contato,

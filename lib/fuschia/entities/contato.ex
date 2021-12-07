@@ -53,13 +53,15 @@ defmodule Fuschia.Entities.Contato do
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
-      %{
-        id: struct.id,
-        celular: struct.celular,
-        email: struct.email,
-        endereco: struct.endereco
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          id: struct.id,
+          celular: struct.celular,
+          email: struct.email,
+          endereco: struct.endereco
+        },
+        opts
+      )
     end
   end
 end

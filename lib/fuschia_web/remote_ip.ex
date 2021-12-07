@@ -14,8 +14,7 @@ defmodule FuschiaWeb.RemoteIp do
 
     cond do
       cf_connecting_ip ->
-        cf_connecting_ip
-        |> clean_ip
+        clean_ip(cf_connecting_ip)
 
       forwarded_for ->
         forwarded_for
