@@ -6,7 +6,7 @@ defmodule Fuschia.Entities.Pesquisador do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.{Campus, Pesquisador, User}
+  alias Fuschia.Entities.{Campus, Midia, Pesquisador, User}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(
@@ -27,6 +27,8 @@ defmodule Fuschia.Entities.Pesquisador do
     field :link_lattes, TrimmedString
 
     has_many :orientandos, Pesquisador, foreign_key: :orientador_cpf
+
+    has_many :midias, Midia
 
     belongs_to :usuario, User,
       references: :cpf,
