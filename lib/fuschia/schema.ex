@@ -41,7 +41,7 @@ defmodule Fuschia.Schema do
         dgettext("errors", "does not exist")
       )
     else
-      _ ->
+      _err ->
         changeset
     end
   end

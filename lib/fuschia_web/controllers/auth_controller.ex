@@ -19,7 +19,7 @@ defmodule FuschiaWeb.AuthController do
   @doc """
   Parse headers before handling the route
   """
-  def action(conn, _) do
+  def action(conn, _params) do
     ip = RemoteIp.get(conn)
     user_agent = UserAgent.get(conn)
     args = [conn, ip, user_agent, conn.params]

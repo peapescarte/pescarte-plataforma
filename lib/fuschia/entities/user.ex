@@ -126,7 +126,7 @@ defmodule Fuschia.Entities.User do
     Bcrypt.verify_pass(password, hashed_password)
   end
 
-  def valid_password?(_, _) do
+  def valid_password?(_invalid_hash, _invalid_password) do
     Bcrypt.no_user_verify()
     false
   end
@@ -158,7 +158,7 @@ defmodule Fuschia.Entities.User do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         put_change(changeset, :password_hash, Bcrypt.hash_pwd_salt(password))
 
-      _ ->
+      _no_password ->
         changeset
     end
   end

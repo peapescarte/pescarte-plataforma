@@ -19,7 +19,7 @@ defmodule CoreWeb.TestSupport do
          {:ok, _user} <- Guardian.user_claims(params) do
       put_req_header(conn, "authorization", "Bearer #{token}")
     else
-      _ -> {:error, "Couldn't login"}
+      _err -> {:error, "Couldn't login"}
     end
   end
 

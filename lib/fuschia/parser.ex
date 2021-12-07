@@ -134,7 +134,7 @@ defmodule Fuschia.Parser do
   """
   @spec reject_empty(map) :: map
   def reject_empty(map) when is_map(map) do
-    :maps.filter(fn _, v -> !is_nil(v) end, map)
+    :maps.filter(fn _key, v -> !is_nil(v) end, map)
   end
 
   ####         ####
@@ -144,7 +144,7 @@ defmodule Fuschia.Parser do
   @spec to_boolean(String.t()) :: boolean | nil
   def to_boolean("true"), do: true
   def to_boolean("false"), do: false
-  def to_boolean(_), do: nil
+  def to_boolean(_invalid), do: nil
 
   # Only execute a function if the condition is truthy
   # otherwise returns the same value
