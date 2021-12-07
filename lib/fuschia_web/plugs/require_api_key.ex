@@ -26,7 +26,7 @@ defmodule FuschiaWeb.RequireApiKeyPlug do
         )
         |> halt()
 
-      _ ->
+      _api_key ->
         conn
     end
   end

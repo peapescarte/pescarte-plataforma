@@ -32,9 +32,9 @@ defmodule FuschiaWeb.Auth.Guardian do
   end
 
   def user_claims(%{"cpf" => cpf}) do
-    case user = Users.one_with_permissions(cpf) do
+    case Users.one_with_permissions(cpf) do
       nil -> {:error, :unauthorized}
-      _ -> {:ok, User.for_jwt(user)}
+      user -> {:ok, User.for_jwt(user)}
     end
   end
 
@@ -52,7 +52,7 @@ defmodule FuschiaWeb.Auth.Guardian do
          true <- Bcrypt.verify_pass(password, user.password_hash) do
       create_token(user)
     else
-      _ -> {:error, :unauthorized}
+      _invalid_password -> {:error, :unauthorized}
     end
   end
 

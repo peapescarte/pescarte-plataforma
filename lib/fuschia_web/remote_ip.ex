@@ -42,7 +42,7 @@ defmodule FuschiaWeb.RemoteIp do
     ip =
       case Regex.named_captures(@port_regex, ip_and_port) do
         %{"port" => port} -> String.trim_trailing(ip_and_port, port)
-        _ -> ip_and_port
+        _unmatch -> ip_and_port
       end
 
     ip
