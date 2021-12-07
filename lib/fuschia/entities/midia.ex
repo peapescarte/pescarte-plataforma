@@ -34,6 +34,7 @@ defmodule Fuschia.Entites.Midia do
     struct
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:link)
     |> foreign_key_constraint(:pesquisador_cpf)
   end
 
@@ -42,8 +43,7 @@ defmodule Fuschia.Entites.Midia do
       %{
         tipo: struct.tipo,
         link: struct.link,
-        tags: struct.tags,
-        pesquisador_cpf: struct.pesquisador_cpf
+        tags: struct.tags
       }
       |> Fuschia.Encoder.encode(opts)
     end
