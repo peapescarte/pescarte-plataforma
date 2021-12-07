@@ -12,15 +12,19 @@ defmodule Fuschia.Entities.Relatorio do
   @required_fields ~w{
     ano
     mes
-    tipo_relatorio
+    tipo
     link
     pesquisador_cpf
   }a
 
-  @primary_key {:ano, TrimmedString, autogenerate: false}
+  @tipos ~w{mensal trimestral anual}a
+
+  @primary_key false
+
   schema "relatorio" do
-    field :mes, TrimmedString
-    field :tipo_relatorio, TrimmedString
+    field :ano, :integer, primary_key: true
+    field :mes, :integer, primary_key: true
+    field :tipo, TrimmedString
     field :link, TrimmedString
 
     belongs_to :pesquisador, Pesquisador,
@@ -32,10 +36,37 @@ defmodule Fuschia.Entities.Relatorio do
     timestamps()
   end
 
+  defp validate_month(changeset, field) do
+    month = 1..12
+
+    mth = get_field(changeset, field)
+
+    if mth in month do
+      changeset
+    else
+      add_error(changeset, field, "Mês inválido")
+    end
+  end
+
+  defp validate_year(changeset, field) do
+    today = Date.utc_today()
+
+    year = get_field(changeset, field)
+
+    if year <= today.year do
+      changeset
+    else
+      add_error(changeset, field, "Ano inválido")
+    end
+  end
+
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> validate_month(:mes)
+    |> validate_year(:ano)
+    |> validate_inclusion(:tipo, @tipos)
     |> foreign_key_constraint(:pesquisador_cpf)
   end
 
@@ -44,7 +75,7 @@ defmodule Fuschia.Entities.Relatorio do
       %{
         ano: struct.ano,
         mes: struct.mes,
-        tipo_relatorio: struct.tipo_relatorio,
+        tipo: struct.tipo,
         link: struct.link,
         pesquisador_cpf: struct.pesquisador_cpf
       }

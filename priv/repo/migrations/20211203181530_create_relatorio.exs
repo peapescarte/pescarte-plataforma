@@ -3,8 +3,8 @@ defmodule Fuschia.Repo.Migrations.CreateRelatorio do
 
   def change do
     create table("relatorio", primary_key: false) do
-      add :ano, :string, null: false, primary_key: true
-      add :mes, :string, null: false
+      add :ano, :smallint, null: false, primary_key: true
+      add :mes, :smallint, null: false, primary_key: true
       add :tipo_relatorio, :string, null: false
       add :link, :string, null: false
 
@@ -17,6 +17,7 @@ defmodule Fuschia.Repo.Migrations.CreateRelatorio do
           )
     end
 
+    create unique_index(:relatorio, [:ano, :mes])
     create(index(:relatorio, [:pesquisador_cpf]))
   end
 end
