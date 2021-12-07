@@ -5,7 +5,7 @@ defmodule Fuschia.Repo.Migrations.CreateRelatorio do
     create table("relatorio", primary_key: false) do
       add :ano, :smallint, null: false, primary_key: true
       add :mes, :smallint, null: false, primary_key: true
-      add :tipo_relatorio, :string, null: false
+      add :tipo, :string, null: false
       add :link, :string, null: false
 
       add :pesquisador_cpf,

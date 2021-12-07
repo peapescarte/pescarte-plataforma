@@ -9,15 +9,15 @@ defmodule Fuschia.Entities.Relatorio do
   alias Fuschia.Entities.Pesquisador
   alias Fuschia.Types.TrimmedString
 
-  @required_fields ~w{
+  @required_fields ~w(
     ano
     mes
     tipo
     link
     pesquisador_cpf
-  }a
+  )a
 
-  @tipos ~w{mensal trimestral anual}a
+  @tipos ~w(mensal trimestral anual)
 
   @primary_key false
 
