@@ -16,6 +16,7 @@ defmodule Fuschia.Repo.Migrations.CreateMidia do
           )
     end
 
-    create(index(:midia, [:pesquisador_cpf]))
+    create unique_index(:midia, [:link])
+    create index(:midia, [:pesquisador_cpf])
   end
 end
