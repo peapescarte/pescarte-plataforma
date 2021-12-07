@@ -29,12 +29,14 @@ defmodule Fuschia.Entities.Nucleo do
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
-      %{
-        nome: struct.nome,
-        descricao: struct.descricao,
-        linhas_pesquisa: struct.linhas_pesquisa
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          nome: struct.nome,
+          descricao: struct.descricao,
+          linhas_pesquisa: struct.linhas_pesquisa
+        },
+        opts
+      )
     end
   end
 end

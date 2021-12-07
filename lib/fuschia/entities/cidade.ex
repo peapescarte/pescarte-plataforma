@@ -27,11 +27,13 @@ defmodule Fuschia.Entities.Cidade do
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
-      %{
-        municipio: struct.municipio,
-        campi: struct.campi
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          municipio: struct.municipio,
+          campi: struct.campi
+        },
+        opts
+      )
     end
   end
 end

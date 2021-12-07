@@ -165,15 +165,17 @@ defmodule Fuschia.Entities.User do
 
   defimpl Jason.Encoder, for: User do
     def encode(struct, opts) do
-      %{
-        nome_completo: struct.nome_completo,
-        perfil: struct.perfil,
-        ultimo_login: struct.last_seen,
-        confirmado: struct.confirmed,
-        ativo: struct.ativo,
-        data_nascimento: struct.data_nascimento
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          nome_completo: struct.nome_completo,
+          perfil: struct.perfil,
+          ultimo_login: struct.last_seen,
+          confirmado: struct.confirmed,
+          ativo: struct.ativo,
+          data_nascimento: struct.data_nascimento
+        },
+        opts
+      )
     end
   end
 end

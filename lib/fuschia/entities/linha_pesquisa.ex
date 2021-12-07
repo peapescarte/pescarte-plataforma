@@ -36,13 +36,15 @@ defmodule Fuschia.Entities.LinhaPesquisa do
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
-      %{
-        descricao_curta: struct.descricao_curta,
-        descricao_longa: struct.descricao_longa,
-        numero: struct.numero,
-        nucleo: struct.nucleo
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          descricao_curta: struct.descricao_curta,
+          descricao_longa: struct.descricao_longa,
+          numero: struct.numero,
+          nucleo: struct.nucleo
+        },
+        opts
+      )
     end
   end
 end

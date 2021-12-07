@@ -32,7 +32,9 @@ defmodule Fuschia.Application do
     ]
 
     start_oban? =
-      Application.get_env(:fuschia, :jobs)[:start]
+      :fuschia
+      |> Application.get_env(:jobs)
+      |> Keyword.get(:start)
       |> Fuschia.Parser.to_boolean()
 
     if start_oban? do

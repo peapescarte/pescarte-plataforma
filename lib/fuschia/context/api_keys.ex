@@ -10,14 +10,12 @@ defmodule Fuschia.Context.ApiKeys do
 
   @spec one :: %ApiKey{}
   def one do
-    query()
-    |> Repo.one()
+    Repo.one(query())
   end
 
   @spec one_by_key(String.t()) :: %ApiKey{} | nil
   def one_by_key(key) do
-    query()
-    |> Repo.get_by(key: key)
+    Repo.get_by(query(), key: key)
   end
 
   @spec query :: Ecto.Query.t()

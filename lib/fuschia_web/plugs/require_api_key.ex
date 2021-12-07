@@ -15,12 +15,12 @@ defmodule FuschiaWeb.RequireApiKeyPlug do
 
   def call(conn, _opts) do
     conn = fetch_query_params(conn)
-    api_key = conn.query_params["api_key"] || get_req_header(conn, "x-api-key") |> List.first()
+    api_key = conn.query_params["api_key"] || conn |> get_req_header("x-api-key") |> List.first()
 
     case api_key && ApiKeys.one_by_key(api_key) do
       nil ->
-        send_resp(
-          conn,
+        conn
+        |> send_resp(
           :unauthorized,
           gettext("You need a valid API Key to access this endpoint")
         )

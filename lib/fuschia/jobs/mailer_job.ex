@@ -24,8 +24,8 @@ defmodule Fuschia.Jobs.MailerJob do
   def perform(%{args: args}) do
     Logger.info("==> [MailerJob] Sending email...")
 
-    Mailer.new_email(
-      args["to"],
+    args["to"]
+    |> Mailer.new_email(
       args["subject"],
       args["layout"],
       args["template"],

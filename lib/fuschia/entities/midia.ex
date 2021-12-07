@@ -40,12 +40,14 @@ defmodule Fuschia.Entites.Midia do
 
   defimpl Jason.Encoder, for: __MODULE__ do
     def encode(struct, opts) do
-      %{
-        tipo: struct.tipo,
-        link: struct.link,
-        tags: struct.tags
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          tipo: struct.tipo,
+          link: struct.link,
+          tags: struct.tags
+        },
+        opts
+      )
     end
   end
 end
