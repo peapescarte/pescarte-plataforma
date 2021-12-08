@@ -5,6 +5,7 @@ defmodule Fuschia.PesquisadorFactory do
     quote do
       alias Fuschia.Entities.Pesquisador
 
+      @spec pesquisador_factory :: Pesquisador.t()
       def pesquisador_factory do
         campus = insert(:campus)
         usuario = build(:user)

@@ -5,6 +5,7 @@ defmodule Fuschia.NucleoFactory do
     quote do
       alias Fuschia.Entities.Nucleo
 
+      @spec nucleo_factory :: Nucleo.t()
       def nucleo_factory do
         %Nucleo{
           nome: sequence(:nome, &"Nucleo #{&1}"),

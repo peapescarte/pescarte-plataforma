@@ -7,6 +7,7 @@ defmodule FuschiaWeb.Auth.ErrorHandler do
 
   @behaviour Guardian.Plug.ErrorHandler
 
+  @spec auth_error(Plug.Conn.t(), {any, any}, map) :: Plug.Conn.t()
   def auth_error(conn, {type, _reason}, _opts) do
     body = Jason.encode!(%{message: to_string(type)})
 

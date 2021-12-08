@@ -22,6 +22,7 @@ defmodule Fuschia.Entities.AuthLog do
     timestamps(updated_at: false)
   end
 
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields)

@@ -9,10 +9,10 @@ defmodule FuschiaWeb.RequireApiKeyPlug do
 
   alias Fuschia.Context.ApiKeys
 
-  def init(options) do
-    options
-  end
+  @spec init(map) :: map
+  def init(options), do: options
 
+  @spec call(Plug.Conn.t(), map) :: Plug.Conn.t()
   def call(conn, _opts) do
     conn = fetch_query_params(conn)
     api_key = conn.query_params["api_key"] || conn |> get_req_header("x-api-key") |> List.first()

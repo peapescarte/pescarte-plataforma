@@ -5,6 +5,7 @@ defmodule Fuschia.LinhaPesquisaFactory do
     quote do
       alias Fuschia.Entities.LinhaPesquisa
 
+      @spec linha_pesquisa_factory :: LinhaPesquisa.t()
       def linha_pesquisa_factory do
         nucleo = insert(:nucleo)
 

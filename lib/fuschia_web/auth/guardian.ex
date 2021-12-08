@@ -8,6 +8,7 @@ defmodule FuschiaWeb.Auth.Guardian do
   alias Fuschia.Context.Users
   alias Fuschia.Entities.User
 
+  @spec subject_for_token(User.t(), map) :: {:ok, String.t()}
   def subject_for_token(user, _claims) do
     sub = to_string(user.cpf)
 
@@ -24,6 +25,7 @@ defmodule FuschiaWeb.Auth.Guardian do
     {:ok, user}
   end
 
+  @spec authenticate(map) :: {:ok, String.t()} | {:error, :unauthorized}
   def authenticate(%{"cpf" => cpf, "password" => password}) do
     case Users.one_by_cpf(cpf) do
       nil -> {:error, :unauthorized}
@@ -31,6 +33,7 @@ defmodule FuschiaWeb.Auth.Guardian do
     end
   end
 
+  @spec user_claims(map) :: {:ok, User.t()} | {:error, :unauthorized}
   def user_claims(%{"cpf" => cpf}) do
     case Users.one_with_permissions(cpf) do
       nil -> {:error, :unauthorized}
@@ -38,12 +41,14 @@ defmodule FuschiaWeb.Auth.Guardian do
     end
   end
 
+  @spec create_token(User.t()) :: {:ok, String.t()}
   def create_token(user) do
     {:ok, token, _claims} = encode_and_sign(user)
 
     {:ok, token}
   end
 
+  @spec validate_password(User.t(), String.t()) :: {:ok, String.t()} | {:error, :unauthorized}
   defp validate_password(_user, ""), do: {:error, :unauthorized}
 
   defp validate_password(user, password) when is_binary(password) do

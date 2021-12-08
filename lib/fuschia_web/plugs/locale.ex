@@ -7,8 +7,10 @@ defmodule FuschiaWeb.LocalePlug do
 
   @default_locale "en"
 
+  @spec init(map) :: map
   def init(default), do: default
 
+  @spec call(Plug.Conn.t(), map) :: map
   def call(conn, _opts) do
     req_locale =
       conn

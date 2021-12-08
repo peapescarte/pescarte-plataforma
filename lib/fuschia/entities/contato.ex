@@ -22,6 +22,7 @@ defmodule Fuschia.Entities.Contato do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(contato, attrs) do
     contato
     |> cast(attrs, @required_fields)
@@ -35,6 +36,7 @@ defmodule Fuschia.Entities.Contato do
 
   It requires the email to change otherwise an error is added.
   """
+  @spec email_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def email_changeset(contact, attrs) do
     contact
     |> cast(attrs, [:email])
@@ -45,6 +47,7 @@ defmodule Fuschia.Entities.Contato do
     end
   end
 
+  @spec validate_email(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   defp validate_email(changeset) do
     changeset
     |> validate_length(:email, max: 160)
@@ -52,6 +55,7 @@ defmodule Fuschia.Entities.Contato do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
+    @spec encode(%Fuschia.Entities.Contato{}, map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{

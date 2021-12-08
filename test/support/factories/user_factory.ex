@@ -5,6 +5,7 @@ defmodule Fuschia.UserFactory do
     quote do
       alias Fuschia.Entities.User
 
+      @spec user_factory :: User.t()
       def user_factory do
         %User{
           perfil: sequence(:perfil, ["avulso", "pesquisador"]),
