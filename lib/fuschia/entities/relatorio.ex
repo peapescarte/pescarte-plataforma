@@ -36,6 +36,17 @@ defmodule Fuschia.Entities.Relatorio do
     timestamps()
   end
 
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
+  def changeset(%__MODULE__{} = struct, attrs) do
+    struct
+    |> cast(attrs, @required_fields)
+    |> validate_required(@required_fields)
+    |> validate_month(:mes)
+    |> validate_year(:ano)
+    |> validate_inclusion(:tipo, @tipos)
+    |> foreign_key_constraint(:pesquisador_cpf)
+  end
+
   defp validate_month(changeset, field) do
     month = 1..12
 
@@ -60,26 +71,19 @@ defmodule Fuschia.Entities.Relatorio do
     end
   end
 
-  def changeset(%__MODULE__{} = struct, attrs) do
-    struct
-    |> cast(attrs, @required_fields)
-    |> validate_required(@required_fields)
-    |> validate_month(:mes)
-    |> validate_year(:ano)
-    |> validate_inclusion(:tipo, @tipos)
-    |> foreign_key_constraint(:pesquisador_cpf)
-  end
-
   defimpl Jason.Encoder, for: __MODULE__ do
+    @spec encode(Fuschia.Entities.Relatorio.t(), map) :: map
     def encode(struct, opts) do
-      %{
-        ano: struct.ano,
-        mes: struct.mes,
-        tipo: struct.tipo,
-        link: struct.link,
-        pesquisador_cpf: struct.pesquisador_cpf
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          ano: struct.ano,
+          mes: struct.mes,
+          tipo: struct.tipo,
+          link: struct.link,
+          pesquisador_cpf: struct.pesquisador_cpf
+        },
+        opts
+      )
     end
   end
 end
