@@ -7,6 +7,8 @@ defmodule Fuschia.Context.UserTokens do
 
   alias Fuschia.Entities.UserToken
 
+  @type user :: %Fuschia.Entities.User{}
+
   @hash_algorithm :sha256
 
   # It is very important to keep the reset password token expiry short,
@@ -20,6 +22,7 @@ defmodule Fuschia.Context.UserTokens do
 
   The query returns the user found by the token.
   """
+  @spec verify_email_token_query(String.t(), String.t()) :: {:ok, Ecto.Query.t()} | :error
   def verify_email_token_query(token, context) do
     case Base.url_decode64(token, padding: false) do
       {:ok, decoded_token} ->
@@ -48,6 +51,7 @@ defmodule Fuschia.Context.UserTokens do
 
   The query returns the user token record.
   """
+  @spec verify_change_email_token_query(String.t(), String.t()) :: {:ok, Ecto.Query.t()} | :error
   def verify_change_email_token_query(token, context) do
     case Base.url_decode64(token, padding: false) do
       {:ok, decoded_token} ->
@@ -67,6 +71,7 @@ defmodule Fuschia.Context.UserTokens do
   @doc """
   Returns the given token with the given context.
   """
+  @spec token_and_context_query(String.t(), String.t()) :: Ecto.Query.t()
   def token_and_context_query(token, context) do
     from UserToken, where: [token: ^token, context: ^context]
   end
@@ -74,6 +79,7 @@ defmodule Fuschia.Context.UserTokens do
   @doc """
   Gets all tokens for the given user for the given contexts.
   """
+  @spec user_and_contexts_query(user, list | :all) :: Ecto.Query.t()
   def user_and_contexts_query(user, :all) do
     from t in UserToken, where: t.user_cpf == ^user.cpf
   end

@@ -7,6 +7,7 @@ defmodule FuschiaWeb.RemoteIp do
   @doc """
   Get client real IP looking up for main known proxy headers
   """
+  @spec get(Plug.Conn.t()) :: String.t()
   def get(conn) do
     cf_connecting_ip = List.first(Plug.Conn.get_req_header(conn, "cf-connecting-ip"))
     forwarded_for = List.first(Plug.Conn.get_req_header(conn, "x-forwarded-for"))
@@ -21,7 +22,7 @@ defmodule FuschiaWeb.RemoteIp do
         |> String.split(",")
         |> Enum.map(&String.trim/1)
         |> List.first()
-        |> clean_ip
+        |> clean_ip()
 
       # IPv6 addresses are enclosed in quote marks and square brackets: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Forwarded
       forwarded ->
@@ -29,7 +30,7 @@ defmodule FuschiaWeb.RemoteIp do
         |> Regex.named_captures(forwarded)
         |> Map.get("for")
         |> String.trim("\"")
-        |> clean_ip
+        |> clean_ip()
 
       true ->
         to_string(:inet_parse.ntoa(conn.remote_ip))
