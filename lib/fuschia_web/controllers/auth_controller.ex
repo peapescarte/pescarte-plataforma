@@ -19,7 +19,8 @@ defmodule FuschiaWeb.AuthController do
   @doc """
   Parse headers before handling the route
   """
-  def action(conn, _) do
+  @spec action(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def action(conn, _params) do
     ip = RemoteIp.get(conn)
     user_agent = UserAgent.get(conn)
     args = [conn, ip, user_agent, conn.params]
@@ -40,6 +41,7 @@ defmodule FuschiaWeb.AuthController do
       ] ++ Response.errors(:unauthorized)
   )
 
+  @spec login(Plug.Conn.t(), String.t(), String.t(), map) :: Plug.Conn.t()
   def login(conn, ip, user_agent, params) do
     with {:ok, token} <- Guardian.authenticate(params),
          {:ok, user} <- Guardian.user_claims(params),
@@ -60,6 +62,7 @@ defmodule FuschiaWeb.AuthController do
       ] ++ Response.errors(:unauthorized)
   )
 
+  @spec signup(Plug.Conn.t(), String.t(), String.t(), map) :: Plug.Conn.t()
   def signup(conn, _ip, _user_agent, params) do
     with {:ok, user} <- Users.register(params) do
       render_response(user, conn, :created)

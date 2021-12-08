@@ -5,6 +5,7 @@ defmodule Fuschia.Release do
 
   @app :fuschia
 
+  @spec migrate :: keyword
   def migrate do
     load_app()
 
@@ -13,6 +14,7 @@ defmodule Fuschia.Release do
     end
   end
 
+  @spec rollback(atom, String.t()) :: {:ok, any, list(atom)}
   def rollback(repo, version) do
     load_app()
     {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :down, to: version))

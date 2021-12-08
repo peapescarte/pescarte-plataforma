@@ -53,6 +53,7 @@ defmodule Fuschia.Entities.Pesquisador do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -64,6 +65,7 @@ defmodule Fuschia.Entities.Pesquisador do
     |> foreign_key_constraint(:campus_nome)
   end
 
+  @spec update_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def update_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -76,18 +78,21 @@ defmodule Fuschia.Entities.Pesquisador do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
+    @spec encode(%Fuschia.Entities.Pesquisador{}, map) :: map
     def encode(struct, opts) do
-      %{
-        cpf: struct.cpf,
-        minibiografia: struct.minibibliografia,
-        tipo_bolsa: struct.tipo_bolsa,
-        link_lattes: struct.link_lattes,
-        orientador: struct.orientador,
-        campus: struct.campus,
-        usuario: struct.usuario,
-        orientandos: struct.orientandos
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          cpf: struct.cpf,
+          minibiografia: struct.minibibliografia,
+          tipo_bolsa: struct.tipo_bolsa,
+          link_lattes: struct.link_lattes,
+          orientador: struct.orientador,
+          campus: struct.campus,
+          usuario: struct.usuario,
+          orientandos: struct.orientandos
+        },
+        opts
+      )
     end
   end
 end

@@ -8,7 +8,7 @@ defmodule FuschiaWeb.Swagger.ApiSpec do
 
   @impl OpenApi
   def spec do
-    %OpenApi{
+    OpenApiSpex.resolve_schema_modules(%OpenApi{
       components: %Components{
         securitySchemes: %{
           "api_key_header" => %SecurityScheme{
@@ -35,7 +35,6 @@ defmodule FuschiaWeb.Swagger.ApiSpec do
         version: "0.0.1"
       },
       paths: Paths.from_router(Router)
-    }
-    |> OpenApiSpex.resolve_schema_modules()
+    })
   end
 end

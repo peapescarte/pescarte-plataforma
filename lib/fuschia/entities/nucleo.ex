@@ -20,6 +20,7 @@ defmodule Fuschia.Entities.Nucleo do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields)
@@ -28,13 +29,16 @@ defmodule Fuschia.Entities.Nucleo do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
+    @spec encode(%Fuschia.Entities.Nucleo{}, map) :: map
     def encode(struct, opts) do
-      %{
-        nome: struct.nome,
-        descricao: struct.descricao,
-        linhas_pesquisa: struct.linhas_pesquisa
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          nome: struct.nome,
+          descricao: struct.descricao,
+          linhas_pesquisa: struct.linhas_pesquisa
+        },
+        opts
+      )
     end
   end
 end

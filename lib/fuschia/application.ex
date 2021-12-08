@@ -5,6 +5,7 @@ defmodule Fuschia.Application do
 
   use Application
 
+  @spec start(any, list) :: {:ok, pid} | {:error, any}
   def start(_type, _args) do
     opts = [strategy: :one_for_one, name: Fuschia.Supervisor]
 
@@ -13,6 +14,7 @@ defmodule Fuschia.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @spec config_change(keyword, keyword, keyword) :: :ok
   def config_change(changed, _new, removed) do
     FuschiaWeb.Endpoint.config_change(changed, removed)
     :ok
@@ -32,11 +34,13 @@ defmodule Fuschia.Application do
     ]
 
     start_oban? =
-      Application.get_env(:fuschia, :jobs)[:start]
+      :fuschia
+      |> Application.get_env(:jobs)
+      |> Keyword.get(:start)
       |> Fuschia.Parser.to_boolean()
 
     if start_oban? do
-      base_children ++ [{Oban, Application.get_env(:fuschia, Oban)}]
+      [{Oban, Application.get_env(:fuschia, Oban)} | base_children]
     else
       base_children
     end

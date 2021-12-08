@@ -18,6 +18,7 @@ defmodule Fuschia.Entities.Cidade do
     timestamps()
   end
 
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields)
@@ -26,12 +27,15 @@ defmodule Fuschia.Entities.Cidade do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
+    @spec encode(%Fuschia.Entities.Cidade{}, map) :: map
     def encode(struct, opts) do
-      %{
-        municipio: struct.municipio,
-        campi: struct.campi
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          municipio: struct.municipio,
+          campi: struct.campi
+        },
+        opts
+      )
     end
   end
 end

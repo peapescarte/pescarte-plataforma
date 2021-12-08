@@ -24,6 +24,7 @@ defmodule Fuschia.Entities.Campus do
     timestamps()
   end
 
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields)
@@ -32,6 +33,7 @@ defmodule Fuschia.Entities.Campus do
     |> cast_assoc(:cidade, required: true)
   end
 
+  @spec foreign_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def foreign_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, [:cidade_municipio | @required_fields])
@@ -41,13 +43,16 @@ defmodule Fuschia.Entities.Campus do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
+    @spec encode(%Fuschia.Entities.Campus{}, map) :: map
     def encode(struct, opts) do
-      %{
-        nome: struct.nome,
-        cidade: struct.cidade,
-        pesquisadores: struct.pesquisadores
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          nome: struct.nome,
+          cidade: struct.cidade,
+          pesquisadores: struct.pesquisadores
+        },
+        opts
+      )
     end
   end
 end

@@ -25,6 +25,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -35,14 +36,17 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
+    @spec encode(%Fuschia.Entities.LinhaPesquisa{}, map) :: map
     def encode(struct, opts) do
-      %{
-        descricao_curta: struct.descricao_curta,
-        descricao_longa: struct.descricao_longa,
-        numero: struct.numero,
-        nucleo: struct.nucleo
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          descricao_curta: struct.descricao_curta,
+          descricao_longa: struct.descricao_longa,
+          numero: struct.numero,
+          nucleo: struct.nucleo
+        },
+        opts
+      )
     end
   end
 end

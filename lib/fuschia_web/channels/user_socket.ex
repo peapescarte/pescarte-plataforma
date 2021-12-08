@@ -15,7 +15,7 @@ defmodule FuschiaWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  @impl true
+  @impl Phoenix.Socket
   def connect(_params, socket, _connect_info) do
     {:ok, socket}
   end
@@ -30,6 +30,6 @@ defmodule FuschiaWeb.UserSocket do
   #     FuschiaWeb.Endpoint.broadcast("user_socket:#{user.cpf}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  @impl true
+  @impl Phoenix.Socket
   def id(_socket), do: nil
 end

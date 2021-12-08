@@ -40,6 +40,7 @@ defmodule Fuschia.Entities.User do
     timestamps()
   end
 
+  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -52,6 +53,7 @@ defmodule Fuschia.Entities.User do
     |> foreign_key_constraint(:cpf, name: :pesquisador_usuario_cpf_fkey)
   end
 
+  @spec update_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def update_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -65,6 +67,7 @@ defmodule Fuschia.Entities.User do
   @doc """
   Changeset for user signup
   """
+  @spec registration_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def registration_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> changeset(attrs)
@@ -78,6 +81,7 @@ defmodule Fuschia.Entities.User do
   @doc """
   Changeset for users created on admin
   """
+  @spec admin_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def admin_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> changeset(attrs)
@@ -87,6 +91,7 @@ defmodule Fuschia.Entities.User do
   @doc """
   A user changeset for changing the password.
   """
+  @spec password_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def password_changeset(user, attrs) do
     user
     |> cast(attrs, [:password])
@@ -98,10 +103,12 @@ defmodule Fuschia.Entities.User do
   @doc """
   Confirms the account by setting `confirmed`.
   """
+  @spec confirm_changeset(%__MODULE__{}) :: Ecto.Changeset.t()
   def confirm_changeset(user) do
     change(user, confirmed: true)
   end
 
+  @spec for_jwt(%__MODULE__{}) :: map
   def for_jwt(%__MODULE__{} = struct) do
     %{
       email: struct.contato.email,
@@ -121,12 +128,13 @@ defmodule Fuschia.Entities.User do
   If there is no usuario or the usuario doesn't have a password, we call
   `Bcrypt.no_user_verify/0` to avoid timing attacks.
   """
+  @spec valid_password?(%__MODULE__{}, String.t()) :: bool
   def valid_password?(%User{password_hash: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
   end
 
-  def valid_password?(_, _) do
+  def valid_password?(_invalid_hash, _invalid_password) do
     Bcrypt.no_user_verify()
     false
   end
@@ -134,6 +142,7 @@ defmodule Fuschia.Entities.User do
   @doc """
   Validates the current password otherwise adds an error to the changeset.
   """
+  @spec validate_current_password(Ecto.Changeset.t(), String.t()) :: Ecto.Changeset.t()
   def validate_current_password(changeset, password) do
     if valid_password?(changeset.data, password) do
       changeset
@@ -158,22 +167,25 @@ defmodule Fuschia.Entities.User do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         put_change(changeset, :password_hash, Bcrypt.hash_pwd_salt(password))
 
-      _ ->
+      _no_password ->
         changeset
     end
   end
 
   defimpl Jason.Encoder, for: User do
+    @spec encode(%Fuschia.Entities.User{}, map) :: map
     def encode(struct, opts) do
-      %{
-        nome_completo: struct.nome_completo,
-        perfil: struct.perfil,
-        ultimo_login: struct.last_seen,
-        confirmado: struct.confirmed,
-        ativo: struct.ativo,
-        data_nascimento: struct.data_nascimento
-      }
-      |> Fuschia.Encoder.encode(opts)
+      Fuschia.Encoder.encode(
+        %{
+          nome_completo: struct.nome_completo,
+          perfil: struct.perfil,
+          ultimo_login: struct.last_seen,
+          confirmado: struct.confirmed,
+          ativo: struct.ativo,
+          data_nascimento: struct.data_nascimento
+        },
+        opts
+      )
     end
   end
 end
