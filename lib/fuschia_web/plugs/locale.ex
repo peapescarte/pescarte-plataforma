@@ -7,11 +7,14 @@ defmodule FuschiaWeb.LocalePlug do
 
   @default_locale "en"
 
+  @spec init(map) :: map
   def init(default), do: default
 
+  @spec call(Plug.Conn.t(), map) :: map
   def call(conn, _opts) do
     req_locale =
-      get_req_header(conn, "accept-language")
+      conn
+      |> get_req_header("accept-language")
       |> List.first()
 
     locale = req_locale || @default_locale

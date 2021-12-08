@@ -1,6 +1,7 @@
 defmodule FuschiaWeb.ErrorView do
   use FuschiaWeb, :view
 
+  @spec translate_errors(Ecto.Changeset.t()) :: list(map)
   def translate_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
   end
@@ -8,6 +9,7 @@ defmodule FuschiaWeb.ErrorView do
   @doc """
   Error for template not found
   """
+  @spec template_not_found(String.t(), map) :: map
   def template_not_found(template, _assigns) do
     %{
       error: %{
@@ -19,6 +21,7 @@ defmodule FuschiaWeb.ErrorView do
   @doc """
   Error for Ecto Changeset validation
   """
+  @spec render(String.t(), map) :: map
   def render("error.json", %{changeset: %Ecto.Changeset{} = changeset}) do
     %{
       error: %{

@@ -7,6 +7,7 @@ defmodule FuschiaWeb.FallbackController do
 
   alias FuschiaWeb.ErrorView
 
+  @spec call(Plug.Conn.t(), {:error, any} | Ecto.Changeset.t()) :: map
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)

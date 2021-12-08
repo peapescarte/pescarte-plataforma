@@ -5,6 +5,7 @@ defmodule Fuschia.CampusFactory do
     quote do
       alias Fuschia.Entities.Campus
 
+      @spec campus_factory :: Campus.t()
       def campus_factory do
         cidade = insert(:cidade)
 

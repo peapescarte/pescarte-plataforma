@@ -83,8 +83,7 @@ defmodule Fuschia.Parser do
   """
   @spec map_to_keyword(map) :: keyword
   def map_to_keyword(map) when is_map(map) do
-    map
-    |> Enum.map(fn {k, v} ->
+    Enum.map(map, fn {k, v} ->
       k = apply_if(k, is_binary(k), &String.to_existing_atom/1)
       {k, v}
     end)
@@ -135,7 +134,7 @@ defmodule Fuschia.Parser do
   """
   @spec reject_empty(map) :: map
   def reject_empty(map) when is_map(map) do
-    :maps.filter(fn _, v -> !is_nil(v) end, map)
+    :maps.filter(fn _key, v -> !is_nil(v) end, map)
   end
 
   ####         ####
@@ -145,7 +144,7 @@ defmodule Fuschia.Parser do
   @spec to_boolean(String.t()) :: boolean | nil
   def to_boolean("true"), do: true
   def to_boolean("false"), do: false
-  def to_boolean(_), do: nil
+  def to_boolean(_invalid), do: nil
 
   # Only execute a function if the condition is truthy
   # otherwise returns the same value

@@ -15,6 +15,8 @@ defmodule Fuschia.Schema do
     end
   end
 
+  defguardp is_valid_fk?(fk) when is_integer(fk) or is_binary(fk)
+
   @doc """
   Validates foreign keys using the respective `context` and `field_name`.
 
@@ -31,7 +33,7 @@ defmodule Fuschia.Schema do
   """
   @spec validate_foreign_key(Ecto.Changeset.t(), module, atom) :: Ecto.Changeset.t()
   def validate_foreign_key(changeset, context, field_name) do
-    with field_id when not is_nil(field_id) <- Ecto.Changeset.get_field(changeset, field_name),
+    with field_id when is_valid_fk?(field_id) <- Ecto.Changeset.get_field(changeset, field_name),
          nil <- context.one(field_id) do
       Ecto.Changeset.add_error(
         changeset,
@@ -39,7 +41,7 @@ defmodule Fuschia.Schema do
         dgettext("errors", "does not exist")
       )
     else
-      _ ->
+      _err ->
         changeset
     end
   end

@@ -42,7 +42,8 @@ defmodule Fuschia.Entities.UserTest do
       contato = params_for(:contato)
 
       default_params =
-        params_for(:user)
+        :user
+        |> params_for()
         |> Map.put(:contato, contato)
         |> Map.put(:perfil, "admin")
 
@@ -68,7 +69,8 @@ defmodule Fuschia.Entities.UserTest do
       contato = params_for(:contato)
 
       default_params =
-        params_for(:user)
+        :user
+        |> params_for()
         |> Map.put(:contato, contato)
         |> Map.merge(%{password: "minhaSenha123", password_confirmation: "minhaSenha123"})
 

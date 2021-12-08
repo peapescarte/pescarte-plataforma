@@ -22,6 +22,7 @@ defmodule FuschiaWeb do
 
   alias FuschiaWeb.FuschiaView
 
+  @spec controller :: Macro.t()
   def controller do
     quote do
       use Phoenix.Controller, namespace: FuschiaWeb
@@ -33,6 +34,7 @@ defmodule FuschiaWeb do
     end
   end
 
+  @spec view :: Macro.t()
   def view do
     quote do
       use Phoenix.View,
@@ -48,6 +50,7 @@ defmodule FuschiaWeb do
     end
   end
 
+  @spec router :: Macro.t()
   def router do
     quote do
       use Phoenix.Router
@@ -57,6 +60,7 @@ defmodule FuschiaWeb do
     end
   end
 
+  @spec channel :: Macro.t()
   def channel do
     quote do
       use Phoenix.Channel

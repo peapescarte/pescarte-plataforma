@@ -1,6 +1,7 @@
 defmodule FuschiaWeb.FuschiaView do
   use FuschiaWeb, :view
 
+  @spec render(String.t(), map) :: map
   def render("response.json", %{data: data}) do
     %{
       data: data

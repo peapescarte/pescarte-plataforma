@@ -5,6 +5,7 @@ defmodule Fuschia.ContatoFactory do
     quote do
       alias Fuschia.Entities.Contato
 
+      @spec contato_factory :: Contato.t()
       def contato_factory do
         %Contato{
           email: sequence(:email, &"test-#{&1}@example.com"),

@@ -46,8 +46,18 @@ defmodule Fuschia.Context.Pesquisadores do
   def update(usuario_cpf, attrs) do
     attrs
     |> Parser.stringfy_map()
+    |> Map.put_new("usuario", nil)
     |> case do
-      %{"usuario" => usuario_attrs} = attrs when not is_nil(usuario_attrs) ->
+      %{"usuario" => nil} ->
+        with %Pesquisador{} = pesquisador <- one(usuario_cpf),
+             {:ok, updated} <-
+               pesquisador
+               |> Pesquisador.changeset(attrs)
+               |> Repo.update() do
+          {:ok, preload_all(updated)}
+        end
+
+      %{"usuario" => usuario_attrs} ->
         with %User{} = _user <- Users.one(usuario_cpf),
              %Ecto.Changeset{valid?: true} = usuario_changeset <-
                User.changeset(%User{}, usuario_attrs),
@@ -57,15 +67,6 @@ defmodule Fuschia.Context.Pesquisadores do
                |> then(&Pesquisador.update_changeset(%Pesquisador{}, &1))
                |> Repo.insert(on_conflict: :nothing) do
           {:ok, preload_all(pesquisador)}
-        end
-
-      _ ->
-        with %Pesquisador{} = pesquisador <- one(usuario_cpf),
-             {:ok, updated} <-
-               pesquisador
-               |> Pesquisador.changeset(attrs)
-               |> Repo.update() do
-          {:ok, preload_all(updated)}
         end
     end
   end
@@ -87,8 +88,8 @@ defmodule Fuschia.Context.Pesquisadores do
 
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
-    query
-    |> Ecto.Query.preload(
+    Ecto.Query.preload(
+      query,
       orientador: [usuario: :contato],
       orientandos: [usuario: :contato],
       usuario: :contato,
@@ -98,8 +99,8 @@ defmodule Fuschia.Context.Pesquisadores do
 
   @spec preload_all(%Pesquisador{}) :: %Pesquisador{}
   def preload_all(%Pesquisador{} = pesquisador) do
-    pesquisador
-    |> Repo.preload(
+    Repo.preload(
+      pesquisador,
       orientador: [usuario: :contato],
       orientandos: [usuario: :contato],
       usuario: :contato,

@@ -149,7 +149,7 @@ defmodule Fuschia.Context.Users do
          {:ok, %{user: user}} <- Repo.transaction(confirm_multi(user)) do
       {:ok, user}
     else
-      _ -> :error
+      _err -> :error
     end
   end
 
@@ -168,7 +168,7 @@ defmodule Fuschia.Context.Users do
          {:ok, _} <- Repo.transaction(email_multi(user, email, context)) do
       :ok
     else
-      _ -> :error
+      _err -> :error
     end
   end
 
@@ -219,14 +219,12 @@ defmodule Fuschia.Context.Users do
 
   @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
   def preload_all(%Ecto.Query{} = query) do
-    query
-    |> Ecto.Query.preload([:contato])
+    Ecto.Query.preload(query, [:contato])
   end
 
   @spec preload_all(%User{}) :: %User{}
   def preload_all(%User{} = user) do
-    user
-    |> Repo.preload([:contato])
+    Repo.preload(user, [:contato])
   end
 
   defp put_is_admin(%User{perfil: "admin"} = user) do
