@@ -38,7 +38,7 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
     end
 
     test "when id is invalid, returns nil" do
-      assert LinhasPesquisas.query() |> Db.one(0) |> is_nil()
+      assert LinhasPesquisas.query() |> Db.get(0) |> is_nil()
     end
   end
 

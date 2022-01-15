@@ -28,18 +28,18 @@ defmodule Fuschia.Db do
     |> Repo.get(id)
   end
 
+  @spec get_by(query, keyword, relationships) :: struct | nil
+  def get_by(%Ecto.Query{} = query, attrs, args \\ []) do
+    query
+    |> preload_all(args)
+    |> Repo.get_by(attrs)
+  end
+
   @spec one(query, relationships) :: struct | nil
   def one(%Ecto.Query{} = query, args \\ []) do
     query
     |> preload_all(args)
     |> Repo.one()
-  end
-
-  @spec one_by(query, keyword, relationships) :: struct | nil
-  def one_by(%Ecto.Query{} = query, attrs, args \\ []) do
-    query
-    |> preload_all(args)
-    |> Repo.get_by(attrs)
   end
 
   @spec exists?(query) :: boolean
@@ -71,6 +71,13 @@ defmodule Fuschia.Db do
       |> change_func.(attrs)
       |> Repo.update()
     end
+  end
+
+  @spec update_struct(struct, map) :: {:ok, struct} | {:error, changeset}
+  def update_struct(%mod{} = struct, attrs) do
+    struct
+    |> mod.changeset(attrs)
+    |> Repo.update()
   end
 
   @spec preload_all(query, relationships) :: query
