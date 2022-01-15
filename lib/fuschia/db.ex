@@ -12,6 +12,7 @@ defmodule Fuschia.Db do
   @type query :: Ecto.Query.t()
   @type changeset :: Ecto.Changeset.t()
   @type relationships :: keyword
+  @type change_func :: (struct, map -> changeset)
 
   @spec list(query, relationships) :: [struct]
   def list(%Ecto.Query{} = query, args \\ []) do
@@ -20,11 +21,30 @@ defmodule Fuschia.Db do
     |> Repo.all()
   end
 
-  @spec one(query, id, relationships) :: struct | nil
-  def one(%Ecto.Query{} = query, id, args \\ []) do
+  @spec get(query, id, relationships) :: struct | nil
+  def get(%Ecto.Query{} = query, id, args \\ []) do
     query
     |> preload_all(args)
     |> Repo.get(id)
+  end
+
+  @spec one(query, relationships) :: struct | nil
+  def one(%Ecto.Query{} = query, args \\ []) do
+    query
+    |> preload_all(args)
+    |> Repo.one()
+  end
+
+  @spec one_by(query, keyword, relationships) :: struct | nil
+  def one_by(%Ecto.Query{} = query, attrs, args \\ []) do
+    query
+    |> preload_all(args)
+    |> Repo.get_by(attrs)
+  end
+
+  @spec exists?(query) :: boolean
+  def exists?(%Ecto.Query{} = query) do
+    Repo.exists?(query)
   end
 
   @spec create(module, map) :: {:ok, struct} | {:error, changeset}
@@ -32,6 +52,15 @@ defmodule Fuschia.Db do
     schema
     |> Kernel.struct()
     |> schema.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @spec create_with_custom_changeset(module, change_func, map) ::
+          {:ok, struct} | {:error, changeset}
+  def create_with_custom_changeset(schema, change_func, attrs) do
+    schema
+    |> Kernel.struct()
+    |> change_func.(attrs)
     |> Repo.insert()
   end
 
