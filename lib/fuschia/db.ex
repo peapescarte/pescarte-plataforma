@@ -64,19 +64,11 @@ defmodule Fuschia.Db do
     |> Repo.insert()
   end
 
-  @spec update(module, map) :: {:ok, struct} | {:error, changeset}
-  def update(schema, attrs) do
-    schema
-    |> Kernel.struct()
-    |> schema.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @spec update_by_id(module, id, map) :: {:ok, struct} | {:error, changeset}
-  def update_by_id(schema, id, attrs) do
-    with %{} = current <- one(schema, id) do
+  @spec update(query, change_func, id, map, relationships) :: {:ok, struct} | {:error, changeset}
+  def update(%Ecto.Query{} = query, change_func, id, attrs, args \\ []) do
+    with %{} = current <- get(query, id, args) do
       current
-      |> schema.changeset(attrs)
+      |> change_func.(attrs)
       |> Repo.update()
     end
   end

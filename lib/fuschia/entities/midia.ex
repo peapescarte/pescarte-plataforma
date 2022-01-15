@@ -1,4 +1,4 @@
-defmodule Fuschia.Entites.Midia do
+defmodule Fuschia.Entities.Midia do
   @moduledoc """
   Midia Schema
   """
@@ -15,6 +15,8 @@ defmodule Fuschia.Entites.Midia do
    tags
    pesquisador_cpf
   )a
+
+  @tipos_midia ~w(video imagem documento)
 
   @primary_key {:link, TrimmedString, autogenerate: false}
   schema "midia" do
@@ -36,11 +38,12 @@ defmodule Fuschia.Entites.Midia do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:link)
+    |> validate_inclusion(:tipo, @tipos_midia)
     |> foreign_key_constraint(:pesquisador_cpf)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(%Fuschia.Entites.Midia{}, map) :: map
+    @spec encode(%Fuschia.Entities.Midia{}, map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{

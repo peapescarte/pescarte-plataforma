@@ -1,34 +1,33 @@
-defmodule Fuschia.Context.NucleosTest do
+defmodule Fuschia.Queries.NucleosTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Context.Nucleos
+  alias Fuschia.Db
   alias Fuschia.Entities.Nucleo
+  alias Fuschia.Queries.Nucleos
 
   describe "list/0" do
     test "return all nucleos in database" do
-      nucleo =
-        :nucleo
-        |> insert()
-        |> Nucleos.preload_all()
+      insert(:nucleo)
 
-      assert [nucleo] == Nucleos.list()
+      nucleo = Db.one(Nucleos.query())
+
+      assert [nucleo] == Db.list(Nucleos.query())
     end
   end
 
   describe "one/1" do
     test "when nome is valid, returns a nucleo" do
-      nucleo =
-        :nucleo
-        |> insert()
-        |> Nucleos.preload_all()
+      insert(:nucleo)
 
-      assert nucleo == Nucleos.one(nucleo.nome)
+      nucleo = Db.one(Nucleos.query())
+
+      assert nucleo == Db.get(Nucleos.query(), nucleo.nome)
     end
 
     test "when id is invalid, returns nil" do
-      assert is_nil(Nucleos.one(""))
+      assert Nucleos.query() |> Db.get("") |> is_nil()
     end
   end
 
@@ -39,12 +38,13 @@ defmodule Fuschia.Context.NucleosTest do
     }
 
     test "when all params are valid, creates an admin nucleo" do
-      attrs = params_for(:nucleo)
-      assert {:ok, %Nucleo{}} = Nucleos.create(attrs)
+      valid_attrs = params_for(:nucleo)
+
+      assert {:ok, %Nucleo{}} = Db.create(Nucleo, valid_attrs)
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Nucleos.create(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Db.create(Nucleo, @invalid_attrs)
     end
   end
 
@@ -61,9 +61,11 @@ defmodule Fuschia.Context.NucleosTest do
 
     test "when all params are valid, updates a nucleo" do
       attrs = params_for(:nucleo)
-      assert {:ok, nucleo} = Nucleos.create(attrs)
 
-      assert {:ok, updated_nucleo} = Nucleos.update(nucleo.nome, @update_attrs)
+      assert {:ok, nucleo} = Db.create(Nucleo, attrs)
+
+      assert {:ok, updated_nucleo} =
+               Db.update(Nucleos.query(), &Nucleo.changeset/2, nucleo.nome, @update_attrs)
 
       assert updated_nucleo.nome == @update_attrs.nome
       assert updated_nucleo.descricao == @update_attrs.descricao
@@ -71,9 +73,11 @@ defmodule Fuschia.Context.NucleosTest do
 
     test "when params are invalid, returns an error changeset" do
       attrs = params_for(:nucleo)
-      assert {:ok, nucleo} = Nucleos.create(attrs)
 
-      assert {:error, %Ecto.Changeset{}} = Nucleos.update(nucleo.nome, @invalid_attrs)
+      assert {:ok, nucleo} = Db.create(Nucleo, attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Db.update(Nucleos.query(), &Nucleo.changeset/2, nucleo.nome, @invalid_attrs)
     end
   end
 end

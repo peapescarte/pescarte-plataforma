@@ -1,34 +1,33 @@
-defmodule Fuschia.Context.PesquisadoresTest do
+defmodule Fuschia.Queries.PesquisadoresTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Context.Pesquisadores
+  alias Fuschia.Db
   alias Fuschia.Entities.Pesquisador
+  alias Fuschia.Queries.Pesquisadores
 
   describe "list/1" do
     test "return all pesquisadores in database" do
-      pesquisador =
-        :pesquisador
-        |> insert()
-        |> Pesquisadores.preload_all()
+      insert(:pesquisador)
 
-      assert [pesquisador] == Pesquisadores.list()
+      pesquisador = Db.one(Pesquisadores.query())
+
+      assert [pesquisador] == Db.list(Pesquisadores.query())
     end
   end
 
   describe "one/1" do
     test "when id is valid, returns a pesquisador" do
-      pesquisador =
-        :pesquisador
-        |> insert()
-        |> Pesquisadores.preload_all()
+      insert(:pesquisador)
 
-      assert pesquisador == Pesquisadores.one(pesquisador.usuario_cpf)
+      pesquisador = Db.one(Pesquisadores.query())
+
+      assert pesquisador == Db.get(Pesquisadores.query(), pesquisador.usuario_cpf)
     end
 
     test "when id is invalid, returns nil" do
-      assert is_nil(Pesquisadores.one(""))
+      assert Pesquisadores.query() |> Db.get("") |> is_nil()
     end
   end
 
@@ -36,12 +35,13 @@ defmodule Fuschia.Context.PesquisadoresTest do
     test "return all pesquisadores in database with orientador of a cpf" do
       orientador = insert(:pesquisador)
 
-      pesquisador =
-        :pesquisador
-        |> insert(orientador_cpf: orientador.usuario_cpf)
-        |> Pesquisadores.preload_all()
+      %{usuario_cpf: pesquisador_cpf} =
+        insert(:pesquisador, orientador_cpf: orientador.usuario_cpf)
 
-      assert [pesquisador] == Pesquisadores.list_by_orientador(pesquisador.orientador_cpf)
+      pesquisador = Db.get(Pesquisadores.query(), pesquisador_cpf)
+
+      assert [pesquisador] ==
+               pesquisador.orientador_cpf |> Pesquisadores.query_by_orientador() |> Db.list()
     end
   end
 
@@ -79,11 +79,11 @@ defmodule Fuschia.Context.PesquisadoresTest do
       assert {:ok, %Pesquisador{}} =
                @valid_attrs
                |> Map.put(:campus_nome, campus_nome)
-               |> Pesquisadores.create()
+               |> then(&Db.create(Pesquisador, &1))
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Pesquisadores.create(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Db.create(Pesquisador, @invalid_attrs)
     end
   end
 
@@ -111,17 +111,7 @@ defmodule Fuschia.Context.PesquisadoresTest do
 
     @update_attrs %{
       link_lattes: "www.lattes/novo_link",
-      minibiografia: "updated bio",
-      usuario: %{
-        nome_completo: "Eduardo Ravagnani",
-        cpf: "457.458.188-02",
-        data_nascimento: ~D[2001-06-28],
-        contato: %{
-          endereco: "Av Teste, Rua Teste, numero 100",
-          email: "updated_teste@exemplo.com",
-          celular: "(22)12345-6769"
-        }
-      }
+      minibiografia: "updated bio"
     }
 
     @invalid_attrs %{
@@ -138,12 +128,18 @@ defmodule Fuschia.Context.PesquisadoresTest do
       assert {:ok, pesquisador} =
                @valid_attrs
                |> Map.put(:campus_nome, campus_nome)
-               |> Pesquisadores.create()
+               |> then(&Db.create(Pesquisador, &1))
 
       update_attrs = Map.put(@update_attrs, :campus_nome, campus_nome)
 
       assert {:ok, updated_pesquisador} =
-               Pesquisadores.update(pesquisador.usuario_cpf, update_attrs)
+               Db.update(
+                 Pesquisadores.query(),
+                 &Pesquisador.changeset/2,
+                 pesquisador.usuario_cpf,
+                 update_attrs,
+                 Pesquisadores.relationships()
+               )
 
       for key <- Map.keys(@update_attrs) do
         cond do
@@ -171,21 +167,28 @@ defmodule Fuschia.Context.PesquisadoresTest do
       assert {:ok, pesquisador} =
                @valid_attrs
                |> Map.put(:campus_nome, campus_nome)
-               |> Pesquisadores.create()
+               |> then(&Db.create(Pesquisador, &1))
 
       assert {:error, %Ecto.Changeset{}} =
-               Pesquisadores.update(pesquisador.usuario_cpf, @invalid_attrs)
+               Db.update(
+                 Pesquisadores.query(),
+                 &Pesquisador.changeset/2,
+                 pesquisador.usuario_cpf,
+                 @invalid_attrs,
+                 Pesquisadores.relationships()
+               )
     end
   end
 
   describe "exists?/1" do
     test "when id is valid, returns true" do
       pesquisador = insert(:pesquisador)
-      assert true == Pesquisadores.exists?(pesquisador.usuario_cpf)
+
+      assert true == pesquisador.usuario_cpf |> Pesquisadores.query_exists() |> Db.exists?()
     end
 
     test "when id is invalid, returns false" do
-      assert false == Pesquisadores.exists?("")
+      assert false == "" |> Pesquisadores.query_exists() |> Db.exists?()
     end
   end
 end
