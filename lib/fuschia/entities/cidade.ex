@@ -27,7 +27,7 @@ defmodule Fuschia.Entities.Cidade do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(%Fuschia.Entities.Cidade{}, map) :: map
+    @spec encode(Fuschia.Entities.Cidade.t(), map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{

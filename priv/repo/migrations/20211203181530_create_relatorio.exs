@@ -15,6 +15,8 @@ defmodule Fuschia.Repo.Migrations.CreateRelatorio do
             type: :citext,
             on_delete: :delete_all
           )
+
+      timestamps()
     end
 
     create unique_index(:relatorio, [:ano, :mes])

@@ -14,6 +14,8 @@ defmodule Fuschia.Repo.Migrations.CreateMidia do
             type: :citext,
             on_delete: :delete_all
           )
+
+      timestamps()
     end
 
     create unique_index(:midia, [:link])

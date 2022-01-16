@@ -31,7 +31,7 @@ defmodule Fuschia.Entities.UserToken do
   The token is valid for a week as long as users don't change
   their email.
   """
-  @spec build_email_token(%User{}, String.t()) :: {String.t(), %__MODULE__{}}
+  @spec build_email_token(User.t(), String.t()) :: {String.t(), %__MODULE__{}}
   def build_email_token(user, context) do
     build_hashed_token(user, context, user.contato.email)
   end

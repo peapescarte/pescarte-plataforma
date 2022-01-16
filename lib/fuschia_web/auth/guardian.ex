@@ -15,7 +15,7 @@ defmodule FuschiaWeb.Auth.Guardian do
     {:ok, sub}
   end
 
-  @spec resource_from_claims(map) :: {:ok, %User{}} | {:error, nil}
+  @spec resource_from_claims(map) :: {:ok, User.t()} | {:error, nil}
   def resource_from_claims(claims) do
     user =
       claims

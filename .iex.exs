@@ -1,21 +1,26 @@
-alias Fuschia.{Context, Entities}
+alias Fuschia.{Context, Entities, Queries}
 
-alias Fuschia.Context.{
+alias Fuschia.Queries.{
   Campi,
   Cidades,
   LinhasPesquisas,
+  Midias,
   Nucleos,
   Pesquisadores,
-  Users
+  Relatorios
 }
+
+alias Context.Users
 
 alias Fuschia.Entities.{
   Campus,
   Cidade,
   Contato,
   LinhaPesquisa,
+  Midia,
   Nucleo,
   Pesquisador,
+  Relatorio,
   User
 }
 
