@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
 
@@ -33,7 +36,7 @@ jobs:
         run: docker exec pescarte_fuschia_ci mix credo --strict
 
       - name: Test
-        run: docker exec pescarte_fuschia_ci mix coveralls.post --umbrella --token ${{ secrets.COVERALLS_TOKEN }} --branch${GITHUB_REF#refs/heads/} --name "GitHub Actions" --committer $GITHUB_ACTOR --message "${{ github.event.head_commit.message }}" --sha $GITHUB_SHA
+        run: MIX_ENV=test docker exec pescarte_fuschia_ci mix coveralls.github
           
       - name: Migration rollback test
         run: |
