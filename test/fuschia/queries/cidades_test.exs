@@ -1,34 +1,33 @@
-defmodule Fuschia.Context.CidadesTest do
+defmodule Fuschia.Queries.CidadesTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Context.Cidades
+  alias Fuschia.Db
   alias Fuschia.Entities.Cidade
+  alias Fuschia.Queries.Cidades
 
   describe "list/0" do
     test "return all cidades in database" do
-      cidade =
-        :cidade
-        |> insert()
-        |> Cidades.preload_all()
+      insert(:cidade)
 
-      assert [cidade] == Cidades.list()
+      cidade = Db.one(Cidades.query())
+
+      assert [cidade] == Db.list(Cidades.query())
     end
   end
 
   describe "one/1" do
     test "when nome is valid, returns a cidade" do
-      cidade =
-        :cidade
-        |> insert()
-        |> Cidades.preload_all()
+      insert(:cidade)
 
-      assert cidade == Cidades.one(cidade.municipio)
+      cidade = Db.one(Cidades.query())
+
+      assert cidade == Db.get(Cidades.query(), cidade.municipio)
     end
 
     test "when id is invalid, returns nil" do
-      assert is_nil(Cidades.one(""))
+      assert Cidades.query() |> Db.get("") |> is_nil()
     end
   end
 
@@ -42,11 +41,11 @@ defmodule Fuschia.Context.CidadesTest do
     }
 
     test "when all params are valid, creates an admin cidade" do
-      assert {:ok, %Cidade{}} = Cidades.create(@valid_attrs)
+      assert {:ok, %Cidade{}} = Db.create(Cidade, @valid_attrs)
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Cidades.create(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Db.create(Cidade, @invalid_attrs)
     end
   end
 
@@ -64,17 +63,19 @@ defmodule Fuschia.Context.CidadesTest do
     }
 
     test "when all params are valid, updates a cidade" do
-      assert {:ok, cidade} = Cidades.create(@valid_attrs)
+      assert {:ok, cidade} = Db.create(Cidade, @valid_attrs)
 
-      assert {:ok, updated_cidade} = Cidades.update(cidade.municipio, @update_attrs)
+      assert {:ok, updated_cidade} =
+               Db.update(Cidades.query(), &Cidade.changeset/2, cidade.municipio, @update_attrs)
 
       assert updated_cidade.municipio == @update_attrs.municipio
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:ok, cidade} = Cidades.create(@valid_attrs)
+      assert {:ok, cidade} = Db.create(Cidade, @valid_attrs)
 
-      assert {:error, %Ecto.Changeset{}} = Cidades.update(cidade.municipio, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} =
+               Db.update(Cidades.query(), &Cidade.changeset/2, cidade.municipio, @invalid_attrs)
     end
   end
 end

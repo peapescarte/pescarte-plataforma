@@ -173,7 +173,7 @@ defmodule Fuschia.Entities.User do
   end
 
   defimpl Jason.Encoder, for: User do
-    @spec encode(%Fuschia.Entities.User{}, map) :: map
+    @spec encode(Fuschia.Entities.User.t(), map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{

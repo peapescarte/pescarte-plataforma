@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
 
@@ -16,10 +19,14 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PERSONAL_TOKEN }}
 
-      - name: Docker
+      - name: Build
         run: |
           docker-compose -f docker-compose-ci.yml pull --quiet
           docker-compose -f docker-compose-ci.yml build fuschia
+
+      - name: Start
+        run: |
+          docker-compose -f docker-compose-ci.yml run --rm fuschia mix ecto.setup
           docker-compose -f docker-compose-ci.yml up -d
 
       - name: Format
@@ -29,4 +36,9 @@ jobs:
         run: docker exec pescarte_fuschia_ci mix credo --strict
 
       - name: Test
-        run: docker exec pescarte_fuschia_ci mix test
+        run: MIX_ENV=test docker exec pescarte_fuschia_ci mix coveralls.github
+          
+      - name: Migration rollback test
+        run: |
+          docker exec pescarte_fuschia_ci mix ecto.rollback --all
+          docker exec pescarte_fuschia_ci mix ecto.migrate

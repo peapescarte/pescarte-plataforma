@@ -9,14 +9,18 @@ defmodule Fuschia.Context.Users do
   alias Fuschia.Entities.{Contato, User, UserToken}
   alias Fuschia.Repo
 
-  @spec list :: [%User{}]
+  @type user :: User.t()
+  @type query :: Ecto.Query.t()
+  @type changeset :: Ecto.Changeset.t()
+
+  @spec list :: [user]
   def list do
     query()
     |> preload_all()
     |> Repo.all()
   end
 
-  @spec one(String.t()) :: %User{} | nil
+  @spec one(String.t()) :: user | nil
   def one(cpf) do
     query()
     |> preload_all()
@@ -25,7 +29,7 @@ defmodule Fuschia.Context.Users do
     |> put_is_admin()
   end
 
-  @spec one_by_cpf(String.t()) :: %User{} | nil
+  @spec one_by_cpf(String.t()) :: user | nil
   def one_by_cpf(cpf) do
     cpf = String.trim(cpf)
 
@@ -34,7 +38,7 @@ defmodule Fuschia.Context.Users do
     |> Repo.get_by(cpf: cpf)
   end
 
-  @spec one_by_email(String.t()) :: %User{} | nil
+  @spec one_by_email(String.t()) :: user | nil
   def one_by_email(email) do
     email =
       email
@@ -50,7 +54,7 @@ defmodule Fuschia.Context.Users do
     |> Repo.one()
   end
 
-  @spec one_with_permissions(String.t()) :: %User{} | nil
+  @spec one_with_permissions(String.t()) :: user | nil
   def one_with_permissions(cpf) do
     cpf
     |> one_by_cpf()
@@ -70,7 +74,7 @@ defmodule Fuschia.Context.Users do
       nil
 
   """
-  @spec one_by_reset_password_token(String.t()) :: %User{} | nil
+  @spec one_by_reset_password_token(String.t()) :: user | nil
   def one_by_reset_password_token(token) do
     with {:ok, query} <- UserTokens.verify_email_token_query(token, "reset_password"),
          %User{} = user <- Repo.one(query) do
@@ -78,7 +82,7 @@ defmodule Fuschia.Context.Users do
     end
   end
 
-  @spec create(map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  @spec create(map) :: {:ok, user} | {:error, changeset}
   def create(attrs) do
     with {:ok, user} <-
            %User{}
@@ -88,18 +92,16 @@ defmodule Fuschia.Context.Users do
     end
   end
 
-  @spec update(String.t(), map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  @spec update(String.t(), map) :: {:ok, user} | {:error, changeset}
   def update(cpf, attrs) do
-    with %User{} = user <- one(cpf),
-         {:ok, updated} <-
-           user
-           |> User.changeset(attrs)
-           |> Repo.update() do
-      {:ok, updated}
+    with %User{} = user <- one(cpf) do
+      user
+      |> User.changeset(attrs)
+      |> Repo.update()
     end
   end
 
-  @spec register(map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  @spec register(map) :: {:ok, user} | {:error, changeset}
   def register(attrs) do
     with {:ok, user} <-
            %User{}
@@ -121,7 +123,7 @@ defmodule Fuschia.Context.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec reset_password(String.t(), map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+  @spec reset_password(String.t(), map) :: {:ok, user} | {:error, changeset}
   def reset_password(cpf, attrs) do
     with %User{} = user <- one(cpf),
          {:ok, %{user: reseted}} <-
@@ -142,7 +144,7 @@ defmodule Fuschia.Context.Users do
   If the token matches, the user account is marked as confirmed
   and the token is deleted.
   """
-  @spec confirm_user(String.t()) :: {:ok, %User{}} | :error
+  @spec confirm_user(String.t()) :: {:ok, user} | :error
   def confirm_user(token) do
     with {:ok, query} <- UserTokens.verify_email_token_query(token, "confirm"),
          %User{} = user <- Repo.one(query),
@@ -185,7 +187,7 @@ defmodule Fuschia.Context.Users do
 
   """
   @spec update_password(String.t(), String.t(), map) ::
-          {:ok, %User{}} | {:error, %Ecto.Changeset{}}
+          {:ok, user} | {:error, changeset}
   def update_password(cpf, password, attrs) do
     with %User{} = user <- one(cpf),
          changeset <-
@@ -210,19 +212,19 @@ defmodule Fuschia.Context.Users do
     |> Repo.exists?()
   end
 
-  @spec query :: %Ecto.Query{}
+  @spec query :: query
   def query do
     from u in User,
       left_join: contato in assoc(u, :contato),
       order_by: [desc: u.created_at]
   end
 
-  @spec preload_all(%Ecto.Query{}) :: %Ecto.Query{}
+  @spec preload_all(query) :: query
   def preload_all(%Ecto.Query{} = query) do
     Ecto.Query.preload(query, [:contato])
   end
 
-  @spec preload_all(%User{}) :: %User{}
+  @spec preload_all(user) :: user
   def preload_all(%User{} = user) do
     Repo.preload(user, [:contato])
   end

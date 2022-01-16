@@ -47,8 +47,7 @@ defmodule Fuschia.Parser do
   def capitalize_all_words(s) when is_binary(s) do
     s
     |> String.split(" ")
-    |> Enum.map(&String.capitalize/1)
-    |> Enum.join(" ")
+    |> Enum.map_join(" ", &String.capitalize/1)
   end
 
   @doc ~S"""
@@ -150,7 +149,7 @@ defmodule Fuschia.Parser do
   # otherwise returns the same value
   @spec apply_if(term, boolean, fun, list) :: term
   defp apply_if(value, condition, function, args \\ []) do
-    if condition, do: apply(function, [value | args]), else: value
+    if condition, do: function.([value | args]), else: value
   end
 
   @doc ~S"""

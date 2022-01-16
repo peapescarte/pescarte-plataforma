@@ -1,45 +1,43 @@
-defmodule Fuschia.Context.CampiTest do
+defmodule Fuschia.Queries.CampiTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Context.Campi
+  alias Fuschia.Db
   alias Fuschia.Entities.Campus
+  alias Fuschia.Queries.Campi
 
   describe "list/0" do
     test "return all campi in database" do
-      campus =
-        :campus
-        |> insert()
-        |> Campi.preload_all()
+      insert(:campus)
 
-      assert [campus] == Campi.list()
+      campus = Db.one(Campi.query())
+
+      assert [campus] == Db.list(Campi.query())
     end
   end
 
   describe "list_by_municipio/1" do
     test "return all campi in database" do
-      campus =
-        :campus
-        |> insert()
-        |> Campi.preload_all()
+      insert(:campus)
 
-      assert [campus] == Campi.list_by_municipio(campus.cidade_municipio)
+      campus = Db.one(Campi.query())
+
+      assert [campus] == campus.cidade_municipio |> Campi.query_by_municipio() |> Db.list()
     end
   end
 
   describe "one/1" do
     test "when nome is valid, returns a campus" do
-      campus =
-        :campus
-        |> insert()
-        |> Campi.preload_all()
+      insert(:campus)
 
-      assert campus == Campi.one(campus.nome)
+      campus = Db.one(Campi.query())
+
+      assert campus == Db.get(Campi.query(), campus.nome)
     end
 
     test "when id is invalid, returns nil" do
-      assert is_nil(Campi.one(""))
+      assert Campi.query() |> Db.get("") |> is_nil()
     end
   end
 
@@ -55,11 +53,11 @@ defmodule Fuschia.Context.CampiTest do
     }
 
     test "when all params are valid, creates an admin campus" do
-      assert {:ok, %Campus{}} = Campi.create_with_cidade(@valid_attrs)
+      assert {:ok, %Campus{}} = Db.create(Campus, @valid_attrs)
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Campi.create_with_cidade(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Db.create(Campus, @invalid_attrs)
     end
   end
 
@@ -76,11 +74,18 @@ defmodule Fuschia.Context.CampiTest do
 
     test "when all params are valid, creates an admin campus" do
       insert(:cidade, municipio: "Campos dos Goytacazes")
-      assert {:ok, %Campus{}} = Campi.create(@valid_attrs)
+
+      assert {:ok, %Campus{}} =
+               Db.create_with_custom_changeset(Campus, &Campus.foreign_changeset/2, @valid_attrs)
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Campi.create(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} =
+               Db.create_with_custom_changeset(
+                 Campus,
+                 &Campus.foreign_changeset/2,
+                 @invalid_attrs
+               )
     end
   end
 
@@ -99,17 +104,19 @@ defmodule Fuschia.Context.CampiTest do
     }
 
     test "when all params are valid, updates a campus" do
-      assert {:ok, campus} = Campi.create_with_cidade(@valid_attrs)
+      assert {:ok, campus} = Db.create(Campus, @valid_attrs)
 
-      assert {:ok, updated_campus} = Campi.update(campus.nome, @update_attrs)
+      assert {:ok, updated_campus} =
+               Db.update(Campi.query(), &Campus.foreign_changeset/2, campus.nome, @update_attrs)
 
       assert updated_campus.nome == @update_attrs.nome
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:ok, campus} = Campi.create_with_cidade(@valid_attrs)
+      assert {:ok, campus} = Db.create(Campus, @valid_attrs)
 
-      assert {:error, %Ecto.Changeset{}} = Campi.update(campus.nome, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} =
+               Db.update(Campi.query(), &Campus.foreign_changeset/2, campus.nome, @invalid_attrs)
     end
   end
 end

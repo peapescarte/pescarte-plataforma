@@ -55,7 +55,7 @@ defmodule Fuschia.Entities.Contato do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(%Fuschia.Entities.Contato{}, map) :: map
+    @spec encode(Fuschia.Entities.Contato.t(), map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{

@@ -6,7 +6,7 @@ defmodule Fuschia.Entities.Pesquisador do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.{Campus, Midia, Pesquisador, User}
+  alias Fuschia.Entities.{Campus, Midia, Pesquisador, Relatorio, User}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(
@@ -28,7 +28,9 @@ defmodule Fuschia.Entities.Pesquisador do
 
     has_many :orientandos, Pesquisador, foreign_key: :orientador_cpf
 
-    has_many :midias, Midia
+    has_many :midias, Midia, foreign_key: :pesquisador_cpf
+
+    has_many :relatorios, Relatorio, foreign_key: :pesquisador_cpf
 
     belongs_to :usuario, User,
       references: :cpf,
@@ -78,7 +80,7 @@ defmodule Fuschia.Entities.Pesquisador do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(%Fuschia.Entities.Pesquisador{}, map) :: map
+    @spec encode(Fuschia.Entities.Pesquisador.t(), map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{
