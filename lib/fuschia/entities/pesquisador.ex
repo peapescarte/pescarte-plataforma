@@ -80,7 +80,7 @@ defmodule Fuschia.Entities.Pesquisador do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(%Fuschia.Entities.Pesquisador{}, map) :: map
+    @spec encode(Fuschia.Entities.Pesquisador.t(), map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{

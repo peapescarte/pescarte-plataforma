@@ -12,7 +12,7 @@ defmodule CoreWeb.TestSupport do
   @doc """
   Logs-in an user, requires an email and a matching password for tests
   """
-  @spec login(%Plug.Conn{}, %User{}) :: %Plug.Conn{}
+  @spec login(Plug.Conn.t(), User.t()) :: Plug.Conn.t()
   def login(conn, user) do
     params = %{"cpf" => user.cpf, "password" => user.password}
 

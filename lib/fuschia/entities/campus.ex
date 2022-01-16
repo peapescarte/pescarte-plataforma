@@ -43,7 +43,7 @@ defmodule Fuschia.Entities.Campus do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(%Fuschia.Entities.Campus{}, map) :: map
+    @spec encode(Fuschia.Entities.Campus.t(), map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{

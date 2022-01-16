@@ -36,7 +36,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(%Fuschia.Entities.LinhaPesquisa{}, map) :: map
+    @spec encode(Fuschia.Entities.LinhaPesquisa.t(), map) :: map
     def encode(struct, opts) do
       Fuschia.Encoder.encode(
         %{
