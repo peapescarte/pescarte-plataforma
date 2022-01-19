@@ -4,7 +4,7 @@
   '';
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -13,8 +13,8 @@
       let
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
-        elixir_1_12 = pkgs.beam.packages.erlangR24.elixir.override {
-          version = "1.12.2";
+        elixir_1_13 = pkgs.beam.packages.erlangR24.elixir.override {
+          version = "1.13.1";
           minimumOTPVersion = "24";
           sha256 = "1f8b63x2klhdz1fq1dgbrqs7x6rq309abzq48gicmd0vprfhc641";
         };
@@ -31,7 +31,7 @@
             curl
             libiconv
             # my elixir derivation
-            elixir_1_12
+            elixir_1_13
             glibcLocales
             nodejs-12_x
             yarn
