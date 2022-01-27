@@ -10,6 +10,7 @@ defmodule Fuschia.RelatorioFactory do
         pesquisador = insert(:pesquisador)
 
         %Relatorio{
+          id_externo: Nanoid.generate_non_secure(),
           pesquisador: pesquisador,
           tipo: sequence(:tipo, ["mensal", "trimestral", "anual"]),
           link: sequence(:link, &"https://example#{&1}.com"),

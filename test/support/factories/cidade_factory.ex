@@ -8,6 +8,7 @@ defmodule Fuschia.CidadeFactory do
       @spec cidade_factory :: Cidade.t()
       def cidade_factory do
         %Cidade{
+          id_externo: Nanoid.generate_non_secure(),
           municipio: sequence(:municipio, &"Cidade #{&1}")
         }
       end

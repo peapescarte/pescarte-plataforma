@@ -13,6 +13,8 @@ defmodule Fuschia.Entities.Campus do
 
   @primary_key {:nome, CapitalizedString, autogenerate: false}
   schema "campus" do
+    field :id_externo, :string
+
     belongs_to :cidade, Cidade,
       type: :string,
       on_replace: :delete,
@@ -31,6 +33,7 @@ defmodule Fuschia.Entities.Campus do
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
     |> cast_assoc(:cidade, required: true)
+    |> put_change(:id_externo, Nanoid.generate())
   end
 
   @spec foreign_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
@@ -40,19 +43,27 @@ defmodule Fuschia.Entities.Campus do
     |> validate_required([:cidade_municipio | @required_fields])
     |> unique_constraint([:nome, :cidade_municipio], name: :campus_nome_municipio_index)
     |> foreign_key_constraint(:cidade_municipio)
+    |> put_change(:id_externo, Nanoid.generate())
+  end
+
+  @spec to_map(%__MODULE__{}) :: map
+  def to_map(%__MODULE__{} = struct) do
+    %{
+      id: struct.id_externo,
+      nome: struct.nome,
+      cidade: struct.cidade,
+      pesquisadores: struct.pesquisadores
+    }
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.Campus.t(), map) :: map
+    alias Fuschia.Entities.Campus
+
+    @spec encode(Campus.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          nome: struct.nome,
-          cidade: struct.cidade,
-          pesquisadores: struct.pesquisadores
-        },
-        opts
-      )
+      struct
+      |> Campus.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end

@@ -11,6 +11,7 @@ defmodule Fuschia.PesquisadorFactory do
         usuario = build(:user)
 
         %Pesquisador{
+          id_externo: Nanoid.generate_non_secure(),
           usuario: usuario,
           minibiografia: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
           tipo_bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),

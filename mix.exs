@@ -58,6 +58,7 @@ defmodule Fuschia.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:oban, "~> 2.8"},
       {:proper_case, "~> 1.0.2"},
+      {:nanoid, "~> 2.0.5"},
       {:hackney, "~> 1.8"},
       {:timex, "~> 3.0"},
       {:guardian, "~> 2.0"},

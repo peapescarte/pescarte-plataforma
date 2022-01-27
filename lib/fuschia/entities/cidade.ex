@@ -13,6 +13,8 @@ defmodule Fuschia.Entities.Cidade do
 
   @primary_key {:municipio, CapitalizedString, autogenerate: false}
   schema "cidade" do
+    field :id_externo, :string
+
     has_many :campi, Campus, on_replace: :delete
 
     timestamps()
@@ -24,18 +26,26 @@ defmodule Fuschia.Entities.Cidade do
     |> cast(attrs, @required_fields)
     |> unique_constraint(:municipio)
     |> validate_required(@required_fields)
+    |> put_change(:id_externo, Nanoid.generate())
+  end
+
+  @spec to_map(%__MODULE__{}) :: map
+  def to_map(%__MODULE__{} = struct) do
+    %{
+      id: struct.id_externo,
+      municipio: struct.municipio,
+      campi: struct.campi
+    }
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.Cidade.t(), map) :: map
+    alias Fuschia.Entities.Cidade
+
+    @spec encode(Cidade.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          municipio: struct.municipio,
-          campi: struct.campi
-        },
-        opts
-      )
+      struct
+      |> Cidade.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end

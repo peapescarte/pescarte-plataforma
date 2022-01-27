@@ -22,6 +22,7 @@ defmodule Fuschia.Entities.Pesquisador do
 
   @primary_key {:usuario_cpf, TrimmedString, autogenerate: false}
   schema "pesquisador" do
+    field :id_externo, :string
     field :minibiografia, TrimmedString
     field :tipo_bolsa, TrimmedString
     field :link_lattes, TrimmedString
@@ -65,6 +66,7 @@ defmodule Fuschia.Entities.Pesquisador do
     |> cast_assoc(:usuario, required: true)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
+    |> put_change(:id_externo, Nanoid.generate())
   end
 
   @spec update_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
@@ -79,22 +81,29 @@ defmodule Fuschia.Entities.Pesquisador do
     |> foreign_key_constraint(:campus_nome)
   end
 
+  @spec to_map(%__MODULE__{}) :: map
+  def to_map(%__MODULE__{} = struct) do
+    %{
+      id: struct.id_externo,
+      cpf: struct.usuario_cpf,
+      minibiografia: struct.minibiografia,
+      tipo_bolsa: struct.tipo_bolsa,
+      link_lattes: struct.link_lattes,
+      orientador: struct.orientador,
+      campus: struct.campus,
+      usuario: struct.usuario,
+      orientandos: struct.orientandos
+    }
+  end
+
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.Pesquisador.t(), map) :: map
+    alias Fuschia.Entities.Pesquisador
+
+    @spec encode(Pesquisador.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          cpf: struct.cpf,
-          minibiografia: struct.minibibliografia,
-          tipo_bolsa: struct.tipo_bolsa,
-          link_lattes: struct.link_lattes,
-          orientador: struct.orientador,
-          campus: struct.campus,
-          usuario: struct.usuario,
-          orientandos: struct.orientandos
-        },
-        opts
-      )
+      struct
+      |> Pesquisador.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end

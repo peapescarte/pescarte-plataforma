@@ -10,6 +10,7 @@ defmodule Fuschia.MidiaFactory do
         pesquisador = insert(:pesquisador)
 
         %Midia{
+          id_externo: Nanoid.generate_non_secure(),
           pesquisador: pesquisador,
           tipo: sequence(:tipo, ["video", "documento", "imagem"]),
           link: sequence(:link, &"https://example#{&1}.com"),
