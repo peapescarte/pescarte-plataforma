@@ -12,6 +12,10 @@ defmodule FuschiaWeb.Router do
     plug ProperCase.Plug.SnakeCaseParams
   end
 
+  pipeline :auth do
+    plug FuschiaWeb.Auth.Pipeline
+  end
+
   pipeline :api_swagger do
     plug :accepts, ["json"]
     plug OpenApiSpex.Plug.PutApiSpec, module: FuschiaWeb.Swagger.ApiSpec
@@ -34,5 +38,9 @@ defmodule FuschiaWeb.Router do
 
     post "/login", AuthController, :login
     post "/signup", AuthController, :signup
+  end
+
+  scope "/api", FuschiaWeb do
+    pipe_through [:api, :auth]
   end
 end
