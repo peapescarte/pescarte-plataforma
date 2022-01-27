@@ -10,6 +10,7 @@ defmodule Fuschia.CampusFactory do
         cidade = insert(:cidade)
 
         %Campus{
+          id_externo: Nanoid.generate_non_secure(),
           nome: sequence(:nome, &"Campus #{&1}"),
           cidade: cidade
         }

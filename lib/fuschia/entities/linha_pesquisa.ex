@@ -13,6 +13,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
 
   @primary_key {:numero, :integer, []}
   schema "linha_pesquisa" do
+    field :id_externo, :string
     field :descricao_curta, TrimmedString
     field :descricao_longa, TrimmedString
 
@@ -33,20 +34,28 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     |> unique_constraint([:numero, :nucleo_nome])
     |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
+    |> put_change(:id_externo, Nanoid.generate())
+  end
+
+  @spec to_map(%__MODULE__{}) :: map
+  def to_map(%__MODULE__{} = struct) do
+    %{
+      id: struct.id_externo,
+      descricao_curta: struct.descricao_curta,
+      descricao_longa: struct.descricao_longa,
+      numero: struct.numero,
+      nucleo: struct.nucleo
+    }
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.LinhaPesquisa.t(), map) :: map
+    alias Fuschia.Entities.LinhaPesquisa
+
+    @spec encode(LinhaPesquisa.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          descricao_curta: struct.descricao_curta,
-          descricao_longa: struct.descricao_longa,
-          numero: struct.numero,
-          nucleo: struct.nucleo
-        },
-        opts
-      )
+      struct
+      |> LinhaPesquisa.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end
