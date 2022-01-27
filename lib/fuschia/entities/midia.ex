@@ -20,6 +20,7 @@ defmodule Fuschia.Entities.Midia do
 
   @primary_key {:link, TrimmedString, autogenerate: false}
   schema "midia" do
+    field :id_externo, :string
     field :tipo, TrimmedString
     field :tags, {:array, TrimmedString}
 
@@ -40,19 +41,27 @@ defmodule Fuschia.Entities.Midia do
     |> unique_constraint(:link)
     |> validate_inclusion(:tipo, @tipos_midia)
     |> foreign_key_constraint(:pesquisador_cpf)
+    |> put_change(:id_externo, Nanoid.generate())
+  end
+
+  @spec to_map(%__MODULE__{}) :: map
+  def to_map(%__MODULE__{} = struct) do
+    %{
+      id: struct.id_externo,
+      tipo: struct.tipo,
+      link: struct.link,
+      tags: struct.tags
+    }
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.Midia.t(), map) :: map
+    alias Fuschia.Entities.Midia
+
+    @spec encode(Midia.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          tipo: struct.tipo,
-          link: struct.link,
-          tags: struct.tags
-        },
-        opts
-      )
+      struct
+      |> Midia.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end

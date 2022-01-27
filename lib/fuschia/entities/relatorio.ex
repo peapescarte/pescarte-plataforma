@@ -22,6 +22,7 @@ defmodule Fuschia.Entities.Relatorio do
   @primary_key false
 
   schema "relatorio" do
+    field :id_externo, :string
     field :ano, :integer, primary_key: true
     field :mes, :integer, primary_key: true
     field :tipo, TrimmedString
@@ -45,6 +46,7 @@ defmodule Fuschia.Entities.Relatorio do
     |> validate_year(:ano)
     |> validate_inclusion(:tipo, @tipos)
     |> foreign_key_constraint(:pesquisador_cpf)
+    |> put_change(:id_externo, Nanoid.generate())
   end
 
   defp validate_month(changeset, field) do
@@ -71,19 +73,26 @@ defmodule Fuschia.Entities.Relatorio do
     end
   end
 
+  @spec to_map(%__MODULE__{}) :: map
+  def to_map(%__MODULE__{} = struct) do
+    %{
+      id: struct.id_externo,
+      ano: struct.ano,
+      mes: struct.mes,
+      tipo: struct.tipo,
+      link: struct.link,
+      pesquisador_cpf: struct.pesquisador_cpf
+    }
+  end
+
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.Relatorio.t(), map) :: map
+    alias Fuschia.Entities.Relatorio
+
+    @spec encode(Relatorio.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          ano: struct.ano,
-          mes: struct.mes,
-          tipo: struct.tipo,
-          link: struct.link,
-          pesquisador_cpf: struct.pesquisador_cpf
-        },
-        opts
-      )
+      struct
+      |> Relatorio.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end

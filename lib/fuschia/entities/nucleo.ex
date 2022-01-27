@@ -12,6 +12,7 @@ defmodule Fuschia.Entities.Nucleo do
 
   @primary_key {:nome, CapitalizedString, []}
   schema "nucleo" do
+    field :id_externo, :string
     field :descricao, :string
 
     has_many :linhas_pesquisa, LinhaPesquisa
@@ -26,19 +27,27 @@ defmodule Fuschia.Entities.Nucleo do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> validate_length(:descricao, max: 400)
+    |> put_change(:id_externo, Nanoid.generate())
+  end
+
+  @spec to_map(%__MODULE__{}) :: map
+  def to_map(%__MODULE__{} = struct) do
+    %{
+      id: struct.id_externo,
+      nome: struct.nome,
+      descricao: struct.descricao,
+      linhas_pesquisa: struct.linhas_pesquisa
+    }
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.Nucleo.t(), map) :: map
+    alias Fuschia.Entities.Nucleo
+
+    @spec encode(Nucleo.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          nome: struct.nome,
-          descricao: struct.descricao,
-          linhas_pesquisa: struct.linhas_pesquisa
-        },
-        opts
-      )
+      struct
+      |> Nucleo.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end
