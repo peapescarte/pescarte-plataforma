@@ -80,6 +80,9 @@ defmodule Fuschia.Db do
     |> Repo.update()
   end
 
+  @spec delete(struct | changeset, keyword) :: {:ok, struct} | {:error, changeset}
+  defdelegate delete(struct, opts \\ []), to: Repo, as: :delete
+
   @spec preload_all(query, relationships) :: query
   def preload_all(%Ecto.Query{} = query, args) do
     require Ecto.Query
