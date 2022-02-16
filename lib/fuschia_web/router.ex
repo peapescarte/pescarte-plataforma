@@ -41,6 +41,8 @@ defmodule FuschiaWeb.Router do
   end
 
   scope "/api", FuschiaWeb do
-    pipe_through [:api, :auth]
+    pipe_through [:auth, :api]
+
+    resources "/campi", CampusController, only: [:create, :index, :delete]
   end
 end
