@@ -4,7 +4,7 @@ import Config
 config :fuschia, Fuschia.Repo,
   username: "pescarte",
   password: "pescarte",
-  database: "pescarte",
+  database: "fuschia_dev",
   hostname: "db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

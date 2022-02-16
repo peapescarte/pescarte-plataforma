@@ -1,4 +1,4 @@
-defmodule Fuschia.ApiKeyDevSeeds do
+defmodule Fuschia.ApiKeysDevSeeds do
   @moduledoc false
 
   alias Fuschia.Entities.ApiKey
