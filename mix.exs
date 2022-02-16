@@ -23,9 +23,6 @@ defmodule Fuschia.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
   def application do
     [
       mod: {Fuschia.Application, []},
@@ -33,7 +30,6 @@ defmodule Fuschia.MixProject do
     ]
   end
 
-  # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(:dev), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
@@ -44,17 +40,20 @@ defmodule Fuschia.MixProject do
     ]
   end
 
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.9"},
+      {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.1"},
       {:swoosh, "~> 1.4"},
       {:mail, ">= 0.0.0"},
+      {:phoenix_html, "~> 3.0"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_view, "~> 0.17.5"},
+      {:floki, ">= 0.30.0", only: :test},
       {:bcrypt_elixir, "~> 2.0"},
       {:paginator, "~> 1.0.3"},
+      {:phoenix_live_dashboard, "~> 0.6"},
+      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
       {:oban, "~> 2.8"},
       {:proper_case, "~> 1.0.2"},
