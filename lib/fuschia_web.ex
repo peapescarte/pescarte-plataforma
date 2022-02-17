@@ -38,7 +38,7 @@ defmodule FuschiaWeb do
   def surface_view do
     quote do
       use Surface.LiveView,
-        layout: {YourAppWeb.LayoutView, "live.html"}
+        layout: {FuschiaWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -57,6 +57,7 @@ defmodule FuschiaWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+      import Surface
     end
   end
 
@@ -64,7 +65,7 @@ defmodule FuschiaWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {ExampleWeb.LayoutView, "live.html"}
+        layout: {FuschiaWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end

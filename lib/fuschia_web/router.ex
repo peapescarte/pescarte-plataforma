@@ -1,6 +1,8 @@
 defmodule FuschiaWeb.Router do
   use FuschiaWeb, :router
 
+  import Surface.Catalogue.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -26,6 +28,8 @@ defmodule FuschiaWeb.Router do
     pipe_through :browser
 
     get "/swaggerui", OpenApiSpex.Plug.SwaggerUI, path: "/api/openapi"
+
+    live "/example", FuschiaWeb.ExampleLive
   end
 
   scope "/api" do
@@ -45,6 +49,11 @@ defmodule FuschiaWeb.Router do
   end
 
   if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      surface_catalogue("/catalogue")
+    end
+
     scope "/dev" do
       pipe_through :browser
 

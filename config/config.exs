@@ -24,6 +24,11 @@ config :fuschia, FuschiaWeb.Endpoint,
 # ---------------------------#
 config :phoenix, :json_library, Jason
 
+config :surface, :components, [
+  {Surface.Components.Form.ErrorTag,
+   default_translator: {FuschiaWeb.ErrorHelpers, :translate_error}}
+]
+
 # ---------------------------#
 # Esbuild
 # ---------------------------#

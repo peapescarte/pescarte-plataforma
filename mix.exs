@@ -14,7 +14,7 @@ defmodule Fuschia.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ],
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext, :surface] ++ Mix.compilers(),
       elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -31,8 +31,14 @@ defmodule Fuschia.MixProject do
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(:dev), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "test/support"] ++ catalogues()
   defp elixirc_paths(_), do: ["lib"]
+
+  defp catalogues do
+    [
+      "priv/catalogue"
+    ]
+  end
 
   defp dialyzer do
     [
@@ -48,16 +54,17 @@ defmodule Fuschia.MixProject do
       {:mail, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_live_view, "~> 0.16"},
       {:floki, ">= 0.30.0", only: :test},
       {:bcrypt_elixir, "~> 2.0"},
       {:paginator, "~> 1.0.3"},
-      {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_live_dashboard, "~> 0.5.3"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
       {:oban, "~> 2.8"},
       {:proper_case, "~> 1.0.2"},
       {:nanoid, "~> 2.0.5"},
+      {:surface, "~> 0.6.0"},
       {:hackney, "~> 1.8"},
       {:timex, "~> 3.0"},
       {:guardian, "~> 2.0"},
@@ -74,7 +81,9 @@ defmodule Fuschia.MixProject do
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.6.3", only: [:dev], runtime: false}
+      {:git_hooks, "~> 0.6.3", only: [:dev], runtime: false},
+      {:surface_formatter, "~> 0.6.0"},
+      {:surface_catalogue, "~> 0.2.0"}
     ]
   end
 
