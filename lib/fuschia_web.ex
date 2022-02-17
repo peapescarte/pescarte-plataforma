@@ -34,6 +34,16 @@ defmodule FuschiaWeb do
     end
   end
 
+  @spec surface_view :: Macro.t()
+  def surface_view do
+    quote do
+      use Surface.LiveView,
+        layout: {YourAppWeb.LayoutView, "live.html"}
+
+      unquote(view_helpers())
+    end
+  end
+
   @spec view :: Macro.t()
   def view do
     quote do
@@ -50,6 +60,34 @@ defmodule FuschiaWeb do
     end
   end
 
+  @spec live_view :: Macro.t()
+  def live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {ExampleWeb.LayoutView, "live.html"}
+
+      unquote(view_helpers())
+    end
+  end
+
+  @spec live_component :: Macro.t()
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+  @spec component :: Macro.t()
+  def component do
+    quote do
+      use Phoenix.Component
+
+      unquote(view_helpers())
+    end
+  end
+
   @spec router :: Macro.t()
   def router do
     quote do
@@ -57,6 +95,7 @@ defmodule FuschiaWeb do
 
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
@@ -70,6 +109,10 @@ defmodule FuschiaWeb do
 
   defp view_helpers do
     quote do
+      use Phoenix.HTML
+
+      import Phoenix.LiveView.Helpers
+
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 

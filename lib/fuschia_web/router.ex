@@ -3,6 +3,11 @@ defmodule FuschiaWeb.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {FuschiaWeb.LayoutView, :root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
   end
 
   pipeline :api do
@@ -10,10 +15,6 @@ defmodule FuschiaWeb.Router do
     plug FuschiaWeb.LocalePlug
     plug FuschiaWeb.RequireApiKeyPlug
     plug ProperCase.Plug.SnakeCaseParams
-  end
-
-  pipeline :auth do
-    plug FuschiaWeb.Auth.Pipeline
   end
 
   pipeline :api_swagger do
@@ -33,16 +34,21 @@ defmodule FuschiaWeb.Router do
     get "/openapi", OpenApiSpex.Plug.RenderSpec, []
   end
 
-  scope "/api", FuschiaWeb do
-    pipe_through :api
+  if Mix.env() in [:dev, :test] do
+    import Phoenix.LiveDashboard.Router
 
-    post "/login", AuthController, :login
-    post "/signup", AuthController, :signup
+    scope "/" do
+      pipe_through :browser
+
+      live_dashboard "/dashboard", metrics: FuschiaWeb.Telemetry
+    end
   end
 
-  scope "/api", FuschiaWeb do
-    pipe_through [:auth, :api]
+  if Mix.env() == :dev do
+    scope "/dev" do
+      pipe_through :browser
 
-    resources "/campi", CampusController, only: [:create, :index, :delete]
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
   end
 end

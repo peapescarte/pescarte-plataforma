@@ -10,11 +10,25 @@ config :fuschia, Fuschia.Repo,
   pool_size: 10
 
 config :fuschia, FuschiaWeb.Endpoint,
-  http: [port: 4000],
+  http: [ip: {127, 0, 0, 1}, port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: []
+  secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",
+  watchers: [
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+  ]
+
+config :fuschia, FuschiaWeb.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/fuschia_web/(live|views)/.*(ex)$",
+      ~r"lib/fuschia_web/templates/.*(eex)$"
+    ]
+  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

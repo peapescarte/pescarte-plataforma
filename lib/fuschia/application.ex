@@ -40,7 +40,7 @@ defmodule Fuschia.Application do
       |> Fuschia.Parser.to_boolean()
 
     if start_oban? do
-      [{Oban, Application.get_env(:fuschia, Oban)} | base_children]
+      base_children ++ [{Oban, Application.get_env(:fuschia, Oban)}]
     else
       base_children
     end
