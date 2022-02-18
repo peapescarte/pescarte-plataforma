@@ -40,7 +40,7 @@ defmodule Fuschia.Application do
       |> Fuschia.Parser.to_boolean()
 
     if start_oban? do
-      [{Oban, Application.get_env(:fuschia, Oban)} | base_children]
+      Enum.reverse([{Oban, Application.get_env(:fuschia, Oban)} | base_children])
     else
       base_children
     end

@@ -32,3 +32,6 @@ fuschia-*.tar
 
 # Environment variables
 .env
+
+# Ignore generated js hook files for components
+assets/js/_hooks/
