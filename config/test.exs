@@ -4,7 +4,7 @@ config :fuschia, Fuschia.Repo,
   username: "pescarte",
   password: "pescarte",
   database: "fuschia_test#{System.get_env("MIX_TEST_PARTITION")}",
-  hostname: "db",
+  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
