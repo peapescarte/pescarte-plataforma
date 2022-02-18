@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.UserTest do
 
   alias Fuschia.Entities.User
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{
       cpf: nil,

@@ -9,6 +9,8 @@ defmodule Fuschia.AuthLogsTest do
   alias Fuschia.Entities.AuthLog
   alias Fuschia.Repo
 
+  @moduletag :unit
+
   @ip "127.0.0.1"
 
   describe "create/1" do

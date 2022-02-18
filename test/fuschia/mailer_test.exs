@@ -49,6 +49,8 @@ defmodule Fuschia.MailerTest do
 
   alias Fuschia.Mailer
 
+  @moduletag :unit
+
   test "add_attachment/2 always returns the email structure" do
     assert %Email{} =
              nil

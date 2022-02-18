@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.MidiaTest do
 
   alias Fuschia.Entities.Midia
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{
       tipo: nil,

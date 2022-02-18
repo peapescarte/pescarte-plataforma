@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.CidadeTest do
 
   alias Fuschia.Entities.Cidade
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{municipio: nil}
 
