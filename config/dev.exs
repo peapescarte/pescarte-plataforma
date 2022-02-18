@@ -62,7 +62,7 @@ config :git_hooks,
   ]
 
 try do
-  import_config "dev.secret.exs"
+  import_config "local.secret.exs"
 rescue
   _ -> nil
 end

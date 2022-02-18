@@ -26,7 +26,7 @@ config :phoenix, :plug_init_mode, :runtime
 config :logger, level: :warn
 
 try do
-  import_config "test.secret.exs"
+  import_config "local.secret.exs"
 rescue
   _ -> nil
 end
