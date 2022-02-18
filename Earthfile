@@ -96,6 +96,7 @@ test-setup:
 
   COPY mix.exs mix.lock .formatter.exs .
   COPY --dir config lib priv test .
+  COPY config/local.secret.exs ./config
 
   RUN mix local.rebar --force --if-missing
   RUN mix local.hex --force --if-missing
