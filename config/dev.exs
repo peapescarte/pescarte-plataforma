@@ -5,7 +5,7 @@ config :fuschia, Fuschia.Repo,
   username: "pescarte",
   password: "pescarte",
   database: "fuschia_dev",
-  hostname: "db",
+  hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
