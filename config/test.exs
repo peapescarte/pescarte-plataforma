@@ -19,7 +19,7 @@ config :fuschia, FuschiaWeb.Endpoint,
 config :logger, level: :warn
 
 try do
-  import_config "test.secret.exs"
+  import_config "local.secret.exs"
 rescue
   _ -> nil
 end
