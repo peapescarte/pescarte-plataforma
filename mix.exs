@@ -54,17 +54,17 @@ defmodule Fuschia.MixProject do
       {:mail, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.16"},
+      {:phoenix_live_view, "~> 0.17"},
       {:floki, ">= 0.30.0", only: :test},
       {:bcrypt_elixir, "~> 2.0"},
       {:paginator, "~> 1.0.3"},
-      {:phoenix_live_dashboard, "~> 0.5.3"},
+      {:phoenix_live_dashboard, "~> 0.6"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
       {:oban, "~> 2.8"},
       {:proper_case, "~> 1.0.2"},
       {:nanoid, "~> 2.0.5"},
-      {:surface, "~> 0.6.0"},
+      {:surface, "~> 0.7.0"},
       {:hackney, "~> 1.8"},
       {:timex, "~> 3.0"},
       {:guardian, "~> 2.0"},
@@ -82,8 +82,8 @@ defmodule Fuschia.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:git_hooks, "~> 0.6.3", only: [:dev], runtime: false},
-      {:surface_formatter, "~> 0.6.0"},
-      {:surface_catalogue, "~> 0.2.0"}
+      {:surface_formatter, "~> 0.7"},
+      {:surface_catalogue, "~> 0.3.0"}
     ]
   end
 
