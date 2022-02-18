@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.PesquisadorTest do
 
   alias Fuschia.Entities.Pesquisador
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{
       usuario_cpf: nil,

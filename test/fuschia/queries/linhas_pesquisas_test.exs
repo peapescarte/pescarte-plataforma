@@ -7,6 +7,8 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
   alias Fuschia.Entities.LinhaPesquisa
   alias Fuschia.Queries.LinhasPesquisas
 
+  @moduletag :unit
+
   describe "list/0" do
     test "return all linha_pesquisas in database" do
       insert(:linha_pesquisa)

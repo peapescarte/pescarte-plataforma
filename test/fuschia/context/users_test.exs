@@ -6,6 +6,8 @@ defmodule Fuschia.Context.UsersTest do
   alias Fuschia.Context.Users
   alias Fuschia.Entities.User
 
+  @moduletag :unit
+
   describe "list/1" do
     test "return all users in database" do
       user =

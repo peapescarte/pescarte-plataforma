@@ -5,6 +5,8 @@ defmodule FuschiaWeb.FuschiaViewTest do
 
   alias FuschiaWeb.FuschiaView
 
+  @moduletag :integration
+
   test "renders response.json" do
     data = %{test: true}
     assert render(FuschiaView, "response.json", %{data: data}) == %{data: %{test: true}}
