@@ -34,11 +34,9 @@ defmodule FuschiaWeb.ConnCase do
   end
 
   setup tags do
-    :ok = Sandbox.checkout(Fuschia.Repo)
+    pid = Sandbox.start_owner!(Fuschia.Repo, shared: not tags[:async])
 
-    unless tags[:async] do
-      Sandbox.mode(Fuschia.Repo, {:shared, self()})
-    end
+    on_exit(fn -> Sandbox.stop_owner(pid) end)
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end

@@ -133,7 +133,7 @@ defmodule Fuschia.Context.Users do
            |> Repo.transaction() do
       {:ok, reseted}
     else
-      {:error, :user, changeset, _} ->
+      {:error, :user, changeset, _e} ->
         {:error, changeset}
     end
   end
@@ -201,7 +201,8 @@ defmodule Fuschia.Context.Users do
            |> Repo.transaction() do
       {:ok, user}
     else
-      {:error, :user, changeset, _} -> {:error, changeset}
+      {:error, :user, changeset, _e} ->
+        {:error, changeset}
     end
   end
 
