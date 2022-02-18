@@ -100,7 +100,8 @@ defmodule Fuschia.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run lib/mix/tasks/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "run lib/mix/tasks/seeds.exs", "test"],
-      "test.reset": ["ecto.drop", "test"]
+      "test.reset": ["ecto.drop", "test"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end
