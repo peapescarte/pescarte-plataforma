@@ -44,5 +44,6 @@ defmodule FuschiaWeb.Router do
     pipe_through [:auth, :api]
 
     resources "/campi", CampusController, only: [:create, :index, :delete]
+    resources "/cidades", CidadeController, only: [:create]
   end
 end
