@@ -34,16 +34,6 @@ defmodule FuschiaWeb do
     end
   end
 
-  @spec surface_view :: Macro.t()
-  def surface_view do
-    quote do
-      use Surface.LiveView,
-        layout: {FuschiaWeb.LayoutView, "live.html"}
-
-      unquote(view_helpers())
-    end
-  end
-
   @spec view :: Macro.t()
   def view do
     quote do
@@ -57,14 +47,16 @@ defmodule FuschiaWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
-      import Surface
+
+      use Surface.View,
+        root: "lib/fuschia_web/templates"
     end
   end
 
   @spec live_view :: Macro.t()
   def live_view do
     quote do
-      use Phoenix.LiveView,
+      use Surface.LiveView,
         layout: {FuschiaWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
@@ -75,6 +67,15 @@ defmodule FuschiaWeb do
   def live_component do
     quote do
       use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+  @spec surface_component :: Macro.t()
+  def surface_component do
+    quote do
+      use Surface.Component
 
       unquote(view_helpers())
     end
