@@ -7,6 +7,8 @@ defmodule Fuschia.Queries.CampiTest do
   alias Fuschia.Entities.Campus
   alias Fuschia.Queries.Campi
 
+  @moduletag :unit
+
   describe "list/0" do
     test "return all campi in database" do
       insert(:campus)

@@ -6,6 +6,8 @@ defmodule FuschiaJobs.MailerJobTest do
 
   alias Fuschia.Jobs.MailerJob
 
+  @moduletag :integration
+
   describe "perform/1" do
     test "successfully execute mailer job" do
       args = %{

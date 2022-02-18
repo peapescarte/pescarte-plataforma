@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.CampusTest do
 
   alias Fuschia.Entities.Campus
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{nome: nil, cidade: nil}
 

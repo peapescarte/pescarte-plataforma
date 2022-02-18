@@ -27,7 +27,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :git_hooks,
-  auto_install: true,
+  auto_install: false,
   verbose: true,
   hooks: [
     pre_commit: [

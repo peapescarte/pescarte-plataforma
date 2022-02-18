@@ -7,6 +7,8 @@ defmodule Fuschia.Queries.NucleosTest do
   alias Fuschia.Entities.Nucleo
   alias Fuschia.Queries.Nucleos
 
+  @moduletag :unit
+
   describe "list/0" do
     test "return all nucleos in database" do
       insert(:nucleo)

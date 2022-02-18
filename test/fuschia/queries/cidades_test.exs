@@ -7,6 +7,8 @@ defmodule Fuschia.Queries.CidadesTest do
   alias Fuschia.Entities.Cidade
   alias Fuschia.Queries.Cidades
 
+  @moduletag :unit
+
   describe "list/0" do
     test "return all cidades in database" do
       insert(:cidade)

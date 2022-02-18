@@ -7,6 +7,8 @@ defmodule Fuschia.Queries.PesquisadoresTest do
   alias Fuschia.Entities.Pesquisador
   alias Fuschia.Queries.Pesquisadores
 
+  @moduletag :unit
+
   describe "list/1" do
     test "return all pesquisadores in database" do
       insert(:pesquisador)
