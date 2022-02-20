@@ -1,6 +1,8 @@
 defmodule FuschiaWeb.Router do
   use FuschiaWeb, :router
 
+  import FuschiaWeb.UserAuth
+
   import Surface.Catalogue.Router
 
   pipeline :browser do
@@ -10,6 +12,7 @@ defmodule FuschiaWeb.Router do
     plug :put_root_layout, {FuschiaWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -59,5 +62,41 @@ defmodule FuschiaWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  ## Authentication routes
+
+  scope "/", FuschiaWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    get "/cadastrar", UserRegistrationController, :new
+    post "/cadastrar", UserRegistrationController, :create
+    get "/acessar", UserSessionController, :new
+    post "/acessar", UserSessionController, :create
+    get "/resetar_senha", UserResetPasswordController, :new
+    post "/resetar_senha", UserResetPasswordController, :create
+    get "/resetar_senha/:token", UserResetPasswordController, :edit
+    put "/resetar_senha/:token", UserResetPasswordController, :update
+  end
+
+  scope "/app", FuschiaWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/pesquisadore/configuracoes", UserSettingsController, :edit
+    put "/pesquisadore/configuracoes", UserSettingsController, :update
+
+    get "/pesquisadore/configuracoes/confirmar_email/:token",
+        UserSettingsController,
+        :confirm_email
+  end
+
+  scope "/app", FuschiaWeb do
+    pipe_through [:browser]
+
+    delete "/desconectar", UserSessionController, :delete
+    get "/confirmar", UserConfirmationController, :new
+    post "/confirmar", UserConfirmationController, :create
+    get "/confirmar/:token", UserConfirmationController, :edit
+    post "/confirmar/:token", UserConfirmationController, :update
   end
 end
