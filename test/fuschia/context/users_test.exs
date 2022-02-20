@@ -4,7 +4,7 @@ defmodule Fuschia.Context.UsersTest do
   import Fuschia.Factory
 
   alias Fuschia.Context.Users
-  alias Fuschia.Entities.User
+  alias Fuschia.Accounts.User
 
   @moduletag :unit
 
