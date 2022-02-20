@@ -1,6 +1,6 @@
 defmodule Fuschia.Mailer do
   @moduledoc """
-  Mailer public API
+  API pública para criação de emails
   """
 
   use Swoosh.Mailer, otp_app: :fuschia
@@ -9,19 +9,10 @@ defmodule Fuschia.Mailer do
   alias Swoosh.Email
 
   @doc """
-  Returns an email structure populated with a `recipient` and a
-  `subject` and assembles the email's html body based on the given
-  templates `layout` and `email` and given `assigns`.
+  Retorna uma estrutura de e-mail preenchida com um `destinatário` e um
+  `subject` e monta o corpo html do email com base no dado
+  templates `layout` e `email` e dados `assigns`.
   """
-  @spec new_email(
-          String.t() | {String.t(), String.t()} | [String.t()] | [{String.t(), String.t()}],
-          String.t(),
-          String.t(),
-          String.t(),
-          map,
-          String.t(),
-          String.t() | {String.t(), String.t()} | [String.t()] | [{String.t(), String.t()}] | []
-        ) :: Email.t()
   def new_email(recipient, subject, layout, template, assigns \\ %{}, base \\ "base", bcc \\ [])
       when is_map(assigns) do
     body = HTML.assemble_body(layout, template, assigns, base)
