@@ -18,6 +18,7 @@ defmodule FuschiaWeb.ConnCase do
   use ExUnit.CaseTemplate
 
   alias Ecto.Adapters.SQL.Sandbox
+  alias Fuschia.Factory
 
   using do
     quote do
@@ -39,5 +40,31 @@ defmodule FuschiaWeb.ConnCase do
     on_exit(fn -> Sandbox.stop_owner(pid) end)
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  @doc """
+  Assistente de configuração que registra e efetua login do usuário.
+
+      setup :register_and_log_in_user
+
+  Armazena uma conexão atualizada e um usuário cadastrado no
+  contexto de teste.
+  """
+  def register_and_log_in_user(%{conn: conn}) do
+    user = Factory.insert(:user)
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
+  @doc """
+  Registra o `usuário` fornecido no `conn`.
+
+  Ele retorna um `conn` atualizado.
+  """
+  def log_in_user(conn, user) do
+    token = Fuschia.Accounts.generate_user_session_token(user)
+
+    conn
+    |> Phoenix.ConnTest.init_test_session(%{})
+    |> Plug.Conn.put_session(:user_token, token)
   end
 end

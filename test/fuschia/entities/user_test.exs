@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.UserTest do
+defmodule Fuschia.Accounts.UserTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.User
+  alias Fuschia.Accounts.User
 
   @moduletag :unit
 

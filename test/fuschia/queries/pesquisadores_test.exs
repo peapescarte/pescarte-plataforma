@@ -4,7 +4,7 @@ defmodule Fuschia.Queries.PesquisadoresTest do
   import Fuschia.Factory
 
   alias Fuschia.Db
-  alias Fuschia.Entities.Pesquisador
+  alias Fuschia.Accounts.Pesquisador
   alias Fuschia.Queries.Pesquisadores
 
   @moduletag :unit

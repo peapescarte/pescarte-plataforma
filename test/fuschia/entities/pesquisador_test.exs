@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.PesquisadorTest do
+defmodule Fuschia.Accounts.PesquisadorTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.Pesquisador
+  alias Fuschia.Accounts.Pesquisador
 
   @moduletag :unit
 
