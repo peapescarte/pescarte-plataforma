@@ -1,4 +1,4 @@
-defmodule Fuschia.Entities.Pesquisador do
+defmodule Fuschia.Accounts.Pesquisador do
   @moduledoc """
   Pesquisador Schema
   """
@@ -6,7 +6,8 @@ defmodule Fuschia.Entities.Pesquisador do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.{Campus, Midia, Pesquisador, Relatorio, User}
+  alias Fuschia.Accounts.User
+  alias Fuschia.Entities.{Campus, Midia, Pesquisador, Relatorio}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(
@@ -97,7 +98,7 @@ defmodule Fuschia.Entities.Pesquisador do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.Entities.Pesquisador
+    alias Fuschia.Accounts.Pesquisador
 
     @spec encode(Pesquisador.t(), map) :: map
     def encode(struct, opts) do
