@@ -5,7 +5,7 @@ defmodule Fuschia.Queries.Pesquisadores do
 
   import Ecto.Query, only: [from: 2, where: 3, order_by: 3]
 
-  alias Fuschia.Entities.Pesquisador
+  alias Fuschia.Accounts.Pesquisador
 
   @behaviour Fuschia.Query
 

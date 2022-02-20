@@ -6,7 +6,7 @@ defmodule Fuschia.Entities.Relatorio do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.Pesquisador
+  alias Fuschia.Accounts.Pesquisador
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(

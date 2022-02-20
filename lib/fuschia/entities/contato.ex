@@ -6,11 +6,13 @@ defmodule Fuschia.Entities.Contato do
   use Fuschia.Schema
 
   import Ecto.Changeset
+  import FuschiaWeb.Gettext
 
   alias Fuschia.Common.Formats
 
   @required_fields ~w(email endereco celular)a
 
+  @email_format Formats.email()
   @mobile_format Formats.mobile()
 
   schema "contato" do
@@ -31,27 +33,18 @@ defmodule Fuschia.Entities.Contato do
     |> validate_email()
   end
 
-  @doc """
-  A contact changeset for changing the email.
-
-  It requires the email to change otherwise an error is added.
-  """
-  @spec email_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
-  def email_changeset(contact, attrs) do
-    contact
-    |> cast(attrs, [:email])
-    |> validate_email()
-    |> case do
-      %{changes: %{email: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :email, "did not change")
-    end
-  end
-
   @spec validate_email(Ecto.Changeset.t()) :: Ecto.Changeset.t()
-  defp validate_email(changeset) do
+  def validate_email(changeset) do
     changeset
-    |> validate_length(:email, max: 160)
+    |> validate_length(:email,
+      max: 160,
+      message: dgettext("errors", "should be at most 160 character(s)", count: 160)
+    )
+    |> validate_format(:email, @email_format,
+      message: dgettext("errors", "must have the @ sign and no spaces")
+    )
     |> unsafe_validate_unique(:email, Fuschia.Repo)
+    |> unique_constraint(:email)
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do

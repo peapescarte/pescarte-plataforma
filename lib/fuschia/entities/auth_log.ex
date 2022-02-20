@@ -7,7 +7,7 @@ defmodule Fuschia.Entities.AuthLog do
 
   import Ecto.Changeset
 
-  alias Fuschia.Entities.User
+  alias Fuschia.Accounts.User
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(ip user_agent user_cpf)a
