@@ -1,0 +1,36 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/fallback_controller.ex:44
+msgid "Access Denied"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/fallback_controller.ex:37
+msgid "Incorrect e-mail or password"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/fallback_controller.ex:60
+msgid "The item already exists"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/fallback_controller.ex:30
+msgid "The item you requested doesn't exist"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/plugs/require_api_key.ex:26
+msgid "You need a valid API Key to access this endpoint"
+msgstr ""

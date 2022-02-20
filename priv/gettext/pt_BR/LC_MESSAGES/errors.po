@@ -1,132 +1,122 @@
-## `msgid`s in this file come from POT (.pot) files.
+## "msgid"s in this file come from POT (.pot) files.
 ##
-## Do not add, change, or remove `msgid`s manually here as
+## Do not add, change, or remove "msgid"s manually here as
 ## they're tied to the ones in the corresponding POT file
 ## (with the same domain).
 ##
-## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
 ## to merge POT files into PO files.
 msgid ""
 msgstr ""
-"Language: en\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2\n"
 
-## From Ecto.Changeset.cast/4
 msgid "can't be blank"
-msgstr ""
+msgstr "não pode ficar em branco"
 
-## From Ecto.Changeset.unique_constraint/3
 msgid "has already been taken"
-msgstr ""
+msgstr "já está em uso"
 
-## From Ecto.Changeset.put_change/3
 msgid "is invalid"
-msgstr ""
+msgstr "é inválido"
 
-## From Ecto.Changeset.validate_acceptance/3
 msgid "must be accepted"
-msgstr ""
+msgstr "deve ser aceito"
 
-## From Ecto.Changeset.validate_format/3
 msgid "has invalid format"
-msgstr ""
+msgstr "formato inválido"
 
-## From Ecto.Changeset.validate_subset/3
 msgid "has an invalid entry"
-msgstr ""
+msgstr "possui valor inválido"
 
-## From Ecto.Changeset.validate_exclusion/3
 msgid "is reserved"
-msgstr ""
+msgstr "é reservardo"
 
-## From Ecto.Changeset.validate_confirmation/3
 msgid "does not match confirmation"
-msgstr ""
+msgstr "não coincide"
 
-## From Ecto.Changeset.no_assoc_constraint/3
 msgid "is still associated with this entry"
-msgstr ""
+msgstr "continua associado a esse valor"
 
 msgid "are still associated with this entry"
-msgstr ""
+msgstr "continua associado a esse valor"
 
-## From Ecto.Changeset.validate_length/3
 msgid "should be %{count} character(s)"
 msgid_plural "should be %{count} character(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "deve possuir %{count} caracteres"
+msgstr[1] "deve possuir %{count} caracteres"
 
 msgid "should have %{count} item(s)"
 msgid_plural "should have %{count} item(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "deve possuir %{count} item"
+msgstr[1] "deve possuir %{count} itens"
 
 msgid "should be at least %{count} character(s)"
 msgid_plural "should be at least %{count} character(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "deve possuir no mínimo %{count} caracteres"
+msgstr[1] "deve possuir no mínimo %{count} caracteres"
 
 msgid "should have at least %{count} item(s)"
 msgid_plural "should have at least %{count} item(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "deve possuir no mínimo %{count} itens"
+msgstr[1] "deve possuir no mínimo %{count} itens"
 
 msgid "should be at most %{count} character(s)"
 msgid_plural "should be at most %{count} character(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "deve possuir no máximo %{count} caracteres"
+msgstr[1] "deve possuir no máximo %{count} caracteres"
 
 msgid "should have at most %{count} item(s)"
 msgid_plural "should have at most %{count} item(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "deve possuir no máximo %{count} itens"
+msgstr[1] "deve possuir no máximo %{count} itens"
 
-## From Ecto.Changeset.validate_number/3
 msgid "must be less than %{number}"
-msgstr ""
+msgstr "deve ser menor que %{number}"
 
 msgid "must be greater than %{number}"
-msgstr ""
+msgstr "deve ser maior que %{number}"
 
 msgid "must be less than or equal to %{number}"
-msgstr ""
+msgstr "deve ser menor ou igual a %{number}"
 
 msgid "must be greater than or equal to %{number}"
-msgstr ""
+msgstr "deve ser maior ou igual a %{number}"
 
 msgid "must be equal to %{number}"
-msgstr ""
+msgstr "deve ser igual a %{number}"
 
 #, elixir-autogen, elixir-format
 #: lib/fuschia_web/plugs/ensure_role_plug.ex:42
 msgid "Unauthorized"
-msgstr ""
+msgstr "Sem autorização"
 
 #, elixir-autogen, elixir-format
 #: lib/fuschia_web/live/live_helpers.ex:26
 msgid "You must log in to access this page."
-msgstr ""
+msgstr "Você precisa realizar login para acessar esta página."
 
 #, elixir-autogen, elixir-format
 #: lib/fuschia/schema.ex:41
 msgid "does not exist"
-msgstr ""
+msgstr "não existe"
 
 #, elixir-autogen, elixir-format
 #: lib/fuschia/entities/contato.ex:48
 msgid "didn't change"
-msgstr ""
+msgstr "não pode ser igual ao antigo"
 
 #, elixir-autogen, elixir-format
 #: lib/fuschia/entities/contato.ex:60
 msgid "must have the @ sign and no spaces"
-msgstr ""
+msgstr "deve haver um @ e nenhum espaço em branco"
 
 #, elixir-autogen, elixir-format, fuzzy
 #: lib/fuschia/entities/contato.ex:57
 msgid "should be at most 160 character(s)"
-msgstr ""
+msgstr "deve possuir no máximo %{count} caracteres"
 
 #, elixir-autogen, elixir-format
 #: lib/fuschia/accounts/user.ex:143
 msgid "does not match password"
-msgstr ""
+msgstr "as senhas precisam ser iguais"

@@ -7,7 +7,6 @@
 ## Run `mix gettext.extract` to bring this file up to
 ## date. Leave `msgstr`s empty as changing them here has no
 ## effect: edit them in PO (`.po`) files instead.
-
 ## From Ecto.Changeset.cast/4
 msgid "can't be blank"
 msgstr ""
@@ -92,4 +91,39 @@ msgid "must be greater than or equal to %{number}"
 msgstr ""
 
 msgid "must be equal to %{number}"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/plugs/ensure_role_plug.ex:42
+msgid "Unauthorized"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/live/live_helpers.ex:26
+msgid "You must log in to access this page."
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/schema.ex:41
+msgid "does not exist"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/entities/contato.ex:48
+msgid "didn't change"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/entities/contato.ex:60
+msgid "must have the @ sign and no spaces"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/entities/contato.ex:57
+msgid "should be at most 160 character(s)"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/accounts/user.ex:143
+msgid "does not match password"
 msgstr ""
