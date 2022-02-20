@@ -6,7 +6,8 @@ defmodule FuschiaWeb.AuthController do
   use FuschiaWeb, :controller
   use OpenApiSpex.ControllerSpecs
 
-  alias Fuschia.Context.{AuthLogs, Users}
+  alias Fuschia.Accounts
+  alias Fuschia.Context.AuthLogs
   alias FuschiaWeb.Auth.Guardian
   alias FuschiaWeb.{RemoteIp, UserAgent}
   alias FuschiaWeb.Swagger.{AuthSchemas, Response, Security, UserSchemas}
@@ -46,7 +47,7 @@ defmodule FuschiaWeb.AuthController do
     with {:ok, token} <- Guardian.authenticate(params),
          {:ok, user} <- Guardian.user_claims(params),
          :ok <- AuthLogs.create(ip, user_agent, user) do
-      render_response(%{user: Map.put(user, :token, token)}, conn)
+      render_response(%{user: user, token: token}, conn)
     end
   end
 
@@ -64,7 +65,7 @@ defmodule FuschiaWeb.AuthController do
 
   @spec signup(Plug.Conn.t(), String.t(), String.t(), map) :: Plug.Conn.t()
   def signup(conn, _ip, _user_agent, params) do
-    with {:ok, user} <- Users.register(params) do
+    with {:ok, user} <- Accounts.register(params) do
       render_response(user, conn, :created)
     end
   end

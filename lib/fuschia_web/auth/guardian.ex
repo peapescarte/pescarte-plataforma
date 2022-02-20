@@ -5,8 +5,8 @@ defmodule FuschiaWeb.Auth.Guardian do
 
   use Guardian, otp_app: :fuschia
 
-  alias Fuschia.Context.Users
-  alias Fuschia.Entities.User
+  alias Fuschia.Accounts
+  alias Fuschia.Accounts.User
 
   @spec subject_for_token(User.t(), map) :: {:ok, String.t()}
   def subject_for_token(user, _claims) do
@@ -20,14 +20,14 @@ defmodule FuschiaWeb.Auth.Guardian do
     user =
       claims
       |> Map.get("sub")
-      |> Users.one()
+      |> Accounts.get()
 
     {:ok, user}
   end
 
   @spec authenticate(map) :: {:ok, String.t()} | {:error, :unauthorized}
   def authenticate(%{"cpf" => cpf, "password" => password}) do
-    case Users.one_by_cpf(cpf) do
+    case Accounts.get(cpf) do
       nil -> {:error, :unauthorized}
       user -> validate_password(user, password)
     end
@@ -35,7 +35,7 @@ defmodule FuschiaWeb.Auth.Guardian do
 
   @spec user_claims(map) :: {:ok, User.t()} | {:error, :unauthorized}
   def user_claims(%{"cpf" => cpf}) do
-    case Users.one_with_permissions(cpf) do
+    case Accounts.get(cpf) do
       nil -> {:error, :unauthorized}
       user -> {:ok, User.for_jwt(user)}
     end
