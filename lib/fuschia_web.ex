@@ -48,6 +48,8 @@ defmodule FuschiaWeb do
       # Include shared imports and aliases for views
       unquote(view_helpers())
 
+      import Surface
+
       use Surface.View,
         root: "lib/fuschia_web/templates"
     end
@@ -58,6 +60,8 @@ defmodule FuschiaWeb do
     quote do
       use Surface.LiveView,
         layout: {FuschiaWeb.LayoutView, "live.html"}
+
+      import FuschiaWeb.LiveHelpers
 
       unquote(view_helpers())
     end
