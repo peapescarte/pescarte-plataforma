@@ -85,7 +85,7 @@ defmodule Fuschia.Accounts.Pesquisador do
   @spec to_map(%__MODULE__{}) :: map
   def to_map(%__MODULE__{} = struct) do
     %{
-      id: struct.id_externo,
+      id: struct.id,
       cpf: struct.usuario_cpf,
       minibiografia: struct.minibiografia,
       tipo_bolsa: struct.tipo_bolsa,
