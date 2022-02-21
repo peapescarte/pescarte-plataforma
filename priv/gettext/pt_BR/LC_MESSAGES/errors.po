@@ -102,21 +102,36 @@ msgid "does not exist"
 msgstr "não existe"
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia/entities/contato.ex:48
+#: lib/fuschia/accounts/user.ex:166
 msgid "didn't change"
 msgstr "não pode ser igual ao antigo"
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia/entities/contato.ex:60
+#: lib/fuschia/entities/contato.ex:44
 msgid "must have the @ sign and no spaces"
 msgstr "deve haver um @ e nenhum espaço em branco"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/fuschia/entities/contato.ex:57
+#: lib/fuschia/entities/contato.ex:41
 msgid "should be at most 160 character(s)"
 msgstr "deve possuir no máximo %{count} caracteres"
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia/accounts/user.ex:143
+#: lib/fuschia/accounts/user.ex:145
 msgid "does not match password"
 msgstr "as senhas precisam ser iguais"
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/user_settings_controller.ex:69
+msgid "Email change link is invalid or it has expired."
+msgstr "Link para troca de Email é inválido ou expirou."
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/user_reset_password_controller.ex:60
+msgid "Reset password link is invalid or it has expired."
+msgstr "Link para recuperação de senha é inválido ou expirou."
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/user_confirmation_controller.ex:57
+msgid "User confirmation link is invalid or it has expired."
+msgstr "Link para confirmação da conta é inválido ou expirou."
