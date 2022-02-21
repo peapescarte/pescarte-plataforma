@@ -22,7 +22,7 @@ defmodule Fuschia.Entities.Relatorio do
   @primary_key false
 
   schema "relatorio" do
-    field :id_externo, :string
+    field :id, :string
     field :ano, :integer, primary_key: true
     field :mes, :integer, primary_key: true
     field :tipo, TrimmedString
@@ -46,7 +46,7 @@ defmodule Fuschia.Entities.Relatorio do
     |> validate_year(:ano)
     |> validate_inclusion(:tipo, @tipos)
     |> foreign_key_constraint(:pesquisador_cpf)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   defp validate_month(changeset, field) do
@@ -76,7 +76,7 @@ defmodule Fuschia.Entities.Relatorio do
   @spec to_map(%__MODULE__{}) :: map
   def to_map(%__MODULE__{} = struct) do
     %{
-      id: struct.id_externo,
+      id: struct.id,
       ano: struct.ano,
       mes: struct.mes,
       tipo: struct.tipo,

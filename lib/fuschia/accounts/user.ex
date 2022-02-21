@@ -30,6 +30,7 @@ defmodule Fuschia.Accounts.User do
     field :nome_completo, CapitalizedString
     field :ativo?, :boolean, default: true
     field :permissoes, :map, virtual: true
+    field :id, :string
 
     belongs_to :contato, Contato, on_replace: :update
 
@@ -46,6 +47,7 @@ defmodule Fuschia.Accounts.User do
     |> validate_inclusion(:role, @valid_roles)
     |> cast_assoc(:contato, required: true)
     |> foreign_key_constraint(:cpf, name: :pesquisador_usuario_cpf_fkey)
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec update_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
@@ -209,7 +211,8 @@ defmodule Fuschia.Accounts.User do
       perfil: struct.role,
       permissoes: struct.permissoes,
       cpf: struct.cpf,
-      dataNascimento: struct.data_nascimento
+      dataNascimento: struct.data_nascimento,
+      id: struct.id
     }
   end
 
@@ -220,7 +223,8 @@ defmodule Fuschia.Accounts.User do
       ultimo_login: struct.last_seen,
       confirmado_em: struct.confirmed_at,
       ativo: struct.ativo?,
-      data_nascimento: struct.data_nascimento
+      data_nascimento: struct.data_nascimento,
+      id: struct.id
     }
   end
 

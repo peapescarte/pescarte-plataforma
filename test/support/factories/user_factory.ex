@@ -11,6 +11,7 @@ defmodule Fuschia.UserFactory do
       @spec user_factory :: User.t()
       def user_factory do
         %User{
+          id: Nanoid.generate_non_secure(),
           role: sequence(:role, ["avulso", "pesquisador"]),
           nome_completo: sequence(:nome_completo, &"User #{&1}"),
           ativo?: true,
