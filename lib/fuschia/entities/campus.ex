@@ -6,7 +6,8 @@ defmodule Fuschia.Entities.Campus do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.{Cidade, Pesquisador}
+  alias Fuschia.Accounts.Pesquisador
+  alias Fuschia.Entities.Cidade
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome)a
