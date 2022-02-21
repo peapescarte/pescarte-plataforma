@@ -486,6 +486,8 @@ defmodule Fuschia.Accounts do
     Repo.preload(user, [:contato])
   end
 
+  def preload_all(nil), do: nil
+
   defp put_permissions(%User{} = user) do
     # TODO
     Map.put(user, :permissoes, nil)
