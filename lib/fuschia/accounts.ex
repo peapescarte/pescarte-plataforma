@@ -110,6 +110,25 @@ defmodule Fuschia.Accounts do
     |> put_permissions()
   end
 
+  @doc """
+  Obtém apenas um usuário pelo id
+
+  ## Examples
+
+      iex> get("JY85XgrT6NYAcaAYhXMQq")
+      %User{}
+
+      iex> get("")
+      nil
+
+  """
+  def get_by_id(id) do
+    query()
+    |> preload_all()
+    |> Repo.get_by(id: id)
+    |> put_permissions()
+  end
+
   ## User registration
 
   @doc """

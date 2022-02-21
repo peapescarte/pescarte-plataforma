@@ -67,6 +67,17 @@ defmodule Fuschia.AccountsTest do
     end
   end
 
+  describe "get_by_id/1" do
+    test "when id is valid, returns a user" do
+      user = user_fixture()
+      assert user == Accounts.get_by_id(user.id)
+    end
+
+    test "when id is invalid, returns nil" do
+      refute Accounts.get_by_id("")
+    end
+  end
+
   describe "register/1" do
     test "requires email and password to be set" do
       {:error, changeset} = Accounts.register(%{})
