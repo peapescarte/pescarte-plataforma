@@ -79,24 +79,29 @@ defmodule FuschiaWeb.Router do
     put "/resetar_senha/:token", UserResetPasswordController, :update
   end
 
-  scope "/app", FuschiaWeb do
+  scope "/apps", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/pesquisadore/configuracoes", UserSettingsController, :edit
-    put "/pesquisadore/configuracoes", UserSettingsController, :update
+    scope "/usuarios" do
+    get "/:user_id/configuracoes", UserSettingsController, :edit
+    put "/:user_id/configuracoes", UserSettingsController, :update
 
-    get "/pesquisadore/configuracoes/confirmar_email/:token",
+    get "/:user_id/configuracoes/confirmar_email/:token",
         UserSettingsController,
         :confirm_email
+    end
   end
 
   scope "/app", FuschiaWeb do
     pipe_through [:browser]
 
     delete "/desconectar", UserSessionController, :delete
-    get "/confirmar", UserConfirmationController, :new
-    post "/confirmar", UserConfirmationController, :create
-    get "/confirmar/:token", UserConfirmationController, :edit
-    post "/confirmar/:token", UserConfirmationController, :update
+
+    scope "/usuarios" do
+      get "/confirmar", UserConfirmationController, :new
+      post "/confirmar", UserConfirmationController, :create
+      get "/confirmar/:token", UserConfirmationController, :edit
+      post "/confirmar/:token", UserConfirmationController, :update
+    end
   end
 end
