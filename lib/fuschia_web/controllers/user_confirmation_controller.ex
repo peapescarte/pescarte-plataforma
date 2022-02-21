@@ -47,7 +47,7 @@ defmodule FuschiaWeb.UserConfirmationController do
         # por alguma forma automática ou pelo próprio usuário, então redirecionamos sem
         # uma mensagem de aviso.
         case conn.assigns do
-          %{current_user: %{confirmed_at: confirmed_at}} when not is_nil(confirmed_at) ->
+          %{current_user: %{confirmed_at: %NaiveDateTime{} = _confirmed_at}} ->
             redirect(conn, to: "/")
 
           %{} ->

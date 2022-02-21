@@ -1,4 +1,9 @@
 defmodule FuschiaWeb.UserAuth do
+  @moduledoc """
+  Funções do contexto de autenticação de usuários
+  via browser. Apenas Funções puras.
+  """
+
   import FuschiaWeb.Gettext
   import Plug.Conn
   import Phoenix.Controller
