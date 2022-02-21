@@ -79,7 +79,7 @@ defmodule FuschiaWeb.Router do
     put "/rescuperar_senha/:token", UserResetPasswordController, :update
   end
 
-  scope "/apps", FuschiaWeb do
+  scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     scope "/usuarios" do

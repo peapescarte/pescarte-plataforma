@@ -20,6 +20,8 @@ defmodule FuschiaWeb.UserAuth do
   """
   def signed_in_path(conn) do
     if user = Map.get(conn.assigns, :current_user) do
+      # TODO
+      # change to Routes.user_*/* function
       "/app/pesquisadores/#{user.id}"
     else
       with user_token when is_binary(user_token) <- get_session(conn, :user_token),
@@ -108,7 +110,7 @@ defmodule FuschiaWeb.UserAuth do
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)
-    assign(conn, :current_user, user)
+    assign(conn, :current_user, Accounts.preload_all(user))
   end
 
   defp ensure_user_token(conn) do
