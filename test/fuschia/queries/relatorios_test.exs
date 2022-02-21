@@ -7,6 +7,8 @@ defmodule Fuschia.Queries.RelatoriosTest do
   alias Fuschia.Entities.Relatorio
   alias Fuschia.Queries.Relatorios
 
+  @moduletag :unit
+
   describe "list/0" do
     test "return all relatorios in database" do
       insert(:relatorio)

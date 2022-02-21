@@ -6,11 +6,11 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
       add(:cpf, :citext, primary_key: true, null: false)
       add(:nome_completo, :string, null: false)
       add(:data_nascimento, :date, null: false)
-      add(:perfil, :string, default: "avulso", null: false)
+      add(:role, :string, default: "avulso", null: false)
       add(:last_seen, :utc_datetime_usec)
-      add(:ativo, :boolean, default: true, null: false)
+      add(:ativo?, :boolean, default: true, null: false)
       add(:password_hash, :string)
-      add(:confirmed, :boolean, default: false)
+      add(:confirmed_at, :naive_datetime)
 
       add(:contato_id, references(:contato, on_replace: :update), null: false)
 

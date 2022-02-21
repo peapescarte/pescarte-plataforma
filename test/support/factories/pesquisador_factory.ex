@@ -3,7 +3,7 @@ defmodule Fuschia.PesquisadorFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Pesquisador
+      alias Fuschia.Accounts.Pesquisador
 
       @spec pesquisador_factory :: Pesquisador.t()
       def pesquisador_factory do
@@ -11,7 +11,7 @@ defmodule Fuschia.PesquisadorFactory do
         usuario = build(:user)
 
         %Pesquisador{
-          id_externo: Nanoid.generate_non_secure(),
+          id: Nanoid.generate_non_secure(),
           usuario: usuario,
           minibiografia: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
           tipo_bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),

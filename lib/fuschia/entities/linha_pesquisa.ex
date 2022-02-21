@@ -13,7 +13,7 @@ defmodule Fuschia.Entities.LinhaPesquisa do
 
   @primary_key {:numero, :integer, []}
   schema "linha_pesquisa" do
-    field :id_externo, :string
+    field :id, :string
     field :descricao_curta, TrimmedString
     field :descricao_longa, TrimmedString
 
@@ -34,13 +34,13 @@ defmodule Fuschia.Entities.LinhaPesquisa do
     |> unique_constraint([:numero, :nucleo_nome])
     |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec to_map(%__MODULE__{}) :: map
   def to_map(%__MODULE__{} = struct) do
     %{
-      id: struct.id_externo,
+      id: struct.id,
       descricao_curta: struct.descricao_curta,
       descricao_longa: struct.descricao_longa,
       numero: struct.numero,

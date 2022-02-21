@@ -7,6 +7,8 @@ defmodule Fuschia.Queries.MidiasTest do
   alias Fuschia.Entities.Midia
   alias Fuschia.Queries.Midias
 
+  @moduletag :unit
+
   describe "list/0" do
     test "return all midias in database" do
       insert(:midia)

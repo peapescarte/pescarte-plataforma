@@ -3,7 +3,7 @@ defmodule Fuschia.Db do
   Este módulo centraliza os efeitos colaterais
   do banco de dados.
 
-   Fontes: https://pt.stackoverflow.com/questions/330341/o-que-s%C3%A3o-efeitos-colaterais
+  Fontes: https://pt.stackoverflow.com/questions/330341/o-que-s%C3%A3o-efeitos-colaterais
   """
 
   alias Fuschia.Repo

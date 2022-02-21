@@ -2,10 +2,10 @@ defmodule Fuschia.Mailer.HTML do
   @moduledoc false
 
   @doc """
-  Inject the `assigns` values into the `email` template's .eex tags
-  from the "homologacao" or "financiamento" `project` and then render
-  the resulting HTML page into a base template.
-  Returns an HTML page in string format.
+  Injete os valores `assigns` nas tags .eex do modelo `email`
+  do "homologacao" ou "financiamento" `projeto` e então renderizar
+  a página HTML resultante em um modelo base.
+  Retorna uma página HTML em formato de string.
   """
   @spec assemble_body(String.t(), String.t(), map, String.t()) :: any
   def assemble_body(project, email, assigns, base \\ "base") when is_map(assigns) do

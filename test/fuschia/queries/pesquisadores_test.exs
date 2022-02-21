@@ -3,9 +3,11 @@ defmodule Fuschia.Queries.PesquisadoresTest do
 
   import Fuschia.Factory
 
+  alias Fuschia.Accounts.Pesquisador
   alias Fuschia.Db
-  alias Fuschia.Entities.Pesquisador
   alias Fuschia.Queries.Pesquisadores
+
+  @moduletag :unit
 
   describe "list/1" do
     test "return all pesquisadores in database" do

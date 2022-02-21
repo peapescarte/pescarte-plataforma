@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.LinhaPesquisaTest do
 
   alias Fuschia.Entities.LinhaPesquisa
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{
       numero: nil,

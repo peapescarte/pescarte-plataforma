@@ -3,6 +3,8 @@ defmodule Fuschia.Entities.AuthLogTest do
 
   alias Fuschia.Entities.AuthLog
 
+  @moduletag :unit
+
   describe "changeset/2" do
     setup do
       %{

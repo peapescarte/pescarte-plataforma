@@ -95,3 +95,58 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/plugs/ensure_role_plug.ex:42
+msgid "Unauthorized"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/live/live_helpers.ex:26
+msgid "You must log in to access this page."
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/schema.ex:41
+msgid "does not exist"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/accounts/user.ex:172
+msgid "didn't change"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/entities/contato.ex:44
+msgid "must have the @ sign and no spaces"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/fuschia/entities/contato.ex:41
+msgid "should be at most 160 character(s)"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/accounts/user.ex:151
+msgid "does not match password"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_settings_controller.ex:71
+msgid "Email change link is invalid or it has expired."
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_reset_password_controller.ex:60
+msgid "Reset password link is invalid or it has expired."
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_confirmation_controller.ex:57
+msgid "User confirmation link is invalid or it has expired."
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_session_controller.ex:20
+msgid "Invalid email or password"
+msgstr ""

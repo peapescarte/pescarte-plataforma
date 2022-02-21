@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.NucleoTest do
 
   alias Fuschia.Entities.Nucleo
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{
       nome: nil,
