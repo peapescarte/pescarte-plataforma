@@ -42,7 +42,7 @@ Este projeto possui três opções para ambientes de desenvolvimento:
 
 -----
 
-## Guias
+** Guias
 
 - [[./guiides/tests.md][Testes]]
 - [[./guides/integration_tests.md][Testes de integração]]
@@ -59,7 +59,7 @@ Esse projeto está dividio em diversas sub-aplicações que possuem diferentes r
 
 *** Fuschia.Mailer
 
-Responsável pelo processamento e envio/disparo dos emails. Estamos utilizando o [[Swoosh][https://github.com/swoosh/swoosh]].
+Responsável pelo processamento e envio/disparo dos emails. Estamos utilizando o [[https://github.com/swoosh/swoosh][Swoosh]].
 
 Para testar o preview de email, siga a seguinte documentação:
 
@@ -87,8 +87,11 @@ basta entrar na aplicação/container e utilizar:
 iex -S mix swoosh.mailbox.server
 #+end_src
 
-Que um servidor no local https://127.0.0.1:4001 vai apresentar uma página web listando os emails
-enviados localmente através do `iex` que ficou aberto com o comando anterior.
+E um servidor no local http://127.0.0.1:4001 vai apresentar uma página web listando os emails
+enviados localmente através do =iex= que ficou aberto com o comando anterior.
+
+Caso esteja rodando o servidor com o comando =iex -S mix phx.server=, a caixa de entrada também poderá
+ser acessada no endereço http://127.0.0.1/dev/maibox.
 
 -----
 
