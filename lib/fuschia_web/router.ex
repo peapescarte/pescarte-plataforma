@@ -99,6 +99,7 @@ defmodule FuschiaWeb.Router do
     pipe_through [:api_auth, :api]
 
     resources "/campi", CampusController, only: [:create, :index, :delete]
+    resources "/cidades", CidadeController, only: [:create]
   end
 
   ## Endpoints para ambiente de desenvolvimento
