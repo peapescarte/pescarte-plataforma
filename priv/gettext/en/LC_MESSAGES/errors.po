@@ -145,3 +145,8 @@ msgstr ""
 #: lib/fuschia_web/controllers/user_confirmation_controller.ex:57
 msgid "User confirmation link is invalid or it has expired."
 msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/user_session_controller.ex:20
+msgid "Invalid email or password"
+msgstr ""

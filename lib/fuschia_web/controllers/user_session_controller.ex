@@ -17,7 +17,7 @@ defmodule FuschiaWeb.UserSessionController do
       UserAuth.log_in_user(conn, user, user_params)
     else
       # Para evitar ataques de enumeração de usuários, não divulgue se o email está registrado.
-      render(conn, "new.html", error_message: "Invalid email or password")
+      render(conn, "new.html", error_message: dgettext("errors", "Invalid email or password"))
     end
   end
 

@@ -3,6 +3,7 @@ defmodule Fuschia.UserFactory do
 
   defmacro __using__(_opts) do
     quote do
+      alias Fuschia.Accounts
       alias Fuschia.Accounts.User
 
       def unique_user_email, do: "user#{System.unique_integer()}@example.com"
@@ -20,6 +21,12 @@ defmodule Fuschia.UserFactory do
           password_hash: "$2b$12$AZdxCkw/Rb5AlI/5S7Ebb.hIyG.ocs18MGkHAW2gdZibH7a1wHTyu",
           contato: build(:contato)
         }
+      end
+
+      def user_fixture(opts \\ []) do
+        :user
+        |> Fuschia.Factory.insert(opts)
+        |> Accounts.preload_all()
       end
 
       def extract_user_token(fun) do
