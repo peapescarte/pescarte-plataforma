@@ -213,11 +213,11 @@ defmodule Fuschia.Accounts.User do
       email: struct.contato.email,
       endereco: struct.contato.endereco,
       celular: struct.contato.celular,
-      nomeCompleto: struct.nome_completo,
+      nome_completo: struct.nome_completo,
       perfil: struct.role,
       permissoes: struct.permissoes,
       cpf: struct.cpf,
-      dataNascimento: struct.data_nascimento,
+      data_nascimento: struct.data_nascimento,
       id: struct.id
     }
   end
@@ -230,7 +230,8 @@ defmodule Fuschia.Accounts.User do
       confirmado_em: struct.confirmed_at,
       ativo: struct.ativo?,
       data_nascimento: struct.data_nascimento,
-      id: struct.id
+      id: struct.id,
+      contato: struct.contato
     }
   end
 

@@ -37,7 +37,7 @@ defmodule FuschiaWeb.Auth.Guardian do
   def user_claims(%{"cpf" => cpf}) do
     case Accounts.get(cpf) do
       nil -> {:error, :unauthorized}
-      user -> {:ok, User.for_jwt(user)}
+      user -> {:ok, user |> User.for_jwt() |> ProperCase.to_camel_case()}
     end
   end
 
