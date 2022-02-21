@@ -12,46 +12,46 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_settings_controller.ex:30
+#: lib/fuschia_web/controllers/browser/user_settings_controller.ex:30
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "Um link de confirmação da troca do seu email foi enviado para o novo endereço."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_settings_controller.ex:62
+#: lib/fuschia_web/controllers/browser/user_settings_controller.ex:64
 msgid "Email changed successfully."
 msgstr "Email foi atualizado com sucesso."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_confirmation_controller.ex:23
+#: lib/fuschia_web/controllers/browser/user_confirmation_controller.ex:23
 msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
 msgstr "Caso seu email esteja em nosso sistema porém ainda não foi confirmado, você irá receber um email com as instruções em breve."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_reset_password_controller.ex:25
+#: lib/fuschia_web/controllers/browser/user_reset_password_controller.ex:25
 msgid "If your email is in our system, you will receive instructions to reset your password shortly."
 msgstr "Caso seu email esteja em nosso sistema, você irá receber intruções para recuperar sua senha em breve."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_session_controller.ex:26
+#: lib/fuschia_web/controllers/browser/user_session_controller.ex:26
 msgid "Logged out successfully."
 msgstr "Você desconectou com sucesso."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_reset_password_controller.ex:43
+#: lib/fuschia_web/controllers/browser/user_reset_password_controller.ex:43
 msgid "Password reset successfully."
 msgstr "Senha recuperada com sucesso."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_settings_controller.ex:49
+#: lib/fuschia_web/controllers/browser/user_settings_controller.ex:49
 msgid "Password updated successfully."
 msgstr "Senha atualizada com sucesso."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_confirmation_controller.ex:41
+#: lib/fuschia_web/controllers/browser/user_confirmation_controller.ex:41
 msgid "User confirmed successfully."
 msgstr "Usuário confirmado com sucesso."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_registration_controller.ex:25
+#: lib/fuschia_web/controllers/browser/user_registration_controller.ex:25
 msgid "User successfully registered."
 msgstr "Usuário foi cadastrado com sucesso."

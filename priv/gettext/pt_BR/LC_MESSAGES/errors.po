@@ -102,7 +102,7 @@ msgid "does not exist"
 msgstr "não existe"
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia/accounts/user.ex:166
+#: lib/fuschia/accounts/user.ex:172
 msgid "didn't change"
 msgstr "não pode ser igual ao antigo"
 
@@ -117,26 +117,26 @@ msgid "should be at most 160 character(s)"
 msgstr "deve possuir no máximo %{count} caracteres"
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia/accounts/user.ex:145
+#: lib/fuschia/accounts/user.ex:151
 msgid "does not match password"
 msgstr "as senhas precisam ser iguais"
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_settings_controller.ex:69
+#: lib/fuschia_web/controllers/browser/user_settings_controller.ex:71
 msgid "Email change link is invalid or it has expired."
 msgstr "Link para troca de Email é inválido ou expirou."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_reset_password_controller.ex:60
+#: lib/fuschia_web/controllers/browser/user_reset_password_controller.ex:60
 msgid "Reset password link is invalid or it has expired."
 msgstr "Link para recuperação de senha é inválido ou expirou."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_confirmation_controller.ex:57
+#: lib/fuschia_web/controllers/browser/user_confirmation_controller.ex:57
 msgid "User confirmation link is invalid or it has expired."
 msgstr "Link para confirmação da conta é inválido ou expirou."
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_session_controller.ex:20
+#: lib/fuschia_web/controllers/browser/user_session_controller.ex:20
 msgid "Invalid email or password"
 msgstr "Email ou senha inválidos."

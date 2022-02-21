@@ -11,6 +11,6 @@ msgid ""
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/fuschia_web/controllers/user_auth.ex:152
+#: lib/fuschia_web/controllers/browser/user_auth.ex:159
 msgid "You must log in to access this page."
 msgstr ""
