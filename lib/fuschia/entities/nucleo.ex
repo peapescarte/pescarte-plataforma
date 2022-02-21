@@ -12,7 +12,7 @@ defmodule Fuschia.Entities.Nucleo do
 
   @primary_key {:nome, CapitalizedString, []}
   schema "nucleo" do
-    field :id_externo, :string
+    field :id, :string
     field :descricao, :string
 
     has_many :linhas_pesquisa, LinhaPesquisa
@@ -27,13 +27,13 @@ defmodule Fuschia.Entities.Nucleo do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> validate_length(:descricao, max: 400)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec to_map(%__MODULE__{}) :: map
   def to_map(%__MODULE__{} = struct) do
     %{
-      id: struct.id_externo,
+      id: struct.id,
       nome: struct.nome,
       descricao: struct.descricao,
       linhas_pesquisa: struct.linhas_pesquisa

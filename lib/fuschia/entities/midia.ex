@@ -20,7 +20,7 @@ defmodule Fuschia.Entities.Midia do
 
   @primary_key {:link, TrimmedString, autogenerate: false}
   schema "midia" do
-    field :id_externo, :string
+    field :id, :string
     field :tipo, TrimmedString
     field :tags, {:array, TrimmedString}
 
@@ -41,13 +41,13 @@ defmodule Fuschia.Entities.Midia do
     |> unique_constraint(:link)
     |> validate_inclusion(:tipo, @tipos_midia)
     |> foreign_key_constraint(:pesquisador_cpf)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec to_map(%__MODULE__{}) :: map
   def to_map(%__MODULE__{} = struct) do
     %{
-      id: struct.id_externo,
+      id: struct.id,
       tipo: struct.tipo,
       link: struct.link,
       tags: struct.tags

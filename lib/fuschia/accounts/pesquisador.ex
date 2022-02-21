@@ -23,7 +23,7 @@ defmodule Fuschia.Accounts.Pesquisador do
 
   @primary_key {:usuario_cpf, TrimmedString, autogenerate: false}
   schema "pesquisador" do
-    field :id_externo, :string
+    field :id, :string
     field :minibiografia, TrimmedString
     field :tipo_bolsa, TrimmedString
     field :link_lattes, TrimmedString
@@ -67,7 +67,7 @@ defmodule Fuschia.Accounts.Pesquisador do
     |> cast_assoc(:usuario, required: true)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec update_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()

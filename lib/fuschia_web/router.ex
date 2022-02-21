@@ -83,12 +83,12 @@ defmodule FuschiaWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     scope "/usuarios" do
-    get "/:user_id/configuracoes", UserSettingsController, :edit
-    put "/:user_id/configuracoes", UserSettingsController, :update
+      get "/:user_id/configuracoes", UserSettingsController, :edit
+      put "/:user_id/configuracoes", UserSettingsController, :update
 
-    get "/:user_id/configuracoes/confirmar_email/:token",
-        UserSettingsController,
-        :confirm_email
+      get "/:user_id/configuracoes/confirmar_email/:token",
+          UserSettingsController,
+          :confirm_email
     end
   end
 
