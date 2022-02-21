@@ -10,12 +10,6 @@ defmodule FuschiaWeb.UserAuthTest do
 
   @remember_me_cookie "_fuschia_web_user_remember_me"
 
-  defp user_fixture(opts \\ []) do
-    :user
-    |> insert(opts)
-    |> Accounts.preload_all()
-  end
-
   setup %{conn: conn} do
     conn =
       conn
@@ -27,10 +21,14 @@ defmodule FuschiaWeb.UserAuthTest do
 
   describe "log_in_user/3" do
     test "stores the user token in the session", %{conn: conn, user: user} do
-      conn = UserAuth.log_in_user(conn, user)
+      conn =
+        conn
+        |> put_session(:user_return_to, "/app/pesquisadores/#{user.id}")
+        |> UserAuth.log_in_user(user)
+
       assert token = get_session(conn, :user_token)
       assert get_session(conn, :live_socket_id) == "user_sessions:#{Base.url_encode64(token)}"
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == "/app/pesquisadores/#{user.id}"
       assert Accounts.get_user_by_session_token(token)
     end
 
@@ -126,7 +124,7 @@ defmodule FuschiaWeb.UserAuthTest do
     test "redirects if user is authenticated", %{conn: conn, user: user} do
       conn = conn |> assign(:current_user, user) |> UserAuth.redirect_if_user_is_authenticated([])
       assert conn.halted
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == "/app/pesquisadores/#{user.id}"
     end
 
     test "does not redirect if user is not authenticated", %{conn: conn} do

@@ -8,12 +8,6 @@ defmodule Fuschia.AccountsTest do
 
   @moduletag :unit
 
-  defp user_fixture(opts \\ []) do
-    :user
-    |> insert(opts)
-    |> Accounts.preload_all()
-  end
-
   describe "list/1" do
     test "return all users in database" do
       user = user_fixture()

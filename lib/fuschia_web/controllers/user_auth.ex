@@ -1,4 +1,5 @@
 defmodule FuschiaWeb.UserAuth do
+  import FuschiaWeb.Gettext
   import Plug.Conn
   import Phoenix.Controller
 
@@ -18,11 +19,15 @@ defmodule FuschiaWeb.UserAuth do
   redirecionado após o login
   """
   def signed_in_path(conn) do
-    with user_token when is_binary(user_token) <- get_session(conn, :user_token),
-         %User{id: user_id} <- Accounts.get_user_by_session_token(user_token) do
-      "/app/pesquisadores/#{user_id}"
+    if user = Map.get(conn.assigns, :current_user) do
+      "/app/pesquisadores/#{user.id}"
     else
-      _e -> "/not_found"
+      with user_token when is_binary(user_token) <- get_session(conn, :user_token),
+           %User{id: user_id} <- Accounts.get_user_by_session_token(user_token) do
+        "/app/pesquisadores/#{user_id}"
+      else
+        _e -> "/not_found"
+      end
     end
   end
 
@@ -144,7 +149,7 @@ defmodule FuschiaWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "Você precisa realizar login para acessar esta página")
+      |> put_flash(:error, dgettext("erros", "You must log in to access this page."))
       |> maybe_store_return_to()
       |> redirect(to: Routes.user_session_path(conn, :new))
       |> halt()
