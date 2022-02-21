@@ -73,10 +73,10 @@ defmodule FuschiaWeb.Router do
     post "/cadastrar", UserRegistrationController, :create
     get "/acessar", UserSessionController, :new
     post "/acessar", UserSessionController, :create
-    get "/resetar_senha", UserResetPasswordController, :new
-    post "/resetar_senha", UserResetPasswordController, :create
-    get "/resetar_senha/:token", UserResetPasswordController, :edit
-    put "/resetar_senha/:token", UserResetPasswordController, :update
+    get "/rescuperar_senha", UserResetPasswordController, :new
+    post "/rescuperar_senha", UserResetPasswordController, :create
+    get "/rescuperar_senha/:token", UserResetPasswordController, :edit
+    put "/rescuperar_senha/:token", UserResetPasswordController, :update
   end
 
   scope "/apps", FuschiaWeb do
