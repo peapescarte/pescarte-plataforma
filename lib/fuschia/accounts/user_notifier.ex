@@ -28,6 +28,7 @@ defmodule Fuschia.Accounts.UserNotifier do
 
   def deliver_confirmation_instructions(user, url) do
     deliver("Instruções para confirmação da conta", "email_confirmation", %{
+      name: user.nome_completo,
       email: user.contato.email,
       url: url
     })
@@ -35,6 +36,7 @@ defmodule Fuschia.Accounts.UserNotifier do
 
   def deliver_reset_password_instructions(user, url) do
     deliver("Instruções para recuperar senha", "reset_password", %{
+      name: user.nome_completo,
       email: user.contato.email,
       url: url
     })
@@ -42,6 +44,7 @@ defmodule Fuschia.Accounts.UserNotifier do
 
   def deliver_update_email_instructions(user, url) do
     deliver("Instruções para atualizar email", "update_email", %{
+      name: user.nome_completo,
       email: user.contato.email,
       url: url
     })

@@ -5,6 +5,8 @@ defmodule FuschiaWeb.UserSettingsControllerTest do
 
   import Fuschia.Factory
 
+  @moduletag :integration
+
   setup :register_and_log_in_user
 
   describe "GET /usuarios/:user_id/configuracoes" do

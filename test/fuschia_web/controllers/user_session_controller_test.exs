@@ -3,6 +3,8 @@ defmodule FuschiaWeb.UserSessionControllerTest do
 
   import Fuschia.Factory
 
+  @moduletag :integration
+
   setup %{conn: conn} do
     conn =
       conn

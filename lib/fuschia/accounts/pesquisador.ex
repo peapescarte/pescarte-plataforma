@@ -6,8 +6,8 @@ defmodule Fuschia.Accounts.Pesquisador do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Accounts.User
-  alias Fuschia.Entities.{Campus, Midia, Pesquisador, Relatorio}
+  alias Fuschia.Accounts.{Pesquisador, User}
+  alias Fuschia.Entities.{Campus, Midia, Relatorio}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(

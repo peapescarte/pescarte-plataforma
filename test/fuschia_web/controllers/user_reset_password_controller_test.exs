@@ -6,6 +6,8 @@ defmodule FuschiaWeb.UserResetPasswordControllerTest do
 
   import Fuschia.Factory
 
+  @moduletag :integration
+
   setup do
     %{user: user_fixture()}
   end
