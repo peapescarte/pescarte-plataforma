@@ -5,7 +5,7 @@ defmodule FuschiaWeb.LocalePlug do
 
   import Plug.Conn
 
-  @default_locale "en"
+  @default_locale "pt_BR"
 
   @spec init(map) :: map
   def init(default), do: default

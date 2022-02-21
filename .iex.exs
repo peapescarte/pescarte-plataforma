@@ -1,4 +1,12 @@
-alias Fuschia.{Context, Entities, Queries}
+alias Fuschia.{
+  Accounts,
+  Accounts.Pesquisador,
+  Accounts.User,
+  Context,
+  Database,
+  Entities,
+  Queries
+}
 
 alias Fuschia.Queries.{
   Campi,
@@ -10,8 +18,6 @@ alias Fuschia.Queries.{
   Relatorios
 }
 
-alias Context.Users
-
 alias Fuschia.Entities.{
   Campus,
   Cidade,
@@ -19,9 +25,7 @@ alias Fuschia.Entities.{
   LinhaPesquisa,
   Midia,
   Nucleo,
-  Pesquisador,
-  Relatorio,
-  User
+  Relatorio
 }
 
 alias Fuschia.Repo

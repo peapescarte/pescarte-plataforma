@@ -1,4 +1,4 @@
-defmodule Fuschia.Entities.Pesquisador do
+defmodule Fuschia.Accounts.Pesquisador do
   @moduledoc """
   Pesquisador Schema
   """
@@ -6,7 +6,8 @@ defmodule Fuschia.Entities.Pesquisador do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.{Campus, Midia, Pesquisador, Relatorio, User}
+  alias Fuschia.Accounts.{Pesquisador, User}
+  alias Fuschia.Entities.{Campus, Midia, Relatorio}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(
@@ -22,7 +23,7 @@ defmodule Fuschia.Entities.Pesquisador do
 
   @primary_key {:usuario_cpf, TrimmedString, autogenerate: false}
   schema "pesquisador" do
-    field :id_externo, :string
+    field :id, :string
     field :minibiografia, TrimmedString
     field :tipo_bolsa, TrimmedString
     field :link_lattes, TrimmedString
@@ -66,7 +67,7 @@ defmodule Fuschia.Entities.Pesquisador do
     |> cast_assoc(:usuario, required: true)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec update_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
@@ -84,7 +85,7 @@ defmodule Fuschia.Entities.Pesquisador do
   @spec to_map(%__MODULE__{}) :: map
   def to_map(%__MODULE__{} = struct) do
     %{
-      id: struct.id_externo,
+      id: struct.id,
       cpf: struct.usuario_cpf,
       minibiografia: struct.minibiografia,
       tipo_bolsa: struct.tipo_bolsa,
@@ -97,7 +98,7 @@ defmodule Fuschia.Entities.Pesquisador do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.Entities.Pesquisador
+    alias Fuschia.Accounts.Pesquisador
 
     @spec encode(Pesquisador.t(), map) :: map
     def encode(struct, opts) do

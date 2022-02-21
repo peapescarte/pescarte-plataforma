@@ -17,6 +17,7 @@ defmodule Fuschia.Context.AuthLogs do
 
   @spec create(String.t(), String.t(), User.t()) :: :ok
   def create(ip, user_agent, user) do
-    create(%{"ip" => ip, "user_agent" => user_agent, "user_cpf" => user.cpf})
+    user_cpf = Map.get(user, :cpf) || Map.get(user, "cpf")
+    create(%{"ip" => ip, "user_agent" => user_agent, "user_cpf" => user_cpf})
   end
 end
