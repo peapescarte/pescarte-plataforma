@@ -1,5 +1,7 @@
 import Config
 
+config :gettext, default_locale: "pt_BR"
+
 # ---------------------------#
 # Ecto
 # ---------------------------#

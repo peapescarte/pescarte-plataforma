@@ -6,14 +6,15 @@ defmodule Fuschia.Entities.Campus do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.{Cidade, Pesquisador}
+  alias Fuschia.Accounts.Pesquisador
+  alias Fuschia.Entities.Cidade
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome)a
 
   @primary_key {:nome, CapitalizedString, autogenerate: false}
   schema "campus" do
-    field :id_externo, :string
+    field :id, :string
 
     belongs_to :cidade, Cidade,
       type: :string,
@@ -33,7 +34,7 @@ defmodule Fuschia.Entities.Campus do
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
     |> cast_assoc(:cidade, required: true)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec foreign_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
@@ -43,13 +44,13 @@ defmodule Fuschia.Entities.Campus do
     |> validate_required([:cidade_municipio | @required_fields])
     |> unique_constraint([:nome, :cidade_municipio], name: :campus_nome_municipio_index)
     |> foreign_key_constraint(:cidade_municipio)
-    |> put_change(:id_externo, Nanoid.generate())
+    |> put_change(:id, Nanoid.generate())
   end
 
   @spec to_map(%__MODULE__{}) :: map
   def to_map(%__MODULE__{} = struct) do
     %{
-      id: struct.id_externo,
+      id: struct.id,
       nome: struct.nome,
       cidade: struct.cidade,
       pesquisadores: struct.pesquisadores
