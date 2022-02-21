@@ -52,6 +52,7 @@ defmodule Fuschia.MixProject do
       {:phoenix_ecto, "~> 4.1"},
       {:swoosh, "~> 1.4"},
       {:mail, ">= 0.0.0"},
+      {:brcpfcnpj, "~> 1.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17"},

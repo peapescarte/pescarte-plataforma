@@ -1,4 +1,13 @@
 defmodule Fuschia.Accounts.UserToken do
+  @moduledoc """
+  Schema que representa tokens de usuários.
+
+  ## Exemplos
+  - confirmação de email
+  - recuperação de senha
+  - token de sessão de login
+  """
+
   use Fuschia.Schema
 
   import Ecto.Query

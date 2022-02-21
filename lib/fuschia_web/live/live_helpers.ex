@@ -29,7 +29,7 @@ defmodule FuschiaWeb.LiveHelpers do
   end
 
   defp find_current_user(session) do
-    with session_token when not is_nil(session_token) <- session["user_token"],
+    with session_token when is_binary(session_token) <- session["user_token"],
          %User{} = user <- Accounts.get_user_by_session_token(session_token),
          do: user
   end

@@ -6,7 +6,7 @@ defmodule Fuschia.Accounts do
   import Ecto.Query, warn: false
   alias Fuschia.Repo
 
-  alias Fuschia.Accounts.{User, UserToken, UserNotifier}
+  alias Fuschia.Accounts.{User, UserNotifier, UserToken}
 
   ## Database getters
 

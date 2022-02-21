@@ -1,10 +1,18 @@
 defmodule Fuschia.Accounts.User do
+  @moduledoc """
+  Schema que representa um usuário do sistema.
+
+  ## Exemplos
+  - Pesquisador
+  - Pescador
+  """
+
   use Fuschia.Schema
 
+  import Brcpfcnpj.Changeset, only: [validate_cpf: 2]
   import Ecto.Changeset
   import FuschiaWeb.Gettext
 
-  alias Fuschia.Common.Formats
   alias Fuschia.Entities.{Contato, User}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
@@ -16,8 +24,6 @@ defmodule Fuschia.Accounts.User do
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
-
-  @cpf_format Formats.cpf()
 
   @primary_key {:cpf, TrimmedString, autogenerate: false}
   schema "user" do
@@ -41,7 +47,7 @@ defmodule Fuschia.Accounts.User do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> validate_format(:cpf, @cpf_format)
+    |> validate_cpf(:cpf)
     |> unique_constraint(:cpf, name: :user_pkey)
     |> unique_constraint(:cpf, name: :user_nome_completo_index)
     |> validate_inclusion(:role, @valid_roles)
@@ -54,7 +60,7 @@ defmodule Fuschia.Accounts.User do
   def update_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
-    |> validate_format(:cpf, @cpf_format)
+    |> validate_cpf(:cpf)
     |> unique_constraint(:cpf, name: :user_pkey)
     |> unique_constraint(:cpf, name: :user_nome_completo_index)
     |> validate_inclusion(:role, @valid_roles)
@@ -171,7 +177,7 @@ defmodule Fuschia.Accounts.User do
   Confirma um usuário atualizando `confirmed_at`,
   """
   def confirm_changeset(user) do
-    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
     change(user, confirmed_at: now)
   end
 

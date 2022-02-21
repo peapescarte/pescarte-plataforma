@@ -1,4 +1,8 @@
 defmodule Fuschia.Accounts.UserNotifier do
+  @moduledoc """
+  Define funções públicas para o envio de emails transacionais.
+  """
+
   require Logger
 
   alias Fuschia.Jobs.MailerJob
