@@ -11,7 +11,7 @@ defmodule Fuschia.Schema do
       use Ecto.Schema
       import Fuschia.Schema, only: [validate_foreign_key: 3]
 
-      @timestamps_opts [inserted_at: :created_at, type: :utc_datetime_usec]
+      @timestamps_opts [inserted_at: :inserted_at, type: :utc_datetime_usec]
     end
   end
 

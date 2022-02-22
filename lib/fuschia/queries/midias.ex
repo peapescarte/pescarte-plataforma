@@ -12,7 +12,7 @@ defmodule Fuschia.Queries.Midias do
   @impl true
   def query do
     from midia in Midia,
-      order_by: [desc: midia.created_at]
+      order_by: [desc: midia.inserted_at]
   end
 
   @spec query_by_pesquisador(binary) :: Ecto.Query.t()

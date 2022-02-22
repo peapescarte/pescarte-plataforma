@@ -31,7 +31,7 @@ defmodule Fuschia.Accounts do
     query()
     |> where([u, contato], fragment("lower(?)", contato.email) == ^email)
     |> where([u], u.ativo? == true)
-    |> order_by([u], desc: u.created_at)
+    |> order_by([u], desc: u.inserted_at)
     |> limit(1)
     |> preload_all()
     |> Repo.one()
@@ -475,7 +475,7 @@ defmodule Fuschia.Accounts do
   def query do
     from u in User,
       left_join: contato in assoc(u, :contato),
-      order_by: [desc: u.created_at]
+      order_by: [desc: u.inserted_at]
   end
 
   def preload_all(%Ecto.Query{} = query) do

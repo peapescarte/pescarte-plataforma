@@ -3,6 +3,9 @@ import Config
 # Only in tests, remove the complexity from the password hashing algorithm
 config :bcrypt_elixir, :log_rounds, 1
 
+# ignore audit log by default
+config :fuschia, carbonite_mode: :ignore
+
 # Não é necessário traduzir erros em ambiente de teste
 config :gettext, default_locale: "en"
 

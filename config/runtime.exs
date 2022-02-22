@@ -1,5 +1,7 @@
 import Config
 
+config :tesla, :adapter, {Tesla.Adapter.Finch, name: HttpClientFinch}
+
 # ---------------------------#
 # Logger
 # ---------------------------#
