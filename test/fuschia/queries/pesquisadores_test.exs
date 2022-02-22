@@ -4,7 +4,7 @@ defmodule Fuschia.Queries.PesquisadoresTest do
   import Fuschia.Factory
 
   alias Fuschia.Accounts.Pesquisador
-  alias Fuschia.Db
+  alias Fuschia.Database
   alias Fuschia.Queries.Pesquisadores
 
   @moduletag :unit
@@ -13,9 +13,9 @@ defmodule Fuschia.Queries.PesquisadoresTest do
     test "return all pesquisadores in database" do
       insert(:pesquisador)
 
-      pesquisador = Db.one(Pesquisadores.query())
+      pesquisador = Database.one(Pesquisadores.query())
 
-      assert [pesquisador] == Db.list(Pesquisadores.query())
+      assert [pesquisador] == Database.list(Pesquisadores.query())
     end
   end
 
@@ -23,13 +23,13 @@ defmodule Fuschia.Queries.PesquisadoresTest do
     test "when id is valid, returns a pesquisador" do
       insert(:pesquisador)
 
-      pesquisador = Db.one(Pesquisadores.query())
+      pesquisador = Database.one(Pesquisadores.query())
 
-      assert pesquisador == Db.get(Pesquisadores.query(), pesquisador.usuario_cpf)
+      assert pesquisador == Database.get(Pesquisadores.query(), pesquisador.usuario_cpf)
     end
 
     test "when id is invalid, returns nil" do
-      assert Pesquisadores.query() |> Db.get("") |> is_nil()
+      assert Pesquisadores.query() |> Database.get("") |> is_nil()
     end
   end
 
@@ -40,10 +40,12 @@ defmodule Fuschia.Queries.PesquisadoresTest do
       %{usuario_cpf: pesquisador_cpf} =
         insert(:pesquisador, orientador_cpf: orientador.usuario_cpf)
 
-      pesquisador = Db.get(Pesquisadores.query(), pesquisador_cpf)
+      pesquisador = Database.get(Pesquisadores.query(), pesquisador_cpf)
 
       assert [pesquisador] ==
-               pesquisador.orientador_cpf |> Pesquisadores.query_by_orientador() |> Db.list()
+               pesquisador.orientador_cpf
+               |> Pesquisadores.query_by_orientador()
+               |> Database.list()
     end
   end
 
@@ -81,11 +83,11 @@ defmodule Fuschia.Queries.PesquisadoresTest do
       assert {:ok, %Pesquisador{}} =
                @valid_attrs
                |> Map.put(:campus_nome, campus_nome)
-               |> then(&Db.create(Pesquisador, &1))
+               |> then(&Database.create(Pesquisador, &1))
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Db.create(Pesquisador, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Database.create(Pesquisador, @invalid_attrs)
     end
   end
 
@@ -130,12 +132,12 @@ defmodule Fuschia.Queries.PesquisadoresTest do
       assert {:ok, pesquisador} =
                @valid_attrs
                |> Map.put(:campus_nome, campus_nome)
-               |> then(&Db.create(Pesquisador, &1))
+               |> then(&Database.create(Pesquisador, &1))
 
       update_attrs = Map.put(@update_attrs, :campus_nome, campus_nome)
 
       assert {:ok, updated_pesquisador} =
-               Db.update(
+               Database.update(
                  Pesquisadores.query(),
                  &Pesquisador.changeset/2,
                  pesquisador.usuario_cpf,
@@ -169,10 +171,10 @@ defmodule Fuschia.Queries.PesquisadoresTest do
       assert {:ok, pesquisador} =
                @valid_attrs
                |> Map.put(:campus_nome, campus_nome)
-               |> then(&Db.create(Pesquisador, &1))
+               |> then(&Database.create(Pesquisador, &1))
 
       assert {:error, %Ecto.Changeset{}} =
-               Db.update(
+               Database.update(
                  Pesquisadores.query(),
                  &Pesquisador.changeset/2,
                  pesquisador.usuario_cpf,
@@ -186,11 +188,11 @@ defmodule Fuschia.Queries.PesquisadoresTest do
     test "when id is valid, returns true" do
       pesquisador = insert(:pesquisador)
 
-      assert true == pesquisador.usuario_cpf |> Pesquisadores.query_exists() |> Db.exists?()
+      assert true == pesquisador.usuario_cpf |> Pesquisadores.query_exists() |> Database.exists?()
     end
 
     test "when id is invalid, returns false" do
-      assert false == "" |> Pesquisadores.query_exists() |> Db.exists?()
+      assert false == "" |> Pesquisadores.query_exists() |> Database.exists?()
     end
   end
 end

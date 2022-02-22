@@ -29,7 +29,9 @@ defmodule Fuschia.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Fuschia.PubSub},
       # Start the Endpoint (http/https)
-      FuschiaWeb.Endpoint
+      FuschiaWeb.Endpoint,
+      # Start external http client
+      {Finch, name: HttpClientFinch, pools: %{default: [size: 10]}}
       # Start Oban jobs
     ]
 

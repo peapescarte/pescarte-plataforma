@@ -14,14 +14,14 @@ defmodule Fuschia.Queries.Pesquisadores do
     from p in Pesquisador,
       left_join: campus in assoc(p, :campus),
       left_join: orientador in assoc(p, :orientador),
-      order_by: [desc: p.created_at]
+      order_by: [desc: p.inserted_at]
   end
 
   @spec query_by_orientador(binary) :: Ecto.Query.t()
   def query_by_orientador(orientador_cpf) do
     query()
     |> where([p], p.orientador_cpf == ^orientador_cpf)
-    |> order_by([p], desc: p.created_at)
+    |> order_by([p], desc: p.inserted_at)
   end
 
   @spec query_exists(binary) :: Ecto.Query.t()

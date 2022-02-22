@@ -12,7 +12,7 @@ defmodule Fuschia.Queries.Campi do
   @impl true
   def query do
     from campus in Campus,
-      order_by: [desc: campus.created_at]
+      order_by: [desc: campus.inserted_at]
   end
 
   @spec query_by_municipio(binary) :: Ecto.Query.t()

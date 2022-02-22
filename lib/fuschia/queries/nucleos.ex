@@ -12,7 +12,7 @@ defmodule Fuschia.Queries.Nucleos do
   @impl true
   def query do
     from n in Nucleo,
-      order_by: [desc: n.created_at]
+      order_by: [desc: n.inserted_at]
   end
 
   @impl true
