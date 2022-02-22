@@ -188,11 +188,11 @@ defmodule Fuschia.Queries.PesquisadoresTest do
     test "when id is valid, returns true" do
       pesquisador = insert(:pesquisador)
 
-      assert true == pesquisador.usuario_cpf |> Pesquisadores.query_exists() |> Database.exists?()
+      assert pesquisador.usuario_cpf |> Pesquisadores.query_exists() |> Database.exists?()
     end
 
     test "when id is invalid, returns false" do
-      assert false == "" |> Pesquisadores.query_exists() |> Database.exists?()
+      refute "" |> Pesquisadores.query_exists() |> Database.exists?()
     end
   end
 end
