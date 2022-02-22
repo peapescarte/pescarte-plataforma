@@ -12,7 +12,7 @@ defmodule Fuschia.Queries.Cidades do
   @impl true
   def query do
     from c in Cidade,
-      order_by: [desc: c.created_at]
+      order_by: [desc: c.inserted_at]
   end
 
   @impl true

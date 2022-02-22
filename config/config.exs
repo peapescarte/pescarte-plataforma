@@ -2,14 +2,15 @@ import Config
 
 config :gettext, default_locale: "pt_BR"
 
+config :fuschia, carbonite_mode: :capture
+
 # ---------------------------#
 # Ecto
 # ---------------------------#
 config :fuschia,
   ecto_repos: [Fuschia.Repo]
 
-config :fuschia, Fuschia.Repo,
-  migration_timestamps: [inserted_at: :created_at, type: :utc_datetime_usec]
+config :fuschia, Fuschia.Repo, migration_timestamps: [type: :utc_datetime_usec]
 
 # ---------------------------#
 # Endpoint

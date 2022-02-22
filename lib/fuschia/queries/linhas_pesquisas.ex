@@ -12,7 +12,7 @@ defmodule Fuschia.Queries.LinhasPesquisas do
   @impl true
   def query do
     from l in LinhaPesquisa,
-      order_by: [desc: l.created_at]
+      order_by: [desc: l.inserted_at]
   end
 
   @spec query_by_nucleo(binary) :: Ecto.Query.t()

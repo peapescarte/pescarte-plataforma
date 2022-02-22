@@ -19,7 +19,15 @@ defmodule Fuschia.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: dialyzer()
+      dialyzer: dialyzer(),
+      # Documentação
+      name: "Fuschia",
+      source_url: "https://github.com/cciuenf/fuschia",
+      homepage_url: "",
+      docs: [
+        main: "Fuschia",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -74,15 +82,19 @@ defmodule Fuschia.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:open_api_spex, "~> 3.10"},
       {:sentry, "~> 8.0"},
+      {:carbonite, "~> 0.4.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:tesla, "~> 1.4"},
+      {:finch, "~> 0.9.0"},
       {:plug_cowboy, "~> 2.3"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:git_hooks, "~> 0.6.3", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:surface_formatter, "~> 0.7"},
       {:surface_catalogue, "~> 0.3.0"}
     ]
