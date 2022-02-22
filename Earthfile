@@ -104,3 +104,5 @@ test-setup:
 
   RUN mix deps.get
   RUN mix compile
+
+  SAVE ARTIFACT _build ./_build
