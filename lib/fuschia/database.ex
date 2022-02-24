@@ -70,14 +70,14 @@ defmodule Fuschia.Database do
      iex> get_by(Modulo.query(), [id: "id", field: "field"])
      %Modulo{}
 
-     iex> get_by(Modulo.query(), [id: "id", field: "field"], [:relacao_1])
-     %Modulo{relacao_1: nil
+     iex> get_by(Modulo.query(), [:relacao_1], [id: "id", field: "field"])
+     %Modulo{relacao_1: nil}
 
      iex> get_by(Modulo.query(), [id: "", field: ""])
      nil
   """
-  @spec get_by(query, keyword, relationships) :: struct | nil
-  def get_by(%Ecto.Query{} = query, attrs, args \\ []) do
+  @spec get_by(query, relationships, keyword) :: struct | nil
+  def get_by(%Ecto.Query{} = query, args \\ [], attrs) do
     query
     |> preload_all(args)
     |> Repo.get_by(attrs)
@@ -232,6 +232,20 @@ defmodule Fuschia.Database do
     end
   end
 
+  @spec insert(changeset, list) :: {:ok, struct} | {:error, changeset}
+  def insert(%Ecto.Changeset{data: %mod{}} = changeset, opts \\ []) do
+    %{meta: meta, source: source} = build_meta(mod, "insert")
+
+    Ecto.Multi.new()
+    |> Carbonite.Multi.insert_transaction(meta)
+    |> Ecto.Multi.insert(source, changeset, opts)
+    |> Repo.transaction()
+    |> case do
+      {:ok, changes} -> {:ok, Map.get(changes, source)}
+      err -> err
+    end
+  end
+
   @spec insert_or_update(struct, list) :: {:ok, struct} | {:error, changeset}
   def insert_or_update(%mod{} = struct, opts \\ []) do
     %{meta: meta, source: source} = build_meta(mod, "insert_or_update")
@@ -290,6 +304,10 @@ defmodule Fuschia.Database do
   end
 
   defdelegate reload(query, opts \\ []), to: Repo
+
+  defdelegate transaction(multi, opts \\ []), to: Repo
+
+  defdelegate delete_all(query, opts \\ []), to: Repo
 
   @doc """
   Pré-carrega as associações de um struct ou
