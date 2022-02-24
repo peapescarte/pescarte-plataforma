@@ -1,4 +1,4 @@
-defmodule Fuschia.Entities.Cidade do
+defmodule Fuschia.ModuloPesquisa.Models.Cidade do
   @moduledoc """
   Cidade schema
   """
@@ -6,7 +6,7 @@ defmodule Fuschia.Entities.Cidade do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Entities.Campus
+  alias Fuschia.ModuloPesquisa.Models.Campus
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(municipio)a
@@ -29,17 +29,8 @@ defmodule Fuschia.Entities.Cidade do
     |> put_change(:id, Nanoid.generate())
   end
 
-  @spec to_map(%__MODULE__{}) :: map
-  def to_map(%__MODULE__{} = struct) do
-    %{
-      id: struct.id,
-      municipio: struct.municipio,
-      campi: struct.campi
-    }
-  end
-
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.Entities.Cidade
+    alias Fuschia.ModuloPesquisa.Adapters.Cidade
 
     @spec encode(Cidade.t(), map) :: map
     def encode(struct, opts) do

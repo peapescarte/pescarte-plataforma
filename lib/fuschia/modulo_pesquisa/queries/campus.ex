@@ -1,11 +1,11 @@
-defmodule Fuschia.Queries.Campi do
+defmodule Fuschia.ModuloPesquisa.Queries.Campus do
   @moduledoc """
-  Queries para interagir com `Campi`
+  Queries para interagir com `Campus`
   """
 
   import Ecto.Query, only: [from: 2, join: 5, where: 3]
 
-  alias Fuschia.Entities.{Campus, Cidade}
+  alias Fuschia.ModuloPesquisa.Models.{Campus, Cidade}
 
   @behaviour Fuschia.Query
 

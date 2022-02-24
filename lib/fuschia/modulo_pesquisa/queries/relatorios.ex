@@ -1,11 +1,11 @@
-defmodule Fuschia.Queries.Relatorios do
+defmodule Fuschia.ModuloPesquisa.Queries.Relatorio do
   @moduledoc """
-  Queries para interagir com `Relatorios`
+  Queries para interagir com `Relatorio`
   """
 
   import Ecto.Query, only: [from: 2, join: 4, where: 3]
 
-  alias Fuschia.Entities.Relatorio
+  alias Fuschia.ModuloPesquisa.Models.Relatorio
 
   @behaviour Fuschia.Query
 

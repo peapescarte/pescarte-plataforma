@@ -3,7 +3,7 @@ defmodule Fuschia.CidadeFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Cidade
+      alias Fuschia.ModuloPesquisa.Models.Cidade
 
       @spec cidade_factory :: Cidade.t()
       def cidade_factory do

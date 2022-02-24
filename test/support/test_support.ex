@@ -4,9 +4,9 @@ defmodule CoreWeb.TestSupport do
   """
   import Plug.Conn
 
+  alias Fuschia.Accounts.Models.{ApiKey, User}
+  alias Fuschia.Accounts.Queries.ApiKey, as: ApiKeyQueries
   alias Fuschia.Database
-  alias Fuschia.Queries.ApiKeys
-  alias Fuschia.Entities.{ApiKey, User}
   alias FuschiaWeb.Auth.Guardian
 
   @doc """
@@ -29,7 +29,7 @@ defmodule CoreWeb.TestSupport do
   """
   @spec get_api_key :: String.t() | {atom, String.t()}
   def get_api_key do
-    case Database.one(ApiKeys.query()) do
+    case Database.one(ApiKeyQueries.query()) do
       %ApiKey{} = api_key ->
         api_key.key
 

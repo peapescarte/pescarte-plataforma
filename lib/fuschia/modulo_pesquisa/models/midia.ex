@@ -1,4 +1,4 @@
-defmodule Fuschia.Entities.Midia do
+defmodule Fuschia.ModuloPesquisa.Models.Midia do
   @moduledoc """
   Midia Schema
   """
@@ -6,7 +6,7 @@ defmodule Fuschia.Entities.Midia do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Accounts.Pesquisador
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(
@@ -44,18 +44,8 @@ defmodule Fuschia.Entities.Midia do
     |> put_change(:id, Nanoid.generate())
   end
 
-  @spec to_map(%__MODULE__{}) :: map
-  def to_map(%__MODULE__{} = struct) do
-    %{
-      id: struct.id,
-      tipo: struct.tipo,
-      link: struct.link,
-      tags: struct.tags
-    }
-  end
-
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.Entities.Midia
+    alias Fuschia.ModuloPesquisa.Adapters.Midia
 
     @spec encode(Midia.t(), map) :: map
     def encode(struct, opts) do

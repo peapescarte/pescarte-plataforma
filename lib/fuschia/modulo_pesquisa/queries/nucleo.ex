@@ -1,11 +1,11 @@
-defmodule Fuschia.Queries.Nucleos do
+defmodule Fuschia.ModuloPesquisa.Queries.Nucleo do
   @moduledoc """
   Queries para interagir com `Nucleo`
   """
 
   import Ecto.Query, only: [from: 2]
 
-  alias Fuschia.Entities.Nucleo
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
 
   @behaviour Fuschia.Query
 

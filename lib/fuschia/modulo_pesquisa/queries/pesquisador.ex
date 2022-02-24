@@ -1,11 +1,11 @@
-defmodule Fuschia.Queries.Pesquisadores do
+defmodule Fuschia.ModuloPesquisa.Queries.Pesquisadore do
   @moduledoc """
-  Queries para interagir com `Pesquisadores`
+  Queries para interagir com `Pesquisadore`
   """
 
   import Ecto.Query, only: [from: 2, where: 3, order_by: 3]
 
-  alias Fuschia.Accounts.Pesquisador
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
 
   @behaviour Fuschia.Query
 

@@ -4,8 +4,7 @@ defmodule FuschiaWeb.CidadeController do
   use FuschiaWeb, :controller
   use OpenApiSpex.ControllerSpecs
 
-  alias Fuschia.Database
-  alias Fuschia.Entities.Cidade
+  alias Fuschia.ModuloPesquisa
   alias FuschiaWeb.Swagger.{CidadeSchemas, Response, Security}
 
   action_fallback FuschiaWeb.FallbackController
@@ -23,7 +22,7 @@ defmodule FuschiaWeb.CidadeController do
 
   @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"cidade" => cidade_attr}) do
-    with {:ok, cidade} <- Database.create(Cidade, cidade_attr) do
+    with {:ok, cidade} <- ModuloPesquisa.create_cidade(cidade_attr) do
       render_response(cidade, conn, :created)
     end
   end

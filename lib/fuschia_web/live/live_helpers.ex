@@ -8,7 +8,7 @@ defmodule FuschiaWeb.LiveHelpers do
   import Phoenix.LiveView
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.User
+  alias Fuschia.Accounts.Models.User
   alias FuschiaWeb.Router.Helpers, as: Routes
 
   def assign_defaults(session, socket) do

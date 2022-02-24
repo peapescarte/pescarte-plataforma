@@ -1,12 +1,14 @@
-defmodule Fuschia.Entities.Relatorio do
+defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
   @moduledoc """
   Relatorio Schema
   """
 
   use Fuschia.Schema
-  import Ecto.Changeset
 
-  alias Fuschia.Accounts.Pesquisador
+  import Ecto.Changeset
+  import Fuschia.ModuloPesquisa.Logic.Relatorio
+
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(
@@ -49,44 +51,8 @@ defmodule Fuschia.Entities.Relatorio do
     |> put_change(:id, Nanoid.generate())
   end
 
-  defp validate_month(changeset, field) do
-    month = 1..12
-
-    mth = get_field(changeset, field)
-
-    if mth in month do
-      changeset
-    else
-      add_error(changeset, field, "Mês inválido")
-    end
-  end
-
-  defp validate_year(changeset, field) do
-    today = Date.utc_today()
-
-    year = get_field(changeset, field)
-
-    if year <= today.year do
-      changeset
-    else
-      add_error(changeset, field, "Ano inválido")
-    end
-  end
-
-  @spec to_map(%__MODULE__{}) :: map
-  def to_map(%__MODULE__{} = struct) do
-    %{
-      id: struct.id,
-      ano: struct.ano,
-      mes: struct.mes,
-      tipo: struct.tipo,
-      link: struct.link,
-      pesquisador_cpf: struct.pesquisador_cpf
-    }
-  end
-
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.Entities.Relatorio
+    alias Fuschia.ModuloPesquisa.Adapters.Relatorio
 
     @spec encode(Relatorio.t(), map) :: map
     def encode(struct, opts) do

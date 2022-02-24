@@ -1,11 +1,11 @@
-defmodule Fuschia.Queries.LinhasPesquisas do
+defmodule Fuschia.ModuloPesquisa.Queries.LinhaPesquisa do
   @moduledoc """
-  Queries para interagir com `LinhasPesquisas`
+  Queries para interagir com `LinhaPesquisa`
   """
 
   import Ecto.Query, only: [from: 2, join: 5, where: 3]
 
-  alias Fuschia.Entities.{LinhaPesquisa, Nucleo}
+  alias Fuschia.ModuloPesquisa.Models.{LinhaPesquisa, Nucleo}
 
   @behaviour Fuschia.Query
 

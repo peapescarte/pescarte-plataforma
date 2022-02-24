@@ -1,4 +1,4 @@
-defmodule Fuschia.Entities.Campus do
+defmodule Fuschia.ModuloPesquisa.Models.Campus do
   @moduledoc """
   Campus Schema
   """
@@ -6,8 +6,7 @@ defmodule Fuschia.Entities.Campus do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Accounts.Pesquisador
-  alias Fuschia.Entities.Cidade
+  alias Fuschia.ModuloPesquisa.Models.{Cidade, Pesquisador}
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome)a
@@ -47,18 +46,8 @@ defmodule Fuschia.Entities.Campus do
     |> put_change(:id, Nanoid.generate())
   end
 
-  @spec to_map(%__MODULE__{}) :: map
-  def to_map(%__MODULE__{} = struct) do
-    %{
-      id: struct.id,
-      nome: struct.nome,
-      cidade: struct.cidade,
-      pesquisadores: struct.pesquisadores
-    }
-  end
-
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.Entities.Campus
+    alias Fuschia.ModuloPesquisa.Adapters.Campus
 
     @spec encode(Campus.t(), map) :: map
     def encode(struct, opts) do

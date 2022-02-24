@@ -1,11 +1,11 @@
-defmodule Fuschia.Queries.Midias do
+defmodule Fuschia.ModuloPesquisa.Queries.Midia do
   @moduledoc """
-  Queries para interagir com `Midias`
+  Queries para interagir com `Midia`
   """
 
   import Ecto.Query, only: [from: 2, join: 4, where: 3]
 
-  alias Fuschia.Entities.Midia
+  alias Fuschia.ModuloPesquisa.Models.Midia
 
   @behaviour Fuschia.Query
 
