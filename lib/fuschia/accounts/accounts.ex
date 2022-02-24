@@ -6,7 +6,13 @@ defmodule Fuschia.Accounts do
   import Ecto.Query, warn: false
   alias Fuschia.Repo
 
-  alias Fuschia.Accounts.{User, UserNotifier, UserToken}
+  alias Fuschia.Accounts.Logic.User, as: UserLogic
+  alias Fuschia.Accounts.Logic.UserToken, as: UserTokenLogic
+  alias Fuschia.Accounts.Models.{AuthLog, User, UserToken}
+  alias Fuschia.Accounts.Queries.User, as: UserQueries
+  alias Fuschia.Accounts.Queries.UserToken, as: UserTokenQueries
+  alias Fuschia.Accounts.UserNotifier
+  alias Fuschia.Database
 
   ## Database getters
 
@@ -28,13 +34,13 @@ defmodule Fuschia.Accounts do
       |> String.downcase()
       |> String.trim()
 
-    query()
+    UserQueries.query()
     |> where([u, contato], fragment("lower(?)", contato.email) == ^email)
     |> where([u], u.ativo? == true)
     |> order_by([u], desc: u.inserted_at)
     |> limit(1)
-    |> preload_all()
-    |> Repo.one()
+    |> Database.preload_all(UserQueries.relationships())
+    |> Database.one()
   end
 
   @doc """
@@ -52,7 +58,7 @@ defmodule Fuschia.Accounts do
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
     user = get_user_by_email(email)
-    if User.valid_password?(user, password), do: user
+    if UserLogic.valid_password?(user, password), do: user
   end
 
   @doc """
@@ -60,17 +66,15 @@ defmodule Fuschia.Accounts do
 
   ## Examples
 
-      iex> list()
+      iex> list_user()
       [%User{}]
 
       iex> list()
       []
 
   """
-  def list do
-    query()
-    |> preload_all()
-    |> Repo.all()
+  def list_user do
+    Database.list(UserQueries.query(), UserQueries.relationships())
   end
 
   @doc """
@@ -78,17 +82,17 @@ defmodule Fuschia.Accounts do
 
   ## Examples
 
-      iex> exist?("999.999.999-99")
+      iex> user_exist?("999.999.999-99")
       true
 
-      iex> exists?("")
+      iex> user_exists?("")
       false
 
   """
-  def exists?(cpf) do
+  def user_exists?(cpf) do
     User
     |> where([u], u.cpf == ^cpf)
-    |> Repo.exists?()
+    |> Database.exists?()
   end
 
   @doc """
@@ -96,18 +100,17 @@ defmodule Fuschia.Accounts do
 
   ## Examples
 
-      iex> get("999.999.999-99")
+      iex> get_user("999.999.999-99")
       %User{}
 
-      iex> get("")
+      iex> get_user("")
       nil
 
   """
-  def get(cpf) do
-    query()
-    |> preload_all()
-    |> Repo.get(cpf)
-    |> put_permissions()
+  def get_user(cpf) do
+    UserQueries.query()
+    |> Database.get(cpf, UserQueries.relationships())
+    |> UserLogic.put_permissions()
   end
 
   @doc """
@@ -115,21 +118,35 @@ defmodule Fuschia.Accounts do
 
   ## Examples
 
-      iex> get("JY85XgrT6NYAcaAYhXMQq")
+      iex> get_user_by_id("JY85XgrT6NYAcaAYhXMQq")
       %User{}
 
-      iex> get("")
+      iex> get_user_by_id("")
       nil
 
   """
-  def get_by_id(id) do
-    query()
-    |> preload_all()
-    |> Repo.get_by(id: id)
-    |> put_permissions()
+  def get_user_by_id(id) do
+    UserQueries.query()
+    |> Database.get_by(UserQueries.relationships(), id: id)
+    |> UserLogic.put_permissions()
   end
 
   ## User registration
+
+  @spec create_auth_log(map) :: :ok
+  def create_auth_log(attrs) do
+    %AuthLog{}
+    |> AuthLog.changeset(attrs)
+    |> Database.insert()
+
+    :ok
+  end
+
+  @spec create_auth_log(String.t(), String.t(), User.t()) :: :ok
+  def create_auth_log(ip, user_agent, user) do
+    user_cpf = Map.get(user, :cpf) || Map.get(user, "cpf")
+    create_auth_log(%{"ip" => ip, "user_agent" => user_agent, "user_cpf" => user_cpf})
+  end
 
   @doc """
   Cria um usuário admin
@@ -143,12 +160,10 @@ defmodule Fuschia.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create(attrs) do
+  def create_user(attrs) do
     with {:ok, user} <-
-           %User{}
-           |> User.admin_changeset(attrs)
-           |> Repo.insert() do
-      {:ok, preload_all(user)}
+           Database.create_with_custom_changeset(User, &User.admin_changeset/2, attrs) do
+      {:ok, Database.preload_all(user, UserQueries.relationships())}
     end
   end
 
@@ -157,19 +172,17 @@ defmodule Fuschia.Accounts do
 
   ## Examples
 
-      iex> register(%{field: value})
+      iex> register_user(%{field: value})
       {:ok, %User{}}
 
-      iex> register(%{field: bad_value})
+      iex> register_user(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def register(attrs) do
+  def register_user(attrs) do
     with {:ok, user} <-
-           %User{}
-           |> User.registration_changeset(attrs)
-           |> Repo.insert() do
-      {:ok, preload_all(user)}
+           Database.create_with_custom_changeset(User, &User.registration_changeset/2, attrs) do
+      {:ok, Database.preload_all(user, UserQueries.relationships())}
     end
   end
 
@@ -178,20 +191,14 @@ defmodule Fuschia.Accounts do
 
   ## Examples
 
-      iex> update(valid_attrs)
+      iex> update_user(%User{}, valid_attrs)
       {:ok, %User{}}
 
-      iex> update(invalid_attrs)
+      iex> update_user(%User{}, invalid_attrs)
       {:error, %Ecto.Changeset{}}
 
   """
-  def update(cpf, attrs) do
-    with %User{} = user <- get(cpf) do
-      user
-      |> User.changeset(attrs)
-      |> Repo.update()
-    end
-  end
+  defdelegate update_user(user, attrs), to: Database, as: :update_struct
 
   @doc """
   Retorna um `%Ecto.Changeset{}` para acompanhar as mudanças
@@ -240,7 +247,7 @@ defmodule Fuschia.Accounts do
            User.email_changeset(user, attrs),
          %Ecto.Changeset{valid?: true} = user <- User.update_changeset(user, %{contato: contact}) do
       user
-      |> User.validate_current_password(password)
+      |> UserLogic.validate_current_password(password)
       |> Ecto.Changeset.apply_action(:update)
     else
       changeset -> {:error, changeset}
@@ -256,9 +263,9 @@ defmodule Fuschia.Accounts do
   def update_user_email(user, token) do
     context = "change:#{user.contato.email}"
 
-    with {:ok, query} <- UserToken.verify_change_email_token_query(token, context),
-         %UserToken{sent_to: email} <- Repo.one(query),
-         {:ok, _} <- Repo.transaction(user_email_multi(user, email, context)) do
+    with {:ok, query} <- UserTokenQueries.verify_change_email_token_query(token, context),
+         %UserToken{sent_to: email} <- Database.one(query),
+         {:ok, _} <- Database.transaction(user_email_multi(user, email, context)) do
       :ok
     else
       _ -> :error
@@ -272,7 +279,7 @@ defmodule Fuschia.Accounts do
            user |> User.update_changeset(%{contato: contact}) |> User.confirm_changeset() do
       Ecto.Multi.new()
       |> Ecto.Multi.update(:user, changeset)
-      |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, [context]))
+      |> Ecto.Multi.delete_all(:tokens, UserTokenQueries.user_and_contexts_query(user, [context]))
     end
   end
 
@@ -287,9 +294,10 @@ defmodule Fuschia.Accounts do
   """
   def deliver_update_email_instructions(%User{} = user, current_email, update_email_url_fun)
       when is_function(update_email_url_fun, 1) do
-    {encoded_token, user_token} = UserToken.build_email_token(user, "change:#{current_email}")
+    {encoded_token, user_token} =
+      UserTokenLogic.build_email_token(user, "change:#{current_email}")
 
-    Repo.insert!(user_token)
+    {:ok, _} = Database.insert(user_token)
     UserNotifier.deliver_update_email_instructions(user, update_email_url_fun.(encoded_token))
   end
 
@@ -322,12 +330,12 @@ defmodule Fuschia.Accounts do
     changeset =
       user
       |> User.password_changeset(attrs)
-      |> User.validate_current_password(password)
+      |> UserLogic.validate_current_password(password)
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
-    |> Repo.transaction()
+    |> Ecto.Multi.delete_all(:tokens, UserTokenQueries.user_and_contexts_query(user, :all))
+    |> Database.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
@@ -340,8 +348,8 @@ defmodule Fuschia.Accounts do
   Gera um token de sessão.
   """
   def generate_user_session_token(user) do
-    {token, user_token} = UserToken.build_session_token(user)
-    Repo.insert!(user_token)
+    {token, user_token} = UserTokenLogic.build_session_token(user)
+    {:ok, _} = Database.insert(user_token)
     token
   end
 
@@ -349,15 +357,15 @@ defmodule Fuschia.Accounts do
   Obtém um usuário dado um token de sessão.
   """
   def get_user_by_session_token(token) do
-    {:ok, query} = UserToken.verify_session_token_query(token)
-    Repo.one(query)
+    {:ok, query} = UserTokenQueries.verify_session_token_query(token)
+    Database.one(query, UserQueries.relationships())
   end
 
   @doc """
   Deleta um token registrato dado um contexto.
   """
   def delete_session_token(token) do
-    Repo.delete_all(UserToken.token_and_context_query(token, "session"))
+    Database.delete_all(UserTokenQueries.token_and_context_query(token, "session"))
     :ok
   end
 
@@ -380,8 +388,8 @@ defmodule Fuschia.Accounts do
     if user.confirmed_at do
       {:error, :already_confirmed}
     else
-      {encoded_token, user_token} = UserToken.build_email_token(user, "confirm")
-      Repo.insert!(user_token)
+      {encoded_token, user_token} = UserTokenLogic.build_email_token(user, "confirm")
+      {:ok, _} = Database.insert(user_token)
       UserNotifier.deliver_confirmation_instructions(user, confirmation_url_fun.(encoded_token))
     end
   end
@@ -393,9 +401,9 @@ defmodule Fuschia.Accounts do
   e o token deletado.
   """
   def confirm_user(token) do
-    with {:ok, query} <- UserToken.verify_email_token_query(token, "confirm"),
-         %User{} = user <- Repo.one(query),
-         {:ok, %{user: user}} <- Repo.transaction(confirm_user_multi(user)) do
+    with {:ok, query} <- UserTokenQueries.verify_email_token_query(token, "confirm"),
+         %User{} = user <- Database.one(query),
+         {:ok, %{user: user}} <- Database.transaction(confirm_user_multi(user)) do
       {:ok, user}
     else
       _ -> :error
@@ -405,7 +413,7 @@ defmodule Fuschia.Accounts do
   defp confirm_user_multi(user) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, User.confirm_changeset(user))
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, ["confirm"]))
+    |> Ecto.Multi.delete_all(:tokens, UserTokenQueries.user_and_contexts_query(user, ["confirm"]))
   end
 
   ## Reset password
@@ -421,8 +429,8 @@ defmodule Fuschia.Accounts do
   """
   def deliver_user_reset_password_instructions(%User{} = user, reset_password_url_fun)
       when is_function(reset_password_url_fun, 1) do
-    {encoded_token, user_token} = UserToken.build_email_token(user, "reset_password")
-    Repo.insert!(user_token)
+    {encoded_token, user_token} = UserTokenLogic.build_email_token(user, "reset_password")
+    {:ok, _} = Database.insert(user_token)
     UserNotifier.deliver_reset_password_instructions(user, reset_password_url_fun.(encoded_token))
   end
 
@@ -439,8 +447,8 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user_by_reset_password_token(token) do
-    with {:ok, query} <- UserToken.verify_email_token_query(token, "reset_password"),
-         %User{} = user <- Repo.one(query) do
+    with {:ok, query} <- UserTokenQueries.verify_email_token_query(token, "reset_password"),
+         %User{} = user <- Database.one(query) do
       user
     else
       _ -> nil
@@ -462,36 +470,11 @@ defmodule Fuschia.Accounts do
   def reset_user_password(user, attrs) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+    |> Ecto.Multi.delete_all(:tokens, UserTokenQueries.user_and_contexts_query(user, :all))
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
-
-  # Helpers
-
-  def query do
-    from u in User,
-      left_join: contato in assoc(u, :contato),
-      order_by: [desc: u.inserted_at]
-  end
-
-  def preload_all(%Ecto.Query{} = query) do
-    Ecto.Query.preload(query, [:contato])
-  end
-
-  def preload_all(%User{} = user) do
-    Repo.preload(user, [:contato])
-  end
-
-  def preload_all(nil), do: nil
-
-  defp put_permissions(%User{} = user) do
-    # TODO
-    Map.put(user, :permissoes, nil)
-  end
-
-  defp put_permissions(nil), do: nil
 end

@@ -1,4 +1,4 @@
-defmodule Fuschia.Entities.Contato do
+defmodule Fuschia.Accounts.Models.Contato do
   @moduledoc """
   Contato schema
   """

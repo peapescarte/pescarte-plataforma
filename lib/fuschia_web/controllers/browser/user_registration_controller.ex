@@ -4,7 +4,7 @@ defmodule FuschiaWeb.UserRegistrationController do
   import FuschiaWeb.Gettext
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.User
+  alias Fuschia.Accounts.Models.User
   alias FuschiaWeb.UserAuth
 
   def new(conn, _params) do
@@ -13,7 +13,7 @@ defmodule FuschiaWeb.UserRegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Accounts.register(user_params) do
+    case Accounts.register_user(user_params) do
       {:ok, user} ->
         {:ok, _} =
           Accounts.deliver_user_confirmation_instructions(

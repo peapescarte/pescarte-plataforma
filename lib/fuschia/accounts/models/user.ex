@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.User do
+defmodule Fuschia.Accounts.Models.User do
   @moduledoc """
   Schema que representa um usuário do sistema.
 
@@ -13,7 +13,7 @@ defmodule Fuschia.Accounts.User do
   import Ecto.Changeset
   import FuschiaWeb.Gettext
 
-  alias Fuschia.Entities.{Contato, User}
+  alias Fuschia.Accounts.Models.Contato
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(nome_completo cpf data_nascimento)a
@@ -181,62 +181,8 @@ defmodule Fuschia.Accounts.User do
     change(user, confirmed_at: now)
   end
 
-  @doc """
-  Verifica a senha.
-
-  Se não houver usuário ou o usuário não tiver uma senha, chamamos
-  `Bcrypt.no_user_verify/0` para evitar ataques de tempo.
-  """
-  def valid_password?(%__MODULE__{password_hash: password_hash}, password)
-      when is_binary(password_hash) and byte_size(password) > 0 do
-    Bcrypt.verify_pass(password, password_hash)
-  end
-
-  def valid_password?(_, _) do
-    Bcrypt.no_user_verify()
-    false
-  end
-
-  @doc """
-  Valida a senha atual, caso contrário adiciona erro ao Changeset
-  """
-  def validate_current_password(changeset, password) do
-    if valid_password?(changeset.data, password) do
-      changeset
-    else
-      add_error(changeset, :current_password, "is not valid")
-    end
-  end
-
-  def for_jwt(%__MODULE__{} = struct) do
-    %{
-      email: struct.contato.email,
-      endereco: struct.contato.endereco,
-      celular: struct.contato.celular,
-      nome_completo: struct.nome_completo,
-      perfil: struct.role,
-      permissoes: struct.permissoes,
-      cpf: struct.cpf,
-      data_nascimento: struct.data_nascimento,
-      id: struct.id
-    }
-  end
-
-  def to_map(%__MODULE__{} = struct) do
-    %{
-      nome_completo: struct.nome_completo,
-      perfil: struct.role,
-      ultimo_login: struct.last_seen,
-      confirmado_em: struct.confirmed_at,
-      ativo: struct.ativo?,
-      data_nascimento: struct.data_nascimento,
-      id: struct.id,
-      contato: struct.contato
-    }
-  end
-
   defimpl Jason.Encoder, for: User do
-    alias Fuschia.Accounts.User
+    alias Fuschia.Accounts.Adapters.User
 
     @spec encode(User.t(), map) :: map
     def encode(struct, opts) do
