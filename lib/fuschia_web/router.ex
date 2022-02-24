@@ -45,5 +45,6 @@ defmodule FuschiaWeb.Router do
 
     resources "/campi", CampusController, only: [:create, :index, :delete]
     resources "/cidades", CidadeController, only: [:create]
+    resources "/nucleos", NucleoController
   end
 end
