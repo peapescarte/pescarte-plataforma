@@ -12,7 +12,7 @@ defmodule Fuschia.Database do
   @type query :: Ecto.Query.t()
   @type changeset :: Ecto.Changeset.t()
   @type relationships :: keyword
-  @type change_func :: (struct, map -> changeset)
+  @type change_fun :: (struct, map -> changeset)
 
   @doc """
   Lista todas as entidades existentes no banco
@@ -151,11 +151,11 @@ defmodule Fuschia.Database do
      iex> create_with_custom_changeset(Modulo, %custom_changeset/2, invalid_params)
      {:error, failed_operation, failed_value, changes_so_far}
   """
-  @spec create_with_custom_changeset(module, change_func, map) ::
+  @spec create_with_custom_changeset(module, change_fun, map) ::
           {:ok, struct} | {:error, changeset}
-  def create_with_custom_changeset(schema, change_func, attrs) do
+  def create_with_custom_changeset(schema, change_fun, attrs) do
     with %Ecto.Changeset{valid?: true} = changeset <-
-           schema |> Kernel.struct() |> change_func.(attrs),
+           schema |> Kernel.struct() |> change_fun.(attrs),
          %{meta: meta, source: source} = build_meta(schema, "insert"),
          {:ok, changes} <-
            Ecto.Multi.new()
@@ -171,54 +171,25 @@ defmodule Fuschia.Database do
 
   @doc """
   Atualiza uma entidade existente no banco
-  dado uma query, uma função de changeset,
-  o id e os parâmetros.
-
-  Também aceita uma lista de átomos que representam
-  as associações à serem pré-carregadas.
-
-  Essas associações só serão pré-carregadas internamente,
-  para o caso de atualizar uma associação da entidade.
-
-  ## Examples
-     iex> update(Modulo.query(), &changeset/2, "id", params)
-     {:ok, %{modulo: %Modulo{}, ...}}
-
-     iex> update(Modulo.query(), &changeset/2, "id", invalid_params)
-     {:error, failed_operation, failed_value, changes_so_far}
-  """
-  @spec update(query, change_func, id, map, relationships) ::
-          {:ok, struct} | {:error, changeset}
-  def update(%Ecto.Query{} = query, change_func, id, attrs, args \\ []) do
-    with %mod{} = current <- get(query, id, args),
-         %Ecto.Changeset{valid?: true} = changeset <- change_func.(current, attrs),
-         %{meta: meta, source: source} = build_meta(mod, "update"),
-         {:ok, changes} <-
-           Ecto.Multi.new()
-           |> Carbonite.Multi.insert_transaction(meta)
-           |> Ecto.Multi.update(source, changeset)
-           |> Repo.transaction() do
-      {:ok, Map.get(changes, source)}
-    else
-      %Ecto.Changeset{} = changeset -> {:error, changeset}
-      err -> err
-    end
-  end
-
-  @doc """
-  Atualiza uma entidade existente no banco
   dado um struct e os parâmetros.
 
+  Também é possível passar uma função de changeset
+  customizada, em formato de átomo.
+
   ## Examples
-     iex> update_struct(%Modulo{}, params)
+     iex> update(%Modulo{}, params)
      {:ok, %{modulo: %Modulo{}, ...}}
 
-     iex> update_struct(%Modulo{}, invalid_params)
+     iex> update(%Modulo{}, params, :update_changeset)
+     {:ok, %{modulo: %Modulo{}, ...}}
+
+     iex> update(%Modulo{}, invalid_params)
      {:error, failed_operation, failed_value, changes_so_far}
   """
-  @spec update_struct(struct, map) :: {:ok, struct} | {:error, changeset}
-  def update_struct(%mod{} = struct, attrs) do
-    with %Ecto.Changeset{valid?: true} = changeset <- mod.changeset(struct, attrs),
+  @spec update(struct, map) :: {:ok, struct} | {:error, changeset}
+  def update(%mod{} = struct, attrs, change_fun \\ :changeset) do
+    with %Ecto.Changeset{valid?: true} = changeset <-
+           apply(mod, change_fun, [struct, attrs]),
          %{meta: meta, source: source} = build_meta(mod, "update"),
          {:ok, changes} <-
            Ecto.Multi.new()

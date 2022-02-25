@@ -4,11 +4,14 @@ defmodule Fuschia.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Fuschia.Common.Database
+
   alias Fuschia.Repo
 
   alias Fuschia.Accounts.Logic.User, as: UserLogic
   alias Fuschia.Accounts.Logic.UserToken, as: UserTokenLogic
   alias Fuschia.Accounts.Models.{AuthLog, User, UserToken}
+  alias Fuschia.Accounts.Queries
   alias Fuschia.Accounts.Queries.User, as: UserQueries
   alias Fuschia.Accounts.Queries.UserToken, as: UserTokenQueries
   alias Fuschia.Accounts.UserNotifier
@@ -34,13 +37,10 @@ defmodule Fuschia.Accounts do
       |> String.downcase()
       |> String.trim()
 
-    UserQueries.query()
-    |> where([u, contato], fragment("lower(?)", contato.email) == ^email)
-    |> where([u], u.ativo? == true)
-    |> order_by([u], desc: u.inserted_at)
-    |> limit(1)
-    |> Database.preload_all(UserQueries.relationships())
-    |> Database.one()
+    with_queries_mod(&get_entity/3, [User],
+      query_fun: :get_user_by_email_query,
+      query_args: email
+    )
   end
 
   @doc """
@@ -74,7 +74,7 @@ defmodule Fuschia.Accounts do
 
   """
   def list_user do
-    Database.list(UserQueries.query(), UserQueries.relationships())
+    with_queries_mod(&list_entity/2, [User])
   end
 
   @doc """
@@ -90,9 +90,9 @@ defmodule Fuschia.Accounts do
 
   """
   def user_exists?(cpf) do
-    User
-    |> where([u], u.cpf == ^cpf)
-    |> Database.exists?()
+    cpf
+    |> Queries.User.exist_query()
+    |> Fuschia.Database.exists?()
   end
 
   @doc """
@@ -108,9 +108,7 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user(cpf) do
-    UserQueries.query()
-    |> Database.get(cpf, UserQueries.relationships())
-    |> UserLogic.put_permissions()
+    UserLogic.put_permissions(with_queries_mod(&get_entity/3, [User, cpf]))
   end
 
   @doc """
@@ -126,9 +124,7 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user_by_id(id) do
-    UserQueries.query()
-    |> Database.get_by(UserQueries.relationships(), id: id)
-    |> UserLogic.put_permissions()
+    UserLogic.put_permissions(with_queries_mod(&get_entity_by/3, [User, [id: id]]))
   end
 
   ## User registration
@@ -161,10 +157,7 @@ defmodule Fuschia.Accounts do
 
   """
   def create_user(attrs) do
-    with {:ok, user} <-
-           Database.create_with_custom_changeset(User, &User.admin_changeset/2, attrs) do
-      {:ok, Database.preload_all(user, UserQueries.relationships())}
-    end
+    with_queries_mod(&create_and_preload/3, [User, attrs, change_fun: :admin_changeset])
   end
 
   @doc """
@@ -180,25 +173,8 @@ defmodule Fuschia.Accounts do
 
   """
   def register_user(attrs) do
-    with {:ok, user} <-
-           Database.create_with_custom_changeset(User, &User.registration_changeset/2, attrs) do
-      {:ok, Database.preload_all(user, UserQueries.relationships())}
-    end
+    with_queries_mod(&create_and_preload/3, [User, attrs, change_fun: :registration_changeset])
   end
-
-  @doc """
-  Atualiza um usuário existente
-
-  ## Examples
-
-      iex> update_user(%User{}, valid_attrs)
-      {:ok, %User{}}
-
-      iex> update_user(%User{}, invalid_attrs)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  defdelegate update_user(user, attrs), to: Database, as: :update_struct
 
   @doc """
   Retorna um `%Ecto.Changeset{}` para acompanhar as mudanças
@@ -476,5 +452,10 @@ defmodule Fuschia.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
+  end
+
+  defp with_queries_mod(fun, initial_args, opts \\ []) do
+    # credo:disable-for-next-line Credo.Check.Refactor.AppendSingleItem
+    apply(fun, initial_args ++ [[queries_mod: Queries] ++ opts])
   end
 end

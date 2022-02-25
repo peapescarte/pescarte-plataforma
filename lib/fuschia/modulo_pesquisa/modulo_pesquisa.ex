@@ -56,7 +56,7 @@ defmodule Fuschia.ModuloPesquisa do
 
   def list_linha_pesquisa_by_nucleo(nucleo_id) do
     with_queries_mod(&list_entity/2, [LinhaPesquisa],
-      query_func: :query_by_nucleo,
+      query_fun: :query_by_nucleo,
       query_args: nucleo_id
     )
   end
@@ -77,6 +77,10 @@ defmodule Fuschia.ModuloPesquisa do
 
   def get_midia(id) do
     with_queries_mod(&get_entity/3, [Midia, id])
+  end
+
+  def update_midia(%Midia{} = midia, attrs, change_fun \\ :changeset) do
+    with_queries_mod(&update_and_preload/3, [midia, attrs, change_fun: change_fun])
   end
 
   ## Nucleo
@@ -129,8 +133,8 @@ defmodule Fuschia.ModuloPesquisa do
   # Internal
   # ---------------------------#
 
-  defp with_queries_mod(func, initial_args, opts \\ []) do
+  defp with_queries_mod(fun, initial_args, opts \\ []) do
     # credo:disable-for-next-line Credo.Check.Refactor.AppendSingleItem
-    apply(func, initial_args ++ [[queries_mod: Queries] ++ opts])
+    apply(fun, initial_args ++ [[queries_mod: Queries] ++ opts])
   end
 end
