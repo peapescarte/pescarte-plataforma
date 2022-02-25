@@ -6,8 +6,8 @@ defmodule Fuschia.Common.Database do
 
   alias Fuschia.Database
 
-  def create_and_preload(source, attrs, queries_mod: queries_mod) do
-    entity_query_mod = append_to_queries_mod(queries_mod, source)
+  def create_and_preload(source, attrs, opts) do
+    entity_query_mod = get_queries_mod(opts, source)
 
     with {:ok, entity} <- Database.create(source, attrs),
          %^source{} = preloaded <-
@@ -16,21 +16,39 @@ defmodule Fuschia.Common.Database do
     end
   end
 
-  def get_entity(source, id, queries_mod: queries_mod) do
+  def get_entity(source, id, opts) do
+    queries_mod = get_queries_mod(opts, source)
+    query_func = Keyword.get(opts, :query_func) || :query
+    query_args = get_query_args(opts)
+
     queries_mod
-    |> append_to_queries_mod(source)
-    |> apply(:query, [])
-    |> Database.get(id)
+    |> apply(query_func, query_args)
+    |> Database.get(id, queries_mod.relationships())
   end
 
-  def list_entity(source, opts, queries_mod: queries_mod) do
+  def list_entity(source, opts) do
+    queries_mod = get_queries_mod(opts, source)
+    query_func = Keyword.get(opts, :query_func) || :query
+    query_args = get_query_args(opts)
+
     queries_mod
-    |> append_to_queries_mod(source)
-    |> apply(:query, [])
-    |> Database.list(opts)
+    |> apply(query_func, query_args)
+    |> Database.list(queries_mod.relationships())
   end
 
-  defp append_to_queries_mod(queries_mod, mod) do
-    Module.safe_concat(queries_mod, mod)
+  defp get_queries_mod(opts, mod) do
+    suffix = mod |> to_string() |> String.split(".") |> List.last()
+
+    opts
+    |> Keyword.get(:queries_mod)
+    |> Module.safe_concat(suffix)
+  end
+
+  defp get_query_args(opts) do
+    case Keyword.get(opts, :query_args) do
+      nil -> []
+      args when is_list(args) -> args
+      arg -> [arg]
+    end
   end
 end

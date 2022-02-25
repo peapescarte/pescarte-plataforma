@@ -26,8 +26,8 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&create_and_preload/3, [Campus, attrs])
   end
 
-  def list_campus(opts \\ []) do
-    with_queries_mod(&list_entity/3, [Campus, opts])
+  def list_campus do
+    with_queries_mod(&list_entity/2, [Campus])
   end
 
   def get_campus(id) do
@@ -50,8 +50,15 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&create_and_preload/3, [LinhaPesquisa, attrs])
   end
 
-  def list_linha_pesquisa(opts \\ []) do
-    with_queries_mod(&list_entity/3, [LinhaPesquisa, opts])
+  def list_linha_pesquisa do
+    with_queries_mod(&list_entity/2, [LinhaPesquisa])
+  end
+
+  def list_linha_pesquisa_by_nucleo(nucleo_id) do
+    with_queries_mod(&list_entity/2, [LinhaPesquisa],
+      query_func: :query_by_nucleo,
+      query_args: nucleo_id
+    )
   end
 
   def get_linha_pesquisa(id) do
@@ -64,8 +71,8 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&create_and_preload/3, [Midia, attrs])
   end
 
-  def list_midia(opts \\ []) do
-    with_queries_mod(&list_entity/3, [Midia, opts])
+  def list_midia do
+    with_queries_mod(&list_entity/2, [Midia])
   end
 
   def get_midia(id) do
@@ -78,8 +85,8 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&create_and_preload/3, [Nucleo, attrs])
   end
 
-  def list_nucleo(opts \\ []) do
-    with_queries_mod(&list_entity/3, [Nucleo, opts])
+  def list_nucleo do
+    with_queries_mod(&list_entity/2, [Nucleo])
   end
 
   def get_nucleo(id) do
@@ -92,8 +99,8 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&create_and_preload/3, [Pesquisador, attrs])
   end
 
-  def list_pesquisador(opts \\ []) do
-    with_queries_mod(&list_entity/3, [Pesquisador, opts])
+  def list_pesquisador do
+    with_queries_mod(&list_entity/2, [Pesquisador])
   end
 
   def get_pesquisador(id) do
@@ -106,8 +113,8 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&create_and_preload/3, [Relatorio, attrs])
   end
 
-  def list_relatorio(opts \\ []) do
-    with_queries_mod(&list_entity/3, [Relatorio, opts])
+  def list_relatorio do
+    with_queries_mod(&list_entity/2, [Relatorio])
   end
 
   def get_relatorio(id) do
@@ -122,8 +129,8 @@ defmodule Fuschia.ModuloPesquisa do
   # Internal
   # ---------------------------#
 
-  defp with_queries_mod(func, initial_args) do
+  defp with_queries_mod(func, initial_args, opts \\ []) do
     # credo:disable-for-next-line Credo.Check.Refactor.AppendSingleItem
-    apply(func, initial_args ++ [[queries_mod: Queries]])
+    apply(func, initial_args ++ [[queries_mod: Queries] ++ opts])
   end
 end

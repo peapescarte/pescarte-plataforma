@@ -64,7 +64,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     |> validate_required(@required_fields)
     |> validate_length(:minibiografia, max: 280)
     |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
-    |> cast_assoc(:usuario, required: true)
+    |> cast_assoc(:usuario, required: true, with: &User.registration_changeset/2)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
     |> put_change(:id, Nanoid.generate())

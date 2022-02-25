@@ -23,5 +23,5 @@ defmodule Fuschia.ModuloPesquisa.Queries.LinhaPesquisa do
   end
 
   @impl true
-  def relationships, do: [nucleo: [:linhas_pesquisa]]
+  def relationships, do: [:nucleo]
 end

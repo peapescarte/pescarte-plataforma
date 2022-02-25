@@ -1,4 +1,4 @@
-defmodule Fuschia.ModuloPesquisa.Queries.Pesquisadore do
+defmodule Fuschia.ModuloPesquisa.Queries.Pesquisador do
   @moduledoc """
   Queries para interagir com `Pesquisadore`
   """
