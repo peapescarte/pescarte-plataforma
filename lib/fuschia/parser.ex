@@ -147,9 +147,9 @@ defmodule Fuschia.Parser do
 
   # Only execute a function if the condition is truthy
   # otherwise returns the same value
-  @spec apply_if(term, boolean, fun, list) :: term
-  defp apply_if(value, condition, function, args \\ []) do
-    if condition, do: function.([value | args]), else: value
+  @spec apply_if(term, boolean, fun) :: term
+  defp apply_if(value, condition, function) do
+    if condition, do: function.(value), else: value
   end
 
   @doc ~S"""

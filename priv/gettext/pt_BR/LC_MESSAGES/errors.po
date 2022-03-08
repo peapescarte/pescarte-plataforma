@@ -1,0 +1,142 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2\n"
+
+msgid "can't be blank"
+msgstr "não pode ficar em branco"
+
+msgid "has already been taken"
+msgstr "já está em uso"
+
+msgid "is invalid"
+msgstr "é inválido"
+
+msgid "must be accepted"
+msgstr "deve ser aceito"
+
+msgid "has invalid format"
+msgstr "formato inválido"
+
+msgid "has an invalid entry"
+msgstr "possui valor inválido"
+
+msgid "is reserved"
+msgstr "é reservardo"
+
+msgid "does not match confirmation"
+msgstr "não coincide"
+
+msgid "is still associated with this entry"
+msgstr "continua associado a esse valor"
+
+msgid "are still associated with this entry"
+msgstr "continua associado a esse valor"
+
+msgid "should be %{count} character(s)"
+msgid_plural "should be %{count} character(s)"
+msgstr[0] "deve possuir %{count} caracteres"
+msgstr[1] "deve possuir %{count} caracteres"
+
+msgid "should have %{count} item(s)"
+msgid_plural "should have %{count} item(s)"
+msgstr[0] "deve possuir %{count} item"
+msgstr[1] "deve possuir %{count} itens"
+
+msgid "should be at least %{count} character(s)"
+msgid_plural "should be at least %{count} character(s)"
+msgstr[0] "deve possuir no mínimo %{count} caracteres"
+msgstr[1] "deve possuir no mínimo %{count} caracteres"
+
+msgid "should have at least %{count} item(s)"
+msgid_plural "should have at least %{count} item(s)"
+msgstr[0] "deve possuir no mínimo %{count} itens"
+msgstr[1] "deve possuir no mínimo %{count} itens"
+
+msgid "should be at most %{count} character(s)"
+msgid_plural "should be at most %{count} character(s)"
+msgstr[0] "deve possuir no máximo %{count} caracteres"
+msgstr[1] "deve possuir no máximo %{count} caracteres"
+
+msgid "should have at most %{count} item(s)"
+msgid_plural "should have at most %{count} item(s)"
+msgstr[0] "deve possuir no máximo %{count} itens"
+msgstr[1] "deve possuir no máximo %{count} itens"
+
+msgid "must be less than %{number}"
+msgstr "deve ser menor que %{number}"
+
+msgid "must be greater than %{number}"
+msgstr "deve ser maior que %{number}"
+
+msgid "must be less than or equal to %{number}"
+msgstr "deve ser menor ou igual a %{number}"
+
+msgid "must be greater than or equal to %{number}"
+msgstr "deve ser maior ou igual a %{number}"
+
+msgid "must be equal to %{number}"
+msgstr "deve ser igual a %{number}"
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/plugs/ensure_role_plug.ex:42
+msgid "Unauthorized"
+msgstr "Sem autorização"
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/live/live_helpers.ex:26
+msgid "You must log in to access this page."
+msgstr "Você precisa realizar login para acessar esta página."
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/schema.ex:41
+msgid "does not exist"
+msgstr "não existe"
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/accounts/user.ex:172
+msgid "didn't change"
+msgstr "não pode ser igual ao antigo"
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/entities/contato.ex:44
+msgid "must have the @ sign and no spaces"
+msgstr "deve haver um @ e nenhum espaço em branco"
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/fuschia/entities/contato.ex:41
+msgid "should be at most 160 character(s)"
+msgstr "deve possuir no máximo %{count} caracteres"
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia/accounts/user.ex:151
+msgid "does not match password"
+msgstr "as senhas precisam ser iguais"
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_settings_controller.ex:71
+msgid "Email change link is invalid or it has expired."
+msgstr "Link para troca de Email é inválido ou expirou."
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_reset_password_controller.ex:60
+msgid "Reset password link is invalid or it has expired."
+msgstr "Link para recuperação de senha é inválido ou expirou."
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_confirmation_controller.ex:57
+msgid "User confirmation link is invalid or it has expired."
+msgstr "Link para confirmação da conta é inválido ou expirou."
+
+#, elixir-autogen, elixir-format
+#: lib/fuschia_web/controllers/browser/user_session_controller.ex:20
+msgid "Invalid email or password"
+msgstr "Email ou senha inválidos."

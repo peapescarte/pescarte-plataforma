@@ -3,17 +3,19 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.Db
+  alias Fuschia.Database
   alias Fuschia.Entities.LinhaPesquisa
   alias Fuschia.Queries.LinhasPesquisas
+
+  @moduletag :unit
 
   describe "list/0" do
     test "return all linha_pesquisas in database" do
       insert(:linha_pesquisa)
 
-      linha_pesquisa = Db.one(LinhasPesquisas.query())
+      linha_pesquisa = Database.one(LinhasPesquisas.query())
 
-      assert [linha_pesquisa] == Db.list(LinhasPesquisas.query())
+      assert [linha_pesquisa] == Database.list(LinhasPesquisas.query())
     end
   end
 
@@ -21,10 +23,10 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
     test "return all linha_pesquisas in database" do
       insert(:linha_pesquisa)
 
-      linha_pesquisa = Db.one(LinhasPesquisas.query())
+      linha_pesquisa = Database.one(LinhasPesquisas.query())
 
       assert [linha_pesquisa] ==
-               linha_pesquisa.nucleo_nome |> LinhasPesquisas.query_by_nucleo() |> Db.list()
+               linha_pesquisa.nucleo_nome |> LinhasPesquisas.query_by_nucleo() |> Database.list()
     end
   end
 
@@ -32,13 +34,13 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
     test "when numero is valid, returns a linha_pesquisa" do
       insert(:linha_pesquisa)
 
-      linha_pesquisa = Db.one(LinhasPesquisas.query())
+      linha_pesquisa = Database.one(LinhasPesquisas.query())
 
-      assert linha_pesquisa == Db.get(LinhasPesquisas.query(), linha_pesquisa.numero)
+      assert linha_pesquisa == Database.get(LinhasPesquisas.query(), linha_pesquisa.numero)
     end
 
     test "when id is invalid, returns nil" do
-      assert LinhasPesquisas.query() |> Db.get(0) |> is_nil()
+      assert LinhasPesquisas.query() |> Database.get(0) |> is_nil()
     end
   end
 
@@ -53,11 +55,11 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
     test "when all params are valid, creates an admin linha_pesquisa" do
       valid_attrs = params_for(:linha_pesquisa)
 
-      assert {:ok, %LinhaPesquisa{}} = Db.create(LinhaPesquisa, valid_attrs)
+      assert {:ok, %LinhaPesquisa{}} = Database.create(LinhaPesquisa, valid_attrs)
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Db.create(LinhaPesquisa, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Database.create(LinhaPesquisa, @invalid_attrs)
     end
   end
 
@@ -78,10 +80,10 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
     test "when all params are valid, updates a linha_pesquisa" do
       attrs = params_for(:linha_pesquisa)
 
-      assert {:ok, linha_pesquisa} = Db.create(LinhaPesquisa, attrs)
+      assert {:ok, linha_pesquisa} = Database.create(LinhaPesquisa, attrs)
 
       assert {:ok, updated_linha_pesquisa} =
-               Db.update(
+               Database.update(
                  LinhasPesquisas.query(),
                  &LinhaPesquisa.changeset/2,
                  linha_pesquisa.numero,
@@ -96,10 +98,10 @@ defmodule Fuschia.Queries.LinhasPesquisasTest do
     test "when params are invalid, returns an error changeset" do
       attrs = params_for(:linha_pesquisa)
 
-      assert {:ok, linha_pesquisa} = Db.create(LinhaPesquisa, attrs)
+      assert {:ok, linha_pesquisa} = Database.create(LinhaPesquisa, attrs)
 
       assert {:error, %Ecto.Changeset{}} =
-               Db.update(
+               Database.update(
                  LinhasPesquisas.query(),
                  &LinhaPesquisa.changeset/2,
                  linha_pesquisa.numero,

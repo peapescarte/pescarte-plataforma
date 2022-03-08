@@ -12,7 +12,7 @@ defmodule Fuschia.Queries.Relatorios do
   @impl true
   def query do
     from relatorio in Relatorio,
-      order_by: [desc: relatorio.created_at]
+      order_by: [desc: relatorio.inserted_at]
   end
 
   @spec query_by_pesquisador(binary) :: Ecto.Query.t()

@@ -7,7 +7,7 @@ defmodule Fuschia.Repo.Migrations.CreateApiKeys do
       add :description, :string
       add :active, :boolean, default: true
 
-      timestamps(inserted_at: :created_at)
+      timestamps()
     end
 
     create index(:api_key, [:key], unique: true)

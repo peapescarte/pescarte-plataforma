@@ -29,7 +29,9 @@ defmodule Fuschia.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Fuschia.PubSub},
       # Start the Endpoint (http/https)
-      FuschiaWeb.Endpoint
+      FuschiaWeb.Endpoint,
+      # Start external http client
+      {Finch, name: HttpClientFinch, pools: %{default: [size: 10]}}
       # Start Oban jobs
     ]
 
@@ -40,7 +42,7 @@ defmodule Fuschia.Application do
       |> Fuschia.Parser.to_boolean()
 
     if start_oban? do
-      [{Oban, Application.get_env(:fuschia, Oban)} | base_children]
+      Enum.reverse([{Oban, Application.get_env(:fuschia, Oban)} | base_children])
     else
       base_children
     end

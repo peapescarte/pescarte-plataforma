@@ -3,17 +3,19 @@ defmodule Fuschia.Queries.MidiasTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.Db
+  alias Fuschia.Database
   alias Fuschia.Entities.Midia
   alias Fuschia.Queries.Midias
+
+  @moduletag :unit
 
   describe "list/0" do
     test "return all midias in database" do
       insert(:midia)
 
-      midia = Db.one(Midias.query())
+      midia = Database.one(Midias.query())
 
-      assert [midia] == Db.list(Midias.query())
+      assert [midia] == Database.list(Midias.query())
     end
   end
 
@@ -21,10 +23,10 @@ defmodule Fuschia.Queries.MidiasTest do
     test "return all midia in database" do
       insert(:midia)
 
-      midia = Db.one(Midias.query())
+      midia = Database.one(Midias.query())
 
       assert [midia] ==
-               midia.pesquisador_cpf |> Midias.query_by_pesquisador() |> Db.list()
+               midia.pesquisador_cpf |> Midias.query_by_pesquisador() |> Database.list()
     end
   end
 
@@ -32,13 +34,13 @@ defmodule Fuschia.Queries.MidiasTest do
     test "when numero is valid, returns a midia" do
       insert(:midia)
 
-      midia = Db.one(Midias.query())
+      midia = Database.one(Midias.query())
 
-      assert midia == Db.get(Midias.query(), midia.link)
+      assert midia == Database.get(Midias.query(), midia.link)
     end
 
     test "when id is invalid, returns nil" do
-      assert Midias.query() |> Db.get("") |> is_nil()
+      assert Midias.query() |> Database.get("") |> is_nil()
     end
   end
 
@@ -53,11 +55,11 @@ defmodule Fuschia.Queries.MidiasTest do
     test "when all params are valid, creates a midia" do
       valid_attrs = params_for(:midia)
 
-      assert {:ok, %Midia{}} = Db.create(Midia, valid_attrs)
+      assert {:ok, %Midia{}} = Database.create(Midia, valid_attrs)
     end
 
     test "when params are invalid, returns an error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Db.create(Midia, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Database.create(Midia, @invalid_attrs)
     end
   end
 
@@ -78,10 +80,10 @@ defmodule Fuschia.Queries.MidiasTest do
     test "when all params are valid, updates a midia" do
       attrs = params_for(:midia)
 
-      assert {:ok, midia} = Db.create(Midia, attrs)
+      assert {:ok, midia} = Database.create(Midia, attrs)
 
       assert {:ok, updated_midia} =
-               Db.update(
+               Database.update(
                  Midias.query(),
                  &Midia.changeset/2,
                  midia.link,
@@ -96,10 +98,10 @@ defmodule Fuschia.Queries.MidiasTest do
     test "when params are invalid, returns an error changeset" do
       attrs = params_for(:midia)
 
-      assert {:ok, midia} = Db.create(Midia, attrs)
+      assert {:ok, midia} = Database.create(Midia, attrs)
 
       assert {:error, %Ecto.Changeset{}} =
-               Db.update(
+               Database.update(
                  Midias.query(),
                  &Midia.changeset/2,
                  midia.link,

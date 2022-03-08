@@ -5,6 +5,8 @@ defmodule Fuschia.Entities.RelatorioTest do
 
   alias Fuschia.Entities.Relatorio
 
+  @moduletag :unit
+
   describe "changeset/2" do
     @invalid_params %{
       ano: nil,

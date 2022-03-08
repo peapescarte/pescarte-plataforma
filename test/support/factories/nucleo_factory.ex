@@ -8,7 +8,7 @@ defmodule Fuschia.NucleoFactory do
       @spec nucleo_factory :: Nucleo.t()
       def nucleo_factory do
         %Nucleo{
-          id_externo: Nanoid.generate_non_secure(),
+          id: Nanoid.generate_non_secure(),
           nome: sequence(:nome, &"Nucleo #{&1}"),
           descricao: sequence(:descricao, &"Descricao Nucleo #{&1}")
         }
