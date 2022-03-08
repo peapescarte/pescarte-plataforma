@@ -37,10 +37,9 @@ defmodule Fuschia.Accounts do
       |> String.downcase()
       |> String.trim()
 
-    with_queries_mod(&get_entity/3, [User],
-      query_fun: :get_user_by_email_query,
-      query_args: email
-    )
+    email
+    |> UserQueries.get_by_email_query()
+    |> Database.one(UserQueries.relationships())
   end
 
   @doc """
@@ -157,7 +156,7 @@ defmodule Fuschia.Accounts do
 
   """
   def create_user(attrs) do
-    with_queries_mod(&create_and_preload/3, [User, attrs, change_fun: :admin_changeset])
+    with_queries_mod(&create_and_preload/3, [User, attrs], change_fun: &User.admin_changeset/2)
   end
 
   @doc """
@@ -173,7 +172,9 @@ defmodule Fuschia.Accounts do
 
   """
   def register_user(attrs) do
-    with_queries_mod(&create_and_preload/3, [User, attrs, change_fun: :registration_changeset])
+    with_queries_mod(&create_and_preload/3, [User, attrs],
+      change_fun: &User.registration_changeset/2
+    )
   end
 
   @doc """
@@ -334,7 +335,10 @@ defmodule Fuschia.Accounts do
   """
   def get_user_by_session_token(token) do
     {:ok, query} = UserTokenQueries.verify_session_token_query(token)
-    Database.one(query, UserQueries.relationships())
+
+    query
+    |> Database.one()
+    |> Database.preload_all(UserQueries.relationships())
   end
 
   @doc """

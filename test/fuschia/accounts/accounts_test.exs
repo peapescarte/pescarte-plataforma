@@ -4,15 +4,17 @@ defmodule Fuschia.AccountsTest do
   import Fuschia.Factory
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.{User, UserToken}
+  alias Fuschia.Accounts.Models.{User, UserToken}
+  alias Fuschia.Accounts.Queries.User, as: UserQueries
+  alias Fuschia.Database
 
   @moduletag :unit
 
-  describe "list/1" do
+  describe "list_user/1" do
     test "return all users in database" do
       user = user_fixture()
 
-      assert [user] == Accounts.list()
+      assert [user] == Accounts.list_user()
     end
   end
 
@@ -45,42 +47,42 @@ defmodule Fuschia.AccountsTest do
     end
   end
 
-  describe "exists?/1" do
+  describe "user_exists?/1" do
     test "when id is valid, returns true" do
       user = insert(:user)
-      assert Accounts.exists?(user.cpf)
+      assert Accounts.user_exists?(user.cpf)
     end
 
     test "when id is invalid, returns false" do
-      refute Accounts.exists?("")
+      refute Accounts.user_exists?("")
     end
   end
 
-  describe "get/1" do
+  describe "get_user/1" do
     test "when id is valid, returns a user" do
       user = user_fixture()
-      assert user == Accounts.get(user.cpf)
+      assert user == Accounts.get_user(user.cpf)
     end
 
     test "when id is invalid, returns nil" do
-      refute Accounts.get("")
+      refute Accounts.get_user("")
     end
   end
 
-  describe "get_by_id/1" do
+  describe "get_user_by_id/1" do
     test "when id is valid, returns a user" do
       user = user_fixture()
-      assert user == Accounts.get_by_id(user.id)
+      assert user == Accounts.get_user_by_id(user.id)
     end
 
     test "when id is invalid, returns nil" do
-      refute Accounts.get_by_id("")
+      refute Accounts.get_user_by_id("")
     end
   end
 
-  describe "register/1" do
+  describe "register_user/1" do
     test "requires email and password to be set" do
-      {:error, changeset} = Accounts.register(%{})
+      {:error, changeset} = Accounts.register_user(%{})
 
       assert %{
                password: ["can't be blank"],
@@ -90,7 +92,7 @@ defmodule Fuschia.AccountsTest do
 
     test "validates email and password when given" do
       {:error, changeset} =
-        Accounts.register(%{contato: %{email: "not valid"}, password: "not valid"})
+        Accounts.register_user(%{contato: %{email: "not valid"}, password: "not valid"})
 
       assert %{
                contato: %{email: ["must have the @ sign and no spaces"]},
@@ -104,18 +106,21 @@ defmodule Fuschia.AccountsTest do
 
     test "validates maximum values for email and password for security" do
       too_long = String.duplicate("db", 100)
-      {:error, changeset} = Accounts.register(%{contato: %{email: too_long}, password: too_long})
+
+      {:error, changeset} =
+        Accounts.register_user(%{contato: %{email: too_long}, password: too_long})
+
       assert "should be at most 160 character(s)" in errors_on(changeset).contato.email
       assert "should be at most 72 character(s)" in errors_on(changeset).password
     end
 
     test "validates email uniqueness" do
       %{contato: %{email: email}} = user_fixture()
-      {:error, changeset} = Accounts.register(%{contato: %{email: email}})
+      {:error, changeset} = Accounts.register_user(%{contato: %{email: email}})
       assert "has already been taken" in errors_on(changeset).contato.email
 
       # Now try with the upper cased email too, to check that email case is ignored.
-      {:error, changeset} = Accounts.register(%{contato: %{email: String.upcase(email)}})
+      {:error, changeset} = Accounts.register_user(%{contato: %{email: String.upcase(email)}})
       assert "has already been taken" in errors_on(changeset).contato.email
     end
 
@@ -130,7 +135,7 @@ defmodule Fuschia.AccountsTest do
         |> Map.put(:contato, contact)
         |> Map.merge(%{password: password, password_confirmation: password})
 
-      {:ok, user} = Accounts.register(valid_user_attributes)
+      {:ok, user} = Accounts.register_user(valid_user_attributes)
       assert user.contato.email == email
       assert is_binary(user.password_hash)
       assert is_nil(user.confirmed_at)
@@ -172,7 +177,10 @@ defmodule Fuschia.AccountsTest do
   describe "change_user_email/2" do
     test "returns a user changeset" do
       assert %Ecto.Changeset{} =
-               changeset = %User{} |> Accounts.preload_all() |> Accounts.change_user_email()
+               changeset =
+               %User{}
+               |> Database.preload_all(UserQueries.relationships())
+               |> Accounts.change_user_email()
 
       assert :contato in changeset.required
     end
@@ -224,7 +232,7 @@ defmodule Fuschia.AccountsTest do
       email = unique_user_email()
       {:ok, user} = Accounts.apply_user_email(user, valid_user_password(), %{email: email})
       assert user.contato.email == email
-      assert Accounts.get(user.cpf).contato.email != email
+      assert Accounts.get_user(user.cpf).contato.email != email
     end
   end
 
@@ -268,7 +276,7 @@ defmodule Fuschia.AccountsTest do
 
     test "updates the email with a valid token", %{user: user, token: token, email: email} do
       assert Accounts.update_user_email(user, token) == :ok
-      changed_user = Accounts.get(user.cpf)
+      changed_user = Accounts.get_user(user.cpf)
       assert changed_user.contato.email != user.contato.email
       assert changed_user.contato.email == email
       assert changed_user.confirmed_at
@@ -278,21 +286,21 @@ defmodule Fuschia.AccountsTest do
 
     test "does not update email with invalid token", %{user: user} do
       assert Accounts.update_user_email(user, "oops") == :error
-      assert Accounts.get(user.cpf).contato.email == user.contato.email
+      assert Accounts.get_user(user.cpf).contato.email == user.contato.email
       assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not update email if user email changed", %{user: user, token: token} do
       contact = %{user.contato | email: "current@example.com"}
       assert Accounts.update_user_email(%{user | contato: contact}, token) == :error
-      assert Accounts.get(user.cpf).contato.email == user.contato.email
+      assert Accounts.get_user(user.cpf).contato.email == user.contato.email
       assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not update email if token expired", %{user: user, token: token} do
       {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
       assert Accounts.update_user_email(user, token) == :error
-      assert Accounts.get(user.cpf).contato.email == user.contato.email
+      assert Accounts.get_user(user.cpf).contato.email == user.contato.email
       assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
   end

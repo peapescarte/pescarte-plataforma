@@ -50,7 +50,7 @@ defmodule Fuschia.Common.Database do
 
     queries_mod
     |> apply(query_fun, query_args)
-    |> Database.get(queries_mod.relationships(), args)
+    |> Database.get_by(queries_mod.relationships(), args)
   end
 
   def list_entity(source, opts) do

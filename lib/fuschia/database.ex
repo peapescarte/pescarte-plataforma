@@ -88,6 +88,20 @@ defmodule Fuschia.Database do
   dado uma query. O resultado depende da
   ordenação da query.
 
+  ## Examples
+     iex> one(Modulo.query())
+     %Modulo{}
+
+     iex> one(Modulo.query())
+     nil
+  """
+  defdelegate one(query), to: Repo
+
+  @doc """
+  Obtém uma entidade existentes no banco
+  dado uma query. O resultado depende da
+  ordenação da query.
+
   Também aceita uma lista de átomos que representam
   as associações à serem pré-carregadas.
 
@@ -102,7 +116,7 @@ defmodule Fuschia.Database do
      nil
   """
   @spec one(query, relationships) :: struct | nil
-  def one(%Ecto.Query{} = query, args \\ []) do
+  def one(%Ecto.Query{} = query, args) do
     query
     |> preload_all(args)
     |> Repo.one()
@@ -203,13 +217,28 @@ defmodule Fuschia.Database do
     end
   end
 
-  @spec insert(changeset, list) :: {:ok, struct} | {:error, changeset}
-  def insert(%Ecto.Changeset{data: %mod{}} = changeset, opts \\ []) do
+  @spec insert(changeset | struct, list) :: {:ok, struct} | {:error, changeset}
+  def insert(source, opts \\ [])
+
+  def insert(%Ecto.Changeset{data: %mod{}} = changeset, opts) do
     %{meta: meta, source: source} = build_meta(mod, "insert")
 
     Ecto.Multi.new()
     |> Carbonite.Multi.insert_transaction(meta)
     |> Ecto.Multi.insert(source, changeset, opts)
+    |> Repo.transaction()
+    |> case do
+      {:ok, changes} -> {:ok, Map.get(changes, source)}
+      err -> err
+    end
+  end
+
+  def insert(%mod{} = struct, opts) do
+    %{meta: meta, source: source} = build_meta(mod, "insert")
+
+    Ecto.Multi.new()
+    |> Carbonite.Multi.insert_transaction(meta)
+    |> Ecto.Multi.insert(source, struct, opts)
     |> Repo.transaction()
     |> case do
       {:ok, changes} -> {:ok, Map.get(changes, source)}
@@ -292,6 +321,8 @@ defmodule Fuschia.Database do
      %Modulo{relacao_1: nil}
   """
   @spec preload_all(query, relationships) :: query
+  def preload_all(nil, _args), do: nil
+
   def preload_all(%Ecto.Query{} = query, args) do
     require Ecto.Query
 
