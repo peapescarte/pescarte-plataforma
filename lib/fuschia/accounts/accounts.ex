@@ -21,7 +21,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Obtém um usuário a partir de um email
 
-  ## Examples
+  ## Exemplos
 
       iex> get_user_by_email("foo@example.com")
       %User{}
@@ -44,7 +44,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Obtém um usuário a partir do email e senha
 
-  ## Examples
+  ## Exemplos
 
       iex> get_user_by_email_and_password("foo@example.com", "correct_password")
       %User{}
@@ -62,7 +62,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Obtém a listagem de usuários
 
-  ## Examples
+  ## Exemplos
 
       iex> list_user()
       [%User{}]
@@ -78,7 +78,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Verifica se um suário existe dado um CPF
 
-  ## Examples
+  ## Exemplos
 
       iex> user_exist?("999.999.999-99")
       true
@@ -96,7 +96,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Obtém apenas um usuário
 
-  ## Examples
+  ## Exemplos
 
       iex> get_user("999.999.999-99")
       %User{}
@@ -116,7 +116,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Obtém apenas um usuário pelo id
 
-  ## Examples
+  ## Exemplos
 
       iex> get_user_by_id("JY85XgrT6NYAcaAYhXMQq")
       %User{}
@@ -126,10 +126,10 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user_by_id(id) do
-    get_fun = &Database.get_entity/3
+    get_fun = &Database.get_entity_by/3
 
     get_fun
-    |> with_queries_mod([User, id: id])
+    |> with_queries_mod([User, [id: id]])
     |> UserLogic.put_permissions()
   end
 
@@ -153,7 +153,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Cria um usuário admin
 
-  ## Examples
+  ## Exemplos
 
       iex> create(valid_attrs)
       {:ok, %User{}}
@@ -171,7 +171,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Cadastra um novo usuário
 
-  ## Examples
+  ## Exemplos
 
       iex> register_user(%{field: value})
       {:ok, %User{}}
@@ -190,7 +190,7 @@ defmodule Fuschia.Accounts do
   Retorna um `%Ecto.Changeset{}` para acompanhar as mudanças
   de um usuário.
 
-  ## Examples
+  ## Exemplos
 
       iex> change_user_registration(user)
       %Ecto.Changeset{data: %User{}}
@@ -205,7 +205,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Retorna um `%Ecto.Changeset{}` para mudar o email.
 
-  ## Examples
+  ## Exemplos
 
       iex> change_user_email(user)
       %Ecto.Changeset{data: %User{}}
@@ -219,7 +219,7 @@ defmodule Fuschia.Accounts do
   Emula a atualizaçõa do email de um usuário porém não insere
   no banco de dados.
 
-  ## Examples
+  ## Exemplos
 
     iex> apply_user_email(user, "valid password", %{email: ...})
     {:ok, %User{}}
@@ -272,7 +272,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Entrega o email para atualização do email de um usuário.
 
-  ## Examples
+  ## Exemplos
 
       iex> deliver_update_email_instructions(user, current_email, &Routes.user_update_email_url(conn, :edit, &1))
       {:ok, %{to: ..., body: ...}}
@@ -290,7 +290,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Retorna um `%Ecto.Changeset{}` para troca de senha.
 
-  ## Examples
+  ## Exemplos
 
       iex> change_user_password(user)
       %Ecto.Changeset{data: %User{}}
@@ -303,7 +303,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Atualiza a senha de um usuário
 
-  ## Examples
+  ## Exemplos
 
       iex> update_user_password(user, "valid password", %{password: ...})
       {:ok, %User{}}
@@ -366,7 +366,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Envia o email para confirmação de email do usuário.
 
-  ## Examples
+  ## Exemplos
 
       iex> deliver_user_confirmation_instructions(user, &Routes.user_confirmation_url(conn, :edit, &1))
       {:ok, %{to: ..., body: ...}}
@@ -413,7 +413,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Entrega o email de recuperação de senha para um usuário.
 
-  ## Examples
+  ## Exemplos
 
       iex> deliver_user_reset_password_instructions(user, &Routes.user_reset_password_url(conn, :edit, &1))
       {:ok, %{to: ..., body: ...}}
@@ -429,7 +429,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Obtém um usuário dado um token de recuperação de senha.
 
-  ## Examples
+  ## Exemplos
 
       iex> get_user_by_reset_password_token("validtoken")
       %User{}
@@ -450,7 +450,7 @@ defmodule Fuschia.Accounts do
   @doc """
   Reseta a senha de um usuário.
 
-  ## Examples
+  ## Exemplos
 
       iex> reset_user_password(user, %{password: "new long password", password_confirmation: "new long password"})
       {:ok, %User{}}
