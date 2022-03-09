@@ -4,7 +4,8 @@ defmodule Fuschia.ModuloPesquisa do
   do contexto.
   """
 
-  import Fuschia.Common.Database
+  import Fuschia.Database,
+    only: [create_and_preload: 3, list_entity: 2, get_entity: 3, update_and_preload: 3]
 
   alias __MODULE__.Models.{
     Campus,

@@ -4,7 +4,6 @@ defmodule Fuschia.Accounts do
   """
 
   import Ecto.Query, warn: false
-  import Fuschia.Common.Database
 
   alias Fuschia.Repo
 
@@ -73,7 +72,7 @@ defmodule Fuschia.Accounts do
 
   """
   def list_user do
-    with_queries_mod(&list_entity/2, [User])
+    with_queries_mod(&Database.list_entity/2, [User])
   end
 
   @doc """
@@ -91,7 +90,7 @@ defmodule Fuschia.Accounts do
   def user_exists?(cpf) do
     cpf
     |> Queries.User.exist_query()
-    |> Fuschia.Database.exists?()
+    |> Database.exists?()
   end
 
   @doc """
@@ -107,7 +106,11 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user(cpf) do
-    UserLogic.put_permissions(with_queries_mod(&get_entity/3, [User, cpf]))
+    get_fun = &Database.get_entity/3
+
+    get_fun
+    |> with_queries_mod([User, cpf])
+    |> UserLogic.put_permissions()
   end
 
   @doc """
@@ -123,7 +126,11 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user_by_id(id) do
-    UserLogic.put_permissions(with_queries_mod(&get_entity_by/3, [User, [id: id]]))
+    get_fun = &Database.get_entity/3
+
+    get_fun
+    |> with_queries_mod([User, id: id])
+    |> UserLogic.put_permissions()
   end
 
   ## User registration
@@ -156,7 +163,9 @@ defmodule Fuschia.Accounts do
 
   """
   def create_user(attrs) do
-    with_queries_mod(&create_and_preload/3, [User, attrs], change_fun: &User.admin_changeset/2)
+    with_queries_mod(&Database.create_and_preload/3, [User, attrs],
+      change_fun: &User.admin_changeset/2
+    )
   end
 
   @doc """
@@ -172,7 +181,7 @@ defmodule Fuschia.Accounts do
 
   """
   def register_user(attrs) do
-    with_queries_mod(&create_and_preload/3, [User, attrs],
+    with_queries_mod(&Database.create_and_preload/3, [User, attrs],
       change_fun: &User.registration_changeset/2
     )
   end
@@ -345,7 +354,10 @@ defmodule Fuschia.Accounts do
   Deleta um token registrato dado um contexto.
   """
   def delete_session_token(token) do
-    Database.delete_all(UserTokenQueries.token_and_context_query(token, "session"))
+    token
+    |> UserTokenQueries.token_and_context_query("session")
+    |> Database.delete_all()
+
     :ok
   end
 
