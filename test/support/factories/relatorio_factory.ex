@@ -3,7 +3,7 @@ defmodule Fuschia.RelatorioFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Relatorio
+      alias Fuschia.ModuloPesquisa.Models.Relatorio
 
       @spec relatorio_factory :: Relatorio.t()
       def relatorio_factory do

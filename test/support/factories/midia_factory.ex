@@ -3,7 +3,7 @@ defmodule Fuschia.MidiaFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Midia
+      alias Fuschia.ModuloPesquisa.Models.Midia
 
       @spec midia_factory :: Midia.t()
       def midia_factory do

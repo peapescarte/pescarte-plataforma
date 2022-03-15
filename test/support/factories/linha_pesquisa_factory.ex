@@ -3,7 +3,7 @@ defmodule Fuschia.LinhaPesquisaFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.LinhaPesquisa
+      alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
 
       @spec linha_pesquisa_factory :: LinhaPesquisa.t()
       def linha_pesquisa_factory do

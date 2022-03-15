@@ -3,7 +3,7 @@ defmodule Fuschia.NucleoFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Nucleo
+      alias Fuschia.ModuloPesquisa.Models.Nucleo
 
       @spec nucleo_factory :: Nucleo.t()
       def nucleo_factory do

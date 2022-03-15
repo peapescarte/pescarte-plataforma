@@ -9,7 +9,7 @@ defmodule FuschiaWeb.UserAuth do
   import Phoenix.Controller
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.User
+  alias Fuschia.Accounts.Models.User
   alias FuschiaWeb.Router.Helpers, as: Routes
 
   # Faça o cookie lembrar do usuário ser válido por 60 dias.
@@ -115,7 +115,7 @@ defmodule FuschiaWeb.UserAuth do
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)
-    assign(conn, :current_user, Accounts.preload_all(user))
+    assign(conn, :current_user, user)
   end
 
   defp ensure_user_token(conn) do
