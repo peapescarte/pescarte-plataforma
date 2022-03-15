@@ -4,9 +4,8 @@ defmodule FuschiaWeb.CampusController do
   use FuschiaWeb, :controller
   use OpenApiSpex.ControllerSpecs
 
-  alias Fuschia.Database
-  alias Fuschia.Entities.Campus
-  alias Fuschia.Queries.Campi
+  alias Fuschia.ModuloPesquisa
+  alias Fuschia.ModuloPesquisa.Models.Campus
   alias FuschiaWeb.Swagger.{CampusSchemas, Response, Security}
   alias OpenApiSpex.Schema
 
@@ -25,7 +24,7 @@ defmodule FuschiaWeb.CampusController do
 
   @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"campus" => campus_attr}) do
-    with {:ok, campus} <- Database.create(Campus, campus_attr) do
+    with {:ok, campus} <- ModuloPesquisa.create_campus(campus_attr) do
       render_response(campus, conn, :created)
     end
   end
@@ -38,9 +37,7 @@ defmodule FuschiaWeb.CampusController do
 
   @spec index(Plug.Conn.t(), map) :: Plug.Conn.t()
   def index(conn, _params) do
-    Campi.query()
-    |> Database.list()
-    |> render_response(conn)
+    render_response(ModuloPesquisa.list_campus(), conn)
   end
 
   operation(:delete,
@@ -60,8 +57,8 @@ defmodule FuschiaWeb.CampusController do
 
   @spec delete(Plug.Conn.t(), map) :: Plug.Conn.t()
   def delete(conn, %{"campus_id" => campus_id}) do
-    with %Campus{} = campus <- Database.get(Campi.query(), campus_id),
-         {:ok, _campus} <- Database.delete(campus) do
+    with %Campus{} = campus <- ModuloPesquisa.get_campus(campus_id),
+         {:ok, _campus} <- ModuloPesquisa.delete(campus) do
       render_response(campus, conn)
     end
   end

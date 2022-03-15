@@ -3,7 +3,7 @@ defmodule Fuschia.PesquisadorFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Accounts.Pesquisador
+      alias Fuschia.ModuloPesquisa.Models.Pesquisador
 
       @spec pesquisador_factory :: Pesquisador.t()
       def pesquisador_factory do

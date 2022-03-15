@@ -3,7 +3,7 @@ defmodule Fuschia.ContatoFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Contato
+      alias Fuschia.Accounts.Models.Contato
 
       @spec contato_factory :: Contato.t()
       def contato_factory do

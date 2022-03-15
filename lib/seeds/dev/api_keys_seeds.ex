@@ -1,7 +1,7 @@
 defmodule Fuschia.ApiKeysDevSeeds do
   @moduledoc false
 
-  alias Fuschia.Entities.ApiKey
+  alias Fuschia.Accounts.Models.ApiKey
   alias Fuschia.Repo
 
   @spec run :: list(ApiKey.t())

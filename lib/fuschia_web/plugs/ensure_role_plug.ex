@@ -12,7 +12,7 @@ defmodule FuschiaWeb.EnsureRolePlug do
   import Plug.Conn
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.User
+  alias Fuschia.Accounts.Models.User
   alias FuschiaWeb.UserAuth
   alias Phoenix.Controller
 

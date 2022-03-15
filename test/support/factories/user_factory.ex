@@ -4,7 +4,9 @@ defmodule Fuschia.UserFactory do
   defmacro __using__(_opts) do
     quote do
       alias Fuschia.Accounts
-      alias Fuschia.Accounts.User
+      alias Fuschia.Accounts.Models.User
+      alias Fuschia.Accounts.Queries.User, as: UserQueries
+      alias Fuschia.Database
 
       def unique_user_email, do: "user#{System.unique_integer()}@example.com"
       def valid_user_password, do: "Hello World 42!"
@@ -26,7 +28,7 @@ defmodule Fuschia.UserFactory do
       def user_fixture(opts \\ []) do
         :user
         |> Fuschia.Factory.insert(opts)
-        |> Accounts.preload_all()
+        |> Database.preload_all(UserQueries.relationships())
       end
 
       def extract_user_token(fun) do
