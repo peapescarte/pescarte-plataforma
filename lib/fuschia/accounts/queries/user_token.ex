@@ -1,9 +1,9 @@
-defmodule Fuschia.Accounts.Queries.UserToken do
+defmodule Fuschia.Accounts.Queries.UserTokenQueries do
   @moduledoc false
 
   import Ecto.Query
 
-  alias Fuschia.Accounts.Models.UserToken
+  alias Fuschia.Accounts.Models.UserTokenModel
 
   @hash_algorithm :sha256
 
@@ -102,17 +102,17 @@ defmodule Fuschia.Accounts.Queries.UserToken do
   Retorna a estrutura de token para o valor e o contexto de token fornecidos.
   """
   def token_and_context_query(token, context) do
-    from UserToken, where: [token: ^token, context: ^context]
+    from UserTokenModel, where: [token: ^token, context: ^context]
   end
 
   @doc """
   Obtém todos os tokens do usuário fornecido para os contextos fornecidos.
   """
   def user_and_contexts_query(user, :all) do
-    from t in UserToken, where: t.user_cpf == ^user.cpf
+    from t in UserTokenModel, where: t.user_cpf == ^user.cpf
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in UserToken, where: t.user_cpf == ^user.cpf and t.context in ^contexts
+    from t in UserTokenModel, where: t.user_cpf == ^user.cpf and t.context in ^contexts
   end
 end

@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.Models.User do
+defmodule Fuschia.Accounts.Models.UserModel do
   @moduledoc """
   Schema que representa um usuário do sistema.
 
@@ -13,7 +13,8 @@ defmodule Fuschia.Accounts.Models.User do
   import Ecto.Changeset
   import FuschiaWeb.Gettext
 
-  alias Fuschia.Accounts.Models.Contato
+  alias Fuschia.Accounts.Logic.ContatoLogic
+  alias Fuschia.Accounts.Models.ContatoModel
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(nome_completo cpf data_nascimento)a
@@ -38,7 +39,7 @@ defmodule Fuschia.Accounts.Models.User do
     field :permissoes, :map, virtual: true
     field :id, :string
 
-    belongs_to :contato, Contato, on_replace: :update
+    belongs_to :contato, ContatoModel, on_replace: :update
 
     timestamps()
   end
@@ -166,7 +167,7 @@ defmodule Fuschia.Accounts.Models.User do
     contact
     |> cast(attrs, [:email])
     |> validate_required([:email])
-    |> Contato.validate_email()
+    |> ContatoLogic.validate_email()
     |> case do
       %{changes: %{email: _}} = changeset -> changeset
       %{} = changeset -> add_error(changeset, :email, dgettext("errors", "didn't change"))
@@ -182,12 +183,12 @@ defmodule Fuschia.Accounts.Models.User do
   end
 
   defimpl Jason.Encoder, for: User do
-    alias Fuschia.Accounts.Adapters.User
+    alias Fuschia.Accounts.Adapters.UserAdapter
 
     @spec encode(User.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> User.to_map()
+      |> UserAdapter.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

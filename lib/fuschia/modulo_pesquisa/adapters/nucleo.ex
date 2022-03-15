@@ -1,9 +1,9 @@
-defmodule Fuschia.ModuloPesquisa.Adapters.Nucleo do
+defmodule Fuschia.ModuloPesquisa.Adapters.NucleoAdapter do
   @moduledoc false
 
-  alias Fuschia.ModuloPesquisa.Models.Nucleo
+  alias Fuschia.ModuloPesquisa.Models.NucleoModel
 
-  def to_map(%Nucleo{} = struct) do
+  def to_map(%NucleoModel{} = struct) do
     %{
       id: struct.id,
       nome: struct.nome,

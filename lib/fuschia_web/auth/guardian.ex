@@ -6,8 +6,8 @@ defmodule FuschiaWeb.Auth.Guardian do
   use Guardian, otp_app: :fuschia
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Adapters.User, as: UserAdapter
-  alias Fuschia.Accounts.Models.User
+  alias Fuschia.Accounts.Adapters.UserAdapter
+  alias Fuschia.Accounts.Models.UserModel
 
   @spec subject_for_token(User.t(), map) :: {:ok, String.t()}
   def subject_for_token(user, _claims) do
@@ -53,7 +53,7 @@ defmodule FuschiaWeb.Auth.Guardian do
   defp validate_password(_user, ""), do: {:error, :unauthorized}
 
   defp validate_password(user, password) when is_binary(password) do
-    with %User{password_hash: password_hash} = user <- user,
+    with %UserModel{password_hash: password_hash} = user <- user,
          false <- is_nil(password_hash),
          true <- Bcrypt.verify_pass(password, user.password_hash) do
       create_token(user)

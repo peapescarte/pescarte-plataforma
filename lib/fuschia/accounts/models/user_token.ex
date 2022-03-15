@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.Models.UserToken do
+defmodule Fuschia.Accounts.Models.UserTokenModel do
   @moduledoc """
   Schema que representa tokens de usuários.
 
@@ -10,7 +10,7 @@ defmodule Fuschia.Accounts.Models.UserToken do
 
   use Fuschia.Schema
 
-  alias Fuschia.Accounts.Models.User
+  alias Fuschia.Accounts.Models.UserModel
   alias Fuschia.Types.TrimmedString
 
   schema "user_token" do
@@ -18,7 +18,7 @@ defmodule Fuschia.Accounts.Models.UserToken do
     field :context, :string
     field :sent_to, :string
 
-    belongs_to :user, User,
+    belongs_to :user, UserModel,
       foreign_key: :user_cpf,
       references: :cpf,
       type: TrimmedString

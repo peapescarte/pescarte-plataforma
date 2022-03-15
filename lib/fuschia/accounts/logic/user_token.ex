@@ -1,9 +1,9 @@
-defmodule Fuschia.Accounts.Logic.UserToken do
+defmodule Fuschia.Accounts.Logic.UserTokenLogic do
   @moduledoc """
   Regras de negócio para tokens de Usuário
   """
 
-  alias Fuschia.Accounts.Models.UserToken
+  alias Fuschia.Accounts.Models.UserTokenModel
 
   @hash_algorithm :sha256
   @rand_size 32
@@ -29,7 +29,7 @@ defmodule Fuschia.Accounts.Logic.UserToken do
   """
   def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %UserToken{token: token, context: "session", user_cpf: user.cpf}}
+    {token, %UserTokenModel{token: token, context: "session", user_cpf: user.cpf}}
   end
 
   @doc """
@@ -55,7 +55,7 @@ defmodule Fuschia.Accounts.Logic.UserToken do
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
     {Base.url_encode64(token, padding: false),
-     %UserToken{
+     %UserTokenModel{
        token: hashed_token,
        context: context,
        sent_to: sent_to,

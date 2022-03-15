@@ -1,9 +1,9 @@
-defmodule Fuschia.ModuloPesquisa.Adapters.Campus do
+defmodule Fuschia.ModuloPesquisa.Adapters.CampusAdapter do
   @moduledoc false
 
-  alias Fuschia.ModuloPesquisa.Models.Campus
+  alias Fuschia.ModuloPesquisa.Models.CampusModel
 
-  def to_map(%Campus{} = struct) do
+  def to_map(%CampusModel{} = struct) do
     %{
       id: struct.id,
       nome: struct.nome,
