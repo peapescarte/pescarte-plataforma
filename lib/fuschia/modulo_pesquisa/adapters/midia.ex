@@ -1,9 +1,9 @@
-defmodule Fuschia.ModuloPesquisa.Adapters.Midia do
+defmodule Fuschia.ModuloPesquisa.Adapters.MidiaAdapter do
   @moduledoc false
 
-  alias Fuschia.ModuloPesquisa.Models.Midia
+  alias Fuschia.ModuloPesquisa.Models.MidiaModel
 
-  def to_map(%Midia{} = struct) do
+  def to_map(%MidiaModel{} = struct) do
     %{
       id: struct.id,
       tipo: struct.tipo,

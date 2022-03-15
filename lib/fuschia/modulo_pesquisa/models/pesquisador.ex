@@ -1,4 +1,4 @@
-defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
+defmodule Fuschia.ModuloPesquisa.Models.PesquisadorModel do
   @moduledoc """
   Pesquisador Schema
   """
@@ -6,8 +6,8 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.Accounts.Models.User
-  alias Fuschia.ModuloPesquisa.Models.{Campus, Midia, Pesquisador, Relatorio}
+  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.ModuloPesquisa.Models.{CampusModel, MidiaModel, PesquisadorModel, RelatorioModel}
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(
@@ -28,13 +28,13 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     field :tipo_bolsa, TrimmedString
     field :link_lattes, TrimmedString
 
-    has_many :orientandos, Pesquisador, foreign_key: :orientador_cpf
+    has_many :orientandos, PesquisadorModel, foreign_key: :orientador_cpf
 
-    has_many :midias, Midia, foreign_key: :pesquisador_cpf
+    has_many :midias, MidiaModel, foreign_key: :pesquisador_cpf
 
-    has_many :relatorios, Relatorio, foreign_key: :pesquisador_cpf
+    has_many :relatorios, RelatorioModel, foreign_key: :pesquisador_cpf
 
-    belongs_to :usuario, User,
+    belongs_to :usuario, UserModel,
       references: :cpf,
       foreign_key: :usuario_cpf,
       type: TrimmedString,
@@ -42,12 +42,12 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
       define_field: false,
       on_replace: :update
 
-    belongs_to :campus, Campus,
+    belongs_to :campus, CampusModel,
       foreign_key: :campus_nome,
       references: :nome,
       type: CapitalizedString
 
-    belongs_to :orientador, Pesquisador,
+    belongs_to :orientador, PesquisadorModel,
       references: :usuario_cpf,
       foreign_key: :orientador_cpf,
       type: TrimmedString,
@@ -64,7 +64,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     |> validate_required(@required_fields)
     |> validate_length(:minibiografia, max: 280)
     |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
-    |> cast_assoc(:usuario, required: true, with: &User.registration_changeset/2)
+    |> cast_assoc(:usuario, required: true, with: &UserModel.registration_changeset/2)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
     |> put_change(:id, Nanoid.generate())
@@ -83,12 +83,12 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.Pesquisador
+    alias Fuschia.ModuloPesquisa.Adapters.PesquisadorAdapter
 
     @spec encode(Pesquisador.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> Pesquisador.to_map()
+      |> PesquisadorAdapter.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

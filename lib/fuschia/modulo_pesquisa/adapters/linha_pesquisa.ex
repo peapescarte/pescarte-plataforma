@@ -1,9 +1,9 @@
-defmodule Fuschia.ModuloPesquisa.Adapters.LinhaPesquisa do
+defmodule Fuschia.ModuloPesquisa.Adapters.LinhaPesquisaAdapter do
   @moduledoc false
 
-  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisaModel
 
-  def to_map(%LinhaPesquisa{} = struct) do
+  def to_map(%LinhaPesquisaModel{} = struct) do
     %{
       id: struct.id,
       descricao_curta: struct.descricao_curta,

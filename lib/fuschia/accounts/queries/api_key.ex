@@ -1,17 +1,17 @@
-defmodule Fuschia.Accounts.Queries.ApiKey do
+defmodule Fuschia.Accounts.Queries.ApiKeyQueries do
   @moduledoc """
   Queries para interagir com `ApiKey`
   """
 
   import Ecto.Query, only: [from: 2]
 
-  alias Fuschia.Accounts.Models.ApiKey
+  alias Fuschia.Accounts.Models.ApiKeyModel
 
   @behaviour Fuschia.Query
 
   @impl true
   def query do
-    from a in ApiKey,
+    from a in ApiKeyModel,
       where: a.active == true
   end
 

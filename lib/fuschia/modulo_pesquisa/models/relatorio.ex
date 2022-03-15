@@ -1,4 +1,4 @@
-defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
+defmodule Fuschia.ModuloPesquisa.Models.RelatorioModel do
   @moduledoc """
   Relatorio Schema
   """
@@ -6,9 +6,9 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
   use Fuschia.Schema
 
   import Ecto.Changeset
-  import Fuschia.ModuloPesquisa.Logic.Relatorio
+  import Fuschia.ModuloPesquisa.Logic.RelatorioLogic
 
-  alias Fuschia.ModuloPesquisa.Models.Pesquisador
+  alias Fuschia.ModuloPesquisa.Models.PesquisadorModel
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(
@@ -30,7 +30,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
     field :tipo, TrimmedString
     field :link, TrimmedString
 
-    belongs_to :pesquisador, Pesquisador,
+    belongs_to :pesquisador, PesquisadorModel,
       references: :usuario_cpf,
       foreign_key: :pesquisador_cpf,
       type: TrimmedString,
@@ -52,12 +52,12 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.Relatorio
+    alias Fuschia.ModuloPesquisa.Adapters.RelatorioAdapter
 
     @spec encode(Relatorio.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> Relatorio.to_map()
+      |> RelatorioAdapter.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

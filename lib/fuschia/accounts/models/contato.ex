@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.Models.Contato do
+defmodule Fuschia.Accounts.Models.ContatoModel do
   @moduledoc """
   Contato schema
   """
@@ -6,13 +6,12 @@ defmodule Fuschia.Accounts.Models.Contato do
   use Fuschia.Schema
 
   import Ecto.Changeset
-  import FuschiaWeb.Gettext
 
+  alias Fuschia.Accounts.Logic.ContatoLogic
   alias Fuschia.Common.Formats
 
   @required_fields ~w(email endereco celular)a
 
-  @email_format Formats.email()
   @mobile_format Formats.mobile()
 
   schema "contato" do
@@ -30,35 +29,17 @@ defmodule Fuschia.Accounts.Models.Contato do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> validate_format(:celular, @mobile_format)
-    |> validate_email()
-  end
-
-  @spec validate_email(Ecto.Changeset.t()) :: Ecto.Changeset.t()
-  def validate_email(changeset) do
-    changeset
-    |> validate_length(:email,
-      max: 160,
-      message: dgettext("errors", "should be at most 160 character(s)", count: 160)
-    )
-    |> validate_format(:email, @email_format,
-      message: dgettext("errors", "must have the @ sign and no spaces")
-    )
-    |> unsafe_validate_unique(:email, Fuschia.Repo)
-    |> unique_constraint(:email)
+    |> ContatoLogic.validate_email()
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    @spec encode(Fuschia.Entities.Contato.t(), map) :: map
+    alias Fuschia.Accounts.Adapters.ContatoAdapter
+
+    @spec encode(Contato.t(), map) :: map
     def encode(struct, opts) do
-      Fuschia.Encoder.encode(
-        %{
-          id: struct.id,
-          celular: struct.celular,
-          email: struct.email,
-          endereco: struct.endereco
-        },
-        opts
-      )
+      struct
+      |> ContatoAdapter.to_map()
+      |> Fuschia.Encoder.encode(opts)
     end
   end
 end

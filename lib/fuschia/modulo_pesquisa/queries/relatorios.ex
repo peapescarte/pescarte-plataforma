@@ -1,17 +1,17 @@
-defmodule Fuschia.ModuloPesquisa.Queries.Relatorio do
+defmodule Fuschia.ModuloPesquisa.Queries.RelatorioQueries do
   @moduledoc """
   Queries para interagir com `Relatorio`
   """
 
   import Ecto.Query, only: [from: 2, join: 4, where: 3]
 
-  alias Fuschia.ModuloPesquisa.Models.Relatorio
+  alias Fuschia.ModuloPesquisa.Models.RelatorioModel
 
   @behaviour Fuschia.Query
 
   @impl true
   def query do
-    from relatorio in Relatorio,
+    from relatorio in RelatorioModel,
       order_by: [desc: relatorio.inserted_at]
   end
 

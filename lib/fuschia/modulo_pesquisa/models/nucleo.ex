@@ -1,11 +1,11 @@
-defmodule Fuschia.ModuloPesquisa.Models.Nucleo do
+defmodule Fuschia.ModuloPesquisa.Models.NucleoModel do
   @moduledoc """
   Nucleo schema
   """
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisaModel
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome descricao)a
@@ -15,7 +15,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Nucleo do
     field :id, :string
     field :descricao, :string
 
-    has_many :linhas_pesquisa, LinhaPesquisa
+    has_many :linhas_pesquisa, LinhaPesquisaModel, foreign_key: :nucleo_nome
 
     timestamps()
   end
@@ -31,12 +31,12 @@ defmodule Fuschia.ModuloPesquisa.Models.Nucleo do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.Nucleo
+    alias Fuschia.ModuloPesquisa.Adapters.NucleoAdapter
 
     @spec encode(Nucleo.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> Nucleo.to_map()
+      |> NucleoAdapter.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

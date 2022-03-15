@@ -1,15 +1,15 @@
-defmodule Fuschia.Accounts.Queries.User do
+defmodule Fuschia.Accounts.Queries.UserQueries do
   @moduledoc false
 
   import Ecto.Query, only: [from: 2, where: 3, order_by: 3, limit: 2]
 
-  alias Fuschia.Accounts.Models.User
+  alias Fuschia.Accounts.Models.UserModel
 
   @behaviour Fuschia.Query
 
   @impl true
   def query do
-    from u in User,
+    from u in UserModel,
       left_join: contato in assoc(u, :contato),
       order_by: [desc: u.inserted_at]
   end

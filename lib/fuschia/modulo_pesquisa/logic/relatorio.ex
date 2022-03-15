@@ -1,4 +1,4 @@
-defmodule Fuschia.ModuloPesquisa.Logic.Relatorio do
+defmodule Fuschia.ModuloPesquisa.Logic.RelatorioLogic do
   @moduledoc false
 
   import FuschiaWeb.Gettext

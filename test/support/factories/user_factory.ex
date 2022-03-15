@@ -4,8 +4,8 @@ defmodule Fuschia.UserFactory do
   defmacro __using__(_opts) do
     quote do
       alias Fuschia.Accounts
-      alias Fuschia.Accounts.Models.User
-      alias Fuschia.Accounts.Queries.User, as: UserQueries
+      alias Fuschia.Accounts.Models.UserModel
+      alias Fuschia.Accounts.Queries.UserQueries
       alias Fuschia.Database
 
       def unique_user_email, do: "user#{System.unique_integer()}@example.com"
@@ -13,7 +13,7 @@ defmodule Fuschia.UserFactory do
 
       @spec user_factory :: User.t()
       def user_factory do
-        %User{
+        %UserModel{
           id: Nanoid.generate_non_secure(),
           role: sequence(:role, ["avulso", "pesquisador"]),
           nome_completo: sequence(:nome_completo, &"User #{&1}"),

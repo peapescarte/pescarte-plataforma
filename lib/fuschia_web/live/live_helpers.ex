@@ -8,7 +8,7 @@ defmodule FuschiaWeb.LiveHelpers do
   import Phoenix.LiveView
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Models.User
+  alias Fuschia.Accounts.Models.UserModel
   alias FuschiaWeb.Router.Helpers, as: Routes
 
   def assign_defaults(session, socket) do
@@ -18,7 +18,7 @@ defmodule FuschiaWeb.LiveHelpers do
       end)
 
     case socket.assigns.current_user do
-      %User{} ->
+      %UserModel{} ->
         socket
 
       _other ->
@@ -30,7 +30,7 @@ defmodule FuschiaWeb.LiveHelpers do
 
   defp find_current_user(session) do
     with session_token when is_binary(session_token) <- session["user_token"],
-         %User{} = user <- Accounts.get_user_by_session_token(session_token),
+         %UserModel{} = user <- Accounts.get_user_by_session_token(session_token),
          do: user
   end
 end

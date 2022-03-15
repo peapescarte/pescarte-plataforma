@@ -4,11 +4,11 @@ defmodule FuschiaWeb.UserRegistrationController do
   import FuschiaWeb.Gettext
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Models.User
+  alias Fuschia.Accounts.Models.UserModel
   alias FuschiaWeb.UserAuth
 
   def new(conn, _params) do
-    changeset = Accounts.change_user_registration(%User{})
+    changeset = Accounts.change_user_registration(%UserModel{})
     render(conn, "new.html", changeset: changeset)
   end
 
