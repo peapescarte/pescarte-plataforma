@@ -3,13 +3,13 @@ defmodule Fuschia.RelatorioFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Relatorio
+      alias Fuschia.ModuloPesquisa.Models.RelatorioModel
 
       @spec relatorio_factory :: Relatorio.t()
       def relatorio_factory do
         pesquisador = insert(:pesquisador)
 
-        %Relatorio{
+        %RelatorioModel{
           id: Nanoid.generate_non_secure(),
           pesquisador: pesquisador,
           tipo: sequence(:tipo, ["mensal", "trimestral", "anual"]),

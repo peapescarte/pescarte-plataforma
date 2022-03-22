@@ -7,8 +7,8 @@ defmodule FuschiaWeb.RequireApiKeyPlug do
   import Plug.Conn
   import FuschiaWeb.Gettext
 
+  alias Fuschia.Accounts.Queries.ApiKeyQueries
   alias Fuschia.Database
-  alias Fuschia.Queries.ApiKeys
 
   @spec init(map) :: map
   def init(options), do: options
@@ -18,7 +18,7 @@ defmodule FuschiaWeb.RequireApiKeyPlug do
     conn = fetch_query_params(conn)
     api_key = conn.query_params["api_key"] || conn |> get_req_header("x-api-key") |> List.first()
 
-    case api_key && Database.get_by(ApiKeys.query(), key: api_key) do
+    case api_key && Database.get_by(ApiKeyQueries.query(), key: api_key) do
       nil ->
         conn
         |> send_resp(

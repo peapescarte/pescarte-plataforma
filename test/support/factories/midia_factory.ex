@@ -3,13 +3,13 @@ defmodule Fuschia.MidiaFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Midia
+      alias Fuschia.ModuloPesquisa.Models.MidiaModel
 
       @spec midia_factory :: Midia.t()
       def midia_factory do
         pesquisador = insert(:pesquisador)
 
-        %Midia{
+        %MidiaModel{
           id: Nanoid.generate_non_secure(),
           pesquisador: pesquisador,
           tipo: sequence(:tipo, ["video", "documento", "imagem"]),

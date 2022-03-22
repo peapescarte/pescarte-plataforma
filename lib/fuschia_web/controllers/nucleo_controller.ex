@@ -3,9 +3,9 @@ defmodule FuschiaWeb.NucleoController do
   use FuschiaWeb, :controller
   use OpenApiSpex.ControllerSpecs
 
-  alias Fuschia.Db
-  alias Fuschia.Entities.Nucleo
-  alias Fuschia.Queries.Nucleos
+  alias Fuschia.Database
+  alias Fuschia.ModuloPesquisa
+  alias Fuschia.ModuloPesquisa.Models.NucleoModel
   alias FuschiaWeb.Swagger.{NucleoSchemas, Response, Security}
   alias OpenApiSpex.Schema
 
@@ -24,7 +24,7 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"nucleo" => nucleo_attr}) do
-    with {:ok, nucleo} <- Db.create(Nucleo, nucleo_attr) do
+    with {:ok, nucleo} <- ModuloPesquisa.create_nucleo(nucleo_attr) do
       render_response(nucleo, conn, :created)
     end
   end
@@ -37,9 +37,7 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec index(Plug.Conn.t(), map) :: Plug.Conn.t()
   def index(conn, _params) do
-    Nucleos.query()
-    |> Db.list()
-    |> render_response(conn)
+    render_response(ModuloPesquisa.list_nucleo(), conn)
   end
 
   operation(:show,
@@ -59,7 +57,7 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec show(Plug.Conn.t(), map) :: Plug.Conn.t()
   def show(conn, %{"id" => nucleo_id}) do
-    with %Nucleo{} = nucleo <- Db.get(Nucleos.query(), nucleo_id) do
+    with %NucleoModel{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id) do
       render_response(nucleo, conn)
     end
   end
@@ -83,8 +81,8 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec update(Plug.Conn.t(), map) :: Plug.Conn.t()
   def update(conn, %{"nucleo" => attrs, "id" => nucleo_id}) do
-    with %Nucleo{} = nucleo <- Db.get(Nucleos.query(), nucleo_id),
-         {:ok, updated_nucleo} <- Db.update_struct(nucleo, attrs) do
+    with %NucleoModel{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id),
+         {:ok, updated_nucleo} <- ModuloPesquisa.update_nucleo(nucleo, attrs) do
       render_response(updated_nucleo, conn)
     end
   end
@@ -106,8 +104,8 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec delete(Plug.Conn.t(), map) :: Plug.Conn.t()
   def delete(conn, %{"id" => nucleo_id}) do
-    with %Nucleo{} = nucleo <- Db.get(Nucleos.query(), nucleo_id),
-         {:ok, _nucleo} <- Db.delete(nucleo) do
+    with %NucleoModel{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id),
+         {:ok, _nucleo} <- Database.delete(nucleo) do
       render_response(nucleo, conn)
     end
   end

@@ -1,34 +1,8 @@
 alias Fuschia.{
   Accounts,
-  Accounts.Pesquisador,
-  Accounts.User,
-  Context,
   Database,
-  Entities,
-  Queries
+  ModuloPesquisa
 }
-
-alias Fuschia.Queries.{
-  Campi,
-  Cidades,
-  LinhasPesquisas,
-  Midias,
-  Nucleos,
-  Pesquisadores,
-  Relatorios
-}
-
-alias Fuschia.Entities.{
-  Campus,
-  Cidade,
-  Contato,
-  LinhaPesquisa,
-  Midia,
-  Nucleo,
-  Relatorio
-}
-
-alias Fuschia.Repo
 
 colors_opts = [
   syntax_colors: [

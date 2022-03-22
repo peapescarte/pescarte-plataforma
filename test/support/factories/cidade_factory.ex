@@ -3,11 +3,11 @@ defmodule Fuschia.CidadeFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Cidade
+      alias Fuschia.ModuloPesquisa.Models.CidadeModel
 
       @spec cidade_factory :: Cidade.t()
       def cidade_factory do
-        %Cidade{
+        %CidadeModel{
           id: Nanoid.generate_non_secure(),
           municipio: sequence(:municipio, &"Cidade #{&1}")
         }

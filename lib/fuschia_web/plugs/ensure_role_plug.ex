@@ -12,7 +12,7 @@ defmodule FuschiaWeb.EnsureRolePlug do
   import Plug.Conn
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.User
+  alias Fuschia.Accounts.Models.UserModel
   alias FuschiaWeb.UserAuth
   alias Phoenix.Controller
 
@@ -27,12 +27,12 @@ defmodule FuschiaWeb.EnsureRolePlug do
     |> maybe_halt(conn)
   end
 
-  defp has_role?(%User{} = user, roles) when is_list(roles),
+  defp has_role?(%UserModel{} = user, roles) when is_list(roles),
     do: Enum.any?(roles, &has_role?(user, &1))
 
   # Essa cláusula só será exectada quando o ambos
   # os argumentos com alias `role` tiverem o mesmo valor
-  defp has_role?(%User{role: role}, role), do: true
+  defp has_role?(%UserModel{role: role}, role), do: true
   defp has_role?(_user, _role), do: false
 
   defp maybe_halt(true, conn), do: conn

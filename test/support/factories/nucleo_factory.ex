@@ -3,11 +3,11 @@ defmodule Fuschia.NucleoFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.Entities.Nucleo
+      alias Fuschia.ModuloPesquisa.Models.NucleoModel
 
       @spec nucleo_factory :: Nucleo.t()
       def nucleo_factory do
-        %Nucleo{
+        %NucleoModel{
           id: Nanoid.generate_non_secure(),
           nome: sequence(:nome, &"Nucleo #{&1}"),
           descricao: sequence(:descricao, &"Descricao Nucleo #{&1}")

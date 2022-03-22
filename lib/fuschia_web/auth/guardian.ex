@@ -6,7 +6,8 @@ defmodule FuschiaWeb.Auth.Guardian do
   use Guardian, otp_app: :fuschia
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.User
+  alias Fuschia.Accounts.Adapters.UserAdapter
+  alias Fuschia.Accounts.Models.UserModel
 
   @spec subject_for_token(User.t(), map) :: {:ok, String.t()}
   def subject_for_token(user, _claims) do
@@ -20,14 +21,14 @@ defmodule FuschiaWeb.Auth.Guardian do
     user =
       claims
       |> Map.get("sub")
-      |> Accounts.get()
+      |> Accounts.get_user()
 
     {:ok, user}
   end
 
   @spec authenticate(map) :: {:ok, String.t()} | {:error, :unauthorized}
   def authenticate(%{"cpf" => cpf, "password" => password}) do
-    case Accounts.get(cpf) do
+    case Accounts.get_user(cpf) do
       nil -> {:error, :unauthorized}
       user -> validate_password(user, password)
     end
@@ -35,9 +36,9 @@ defmodule FuschiaWeb.Auth.Guardian do
 
   @spec user_claims(map) :: {:ok, User.t()} | {:error, :unauthorized}
   def user_claims(%{"cpf" => cpf}) do
-    case Accounts.get(cpf) do
+    case Accounts.get_user(cpf) do
       nil -> {:error, :unauthorized}
-      user -> {:ok, user |> User.for_jwt() |> ProperCase.to_camel_case()}
+      user -> {:ok, user |> UserAdapter.for_jwt() |> ProperCase.to_camel_case()}
     end
   end
 
@@ -52,7 +53,7 @@ defmodule FuschiaWeb.Auth.Guardian do
   defp validate_password(_user, ""), do: {:error, :unauthorized}
 
   defp validate_password(user, password) when is_binary(password) do
-    with %User{password_hash: password_hash} = user <- user,
+    with %UserModel{password_hash: password_hash} = user <- user,
          false <- is_nil(password_hash),
          true <- Bcrypt.verify_pass(password, user.password_hash) do
       create_token(user)

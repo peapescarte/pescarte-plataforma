@@ -1,7 +1,7 @@
 defmodule Fuschia.ApiKeysDevSeeds do
   @moduledoc false
 
-  alias Fuschia.Entities.ApiKey
+  alias Fuschia.Accounts.Models.ApiKeyModel
   alias Fuschia.Repo
 
   @spec run :: list(ApiKey.t())
@@ -13,13 +13,13 @@ defmodule Fuschia.ApiKeysDevSeeds do
 
   defp insert_or_update!(attrs) do
     changeset =
-      case Repo.get_by(ApiKey, key: attrs.key) do
-        nil -> %ApiKey{}
+      case Repo.get_by(ApiKeyModel, key: attrs.key) do
+        nil -> %ApiKeyModel{}
         api_key -> api_key
       end
 
     changeset
-    |> ApiKey.changeset(attrs)
+    |> ApiKeyModel.changeset(attrs)
     |> Repo.insert_or_update!()
   end
 
