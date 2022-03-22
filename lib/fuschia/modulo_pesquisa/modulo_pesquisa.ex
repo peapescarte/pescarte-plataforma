@@ -98,6 +98,10 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&get_entity/3, [NucleoModel, id])
   end
 
+  def update_nucleo(%NucleoModel{} = nucleo, attrs, change_fun \\ :changeset) do
+    with_queries_mod(&update_and_preload/3, [nucleo, attrs, change_fun: change_fun])
+  end
+
   ## Pesquisador
 
   def create_pesquisador(attrs) do
