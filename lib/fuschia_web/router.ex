@@ -64,10 +64,8 @@ defmodule FuschiaWeb.Router do
     delete "/desconectar", UserSessionController, :delete
 
     scope "/usuarios" do
-      get "/confirmar", UserConfirmationController, :new
-      post "/confirmar", UserConfirmationController, :create
-      get "/confirmar/:token", UserConfirmationController, :edit
-      post "/confirmar/:token", UserConfirmationController, :update
+      live "/confirmar", UserConfirmationLive.New, :new, as: :user_confirmation
+      live "/confirmar/:token", UserConfirmationLive.Edit, :edit, as: :user_confirmation
     end
   end
 
