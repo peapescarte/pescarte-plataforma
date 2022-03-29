@@ -36,8 +36,7 @@ defmodule FuschiaWeb.Router do
   scope "/", FuschiaWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/cadastrar", UserRegistrationController, :new
-    post "/cadastrar", UserRegistrationController, :create
+    live "/cadastrar", UserRegistrationLive.New, :new, as: :user_registration
     get "/acessar", UserSessionController, :new
     post "/acessar", UserSessionController, :create
     get "/rescuperar_senha", UserResetPasswordController, :new
