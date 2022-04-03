@@ -39,10 +39,8 @@ defmodule FuschiaWeb.Router do
     live "/cadastrar", UserRegistrationLive.New, :new, as: :user_registration
     get "/acessar", UserSessionController, :new
     post "/acessar", UserSessionController, :create
-    get "/rescuperar_senha", UserResetPasswordController, :new
-    post "/rescuperar_senha", UserResetPasswordController, :create
-    get "/rescuperar_senha/:token", UserResetPasswordController, :edit
-    put "/rescuperar_senha/:token", UserResetPasswordController, :update
+    live "/recuperar_senha", UserResetPasswordLive.New, :new, as: :user_reset_password
+    live "/recuperar_senha/:token", UserResetPasswordLive.Edit, :edit, as: :user_reset_password
   end
 
   scope "/app", FuschiaWeb do
