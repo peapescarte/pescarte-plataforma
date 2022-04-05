@@ -264,7 +264,10 @@ defmodule Fuschia.Accounts do
            user
            |> UserModel.update_changeset(%{contato: contact})
            |> UserModel.confirm_changeset() do
+      meta = %{meta: %{type: "user_update_email"}}
+
       Ecto.Multi.new()
+      |> Carbonite.Multi.insert_transaction(meta)
       |> Ecto.Multi.update(:user, changeset)
       |> Ecto.Multi.delete_all(:tokens, UserTokenQueries.user_and_contexts_query(user, [context]))
     end
@@ -319,7 +322,10 @@ defmodule Fuschia.Accounts do
       |> UserModel.password_changeset(attrs)
       |> UserLogic.validate_current_password(password)
 
+    meta = %{meta: %{type: "user_update_password"}}
+
     Ecto.Multi.new()
+    |> Carbonite.Multi.insert_transaction(meta)
     |> Ecto.Multi.update(:user, changeset)
     |> Ecto.Multi.delete_all(:tokens, UserTokenQueries.user_and_contexts_query(user, :all))
     |> Database.transaction()

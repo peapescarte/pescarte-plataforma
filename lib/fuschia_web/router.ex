@@ -47,10 +47,9 @@ defmodule FuschiaWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     scope "/usuarios" do
-      get "/:user_id/configuracoes", UserSettingsController, :edit
-      put "/:user_id/configuracoes", UserSettingsController, :update
+      live "/configuracoes", UserSettingsLive.Edit, :edit, as: :user_settings
 
-      get "/:user_id/configuracoes/confirmar_email/:token",
+      get "/configuracoes/confirmar_email/:token",
           UserSettingsController,
           :confirm_email
     end

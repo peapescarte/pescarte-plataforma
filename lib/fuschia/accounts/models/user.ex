@@ -102,7 +102,7 @@ defmodule Fuschia.Accounts.Models.UserModel do
   def admin_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> changeset(attrs)
-    |> validate_required([:perfil])
+    |> validate_required([:role])
   end
 
   defp validate_password(changeset, opts) do

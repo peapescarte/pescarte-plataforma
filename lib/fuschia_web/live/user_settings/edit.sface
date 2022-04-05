@@ -1,0 +1,54 @@
+<h1>Settings</h1>
+
+<h3>Change email</h3>
+
+<Form for={@email_changeset} submit="update_email">
+  {#if @email_changeset.action}
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  {/if}
+
+  <Field name={:email}>
+    <Label />
+    <EmailInput />
+  </Field>
+
+  <Field name="current_password">
+    <Label />
+    <PasswordInput />
+  </Field>
+
+  <div>
+    {submit "Change email"}
+  </div>
+</Form>
+
+<h3>Change password</h3>
+
+<Form for={@password_changeset} submit="update_password">
+  {#if @password_changeset.action}
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  {/if}
+
+  <Field name="password">
+    <Label />
+    <PasswordInput />
+  </Field>
+
+  <Field name="password_confirmation">
+    <Label />
+    <PasswordInput />
+  </Field>
+
+  <Field name="current_password">
+    <Label />
+    <PasswordInput />
+  </Field>
+
+  <div>
+    {submit "Change password"}
+  </div>
+</Form>

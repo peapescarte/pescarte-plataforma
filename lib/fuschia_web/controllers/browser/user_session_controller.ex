@@ -18,7 +18,7 @@ defmodule FuschiaWeb.UserSessionController do
     apply(__MODULE__, action_name(conn), args)
   end
 
-  def new(conn, _params) do
+  def new(conn, _ip, _user_agent, _params) do
     render(conn, "new.html", error_message: nil)
   end
 

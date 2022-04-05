@@ -9,7 +9,7 @@ colors_opts = [
     number: :light_yellow,
     atom: :light_cyan,
     string: :light_green,
-    boolean: :light_blue,
+    boolean: :red,
     nil: [:magenta, :bright]
   ],
   ls_directory: :cyan,
@@ -21,18 +21,8 @@ colors_opts = [
 ]
 
 prompt =
-  [
-    # ANSI CHA, move cursor to column 1
-    "\e[G",
-    :light_magenta,
-    # plain string
-    "ﬦ",
-    ">",
-    :white,
-    :reset
-  ]
-  |> IO.ANSI.format()
-  |> IO.chardata_to_string()
+  "#{IO.ANSI.light_magenta()}λ#{IO.ANSI.reset()}" <>
+    "(#{IO.ANSI.cyan()}%counter#{IO.ANSI.reset()})>"
 
 IEx.configure(
   inspect: [limit: :infinity, pretty: true],
