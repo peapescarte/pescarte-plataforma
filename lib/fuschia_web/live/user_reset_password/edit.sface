@@ -1,0 +1,23 @@
+<h1>Reset password</h1>
+
+<Form for={@changeset} submit="reset">
+  {#if @changeset.action}
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  {/if}
+
+  <Field name="password">
+    <Label />
+    <PasswordInput />
+  </Field>
+
+  <Field name="password_confirmation">
+    <Label />
+    <PasswordInput />
+  </Field>
+
+  <div>
+    {submit "Reset password"}
+  </div>
+</Form>
