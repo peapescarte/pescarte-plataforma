@@ -36,24 +36,20 @@ defmodule FuschiaWeb.Router do
   scope "/", FuschiaWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/cadastrar", UserRegistrationController, :new
-    post "/cadastrar", UserRegistrationController, :create
+    live "/cadastrar", UserRegistrationLive.New, :new, as: :user_registration
     get "/acessar", UserSessionController, :new
     post "/acessar", UserSessionController, :create
-    get "/rescuperar_senha", UserResetPasswordController, :new
-    post "/rescuperar_senha", UserResetPasswordController, :create
-    get "/rescuperar_senha/:token", UserResetPasswordController, :edit
-    put "/rescuperar_senha/:token", UserResetPasswordController, :update
+    live "/recuperar_senha", UserResetPasswordLive.New, :new, as: :user_reset_password
+    live "/recuperar_senha/:token", UserResetPasswordLive.Edit, :edit, as: :user_reset_password
   end
 
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     scope "/usuarios" do
-      get "/:user_id/configuracoes", UserSettingsController, :edit
-      put "/:user_id/configuracoes", UserSettingsController, :update
+      live "/configuracoes", UserSettingsLive.Edit, :edit, as: :user_settings
 
-      get "/:user_id/configuracoes/confirmar_email/:token",
+      get "/configuracoes/confirmar_email/:token",
           UserSettingsController,
           :confirm_email
     end
@@ -65,10 +61,8 @@ defmodule FuschiaWeb.Router do
     delete "/desconectar", UserSessionController, :delete
 
     scope "/usuarios" do
-      get "/confirmar", UserConfirmationController, :new
-      post "/confirmar", UserConfirmationController, :create
-      get "/confirmar/:token", UserConfirmationController, :edit
-      post "/confirmar/:token", UserConfirmationController, :update
+      live "/confirmar", UserConfirmationLive.New, :new, as: :user_confirmation
+      live "/confirmar/:token", UserConfirmationLive.Edit, :edit, as: :user_confirmation
     end
   end
 

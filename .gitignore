@@ -35,3 +35,8 @@ fuschia-*.tar
 
 # Ignore generated js hook files for components
 assets/js/_hooks/
+
+# Local env files
+/.direnv/
+/.nix-*/
+/.postgres/
