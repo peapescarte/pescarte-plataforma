@@ -6,7 +6,7 @@ defmodule FuschiaWeb.Components.Navbar.MenuLinks do
   use FuschiaWeb, :surface_component
 
   # alias Fuschia.Accounts.Models.UserModel
-  alias FuschiaWeb.Components.Navbar.MenuItem
+  alias FuschiaWeb.Components.Navbar.{MenuItem, MenuLogo}
   alias FuschiaWeb.Router.Helpers, as: Routes
 
   @doc "Conexão atual"
@@ -14,24 +14,24 @@ defmodule FuschiaWeb.Components.Navbar.MenuLinks do
 
   def render(assigns) do
     ~F"""
-    {#if @socket.assigns.current_user}
-      {#for item <- authenticated_menu(@socket)}
-        <MenuItem path={item.path}>
-          {item.label}
-        </MenuItem>
-      {/for}
-    {#else}
-      {#for item <- guest_menu(@socket)}
-        <MenuItem path={item.path}>
-          {item.label}
-        </MenuItem>
-      {/for}
-    {/if}
+    <div class="ui grid full-w">
+      <div class="ui row">
+        <MenuLogo />
+        {#if @socket.assigns.current_user}
+          {#for item <- authenticated_menu(@socket)}
+            <MenuItem {...item} />
+          {/for}
+        {#else}
+          {#for item <- guest_menu(@socket)}
+            <MenuItem {...item} />
+          {/for}
+        {/if}
+      </div>
+    </div>
     """
   end
 
   def guest_menu(socket) do
-    # TODO change hardcoded paths to Router helpers
     [
       %{path: "/projeto", label: "o projeto"},
       %{path: "/campo", label: "campo"},
@@ -48,14 +48,13 @@ defmodule FuschiaWeb.Components.Navbar.MenuLinks do
   end
 
   def authenticated_menu(socket) do
-    # TODO change hardcoded paths to Router helpers
     [
       %{path: "/app/perfil", label: "perfil"},
       %{path: "/app/relatorios", label: "relatórios"},
       %{path: "/app/midias", label: "mídias"},
       %{path: "/app/agenda", label: "agenda"},
       %{path: "/app/notificacoes", label: "notificações"},
-      %{path: Routes.user_session_path(socket, :delete), label: "sair"}
+      %{path: Routes.user_session_path(socket, :delete), label: "sair", method: :delete}
     ]
   end
 end

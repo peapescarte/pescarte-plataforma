@@ -1,4 +1,4 @@
-<div class="ui fixed borderless huge menu">
+<div class="ui fixed borderless colossal menu">
   <div class="ui container grid">
     <div class="computer only row">
       <MenuLinks {=@socket} />

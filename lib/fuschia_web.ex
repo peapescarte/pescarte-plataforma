@@ -124,6 +124,8 @@ defmodule FuschiaWeb do
 
       import FuschiaWeb.ErrorHelpers
       import FuschiaWeb.Gettext
+
+      alias FuschiaWeb.Components
       alias FuschiaWeb.Router.Helpers, as: Routes
     end
   end
