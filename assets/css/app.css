@@ -1,5 +1,53 @@
-/* This file is for your main application CSS */
-@import "./phoenix.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  font-size: 62.5%;
+
+  /* theme vars */
+  --blue-lighter: #BCE0EF;
+  --blue-light: #88B8CC;
+  --blue-dark: #277DA1;
+  --blue-darker: #0E4771;
+
+  --green: #25CE52;
+  --orange: #F8961E;
+  --yellow: #F5BD00;
+  --red: #FF635D;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: 400 1.125rem 'Open Sans', sans-serif;
+  min-height: 100vh;
+  background: var(--blue-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+input,
+button,
+textarea {
+  font: 400 1.5rem 'Open Sans', sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+.active {
+  background: var(--orange);
+  padding: 10px;
+  margin: -10px;
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
+}
 
 /* Alerts and form errors used by phx.new */
 .alert {
