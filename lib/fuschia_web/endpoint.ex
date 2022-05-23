@@ -24,7 +24,7 @@ defmodule FuschiaWeb.Endpoint do
     at: "/",
     from: :fuschia,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: ~w(assets fonts images favicon.ico apple-touch-icon.png favicon-32x32.png favicon-16x16.png safari-pinned-tab.svg browserconfig.xml service_worker.js cache_manifest.json manifest.json)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

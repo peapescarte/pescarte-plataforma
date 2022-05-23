@@ -2,9 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* This file is for your main application CSS */
-@import "./semantic.css";
-
 :root {
   font-size: 62.5%;
 
@@ -44,17 +41,9 @@ button {
   cursor: pointer;
 }
 
-.text.upper {
-  text-transform: uppercase;
-}
-
 .active {
   background: var(--orange);
   clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
-}
-
-#menu-links {
-  width: 100%;
 }
 
 /* Alerts and form errors used by phx.new */
@@ -174,4 +163,3 @@ button {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
-
