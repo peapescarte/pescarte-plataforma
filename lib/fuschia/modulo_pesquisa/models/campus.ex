@@ -1,4 +1,4 @@
-defmodule Fuschia.ModuloPesquisa.Models.CampusModel do
+defmodule Fuschia.ModuloPesquisa.Models.Campus do
   @moduledoc """
   Campus Schema
   """
@@ -6,7 +6,7 @@ defmodule Fuschia.ModuloPesquisa.Models.CampusModel do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.ModuloPesquisa.Models.{CidadeModel, PesquisadorModel}
+  alias Fuschia.ModuloPesquisa.Models.{Cidade, Pesquisador}
   alias Fuschia.Types.CapitalizedString
 
   @required_fields ~w(nome)a
@@ -15,13 +15,13 @@ defmodule Fuschia.ModuloPesquisa.Models.CampusModel do
   schema "campus" do
     field :id, :string
 
-    belongs_to :cidade, CidadeModel,
+    belongs_to :cidade, Cidade,
       type: :string,
       on_replace: :delete,
       references: :municipio,
       foreign_key: :cidade_municipio
 
-    has_many :pesquisadores, PesquisadorModel, foreign_key: :campus_nome
+    has_many :pesquisadores, Pesquisador, foreign_key: :campus_nome
 
     timestamps()
   end
@@ -47,12 +47,12 @@ defmodule Fuschia.ModuloPesquisa.Models.CampusModel do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.CampusAdapter
+    alias Fuschia.ModuloPesquisa.Adapters.Campus
 
     @spec encode(Campus.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> CampusAdapter.to_map()
+      |> Campus.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

@@ -8,13 +8,13 @@ defmodule Fuschia.ModuloPesquisa do
     only: [create_and_preload: 3, list_entity: 2, get_entity: 3, update_and_preload: 3]
 
   alias __MODULE__.Models.{
-    CampusModel,
-    CidadeModel,
-    LinhaPesquisaModel,
-    MidiaModel,
-    NucleoModel,
-    PesquisadorModel,
-    RelatorioModel
+    Campus,
+    Cidade,
+    LinhaPesquisa,
+    Midia,
+    Nucleo,
+    Pesquisador,
+    Relatorio
   }
 
   alias __MODULE__.Queries
@@ -24,110 +24,110 @@ defmodule Fuschia.ModuloPesquisa do
   # ---------------------------#
 
   def create_campus(attrs) do
-    with_queries_mod(&create_and_preload/3, [CampusModel, attrs])
+    with_queries_mod(&create_and_preload/3, [Campus, attrs])
   end
 
   def list_campus do
-    with_queries_mod(&list_entity/2, [CampusModel])
+    with_queries_mod(&list_entity/2, [Campus])
   end
 
   def get_campus(id) do
-    with_queries_mod(&get_entity/3, [CampusModel, id])
+    with_queries_mod(&get_entity/3, [Campus, id])
   end
 
   ## Cidade
 
   def create_cidade(attrs) do
-    with_queries_mod(&create_and_preload/3, [CidadeModel, attrs])
+    with_queries_mod(&create_and_preload/3, [Cidade, attrs])
   end
 
   def get_cidade(id) do
-    with_queries_mod(&get_entity/3, [CidadeModel, id])
+    with_queries_mod(&get_entity/3, [Cidade, id])
   end
 
   ## LinhaPesquisa
 
   def create_linha_pesquisa(attrs) do
-    with_queries_mod(&create_and_preload/3, [LinhaPesquisaModel, attrs])
+    with_queries_mod(&create_and_preload/3, [LinhaPesquisa, attrs])
   end
 
   def list_linha_pesquisa do
-    with_queries_mod(&list_entity/2, [LinhaPesquisaModel])
+    with_queries_mod(&list_entity/2, [LinhaPesquisa])
   end
 
   def list_linha_pesquisa_by_nucleo(nucleo_id) do
-    with_queries_mod(&list_entity/2, [LinhaPesquisaModel],
+    with_queries_mod(&list_entity/2, [LinhaPesquisa],
       query_fun: :query_by_nucleo,
       query_args: nucleo_id
     )
   end
 
   def get_linha_pesquisa(id) do
-    with_queries_mod(&get_entity/3, [LinhaPesquisaModel, id])
+    with_queries_mod(&get_entity/3, [LinhaPesquisa, id])
   end
 
   ## Midia
 
   def create_midia(attrs) do
-    with_queries_mod(&create_and_preload/3, [MidiaModel, attrs])
+    with_queries_mod(&create_and_preload/3, [Midia, attrs])
   end
 
   def list_midia do
-    with_queries_mod(&list_entity/2, [MidiaModel])
+    with_queries_mod(&list_entity/2, [Midia])
   end
 
   def get_midia(id) do
-    with_queries_mod(&get_entity/3, [MidiaModel, id])
+    with_queries_mod(&get_entity/3, [Midia, id])
   end
 
-  def update_midia(%MidiaModel{} = midia, attrs, change_fun \\ :changeset) do
+  def update_midia(%Midia{} = midia, attrs, change_fun \\ :changeset) do
     with_queries_mod(&update_and_preload/3, [midia, attrs, change_fun: change_fun])
   end
 
   ## Nucleo
 
   def create_nucleo(attrs) do
-    with_queries_mod(&create_and_preload/3, [NucleoModel, attrs])
+    with_queries_mod(&create_and_preload/3, [Nucleo, attrs])
   end
 
   def list_nucleo do
-    with_queries_mod(&list_entity/2, [NucleoModel])
+    with_queries_mod(&list_entity/2, [Nucleo])
   end
 
   def get_nucleo(id) do
-    with_queries_mod(&get_entity/3, [NucleoModel, id])
+    with_queries_mod(&get_entity/3, [Nucleo, id])
   end
 
-  def update_nucleo(%NucleoModel{} = nucleo, attrs, change_fun \\ :changeset) do
+  def update_nucleo(%Nucleo{} = nucleo, attrs, change_fun \\ :changeset) do
     with_queries_mod(&update_and_preload/3, [nucleo, attrs, change_fun: change_fun])
   end
 
   ## Pesquisador
 
   def create_pesquisador(attrs) do
-    with_queries_mod(&create_and_preload/3, [PesquisadorModel, attrs])
+    with_queries_mod(&create_and_preload/3, [Pesquisador, attrs])
   end
 
   def list_pesquisador do
-    with_queries_mod(&list_entity/2, [PesquisadorModel])
+    with_queries_mod(&list_entity/2, [Pesquisador])
   end
 
   def get_pesquisador(id) do
-    with_queries_mod(&get_entity/3, [PesquisadorModel, id])
+    with_queries_mod(&get_entity/3, [Pesquisador, id])
   end
 
   ## Relatorio
 
   def create_relatorio(attrs) do
-    with_queries_mod(&create_and_preload/3, [RelatorioModel, attrs])
+    with_queries_mod(&create_and_preload/3, [Relatorio, attrs])
   end
 
   def list_relatorio do
-    with_queries_mod(&list_entity/2, [RelatorioModel])
+    with_queries_mod(&list_entity/2, [Relatorio])
   end
 
   def get_relatorio(id) do
-    with_queries_mod(&get_entity/3, [RelatorioModel, id])
+    with_queries_mod(&get_entity/3, [Relatorio, id])
   end
 
   ## Generic

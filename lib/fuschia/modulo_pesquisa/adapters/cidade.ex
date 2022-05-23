@@ -1,9 +1,9 @@
-defmodule Fuschia.ModuloPesquisa.Adapters.CidadeAdapter do
+defmodule Fuschia.ModuloPesquisa.Adapters.Cidade do
   @moduledoc false
 
-  alias Fuschia.ModuloPesquisa.Models.CidadeModel
+  alias Fuschia.ModuloPesquisa.Models.Cidade
 
-  def to_map(%CidadeModel{} = struct) do
+  def to_map(%Cidade{} = struct) do
     %{
       id: struct.id,
       municipio: struct.municipio,

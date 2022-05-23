@@ -5,7 +5,7 @@ defmodule FuschiaWeb.CampusController do
   use OpenApiSpex.ControllerSpecs
 
   alias Fuschia.ModuloPesquisa
-  alias Fuschia.ModuloPesquisa.Models.CampusModel
+  alias Fuschia.ModuloPesquisa.Models.Campus
   alias FuschiaWeb.Swagger.{CampusSchemas, Response, Security}
   alias OpenApiSpex.Schema
 
@@ -57,7 +57,7 @@ defmodule FuschiaWeb.CampusController do
 
   @spec delete(Plug.Conn.t(), map) :: Plug.Conn.t()
   def delete(conn, %{"campus_id" => campus_id}) do
-    with %CampusModel{} = campus <- ModuloPesquisa.get_campus(campus_id),
+    with %Campus{} = campus <- ModuloPesquisa.get_campus(campus_id),
          {:ok, _campus} <- ModuloPesquisa.delete(campus) do
       render_response(campus, conn)
     end

@@ -1,9 +1,9 @@
-defmodule Fuschia.ModuloPesquisa.Adapters.PesquisadorAdapter do
+defmodule Fuschia.ModuloPesquisa.Adapters.Pesquisador do
   @moduledoc false
 
-  alias Fuschia.ModuloPesquisa.Models.PesquisadorModel
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
 
-  def to_map(%PesquisadorModel{} = struct) do
+  def to_map(%Pesquisador{} = struct) do
     %{
       id: struct.id,
       cpf: struct.usuario_cpf,

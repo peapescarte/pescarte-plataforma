@@ -1,17 +1,17 @@
-defmodule Fuschia.ModuloPesquisa.Queries.MidiaQueries do
+defmodule Fuschia.ModuloPesquisa.Queries.Midia do
   @moduledoc """
   Queries para interagir com `Midia`
   """
 
   import Ecto.Query, only: [from: 2, join: 4, where: 3]
 
-  alias Fuschia.ModuloPesquisa.Models.MidiaModel
+  alias Fuschia.ModuloPesquisa.Models.Midia
 
   @behaviour Fuschia.Query
 
   @impl true
   def query do
-    from midia in MidiaModel,
+    from midia in Midia,
       order_by: [desc: midia.inserted_at]
   end
 

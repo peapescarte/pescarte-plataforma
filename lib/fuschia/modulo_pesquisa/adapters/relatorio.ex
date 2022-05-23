@@ -1,9 +1,9 @@
-defmodule Fuschia.ModuloPesquisa.Adapters.RelatorioAdapter do
+defmodule Fuschia.ModuloPesquisa.Adapters.Relatorio do
   @moduledoc false
 
-  alias Fuschia.ModuloPesquisa.Models.RelatorioModel
+  alias Fuschia.ModuloPesquisa.Models.Relatorio
 
-  def to_map(%RelatorioModel{} = struct) do
+  def to_map(%Relatorio{} = struct) do
     %{
       id: struct.id,
       ano: struct.ano,
