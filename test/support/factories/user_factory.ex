@@ -4,8 +4,8 @@ defmodule Fuschia.UserFactory do
   defmacro __using__(_opts) do
     quote do
       alias Fuschia.Accounts
-      alias Fuschia.Accounts.Models.UserModel
-      alias Fuschia.Accounts.Queries.UserQueries
+      alias Fuschia.Accounts.Models.User, as: UserModel
+      alias Fuschia.Accounts.Queries.User, as: UserQueries
       alias Fuschia.Database
 
       def unique_user_email, do: "user#{System.unique_integer()}@example.com"

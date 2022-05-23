@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.MidiaTest do
+defmodule Fuschia.ModuloPesquisa.Models.MidiaTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.Midia
+  alias Fuschia.ModuloPesquisa.Models.Midia
 
   @moduletag :unit
 

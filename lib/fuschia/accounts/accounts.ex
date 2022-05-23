@@ -7,10 +7,14 @@ defmodule Fuschia.Accounts do
 
   alias Fuschia.Repo
 
-  alias Fuschia.Accounts.Logic.{UserLogic, UserTokenLogic}
-  alias Fuschia.Accounts.Models.{AuthLogModel, UserModel, UserTokenModel}
+  alias Fuschia.Accounts.Logic.User, as: UserLogic
+  alias Fuschia.Accounts.Logic.UserToken, as: UserTokenLogic
+  alias Fuschia.Accounts.Models.AuthLog
+  alias Fuschia.Accounts.Models.User, as: UserModel
+  alias Fuschia.Accounts.Models.UserToken, as: UserTokenModel
   alias Fuschia.Accounts.Queries
-  alias Fuschia.Accounts.Queries.{UserQueries, UserTokenQueries}
+  alias Fuschia.Accounts.Queries.User, as: UserQueries
+  alias Fuschia.Accounts.Queries.UserToken, as: UserTokenQueries
   alias Fuschia.Accounts.UserNotifier
   alias Fuschia.Database
 
@@ -135,8 +139,8 @@ defmodule Fuschia.Accounts do
 
   @spec create_auth_log(map) :: :ok
   def create_auth_log(attrs) do
-    %AuthLogModel{}
-    |> AuthLogModel.changeset(attrs)
+    %AuthLog{}
+    |> AuthLog.changeset(attrs)
     |> Database.insert()
 
     :ok

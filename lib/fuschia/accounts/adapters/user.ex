@@ -1,12 +1,12 @@
-defmodule Fuschia.Accounts.Adapters.UserAdapter do
+defmodule Fuschia.Accounts.Adapters.User do
   @moduledoc """
   Define funções que convertem um usuário para
   outros schemas ou mapas
   """
 
-  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.Accounts.Models.User
 
-  def for_jwt(%UserModel{} = struct) do
+  def for_jwt(%User{} = struct) do
     %{
       email: struct.contato.email,
       endereco: struct.contato.endereco,
@@ -20,7 +20,7 @@ defmodule Fuschia.Accounts.Adapters.UserAdapter do
     }
   end
 
-  def to_map(%UserModel{} = struct) do
+  def to_map(%User{} = struct) do
     %{
       nome_completo: struct.nome_completo,
       perfil: struct.role,

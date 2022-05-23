@@ -3,13 +3,13 @@ defmodule Fuschia.LinhaPesquisaFactory do
 
   defmacro __using__(_opts) do
     quote do
-      alias Fuschia.ModuloPesquisa.Models.LinhaPesquisaModel
+      alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
 
       @spec linha_pesquisa_factory :: LinhaPesquisa.t()
       def linha_pesquisa_factory do
         nucleo = insert(:nucleo)
 
-        %LinhaPesquisaModel{
+        %LinhaPesquisa{
           id: Nanoid.generate_non_secure(),
           numero: sequence(:numero, Enum.to_list(1..21)),
           descricao_curta: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),

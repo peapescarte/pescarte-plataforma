@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.RelatorioTest do
+defmodule Fuschia.ModuloPesquisa.Models.RelatorioTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.Relatorio
+  alias Fuschia.ModuloPesquisa.Models.Relatorio
 
   @moduletag :unit
 

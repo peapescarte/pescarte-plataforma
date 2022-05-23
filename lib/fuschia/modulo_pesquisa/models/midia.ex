@@ -1,4 +1,4 @@
-defmodule Fuschia.ModuloPesquisa.Models.MidiaModel do
+defmodule Fuschia.ModuloPesquisa.Models.Midia do
   @moduledoc """
   Midia Schema
   """
@@ -6,7 +6,7 @@ defmodule Fuschia.ModuloPesquisa.Models.MidiaModel do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.ModuloPesquisa.Models.PesquisadorModel
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(
@@ -24,7 +24,7 @@ defmodule Fuschia.ModuloPesquisa.Models.MidiaModel do
     field :tipo, TrimmedString
     field :tags, {:array, TrimmedString}
 
-    belongs_to :pesquisador, PesquisadorModel,
+    belongs_to :pesquisador, Pesquisador,
       references: :usuario_cpf,
       foreign_key: :pesquisador_cpf,
       type: TrimmedString,
@@ -45,12 +45,12 @@ defmodule Fuschia.ModuloPesquisa.Models.MidiaModel do
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.MidiaAdapter
+    alias Fuschia.ModuloPesquisa.Adapters.Midia
 
     @spec encode(Midia.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> MidiaAdapter.to_map()
+      |> Midia.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

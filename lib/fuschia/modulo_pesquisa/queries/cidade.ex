@@ -1,17 +1,17 @@
-defmodule Fuschia.ModuloPesquisa.Queries.CidadeQueries do
+defmodule Fuschia.ModuloPesquisa.Queries.Cidade do
   @moduledoc """
   Queries para interagir com `Cidade`
   """
 
   import Ecto.Query, only: [from: 2]
 
-  alias Fuschia.ModuloPesquisa.Models.CidadeModel
+  alias Fuschia.ModuloPesquisa.Models.Cidade
 
   @behaviour Fuschia.Query
 
   @impl true
   def query do
-    from c in CidadeModel,
+    from c in Cidade,
       order_by: [desc: c.inserted_at]
   end
 

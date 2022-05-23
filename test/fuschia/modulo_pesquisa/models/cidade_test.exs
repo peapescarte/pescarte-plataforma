@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.CidadeTest do
+defmodule Fuschia.ModuloPesquisa.Models.CidadeTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.Cidade
+  alias Fuschia.ModuloPesquisa.Models.Cidade
 
   @moduletag :unit
 

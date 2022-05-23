@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.Models.ContatoModel do
+defmodule Fuschia.Accounts.Models.Contato do
   @moduledoc """
   Contato schema
   """
@@ -7,7 +7,7 @@ defmodule Fuschia.Accounts.Models.ContatoModel do
 
   import Ecto.Changeset
 
-  alias Fuschia.Accounts.Logic.ContatoLogic
+  alias Fuschia.Accounts.Logic.Contato
   alias Fuschia.Common.Formats
 
   @required_fields ~w(email endereco celular)a
@@ -29,16 +29,16 @@ defmodule Fuschia.Accounts.Models.ContatoModel do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> validate_format(:celular, @mobile_format)
-    |> ContatoLogic.validate_email()
+    |> Contato.validate_email()
   end
 
   defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.Accounts.Adapters.ContatoAdapter
+    alias Fuschia.Accounts.Adapters.Contato
 
     @spec encode(Contato.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> ContatoAdapter.to_map()
+      |> Contato.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

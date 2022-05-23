@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.NucleoTest do
+defmodule Fuschia.ModuloPesquisa.Models.NucleoTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.Nucleo
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
 
   @moduletag :unit
 

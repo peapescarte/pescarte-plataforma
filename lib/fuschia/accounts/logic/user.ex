@@ -1,16 +1,16 @@
-defmodule Fuschia.Accounts.Logic.UserLogic do
+defmodule Fuschia.Accounts.Logic.User do
   @moduledoc false
 
   import Ecto.Changeset, only: [add_error: 3]
 
-  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.Accounts.Models.User
 
   @doc """
   Verifica a senha.
   Se não houver usuário ou o usuário não tiver uma senha, chamamos
   `Bcrypt.no_user_verify/0` para evitar ataques de tempo.
   """
-  def valid_password?(%UserModel{password_hash: password_hash}, password)
+  def valid_password?(%User{password_hash: password_hash}, password)
       when is_binary(password_hash) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, password_hash)
   end
@@ -31,7 +31,7 @@ defmodule Fuschia.Accounts.Logic.UserLogic do
     end
   end
 
-  def put_permissions(%UserModel{} = user) do
+  def put_permissions(%User{} = user) do
     # TODO
     Map.put(user, :permissoes, nil)
   end
