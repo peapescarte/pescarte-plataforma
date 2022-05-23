@@ -1,14 +1,19 @@
 defmodule Fuschia.AccountsTest do
-  use Fuschia.DataCase
+  use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Models.{UserModel, UserTokenModel}
-  alias Fuschia.Accounts.Queries.UserQueries
+  alias Fuschia.Accounts.Models.AuthLog
+  alias Fuschia.Accounts.Models.User, as: UserModel
+  alias Fuschia.Accounts.Models.UserToken
+  alias Fuschia.Accounts.Queries.User, as: UserQueries
   alias Fuschia.Database
+  alias Fuschia.Repo
 
-  @moduletag :unit
+  @moduletag :integration
+
+  @ip "127.0.0.1"
 
   describe "list_user/1" do
     test "return all users in database" do
@@ -248,7 +253,7 @@ defmodule Fuschia.AccountsTest do
         end)
 
       {:ok, token} = Base.url_decode64(token, padding: false)
-      assert user_token = Repo.get_by(UserTokenModel, token: :crypto.hash(:sha256, token))
+      assert user_token = Repo.get_by(UserToken, token: :crypto.hash(:sha256, token))
       assert user_token.user_cpf == user.cpf
       assert user_token.sent_to == user.contato.email
       assert user_token.context == "change:current@example.com"
@@ -281,27 +286,27 @@ defmodule Fuschia.AccountsTest do
       assert changed_user.contato.email == email
       assert changed_user.confirmed_at
       assert changed_user.confirmed_at != user.confirmed_at
-      refute Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      refute Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not update email with invalid token", %{user: user} do
       assert Accounts.update_user_email(user, "oops") == :error
       assert Accounts.get_user(user.cpf).contato.email == user.contato.email
-      assert Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not update email if user email changed", %{user: user, token: token} do
       contact = %{user.contato | email: "current@example.com"}
       assert Accounts.update_user_email(%{user | contato: contact}, token) == :error
       assert Accounts.get_user(user.cpf).contato.email == user.contato.email
-      assert Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not update email if token expired", %{user: user, token: token} do
-      {1, nil} = Repo.update_all(UserTokenModel, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
       assert Accounts.update_user_email(user, token) == :error
       assert Accounts.get_user(user.cpf).contato.email == user.contato.email
-      assert Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
   end
 
@@ -382,7 +387,7 @@ defmodule Fuschia.AccountsTest do
           password_confirmation: "New valid password!"
         })
 
-      refute Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      refute Repo.get_by(UserToken, user_cpf: user.cpf)
     end
   end
 
@@ -393,12 +398,12 @@ defmodule Fuschia.AccountsTest do
 
     test "generates a token", %{user: user} do
       token = Accounts.generate_user_session_token(user)
-      assert user_token = Repo.get_by(UserTokenModel, token: token)
+      assert user_token = Repo.get_by(UserToken, token: token)
       assert user_token.context == "session"
 
       # Creating the same token for another user should fail
       assert_raise Ecto.ConstraintError, fn ->
-        Repo.insert!(%UserTokenModel{
+        Repo.insert!(%UserToken{
           token: user_token.token,
           user_cpf: user_fixture().cpf,
           context: "session"
@@ -424,7 +429,7 @@ defmodule Fuschia.AccountsTest do
     end
 
     test "does not return user for expired token", %{token: token} do
-      {1, nil} = Repo.update_all(UserTokenModel, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
       refute Accounts.get_user_by_session_token(token)
     end
   end
@@ -450,7 +455,7 @@ defmodule Fuschia.AccountsTest do
         end)
 
       {:ok, token} = Base.url_decode64(token, padding: false)
-      assert user_token = Repo.get_by(UserTokenModel, token: :crypto.hash(:sha256, token))
+      assert user_token = Repo.get_by(UserToken, token: :crypto.hash(:sha256, token))
       assert user_token.user_cpf == user.cpf
       assert user_token.sent_to == user.contato.email
       assert user_token.context == "confirm"
@@ -474,20 +479,20 @@ defmodule Fuschia.AccountsTest do
       assert confirmed_user.confirmed_at
       assert confirmed_user.confirmed_at != user.confirmed_at
       assert Repo.get!(UserModel, user.cpf).confirmed_at
-      refute Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      refute Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not confirm with invalid token", %{user: user} do
       assert Accounts.confirm_user("oops") == :error
       refute Repo.get!(UserModel, user.cpf).confirmed_at
-      assert Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not confirm email if token expired", %{user: user, token: token} do
-      {1, nil} = Repo.update_all(UserTokenModel, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
       assert Accounts.confirm_user(token) == :error
       refute Repo.get!(UserModel, user.cpf).confirmed_at
-      assert Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
   end
 
@@ -503,7 +508,7 @@ defmodule Fuschia.AccountsTest do
         end)
 
       {:ok, token} = Base.url_decode64(token, padding: false)
-      assert user_token = Repo.get_by(UserTokenModel, token: :crypto.hash(:sha256, token))
+      assert user_token = Repo.get_by(UserToken, token: :crypto.hash(:sha256, token))
       assert user_token.user_cpf == user.cpf
       assert user_token.sent_to == user.contato.email
       assert user_token.context == "reset_password"
@@ -524,18 +529,18 @@ defmodule Fuschia.AccountsTest do
 
     test "returns the user with valid token", %{user: %{cpf: cpf}, token: token} do
       assert %UserModel{cpf: ^cpf} = Accounts.get_user_by_reset_password_token(token)
-      assert Repo.get_by(UserTokenModel, user_cpf: cpf)
+      assert Repo.get_by(UserToken, user_cpf: cpf)
     end
 
     test "does not return the user with invalid token", %{user: user} do
       refute Accounts.get_user_by_reset_password_token("oops")
-      assert Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
 
     test "does not return the user if token expired", %{user: user, token: token} do
-      {1, nil} = Repo.update_all(UserTokenModel, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
       refute Accounts.get_user_by_reset_password_token(token)
-      assert Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end
   end
 
@@ -587,7 +592,7 @@ defmodule Fuschia.AccountsTest do
           password_confirmation: "New valid password!"
         })
 
-      refute Repo.get_by(UserTokenModel, user_cpf: user.cpf)
+      refute Repo.get_by(UserToken, user_cpf: user.cpf)
     end
   end
 
@@ -595,5 +600,63 @@ defmodule Fuschia.AccountsTest do
     test "does not include password" do
       refute inspect(%UserModel{password: "123456"}) =~ "password: \"123456\""
     end
+  end
+
+  describe "create_auth_log/1" do
+    test "success should return :ok" do
+      ua =
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+
+      user = insert(:user)
+
+      result =
+        Accounts.create_auth_log(%{"ip" => @ip, "user_agent" => ua, "user_cpf" => user.cpf})
+
+      auth_log = get_log(@ip)
+
+      assert result == :ok
+      assert Map.get(auth_log, :ip) == @ip
+      assert Map.get(auth_log, :user_agent) == ua
+      assert Map.get(auth_log, :user_cpf) == user.cpf
+    end
+
+    test "with error should return :ok" do
+      user = build(:user)
+      result = Accounts.create_auth_log(%{"user_cpf" => user})
+      auth_log = get_log(@ip)
+
+      assert result == :ok
+      assert auth_log == nil
+    end
+  end
+
+  describe "create_auth_log/3" do
+    test "success should return :ok" do
+      ua =
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+
+      user = insert(:user)
+
+      result = Accounts.create_auth_log(@ip, ua, user)
+      auth_log = get_log(@ip)
+
+      assert result == :ok
+      assert Map.get(auth_log, :ip) == @ip
+      assert Map.get(auth_log, :user_agent) == ua
+      assert Map.get(auth_log, :user_cpf) == user.cpf
+    end
+
+    test "with error should return :ok" do
+      user = build(:user)
+      result = Accounts.create_auth_log(nil, nil, user)
+      auth_log = get_log(@ip)
+
+      assert result == :ok
+      assert auth_log == nil
+    end
+  end
+
+  defp get_log(ip) do
+    Repo.get_by(AuthLog, ip: ip)
   end
 end

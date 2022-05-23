@@ -5,7 +5,7 @@ defmodule FuschiaWeb.NucleoController do
 
   alias Fuschia.Database
   alias Fuschia.ModuloPesquisa
-  alias Fuschia.ModuloPesquisa.Models.NucleoModel
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
   alias FuschiaWeb.Swagger.{NucleoSchemas, Response, Security}
   alias OpenApiSpex.Schema
 
@@ -57,7 +57,7 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec show(Plug.Conn.t(), map) :: Plug.Conn.t()
   def show(conn, %{"id" => nucleo_id}) do
-    with %NucleoModel{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id) do
+    with %Nucleo{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id) do
       render_response(nucleo, conn)
     end
   end
@@ -81,7 +81,7 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec update(Plug.Conn.t(), map) :: Plug.Conn.t()
   def update(conn, %{"nucleo" => attrs, "id" => nucleo_id}) do
-    with %NucleoModel{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id),
+    with %Nucleo{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id),
          {:ok, updated_nucleo} <- ModuloPesquisa.update_nucleo(nucleo, attrs) do
       render_response(updated_nucleo, conn)
     end
@@ -104,7 +104,7 @@ defmodule FuschiaWeb.NucleoController do
 
   @spec delete(Plug.Conn.t(), map) :: Plug.Conn.t()
   def delete(conn, %{"id" => nucleo_id}) do
-    with %NucleoModel{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id),
+    with %Nucleo{} = nucleo <- ModuloPesquisa.get_nucleo(nucleo_id),
          {:ok, _nucleo} <- Database.delete(nucleo) do
       render_response(nucleo, conn)
     end

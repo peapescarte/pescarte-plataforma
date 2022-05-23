@@ -7,7 +7,7 @@ defmodule FuschiaWeb.Live.InitAssigns do
   import Phoenix.LiveView
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.Accounts.Models.User
   alias FuschiaWeb.Router.Helpers, as: Routes
 
   def on_mount(:default, _params, session, socket) do
@@ -21,7 +21,7 @@ defmodule FuschiaWeb.Live.InitAssigns do
       end)
 
     case socket.assigns.current_user do
-      %UserModel{} ->
+      %User{} ->
         socket
 
       _other ->
@@ -33,7 +33,7 @@ defmodule FuschiaWeb.Live.InitAssigns do
 
   defp find_current_user(session) do
     with session_token when is_binary(session_token) <- session["user_token"],
-         %UserModel{} = user <- Accounts.get_user_by_session_token(session_token),
+         %User{} = user <- Accounts.get_user_by_session_token(session_token),
          do: user
   end
 end

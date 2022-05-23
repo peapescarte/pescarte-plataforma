@@ -6,8 +6,8 @@ defmodule FuschiaWeb.Auth.Guardian do
   use Guardian, otp_app: :fuschia
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Adapters.UserAdapter
-  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.Accounts.Adapters.User, as: UserAdapter
+  alias Fuschia.Accounts.Models.User, as: UserModel
 
   @spec subject_for_token(User.t(), map) :: {:ok, String.t()}
   def subject_for_token(user, _claims) do

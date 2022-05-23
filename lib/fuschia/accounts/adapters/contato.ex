@@ -1,9 +1,9 @@
-defmodule Fuschia.Accounts.Adapters.ContatoAdapter do
+defmodule Fuschia.Accounts.Adapters.Contato do
   @moduledoc false
 
-  alias Fuschia.Accounts.Models.ContatoModel
+  alias Fuschia.Accounts.Models.Contato
 
-  def to_map(%ContatoModel{} = struct) do
+  def to_map(%Contato{} = struct) do
     %{
       id: struct.id,
       celular: struct.celular,

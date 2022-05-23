@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.LinhaPesquisaTest do
+defmodule Fuschia.ModuloPesquisa.Models.LinhaPesquisaTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.LinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
 
   @moduletag :unit
 

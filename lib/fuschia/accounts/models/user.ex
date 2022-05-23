@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.Models.UserModel do
+defmodule Fuschia.Accounts.Models.User do
   @moduledoc """
   Schema que representa um usuário do sistema.
 
@@ -13,8 +13,8 @@ defmodule Fuschia.Accounts.Models.UserModel do
   import Ecto.Changeset
   import FuschiaWeb.Gettext
 
-  alias Fuschia.Accounts.Logic.ContatoLogic
-  alias Fuschia.Accounts.Models.ContatoModel
+  alias Fuschia.Accounts.Logic.Contato, as: ContatoLogic
+  alias Fuschia.Accounts.Models.Contato, as: ContatoModel
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(nome_completo cpf data_nascimento)a
@@ -183,12 +183,12 @@ defmodule Fuschia.Accounts.Models.UserModel do
   end
 
   defimpl Jason.Encoder, for: User do
-    alias Fuschia.Accounts.Adapters.UserAdapter
+    alias Fuschia.Accounts.Adapters.User
 
     @spec encode(User.t(), map) :: map
     def encode(struct, opts) do
       struct
-      |> UserAdapter.to_map()
+      |> User.to_map()
       |> Fuschia.Encoder.encode(opts)
     end
   end

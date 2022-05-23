@@ -1,9 +1,9 @@
-defmodule Fuschia.Entities.CampusTest do
+defmodule Fuschia.ModuloPesquisa.Models.CampusTest do
   use Fuschia.DataCase, async: true
 
   import Fuschia.Factory
 
-  alias Fuschia.Entities.Campus
+  alias Fuschia.ModuloPesquisa.Models.Campus
 
   @moduletag :unit
 

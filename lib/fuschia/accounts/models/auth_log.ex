@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.Models.AuthLogModel do
+defmodule Fuschia.Accounts.Models.AuthLog do
   @moduledoc """
   Authentication log
   """
@@ -7,7 +7,7 @@ defmodule Fuschia.Accounts.Models.AuthLogModel do
 
   import Ecto.Changeset
 
-  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.Accounts.Models.User
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(ip user_agent user_cpf)a
@@ -17,7 +17,7 @@ defmodule Fuschia.Accounts.Models.AuthLogModel do
     field :ip, TrimmedString
     field :user_agent, TrimmedString
 
-    belongs_to :user, UserModel, foreign_key: :user_cpf, references: :cpf
+    belongs_to :user, User, foreign_key: :user_cpf, references: :cpf
 
     timestamps(updated_at: false)
   end

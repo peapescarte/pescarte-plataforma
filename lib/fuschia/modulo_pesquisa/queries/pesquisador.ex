@@ -1,17 +1,17 @@
-defmodule Fuschia.ModuloPesquisa.Queries.PesquisadorQueries do
+defmodule Fuschia.ModuloPesquisa.Queries.Pesquisador do
   @moduledoc """
   Queries para interagir com `Pesquisadore`
   """
 
   import Ecto.Query, only: [from: 2, where: 3, order_by: 3]
 
-  alias Fuschia.ModuloPesquisa.Models.PesquisadorModel
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
 
   @behaviour Fuschia.Query
 
   @impl true
   def query do
-    from p in PesquisadorModel,
+    from p in Pesquisador,
       left_join: campus in assoc(p, :campus),
       left_join: orientador in assoc(p, :orientador),
       order_by: [desc: p.inserted_at]
