@@ -10,4 +10,19 @@ defmodule FuschiaWeb.Components.Navbar do
   prop socket, :struct, required: true
 
   alias FuschiaWeb.Components.Navbar.MenuLinks
+
+  def render(assings) do
+    ~F"""
+    <div class="ui fixed borderless colossal menu">
+      <div class="ui container grid">
+        <div class="computer only row">
+          <MenuLinks {=@socket} />
+        </div>
+        <div class="tablet mobile only row">
+          <MenuLinks {=@socket} />
+        </div>
+      </div>
+    </div>
+    """
+  end
 end
