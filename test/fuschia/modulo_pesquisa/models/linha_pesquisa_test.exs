@@ -3,7 +3,7 @@ defmodule Fuschia.ModuloPesquisa.Models.LinhaPesquisaTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisaModel, as: LinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
 
   @moduletag :unit
 

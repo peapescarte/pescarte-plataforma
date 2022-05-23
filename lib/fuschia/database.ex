@@ -338,9 +338,9 @@ defmodule Fuschia.Database do
      iex> update(%Modulo{}, invalid_params)
      {:error, failed_operation, failed_value, changes_so_far}
   """
-  @spec update(struct, map) :: {:ok, struct} | {:error, changeset}
+  @spec update(struct, map, fun) :: {:ok, struct} | {:error, changeset}
   def update(%mod{} = struct, attrs, change_fun \\ :changeset) do
-    change_fun = if change_fun == :changeset, do: &mod.changeset/3, else: change_fun
+    change_fun = if change_fun == :changeset, do: &mod.changeset/2, else: change_fun
 
     with %Ecto.Changeset{valid?: true} = changeset <-
            change_fun.(struct, attrs),
@@ -385,7 +385,7 @@ defmodule Fuschia.Database do
     change_fun = Keyword.get(opts, :change_fun, :changeset)
 
     with {:ok, entity} <- update(struct, attrs, change_fun),
-         ^struct = preloaded <-
+         %^source{} = preloaded <-
            preload_all(entity, entity_query_mod.relationships()) do
       {:ok, preloaded}
     end

@@ -5,7 +5,13 @@ defmodule Fuschia.ModuloPesquisa do
   """
 
   import Fuschia.Database,
-    only: [create_and_preload: 3, list_entity: 2, get_entity: 3, update_and_preload: 3]
+    only: [
+      create_and_preload: 3,
+      list_entity: 2,
+      get_entity: 3,
+      get_entity_by: 3,
+      update_and_preload: 3
+    ]
 
   alias __MODULE__.Models.{
     Campus,
@@ -23,8 +29,8 @@ defmodule Fuschia.ModuloPesquisa do
   # Database
   # ---------------------------#
 
-  def create_campus(attrs) do
-    with_queries_mod(&create_and_preload/3, [Campus, attrs])
+  def create_campus(attrs, opts \\ []) do
+    with_queries_mod(&create_and_preload/3, [Campus, attrs], opts)
   end
 
   def list_campus do
@@ -81,7 +87,7 @@ defmodule Fuschia.ModuloPesquisa do
   end
 
   def update_midia(%Midia{} = midia, attrs, change_fun \\ :changeset) do
-    with_queries_mod(&update_and_preload/3, [midia, attrs, change_fun: change_fun])
+    with_queries_mod(&update_and_preload/3, [midia, attrs], change_fun: change_fun)
   end
 
   ## Nucleo
@@ -99,7 +105,7 @@ defmodule Fuschia.ModuloPesquisa do
   end
 
   def update_nucleo(%Nucleo{} = nucleo, attrs, change_fun \\ :changeset) do
-    with_queries_mod(&update_and_preload/3, [nucleo, attrs, change_fun: change_fun])
+    with_queries_mod(&update_and_preload/3, [nucleo, attrs], change_fun: change_fun)
   end
 
   ## Pesquisador
@@ -126,8 +132,8 @@ defmodule Fuschia.ModuloPesquisa do
     with_queries_mod(&list_entity/2, [Relatorio])
   end
 
-  def get_relatorio(id) do
-    with_queries_mod(&get_entity/3, [Relatorio, id])
+  def get_relatorio(ano, mes) do
+    with_queries_mod(&get_entity_by/3, [Relatorio, [ano: ano, mes: mes]])
   end
 
   ## Generic

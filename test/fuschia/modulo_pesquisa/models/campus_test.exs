@@ -3,7 +3,7 @@ defmodule Fuschia.ModuloPesquisa.Models.CampusTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.ModuloPesquisa.Models.CampusModel, as: Campus
+  alias Fuschia.ModuloPesquisa.Models.Campus
 
   @moduletag :unit
 

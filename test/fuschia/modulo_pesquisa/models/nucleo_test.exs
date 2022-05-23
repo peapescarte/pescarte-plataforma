@@ -3,7 +3,7 @@ defmodule Fuschia.ModuloPesquisa.Models.NucleoTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.ModuloPesquisa.Models.NucleoModel, as: Nucleo
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
 
   @moduletag :unit
 

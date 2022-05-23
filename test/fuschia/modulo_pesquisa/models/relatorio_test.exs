@@ -3,7 +3,7 @@ defmodule Fuschia.ModuloPesquisa.Models.RelatorioTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.ModuloPesquisa.Models.RelatorioModel, as: Relatorio
+  alias Fuschia.ModuloPesquisa.Models.Relatorio
 
   @moduletag :unit
 

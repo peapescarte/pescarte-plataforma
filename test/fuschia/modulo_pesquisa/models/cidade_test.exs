@@ -3,7 +3,7 @@ defmodule Fuschia.ModuloPesquisa.Models.CidadeTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.ModuloPesquisa.Models.CidadeModel, as: Cidade
+  alias Fuschia.ModuloPesquisa.Models.Cidade
 
   @moduletag :unit
 

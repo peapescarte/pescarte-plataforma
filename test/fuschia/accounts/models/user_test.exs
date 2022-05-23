@@ -3,7 +3,7 @@ defmodule Fuschia.Accounts.Models.UserTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.Accounts.Models.UserModel, as: User
+  alias Fuschia.Accounts.Models.User
 
   @moduletag :unit
 

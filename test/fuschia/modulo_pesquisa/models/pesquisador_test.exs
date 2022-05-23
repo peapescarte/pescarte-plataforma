@@ -3,7 +3,7 @@ defmodule Fuschia.ModuloPesquisa.Models.PesquisadorTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.ModuloPesquisa.Models.PesquisadorModel, as: Pesquisador
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
 
   @moduletag :unit
 
@@ -18,9 +18,13 @@ defmodule Fuschia.ModuloPesquisa.Models.PesquisadorTest do
     }
 
     test "when all params are valid, return a valid changeset" do
+      valid_password = valid_user_password()
+
       usuario_params =
         :user
         |> params_for()
+        |> Map.put(:password, valid_password)
+        |> Map.put(:password_confirmation, valid_password)
         |> Map.put(:contato, params_for(:contato))
 
       default_params =

@@ -1,7 +1,7 @@
 defmodule Fuschia.Accounts.Models.AuthLogTest do
   use Fuschia.DataCase, async: true
 
-  alias Fuschia.Accounts.Models.AuthLogModel, as: AuthLog
+  alias Fuschia.Accounts.Models.AuthLog
 
   @moduletag :unit
 

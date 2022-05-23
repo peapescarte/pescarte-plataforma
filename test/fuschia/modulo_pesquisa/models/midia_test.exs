@@ -3,7 +3,7 @@ defmodule Fuschia.ModuloPesquisa.Models.MidiaTest do
 
   import Fuschia.Factory
 
-  alias Fuschia.ModuloPesquisa.Models.MidiaModel, as: Midia
+  alias Fuschia.ModuloPesquisa.Models.Midia
 
   @moduletag :unit
 
