@@ -96,7 +96,8 @@ defmodule Fuschia.MixProject do
       {:git_hooks, "~> 0.6.3", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:surface_formatter, "~> 0.7"},
-      {:surface_catalogue, "~> 0.3.0"}
+      {:surface_catalogue, "~> 0.3.0"},
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
     ]
   end
 
@@ -114,7 +115,11 @@ defmodule Fuschia.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "run lib/mix/tasks/seeds.exs", "test"],
       "test.reset": ["ecto.drop", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": [
+        "esbuild default --minify",
+        "tailwind default --minify",
+        "phx.digest"
+      ]
     ]
   end
 end
