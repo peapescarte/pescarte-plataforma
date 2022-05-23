@@ -10,11 +10,8 @@ defmodule FuschiaWeb.UserSettingsLive.Edit do
   alias Surface.Components.Form
   alias Surface.Components.Form.{EmailInput, Field, Label, PasswordInput}
 
-  def mount(_params, session, socket) do
-    {:ok,
-     session
-     |> assign_defaults(socket)
-     |> assign_email_and_password_changesets()}
+  def mount(_params, _session, socket) do
+    {:ok, assign_email_and_password_changesets(socket)}
   end
 
   def handle_event("update_email", params, socket) do

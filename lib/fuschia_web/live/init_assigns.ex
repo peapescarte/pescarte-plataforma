@@ -1,7 +1,6 @@
-defmodule FuschiaWeb.LiveHelpers do
+defmodule FuschiaWeb.Live.InitAssigns do
   @moduledoc """
-  Funções comuns ao contexto LiveView,
-  como autenticação por exemplo
+  Adiciona campos comuns em todas as live views
   """
 
   import FuschiaWeb.Gettext
@@ -11,10 +10,14 @@ defmodule FuschiaWeb.LiveHelpers do
   alias Fuschia.Accounts.Models.UserModel
   alias FuschiaWeb.Router.Helpers, as: Routes
 
-  def assign_defaults(session, socket) do
+  def on_mount(:default, _params, session, socket) do
     socket =
-      assign_new(socket, :current_user, fn ->
+      socket
+      |> assign_new(:current_user, fn ->
         find_current_user(session)
+      end)
+      |> attach_hook(:current_path, :handle_params, fn _params, url, socket ->
+        {:cont, assign(socket, uri: URI.parse(url))}
       end)
 
     case socket.assigns.current_user do

@@ -61,8 +61,6 @@ defmodule FuschiaWeb do
       use Surface.LiveView,
         layout: {FuschiaWeb.LayoutView, "live.html"}
 
-      import FuschiaWeb.LiveHelpers
-
       unquote(view_helpers())
     end
   end
@@ -124,6 +122,8 @@ defmodule FuschiaWeb do
 
       import FuschiaWeb.ErrorHelpers
       import FuschiaWeb.Gettext
+
+      alias FuschiaWeb.Components
       alias FuschiaWeb.Router.Helpers, as: Routes
     end
   end

@@ -25,7 +25,7 @@ fuschia-*.tar
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment
 # this depending on your deployment strategy.
-/priv/static/
+/priv/static/assets
 
 # Ignore all secrets
 **/*.secret.exs
@@ -36,7 +36,10 @@ fuschia-*.tar
 # Ignore generated js hook files for components
 assets/js/_hooks/
 
-# Local env files
+# Ignore node_modules
+/assets/node_modules/
+
+# Ignore local env files
 /.direnv/
 /.nix-*/
 /.postgres/
