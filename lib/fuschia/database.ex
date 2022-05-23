@@ -516,8 +516,7 @@ defmodule Fuschia.Database do
   end
 
   defp get_queries_mod(opts, mod) do
-    suffix =
-      mod |> to_string() |> String.split(".") |> List.last() |> String.replace("Model", "Queries")
+    suffix = mod |> to_string() |> String.split(".") |> List.last()
 
     opts
     |> Keyword.get(:queries_mod)

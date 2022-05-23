@@ -9,7 +9,7 @@ defmodule FuschiaWeb.UserAuth do
   import Phoenix.Controller
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.Accounts.Models.User
   alias FuschiaWeb.Router.Helpers, as: Routes
 
   # Faça o cookie lembrar do usuário ser válido por 60 dias.
@@ -30,7 +30,7 @@ defmodule FuschiaWeb.UserAuth do
       "/app/pesquisadores/#{user.id}"
     else
       with user_token when is_binary(user_token) <- get_session(conn, :user_token),
-           %UserModel{id: user_id} <- Accounts.get_user_by_session_token(user_token) do
+           %User{id: user_id} <- Accounts.get_user_by_session_token(user_token) do
         "/app/pesquisadores/#{user_id}"
       else
         _e -> "/not_found"

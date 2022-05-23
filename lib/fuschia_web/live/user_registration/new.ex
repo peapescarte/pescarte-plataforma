@@ -6,19 +6,19 @@ defmodule FuschiaWeb.UserRegistrationLive.New do
   import FuschiaWeb.Gettext
 
   alias Fuschia.Accounts
-  alias Fuschia.Accounts.Models.UserModel
+  alias Fuschia.Accounts.Models.User
   alias FuschiaWeb.UserAuth
   alias Surface.Components.Form
   alias Surface.Components.Form.{EmailInput, Field, Label, PasswordInput}
 
   def mount(_params, _session, socket) do
-    changeset = Accounts.change_user_registration(%UserModel{})
+    changeset = Accounts.change_user_registration(%User{})
     {:ok, assign(socket, changeset: changeset)}
   end
 
   def handle_event("validate", %{"user_model" => user_params}, socket) do
     changeset =
-      %UserModel{}
+      %User{}
       |> Accounts.change_user_registration(user_params)
       |> Map.put(:action, :insert)
 

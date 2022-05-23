@@ -1,4 +1,4 @@
-defmodule Fuschia.Accounts.Logic.ContatoLogic do
+defmodule Fuschia.Accounts.Logic.Contato do
   @moduledoc false
 
   import Ecto.Changeset,
