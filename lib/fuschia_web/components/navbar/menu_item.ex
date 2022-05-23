@@ -21,14 +21,17 @@ defmodule FuschiaWeb.Components.Navbar.MenuItem do
 
   def render(assigns) do
     ~F"""
-    <div class="ui item v-align h-align">
+    <li>
       <Link
-          to={@path} {=@method}
-          class={"ui", "massive", "bold", "blue-darker", "text", "upper", "one", "wide", "column", active: @current?}
+        to={@path} {=@method}
+        class={
+          "uppercase", "mx-4",
+          (if @current?, do: "text-white", else:  "text-blue-500"),
+          "text-2xl", "font-semibold", active: @current?}
       >
         {@label}
       </Link>
-    </div>
+    </li>
     """
   end
 end

@@ -1,5 +1,5 @@
-// See the Tailwind configuration guide for advanced usage
-// https://tailwindcss.com/docs/configuration
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     './js/**/*.js',
@@ -18,10 +18,15 @@ module.exports = {
       green: '#25CE52',
       orange: '#F8961E',
       yellow: '#F5BD00',
-      red: '#FF635D'
+      red: '#FF635D',
+      white: colors.white,
+      black: colors.black
     },
     fontFamily: {
       sans: ['Open Sans', 'sans-serif']
+    },
+    container: {
+      center: true
     },
     extend: {},
   },

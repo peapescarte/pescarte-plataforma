@@ -6,11 +6,23 @@ defmodule FuschiaWeb.Components.Navbar.MenuLinks do
   use FuschiaWeb, :surface_component
 
   # alias Fuschia.Accounts.Models.UserModel
-  alias FuschiaWeb.Components.Navbar.{MenuItem, MenuLogo}
+  alias FuschiaWeb.Components.Icon
+  alias FuschiaWeb.Components.Navbar.MenuItem
   alias FuschiaWeb.Router.Helpers, as: Routes
+  alias Phoenix.LiveView.Socket
 
   @doc "Conexão atual"
   prop socket, :struct, required: true
+
+  def is_current_path?(%Plug.Conn{} = conn, to) do
+    [path] = conn.path_info
+
+    to =~ path
+  end
+
+  def is_current_path?(%Socket{} = socket, to) do
+    socket.assigns.uri.path =~ to
+  end
 
   def guest_menu(socket) do
     login_path = Routes.user_session_path(socket, :new)
@@ -31,7 +43,7 @@ defmodule FuschiaWeb.Components.Navbar.MenuLinks do
         build_menu_item("pesquisa", "/pesquisa"),
         build_menu_item("pedagógico", "/pedagogico")
       ]),
-      build_dropdown("outras opções", [
+      build_dropdown("extras", [
         build_menu_item("museu da pesca", "/museu-da-pesca"),
         build_menu_item("pgtrs", "/pgtrs"),
         build_menu_item("agenda socioambiental", "/agenda-socioambiental")

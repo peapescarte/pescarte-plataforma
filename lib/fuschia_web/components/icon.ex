@@ -8,13 +8,19 @@ defmodule FuschiaWeb.Components.Icon do
   alias FuschiaWeb.Router.Helpers, as: Routes
 
   @icons_path "/icons/"
-  @icons ~w(attachment bell download edit_profile edit loading lock merge seen_eye trashcan upload user white_check)a
+
+  @icons ~w(
+    attachment bell download
+    dropdown edit_profile edit
+    loading lock merge seen_eye
+    trashcan upload user white_check
+  )a
 
   @doc "Conexão atual"
   prop socket, :struct, required: true
 
   @doc "O ícone a ser utilizado"
-  prop name, :atom, required: :true, values!: @icons
+  prop name, :atom, required: true, values!: @icons
 
   def render(assigns) do
     ~F"""
@@ -25,7 +31,7 @@ defmodule FuschiaWeb.Components.Icon do
   end
 
   def build_icon_path(socket, icon_name) do
-    path = @icons_path <> Atom.to_string(icon_name)
+    path = @icons_path <> Atom.to_string(icon_name) <> ".svg"
     Routes.static_path(socket, path)
   end
 
@@ -39,6 +45,10 @@ defmodule FuschiaWeb.Components.Icon do
 
   def get_alt_text(:download) do
     "Ícone de download"
+  end
+
+  def get_alt_text(:dropdown) do
+    "Ícone de botão dropdown"
   end
 
   def get_alt_text(:edit_profile) do

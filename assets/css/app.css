@@ -27,6 +27,7 @@
 
 body {
   font: 400 1.125rem 'Open Sans', sans-serif;
+  min-height: 100vh;
   background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
 }
@@ -43,6 +44,8 @@ button {
 
 .active {
   background: var(--orange);
+  padding: 10px;
+  margin: -10px;
   clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
 }
 
