@@ -5,11 +5,13 @@ defmodule FuschiaWeb.Components.Navbar.MenuLogo do
 
   def render(assigns) do
     ~F"""
-    <img
-      class="ui logo v-align centered image one wide column"
-      src="/images/logos/pescarte_full.png"
-      alt="Logo completo do projeto com os dez peixinhos e nome"
-    />
+    <figure>
+      <img
+        class="ui logo v-align centered image one wide column"
+        src="/images/pescarte_logo.png"
+        alt="Logo completo do projeto com os dez peixinhos e nome"
+      />
+    </figure>
     """
   end
 end
