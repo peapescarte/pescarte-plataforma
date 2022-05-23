@@ -1,41 +1,40 @@
-
-    <div class="ui grid full-w">
-      <div class="ui row">
-        <MenuLogo />
-        {#if @socket.assigns.current_user}
-          {#for item <- authenticated_menu(@socket)}
+<div class="ui grid full-w">
+  <div class="ui row">
+    <MenuLogo />
+    {#if @socket.assigns.current_user}
+      {#for item <- authenticated_menu(@socket)}
+        <MenuItem
+          path={item.path}
+          label={item.label}
+          method={item.method}
+        />
+      {/for}
+    {#else}
+      {#for item <- guest_menu(@socket)}
+        {#case item.type}
+          {#match :link}
             <MenuItem
               path={item.path}
               label={item.label}
               method={item.method}
             />
-          {/for}
-        {#else}
-          {#for item <- guest_menu(@socket)}
-            {#case item.type}
-              {#match :link}
-                <MenuItem
-                  path={item.path}
-                  label={item.label}
-                  method={item.method}
-                />
 
-              {#match :dropdown}
-                <div class="ui pointing dropdown link">
-                  <span class="ui massive bold blue-darker text upper">{item.label}</span>
-                  <i class="ui dropdown icon" />
-                  <div class="ui menu">
-                    {#for link <- item.items}
-                      <MenuItem
-                        path={link.path}
-                        label={link.label}
-                        method={link.method}
-                      />
-                    {/for}
-                  </div>
-                </div>
-            {/case}
-          {/for}
-        {/if}
-      </div>
-    </div>
+          {#match :dropdown}
+            <div class="ui pointing dropdown link">
+              <span class="ui massive bold blue-darker text upper">{item.label}</span>
+              <i class="ui dropdown icon" />
+              <div class="ui menu">
+                {#for link <- item.items}
+                  <MenuItem
+                    path={link.path}
+                    label={link.label}
+                    method={link.method}
+                  />
+                {/for}
+              </div>
+            </div>
+        {/case}
+      {/for}
+    {/if}
+  </div>
+</div>

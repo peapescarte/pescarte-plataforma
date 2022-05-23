@@ -11,7 +11,7 @@ defmodule FuschiaWeb.Components.Navbar do
 
   alias FuschiaWeb.Components.Navbar.MenuLinks
 
-  def render(assings) do
+  def render(assigns) do
     ~F"""
     <div class="ui fixed borderless colossal menu">
       <div class="ui container grid">
