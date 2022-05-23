@@ -34,7 +34,7 @@
             beamPackages.rebar3
             glibcLocales
             postgresql
-            confluent-platform
+            nodePackages.yarn
           ] ++ pkgs.lib.optional stdenv.isLinux [
             inotify-tools
             # observer gtk engine

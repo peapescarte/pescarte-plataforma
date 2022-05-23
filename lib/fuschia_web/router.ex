@@ -46,23 +46,21 @@ defmodule FuschiaWeb.Router do
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    scope "/usuarios" do
-      live "/configuracoes", UserSettingsLive.Edit, :edit, as: :user_settings
+    live_session :authenticated, on_mount: FuschiaWeb.Live.InitAssigns do
+      scope "/usuarios" do
+        live "/configuracoes", UserSettingsLive.Edit, :edit, as: :user_settings
 
-      get "/configuracoes/confirmar_email/:token",
-          UserSettingsController,
-          :confirm_email
-    end
-  end
+        get "/configuracoes/confirmar_email/:token",
+            UserSettingsController,
+            :confirm_email
+      end
 
-  scope "/app", FuschiaWeb do
-    pipe_through [:browser]
+      delete "/desconectar", UserSessionController, :delete
 
-    delete "/desconectar", UserSessionController, :delete
-
-    scope "/usuarios" do
-      live "/confirmar", UserConfirmationLive.New, :new, as: :user_confirmation
-      live "/confirmar/:token", UserConfirmationLive.Edit, :edit, as: :user_confirmation
+      scope "/usuarios" do
+        live "/confirmar", UserConfirmationLive.New, :new, as: :user_confirmation
+        live "/confirmar/:token", UserConfirmationLive.Edit, :edit, as: :user_confirmation
+      end
     end
   end
 
