@@ -21,7 +21,7 @@
         <li tabindex="0">
           <span class="uppercase text-2xl font-semibold text-blue-500">
             {item.label}
-            <Icon {=@socket} name={:dropdown} />
+            <Icon name={:dropdown} />
           </span>
           <ul class="p-2 bg-white">
             {#for link <- item.items}
