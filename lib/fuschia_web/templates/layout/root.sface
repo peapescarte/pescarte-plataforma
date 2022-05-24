@@ -37,6 +37,7 @@
   <body>
     <Components.Navbar socket={@conn} />
     {@inner_content}
+    <Components.Footer />
   </body>
   <script>
     if (navigator.serviceWorker) {
