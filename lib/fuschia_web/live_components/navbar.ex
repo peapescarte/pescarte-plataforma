@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.Components.Navbar do
+defmodule FuschiaWeb.LiveComponents.Navbar do
   @moduledoc """
   A common Navbar component that wraps
   authenticated and public routes
@@ -9,8 +9,8 @@ defmodule FuschiaWeb.Components.Navbar do
   @doc "Conexão atual"
   prop socket, :struct, required: true
 
-  alias FuschiaWeb.Components.Navbar.MenuLinks
-  alias FuschiaWeb.Components.Navbar.MenuLogo
+  alias FuschiaWeb.LiveComponents.Navbar.MenuLinks
+  alias FuschiaWeb.LiveComponents.Navbar.MenuLogo
 
   def render(assigns) do
     ~F"""

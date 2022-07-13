@@ -20,14 +20,13 @@ defmodule FuschiaWeb.Live.InitAssigns do
         {:cont, assign(socket, uri: URI.parse(url))}
       end)
 
-    case socket.assigns.current_user do
-      %User{} ->
-        socket
-
-      _other ->
-        socket
-        |> put_flash(:error, dgettext("errors", "You must log in to access this page."))
-        |> redirect(to: Routes.user_session_path(socket, :new))
+    if socket.assigns.current_user do
+      {:cont, socket}
+    else
+      {:halt,
+       socket
+       |> put_flash(:error, dgettext("errors", "You must log in to access this page."))
+       |> redirect(to: Routes.user_session_path(socket, :new))}
     end
   end
 

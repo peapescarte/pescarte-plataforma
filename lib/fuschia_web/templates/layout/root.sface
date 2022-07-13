@@ -34,10 +34,10 @@
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
-  <body>
-    <Components.Navbar socket={@conn} />
+  <body class="grid grid-rows-6 grid-flow-row">
+    <Navbar socket={@conn} />
     {@inner_content}
-    <Components.Footer />
+    <Footer />
   </body>
   <script>
     if (navigator.serviceWorker) {

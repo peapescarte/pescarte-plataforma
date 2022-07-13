@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.Components.Icon do
+defmodule FuschiaWeb.LiveComponents.Icon do
   @moduledoc """
   Componente de ícones reutilizável e dinâmico
   """
@@ -16,23 +16,20 @@ defmodule FuschiaWeb.Components.Icon do
     trashcan upload user white_check
   )a
 
-  @doc "Conexão atual"
-  prop socket, :struct, required: true
-
   @doc "O ícone a ser utilizado"
   prop name, :atom, required: true, values!: @icons
 
   def render(assigns) do
     ~F"""
     <figure>
-      <img src={build_icon_path(@socket, @name)} alt={get_alt_text(@name)} />
+      <img src={build_icon_path(@name)} alt={get_alt_text(@name)} />
     </figure>
     """
   end
 
-  def build_icon_path(socket, icon_name) do
+  def build_icon_path(icon_name) do
     path = @icons_path <> Atom.to_string(icon_name) <> ".svg"
-    Routes.static_path(socket, path)
+    Routes.static_path(FuschiaWeb.Endpoint, path)
   end
 
   def get_alt_text(:attachment) do

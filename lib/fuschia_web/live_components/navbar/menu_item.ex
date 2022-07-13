@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.Components.Navbar.MenuItem do
+defmodule FuschiaWeb.LiveComponents.Navbar.MenuItem do
   @moduledoc """
   Componente que representa um único item dentro do menu.
   """

@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.Components.Navbar.MenuLinks do
+defmodule FuschiaWeb.LiveComponents.Navbar.MenuLinks do
   @moduledoc """
   Componente que agrupa os links para a Navbar
   """
@@ -6,8 +6,8 @@ defmodule FuschiaWeb.Components.Navbar.MenuLinks do
   use FuschiaWeb, :surface_component
 
   # alias Fuschia.Accounts.Models.UserModel
-  alias FuschiaWeb.Components.Icon
-  alias FuschiaWeb.Components.Navbar.MenuItem
+  alias FuschiaWeb.LiveComponents.Icon
+  alias FuschiaWeb.LiveComponents.Navbar.MenuItem
   alias FuschiaWeb.Router.Helpers, as: Routes
   alias Phoenix.LiveView.Socket
 
