@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.Components.Icon do
+defmodule FuschiaWeb.LiveComponents.Icon do
   @moduledoc """
   Componente de ícones reutilizável e dinâmico
   """

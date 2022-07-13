@@ -1,27 +1,12 @@
-<h1>Log in</h1>
-
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}, class="flex flex-col items-center justify-center h-full">
   <%= if @error_message do %>
     <div class="alert alert-danger">
       <p><%= @error_message %></p>
     </div>
   <% end %>
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+  <%= input f, :cpf, required: true, class: "rounded-full h-16", wrapper_class: "w-1/3 m-4", placeholder: "CPF" %>
+  <%= input f, :password, required: true, class: "rounded-full h-16", wrapper_class: "w-1/3", placeholder: "senha" %>
 
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
-
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
-  <%= checkbox f, :remember_me %>
-
-  <div>
-    <%= submit "Log in" %>
-  </div>
+  <%= submit "acessar", class: "w-2/12 mt-16 h-16" %>
 </.form>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>

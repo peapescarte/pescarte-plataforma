@@ -28,18 +28,41 @@
 body {
   font: 400 1.125rem 'Open Sans', sans-serif;
   min-height: 100vh;
+  max-height: 100vh;
   background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
 }
 
 input,
-button,
 textarea {
-  font: 400 1.5rem 'Open Sans', sans-serif;
+  font: 400 1.6rem 'Open Sans', sans-serif !important;
+}
+
+input {
+  color: #000;
+}
+
+input::placeholder {
+  text-transform: uppercase;
+  color: var(--blue-lighter);
+  text-align: center;
+  font: 400 1.6rem 'Open Sans';
+}
+
+textarea:focus, input:focus, fieldset:focus {
+  outline: none !important;
+  outline-style: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
 }
 
 button {
   cursor: pointer;
+  border-radius: 99999px;
+  background-color: #FFF !important;
+  font: 600 1.5rem 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  color: var(--blue-darker);
 }
 
 .active {
