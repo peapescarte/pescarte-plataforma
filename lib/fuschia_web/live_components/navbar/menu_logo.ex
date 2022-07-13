@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.Components.Navbar.MenuLogo do
+defmodule FuschiaWeb.LiveComponents.Navbar.MenuLogo do
   @moduledoc false
 
   use FuschiaWeb, :surface_component

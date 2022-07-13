@@ -27,5 +27,5 @@ defmodule Fuschia.Accounts.Queries.User do
   end
 
   @impl true
-  def relationships, do: [:contato]
+  def relationships, do: [:contato, :pesquisador]
 end

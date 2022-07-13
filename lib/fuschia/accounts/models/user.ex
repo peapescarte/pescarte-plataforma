@@ -15,6 +15,7 @@ defmodule Fuschia.Accounts.Models.User do
 
   alias Fuschia.Accounts.Logic.Contato, as: ContatoLogic
   alias Fuschia.Accounts.Models.Contato, as: ContatoModel
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
   alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
   @required_fields ~w(nome_completo cpf data_nascimento)a
@@ -39,6 +40,7 @@ defmodule Fuschia.Accounts.Models.User do
     field :permissoes, :map, virtual: true
     field :id, :string
 
+    has_one :pesquisador, Pesquisador, foreign_key: :usuario_cpf
     belongs_to :contato, ContatoModel, on_replace: :update
 
     timestamps()

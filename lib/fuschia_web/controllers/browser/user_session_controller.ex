@@ -22,10 +22,10 @@ defmodule FuschiaWeb.UserSessionController do
     render(conn, "new.html", error_message: nil)
   end
 
-  def create(conn, ip, user_agent, %{"user" => user_params}) do
-    %{"email" => email, "password" => password} = user_params
+  def create(conn, ip, user_agent, %{"user" => user_params} = params) do
+    %{"cpf" => cpf, "password" => password} = user_params
 
-    if user = Accounts.get_user_by_email_and_password(email, password) do
+    if user = Accounts.get_user_by_cpf_and_password(cpf, password) do
       with :ok <- Accounts.create_auth_log(ip, user_agent, user) do
         UserAuth.log_in_user(conn, user, user_params)
       end

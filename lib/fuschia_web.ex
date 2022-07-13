@@ -121,9 +121,10 @@ defmodule FuschiaWeb do
       import Phoenix.View
 
       import FuschiaWeb.ErrorHelpers
+      import FuschiaWeb.FormHelpers
       import FuschiaWeb.Gettext
 
-      alias FuschiaWeb.Components
+      alias FuschiaWeb.LiveComponents.{Footer, Navbar}
       alias FuschiaWeb.Router.Helpers, as: Routes
     end
   end
