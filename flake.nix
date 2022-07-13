@@ -13,7 +13,7 @@
     utils.lib.mkFlake rec {
       inherit self inputs;
 
-      supportedSystems = [ "x86_64-linux" ];
+      supportedSystems = [ "x86_64-linux" "aarch64-darwin"];
 
       outputsBuilder = channels: {
         packages = { inherit (channels.nixpkgs) package-from-overlays; };
