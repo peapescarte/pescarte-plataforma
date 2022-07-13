@@ -20,6 +20,11 @@ defmodule Fuschia.Accounts do
 
   ## Database getters
 
+  def get_user_by_cpf_and_password(cpf, password) do
+    user = get_user(cpf)
+    if UserLogic.valid_password?(user, password), do: user
+  end
+
   @doc """
   Obtém um usuário a partir de um email
 
