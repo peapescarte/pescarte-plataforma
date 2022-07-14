@@ -11,7 +11,6 @@ defmodule Fuschia.Accounts.Models.User do
 
   import Brcpfcnpj.Changeset, only: [validate_cpf: 2]
   import Ecto.Changeset
-  import FuschiaWeb.Gettext
 
   alias Fuschia.Accounts.Logic.Contato, as: ContatoLogic
   alias Fuschia.Accounts.Models.Contato, as: ContatoModel
@@ -149,10 +148,7 @@ defmodule Fuschia.Accounts.Models.User do
     user
     |> cast(attrs, [:password])
     |> validate_required([:password])
-    |> validate_confirmation(:password,
-      required: true,
-      message: dgettext("errors", "does not match password")
-    )
+    |> validate_confirmation(:password, required: true)
     |> validate_password(opts)
   end
 
@@ -172,7 +168,7 @@ defmodule Fuschia.Accounts.Models.User do
     |> ContatoLogic.validate_email()
     |> case do
       %{changes: %{email: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :email, dgettext("errors", "didn't change"))
+      %{} = changeset -> add_error(changeset, :email, "didn't change")
     end
   end
 

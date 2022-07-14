@@ -1,7 +1,6 @@
 defmodule Fuschia.ModuloPesquisa.Logic.Relatorio do
   @moduledoc false
 
-  import FuschiaWeb.Gettext
   import Ecto.Changeset, only: [add_error: 3, get_field: 2]
 
   def validate_month(changeset, field) do
@@ -12,7 +11,7 @@ defmodule Fuschia.ModuloPesquisa.Logic.Relatorio do
     if mth in month do
       changeset
     else
-      add_error(changeset, field, dgettext("errors", "invalid month"))
+      add_error(changeset, field, "invalid month")
     end
   end
 
@@ -24,7 +23,7 @@ defmodule Fuschia.ModuloPesquisa.Logic.Relatorio do
     if year <= today.year do
       changeset
     else
-      add_error(changeset, field, dgettext("errors", "invalid year"))
+      add_error(changeset, field, "invalid year")
     end
   end
 end

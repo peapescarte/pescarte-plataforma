@@ -3,8 +3,6 @@ defmodule FuschiaWeb.Router do
 
   import FuschiaWeb.UserAuth
 
-  import Surface.Catalogue.Router
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -26,73 +24,48 @@ defmodule FuschiaWeb.Router do
     plug FuschiaWeb.Auth.Pipeline
   end
 
-  pipeline :api_swagger do
-    plug :accepts, ["json"]
-    plug OpenApiSpex.Plug.PutApiSpec, module: FuschiaWeb.Swagger.ApiSpec
-  end
-
   ## Endpoints para versão browser
 
   scope "/", FuschiaWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    live "/cadastrar", UserRegistrationLive.New, :new, as: :user_registration
+    scope "/relatorios" do
+      get "/mensal/criar", RelatorioController, :new
+      post "/mensal/criar", RelatorioController, :create
+    end
+
+    get "/cadastrar", UserRegistrationController, :new
+    post "/cadastrar", UserRegistrationController, :create
+
     get "/acessar", UserSessionController, :new
     post "/acessar", UserSessionController, :create
-    live "/recuperar_senha", UserResetPasswordLive.New, :new, as: :user_reset_password
-    live "/recuperar_senha/:token", UserResetPasswordLive.Edit, :edit, as: :user_reset_password
+
+    get "/recuperar_senha", UserResetPasswordController, :new
+    post "/recuperar_senha", UserResetPasswordController, :create
+    get "/recuperar_senha/:token", UserResetPasswordController, :edit
+    put "/recuperar_senha/:token", UserResetPasswordController, :update
   end
 
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    live_session :authenticated, on_mount: FuschiaWeb.Live.InitAssigns do
-      scope "/usuarios" do
-        live "/configuracoes", UserSettingsLive.Edit, :edit, as: :user_settings
+    get "/configuracoes", UserSettingsController, :edit
+    put "/configuracoes", UserSettingsController, :update
 
-        get "/configuracoes/confirmar_email/:token",
-            UserSettingsController,
-            :confirm_email
-      end
-
-      delete "/desconectar", UserSessionController, :delete
-
-      scope "/usuarios" do
-        live "/confirmar", UserConfirmationLive.New, :new, as: :user_confirmation
-        live "/confirmar/:token", UserConfirmationLive.Edit, :edit, as: :user_confirmation
-      end
-    end
+    get "/configuracoes/confirmar_email/:token",
+        UserSettingsController,
+        :confirm_email
   end
 
-  scope "/" do
-    pipe_through :browser
+  scope "/app", FuschiaWeb do
+    pipe_through [:browser]
 
-    get "/swaggerui", OpenApiSpex.Plug.SwaggerUI, path: "/api/openapi"
+    delete "/desconectar", UserSessionController, :delete
 
-    live "/example", FuschiaWeb.ExampleLive
-  end
-
-  ## Endpoints para API pública
-
-  scope "/api/v1" do
-    pipe_through :api_swagger
-
-    get "/openapi", OpenApiSpex.Plug.RenderSpec, []
-  end
-
-  scope "/api/v1", FuschiaWeb do
-    pipe_through :api
-
-    post "/acessar", AuthController, :login
-    post "/cadastrar", AuthController, :signup
-  end
-
-  scope "/api/v1", FuschiaWeb do
-    pipe_through [:api_auth, :api]
-
-    resources "/campi", CampusController, only: [:create, :index, :delete]
-    resources "/cidades", CidadeController, only: [:create]
-    resources "/nucleos", NucleoController
+    get "/confirmar", UserConfirmationController, :new
+    post "/confirmar", UserConfirmationController, :create
+    get "/confirmar/:token", UserConfirmationController, :edit
+    put "/confirmar/:token", UserConfirmationController, :update
   end
 
   ## Endpoints para ambiente de desenvolvimento
@@ -108,11 +81,6 @@ defmodule FuschiaWeb.Router do
   end
 
   if Mix.env() == :dev do
-    scope "/" do
-      pipe_through :browser
-      surface_catalogue("/catalogue")
-    end
-
     scope "/dev" do
       pipe_through :browser
 
