@@ -8,7 +8,6 @@ defmodule FuschiaWeb.EnsureRolePlug do
   plug FuschiaWeb.EnsureRolePlug, :admin
   """
 
-  import FuschiaWeb.Gettext
   import Plug.Conn
 
   alias Fuschia.Accounts
@@ -39,7 +38,7 @@ defmodule FuschiaWeb.EnsureRolePlug do
 
   defp maybe_halt(_any, conn) do
     conn
-    |> Controller.put_flash(:error, dgettext("errors", "Unauthorized"))
+    |> Controller.put_flash(:error, "Unauthorized")
     |> Controller.redirect(to: UserAuth.signed_in_path(conn))
     |> halt()
   end

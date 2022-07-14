@@ -28,25 +28,28 @@
 body {
   font: 400 1.125rem 'Open Sans', sans-serif;
   min-height: 100vh;
-  max-height: 100vh;
   background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
 }
 
 input,
 textarea {
-  font: 400 1.6rem 'Open Sans', sans-serif !important;
-}
-
-input {
   color: #000;
+  font: 400 1.6rem 'Open Sans', sans-serif !important;
 }
 
 input::placeholder {
   text-transform: uppercase;
-  color: var(--blue-lighter);
+  color: var(--blue-light);
   text-align: center;
   font: 400 1.6rem 'Open Sans';
+}
+
+textarea::placeholder {
+  color: var(--blue-light);
+  text-align: left;
+  font: 400 1.6rem 'Open Sans';
+  padding: 1rem;
 }
 
 textarea:focus, input:focus, fieldset:focus {
@@ -56,13 +59,31 @@ textarea:focus, input:focus, fieldset:focus {
   border-color: transparent !important;
 }
 
-button {
+button, .button {
   cursor: pointer;
   border-radius: 99999px;
   background-color: #FFF !important;
   font: 600 1.5rem 'Open Sans', sans-serif;
   text-transform: uppercase;
   color: var(--blue-darker);
+}
+
+textarea {
+  resize: none;
+  padding: 2rem;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .active {

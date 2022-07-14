@@ -1,5 +1,0 @@
-<h1>Confirm account</h1>
-
-<Form for={:user} submit="confirm">
-  {submit "Confirm my account"}
-</Form>

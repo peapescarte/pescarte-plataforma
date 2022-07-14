@@ -17,19 +17,12 @@ defmodule FuschiaWeb do
   and import those modules here.
   """
 
-  import Phoenix.Controller, only: [put_view: 2, render: 3]
-  import Plug.Conn, only: [put_status: 2]
-
-  alias FuschiaWeb.FuschiaView
-
   @spec controller :: Macro.t()
   def controller do
     quote do
       use Phoenix.Controller, namespace: FuschiaWeb
 
       import Plug.Conn
-      import FuschiaWeb.Gettext
-      import FuschiaWeb, only: [render_response: 2, render_response: 3]
       alias FuschiaWeb.Router.Helpers, as: Routes
     end
   end
@@ -46,39 +39,6 @@ defmodule FuschiaWeb do
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       # Include shared imports and aliases for views
-      unquote(view_helpers())
-
-      import Surface
-
-      use Surface.View,
-        root: "lib/fuschia_web/templates"
-    end
-  end
-
-  @spec live_view :: Macro.t()
-  def live_view do
-    quote do
-      use Surface.LiveView,
-        layout: {FuschiaWeb.LayoutView, "live.html"}
-
-      unquote(view_helpers())
-    end
-  end
-
-  @spec live_component :: Macro.t()
-  def live_component do
-    quote do
-      use Phoenix.LiveComponent
-
-      unquote(view_helpers())
-    end
-  end
-
-  @spec surface_component :: Macro.t()
-  def surface_component do
-    quote do
-      use Surface.Component
-
       unquote(view_helpers())
     end
   end
@@ -107,7 +67,6 @@ defmodule FuschiaWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import FuschiaWeb.Gettext
     end
   end
 
@@ -116,77 +75,14 @@ defmodule FuschiaWeb do
       use Phoenix.HTML
 
       import Phoenix.LiveView.Helpers
-
-      # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
+      import FuschiaWeb.Components
       import FuschiaWeb.ErrorHelpers
       import FuschiaWeb.FormHelpers
-      import FuschiaWeb.Gettext
 
-      alias FuschiaWeb.LiveComponents.{Footer, Navbar}
       alias FuschiaWeb.Router.Helpers, as: Routes
     end
-  end
-
-  @doc """
-  Get current timestamp
-  """
-  @spec timestamp :: String.t()
-  def timestamp do
-    Timex.format!(Timex.now(), "%Y-%m-%dT%H:%M:%SZ", :strftime)
-  end
-
-  @doc """
-  Return default socket response format
-
-  {
-    "data": {},
-    "timestamp": "2021-02-01T11:48:52Z"
-  }
-  """
-  @spec socket_response(map) :: map
-  def socket_response(payload) do
-    %{
-      data: payload,
-      timestamp: timestamp()
-    }
-  end
-
-  @doc """
-  Render success response with data in body or nil if `data` is nil,
-  so the fallback controller can render the proper response.
-
-  Render the paginated view if the `pagination` param is present.
-  """
-  @spec render_response(nil, Plug.Conn.t()) :: nil
-  def render_response(nil, _conn), do: nil
-
-  @spec render_response(map, Plug.Conn.t()) :: Plug.Conn.t()
-  def render_response(%{data: data, pagination: pagination}, conn) do
-    conn
-    |> put_status(:ok)
-    |> put_view(FuschiaView)
-    |> render("paginated.json", %{data: data, pagination: pagination})
-  end
-
-  @spec render_response(map | list, Plug.Conn.t()) :: Plug.Conn.t()
-  def render_response(data, conn) do
-    conn
-    |> put_status(:ok)
-    |> put_view(FuschiaView)
-    |> render("response.json", data: data)
-  end
-
-  @doc """
-  Render response with status and data in body
-  """
-  @spec render_response(map | list, Plug.Conn.t(), atom) :: Plug.Conn.t()
-  def render_response(data, conn, status) do
-    conn
-    |> put_status(status)
-    |> put_view(FuschiaView)
-    |> render("response.json", data: data)
   end
 
   @doc """
