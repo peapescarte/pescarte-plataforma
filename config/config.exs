@@ -1,7 +1,5 @@
 import Config
 
-config :gettext, default_locale: "pt_BR"
-
 config :fuschia, carbonite_mode: :capture
 
 # ---------------------------#
@@ -19,18 +17,12 @@ config :fuschia, FuschiaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/tnqEz6BgkvSQoZdVePI7wI2tB6enxAPY66OSNNCGSeDy2VkzG0lIc/cguFxfA+0",
   render_errors: [view: FuschiaWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Fuschia.PubSub,
-  live_view: [signing_salt: "kHky3tuz"]
+  pubsub_server: Fuschia.PubSub
 
 # ---------------------------#
 # Phoenix
 # ---------------------------#
 config :phoenix, :json_library, Jason
-
-config :surface, :components, [
-  {Surface.Components.Form.ErrorTag,
-   default_translator: {FuschiaWeb.ErrorHelpers, :translate_error}}
-]
 
 # ---------------------------#
 # Esbuild

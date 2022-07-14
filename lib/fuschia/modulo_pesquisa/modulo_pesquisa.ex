@@ -124,6 +124,10 @@ defmodule Fuschia.ModuloPesquisa do
 
   ## Relatorio
 
+  def change_relatorio(report \\ %Relatorio{}, attrs \\ %{}) do
+    Relatorio.changeset(report, attrs)
+  end
+
   def create_relatorio(attrs) do
     with_queries_mod(&create_and_preload/3, [Relatorio, attrs])
   end

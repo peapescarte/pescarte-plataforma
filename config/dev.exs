@@ -22,14 +22,12 @@ config :fuschia, FuschiaWeb.Endpoint,
   ]
 
 config :fuschia, FuschiaWeb.Endpoint,
-  reloadable_compilers: [:gettext, :elixir, :surface],
+  reloadable_compilers: [:elixir],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/fuschia_web/(live|views|components)/.*(ex|sface|js)$",
-      ~r"lib/fuschia_web/templates/.*(eex)$",
-      ~r"priv/catalogue/.*(ex)$"
+      ~r"lib/fuschia_web/(|views|components)/.*(ex|js)$",
+      ~r"lib/fuschia_web/templates/.*(eex)$"
     ]
   ]
 
@@ -42,25 +40,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
-
-config :git_hooks,
-  auto_install: false,
-  verbose: true,
-  hooks: [
-    pre_commit: [
-      verbose: true,
-      tasks: [
-        {:cmd, "mix compile --warning-as-errors"},
-        {:cmd, "mix format --check-formatted"}
-      ]
-    ],
-    pre_push: [
-      verbose: true,
-      tasks: [
-        {:cmd, "mix credo --strict"}
-      ]
-    ]
-  ]
 
 try do
   import_config "local.secret.exs"

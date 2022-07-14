@@ -5,7 +5,6 @@ defmodule FuschiaWeb.RequireApiKeyPlug do
   """
 
   import Plug.Conn
-  import FuschiaWeb.Gettext
 
   alias Fuschia.Accounts.Queries.ApiKey
   alias Fuschia.Database
@@ -23,7 +22,7 @@ defmodule FuschiaWeb.RequireApiKeyPlug do
         conn
         |> send_resp(
           :unauthorized,
-          gettext("You need a valid API Key to access this endpoint")
+          "You need a valid API Key to access this endpoint"
         )
         |> halt()
 

@@ -6,9 +6,6 @@ config :bcrypt_elixir, :log_rounds, 1
 # ignore audit log by default
 config :fuschia, carbonite_mode: :ignore
 
-# Não é necessário traduzir erros em ambiente de teste
-config :gettext, default_locale: "en"
-
 config :fuschia, Fuschia.Repo,
   username: "pescarte",
   password: "pescarte",
