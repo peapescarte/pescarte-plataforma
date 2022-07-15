@@ -1,5 +1,9 @@
-_build/
-deps/
-test/
-**/.git
-.elixir_ls/
+/_build/
+/deps/
+/test/
+/**/.git
+/.elixir_ls/
+/.nix-*/
+/.postgres/
+/.direnv/
+result

@@ -92,14 +92,9 @@ config :cors_plug,
 # ---------------------------#
 config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
-# ---------------------------#
-# Phoenix
-# ---------------------------#
-if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
-  config :fuschia, FuschiaWeb.Endpoint, server: true
-end
-
 if config_env() == :prod do
+  config :fuschia, FuschiaWeb.Endpoint, server: true
+
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """
@@ -110,7 +105,7 @@ if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   config :fuschia, Fuschia.Repo,
-    # ssl: true,
+    ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
