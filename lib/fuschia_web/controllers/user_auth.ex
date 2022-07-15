@@ -23,7 +23,7 @@ defmodule FuschiaWeb.UserAuth do
   """
   def signed_in_path(conn) do
     if Map.get(conn.assigns, :current_user) do
-      Routes.user_settings_path(conn, :update)
+      Routes.user_profile_path(conn, :update)
     else
       "/not_found"
     end
@@ -47,7 +47,6 @@ defmodule FuschiaWeb.UserAuth do
     conn
     |> renew_session()
     |> put_session(:user_token, token)
-    |> put_session(:live_socket_id, "user_sessions:#{Base.url_encode64(token)}")
     |> maybe_write_remember_me_cookie(token, params)
     |> redirect(to: user_return_to || signed_in_path(conn))
   end
