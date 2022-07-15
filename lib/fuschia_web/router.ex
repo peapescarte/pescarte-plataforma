@@ -29,11 +29,6 @@ defmodule FuschiaWeb.Router do
   scope "/", FuschiaWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    scope "/relatorios" do
-      get "/mensal/criar", RelatorioController, :new
-      post "/mensal/criar", RelatorioController, :create
-    end
-
     get "/cadastrar", UserRegistrationController, :new
     post "/cadastrar", UserRegistrationController, :create
 
@@ -48,6 +43,11 @@ defmodule FuschiaWeb.Router do
 
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    scope "/relatorios" do
+      get "/mensal/criar", RelatorioController, :new
+      post "/mensal/criar", RelatorioController, :create
+    end
 
     get "/perfil", UserProfileController, :edit
     put "/perfil", UserProfileController, :update

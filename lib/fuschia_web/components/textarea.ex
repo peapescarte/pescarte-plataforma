@@ -9,8 +9,9 @@ defmodule FuschiaWeb.Components.TextArea do
         @field,
         rows: 8,
         cols: 76,
-        id: @id,
+        id: Atom.to_string(@field),
         placeholder: @placeholder,
+        required: true,
         class: "rounded-3xl m-4" %>
     """
   end

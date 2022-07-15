@@ -15,9 +15,11 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
     ano
     mes
     tipo
-    link
     pesquisador_cpf
+    raw_content
   )a
+
+  @optional_fields ~w(link)a
 
   @tipos ~w(mensal trimestral anual)
 
@@ -29,6 +31,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
     field :mes, :integer, primary_key: true
     field :tipo, TrimmedString
     field :link, TrimmedString
+    field :raw_content, TrimmedString
 
     belongs_to :pesquisador, Pesquisador,
       references: :usuario_cpf,
@@ -42,7 +45,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
   @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
-    |> cast(attrs, @required_fields)
+    |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_month(:mes)
     |> validate_year(:ano)
