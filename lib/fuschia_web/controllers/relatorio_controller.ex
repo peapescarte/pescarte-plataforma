@@ -19,7 +19,7 @@ defmodule FuschiaWeb.RelatorioController do
       {:ok, _report} ->
         conn
         |> put_flash(:success, "Relatório criado com sucesso")
-        |> redirect(to: Routes.user_settings_path(conn, :edit))
+        |> redirect(to: Routes.user_profile_path(conn, :edit))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

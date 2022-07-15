@@ -5,7 +5,7 @@
     de <%= get_current_year() %>
   </h1>
 
-  <%= link "voltar", to: Routes.user_settings_path(@conn, :edit), class: "button h-14 w-2/12 flex justify-center items-center" %>
+  <%= link "voltar", to: Routes.user_profile_path(@conn, :edit), class: "button h-14 w-2/12 flex justify-center items-center" %>
 </div>
 
 <.form let={f} for={:relatorio} class="flex flex-col items-center justify-between">

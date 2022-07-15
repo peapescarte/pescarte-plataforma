@@ -110,6 +110,10 @@ defmodule Fuschia.ModuloPesquisa do
 
   ## Pesquisador
 
+  def change_pesquisador(researcher \\ %Pesquisador{}, attrs \\ %{}) do
+    Pesquisador.changeset(researcher, attrs)
+  end
+
   def create_pesquisador(attrs) do
     with_queries_mod(&create_and_preload/3, [Pesquisador, attrs])
   end

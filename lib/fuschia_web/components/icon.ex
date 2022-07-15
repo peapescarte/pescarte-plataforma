@@ -12,7 +12,7 @@ defmodule FuschiaWeb.Components.Icon do
   def render(assigns) do
     ~H"""
     <figure>
-      <img src={build_icon_path(@name)} alt={get_alt_text(@name)} />
+      <img src={build_icon_path(@name)} alt={get_alt_text(@name)} class={@class} />
     </figure>
     """
   end

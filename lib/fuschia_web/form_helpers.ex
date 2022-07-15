@@ -4,12 +4,14 @@ defmodule FuschiaWeb.FormHelpers do
   use Phoenix.HTML
 
   import FuschiaWeb.ErrorHelpers, only: [error_tag: 2]
-  import Phoenix.HTML.Form, only: [input_type: 2, input_validations: 2]
+  import Phoenix.HTML.Form, only: [input_type: 2, input_validations: 2, humanize: 1, label: 3]
 
   @input_base_style ~s(input bg-white)
 
   def input(form, field, opts \\ []) do
-    type = opts[:using] || input_type(form, field)
+    label = opts[:label]
+
+    type = opts[:type] || input_type(form, field)
     validations = input_validations(form, field)
     extra_classes = opts[:class]
 
@@ -23,13 +25,22 @@ defmodule FuschiaWeb.FormHelpers do
       |> Kernel.<>(" ")
       |> Kernel.<>(extra_classes || "")
 
-    input_opts = Keyword.merge(validations, class: input_style, placeholder: opts[:placeholder])
+    input_opts =
+      validations
+      |> Keyword.put(:class, input_style)
+      |> Keyword.put(:readonly, opts[:readonly?])
+      |> Keyword.merge(opts)
 
     content_tag :fieldset, wrapper_opts do
       input = input(type, form, field, input_opts)
       error = error_tag(form, field)
 
-      [input, error || ""]
+      if label do
+        label = label(form, field, humanize(label || field))
+        [label, input, error || ""]
+      else
+        [input, error || ""]
+      end
     end
   end
 
