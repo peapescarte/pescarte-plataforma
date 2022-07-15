@@ -1,6 +1,6 @@
 FROM bitwalker/alpine-elixir:latest
 
-MAINTAINER matdsoupe
+MAINTAINER zoedsoupe
 
 RUN apk update \
     && apk add --no-cache tzdata ncurses-libs postgresql-client build-base \
@@ -18,8 +18,10 @@ COPY mix.exs mix.lock ./
 COPY config config
 
 RUN mix do deps.get, deps.compile
+RUN mix assets.deploy
+RUN mix ecto.setup
 
 COPY . ./
 RUN mix compile
 
-CMD ["sh", "./entrypoint.sh"]
+CMD ["iex", "-S", "mix", "phx.server"]
