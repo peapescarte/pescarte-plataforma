@@ -49,11 +49,11 @@ defmodule FuschiaWeb.Router do
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/configuracoes", UserSettingsController, :edit
-    put "/configuracoes", UserSettingsController, :update
+    get "/perfil", UserProfileController, :edit
+    put "/perfil", UserProfileController, :update
 
-    get "/configuracoes/confirmar_email/:token",
-        UserSettingsController,
+    get "/perfil/confirmar_email/:token",
+        UserProfileController,
         :confirm_email
   end
 

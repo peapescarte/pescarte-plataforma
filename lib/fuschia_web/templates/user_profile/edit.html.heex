@@ -1,0 +1,26 @@
+<div class="container flex justify-between items-center">
+  <section class="flex flex-col justify-between items-center">
+    <span class="bg-blue-100 rounded-full">
+      <.icon name={:user} class="w-52" />
+    </span>
+
+
+  </section>
+
+  <section class="">
+    <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
+      <%= label f, :minibiografia, "biografia" %>
+
+      <%= textarea f, :minibiografia,
+        readonly: true,
+        rows: 12,
+        cols: 65,
+        value: @user.pesquisador.minibiografia %>
+
+      <%= input f, :link_lattes,
+        readonly?: @edit?,
+        label: "lattes",
+        value: @user.pesquisador.link_lattes %>
+    </.form>
+  </section>
+</div>
