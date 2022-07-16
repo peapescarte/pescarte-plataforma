@@ -11,18 +11,6 @@ config :logger, :console,
   backends: [:console, Sentry.LoggerBackend]
 
 # ---------------------------#
-# Guardian Auth
-# ---------------------------#
-config :fuschia, FuschiaWeb.Auth.Guardian,
-  issuer: "pea_pescarte",
-  ttl: {3, :days},
-  secret_key: System.get_env("GUARDIAN_SECRET")
-
-config :fuschia, FuschiaWeb.Auth.Pipeline,
-  module: FuschiaWeb.Auth.Guardian,
-  error_handler: FuschiaWeb.Auth.ErrorHandler
-
-# ---------------------------#
 # Sentry
 # ---------------------------#
 config :sentry,
@@ -53,7 +41,7 @@ adapter =
     _ -> Swoosh.Adapters.Local
   end
 
-if adapter == Swoosh.Adapters.Local do
+if adapter == Swoosh.Adapters.Local and config_env() != :prod do
   config :swoosh, serve_mailbox: true, preview_port: 4001
 end
 
@@ -72,70 +60,42 @@ config :fuschia, :pea_pescarte_contact,
   telephone: " 0800 026 2828"
 
 # ---------------------------#
-# CORS
-# ---------------------------#
-config :cors_plug,
-  headers: [
-    "Authorization",
-    "Content-Type",
-    "Referer",
-    "Accept",
-    "Origin",
-    "User-Agent",
-    "Cache-Control",
-    "Keep-Alive",
-    "X-Api-Key"
-  ]
-
-# ---------------------------#
 # Timex
 # ---------------------------#
 config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
-# ---------------------------#
-# Phoenix
-# ---------------------------#
-if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
+if System.get_env("PHX_SERVER") do
   config :fuschia, FuschiaWeb.Endpoint, server: true
 end
 
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
-      raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
-      """
+      raise "DATABASE_URL not available"
 
-  maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
+  if System.get_env("ECTO_IPV6") do
+    config :fuschia, Fuschia.Repo, socket_options: [:inet6]
+  end
 
   config :fuschia, Fuschia.Repo,
-    # ssl: true,
+    # fly.io don't need
+    ssl: false,
     url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
-      raise """
-      environment variable SECRET_KEY_BASE is missing.
-      You can generate one by calling: mix phx.gen.secret
-      """
+      raise "SECRET_KEY_BASE not available"
 
-  host = System.get_env("PHX_HOST") || "example.com"
-  port = String.to_integer(System.get_env("PORT") || "4000")
-
-  protocol =
-    case System.get_env("ENABLE_HTTPS") do
-      "true" -> [schema: "https", port: 443]
-      _ -> [scheme: "http", port: 80]
-    end
+  app_name =
+    System.get_env("FLY_APP_NAME") ||
+      raise "FLY_APP_NAME not available"
 
   config :fuschia, FuschiaWeb.Endpoint,
-    url: [host: host] ++ protocol,
+    url: [host: "#{app_name}.fly.dev", port: 80],
     http: [
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: port
+      port: String.to_integer(System.get_env("PORT") || "4000")
     ],
     secret_key_base: secret_key_base
 end
