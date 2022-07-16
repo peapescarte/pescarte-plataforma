@@ -13,6 +13,7 @@ config :logger, :console,
 config :fuschia, FuschiaWeb.Auth.Pipeline,
   module: FuschiaWeb.Auth.Guardian,
   error_handler: FuschiaWeb.Auth.ErrorHandler
+
 # ---------------------------#
 # Sentry
 # ---------------------------#
@@ -77,12 +78,12 @@ if config_env() == :prod do
       raise "DATABASE_URL not available"
 
   if System.get_env("ECTO_IPV6") do
-    config :fuschia, Fuschia.Repo,
-      socket_options: [:inet6]
+    config :fuschia, Fuschia.Repo, socket_options: [:inet6]
   end
 
   config :fuschia, Fuschia.Repo,
-  ssl: false, # fly.io don't need
+    # fly.io don't need
+    ssl: false,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
