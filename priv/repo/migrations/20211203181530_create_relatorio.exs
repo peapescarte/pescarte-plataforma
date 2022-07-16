@@ -6,7 +6,7 @@ defmodule Fuschia.Repo.Migrations.CreateRelatorio do
       add :ano, :smallint, null: false, primary_key: true
       add :mes, :smallint, null: false, primary_key: true
       add :tipo, :string, null: false
-      add :link, :string, null: false
+      add :link, :string
 
       add :pesquisador_cpf,
           references(
