@@ -27,6 +27,12 @@ config :phoenix, :json_library, Jason
 # ---------------------------#
 # Esbuild
 # ---------------------------#
+esbuild_path = System.get_env("ESBUILD_PATH")
+
+if esbuild_path do
+  config :esbuild, path: esbuild_path
+end
+
 config :esbuild,
   version: "0.14.0",
   default: [
@@ -47,6 +53,4 @@ config :tailwind,
     cd: Path.expand("../assets", __DIR__)
   ]
 
-# Import environment specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

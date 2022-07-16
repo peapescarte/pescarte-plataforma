@@ -8,6 +8,6 @@
   "private": true,
   "dependencies": {
     "alpine": "^0.2.1",
-    "daisyui": "^2.15.0"
+    "daisyui": "^2.19.0"
   }
 }

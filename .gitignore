@@ -33,8 +33,14 @@ fuschia-*.tar
 # Environment variables
 .env
 
-# Ignore generated js hook files for components
-assets/js/_hooks/
+# Ignore yarn berry artifacts
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 # Ignore node_modules
 /assets/node_modules/

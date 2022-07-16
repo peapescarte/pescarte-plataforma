@@ -1,27 +1,74 @@
-FROM bitwalker/alpine-elixir:latest
+ARG ELIXIR_VERSION=1.13.4
+ARG OTP_VERSION=25.0.2
+ARG DEBIAN_VERSION=bullseye-20210902-slim
 
-MAINTAINER zoedsoupe
+ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
-RUN apk update \
-    && apk add --no-cache tzdata ncurses-libs postgresql-client build-base \
-    && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
-    && echo "America/Sao_Paulo" > /etc/timezone \
-    && apk del tzdata
+FROM ${BUILDER_IMAGE} as builder
 
-WORKDIR /fuschia
+ARG ESBUILD_PATH=/usr/local/bin/esbuild
 
-ARG MIX_ENV=prod
+RUN apt-get update -y \
+    && apt-get install -y build-essential git nodejs npm \
+    && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
-RUN mix do local.hex --force, local.rebar --force
+WORKDIR /app
+
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+ENV MIX_ENV="prod"
 
 COPY mix.exs mix.lock ./
-COPY config config
+RUN mix deps.get --only $MIX_ENV
+RUN mkdir config
 
-RUN mix do deps.get, deps.compile
+# to be re-compiled.
+COPY config/config.exs config/${MIX_ENV}.exs config/
+RUN mix deps.compile
+
+COPY priv priv
+COPY lib lib
+COPY assets assets
+
+# compile assets
+RUN npm install --global yarn
+RUN yarn global add esbuild --prefix /usr/local
+RUN yarn --cwd ./assets --frozen-lockfile
 RUN mix assets.deploy
-RUN mix ecto.setup
 
-COPY . ./
+# Compile the release
 RUN mix compile
 
-CMD ["iex", "-S", "mix", "phx.server"]
+# Changes to config/runtime.exs don't require recompiling the code
+COPY config/runtime.exs config/
+
+RUN mix release
+
+FROM ${RUNNER_IMAGE}
+
+RUN apt-get update -y \
+  && apt-get install -y iputils-ping telnet libstdc++6 openssl libncurses5 locales \
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+WORKDIR /fuschia
+RUN chown nobody /fuschia
+
+# set runner ENV
+ENV MIX_ENV="prod"
+
+# Only copy the final release from the build stage
+COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/fuschia ./
+
+USER nobody
+
+COPY start.sh ./
+CMD ["sh", "start.sh"]
