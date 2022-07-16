@@ -20,10 +20,6 @@ defmodule FuschiaWeb.Router do
     plug ProperCase.Plug.SnakeCaseParams
   end
 
-  pipeline :api_auth do
-    plug FuschiaWeb.Auth.Pipeline
-  end
-
   ## Endpoints para versão browser
 
   scope "/", FuschiaWeb do
