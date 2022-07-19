@@ -92,7 +92,7 @@ if config_env() == :prod do
       raise "FLY_APP_NAME not available"
 
   config :fuschia, FuschiaWeb.Endpoint,
-    url: [host: "#{app_name}.fly.dev", port: 80],
+    url: [host: "#{app_name}.fly.dev", port: 443],
     http: [
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
