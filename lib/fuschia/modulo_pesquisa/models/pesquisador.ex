@@ -19,7 +19,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
 
   @optional_fields ~w(orientador_cpf)a
 
-  @tipos_bolsa ~w(ic pesquisa voluntario)
+  @tipos_bolsa ~w(ic pesquisa voluntario celetista consultoria coordenador_tecnico doutorado mestrado pos_doutorado nsa coordenador_pedagogico)
 
   @primary_key {:usuario_cpf, TrimmedString, autogenerate: false}
   schema "pesquisador" do
