@@ -159,6 +159,23 @@ defmodule Fuschia.Database do
     create_with_custom_changeset(schema, &schema.changeset/2, attrs)
   end
 
+  @spec create_or_update(module, map) :: {:ok, struct} | {:error, changeset}
+  def create_or_update(schema, attrs) do
+    with %Ecto.Changeset{valid?: true} = changeset <-
+           schema.changeset(struct(schema), attrs),
+         %{meta: meta, source: source} = build_meta(schema, "insert_or_update"),
+         {:ok, changes} <-
+           Ecto.Multi.new()
+           |> Carbonite.Multi.insert_transaction(meta)
+           |> Ecto.Multi.insert_or_update(source, changeset)
+           |> Repo.transaction() do
+      {:ok, Map.get(changes, source)}
+    else
+      %Ecto.Changeset{} = changeset -> {:error, changeset}
+      err -> err
+    end
+  end
+
   @doc """
   Mesmo que `Fuschia.Database.create/2` porém aceita uma função
   de `changeset/2` customizada como segundo parâmetro.
