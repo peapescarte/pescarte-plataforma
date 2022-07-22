@@ -4,108 +4,103 @@ defmodule Fuschia.ModuloPesquisa do
   do contexto.
   """
 
-  import Fuschia.Database,
-    only: [
-      create_and_preload: 3,
-      list_entity: 2,
-      get_entity: 3,
-      get_entity_by: 3,
-      update_and_preload: 3
-    ]
+  alias Fuschia.Database
 
-  alias __MODULE__.Models.{
-    Campus,
-    Cidade,
-    LinhaPesquisa,
-    Midia,
-    Nucleo,
-    Pesquisador,
-    Relatorio
-  }
-
-  alias __MODULE__.Queries
+  alias Fuschia.ModuloPesquisa.Models.Campus
+  alias Fuschia.ModuloPesquisa.Models.Cidade
+  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Models.Midia
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
+  alias Fuschia.ModuloPesquisa.Models.Relatorio
+  alias Fuschia.ModuloPesquisa.Queries
 
   # ---------------------------#
   # Database
   # ---------------------------#
 
-  def create_campus(attrs, opts \\ []) do
-    with_queries_mod(&create_and_preload/3, [Campus, attrs], opts)
+  def create_campus(attrs) do
+    Database.create(Campus, attrs)
   end
 
   def list_campus do
-    with_queries_mod(&list_entity/2, [Campus])
+    Database.list(Queries.Campus.query())
+  end
+
+  def list_campus_by_municipio(municipio) do
+    municipio
+    |> Queries.Campus.query_by_municipio()
+    |> Database.list()
   end
 
   def get_campus(id) do
-    with_queries_mod(&get_entity/3, [Campus, id])
+    Database.get(Campus, id)
   end
 
   ## Cidade
 
   def create_cidade(attrs) do
-    with_queries_mod(&create_and_preload/3, [Cidade, attrs])
+    Database.create(Cidade, attrs)
   end
 
   def get_cidade(id) do
-    with_queries_mod(&get_entity/3, [Cidade, id])
+    Database.get(Cidade, id)
   end
 
   ## LinhaPesquisa
 
   def create_linha_pesquisa(attrs) do
-    with_queries_mod(&create_and_preload/3, [LinhaPesquisa, attrs])
+    Database.create(LinhaPesquisa, attrs)
   end
 
   def list_linha_pesquisa do
-    with_queries_mod(&list_entity/2, [LinhaPesquisa])
+    Database.list(Queries.LinhaPesquisa.query())
   end
 
   def list_linha_pesquisa_by_nucleo(nucleo_id) do
-    with_queries_mod(&list_entity/2, [LinhaPesquisa],
-      query_fun: :query_by_nucleo,
-      query_args: nucleo_id
-    )
+    nucleo_id
+    |> Queries.LinhaPesquisa.query_by_nucleo()
+    |> Database.list()
   end
 
   def get_linha_pesquisa(id) do
-    with_queries_mod(&get_entity/3, [LinhaPesquisa, id])
+    Database.get(LinhaPesquisa, id)
   end
 
   ## Midia
 
   def create_midia(attrs) do
-    with_queries_mod(&create_and_preload/3, [Midia, attrs])
+    Database.create(Midia, attrs)
   end
 
   def list_midia do
-    with_queries_mod(&list_entity/2, [Midia])
+    Database.list(Queries.Midia.query())
   end
 
   def get_midia(id) do
-    with_queries_mod(&get_entity/3, [Midia, id])
+    Database.get(Midia, id)
   end
 
-  def update_midia(%Midia{} = midia, attrs, change_fun \\ :changeset) do
-    with_queries_mod(&update_and_preload/3, [midia, attrs], change_fun: change_fun)
+  def update_midia(%Midia{} = midia, attrs) do
+    Database.update(midia, attrs)
   end
 
   ## Nucleo
 
   def create_nucleo(attrs) do
-    with_queries_mod(&create_and_preload/3, [Nucleo, attrs])
+    Database.create(Nucleo, attrs)
   end
 
   def list_nucleo do
-    with_queries_mod(&list_entity/2, [Nucleo])
+    Database.list(Queries.Nucleo.query())
   end
 
   def get_nucleo(id) do
-    with_queries_mod(&get_entity/3, [Nucleo, id])
+    Database.get(Nucleo, id)
   end
 
-  def update_nucleo(%Nucleo{} = nucleo, attrs, change_fun \\ :changeset) do
-    with_queries_mod(&update_and_preload/3, [nucleo, attrs], change_fun: change_fun)
+  def update_nucleo(%Nucleo{} = nucleo, attrs) do
+    Database.update(nucleo, attrs)
   end
 
   ## Pesquisador
@@ -115,15 +110,15 @@ defmodule Fuschia.ModuloPesquisa do
   end
 
   def create_pesquisador(attrs) do
-    with_queries_mod(&create_and_preload/3, [Pesquisador, attrs])
+    Database.create(Pesquisador, attrs)
   end
 
   def list_pesquisador do
-    with_queries_mod(&list_entity/2, [Pesquisador])
+    Database.list(Queries.Pesquisador.query())
   end
 
   def get_pesquisador(id) do
-    with_queries_mod(&get_entity/3, [Pesquisador, id])
+    Database.get(Pesquisador, id)
   end
 
   ## Relatorio
@@ -133,27 +128,18 @@ defmodule Fuschia.ModuloPesquisa do
   end
 
   def create_relatorio(attrs) do
-    with_queries_mod(&create_and_preload/3, [Relatorio, attrs])
+    Database.create(Relatorio, attrs)
   end
 
   def list_relatorio do
-    with_queries_mod(&list_entity/2, [Relatorio])
+    Database.list(Queries.Relatorio.query())
   end
 
   def get_relatorio(ano, mes) do
-    with_queries_mod(&get_entity_by/3, [Relatorio, [ano: ano, mes: mes]])
+    Database.get_by(Relatorio, ano: ano, mes: mes)
   end
 
   ## Generic
 
   defdelegate delete(source, opts \\ []), to: Fuschia.Database
-
-  # ---------------------------#
-  # Internal
-  # ---------------------------#
-
-  defp with_queries_mod(fun, initial_args, opts \\ []) do
-    # credo:disable-for-next-line Credo.Check.Refactor.AppendSingleItem
-    apply(fun, initial_args ++ [[queries_mod: Queries] ++ opts])
-  end
 end
