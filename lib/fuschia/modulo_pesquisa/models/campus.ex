@@ -34,6 +34,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
+    |> unique_constraint(:sigla, name: :campus_pkey)
     |> foreign_key_constraint(:cidade_municipio)
     |> put_change(:id, Nanoid.generate())
   end
