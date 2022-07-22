@@ -36,38 +36,6 @@ defmodule Fuschia.Database do
   end
 
   @doc """
-  Mesmo que `list/2` porém abstrai a ideia do módulo
-  de queries, recebendo-o via opções. Ao invés de receber
-  uma `%Ecto.Query{}` diretamente, recebe um módulo que
-  define uma entidade.
-
-  ## Opções
-  * `queries_mod` - define qual o módulo de queries será usado
-    para recuperar os relacionamentos de uma entidade.
-  * `query_fun` - define qual função do módulo de queries deverá
-    ser executada.
-  * `query_args` - define os argumentos que serão passados para
-    a função definida pela opção `query_fun`
-
-  ## Exemplos
-       iex> list_entity(Modulo, queries_mod: Queries)
-       [%Modulo{}]
-
-       iex> list_entity(Modulo, queries_mod: Queries)
-       [%Modulo{relacao_1: nil]
-  """
-  @spec list_entity(module, keyword) :: [struct]
-  def list_entity(source, opts) do
-    queries_mod = get_queries_mod(opts, source)
-    query_fun = Keyword.get(opts, :query_fun) || :query
-    query_args = get_query_args(opts)
-
-    queries_mod
-    |> apply(query_fun, query_args)
-    |> list(queries_mod.relationships())
-  end
-
-  @doc """
   Obtém uma entidade existentes no banco
   dado uma query e um `id`.
 
@@ -84,46 +52,19 @@ defmodule Fuschia.Database do
        iex> get(Modulo.query(), "")
        nil
   """
-  @spec get(query, id, relationships) :: struct | nil
-  def get(%Ecto.Query{} = query, id, args \\ []) do
+  @spec get(query | module, id, relationships) :: struct | nil
+  def get(source, id, arrgs \\ [])
+
+  def get(%Ecto.Query{} = query, id, args) do
     query
     |> preload_all(args)
     |> Repo.get(id)
   end
 
-  @doc """
-  Mesmo que `get/2` e `get/3` porém abstrai a ideia do módulo
-  de queries, recebendo-o via opções. Ao invés de receber
-  uma `%Ecto.Query{}` diretamente, recebe um módulo que
-  define uma entidade.
-
-  ## Opções
-  * `queries_mod` - define qual o módulo de queries será usado
-    para recuperar os relacionamentos de uma entidade.
-  * `query_fun` - define qual função do módulo de queries deverá
-    ser executada.
-  * `query_args` - define os argumentos que serão passados para
-    a função definida pela opção `query_fun`
-
-  ## Exemplos
-       iex> get_entity(Modulo, "id", queries_mod: Queries)
-       %Modulo{}
-
-       iex> get(Modulo, "id", queries_mod: Queries)
-       %Modulo{relacao_1: nil
-
-       iex> get(Modulo.query(), "", queries_mod: Queries)
-       nil
-  """
-  @spec get_entity(module, id, keyword) :: struct | nil
-  def get_entity(source, id, opts) do
-    queries_mod = get_queries_mod(opts, source)
-    query_fun = Keyword.get(opts, :query_fun) || :query
-    query_args = get_query_args(opts)
-
-    queries_mod
-    |> apply(query_fun, query_args)
-    |> get(id, queries_mod.relationships())
+  def get(module, id, args) do
+    module
+    |> Repo.get(id)
+    |> preload_all(args)
   end
 
   @doc """
@@ -148,41 +89,6 @@ defmodule Fuschia.Database do
     query
     |> preload_all(args)
     |> Repo.get_by(attrs)
-  end
-
-  @doc """
-  Mesmo que `get_by/2` e `get_by/3` porém abstrai a ideia do módulo
-  de queries, recebendo-o via opções. Ao invés de receber
-  uma `%Ecto.Query{}` diretamente, recebe um módulo que
-  define uma entidade.
-
-  ## Opções
-  * `queries_mod` - define qual o módulo de queries será usado
-    para recuperar os relacionamentos de uma entidade.
-  * `query_fun` - define qual função do módulo de queries deverá
-    ser executada.
-  * `query_args` - define os argumentos que serão passados para
-    a função definida pela opção `query_fun`
-
-  ## Exemplos
-       iex> get_entity_by(Modulo, [id: "id", field: "field"], queries_mod: Queries)
-       %Modulo{}
-
-       iex> get_entity_by(Modulo, [id: "id", field: "field"], queries_mod: Queries)
-       %Modulo{relacao_1: nil}
-
-       iex> get_entity_by(Modulo, [id: "", field: ""], queries_mod: Queries)
-       nil
-  """
-  @spec get_entity_by(module, keyword, keyword) :: struct | nil
-  def get_entity_by(source, args, opts) do
-    queries_mod = get_queries_mod(opts, source)
-    query_fun = Keyword.get(opts, :query_fun) || :query
-    query_args = get_query_args(opts)
-
-    queries_mod
-    |> apply(query_fun, query_args)
-    |> get_by(queries_mod.relationships(), args)
   end
 
   @doc """
@@ -235,10 +141,7 @@ defmodule Fuschia.Database do
        iex> exists?(Modulo.query())
        false
   """
-  @spec exists?(query) :: boolean
-  def exists?(%Ecto.Query{} = query) do
-    Repo.exists?(query)
-  end
+  defdelegate exists?(query), to: Repo
 
   @doc """
   Insere uma entidade no banco dado um módulo
@@ -271,7 +174,7 @@ defmodule Fuschia.Database do
           {:ok, struct} | {:error, changeset}
   def create_with_custom_changeset(schema, change_fun, attrs) do
     with %Ecto.Changeset{valid?: true} = changeset <-
-           schema |> Kernel.struct() |> change_fun.(attrs),
+           change_fun.(struct(schema), attrs),
          %{meta: meta, source: source} = build_meta(schema, "insert"),
          {:ok, changes} <-
            Ecto.Multi.new()
@@ -285,40 +188,9 @@ defmodule Fuschia.Database do
     end
   end
 
-  @doc """
-  Mesmo que `create/2` e `create_with_custom_changeset/3` porém abstrai
-  a ideia do módulo de queries, recebendo-o via opções. Ao invés de receber
-  uma `%Ecto.Query{}` diretamente, recebe um módulo que
-  define uma entidade. Também pré-carrega todas os relacionamentos.
-
-  ## Opções
-  * `queries_mod` - define qual o módulo de queries será usado
-    para recuperar os relacionamentos de uma entidade.
-  * `change_fun` - define qual função de changeset será usada.
-    O valor padrão é `Modulo.changeset/2`.
-
-  ## Exemplos
-       iex> cretae_and_preload(Modulo, params, queries_mod: Queries)
-       {:ok, %Modulo{}}
-
-       iex> create_and_preload(Modulo, invalid_params, queries_mod: Queries)
-       {:error, failed_operation, failed_value, changes_so_far}
-  """
-  @spec create_and_preload(module, map, keyword) :: {:ok, struct} | {:error, changeset}
-  def create_and_preload(source, attrs, opts) do
-    entity_query_mod = get_queries_mod(opts, source)
-    change_fun = Keyword.get(opts, :change_fun, :changeset)
-
-    create_fun =
-      if change_fun == :changeset,
-        do: &create(source, &1),
-        else: &create_with_custom_changeset(source, change_fun, &1)
-
-    with {:ok, entity} <- create_fun.(attrs),
-         %^source{} = preloaded <-
-           preload_all(entity, entity_query_mod.relationships()) do
-      {:ok, preloaded}
-    end
+  @spec update(struct, map) :: {:ok, struct} | {:error, changeset}
+  def update(%mod{} = schema, attrs) do
+    update_with_custom_changeset(schema, &mod.changeset/2, attrs)
   end
 
   @doc """
@@ -338,10 +210,9 @@ defmodule Fuschia.Database do
      iex> update(%Modulo{}, invalid_params)
      {:error, failed_operation, failed_value, changes_so_far}
   """
-  @spec update(struct, map, fun) :: {:ok, struct} | {:error, changeset}
-  def update(%mod{} = struct, attrs, change_fun \\ :changeset) do
-    change_fun = if change_fun == :changeset, do: &mod.changeset/2, else: change_fun
-
+  @spec update_with_custom_changeset(struct, map, fun) ::
+          {:ok, struct} | {:error, changeset}
+  def update_with_custom_changeset(%mod{} = struct, change_fun, attrs) do
     with %Ecto.Changeset{valid?: true} = changeset <-
            change_fun.(struct, attrs),
          %{meta: meta, source: source} = build_meta(mod, "update"),
@@ -354,40 +225,6 @@ defmodule Fuschia.Database do
     else
       %Ecto.Changeset{} = changeset -> {:error, changeset}
       err -> err
-    end
-  end
-
-  @doc """
-  Mesmo que `update/2` e `update/3` porém abstrai a ideia do
-  módulo de queries, recebendo-o via opções. Ao invés de receber
-  uma `%Ecto.Query{}` diretamente, recebe um módulo que
-  define uma entidade. Também pré-carrega todas os relacionamentos.
-
-  ## Opções
-  * `queries_mod` - define qual o módulo de queries será usado
-    para recuperar os relacionamentos de uma entidade.
-  * `change_fun` - define qual função de changeset será usada.
-    O valor padrão é `Modulo.changeset/2`.
-
-  ## Exemplos
-     iex> update_and_preload(%Modulo{}, params, queries_mod: Queries)
-     {:ok, %{modulo: %Modulo{}, ...}}
-
-     iex> update(%Modulo{}, params, queries_mod: Queries, change_fun: :update_changeset)
-     {:ok, %{modulo: %Modulo{}, ...}}
-
-     iex> update(%Modulo{}, invalid_params, queries_mod: Queries)
-     {:error, failed_operation, failed_value, changes_so_far}
-  """
-  @spec update_and_preload(struct, map, keyword) :: {:ok, struct} | {:error, changeset}
-  def update_and_preload(%source{} = struct, attrs, opts) do
-    entity_query_mod = get_queries_mod(opts, source)
-    change_fun = Keyword.get(opts, :change_fun, :changeset)
-
-    with {:ok, entity} <- update(struct, attrs, change_fun),
-         %^source{} = preloaded <-
-           preload_all(entity, entity_query_mod.relationships()) do
-      {:ok, preloaded}
     end
   end
 
@@ -420,13 +257,13 @@ defmodule Fuschia.Database do
     end
   end
 
-  @spec insert_or_update(struct, list) :: {:ok, struct} | {:error, changeset}
-  def insert_or_update(%mod{} = struct, opts \\ []) do
+  @spec insert_or_update(changeset, list) :: {:ok, struct} | {:error, changeset}
+  def insert_or_update(%Ecto.Changeset{data: %mod{}} = changeset, opts \\ []) do
     %{meta: meta, source: source} = build_meta(mod, "insert_or_update")
 
     Ecto.Multi.new()
     |> Carbonite.Multi.insert_transaction(meta)
-    |> Ecto.Multi.insert_or_update(source, struct, opts)
+    |> Ecto.Multi.insert_or_update(source, changeset, opts)
     |> Repo.transaction()
     |> case do
       {:ok, changes} -> {:ok, Map.get(changes, source)}
@@ -504,7 +341,7 @@ defmodule Fuschia.Database do
   end
 
   @spec preload_all(struct, relationships) :: struct
-  def preload_all(%{} = struct, args) do
+  def preload_all(%_mod{} = struct, args) do
     Repo.preload(struct, args)
   end
 
@@ -513,21 +350,5 @@ defmodule Fuschia.Database do
     type = source <> "_" <> event
 
     %{meta: %{type: type}, source: source}
-  end
-
-  defp get_queries_mod(opts, mod) do
-    suffix = mod |> to_string() |> String.split(".") |> List.last()
-
-    opts
-    |> Keyword.get(:queries_mod)
-    |> Module.safe_concat(suffix)
-  end
-
-  defp get_query_args(opts) do
-    case Keyword.get(opts, :query_args) do
-      nil -> []
-      args when is_list(args) -> args
-      arg -> [arg]
-    end
   end
 end

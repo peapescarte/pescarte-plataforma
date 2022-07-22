@@ -9,7 +9,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
   alias Fuschia.ModuloPesquisa.Models.{Cidade, Pesquisador}
   alias Fuschia.Types.CapitalizedString
 
-  @required_fields ~w(nome)a
+  @required_fields ~w(nome cidade_municipio)a
 
   @primary_key {:nome, CapitalizedString, autogenerate: false}
   schema "campus" do
@@ -32,7 +32,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
-    |> cast_assoc(:cidade, required: true)
+    |> foreign_key_constraint(:cidade_municipio)
     |> put_change(:id, Nanoid.generate())
   end
 

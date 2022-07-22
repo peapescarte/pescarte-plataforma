@@ -15,6 +15,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     tipo_bolsa
     link_lattes
     campus_nome
+    usuario_cpf
   )a
 
   @optional_fields ~w(orientador_cpf)a
@@ -62,7 +63,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     |> validate_required(@required_fields)
     |> validate_length(:minibiografia, max: 280)
     |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
-    |> cast_assoc(:usuario, required: true, with: &User.registration_changeset/2)
+    |> foreign_key_constraint(:usuario_cpf)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
     |> put_change(:id, Nanoid.generate())
@@ -72,10 +73,9 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
   def update_changeset(%__MODULE__{} = struct, attrs) do
     struct
     |> cast(attrs, @required_fields ++ @optional_fields)
-    |> validate_required([:minibiografia, :link_lattes, :campus_nome])
     |> validate_length(:minibiografia, max: 280)
     |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
-    |> put_assoc(:usuario, attrs["usuario"])
+    |> foreign_key_constraint(:usuario_cpf)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_nome)
   end
