@@ -16,7 +16,7 @@ defmodule Fuschia.PesquisadorFactory do
           minibiografia: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
           tipo_bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),
           link_lattes: sequence(:link_lattes, &"http://buscatextual.cnpq.br/buscatextual/:#{&1}"),
-          campus_nome: campus.nome
+          campus_sigla: campus.sigla
         }
       end
     end

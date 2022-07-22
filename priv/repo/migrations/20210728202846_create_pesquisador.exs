@@ -24,8 +24,8 @@ defmodule Fuschia.Repo.Migrations.CreatePesquisador do
       )
 
       add(
-        :campus_nome,
-        references(:campus, on_delete: :nothing, type: :string, column: :nome),
+        :campus_sigla,
+        references(:campus, on_delete: :nothing, type: :string, column: :sigla),
         null: false
       )
 
