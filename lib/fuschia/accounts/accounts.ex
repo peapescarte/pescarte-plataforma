@@ -12,7 +12,6 @@ defmodule Fuschia.Accounts do
   alias Fuschia.Accounts.Models.AuthLog
   alias Fuschia.Accounts.Models.User, as: UserModel
   alias Fuschia.Accounts.Models.UserToken, as: UserTokenModel
-  alias Fuschia.Accounts.Queries
   alias Fuschia.Accounts.Queries.User, as: UserQueries
   alias Fuschia.Accounts.Queries.UserToken, as: UserTokenQueries
   alias Fuschia.Accounts.UserNotifier
@@ -79,7 +78,7 @@ defmodule Fuschia.Accounts do
 
   """
   def list_user do
-    with_queries_mod(&Database.list_entity/2, [UserModel])
+    Database.list(UserQueries.query())
   end
 
   @doc """
@@ -113,10 +112,8 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user(cpf) do
-    get_fun = &Database.get_entity/3
-
-    get_fun
-    |> with_queries_mod([UserModel, cpf])
+    UserModel
+    |> Database.get(cpf)
     |> UserLogic.put_permissions()
   end
 
@@ -133,10 +130,8 @@ defmodule Fuschia.Accounts do
 
   """
   def get_user_by_id(id) do
-    get_fun = &Database.get_entity_by/3
-
-    get_fun
-    |> with_queries_mod([UserModel, [id: id]])
+    UserModel
+    |> Database.get_by(id: id)
     |> UserLogic.put_permissions()
   end
 
@@ -170,9 +165,7 @@ defmodule Fuschia.Accounts do
 
   """
   def create_user(attrs) do
-    with_queries_mod(&Database.create_and_preload/3, [UserModel, attrs],
-      change_fun: &UserModel.admin_changeset/2
-    )
+    Database.create_with_custom_changeset(UserModel, &UserModel.admin_changeset/2, attrs)
   end
 
   @doc """
@@ -188,9 +181,7 @@ defmodule Fuschia.Accounts do
 
   """
   def register_user(attrs) do
-    with_queries_mod(&Database.create_and_preload/3, [UserModel, attrs],
-      change_fun: &UserModel.registration_changeset/2
-    )
+    Database.create_with_custom_changeset(UserModel, &UserModel.registration_changeset/2, attrs)
   end
 
   @doc """
@@ -484,10 +475,5 @@ defmodule Fuschia.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
-  end
-
-  defp with_queries_mod(fun, initial_args, opts \\ []) do
-    # credo:disable-for-next-line Credo.Check.Refactor.AppendSingleItem
-    apply(fun, initial_args ++ [[queries_mod: Queries] ++ opts])
   end
 end

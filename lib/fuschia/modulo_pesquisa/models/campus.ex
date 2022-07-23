@@ -7,13 +7,15 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
   import Ecto.Changeset
 
   alias Fuschia.ModuloPesquisa.Models.{Cidade, Pesquisador}
-  alias Fuschia.Types.CapitalizedString
+  alias Fuschia.Types.{CapitalizedString, TrimmedString}
 
-  @required_fields ~w(nome)a
+  @required_fields ~w(sigla cidade_municipio)a
+  @optional_fields ~w(nome)a
 
-  @primary_key {:nome, CapitalizedString, autogenerate: false}
+  @primary_key {:sigla, CapitalizedString, autogenerate: false}
   schema "campus" do
     field :id, :string
+    field :nome, TrimmedString
 
     belongs_to :cidade, Cidade,
       type: :string,
@@ -21,7 +23,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
       references: :municipio,
       foreign_key: :cidade_municipio
 
-    has_many :pesquisadores, Pesquisador, foreign_key: :campus_nome
+    has_many :pesquisadores, Pesquisador, foreign_key: :campus_sigla
 
     timestamps()
   end
@@ -29,10 +31,11 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
   @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
   def changeset(%__MODULE__{} = struct, attrs) do
     struct
-    |> cast(attrs, @required_fields)
+    |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
-    |> cast_assoc(:cidade, required: true)
+    |> unique_constraint(:sigla, name: :campus_pkey)
+    |> foreign_key_constraint(:cidade_municipio)
     |> put_change(:id, Nanoid.generate())
   end
 
@@ -41,7 +44,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
     struct
     |> cast(attrs, [:cidade_municipio | @required_fields])
     |> validate_required([:cidade_municipio | @required_fields])
-    |> unique_constraint([:nome, :cidade_municipio], name: :campus_nome_municipio_index)
+    |> unique_constraint([:sigla, :cidade_municipio], name: :campus_sigla_municipio_index)
     |> foreign_key_constraint(:cidade_municipio)
     |> put_change(:id, Nanoid.generate())
   end

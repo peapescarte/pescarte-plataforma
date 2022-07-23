@@ -12,7 +12,8 @@ defmodule Fuschia.CampusFactory do
         %Campus{
           id: Nanoid.generate_non_secure(),
           nome: sequence(:nome, &"Campus #{&1}"),
-          cidade: cidade
+          cidade: cidade,
+          sigla: sequence(:sigla, &"C#{&1}")
         }
       end
     end
