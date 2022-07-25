@@ -11,6 +11,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Cidade do
 
   @required_fields ~w(municipio)a
 
+  @derive Jason.Encoder
   @primary_key {:id, :string, autogenerate: false}
   schema "cidade" do
     field :municipio, CapitalizedString
@@ -27,16 +28,5 @@ defmodule Fuschia.ModuloPesquisa.Models.Cidade do
     |> unique_constraint(:municipio)
     |> validate_required(@required_fields)
     |> put_change(:id, Nanoid.generate())
-  end
-
-  defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.Cidade
-
-    @spec encode(Cidade.t(), map) :: map
-    def encode(struct, opts) do
-      struct
-      |> Cidade.to_map()
-      |> Fuschia.Encoder.encode(opts)
-    end
   end
 end

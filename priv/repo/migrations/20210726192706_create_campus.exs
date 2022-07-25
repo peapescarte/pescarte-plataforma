@@ -12,5 +12,6 @@ defmodule Fuschia.Repo.Migrations.CreateCampus do
     end
 
     create unique_index(:campus, [:sigla])
+    create unique_index(:campus, [:cidade_id, :sigla])
   end
 end

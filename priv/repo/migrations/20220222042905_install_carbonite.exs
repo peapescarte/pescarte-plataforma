@@ -23,6 +23,6 @@ defmodule Fuschia.Repo.Migrations.InstallCarbonite do
   end
 
   defp audit_tables do
-    ~w(campus cidade core linha_pesquisa midia pesquisador relatorio user)a
+    ~w(campus cidade linha_pesquisa midia nucleo pesquisador relatorio user)a
   end
 end

@@ -1,10 +1,10 @@
-defmodule Fuschia.Repo.Migrations.CreateCore do
+defmodule Fuschia.Repo.Migrations.CreateNucleo do
   use Ecto.Migration
 
   def change do
-    create table(:core, primary_key: false) do
+    create table(:nucleo, primary_key: false) do
       add :id, :string, primary_key: true, null: false
-      add :name, :string, null: false
+      add :nome, :string, null: false
       add :desc, :string, size: 400, null: false
 
       timestamps()

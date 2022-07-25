@@ -5,7 +5,7 @@ defmodule Fuschia.ModuloPesquisa.Models.LinhaPesquisa do
   use Fuschia.Schema
   import Ecto.Changeset
 
-  alias Fuschia.ModuloPesquisa.Models.Core
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
   alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(core_id descricao_curta numero)a
@@ -18,7 +18,7 @@ defmodule Fuschia.ModuloPesquisa.Models.LinhaPesquisa do
     field :descricao_curta, TrimmedString
     field :descricao_longa, TrimmedString
 
-    belongs_to :core, Core
+    belongs_to :nucleo, Nucleo
 
     timestamps()
   end
@@ -31,7 +31,7 @@ defmodule Fuschia.ModuloPesquisa.Models.LinhaPesquisa do
     |> validate_required(@required_fields)
     |> validate_length(:descricao_curta, max: 50)
     |> validate_length(:descricao_longa, max: 280)
-    |> foreign_key_constraint(:core_id)
+    |> foreign_key_constraint(:nucleo_id)
     |> put_change(:id, Nanoid.generate())
   end
 end

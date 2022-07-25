@@ -29,6 +29,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     coordenador_pedagogico
   )a
 
+  @derive Jason.Encoder
   @primary_key {:id, :string, autogenerate: false}
   schema "pesquisador" do
     field :minibiografia, TrimmedString
@@ -68,16 +69,5 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     |> foreign_key_constraint(:usuario_cpf)
     |> foreign_key_constraint(:orientador_cpf)
     |> foreign_key_constraint(:campus_sigla)
-  end
-
-  defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.Pesquisador
-
-    @spec encode(Pesquisador.t(), map) :: map
-    def encode(struct, opts) do
-      struct
-      |> Pesquisador.to_map()
-      |> Fuschia.Encoder.encode(opts)
-    end
   end
 end

@@ -1,4 +1,4 @@
-defmodule Fuschia.ModuloPesquisa.Models.Core do
+defmodule Fuschia.ModuloPesquisa.Models.Nucleo do
   @moduledoc """
   Nucleo schema
   """
@@ -8,15 +8,15 @@ defmodule Fuschia.ModuloPesquisa.Models.Core do
   alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
   alias Fuschia.Types.CapitalizedString
 
-  @required_fields ~w(name desc)a
+  @required_fields ~w(nome desc)a
 
   @derive Jason.Encoder
   @primary_key {:id, :string, autogenerate: false}
   schema "core" do
-    field :name, CapitalizedString
+    field :nome, CapitalizedString
     field :desc, :string
 
-    has_many :lines, LinhaPesquisa
+    has_many :linhas, LinhaPesquisa
 
     timestamps()
   end

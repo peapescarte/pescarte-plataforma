@@ -8,9 +8,9 @@ defmodule Fuschia.ModuloPesquisa do
 
   alias Fuschia.ModuloPesquisa.Models.Campus
   alias Fuschia.ModuloPesquisa.Models.Cidade
-  alias Fuschia.ModuloPesquisa.Models.Core
   alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
   alias Fuschia.ModuloPesquisa.Models.Midia
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
   alias Fuschia.ModuloPesquisa.Models.Pesquisador
   alias Fuschia.ModuloPesquisa.Models.Relatorio
   alias Fuschia.ModuloPesquisa.Queries
@@ -47,24 +47,6 @@ defmodule Fuschia.ModuloPesquisa do
     Database.get(Cidade, id)
   end
 
-  ## Core
-
-  def create_core(attrs) do
-    Database.create(Core, attrs)
-  end
-
-  def list_cores do
-    Database.list(Queries.Core.query())
-  end
-
-  def get_core(id) do
-    Database.get(Core, id)
-  end
-
-  def update_core(%Core{} = core, attrs) do
-    Database.update(core, attrs)
-  end
-
   ## LinhaPesquisa
 
   def create_linha_pesquisa(attrs) do
@@ -77,7 +59,7 @@ defmodule Fuschia.ModuloPesquisa do
 
   def list_linha_pesquisa_by_core(core_id) do
     core_id
-    |> Queries.LinhaPesquisa.query_by_core()
+    |> Queries.LinhaPesquisa.query_by_nucleo()
     |> Database.list()
   end
 
@@ -101,6 +83,24 @@ defmodule Fuschia.ModuloPesquisa do
 
   def update_midia(%Midia{} = midia, attrs) do
     Database.update(midia, attrs)
+  end
+
+  ## nucleo
+
+  def create_nucleo(attrs) do
+    Database.create(Nucleo, attrs)
+  end
+
+  def list_nucleos do
+    Database.list(Queries.Nucleo.query())
+  end
+
+  def get_nucleo(id) do
+    Database.get(Nucleo, id)
+  end
+
+  def update_nucleo(%Nucleo{} = nucleo, attrs) do
+    Database.update(nucleo, attrs)
   end
 
   ## Pesquisador
