@@ -11,9 +11,9 @@ defmodule Fuschia.ModuloPesquisa.Models.LinhaPesquisa do
   @required_fields ~w(descricao_curta numero nucleo_nome)a
   @optional_fields ~w(descricao_longa)a
 
-  @primary_key {:numero, :integer, []}
+  @primary_key {:id, :string, autogenerate: false}
   schema "linha_pesquisa" do
-    field :id, :string
+    field :numero, :integer
     field :descricao_curta, TrimmedString
     field :descricao_longa, TrimmedString
 

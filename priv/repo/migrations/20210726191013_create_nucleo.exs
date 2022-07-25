@@ -3,7 +3,8 @@ defmodule Fuschia.Repo.Migrations.CreateNucleos do
 
   def change do
     create table(:nucleo, primary_key: false) do
-      add :nome, :string, primary_key: true
+      add :id, :string, primary_key: true, null: false
+      add :nome, :string, null: false
       add :descricao, :string, size: 400, null: false
 
       timestamps()

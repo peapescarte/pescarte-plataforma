@@ -13,22 +13,18 @@ defmodule Fuschia.ModuloPesquisa.Models.Midia do
    tipo
    link
    tags
-   pesquisador_cpf
+   pesquisador_id
   )a
 
   @tipos_midia ~w(video imagem documento)
 
-  @primary_key {:link, TrimmedString, autogenerate: false}
+  @primary_key {:id, :string, autogenerate: false}
   schema "midia" do
-    field :id, :string
     field :tipo, TrimmedString
+    field :link, TrimmedString
     field :tags, {:array, TrimmedString}
 
-    belongs_to :pesquisador, Pesquisador,
-      references: :usuario_cpf,
-      foreign_key: :pesquisador_cpf,
-      type: TrimmedString,
-      on_replace: :update
+    belongs_to :pesquisador, Pesquisador, on_replace: :update
 
     timestamps()
   end

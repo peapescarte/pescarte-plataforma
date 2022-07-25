@@ -109,10 +109,10 @@ defmodule Fuschia.Accounts.Queries.UserToken do
   Obtém todos os tokens do usuário fornecido para os contextos fornecidos.
   """
   def user_and_contexts_query(user, :all) do
-    from t in UserToken, where: t.user_cpf == ^user.cpf
+    from t in UserToken, where: t.user_id == ^user.id
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in UserToken, where: t.user_cpf == ^user.cpf and t.context in ^contexts
+    from t in UserToken, where: t.user_id == ^user.id and t.context in ^contexts
   end
 end

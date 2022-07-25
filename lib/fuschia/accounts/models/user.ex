@@ -26,8 +26,9 @@ defmodule Fuschia.Accounts.Models.User do
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
-  @primary_key {:cpf, TrimmedString, autogenerate: false}
+  @primary_key {:id, :string, autogenerate: false}
   schema "user" do
+    field :cpf, TrimmedString
     field :confirmed_at, :naive_datetime
     field :password_hash, TrimmedString, redact: true
     field :password, TrimmedString, virtual: true, redact: true
@@ -37,9 +38,8 @@ defmodule Fuschia.Accounts.Models.User do
     field :nome_completo, CapitalizedString
     field :ativo?, :boolean, default: true
     field :permissoes, :map, virtual: true
-    field :id, :string
 
-    has_one :pesquisador, Pesquisador, foreign_key: :usuario_cpf
+    has_one :pesquisador, Pesquisador
     belongs_to :contato, ContatoModel, on_replace: :update
 
     timestamps()
