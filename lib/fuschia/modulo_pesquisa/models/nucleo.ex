@@ -10,9 +10,9 @@ defmodule Fuschia.ModuloPesquisa.Models.Nucleo do
 
   @required_fields ~w(nome descricao)a
 
-  @primary_key {:nome, CapitalizedString, []}
+  @primary_key {:id, :string, autogenerate: false}
   schema "nucleo" do
-    field :id, :string
+    field :nome, CapitalizedString
     field :descricao, :string
 
     has_many :linhas_pesquisa, LinhaPesquisa, foreign_key: :nucleo_nome

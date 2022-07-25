@@ -10,7 +10,7 @@ defmodule Fuschia.ModuloPesquisa.Adapters.Relatorio do
       mes: struct.mes,
       tipo: struct.tipo,
       link: struct.link,
-      pesquisador_cpf: struct.pesquisador_cpf
+      pesquisador_id: struct.pesquisador_id
     }
   end
 end

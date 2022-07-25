@@ -51,14 +51,6 @@ defmodule FuschiaWeb.Router do
     get "/perfil/confirmar_email/:token",
         UserProfileController,
         :confirm_email
-
-    ## scope "/administrador" do
-    ##  get "/cadastro", CadastroAdminController, :new
-    ##  post "/cadastro", CadastroAdminController, :create
-
-    ##  get "/relato", RelatoAdminController, :new
-    ##  post "/relato", RelatoAdminController, :create
-    ##end
   end
 
   scope "/app", FuschiaWeb do

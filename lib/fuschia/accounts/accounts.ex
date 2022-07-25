@@ -44,7 +44,7 @@ defmodule Fuschia.Accounts do
 
     email
     |> UserQueries.get_by_email_query()
-    |> Database.one(UserQueries.relationships())
+    |> Database.one()
   end
 
   @doc """
@@ -139,17 +139,15 @@ defmodule Fuschia.Accounts do
 
   @spec create_auth_log(map) :: :ok
   def create_auth_log(attrs) do
-    %AuthLog{}
-    |> AuthLog.changeset(attrs)
-    |> Database.insert()
+    Database.create(AuthLog, attrs)
 
     :ok
   end
 
   @spec create_auth_log(String.t(), String.t(), User.t()) :: :ok
   def create_auth_log(ip, user_agent, user) do
-    user_cpf = Map.get(user, :cpf) || Map.get(user, "cpf")
-    create_auth_log(%{"ip" => ip, "user_agent" => user_agent, "user_cpf" => user_cpf})
+    user_id = Map.get(user, :id) || Map.get(user, "id")
+    create_auth_log(%{"ip" => ip, "user_agent" => user_agent, "user_id" => user_id})
   end
 
   @doc """

@@ -3,7 +3,8 @@ defmodule Fuschia.Repo.Migrations.CreateCidade do
 
   def change do
     create table(:cidade, primary_key: false) do
-      add(:municipio, :string, primary_key: true, null: false)
+      add :id, :string, primary_key: true, null: false
+      add :municipio, :string, null: false
 
       timestamps()
     end

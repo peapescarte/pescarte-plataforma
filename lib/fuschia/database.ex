@@ -28,11 +28,9 @@ defmodule Fuschia.Database do
        iex> list(Modulo.query(), [:relacao_1])
        [%Modulo{relacao_1: nil]
   """
-  @spec list(query, relationships) :: [struct]
-  def list(%Ecto.Query{} = query, args \\ []) do
-    query
-    |> preload_all(args)
-    |> Repo.all()
+  @spec list(query | module) :: [struct]
+  def list(source) do
+    Repo.all(source)
   end
 
   @doc """
@@ -53,16 +51,8 @@ defmodule Fuschia.Database do
        nil
   """
   @spec get(query | module, id, relationships) :: struct | nil
-  def get(source, id, arrgs \\ [])
-
-  def get(%Ecto.Query{} = query, id, args) do
-    query
-    |> preload_all(args)
-    |> Repo.get(id)
-  end
-
-  def get(module, id, args) do
-    module
+  def get(source, id, args \\ []) do
+    source
     |> Repo.get(id)
     |> preload_all(args)
   end
@@ -84,51 +74,26 @@ defmodule Fuschia.Database do
        iex> get_by(Modulo.query(), [id: "", field: ""])
        nil
   """
-  @spec get_by(query, relationships, keyword) :: struct | nil
-  def get_by(%Ecto.Query{} = query, args \\ [], attrs) do
-    query
-    |> preload_all(args)
+  @spec get_by(query | module, relationships, keyword) :: struct | nil
+  def get_by(source, args \\ [], attrs) do
+    source
     |> Repo.get_by(attrs)
-  end
-
-  @doc """
-  Obtém uma entidade existentes no banco
-  dado uma query. O resultado depende da
-  ordenação da query.
-
-  ## Exemplos
-       iex> one(Modulo.query())
-       %Modulo{}
-
-       iex> one(Modulo.query())
-       nil
-  """
-  defdelegate one(query), to: Repo
-
-  @doc """
-  Obtém uma entidade existentes no banco
-  dado uma query. O resultado depende da
-  ordenação da query.
-
-  Também aceita uma lista de átomos que representam
-  as associações à serem pré-carregadas.
-
-  ## Exemplos
-       iex> one(Modulo.query())
-       %Modulo{}
-
-       iex> one(Modulo.query(), [:relacao_1])
-       %Modulo{relacao_1: nil
-
-       iex> one(Modulo.query())
-       nil
-  """
-  @spec one(query, relationships) :: struct | nil
-  def one(%Ecto.Query{} = query, args) do
-    query
     |> preload_all(args)
-    |> Repo.one()
   end
+
+  @doc """
+  Obtém uma entidade existentes no banco
+  dado uma query. O resultado depende da
+  ordenação da query.
+
+  ## Exemplos
+       iex> one(Modulo.query())
+       %Modulo{}
+
+       iex> one(Modulo.query())
+       nil
+  """
+  defdelegate one(source), to: Repo
 
   @doc """
   Verifica se uma entidade existe no banco
@@ -177,14 +142,10 @@ defmodule Fuschia.Database do
            change_fun.(struct(schema), attrs),
          %{meta: meta, source: source} = build_meta(schema, "insert"),
          {:ok, changes} <-
-           Ecto.Multi.new()
-           |> Carbonite.Multi.insert_transaction(meta)
-           |> Ecto.Multi.insert(source, changeset)
-           |> Repo.transaction() do
+           carbonite_multi(&Ecto.Multi.insert/4, meta, source, changeset) do
       {:ok, Map.get(changes, source)}
     else
       %Ecto.Changeset{} = changeset -> {:error, changeset}
-      {:error, _source, changeset, _carbo} -> {:error, changeset}
     end
   end
 
@@ -210,56 +171,32 @@ defmodule Fuschia.Database do
      iex> update(%Modulo{}, invalid_params)
      {:error, failed_operation, failed_value, changes_so_far}
   """
-  @spec update_with_custom_changeset(struct, map, fun) ::
+  @spec update_with_custom_changeset(struct, map, change_fun) ::
           {:ok, struct} | {:error, changeset}
   def update_with_custom_changeset(%mod{} = struct, change_fun, attrs) do
     with %Ecto.Changeset{valid?: true} = changeset <-
            change_fun.(struct, attrs),
          %{meta: meta, source: source} = build_meta(mod, "update"),
          {:ok, changes} <-
-           Ecto.Multi.new()
-           |> Carbonite.Multi.insert_transaction(meta)
-           |> Ecto.Multi.update(source, changeset)
-           |> Repo.transaction() do
+           carbonite_multi(&Ecto.Multi.update/4, meta, source, changeset) do
       {:ok, Map.get(changes, source)}
     else
       %Ecto.Changeset{} = changeset -> {:error, changeset}
-      {:error, _source, changeset, _carbo} -> {:error, changeset}
     end
   end
 
-  @spec insert(changeset | struct, list) :: {:ok, struct} | {:error, changeset}
-  def insert(source, opts \\ [])
-
-  def insert(%Ecto.Changeset{data: %mod{}} = changeset, opts) do
+  @spec insert(struct, list) :: {:ok, struct} | {:error, changeset}
+  def insert(%mod{} = struct, opts \\ []) do
     %{meta: meta, source: source} = build_meta(mod, "insert")
 
-    Ecto.Multi.new()
-    |> Carbonite.Multi.insert_transaction(meta)
-    |> Ecto.Multi.insert(source, changeset, opts)
-    |> Repo.transaction()
-    |> case do
-      {:ok, changes} -> {:ok, Map.get(changes, source)}
-      err -> err
-    end
-  end
-
-  def insert(%mod{} = struct, opts) do
-    %{meta: meta, source: source} = build_meta(mod, "insert")
-
-    Ecto.Multi.new()
-    |> Carbonite.Multi.insert_transaction(meta)
-    |> Ecto.Multi.insert(source, struct, opts)
-    |> Repo.transaction()
-    |> case do
-      {:ok, changes} -> {:ok, Map.get(changes, source)}
-      err -> err
+    with {:ok, changes} <-
+           carbonite_multi(&Ecto.Multi.insert/4, meta, source, struct, opts) do
+      {:ok, Map.get(changes, source)}
     end
   end
 
   @doc """
-  deleta uma entidade existente no banco
-  dado um struct ou changeset.
+  Deleta uma entidade existente no banco.
 
   ## Exemplos
      iex> delete(%Modulo{})
@@ -269,34 +206,15 @@ defmodule Fuschia.Database do
      {:ok, %{modulo: %Modulo{}, ...}}
 
      iex> delete(invalid_entity)
-     {:error, failed_operation, failed_value, changes_so_far}
+     {:error, %Ecto.Changeset{...}}
   """
-  @spec delete(struct | changeset, keyword) :: {:ok, struct} | {:error, changeset}
-  def delete(source, opts \\ [])
-
-  def delete(%Ecto.Changeset{data: %mod{}} = changeset, opts) do
-    %{meta: meta, source: source} = build_meta(mod, "delete")
-
-    Ecto.Multi.new()
-    |> Carbonite.Multi.insert_transaction(meta)
-    |> Ecto.Multi.delete(source, changeset, opts)
-    |> Repo.transaction()
-    |> case do
-      {:ok, changes} -> {:ok, Map.get(changes, source)}
-      err -> err
-    end
-  end
-
+  @spec delete(struct, keyword) :: {:ok, struct} | {:error, changeset}
   def delete(%mod{} = struct, opts) do
     %{meta: meta, source: source} = build_meta(mod, "delete")
 
-    Ecto.Multi.new()
-    |> Carbonite.Multi.insert_transaction(meta)
-    |> Ecto.Multi.delete(source, struct, opts)
-    |> Repo.transaction()
-    |> case do
-      {:ok, changes} -> {:ok, Map.get(changes, source)}
-      err -> err
+    with {:ok, changes} <-
+           carbonite_multi(&Ecto.Multi.delete/4, meta, source, struct, opts) do
+      {:ok, Map.get(changes, source)}
     end
   end
 
@@ -317,7 +235,7 @@ defmodule Fuschia.Database do
      iex> preload_all(%Modulo{}, [:relacao_1])
      %Modulo{relacao_1: nil}
   """
-  @spec preload_all(query, relationships) :: query
+  @spec preload_all(query | struct, relationships) :: query
   def preload_all(nil, _args), do: nil
 
   def preload_all(%Ecto.Query{} = query, args) do
@@ -326,9 +244,22 @@ defmodule Fuschia.Database do
     Ecto.Query.preload(query, ^args)
   end
 
-  @spec preload_all(struct, relationships) :: struct
   def preload_all(%_mod{} = struct, args) do
     Repo.preload(struct, args)
+  end
+
+  defp carbonite_multi(fun, meta, source, changeset, opts \\ []) do
+    opts = if Enum.empty?(opts), do: [on_conflict: :replace], else: []
+
+    Ecto.Multi.new()
+    |> Carbonite.Multi.insert_transaction(meta)
+    |> fun.(source, changeset, opts)
+    |> Repo.transaction()
+    |> case do
+      {:error, _any} = err -> err
+      {:error, _source, changeset, _carbo} -> {:error, changeset}
+      ok -> ok
+    end
   end
 
   defp build_meta(module, event) do

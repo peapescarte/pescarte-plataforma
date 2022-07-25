@@ -8,17 +8,19 @@ defmodule Fuschia.Jobs.MailerJob do
   alias Fuschia.{Mailer, Parser}
 
   @doc """
-    Deliver an email to partner
-    Example:
+  Deliver an email to partner
+
+  ## Examples
       iex> %{
-              to: "test_user@gmail.com",
-              subject: "some subject",
-              layout: "notificacao",
-              template: "nova_midia",
-              assigns: %{user_cpf: "999.999.999-99"}
-            }
-            |> Fuschia.Jobs.MailerJob.new()
-            |> Oban.insert!()
+        to: "test_user@gmail.com",
+        subject: "some subject",
+        layout: "notificacao",
+        template: "nova_midia",
+        assigns: %{user_id: "mJUHrGXZBZpNX50x2xkzf"}
+      }
+      |> Fuschia.Jobs.MailerJob.new()
+      |> Oban.insert!()
+      > {:ok, %Oban.Job{...}}
   """
   @impl Oban.Worker
   def perform(%{args: args}) do
