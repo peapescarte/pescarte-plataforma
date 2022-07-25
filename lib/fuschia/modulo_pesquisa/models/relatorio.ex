@@ -23,6 +23,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
 
   @tipos ~w(mensal trimestral anual)a
 
+  @derive Jason.Encoder
   @primary_key {:id, :string, autogenerate: false}
   schema "relatorio" do
     field :ano, :integer
@@ -45,16 +46,5 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
     |> validate_year(:ano)
     |> foreign_key_constraint(:pesquisador_id)
     |> put_change(:id, Nanoid.generate())
-  end
-
-  defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.Relatorio
-
-    @spec encode(Relatorio.t(), map) :: map
-    def encode(struct, opts) do
-      struct
-      |> Relatorio.to_map()
-      |> Fuschia.Encoder.encode(opts)
-    end
   end
 end

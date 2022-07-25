@@ -7,12 +7,12 @@ defmodule Fuschia.Repo.Migrations.CreateLinhaPesquisa do
       add :numero, :integer, null: false
       add :descricao_curta, :string, size: 50, null: false
       add :descricao_longa, :string, size: 280
-      add :core_id, references(:core, type: :string), null: false
+      add :nucleo_id, references(:nucleo, type: :string), null: false
 
       timestamps()
     end
 
     create unique_index(:linha_pesquisa, [:numero])
-    create unique_index(:linha_pesquisa, [:core_id])
+    create unique_index(:linha_pesquisa, [:nucleo_id])
   end
 end

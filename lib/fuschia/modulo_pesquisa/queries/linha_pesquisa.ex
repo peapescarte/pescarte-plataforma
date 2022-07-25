@@ -5,8 +5,8 @@ defmodule Fuschia.ModuloPesquisa.Queries.LinhaPesquisa do
 
   import Ecto.Query, only: [from: 2, join: 5, where: 3]
 
-  alias Fuschia.ModuloPesquisa.Models.Core
   alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Models.Nucleo
 
   @behaviour Fuschia.Query
 
@@ -16,13 +16,13 @@ defmodule Fuschia.ModuloPesquisa.Queries.LinhaPesquisa do
       order_by: [desc: l.inserted_at]
   end
 
-  @spec query_by_core(binary) :: Ecto.Query.t()
-  def query_by_core(core_id) do
+  @spec query_by_nucleo(binary) :: Ecto.Query.t()
+  def query_by_nucleo(nucleo_id) do
     query()
-    |> join(:inner, [l], c in Core, on: l.core_id == c.id)
-    |> where([l], l.core_id == ^core_id)
+    |> join(:inner, [l], n in Nucleo, on: l.nucleo_id == n.id)
+    |> where([l], l.nucleo_id == ^nucleo_id)
   end
 
   @impl true
-  def relationships, do: [:core]
+  def relationships, do: [:nucleo]
 end

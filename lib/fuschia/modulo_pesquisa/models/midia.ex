@@ -18,6 +18,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Midia do
 
   @tipos_midia ~w(video imagem documento)
 
+  @derive Jason.Encoder
   @primary_key {:id, :string, autogenerate: false}
   schema "midia" do
     field :tipo, TrimmedString
@@ -38,16 +39,5 @@ defmodule Fuschia.ModuloPesquisa.Models.Midia do
     |> validate_inclusion(:tipo, @tipos_midia)
     |> foreign_key_constraint(:pesquisador_cpf)
     |> put_change(:id, Nanoid.generate())
-  end
-
-  defimpl Jason.Encoder, for: __MODULE__ do
-    alias Fuschia.ModuloPesquisa.Adapters.Midia
-
-    @spec encode(Midia.t(), map) :: map
-    def encode(struct, opts) do
-      struct
-      |> Midia.to_map()
-      |> Fuschia.Encoder.encode(opts)
-    end
   end
 end
