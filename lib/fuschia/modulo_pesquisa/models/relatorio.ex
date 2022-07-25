@@ -15,29 +15,23 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
     ano
     mes
     tipo
-    pesquisador_cpf
+    pesquisador_id
     raw_content
   )a
 
   @optional_fields ~w(link)a
 
-  @tipos ~w(mensal trimestral anual)
+  @tipos ~w(mensal trimestral anual)a
 
-  @primary_key false
-
+  @primary_key {:id, :string, autogenerate: false}
   schema "relatorio" do
-    field :id, :string
-    field :ano, :integer, primary_key: true
-    field :mes, :integer, primary_key: true
-    field :tipo, TrimmedString
+    field :ano, :integer
+    field :mes, :integer
+    field :tipo, Ecto.Enum, values: @tipos
     field :link, TrimmedString
     field :raw_content, TrimmedString
 
-    belongs_to :pesquisador, Pesquisador,
-      references: :usuario_cpf,
-      foreign_key: :pesquisador_cpf,
-      type: TrimmedString,
-      on_replace: :update
+    belongs_to :pesquisador, Pesquisador, on_replace: :update
 
     timestamps()
   end
@@ -49,8 +43,7 @@ defmodule Fuschia.ModuloPesquisa.Models.Relatorio do
     |> validate_required(@required_fields)
     |> validate_month(:mes)
     |> validate_year(:ano)
-    |> validate_inclusion(:tipo, @tipos)
-    |> foreign_key_constraint(:pesquisador_cpf)
+    |> foreign_key_constraint(:pesquisador_id)
     |> put_change(:id, Nanoid.generate())
   end
 

@@ -9,14 +9,19 @@
 </div>
 
 <.form let={f} for={:relatorio} class="flex flex-col items-center justify-between">
+  <h3 class="text-white uppercase font-semibold text-2xl text-center"> Atividades Desenvolvidas: </h3>
   <.textarea form={f} field={:editor_1} placeholder="Ações de Planejamento e Construção da Pesquisa" />
   <.textarea form={f} field={:editor_2} placeholder="Participação em Grupos de Estudos" />
   <.textarea form={f} field={:editor_3} placeholder="Reuniões de Orientação" />
-  <.textarea form={f} field={:editor_4} placeholder="Ações de Pesquisade Campo, Análise de Dados e Construção Audiovisual" />
-  <.textarea form={f} field={:editor_5} placeholder="Participação em Treinamentos e CCursos PEA Pescarte" />
+  <.textarea form={f} field={:editor_4} placeholder="Ações de Pesquisa de Campo, Análise de Dados e Construção Audiovisual" />
+  <.textarea form={f} field={:editor_5} placeholder="Participação em Treinamentos e Cursos PEA Pescarte" />
   <.textarea form={f} field={:editor_6} placeholder="Publicação" />
-  <.textarea form={f} field={:editor_7} placeholder="Planejamento de Estudos ou de Pesquisa" />
-
+  <h3 class="text-white uppercase font-semibold text-2xl text-center"> Planejamento de Estudos ou de Pesquisa </h3>
+  <.textarea form={f} field={:editor_7} placeholder="Ações de Planejamento e Construção da Pesquisa" />
+  <.textarea form={f} field={:editor_8} placeholder="Ações de pesquisa de campo, análise de dados e construção audiovisual" />
+  <.textarea form={f} field={:editor_9} placeholder="Participação em Grupos de Estudos" />
+  <.textarea form={f} field={:editor_10} placeholder="Reuniões de Orientação" />
+  <.textarea form={f} field={:editor_11} placeholder="Ações de Pesquisa de Campo, Análise de Dados e Construção Audiovisual" />
   <%= submit "salvar", class: "h-16 w-1/12" %>
 </.form>
 </section>

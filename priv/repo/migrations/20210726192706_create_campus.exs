@@ -3,16 +3,14 @@ defmodule Fuschia.Repo.Migrations.CreateCampus do
 
   def change do
     create table(:campus, primary_key: false) do
-      add :sigla, :string, primary_key: true, null: false
+      add :id, :string, primary_key: true, null: false
+      add :sigla, :string, null: false
       add :nome, :string
-
-      add :cidade_municipio,
-          references(:cidade, column: :municipio, type: :string, on_delete: :delete_all),
-          null: false
+      add :cidade_id, references(:cidade, type: :string), null: false
 
       timestamps()
     end
 
-    create unique_index(:campus, [:sigla, :cidade_municipio], name: :campus_sigla_municipio_index)
+    create unique_index(:campus, [:sigla])
   end
 end

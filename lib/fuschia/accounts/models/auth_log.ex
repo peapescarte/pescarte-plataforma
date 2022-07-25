@@ -10,14 +10,13 @@ defmodule Fuschia.Accounts.Models.AuthLog do
   alias Fuschia.Accounts.Models.User
   alias Fuschia.Types.TrimmedString
 
-  @required_fields ~w(ip user_agent user_cpf)a
+  @required_fields ~w(ip user_agent user_id)a
 
-  @foreign_key_type :string
   schema "auth_log" do
     field :ip, TrimmedString
     field :user_agent, TrimmedString
 
-    belongs_to :user, User, foreign_key: :user_cpf, references: :cpf
+    belongs_to :user, User
 
     timestamps(updated_at: false)
   end
@@ -27,6 +26,6 @@ defmodule Fuschia.Accounts.Models.AuthLog do
     struct
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> foreign_key_constraint(:user_cpf)
+    |> foreign_key_constraint(:user_id)
   end
 end

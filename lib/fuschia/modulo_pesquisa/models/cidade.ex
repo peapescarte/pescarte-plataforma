@@ -11,11 +11,11 @@ defmodule Fuschia.ModuloPesquisa.Models.Cidade do
 
   @required_fields ~w(municipio)a
 
-  @primary_key {:municipio, CapitalizedString, autogenerate: false}
+  @primary_key {:id, :string, autogenerate: false}
   schema "cidade" do
-    field :id, :string
+    field :municipio, CapitalizedString
 
-    has_many :campi, Campus, on_replace: :delete, foreign_key: :cidade_municipio
+    has_many :campi, Campus, on_replace: :delete
 
     timestamps()
   end

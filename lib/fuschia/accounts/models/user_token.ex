@@ -11,17 +11,13 @@ defmodule Fuschia.Accounts.Models.UserToken do
   use Fuschia.Schema
 
   alias Fuschia.Accounts.Models.User
-  alias Fuschia.Types.TrimmedString
 
   schema "user_token" do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
 
-    belongs_to :user, User,
-      foreign_key: :user_cpf,
-      references: :cpf,
-      type: TrimmedString
+    belongs_to :user, User
 
     timestamps(updated_at: false)
   end

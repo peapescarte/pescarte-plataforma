@@ -6,13 +6,12 @@ defmodule Fuschia.ModuloPesquisa.Adapters.Pesquisador do
   def to_map(%Pesquisador{} = struct) do
     %{
       id: struct.id,
-      cpf: struct.usuario_cpf,
+      cpf: struct.user.cpf,
       minibiografia: struct.minibiografia,
       tipo_bolsa: struct.tipo_bolsa,
       link_lattes: struct.link_lattes,
       orientador: struct.orientador,
       campus: struct.campus,
-      usuario: struct.usuario,
       orientandos: struct.orientandos
     }
   end

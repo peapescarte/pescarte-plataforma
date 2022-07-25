@@ -3,22 +3,16 @@ defmodule Fuschia.Repo.Migrations.CreateMidia do
 
   def change do
     create table("midia", primary_key: false) do
+      add :id, :string, primary_key: true, null: false
       add :tipo, :string, null: false
       add :tags, {:array, :string}, null: false
-      add :link, :string, null: false, primary_key: true
-
-      add :pesquisador_cpf,
-          references(
-            :pesquisador,
-            column: :usuario_cpf,
-            type: :citext,
-            on_delete: :delete_all
-          )
+      add :link, :string, null: false
+      add :pesquisador_id, references(:pesquisador, type: :string)
 
       timestamps()
     end
 
     create unique_index(:midia, [:link])
-    create index(:midia, [:pesquisador_cpf])
+    create index(:midia, [:pesquisador_id])
   end
 end

@@ -49,3 +49,6 @@ fuschia-*.tar
 /.direnv/
 /.nix-*/
 /.postgres/
+
+# Ignore seeds
+/priv/repo/seed_prod.exs

@@ -7,23 +7,19 @@ defmodule Fuschia.ModuloPesquisa.Models.Campus do
   import Ecto.Changeset
 
   alias Fuschia.ModuloPesquisa.Models.{Cidade, Pesquisador}
-  alias Fuschia.Types.{CapitalizedString, TrimmedString}
+  alias Fuschia.Types.TrimmedString
 
   @required_fields ~w(sigla cidade_municipio)a
   @optional_fields ~w(nome)a
 
-  @primary_key {:sigla, CapitalizedString, autogenerate: false}
+  @primary_key {:id, :string, autogenerate: false}
   schema "campus" do
-    field :id, :string
     field :nome, TrimmedString
+    field :sigla, TrimmedString
 
-    belongs_to :cidade, Cidade,
-      type: :string,
-      on_replace: :delete,
-      references: :municipio,
-      foreign_key: :cidade_municipio
+    belongs_to :cidade, Cidade, on_replace: :delete
 
-    has_many :pesquisadores, Pesquisador, foreign_key: :campus_sigla
+    has_many :pesquisadores, Pesquisador
 
     timestamps()
   end

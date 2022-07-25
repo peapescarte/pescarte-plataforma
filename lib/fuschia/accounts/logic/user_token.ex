@@ -29,7 +29,7 @@ defmodule Fuschia.Accounts.Logic.UserToken do
   """
   def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %UserToken{token: token, context: "session", user_cpf: user.cpf}}
+    {token, %UserToken{token: token, context: "session", user_id: user.id}}
   end
 
   @doc """
@@ -59,7 +59,7 @@ defmodule Fuschia.Accounts.Logic.UserToken do
        token: hashed_token,
        context: context,
        sent_to: sent_to,
-       user_cpf: user.cpf
+       user_id: user.id
      }}
   end
 end
