@@ -10,9 +10,9 @@ defmodule Fuschia.Factory do
   alias Fuschia.Database
   alias Fuschia.ModuloPesquisa.Models.Campus
   alias Fuschia.ModuloPesquisa.Models.Cidade
+  alias Fuschia.ModuloPesquisa.Models.Core
   alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
   alias Fuschia.ModuloPesquisa.Models.Midia
-  alias Fuschia.ModuloPesquisa.Models.Nucleo
   alias Fuschia.ModuloPesquisa.Models.Pesquisador
   alias Fuschia.ModuloPesquisa.Models.Relatorio
 
@@ -53,15 +53,23 @@ defmodule Fuschia.Factory do
     }
   end
 
+  def core_factory do
+    %Core{
+      id: Nanoid.generate_non_secure(),
+      name: sequence(:name, &"Nucleo #{&1}"),
+      desc: sequence(:desc, &"Descricao Nucleo #{&1}")
+    }
+  end
+
   def linha_pesquisa_factory do
-    nucleo = insert(:nucleo)
+    core = insert(:core)
 
     %LinhaPesquisa{
       id: Nanoid.generate_non_secure(),
       numero: sequence(:numero, Enum.to_list(1..21)),
       descricao_curta: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),
       descricao_longa: sequence(:descricao_longa, &"Descricao LinhaPesquisa Longa #{&1}"),
-      nucleo_nome: nucleo.nome
+      core_id: core.id
     }
   end
 
@@ -74,14 +82,6 @@ defmodule Fuschia.Factory do
       tipo: sequence(:tipo, ["video", "documento", "imagem"]),
       link: sequence(:link, &"https://example#{&1}.com"),
       tags: []
-    }
-  end
-
-  def nucleo_factory do
-    %Nucleo{
-      id: Nanoid.generate_non_secure(),
-      nome: sequence(:nome, &"Nucleo #{&1}"),
-      descricao: sequence(:descricao, &"Descricao Nucleo #{&1}")
     }
   end
 

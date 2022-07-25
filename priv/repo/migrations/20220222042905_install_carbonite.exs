@@ -7,15 +7,14 @@ defmodule Fuschia.Repo.Migrations.InstallCarbonite do
     Carbonite.Migrations.up(1)
     Carbonite.Migrations.up(2)
 
-    for %{name: table, pk: primary_keys} <- audit_tables() do
+    for table <- audit_tables() do
       Carbonite.Migrations.create_trigger(table)
-      Carbonite.Migrations.put_trigger_config(table, :primary_key_columns, primary_keys)
       Carbonite.Migrations.put_trigger_config(table, :mode, @mode)
     end
   end
 
   def down do
-    for %{name: table} <- audit_tables() do
+    for table <- audit_tables() do
       Carbonite.Migrations.drop_trigger(table)
     end
 
@@ -24,15 +23,6 @@ defmodule Fuschia.Repo.Migrations.InstallCarbonite do
   end
 
   defp audit_tables do
-    [
-      %{name: :campus, pk: ["nome"]},
-      %{name: :cidade, pk: ["municipio"]},
-      %{name: :linha_pesquisa, pk: ["numero"]},
-      %{name: :midia, pk: ["link"]},
-      %{name: :nucleo, pk: ["nome"]},
-      %{name: :pesquisador, pk: ["usuario_cpf"]},
-      %{name: :relatorio, pk: ["ano", "mes"]},
-      %{name: :user, pk: ["cpf"]}
-    ]
+    ~w(campus cidade core linha_pesquisa midia pesquisador relatorio user)a
   end
 end

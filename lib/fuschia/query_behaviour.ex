@@ -6,5 +6,5 @@ defmodule Fuschia.Query do
 
   @callback query :: Ecto.Query.t()
 
-  @callback relationships :: keyword
+  @callback relationships :: list
 end
