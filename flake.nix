@@ -3,62 +3,49 @@
     Plataforma PEA Pescarte
   '';
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  outputs = inputs@{ self, nixpkgs, unstable, utils }:
-    utils.lib.mkFlake rec {
-      inherit self inputs;
+  outputs = { self, nixpkgs }:
+    let
+      linux = "x86_64-linux";
+      darwin = "aarch64-darwin";
 
-      supportedSystems = [ "x86_64-linux" "aarch64-darwin"];
+      pkgs = system: import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
-      outputsBuilder = channels: {
-        packages = { inherit (channels.nixpkgs) package-from-overlays; };
-        devShell = channels.unstable.mkShell {
+      inputs = sys: with pkgs sys; [
+        gnumake
+        gcc
+        readline
+        openssl
+        zlib
+        libxml2
+        curl
+        libiconv
+        elixir
+        glibcLocales
+        postgresql
+        redpanda
+      ] ++ lib.optional stdenv.isLinux [
+        inotify-tools
+        gtk-engine-murrine
+      ] ++ lib.optional stdenv.isDarwin [
+        darwin.apple_sdk.frameworks.CoreServices
+        darwin.apple_sdk.frameworks.CoreFoundation
+      ];
+    in
+    rec {
+      devShells = {
+        "${linux}".default = with pkgs linux; mkShell {
           name = "fuschia";
-          buildInputs = with channels.unstable; [
-            gnumake
-            gcc
-            readline
-            openssl
-            zlib
-            libxml2
-            curl
-            libiconv
-            # my elixir derivation
-            # exDev
-            elixir
-            beamPackages.rebar3
-            glibcLocales
-            postgresql
-            nodePackages.yarn
-          ] ++ pkgs.lib.optional stdenv.isLinux [
-            inotify-tools
-            # observer gtk engine
-            gtk-engine-murrine
-          ]
-          ++ pkgs.lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-            CoreFoundation
-            CoreServices
-          ]);
+          buildInputs = inputs linux;
+        };
 
-          # define shell startup command
-          shellHook = ''
-            # create local tmp folders
-            mkdir -p .nix-mix
-            mkdir -p .nix-hex
-
-            mix local.hex --force --if-missing
-            mix local.rebar --force --if-missing
-
-            # to not conflict with your host elixir
-            # version and supress warnings about standard
-            # libraries
-            export ERL_LIBS="$HEX_HOME/lib/erlang/lib"
-          '';
+        "${darwin}".default = with pkgs darwin; mkShell {
+          name = "fuschia";
+          buildInputs = inputs darwin;
         };
       };
     };
