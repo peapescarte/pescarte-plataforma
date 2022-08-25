@@ -7,7 +7,7 @@ defmodule Fuschia.Mailer.HTML do
   a página HTML resultante em um modelo base.
   Retorna uma página HTML em formato de string.
   """
-  @spec assemble_body(String.t(), String.t(), map, String.t()) :: any
+  @spec assemble_body(binary, String.t(), map, String.t()) :: any
   def assemble_body(project, email, assigns, base \\ "base") when is_map(assigns) do
     assigns
     |> rewrite_name()
@@ -16,7 +16,7 @@ defmodule Fuschia.Mailer.HTML do
     |> render_layout(base)
   end
 
-  @spec templates_path :: String.t()
+  @spec templates_path :: binary
   def templates_path, do: "#{:code.priv_dir(:fuschia)}/templates"
 
   defp pea_pescarte_contact do

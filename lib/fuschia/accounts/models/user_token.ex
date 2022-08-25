@@ -8,7 +8,7 @@ defmodule Fuschia.Accounts.Models.UserToken do
   - token de sessão de login
   """
 
-  use Fuschia.Schema
+  use Fuschia, :model
 
   alias Fuschia.Accounts.Models.User
 

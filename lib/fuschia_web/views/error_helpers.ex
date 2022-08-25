@@ -16,7 +16,7 @@ defmodule FuschiaWeb.ErrorHelpers do
   @doc """
   Translates an error message using gettext.
   """
-  @spec translate_error(map) :: String.t()
+  @spec translate_error(map) :: binary
   def translate_error({msg, opts}) do
     if count = opts[:count] do
       Gettext.dngettext(FuschiaWeb.Gettext, "errors", msg, msg, count, opts)

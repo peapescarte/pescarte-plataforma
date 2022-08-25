@@ -18,7 +18,7 @@ defmodule Fuschia.Types.TrimmedString do
   @spec dump(any) :: {:ok, any} | :error
   def dump(data), do: Ecto.Type.dump(:string, data)
 
-  @spec equal?(String.t() | nil, String.t() | nil) :: boolean
+  @spec equal?(binary | nil, String.t() | nil) :: boolean
   def equal?(x, y) when is_nil(x) and is_binary(y), do: false
   def equal?(x, y) when is_binary(x) and is_nil(y), do: false
   def equal?(x, y), do: x == y

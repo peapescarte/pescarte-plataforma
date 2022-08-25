@@ -33,7 +33,7 @@ defmodule Fuschia.MailerTest.GenerateTests do
     end
   end
 
-  @spec emails(String.t()) :: list(String.t())
+  @spec emails(binary) :: list(String.t())
   def emails(project) do
     template_path = "#{:code.priv_dir(:fuschia)}/templates"
     path = Path.expand("#{template_path}/email/#{project}", __DIR__)

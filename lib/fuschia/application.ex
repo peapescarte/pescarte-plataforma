@@ -39,7 +39,7 @@ defmodule Fuschia.Application do
       :fuschia
       |> Application.get_env(:jobs)
       |> Keyword.get(:start)
-      |> Fuschia.Parser.to_boolean()
+      |> Fuschia.Helpers.to_boolean()
 
     if start_oban? do
       Enum.reverse([{Oban, Application.get_env(:fuschia, Oban)} | base_children])

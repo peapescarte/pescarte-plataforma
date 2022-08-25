@@ -19,7 +19,7 @@ defmodule Fuschia.ApiKeysDevSeeds do
       end
 
     changeset
-    |> ApiKey.changeset(attrs)
+    |> changeset(attrs)
     |> Repo.insert_or_update!()
   end
 
@@ -31,5 +31,9 @@ defmodule Fuschia.ApiKeysDevSeeds do
         active: true
       }
     ]
+  end
+
+  defp changeset(source, attrs) do
+    Ecto.Changeset.cast(source, attrs, [:key, :description, :active])
   end
 end
