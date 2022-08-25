@@ -4,142 +4,81 @@ defmodule Fuschia.ModuloPesquisa do
   do contexto.
   """
 
-  alias Fuschia.Database
+  alias Fuschia.ModuloPesquisa.IO.RelatorioRepo
+  alias Fuschia.ModuloPesquisa.Services.CreateCampus
+  alias Fuschia.ModuloPesquisa.Services.CreateCidade
+  alias Fuschia.ModuloPesquisa.Services.CreateLinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Services.CreateMidia
+  alias Fuschia.ModuloPesquisa.Services.CreateNucleo
+  alias Fuschia.ModuloPesquisa.Services.CreatePesquisador
+  alias Fuschia.ModuloPesquisa.Services.CreateRelatorio
+  alias Fuschia.ModuloPesquisa.Services.GetCampus
+  alias Fuschia.ModuloPesquisa.Services.GetCidade
+  alias Fuschia.ModuloPesquisa.Services.GetLinhaPesquisa
+  alias Fuschia.ModuloPesquisa.Services.GetMidia
+  alias Fuschia.ModuloPesquisa.Services.GetNucleo
+  alias Fuschia.ModuloPesquisa.Services.GetPesquisador
+  alias Fuschia.ModuloPesquisa.Services.GetRelatorio
+  alias Fuschia.ModuloPesquisa.Services.UpdateMidia
+  alias Fuschia.ModuloPesquisa.Services.UpdateNucleo
 
-  alias Fuschia.ModuloPesquisa.Models.Campus
-  alias Fuschia.ModuloPesquisa.Models.Cidade
-  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
-  alias Fuschia.ModuloPesquisa.Models.Midia
-  alias Fuschia.ModuloPesquisa.Models.Nucleo
-  alias Fuschia.ModuloPesquisa.Models.Pesquisador
-  alias Fuschia.ModuloPesquisa.Models.Relatorio
-  alias Fuschia.ModuloPesquisa.Queries
+  defdelegate create_campus(params), to: CreateCampus, as: :process
 
-  # ---------------------------#
-  # Database
-  # ---------------------------#
+  defdelegate get_campus(id), to: GetCampus, as: :process
 
-  def create_campus(attrs) do
-    Database.create(Campus, attrs)
+  defdelegate list_campus, to: GetCampus, as: :process
+
+  defdelegate create_cidade(params), to: CreateCidade, as: :process
+
+  defdelegate get_cidade(id), to: GetCidade, as: :process
+
+  defdelegate create_linha_pesquisa(params), to: CreateLinhaPesquisa, as: :process
+
+  defdelegate get_linha_pesquisa(id), to: GetLinhaPesquisa, as: :process
+
+  defdelegate list_linha_pesquisa, to: GetLinhaPesquisa, as: :process
+
+  defdelegate create_midia(params), to: CreateMidia, as: :process
+
+  defdelegate get_midia(id), to: GetMidia, as: :process
+
+  defdelegate list_midia, to: GetMidia, as: :process
+
+  defdelegate update_midia(params), to: UpdateMidia, as: :process
+
+  defdelegate create_nucleo(params), to: CreateNucleo, as: :process
+
+  defdelegate get_nucleo(id), to: GetNucleo, as: :process
+
+  defdelegate list_nucleo, to: GetNucleo, as: :process
+
+  defdelegate update_nucleo(params), to: UpdateNucleo, as: :process
+
+  defdelegate create_pesquisador(params), to: CreatePesquisador, as: :process
+
+  defdelegate get_pesquisador(id), to: GetPesquisador, as: :process
+
+  defdelegate list_pesquisador, to: GetPesquisador, as: :process
+
+  defdelegate create_relatorio(params), to: CreateRelatorio, as: :process
+
+  defdelegate get_relatorio(id), to: GetRelatorio, as: :process
+
+  defdelegate list_relatorio, to: GetRelatorio, as: :process
+
+  def change_relatorio(report, attrs \\ %{}) do
+    RelatorioRepo.changeset(report, attrs)
   end
 
-  def list_campus do
-    Database.list(Queries.Campus.query())
+  def list_campus_by_municipio(id) do
+    GetCampus.process(municipio: id)
   end
 
-  def list_campus_by_municipio(municipio) do
-    municipio
-    |> Queries.Campus.query_by_municipio()
-    |> Database.list()
-  end
-
-  def get_campus(id) do
-    Database.get(Campus, id)
-  end
-
-  ## Cidade
-
-  def create_cidade(attrs) do
-    Database.create(Cidade, attrs)
-  end
-
-  def get_cidade(id) do
-    Database.get(Cidade, id)
-  end
-
-  ## LinhaPesquisa
-
-  def create_linha_pesquisa(attrs) do
-    Database.create(LinhaPesquisa, attrs)
-  end
-
-  def list_linha_pesquisa do
-    Database.list(Queries.LinhaPesquisa.query())
-  end
-
-  def list_linha_pesquisa_by_core(core_id) do
-    core_id
-    |> Queries.LinhaPesquisa.query_by_nucleo()
-    |> Database.list()
-  end
-
-  def get_linha_pesquisa(id) do
-    Database.get(LinhaPesquisa, id)
-  end
-
-  ## Midia
-
-  def create_midia(attrs) do
-    Database.create(Midia, attrs)
-  end
-
-  def list_midia do
-    Database.list(Queries.Midia.query())
-  end
-
-  def get_midia(id) do
-    Database.get(Midia, id)
-  end
-
-  def update_midia(%Midia{} = midia, attrs) do
-    Database.update(midia, attrs)
-  end
-
-  ## nucleo
-
-  def create_nucleo(attrs) do
-    Database.create(Nucleo, attrs)
-  end
-
-  def list_nucleos do
-    Database.list(Queries.Nucleo.query())
-  end
-
-  def get_nucleo(id) do
-    Database.get(Nucleo, id)
-  end
-
-  def update_nucleo(%Nucleo{} = nucleo, attrs) do
-    Database.update(nucleo, attrs)
-  end
-
-  ## Pesquisador
-
-  def change_pesquisador(researcher \\ %Pesquisador{}, attrs \\ %{}) do
-    Pesquisador.changeset(researcher, attrs)
-  end
-
-  def create_pesquisador(attrs) do
-    Database.create(Pesquisador, attrs)
-  end
-
-  def list_pesquisador do
-    Database.list(Queries.Pesquisador.query())
-  end
-
-  def get_pesquisador(id) do
-    Database.get(Pesquisador, id)
-  end
-
-  ## Relatorio
-
-  def change_relatorio(report \\ %Relatorio{}, attrs \\ %{}) do
-    Relatorio.changeset(report, attrs)
-  end
-
-  def create_relatorio(attrs) do
-    Database.create(Relatorio, attrs)
-  end
-
-  def list_relatorio do
-    Database.list(Queries.Relatorio.query())
-  end
-
-  def get_relatorio(ano, mes) do
-    Database.get_by(Relatorio, ano: ano, mes: mes)
+  def list_linha_pesquisa_by_nucleo(core_id) do
+    GetLinhaPesquisa.process(nucleo: core_id)
   end
 
   ## Generic
 
-  defdelegate delete(source, opts \\ []), to: Fuschia.Database
+  defdelegate delete(source), to: Fuschia.Database
 end

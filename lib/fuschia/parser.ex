@@ -1,49 +1,36 @@
-defmodule Fuschia.Parser do
+defmodule Fuschia.Helpers do
   @moduledoc """
-  Defines the contract to parse custom attributes
+  Implementa funções de ajuda para deixar o fluxo
+  mais claro e legível
   """
-
-  ####         ####
-  #### STRINGS ####
-  ####         ####
-
-  @doc """
-  Parses the given `map` with nested ids in order to conform to current schema definition.
-
-  ## Examples
-
-      iex> parse_nested_ids(%{"linha_pesquisa" => %{"id" => 1}, "pesquisador_id" => 2})
-      %{"linha_pesquisa" => %{"id" => 1}, "linha_pesquisa_id" => 1, "pesquisador_id" => 2}
-
-  """
-  @callback parse_nested_ids(map) :: map
 
   @doc ~S"""
-  Remove all whitespaces given a string
+  Remove todos os espaços em branco de uma string.
 
   ## Examples
 
-      iex> remove_whitespaces(" Jose  Silva  ")
+      iex> trim(" Jose  Silva  ")
       "Jose Silva"
 
   """
-  @spec remove_whitespaces(String.t()) :: String.t()
-  def remove_whitespaces(s) when is_binary(s) do
+  @spec trim(binary) :: String.t()
+  def trim(s) when is_binary(s) do
     s
     |> String.replace(~r/\s+/, " ")
     |> String.trim(" ")
   end
 
   @doc ~S"""
-  Capitalize each word given a string
+  Transforma a primeira letra de cada palavra em maiúscula
+  enquanto as restantes ficam em minúscula.
 
   ## Examples
 
-      iex> capitalize_all_words("matheus PESSANHA")
-      "Matheus Pessanha"
+      iex> capitalize_all_words("zoey PESSANHA")
+      "Zoey Pessanha"
 
   """
-  @spec capitalize_all_words(String.t()) :: String.t()
+  @spec capitalize_all_words(binary) :: String.t()
   def capitalize_all_words(s) when is_binary(s) do
     s
     |> String.split(" ")
@@ -51,8 +38,7 @@ defmodule Fuschia.Parser do
   end
 
   @doc ~S"""
-  Remove all utf-8 digits given a string,
-  converting them to nfd format
+  Remote todos os caracteres utf-8 de uma string.
 
   ## Examples
 
@@ -60,19 +46,15 @@ defmodule Fuschia.Parser do
       "ola"
 
   """
-  @spec remove_accents(String.t()) :: String.t()
+  @spec remove_accents(binary) :: String.t()
   def remove_accents(s) when is_binary(s) do
     s
     |> String.normalize(:nfd)
     |> String.replace(~r/[^A-z\s]/u, "")
   end
 
-  ####      ####
-  #### MAPS ####
-  ####      ####
-
   @doc ~S"""
-  Converts a map to a keyword list
+  Converte um mapa para lista de palavras.
 
   ## Examples
 
@@ -89,7 +71,7 @@ defmodule Fuschia.Parser do
   end
 
   @doc ~S"""
-  Converts a string map to an atom map
+  Converte um mapa de strings em um mapa de átomos.
 
   ## Examples
 
@@ -104,10 +86,8 @@ defmodule Fuschia.Parser do
     |> Map.new()
   end
 
-  def atomize_map(value), do: value
-
   @doc ~S"""
-  Converts an antom map to a string map
+  Converte um mapa de átomos em um mapa de strings.
 
   ## Examples
 
@@ -122,38 +102,21 @@ defmodule Fuschia.Parser do
     |> Map.new()
   end
 
-  @doc ~S"""
-  Remove all null values from a map/struct
-
-  ## Examples
-
-      iex> reject_empty(%{a: 1, b: nil, c: 2})
-      %{a: 1, c: 2}
-
-  """
-  @spec reject_empty(map) :: map
-  def reject_empty(map) when is_map(map) do
-    :maps.filter(fn _key, v -> !is_nil(v) end, map)
-  end
-
-  ####         ####
-  #### HELPERS ####
-  ####         ####
-
-  @spec to_boolean(String.t()) :: boolean | nil
+  @spec to_boolean(binary) :: boolean | nil
   def to_boolean("true"), do: true
   def to_boolean("false"), do: false
   def to_boolean(_invalid), do: nil
 
-  # Only execute a function if the condition is truthy
-  # otherwise returns the same value
+  # Apenas executa uma função caso o predicado
+  # seja verdadeiro, caso contrário retorna o mesmo
+  # valor
   @spec apply_if(term, boolean, fun) :: term
   defp apply_if(value, condition, function) do
     if condition, do: function.(value), else: value
   end
 
   @doc ~S"""
-  Check if a given string is a number
+  Verifica se uma string é um dígito numérico.
 
   ## Examples
 
@@ -164,24 +127,24 @@ defmodule Fuschia.Parser do
       false
 
   """
-  @spec is_digit?(String.t()) :: boolean
+  @spec is_digit?(binary) :: boolean
   def is_digit?(ch) when is_binary(ch) do
     "0" <= ch and ch <= "9"
   end
 
   @doc ~S"""
-  Check if a given string is into alphabet
+  Verifica se uma string é uma letra.
 
   ## Examples
 
-      iex> is_digit?("0")
-      true
-
-      iex> is_digit?("a")
+      iex> is_letter?("0")
       false
 
+      iex> is_letter?("a")
+      true
+
   """
-  @spec is_letter?(String.t()) :: boolean
+  @spec is_letter?(binary) :: boolean
   def is_letter?(ch) when is_binary(ch) do
     alphabet =
       ?A..?Z
@@ -191,7 +154,11 @@ defmodule Fuschia.Parser do
     ch in alphabet
   end
 
-  @spec slugify(String.t()) :: String.t()
+  @doc """
+  Transforma um átomo ou uma string em uma string
+  válida em URLs.
+  """
+  @spec slugify(binary) :: String.t()
   def slugify(str) when is_binary(str) do
     str
     |> String.trim()
@@ -201,5 +168,72 @@ defmodule Fuschia.Parser do
     |> String.replace(~r/\s/, "_")
     |> String.replace(~r/--+/, "_")
     |> String.downcase()
+  end
+
+  def slugify(a) when is_atom(a) do
+    slugify(Atom.to_string(a))
+  end
+
+  @doc """
+  Encapsula um valor numa tupla de `:ok`.
+
+  ### Exemplos
+      iex> ok_wrap(1..4)
+      {:ok, 1..4}
+  """
+  @spec ok_wrap(any) :: {:ok, any}
+  def ok_wrap(term) do
+    {:ok, term}
+  end
+
+  @doc """
+  Desencapsula um valor de uma tupla de `:ok`.
+
+  ### Exemplos
+      iex> ok_unwrap({:ok, 1..4})
+      1..4
+  """
+  @spec ok_unwrap({:ok, any}) :: any
+  def ok_unwrap({:ok, term}) do
+    term
+  end
+
+  @doc """
+  Encapsula um valor numa tupla de `:error`.
+
+  ### Exemplos
+      iex> error_wrap(:not_found)
+      {:error, :not_found}
+  """
+  @spec error_wrap(any) :: {:error, any}
+  def error_wrap(term) do
+    {:error, term}
+  end
+
+  @doc """
+  Cria uma mônada `Maybe` que representa um
+  resultado que pode haver falha, retornando
+  uma tupla `{:ok, term}` ou `{:error, reason}`.
+  Para mais leitura sobre mônadas: https://bit.ly/3QOZ6nY.
+
+  ### Exemplos
+      iex> maybe(nil)
+      {:error, :not_found}
+
+      iex> maybe([], reason: :empty)
+      {:error, :empty}
+
+      iex> maybe(%Struct{})
+      {:ok, %Struct{}}
+  """
+  @spec maybe(term, keyword) :: {:ok, any} | {:error, any}
+  def maybe(term, opts \\ []) do
+    reason = Keyword.get(opts, :reason, :not_found)
+
+    case term do
+      [] -> error_wrap(reason)
+      nil -> error_wrap(reason)
+      _other -> ok_wrap(term)
+    end
   end
 end

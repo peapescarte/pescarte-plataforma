@@ -28,7 +28,7 @@ defmodule Fuschia.Mailer do
   @doc """
   Add a new attachment to the email.
   """
-  @spec add_attachment(Email.t(), String.t()) :: Email.t()
+  @spec add_attachment(Email.t(), binary) :: Email.t()
   def add_attachment(%Email{} = struct, file) when is_binary(file) do
     Email.attachment(struct, file)
   end

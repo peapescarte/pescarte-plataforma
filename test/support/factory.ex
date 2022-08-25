@@ -3,11 +3,8 @@ defmodule Fuschia.Factory do
 
   use ExMachina.Ecto, repo: Fuschia.Repo
 
-  alias Fuschia.Accounts.Models.AuthLog
   alias Fuschia.Accounts.Models.Contato
-  alias Fuschia.Accounts.Models.User, as: UserModel
-  alias Fuschia.Accounts.Queries.User, as: UserQueries
-  alias Fuschia.Database
+  alias Fuschia.Accounts.Models.User
   alias Fuschia.ModuloPesquisa.Models.Campus
   alias Fuschia.ModuloPesquisa.Models.Cidade
   alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
@@ -15,17 +12,6 @@ defmodule Fuschia.Factory do
   alias Fuschia.ModuloPesquisa.Models.Nucleo
   alias Fuschia.ModuloPesquisa.Models.Pesquisador
   alias Fuschia.ModuloPesquisa.Models.Relatorio
-
-  def auth_log_factory do
-    user_agent =
-      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
-
-    %AuthLog{
-      ip: "127.0.0.1",
-      user_agent: user_agent,
-      user_id: Nanoid.generate_non_secure()
-    }
-  end
 
   def campus_factory do
     cidade = insert(:cidade)
@@ -117,7 +103,7 @@ defmodule Fuschia.Factory do
 
   @spec user_factory :: User.t()
   def user_factory do
-    %UserModel{
+    %User{
       id: Nanoid.generate_non_secure(),
       role: sequence(:role, ["avulso", "pesquisador"]),
       nome_completo: sequence(:nome_completo, &"User #{&1}"),
@@ -132,7 +118,7 @@ defmodule Fuschia.Factory do
   def user_fixture(opts \\ []) do
     :user
     |> Fuschia.Factory.insert(opts)
-    |> Database.preload_all(UserQueries.relationships())
+    |> Fuschia.Repo.preload([:contato, :pesquisador])
   end
 
   def extract_user_token(fun) do

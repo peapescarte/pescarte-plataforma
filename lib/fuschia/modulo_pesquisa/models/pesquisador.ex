@@ -3,22 +3,14 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
   Pesquisador Schema
   """
 
-  use Fuschia.Schema
-  import Ecto.Changeset
+  use Fuschia, :model
 
   alias Fuschia.Accounts.Models.User
-  alias Fuschia.ModuloPesquisa.Models.{Campus, Midia, Pesquisador, Relatorio}
+  alias Fuschia.ModuloPesquisa.Models.Campus
+  alias Fuschia.ModuloPesquisa.Models.Midia
+  alias Fuschia.ModuloPesquisa.Models.Pesquisador
+  alias Fuschia.ModuloPesquisa.Models.Relatorio
   alias Fuschia.Types.TrimmedString
-
-  @required_fields ~w(
-    minibiografia
-    tipo_bolsa
-    link_lattes
-    campus_sigla
-    usuario_id
-  )a
-
-  @optional_fields ~w(orientador_id)a
 
   @tipos_bolsa ~w(
     ic pesquisa voluntario
@@ -29,7 +21,6 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     coordenador_pedagogico
   )a
 
-  @derive Jason.Encoder
   @primary_key {:id, :string, autogenerate: false}
   schema "pesquisador" do
     field :minibiografia, TrimmedString
@@ -45,29 +36,5 @@ defmodule Fuschia.ModuloPesquisa.Models.Pesquisador do
     belongs_to :orientador, Pesquisador, on_replace: :update
 
     timestamps()
-  end
-
-  @doc false
-  @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
-  def changeset(%__MODULE__{} = struct, attrs) do
-    struct
-    |> cast(attrs, @required_fields ++ @optional_fields)
-    |> validate_required(@required_fields)
-    |> validate_length(:minibiografia, max: 280)
-    |> foreign_key_constraint(:usuario_cpf)
-    |> foreign_key_constraint(:orientador_cpf)
-    |> foreign_key_constraint(:campus_sigla)
-    |> put_change(:id, Nanoid.generate())
-  end
-
-  @spec update_changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
-  def update_changeset(%__MODULE__{} = struct, attrs) do
-    struct
-    |> cast(attrs, @required_fields ++ @optional_fields)
-    |> validate_length(:minibiografia, max: 280)
-    |> validate_inclusion(:tipo_bolsa, @tipos_bolsa)
-    |> foreign_key_constraint(:usuario_cpf)
-    |> foreign_key_constraint(:orientador_cpf)
-    |> foreign_key_constraint(:campus_sigla)
   end
 end

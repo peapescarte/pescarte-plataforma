@@ -3,7 +3,7 @@ defmodule Fuschia.HttpClientBehaviour do
   Behaviour para comunicação HTTP, define argumentos necessários para realizar uma requisição
   """
 
-  @callback base_url() :: String.t()
+  @callback base_url() :: binary
 
   @callback headers() :: [{binary, binary}]
 end

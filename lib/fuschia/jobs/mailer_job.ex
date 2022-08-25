@@ -5,7 +5,8 @@ defmodule Fuschia.Jobs.MailerJob do
 
   require Logger
 
-  alias Fuschia.{Mailer, Parser}
+  alias Fuschia.Helpers
+  alias Fuschia.Mailer
 
   @doc """
   Deliver an email to partner
@@ -31,7 +32,7 @@ defmodule Fuschia.Jobs.MailerJob do
       args["subject"],
       args["layout"],
       args["template"],
-      Parser.atomize_map(args["assigns"]),
+      Helpers.atomize_map(args["assigns"]),
       args["base"],
       args["bcc"]
     )
