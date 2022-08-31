@@ -2,30 +2,32 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
   use Ecto.Migration
 
   def change do
-    create table(:user, primary_key: false) do
-      add :id, :string, primary_key: true, null: false
+    create table(:user) do
+      add :public_id, :string
       add :cpf, :citext, null: false
-      add :nome_completo, :string, null: false
-      add :data_nascimento, :date, null: false
+      add :first_name, :string, null: false
+      add :middle_name, :string
+      add :last_name, :string, null: false
+      add :birthdate, :date, null: false
       add :role, :string, default: "avulso", null: false
       add :last_seen, :utc_datetime_usec
-      add :ativo?, :boolean, default: true, null: false
+      add :active?, :boolean, default: true, null: false
       add :password_hash, :string
       add :confirmed_at, :naive_datetime
-      add :contato_id, references(:contato, on_replace: :update), null: false
+      add :contact_id, references(:contact, on_replace: :update), null: false
 
       timestamps()
     end
 
     create unique_index(:user, [:cpf])
-    create unique_index(:user, [:nome_completo])
+    create unique_index(:user, [:first_name, :middle_name, :last_name])
 
     create table(:user_token) do
       add :token, :binary, null: false
       add :context, :string, null: false
       add :sent_to, :string
 
-      add :user_id, references(:user, type: :string), null: false
+      add :user_id, references(:user), null: false
 
       timestamps(updated_at: false)
     end

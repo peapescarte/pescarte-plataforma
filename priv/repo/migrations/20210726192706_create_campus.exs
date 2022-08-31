@@ -2,16 +2,16 @@ defmodule Fuschia.Repo.Migrations.CreateCampus do
   use Ecto.Migration
 
   def change do
-    create table(:campus, primary_key: false) do
-      add :id, :string, primary_key: true, null: false
-      add :sigla, :string, null: false
-      add :nome, :string
-      add :cidade_id, references(:cidade, type: :string), null: false
+    create table(:campus) do
+      add :initials, :string, null: false
+      add :name, :string
+      add :public_id, :string
+      add :city_id, references(:city), null: false
 
       timestamps()
     end
 
-    create unique_index(:campus, [:sigla])
-    create unique_index(:campus, [:cidade_id, :sigla])
+    create unique_index(:campus, [:initials])
+    create unique_index(:campus, [:city_id, :initials])
   end
 end
