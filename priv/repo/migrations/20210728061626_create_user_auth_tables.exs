@@ -20,7 +20,7 @@ defmodule Fuschia.Repo.Migrations.CreateUsuariosAuthTables do
     end
 
     create unique_index(:user, [:cpf])
-    create unique_index(:user, [:first_name, :middle_name, :last_name])
+    create unique_index(:user, [:first_name, :middle_name, :last_name, :cpf])
 
     create table(:user_token) do
       add :token, :binary, null: false
