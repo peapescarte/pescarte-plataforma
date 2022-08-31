@@ -5,9 +5,9 @@ defmodule Fuschia.Accounts.IO.UserRepo do
 
   alias Fuschia.Accounts.Models.User
 
-  @required_fields ~w(nome_completo cpf data_nascimento)a
-  @optional_fields ~w(confirmed_at last_seen nome_completo ativo? role)a
-  @update_fields ~w(ativo? last_seen nome_completo permissoes)a
+  @required_fields ~w(first_name last_name cpf birthdate)a
+  @optional_fields ~w(confirmed_at last_seen middle_name active? role)a
+  @update_fields ~w(active? last_seen first_name middle_name last_name permissions)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
@@ -25,12 +25,10 @@ defmodule Fuschia.Accounts.IO.UserRepo do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_cpf(:cpf)
-    |> unique_constraint(:cpf, name: :user_pkey)
-    |> unique_constraint(:cpf, name: :user_nome_completo_index)
+    |> unique_constraint(:cpf)
     |> validate_inclusion(:role, @valid_roles)
-    |> cast_assoc(:contato, required: true)
-    |> foreign_key_constraint(:cpf, name: :pesquisador_usuario_cpf_fkey)
-    |> put_change(:id, Nanoid.generate())
+    |> cast_assoc(:contact, required: true)
+    |> put_change(:public_id, Nanoid.generate())
   end
 
   def confirm_changeset(%User{} = user) do
@@ -45,12 +43,14 @@ defmodule Fuschia.Accounts.IO.UserRepo do
     |> Database.update()
   end
 
-  def email_changeset(%User{contato: nil} = user, attrs) do
-    user |> cast(attrs, []) |> validate_required([:contato])
+  def email_changeset(%User{contact: nil} = user, attrs) do
+    user |> cast(attrs, []) |> validate_required([:contact])
   end
 
-  def email_changeset(%User{contato: contact}, attrs) do
-    contact |> cast(attrs, [:email]) |> validate_required([:email])
+  def email_changeset(%User{contact: contact}, attrs) do
+    contact
+    |> cast(attrs, [:email])
+    |> validate_required([:email])
   end
 
   @impl true
@@ -66,9 +66,9 @@ defmodule Fuschia.Accounts.IO.UserRepo do
   def fetch_by_email(email) do
     query =
       from u in User,
-        left_join: contato in assoc(u, :contato),
-        where: fragment("lower(?)", contato.email) == ^email,
-        where: u.ativo?,
+        left_join: c in assoc(u, :contact),
+        where: fragment("lower(?)", c.email) == ^email,
+        where: u.active?,
         order_by: [desc: u.inserted_at],
         limit: 1
 

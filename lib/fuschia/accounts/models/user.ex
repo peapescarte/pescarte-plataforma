@@ -1,31 +1,25 @@
 defmodule Fuschia.Accounts.Models.User do
-  @moduledoc """
-  Schema que representa um usuário do sistema.
-
-  ## Exemplos
-  - Pesquisador
-  - Pescador
-  """
   use Fuschia, :model
 
-  alias Fuschia.Accounts.Models.Contato
-  alias Fuschia.ModuloPesquisa.Models.Pesquisador
+  alias Fuschia.Accounts.Models.Contact
+  alias Fuschia.ModuloPesquisa.Models.Researcher
 
-  @primary_key {:id, :string, autogenerate: false}
   schema "user" do
     field :cpf, TrimmedString
     field :confirmed_at, :naive_datetime
     field :password_hash, :string, redact: true
     field :password, TrimmedString, virtual: true, redact: true
-    field :data_nascimento, :date
+    field :birthdate, :date
     field :last_seen, :utc_datetime_usec
     field :role, TrimmedString, default: "avulso"
-    field :nome_completo, CapitalizedString
-    field :ativo?, :boolean, default: true
-    field :permissoes, :map, virtual: true
+    field :first_name, CapitalizedString
+    field :middle_name, CapitalizedString
+    field :last_name, CapitalizedString
+    field :active?, :boolean, default: true
+    field :permissions, :map, virtual: true
 
-    has_one :pesquisador, Pesquisador
-    belongs_to :contato, Contato, on_replace: :update
+    has_one :researcher, Researcher
+    belongs_to :contact, Contact, on_replace: :update
 
     timestamps()
   end
