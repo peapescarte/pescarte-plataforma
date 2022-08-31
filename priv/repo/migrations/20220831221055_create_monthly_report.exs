@@ -1,0 +1,23 @@
+defmodule Fuschia.Repo.Migrations.CreateMonthlyReport do
+  use Ecto.Migration
+
+  def change do
+    create table(:monthly_reports) do
+      # Primeira seção
+      add :planning_action, :text
+      add :study_group, :text
+      add :guidance_metting, :text
+      add :research_actions, :text
+      add :training_participation, :text
+      add :publication, :text
+
+      # Segunda seção
+      add :next_planning_action, :text
+      add :next_study_group, :text
+      add :next_guidance_metting, :text
+      add :next_research_actions, :text
+
+      add :public_id, :string
+    end
+  end
+end
