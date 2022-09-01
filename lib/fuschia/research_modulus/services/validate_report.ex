@@ -11,9 +11,9 @@ defmodule Fuschia.ResearchModulus.Services.ValidateReport do
     mth = get_field(changeset, field)
 
     if mth in month do
-      {:ok, changeset}
+      changeset
     else
-      {:error, add_error(changeset, field, "invalid month")}
+      add_error(changeset, field, "invalid month")
     end
   end
 
@@ -21,9 +21,9 @@ defmodule Fuschia.ResearchModulus.Services.ValidateReport do
     year = get_field(changeset, field)
 
     if year <= today.year do
-      {:ok, changeset}
+      changeset
     else
-      {:error, add_error(changeset, field, "invalid year")}
+      add_error(changeset, field, "invalid year")
     end
   end
 end

@@ -265,7 +265,7 @@ defmodule Fuschia.Accounts do
 
     query
     |> Database.one()
-    |> Database.preload([:contato, :pesquisador])
+    |> Database.preload([:contact, :researcher])
   end
 
   @doc """
