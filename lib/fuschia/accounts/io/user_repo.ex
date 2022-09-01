@@ -3,6 +3,7 @@ defmodule Fuschia.Accounts.IO.UserRepo do
 
   import Brcpfcnpj.Changeset, only: [validate_cpf: 2]
 
+  alias Fuschia.Accounts.IO.ContactRepo
   alias Fuschia.Accounts.Models.User
 
   @required_fields ~w(first_name last_name cpf birthdate)a
@@ -27,7 +28,7 @@ defmodule Fuschia.Accounts.IO.UserRepo do
     |> validate_cpf(:cpf)
     |> unique_constraint(:cpf)
     |> validate_inclusion(:role, @valid_roles)
-    |> cast_assoc(:contact, required: true)
+    |> cast_assoc(:contact, required: true, with: &ContactRepo.changeset/2)
     |> put_change(:public_id, Nanoid.generate())
   end
 
