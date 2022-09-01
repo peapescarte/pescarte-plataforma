@@ -9,9 +9,9 @@ defmodule Fuschia.ResearchModulus.IO.CityRepo do
   end
 
   @impl true
-  def insert(%City{} = city) do
-    city
-    |> cast(%{}, [:county])
+  def insert(attrs) do
+    %City{}
+    |> cast(attrs, [:county])
     |> validate_required([:county])
     |> unique_constraint(:county)
     |> put_change(:public_id, Nanoid.generate())

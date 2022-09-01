@@ -2,7 +2,7 @@ defmodule Fuschia.Accounts.Models.User do
   use Fuschia, :model
 
   alias Fuschia.Accounts.Models.Contact
-  alias Fuschia.ModuloPesquisa.Models.Researcher
+  alias Fuschia.ResearchModulus.Models.Researcher
 
   schema "user" do
     field :cpf, TrimmedString

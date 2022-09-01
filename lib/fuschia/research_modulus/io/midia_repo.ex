@@ -16,9 +16,9 @@ defmodule Fuschia.ResearchModulus.IO.MidiaRepo do
   end
 
   @impl true
-  def insert(%Midia{} = midia) do
-    midia
-    |> cast(%{}, @required_fields)
+  def insert(attrs) do
+    %Midia{}
+    |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:link)
     |> foreign_key_constraint(:researcher_id)
@@ -27,12 +27,11 @@ defmodule Fuschia.ResearchModulus.IO.MidiaRepo do
   end
 
   @impl true
-  def update(%Midia{} = midia) do
+  def update(%Midia{} = midia, attrs) do
     fields = ~w(type link)a
-    values = Map.take(midia, fields)
 
-    %Midia{id: midia.id}
-    |> cast(values, fields)
+    midia
+    |> cast(attrs, fields)
     |> unique_constraint(:link)
     |> Database.update()
   end

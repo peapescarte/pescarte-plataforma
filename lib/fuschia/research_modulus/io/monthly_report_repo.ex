@@ -39,18 +39,16 @@ defmodule Fuschia.ResearchModulus.IO.MonthlyReportRepo do
   end
 
   @impl true
-  def insert(%MonthlyReport{} = report) do
-    report
-    |> changeset()
+  def insert(attrs) do
+    %MonthlyReport{}
+    |> changeset(attrs)
     |> Database.insert()
   end
 
   @impl true
-  def update(%MonthlyReport{} = report) do
-    values = Map.take(report, @update_fields)
-
-    %MonthlyReport{id: report.id}
-    |> cast(values, @update_fields)
+  def update(%MonthlyReport{} = report, attrs) do
+    report
+    |> cast(attrs, @update_fields)
     |> validate_month(:month)
     |> validate_year(:year, Date.utc_today())
     |> Database.update()

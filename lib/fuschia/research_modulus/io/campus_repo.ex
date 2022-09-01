@@ -17,14 +17,15 @@ defmodule Fuschia.ResearchModulus.IO.CampusRepo do
   end
 
   @impl true
-  def insert(%Campus{} = campus) do
-    campus
-    |> cast(%{}, @optional_fields ++ @required_fields)
+  def insert(attrs) do
+    %Campus{}
+    |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:name)
     |> unique_constraint(:initials)
     |> foreign_key_constraint(:city_id)
     |> put_change(:public_id, Nanoid.generate())
+    |> Database.insert()
   end
 
   def list_campus_by_county(county) do

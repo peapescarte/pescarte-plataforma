@@ -15,9 +15,9 @@ defmodule Fuschia.Accounts.IO.ContactRepo do
   end
 
   @impl true
-  def insert_or_update(%Contact{} = contact) do
-    contact
-    |> cast(%{}, @fields)
+  def insert_or_update(attrs) do
+    %Contact{}
+    |> cast(attrs, @fields)
     |> validate_required(@fields)
     |> validate_format(:mobile, @mobile_format)
     |> validate_length(:email, max: 160)
