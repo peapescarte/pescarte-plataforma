@@ -20,8 +20,8 @@ defmodule Fuschia.Accounts.IO.UserRepo do
     Database.all(User)
   end
 
-  def changeset(%User{} = user, attrs \\ %{}) do
-    user
+  def changeset(attrs) do
+    %User{}
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_cpf(:cpf)
@@ -43,11 +43,11 @@ defmodule Fuschia.Accounts.IO.UserRepo do
     |> Database.update()
   end
 
-  def email_changeset(%User{contact: nil} = user, attrs) do
+  def email_changeset(%{contact: nil} = user, attrs) do
     user |> cast(attrs, []) |> validate_required([:contact])
   end
 
-  def email_changeset(%User{contact: contact}, attrs) do
+  def email_changeset(%{contact: contact}, attrs) do
     contact
     |> cast(attrs, [:email])
     |> validate_required([:email])
@@ -78,29 +78,29 @@ defmodule Fuschia.Accounts.IO.UserRepo do
   end
 
   @impl true
-  def insert(%User{} = user) do
-    user
+  def insert(attrs) do
+    attrs
     |> changeset()
     |> Database.insert()
   end
 
-  def insert_researcher(%User{} = user) do
-    user
+  def insert_researcher(attrs) do
+    attrs
     |> changeset()
     |> put_change(:role, "pesquisador")
     |> password_changeset()
     |> Database.insert()
   end
 
-  def insert_admin(%User{} = user) do
-    user
+  def insert_admin(attrs) do
+    attrs
     |> changeset()
     |> put_change(:role, "admin")
     |> Database.insert()
   end
 
-  def password_changeset(user, attrs \\ %{}, opts \\ []) do
-    user
+  def password_changeset(changeset, attrs \\ %{}, opts \\ []) do
+    changeset
     |> cast(attrs, [:password])
     |> validate_required([:password])
     |> validate_confirmation(:password, required: true)
@@ -128,11 +128,9 @@ defmodule Fuschia.Accounts.IO.UserRepo do
   end
 
   @impl true
-  def update(%User{} = user) do
-    values = Map.take(user, @update_fields)
-
-    %User{id: user.id}
-    |> cast(values, @update_fields)
+  def update(%User{} = user, attrs) do
+    user
+    |> cast(attrs, @update_fields)
     |> validate_inclusion(:role, @valid_roles)
     |> Database.update()
   end

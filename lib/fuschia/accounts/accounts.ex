@@ -100,9 +100,9 @@ defmodule Fuschia.Accounts do
       %Ecto.Changeset{data: %User{}}
 
   """
-  def change_user_registration(user, attrs \\ %{}) do
-    user
-    |> UserRepo.changeset(attrs)
+  def change_user_registration(attrs \\ %{}) do
+    attrs
+    |> UserRepo.changeset()
     |> UserRepo.password_changeset(attrs, hash_password: false)
   end
 

@@ -28,13 +28,6 @@ defmodule Fuschia do
       alias Fuschia.Types.TrimmedString
 
       @timestamps_opts [inserted_at: :inserted_at, type: :utc_datetime_usec]
-
-      @self __MODULE__
-
-      @spec new(keyword) :: struct
-      def new(params) do
-        struct(@self, params)
-      end
     end
   end
 

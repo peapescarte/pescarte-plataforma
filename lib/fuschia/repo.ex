@@ -12,9 +12,9 @@ defmodule Fuschia.Repo do
   @callback fetch_by(keyword) :: {:ok, struct} | {:error, :not_found}
   @callback insert(struct) :: {:ok, struct} | {:error, changeset}
   @callback insert_or_update(struct) :: {:ok, struct} | {:error, changeset}
-  @callback update(struct) :: {:ok, struct} | {:error, changeset}
+  @callback update(struct, map) :: {:ok, struct} | {:error, changeset}
 
-  @optional_callbacks all: 0, delete: 1, fetch_by: 1, insert: 1, insert_or_update: 1, update: 1
+  @optional_callbacks all: 0, delete: 1, fetch_by: 1, insert: 1, insert_or_update: 1, update: 2
 
   @spec fetch(module | query, integer) :: {:ok, struct} | {:error, :not_found}
   def fetch(source, id) do

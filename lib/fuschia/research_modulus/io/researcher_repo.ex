@@ -11,9 +11,20 @@ defmodule Fuschia.ResearchModulus.IO.ResearcherRepo do
     user_id
   )a
 
-  @optional_fields ~w(advisor_id)a
+  @optional_fields ~w(advisor_id )a
 
   @update_fields ~w(minibio bursary link_lattes)a
+
+  def changeset(%Researcher{} = researcher, attrs \\ %{}) do
+    researcher
+    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
+    |> validate_length(:minibio, max: 280)
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:advisor_id)
+    |> foreign_key_constraint(:campus_id)
+    |> put_change(:public_id, Nanoid.generate())
+  end
 
   @impl true
   def all do
@@ -26,23 +37,16 @@ defmodule Fuschia.ResearchModulus.IO.ResearcherRepo do
   end
 
   @impl true
-  def insert(%Researcher{} = researcher) do
-    researcher
-    |> cast(%{}, @required_fields ++ @optional_fields)
-    |> validate_required(@required_fields)
-    |> validate_length(:minibio, max: 280)
-    |> foreign_key_constraint(:user_id)
-    |> foreign_key_constraint(:advisor_id)
-    |> foreign_key_constraint(:campus_id)
-    |> put_change(:public_id, Nanoid.generate())
+  def insert(attrs) do
+    %Researcher{}
+    |> changeset(attrs)
+    |> Database.insert()
   end
 
   @impl true
-  def update(%Researcher{} = researcher) do
-    values = Map.take(researcher, @update_fields)
-
-    %Researcher{id: researcher.id}
-    |> cast(values, @update_fields)
+  def update(%Researcher{} = researcher, attrs) do
+    researcher
+    |> cast(attrs, @update_fields)
     |> validate_length(:minibio, max: 280)
     |> Database.update()
   end

@@ -14,9 +14,9 @@ defmodule Fuschia.ResearchModulus.IO.ResearchCoreRepo do
   end
 
   @impl true
-  def insert(%ResearchCore{} = core) do
-    core
-    |> cast(%{}, [:name, :desc])
+  def insert(attrs) do
+    %ResearchCore{}
+    |> cast(attrs, [:name, :desc])
     |> validate_required([:name, :desc])
     |> validate_length(:desc, max: 400)
     |> put_change(:public_id, Nanoid.generate())
@@ -24,11 +24,9 @@ defmodule Fuschia.ResearchModulus.IO.ResearchCoreRepo do
   end
 
   @impl true
-  def update(%ResearchCore{} = core) do
-    values = Map.take(core, [:desc])
-
-    %ResearchCore{id: core.id}
-    |> cast(values, [:desc])
+  def update(%ResearchCore{} = core, attrs) do
+    core
+    |> cast(attrs, [:desc])
     |> validate_required([:desc])
     |> Database.update()
   end

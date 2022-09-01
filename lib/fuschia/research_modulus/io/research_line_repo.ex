@@ -17,9 +17,9 @@ defmodule Fuschia.ResearchModulus.IO.ResearchLineRepo do
   end
 
   @impl true
-  def insert(%ResearchLine{} = line) do
-    line
-    |> cast(%{}, @required_fields ++ @optional_fields)
+  def insert(attrs) do
+    %ResearchLine{}
+    |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_length(:short_desc, max: 90)
     |> validate_length(:desc, max: 280)

@@ -3,7 +3,7 @@ defmodule Fuschia.ResearchModulus.Models.City do
 
   alias Fuschia.ResearchModulus.Models.Campus
 
-  schema "cidade" do
+  schema "city" do
     field :county, CapitalizedString
     field :public_id, :string
 
