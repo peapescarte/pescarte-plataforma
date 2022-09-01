@@ -5,6 +5,7 @@ defmodule Fuschia.ResearchModulus.Models.City do
 
   schema "cidade" do
     field :county, CapitalizedString
+    field :public_id, :string
 
     has_many :campi, Campus, on_replace: :delete
 

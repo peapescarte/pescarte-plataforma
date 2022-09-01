@@ -9,6 +9,7 @@ defmodule Fuschia.ResearchModulus.Models.Midia do
   schema "midia" do
     field :type, Ecto.Enum, values: @midia_types
     field :link, TrimmedString
+    field :public_id, :string
 
     belongs_to :researcher, Researcher, on_replace: :update
 

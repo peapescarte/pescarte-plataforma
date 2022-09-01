@@ -4,20 +4,21 @@ defmodule Fuschia.ResearchModulus do
   do contexto.
   """
 
+  alias Fuschia.ResearchModulus.IO.MonthlyReportRepo
   alias Fuschia.ResearchModulus.Services.CreateCampus
   alias Fuschia.ResearchModulus.Services.CreateCity
-  alias Fuschia.ResearchModulus.Services.CreateResearchLine
   alias Fuschia.ResearchModulus.Services.CreateMidia
+  alias Fuschia.ResearchModulus.Services.CreateMonthlyReport
   alias Fuschia.ResearchModulus.Services.CreateResearchCore
   alias Fuschia.ResearchModulus.Services.CreateResearcher
-  alias Fuschia.ResearchModulus.Services.CreateMonthlyReport
+  alias Fuschia.ResearchModulus.Services.CreateResearchLine
   alias Fuschia.ResearchModulus.Services.GetCampus
   alias Fuschia.ResearchModulus.Services.GetCity
-  alias Fuschia.ResearchModulus.Services.GetResearchLine
   alias Fuschia.ResearchModulus.Services.GetMidia
+  alias Fuschia.ResearchModulus.Services.GetMonthlyReport
   alias Fuschia.ResearchModulus.Services.GetResearchCore
   alias Fuschia.ResearchModulus.Services.GetResearcher
-  alias Fuschia.ResearchModulus.Services.GetMonthlyReport
+  alias Fuschia.ResearchModulus.Services.GetResearchLine
   alias Fuschia.ResearchModulus.Services.UpdateMidia
   alias Fuschia.ResearchModulus.Services.UpdateResearchCore
 

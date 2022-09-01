@@ -8,6 +8,7 @@ defmodule Fuschia.ResearchModulus.Models.ResearchLine do
     field :number, :integer
     field :short_desc, TrimmedString
     field :desc, TrimmedString
+    field :public_id, :string
 
     belongs_to :research_core, ResearchCore
 
