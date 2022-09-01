@@ -8,6 +8,7 @@ defmodule Fuschia.ResearchModulus.Models.Campus do
   schema "campus" do
     field :name, TrimmedString
     field :initials, TrimmedString
+    field :public_id, :string
 
     has_many :researchers, Researcher
     belongs_to :city, City, on_replace: :delete

@@ -21,6 +21,7 @@ defmodule Fuschia.ResearchModulus.Models.Researcher do
     field :minibio, TrimmedString
     field :bursary, Ecto.Enum, values: @bursary_types
     field :link_lattes, TrimmedString
+    field :public_id, :string
 
     has_many :advisored, Researcher
     has_many :midias, Midia

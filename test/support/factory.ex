@@ -3,98 +3,74 @@ defmodule Fuschia.Factory do
 
   use ExMachina.Ecto, repo: Fuschia.Repo
 
-  alias Fuschia.Accounts.Models.Contato
+  alias Fuschia.Accounts.Models.Contact
   alias Fuschia.Accounts.Models.User
-  alias Fuschia.ModuloPesquisa.Models.Campus
-  alias Fuschia.ModuloPesquisa.Models.Cidade
-  alias Fuschia.ModuloPesquisa.Models.LinhaPesquisa
-  alias Fuschia.ModuloPesquisa.Models.Midia
-  alias Fuschia.ModuloPesquisa.Models.Nucleo
-  alias Fuschia.ModuloPesquisa.Models.Pesquisador
-  alias Fuschia.ModuloPesquisa.Models.Relatorio
+  alias Fuschia.ResearchModulus.Models.Campus
+  alias Fuschia.ResearchModulus.Models.City
+  alias Fuschia.ResearchModulus.Models.Midia
+  alias Fuschia.ResearchModulus.Models.ResearchCore
+  alias Fuschia.ResearchModulus.Models.Researcher
+  alias Fuschia.ResearchModulus.Models.ResearchLine
 
   def campus_factory do
-    cidade = insert(:cidade)
-
     %Campus{
-      id: Nanoid.generate_non_secure(),
-      nome: sequence(:nome, &"Campus #{&1}"),
-      cidade: cidade,
-      sigla: sequence(:sigla, &"C#{&1}")
+      public_id: Nanoid.generate_non_secure(),
+      name: sequence(:nome, &"Campus #{&1}"),
+      city: build(:city),
+      initials: sequence(:sigla, &"C#{&1}")
     }
   end
 
-  def cidade_factory do
-    %Cidade{
-      id: Nanoid.generate_non_secure(),
-      municipio: sequence(:municipio, &"Cidade #{&1}")
+  def city_factory do
+    %City{
+      public_id: Nanoid.generate_non_secure(),
+      county: sequence(:municipio, &"Cidade #{&1}")
     }
   end
 
-  def contato_factory do
-    %Contato{
+  def contact_factory do
+    %Contact{
       email: sequence(:email, &"test-#{&1}@example.com"),
-      celular: sequence(:celular, ["(22)12345-6789"]),
-      endereco: sequence(:endereco, &"Teste, Rua teste, número #{&1}")
+      mobile: sequence(:celular, ["(22)12345-6789"]),
+      address: sequence(:endereco, &"Teste, Rua teste, número #{&1}")
     }
   end
 
-  def linha_pesquisa_factory do
-    nucleo = insert(:nucleo)
-
-    %LinhaPesquisa{
-      id: Nanoid.generate_non_secure(),
-      numero: sequence(:numero, Enum.to_list(1..21)),
-      descricao_curta: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),
-      descricao_longa: sequence(:descricao_longa, &"Descricao LinhaPesquisa Longa #{&1}"),
-      nucleo_id: nucleo.id
+  def research_line_factory do
+    %ResearchLine{
+      public_id: Nanoid.generate_non_secure(),
+      number: sequence(:numero, Enum.to_list(1..21)),
+      short_desc: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),
+      desc: sequence(:descricao_longa, &"Descricao LinhaPesquisa Longa #{&1}"),
+      research_core_id: build(:research_core)
     }
   end
 
   def midia_factory do
-    pesquisador = insert(:pesquisador)
-
     %Midia{
-      id: Nanoid.generate_non_secure(),
-      pesquisador: pesquisador,
-      tipo: sequence(:tipo, ["video", "documento", "imagem"]),
-      link: sequence(:link, &"https://example#{&1}.com"),
-      tags: []
+      public_id: Nanoid.generate_non_secure(),
+      researcher: build(:researcher),
+      type: sequence(:tipo, ["video", "documento", "imagem"]),
+      link: sequence(:link, &"https://example#{&1}.com")
     }
   end
 
-  def nucleo_factory do
-    %Nucleo{
-      id: Nanoid.generate_non_secure(),
-      nome: sequence(:name, &"Nucleo #{&1}"),
+  def research_core_factory do
+    %ResearchCore{
+      public_id: Nanoid.generate_non_secure(),
+      name: sequence(:name, &"Nucleo #{&1}"),
       desc: sequence(:desc, &"Descricao Nucleo #{&1}")
     }
   end
 
-  def pesquisador_factory do
-    campus = insert(:campus)
-    user = build(:user)
-
-    %Pesquisador{
-      id: Nanoid.generate_non_secure(),
-      user: user,
-      minibiografia: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
-      tipo_bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),
+  def researcher_factory do
+    %Researcher{
+      public_id: Nanoid.generate_non_secure(),
+      user: build(:user),
+      minibio: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
+      bursary: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),
       link_lattes: sequence(:link_lattes, &"http://buscatextual.cnpq.br/buscatextual/:#{&1}"),
-      campus_id: campus.id
-    }
-  end
-
-  def relatorio_factory do
-    pesquisador = insert(:pesquisador)
-
-    %Relatorio{
-      id: Nanoid.generate_non_secure(),
-      pesquisador: pesquisador,
-      tipo: sequence(:tipo, ["mensal", "trimestral", "anual"]),
-      link: sequence(:link, &"https://example#{&1}.com"),
-      ano: Date.utc_today().year,
-      mes: Date.utc_today().month
+      campus: build(:campus)
     }
   end
 
@@ -106,19 +82,21 @@ defmodule Fuschia.Factory do
     %User{
       id: Nanoid.generate_non_secure(),
       role: sequence(:role, ["avulso", "pesquisador"]),
-      nome_completo: sequence(:nome_completo, &"User #{&1}"),
-      ativo?: true,
+      first_name: sequence(:first, &"User #{&1}"),
+      middle_name: sequence(:middle, &"Middle User #{&1}"),
+      last_name: sequence(:last, &"Last User #{&1}"),
+      active?: true,
       cpf: Brcpfcnpj.cpf_generate(true),
-      data_nascimento: sequence(:data_nascimento, [~D[2001-07-27], ~D[2001-07-28]]),
+      birthdate: Date.utc_today(),
       password_hash: "$2b$12$AZdxCkw/Rb5AlI/5S7Ebb.hIyG.ocs18MGkHAW2gdZibH7a1wHTyu",
-      contato: build(:contato)
+      contact: build(:contact)
     }
   end
 
   def user_fixture(opts \\ []) do
     :user
     |> Fuschia.Factory.insert(opts)
-    |> Fuschia.Repo.preload([:contato, :pesquisador])
+    |> Fuschia.Repo.preload([:contact, :researcher])
   end
 
   def extract_user_token(fun) do

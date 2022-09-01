@@ -17,6 +17,7 @@ defmodule Fuschia.Accounts.Models.User do
     field :last_name, CapitalizedString
     field :active?, :boolean, default: true
     field :permissions, :map, virtual: true
+    field :public_id, :string
 
     has_one :researcher, Researcher
     belongs_to :contact, Contact, on_replace: :update
