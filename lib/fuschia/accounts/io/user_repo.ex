@@ -89,7 +89,7 @@ defmodule Fuschia.Accounts.IO.UserRepo do
     attrs
     |> changeset()
     |> put_change(:role, "pesquisador")
-    |> password_changeset()
+    |> password_changeset(attrs)
     |> Database.insert()
   end
 

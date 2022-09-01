@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.RelatorioView do
+defmodule FuschiaWeb.MonthlyReportView do
   use FuschiaWeb, :view
 
   @today Date.utc_today()

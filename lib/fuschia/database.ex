@@ -107,6 +107,16 @@ defmodule Fuschia.Database do
     end
   end
 
+  @spec insert(struct) :: {:ok, struct} | {:error, changeset}
+  def insert(%mod{} = data) do
+    %{meta: meta, source: source} = build_meta(mod, "insert")
+
+    with {:ok, changes} <-
+           carbonite_multi(&Ecto.Multi.insert/3, meta, source, data) do
+      {:ok, Map.get(changes, source)}
+    end
+  end
+
   @doc """
   Deleta uma entidade existente no banco.
 
