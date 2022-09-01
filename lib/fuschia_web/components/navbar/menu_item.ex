@@ -8,8 +8,12 @@ defmodule FuschiaWeb.Components.Navbar.MenuItem do
   def render(assigns) do
     ~H"""
     <li>
-      <%= link @label,  to: @path, method: @method,
-        class: "uppercase mx-4 #{get_current_style(@current?)} text-2xl font-semibold", active: @current? %>
+      <%= link(@label,
+        to: @path,
+        method: @method,
+        class: "uppercase mx-4 #{get_current_style(@current?)} text-2xl font-semibold",
+        active: @current?
+      ) %>
     </li>
     """
   end
