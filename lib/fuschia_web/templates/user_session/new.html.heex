@@ -1,12 +1,29 @@
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}, class="flex flex-col items-center justify-center h-full">
+<.form
+  let={f}
+  for={@conn}
+  action={Routes.user_session_path(@conn, :create)}
+  as={:user}
+  ,
+  class="flex flex-col items-center justify-center h-full"
+>
   <%= if @error_message do %>
     <div class="alert alert-danger">
       <p><%= @error_message %></p>
     </div>
   <% end %>
 
-  <%= input f, :cpf, required: true, class: "rounded-full h-16", wrapper_class: "w-1/3 m-4", placeholder: "CPF" %>
-  <%= input f, :password, required: true, class: "rounded-full h-16", wrapper_class: "w-1/3", placeholder: "senha" %>
+  <%= input(f, :cpf,
+    required: true,
+    class: "rounded-full h-16",
+    wrapper_class: "w-1/3 m-4",
+    placeholder: "CPF"
+  ) %>
+  <%= input(f, :password,
+    required: true,
+    class: "rounded-full h-16",
+    wrapper_class: "w-1/3",
+    placeholder: "senha"
+  ) %>
 
-  <%= submit "acessar", class: "w-2/12 mt-16 h-16" %>
+  <%= submit("acessar", class: "w-2/12 mt-16 h-16") %>
 </.form>

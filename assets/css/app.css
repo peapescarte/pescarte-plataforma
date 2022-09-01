@@ -26,7 +26,7 @@
 }
 
 body {
-  font: 400 1.125rem 'Open Sans', sans-serif;
+  font: 400 1.4rem 'Open Sans', sans-serif;
   min-height: 100vh;
   background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
@@ -49,7 +49,6 @@ textarea::placeholder {
   color: var(--blue-light);
   text-align: left;
   font: 400 1.6rem 'Open Sans';
-  padding: 1rem;
 }
 
 textarea:focus, input:focus, fieldset:focus {

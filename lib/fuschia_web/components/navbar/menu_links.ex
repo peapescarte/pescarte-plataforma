@@ -32,7 +32,6 @@ defmodule FuschiaWeb.Components.Navbar.MenuLinks do
               method={item.method}
               current?={is_current_path?(@conn, item.path)}
             />
-
           <% :dropdown -> %>
             <li tabindex="0">
               <span class="uppercase text-2xl font-semibold text-blue-500">

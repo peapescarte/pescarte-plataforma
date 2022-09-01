@@ -7,10 +7,10 @@
     </div>
   <% end %>
 
-  <% input f, :password, required: true %>
-  <% input f, :password_confirmation, required: true %>
+  <% input(f, :password, required: true) %>
+  <% input(f, :password_confirmation, required: true) %>
 
   <div>
-    <%= submit "Reset password" %>
+    <%= submit("Reset password") %>
   </div>
 </.form>

@@ -7,20 +7,20 @@
       <!-- criei uma separação entre os itens -->
     </span>
     <span class="text-white uppercase font-semibold text-2xl text-center">
-      <h1> <%= @user.nome_completo %></h1>
+      <h1><%= @user.nome_completo %></h1>
     </span>
     <span class="h-5">
       <!-- criei uma separação entre os itens -->
     </span>
     <span class="text-white uppercase font-semibold text-1xl text-center">
-      <h1> <%= @user.pesquisador.tipo_bolsa %> </h1>
+      <h1><%= @user.pesquisador.tipo_bolsa %></h1>
     </span>
     <span class="h-5">
       <!-- criei uma separação entre os itens -->
     </span>
     <span class="button h-14 w-11/12 flex justify-center ">
       <.icon name={:edit_profile} class="w-12" />
-      <%= submit "Editar Perfil", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12" %>
+      <%= submit("Editar Perfil", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
       <!-- após salvar deve ir para "mostrar" do perfil -->
     </span>
     <span class="h-5">
@@ -28,7 +28,7 @@
     </span>
     <span class="button h-14 w-11/12 flex justify-center ">
       <.icon name={:lock} class="w-12" />
-      <%= submit "Alterar Senha", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12" %>
+      <%= submit("Alterar Senha", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
       <!-- após salvar deve ir para "mostrar" do perfil -->
     </span>
     <span class="h-5">
@@ -36,7 +36,7 @@
     </span>
     <span class="button h-14 w-11/12 flex justify-center ">
       <.icon name={:edit_profile} class="w-12" />
-      <%= submit "Ver Mais", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12" %>
+      <%= submit("Ver Mais", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
       <!-- após salvar deve ir para "mostrar" do perfil -->
     </span>
     <span class="h-5">
@@ -44,25 +44,27 @@
     </span>
     <span class="button h-14 w-11/12 flex justify-center ">
       <.icon name={:edit_profile} class="w-12" />
-      <%= submit "salvar", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12" %>
+      <%= submit("salvar", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
       <!-- após salvar deve ir para "mostrar" do perfil -->
     </span>
   </section>
 
   <section class="flex flex-col justify-between items-center">
     <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
-      <%= label f, :minibiografia, "BIOGRAFIA", class: "text-white" %>
+      <%= label(f, :minibiografia, "BIOGRAFIA", class: "text-white") %>
 
-      <%= textarea f, :minibiografia,
+      <%= textarea(f, :minibiografia,
         readonly: true,
         rows: 12,
         cols: 65,
-        value: @user.pesquisador.minibiografia %>
+        value: @user.pesquisador.minibiografia
+      ) %>
 
-      <%= input f, :link_lattes, 
+      <%= input(f, :link_lattes,
         readonly?: @edit?,
         label: "LATTES",
-        value: @user.pesquisador.link_lattes %>
+        value: @user.pesquisador.link_lattes
+      ) %>
     </.form>
   </section>
 </div>
