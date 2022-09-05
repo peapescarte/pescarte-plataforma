@@ -7,8 +7,10 @@
 
   outputs = { self, nixpkgs }:
     let
-      linux = "x86_64-linux";
-      darwin = "aarch64-darwin";
+      systems = {
+        linux = "x86_64-linux";
+        darwin = "aarch64-darwin";
+      };
 
       pkgs = system: import nixpkgs {
         inherit system;
@@ -38,14 +40,14 @@
     in
     rec {
       devShells = {
-        "${linux}".default = with pkgs linux; mkShell {
+        "${systems.linux}".default = with pkgs systems.linux; mkShell {
           name = "fuschia";
-          buildInputs = inputs linux;
+          buildInputs = inputs systems.linux;
         };
 
-        "${darwin}".default = with pkgs darwin; mkShell {
+        "${systems.darwin}".default = with pkgs systems.darwin; mkShell {
           name = "fuschia";
-          buildInputs = inputs darwin;
+          buildInputs = inputs systems.darwin;
         };
       };
     };
