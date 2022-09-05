@@ -7,13 +7,13 @@
       <!-- criei uma separação entre os itens -->
     </span>
     <span class="text-white uppercase font-semibold text-2xl text-center">
-      <h1><%= @user.nome_completo %></h1>
+      <h1><%= build_user_name(@user) %></h1>
     </span>
     <span class="h-5">
       <!-- criei uma separação entre os itens -->
     </span>
     <span class="text-white uppercase font-semibold text-1xl text-center">
-      <h1><%= @user.pesquisador.tipo_bolsa %></h1>
+      <h1><%= @user.researcher.bursary %></h1>
     </span>
     <span class="h-5">
       <!-- criei uma separação entre os itens -->
@@ -57,13 +57,13 @@
         readonly: true,
         rows: 12,
         cols: 65,
-        value: @user.pesquisador.minibiografia
+        value: @user.researcher.minibio
       ) %>
 
       <%= input(f, :link_lattes,
         readonly?: @edit?,
         label: "LATTES",
-        value: @user.pesquisador.link_lattes
+        value: @user.researcher.link_lattes
       ) %>
     </.form>
   </section>

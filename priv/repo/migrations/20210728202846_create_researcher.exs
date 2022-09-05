@@ -7,9 +7,9 @@ defmodule Fuschia.Repo.Migrations.CreateResearcher do
       add :bursary, :string, default: "pesquisa", null: false
       add :minibio, :string, null: false, size: 280
       add :link_lattes, :string, null: false
+      add :advisor_id, references(:researcher)
       add :user_id, references(:user), null: false
       add :campus_id, references(:campus), null: false
-      add :advisor_id, references(:researcher), null: false
 
       timestamps()
     end
