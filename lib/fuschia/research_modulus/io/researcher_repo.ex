@@ -11,7 +11,7 @@ defmodule Fuschia.ResearchModulus.IO.ResearcherRepo do
     user_id
   )a
 
-  @optional_fields ~w(advisor_id )a
+  @optional_fields ~w(advisor_id)a
 
   @update_fields ~w(minibio bursary link_lattes)a
 

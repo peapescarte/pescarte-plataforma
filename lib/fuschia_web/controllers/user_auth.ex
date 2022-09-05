@@ -22,11 +22,7 @@ defmodule FuschiaWeb.UserAuth do
   redirecionado após o login
   """
   def signed_in_path(conn) do
-    if Map.get(conn.assigns, :current_user) do
-      Routes.user_profile_path(conn, :update)
-    else
-      "/not_found"
-    end
+    Routes.user_profile_path(conn, :edit)
   end
 
   @doc """
