@@ -3,7 +3,7 @@
     Plataforma PEA Pescarte
   '';
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
 
   outputs = { self, nixpkgs }:
     let
@@ -33,12 +33,10 @@
       ] ++ lib.optional stdenv.isLinux [
         inotify-tools
         gtk-engine-murrine
+      ] ++ lib.optional stdenv.isDarwin [
+        darwin.apple_sdk.frameworks.CoreServices
+        darwin.apple_sdk.frameworks.CoreFoundation
       ];
-      # o canal unstable está quebrado
-      # ++ lib.optional stdenv.isDarwin [
-      #   darwin.apple_sdk.frameworks.CoreServices
-      #   darwin.apple_sdk.frameworks.CoreFoundation
-      # ];
     in
     rec {
       devShells = {
