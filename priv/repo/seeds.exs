@@ -12,6 +12,31 @@ alias Fuschia.ResearchModulus
 
 {:ok, user} =
   Accounts.register_user(%{
+    password: "gW3XS8(Eo*mY6/xl",
+    password_confirmation: "gW3XS8(Eo*mY6/xl",
+    first_name: "Zoey",
+    middle_name: "de Souza",
+    last_name: "Pessanha",
+    birthdate: ~D[2001-07-27],
+    cpf: "133.590.177-90",
+    contact: %{
+      email: "zoey.spessanha@outlook.com",
+      address: "R. Conselheiro José Fernandes, 341 - Campos do Goytacazes",
+      mobile: "(22)99839-9070"
+    }
+  })
+
+{:ok, _researcher} =
+  ResearchModulus.create_researcher(%{
+    minibio: "Olá",
+    bursary: "pesquisa",
+    link_lattes: "https://github.com/zoedsoupe",
+    campus_id: campus.id,
+    user_id: user.id
+  })
+
+{:ok, user} =
+  Accounts.register_user(%{
     password: "AnnaPescarte!",
     password_confirmation: "AnnaPescarte!",
     first_name: "Annabell",
