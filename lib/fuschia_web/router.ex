@@ -48,6 +48,11 @@ defmodule FuschiaWeb.Router do
     get "/perfil", UserProfileController, :edit
     put "/perfil", UserProfileController, :update
 
+    scope "/admin" do
+      get "/pesq/listar", PesquisadorController, :show
+      get "/pesq/mostrar", PesquisadorController, :index
+    end
+
     get "/perfil/confirmar_email/:token",
         UserProfileController,
         :confirm_email

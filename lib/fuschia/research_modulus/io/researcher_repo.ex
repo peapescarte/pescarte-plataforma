@@ -28,8 +28,10 @@ defmodule Fuschia.ResearchModulus.IO.ResearcherRepo do
 
   @impl true
   def all do
-    Database.all(Researcher)
-  end
+    Researcher
+    |> Database.all()
+    |> Database.preload([:user])
+  end   ## , :contact  ==> eliminei do preload, pois tava dando erro 22/9/2022
 
   @impl true
   def fetch(id) do

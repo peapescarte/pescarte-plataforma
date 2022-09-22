@@ -77,4 +77,8 @@ defmodule FuschiaWeb.Components.Icon do
   def get_alt_text(:white_check) do
     "Ícone de um check branco"
   end
+
+  def get_alt_text(:plus) do
+    "Ícone de lupa"
+  end
 end

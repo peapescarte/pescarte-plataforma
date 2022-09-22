@@ -76,6 +76,7 @@ defmodule FuschiaWeb do
 
       import Phoenix.LiveView.Helpers
       import Phoenix.View
+      import Fuschia.Common.Common
 
       import FuschiaWeb.Components
       import FuschiaWeb.ErrorHelpers
