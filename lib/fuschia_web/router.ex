@@ -40,6 +40,8 @@ defmodule FuschiaWeb.Router do
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    get "/", PageController, :index
+
     scope "/relatorios" do
       get "/mensal/criar", MonthlyReportController, :new
       post "/mensal/criar", MonthlyReportController, :create
