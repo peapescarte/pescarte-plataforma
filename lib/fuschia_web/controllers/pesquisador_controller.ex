@@ -10,4 +10,10 @@ defmodule FuschiaWeb.PesquisadorController do
     user = conn.assigns.current_user
     render(conn, "show.html", user: user)
   end
+
+  def new(conn, _params) do
+    ##  new_research = Fuschia.ResearchModulus.create_researcher(params)   research: new_research,
+      render(conn, "new.html", error_message: nil)
+  end
+
 end

@@ -3,6 +3,8 @@
      <.icon name={:lock} class="w-12" /> 
    <%= submit("Cadastrar Pesquisador(a)", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
   </span>
+  <!-- a tela do cadastro de pesquisador via admin, se encontra em href="/app/admin/pesq/novo". 
+  Atualizar a routa no comando acima  -->
 
   <span class="button h-14 w-11/12 flex justify-center ">
    <.icon name={:edit} class="w-12" /> 

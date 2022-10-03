@@ -31,7 +31,7 @@
        <td><%= build_user_name(research.user) %></td>
        <td><%= research.bursary %></td>
        <td><%= research.user.cpf %></td>
-       <td>  </td>
+       <td><%= research.user.contact.email %>  </td>
        <td><.icon name={:edit_profile} class="w-12" /></td>
       </tr>
     <% end %>

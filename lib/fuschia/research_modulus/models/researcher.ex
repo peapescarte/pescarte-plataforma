@@ -33,4 +33,7 @@ defmodule Fuschia.ResearchModulus.Models.Researcher do
 
     timestamps()
   end
+
+  def bursary_types, do: @bursary_types
+
 end

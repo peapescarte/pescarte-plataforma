@@ -25,6 +25,8 @@ defmodule FuschiaWeb.Router do
   scope "/", FuschiaWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
+    get "/", PageController, :index
+
     get "/cadastrar", UserRegistrationController, :new
     post "/cadastrar", UserRegistrationController, :create
 
@@ -35,24 +37,28 @@ defmodule FuschiaWeb.Router do
     post "/recuperar_senha", UserResetPasswordController, :create
     get "/recuperar_senha/:token", UserResetPasswordController, :edit
     put "/recuperar_senha/:token", UserResetPasswordController, :update
+
+    ## Será que posso criar um ResearchRegistrationController ou seria um UserRegistrationController com
+    ## :bursary = pesquisador ?????
   end
 
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/", PageController, :index
-
     scope "/relatorios" do
       get "/mensal/criar", MonthlyReportController, :new
       post "/mensal/criar", MonthlyReportController, :create
+      get "/mensal/listar", MonthlyReportController, :show
     end
 
     get "/perfil", UserProfileController, :edit
     put "/perfil", UserProfileController, :update
 
     scope "/admin" do
-      get "/pesq/listar", PesquisadorController, :show
-      get "/pesq/mostrar", PesquisadorController, :index
+      get "/", AdminController, :index
+      get "/pesq/:id", PesquisadorController, :show
+      get "/pesq", PesquisadorController, :index
+      get "/pesq/novo", PesquisadorController, :new
     end
 
     get "/perfil/confirmar_email/:token",
