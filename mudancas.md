@@ -1,0 +1,4 @@
+- campus falta `universidade`
+- nucleo `descricao` opcional
+- cidade falta ESTADO
+- tabela universidade, tem cidade
