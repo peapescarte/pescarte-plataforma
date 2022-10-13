@@ -42,6 +42,7 @@ defmodule FuschiaWeb.Router do
     ## :bursary = pesquisador ?????
   end
 
+
   scope "/app", FuschiaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
@@ -53,10 +54,11 @@ defmodule FuschiaWeb.Router do
 
     get "/perfil", UserProfileController, :edit
     put "/perfil", UserProfileController, :update
+    get "/perfil/listar", UserProfileController, :show
 
     scope "/admin" do
       get "/", AdminController, :index
-      get "/pesq/:id", PesquisadorController, :show
+      get "/pesq/listar", PesquisadorController, :show
       get "/pesq", PesquisadorController, :index
       get "/pesq/novo", PesquisadorController, :new
     end
@@ -75,6 +77,11 @@ defmodule FuschiaWeb.Router do
     post "/confirmar", UserConfirmationController, :create
     get "/confirmar/:token", UserConfirmationController, :edit
     put "/confirmar/:token", UserConfirmationController, :update
+
+
+    get "/pedagogico", PedagogicoController, :index
+    get "/pesquisa", PesquisaController, :index
+
   end
 
   ## Endpoints para ambiente de desenvolvimento

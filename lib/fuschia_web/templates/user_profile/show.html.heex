@@ -1,0 +1,64 @@
+<div class="container flex justify-between items-center">
+  <section class="flex flex-col justify-between items-center">
+    <span class="bg-blue-100 rounded-full">
+      <.icon name={:user} class="w-52" />
+    </span>
+    <span class="h-20">
+      <!-- criei uma separação entre os itens -->
+    </span>
+    <span class="text-white uppercase font-semibold text-2xl text-center">
+      <h1><%= build_user_name(@user) %></h1>
+    </span>
+    <span class="h-5">
+      <!-- criei uma separação entre os itens -->
+    </span>
+    <span class="text-white uppercase font-semibold text-1xl text-center">
+      <h1><%= @user.researcher.bursary %></h1>
+    </span>
+    <span class="h-5">
+      <!-- criei uma separação entre os itens -->
+    </span>
+    <span class="button h-14 w-11/12 flex justify-center ">
+      <.icon name={:edit_profile} class="w-12" />
+  <!--    <%= submit("Editar Perfil", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %> -->
+      <!-- após salvar deve ir para "mostrar" do perfil -->
+    </span>
+    <span class="h-5">
+      <!-- criei uma separação entre os itens -->
+    </span>
+    <span class="button h-14 w-11/12 flex justify-center ">
+      <.icon name={:lock} class="w-12" />
+      <%= submit("Alterar Senha", to: Routes.user_profile_path(@conn, :update), class: "h-14 w-4/12") %>
+      <!-- após salvar deve ir para "mostrar" do perfil -->
+    </span>
+    <span class="h-5">
+      <!-- criei uma separação entre os itens -->
+    </span>
+    <span class="button h-14 w-11/12 flex justify-center ">
+      <.icon name={:edit_profile} class="w-12" />
+      <%= submit("Ver Mais", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
+      <!-- após salvar deve ir para "mostrar" do perfil -->
+    </span>
+    <span class="h-5">
+      <!-- criei uma separação entre os itens -->
+    </span>
+  </section>
+  <section class="flex flex-col justify-between items-center">
+    <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
+      <%= label(f, :minibiografia, "BIOGRAFIA", class: "text-white") %>
+
+      <%= textarea(f, :minibiografia,
+        readonly: true,
+        rows: 12,
+        cols: 65,
+        value: @user.researcher.minibio
+      ) %>
+
+      <%= input(f, :link_lattes,
+        readonly?: @edit?,
+        label: "LATTES",
+        value: @user.researcher.link_lattes
+      ) %>
+    </.form>
+  </section>
+</div>
