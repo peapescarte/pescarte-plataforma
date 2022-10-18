@@ -1,64 +1,56 @@
-<div class="container flex justify-between items-center">
-  <section class="flex flex-col justify-between items-center">
-    <span class="bg-blue-100 rounded-full">
-      <.icon name={:user} class="w-52" />
-    </span>
-    <span class="h-20">
-      <!-- criei uma separação entre os itens -->
-    </span>
-    <span class="text-white uppercase font-semibold text-2xl text-center">
+<div class="container grid grid-flow-col grid-cols-6 gap-6">
+  <div class="col-start-1 col-span-2 mb-12 md:mb-0">
+      <div class="flex justify-center mb-6">
+          <img class="rounded-full shadow-lg w-64" src="/images/avatar/PerfilAnna2022.jpg"/>
+          <!-- aqui devemos colocar um comando para trazer o campo foto do usuario 18/10/2022-->
+      </div>
+  </div>
+
+  <div class="col-start-1 col-span-2 text-white uppercase font-semibold text-2xl text-center justify-between">
       <h1><%= build_user_name(@user) %></h1>
-    </span>
-    <span class="h-5">
-      <!-- criei uma separação entre os itens -->
-    </span>
-    <span class="text-white uppercase font-semibold text-1xl text-center">
-      <h1><%= @user.researcher.bursary %></h1>
-    </span>
-    <span class="h-5">
-      <!-- criei uma separação entre os itens -->
-    </span>
-    <span class="button h-14 w-11/12 flex justify-center ">
-      <.icon name={:edit_profile} class="w-12" />
-  <!--    <%= submit("Editar Perfil", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %> -->
-      <!-- após salvar deve ir para "mostrar" do perfil -->
-    </span>
-    <span class="h-5">
-      <!-- criei uma separação entre os itens -->
-    </span>
-    <span class="button h-14 w-11/12 flex justify-center ">
-      <.icon name={:lock} class="w-12" />
-      <%= submit("Alterar Senha", to: Routes.user_profile_path(@conn, :update), class: "h-14 w-4/12") %>
-      <!-- após salvar deve ir para "mostrar" do perfil -->
-    </span>
-    <span class="h-5">
-      <!-- criei uma separação entre os itens -->
-    </span>
-    <span class="button h-14 w-11/12 flex justify-center ">
-      <.icon name={:edit_profile} class="w-12" />
-      <%= submit("Ver Mais", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
-      <!-- após salvar deve ir para "mostrar" do perfil -->
-    </span>
-    <span class="h-5">
-      <!-- criei uma separação entre os itens -->
-    </span>
-  </section>
-  <section class="flex flex-col justify-between items-center">
-    <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
-      <%= label(f, :minibiografia, "BIOGRAFIA", class: "text-white") %>
 
-      <%= textarea(f, :minibiografia,
-        readonly: true,
-        rows: 12,
-        cols: 65,
-        value: @user.researcher.minibio
-      ) %>
+      <h1><%= @user.researcher.bursary %></h1>  
+  </div>
 
-      <%= input(f, :link_lattes,
-        readonly?: @edit?,
-        label: "LATTES",
-        value: @user.researcher.link_lattes
-      ) %>
-    </.form>
-  </section>
+  <div class="col-start-1 col-span-2 mb-12 md:mb-0">
+    <div class="button h-14 w-11/12 flex-1 items-center justify-between">
+      <a href="/edit" class="flex items-center rounded-md">
+        <.icon name={:edit_profile} class="w-12" />
+        Editar Perfil
+      </a>
+    </div>
+  </div> 
+  
+  <div class="col-start-1 col-span-2 button h-14 w-11/12 flex items-center justify-between">
+      <a href="/edit" class="flex items-center rounded-md">
+        <.icon name={:edit_profile} class="w-12" />
+        Alterar Senha
+      </a>
+  </div>
+
+  <div class="col-start-1 col-span-2 button h-14 w-11/12 flex items-center justify-between">
+      <a href="/outros" class="flex items-center rounded-md">
+        <svg width="20" height="20" fill="currentColor" class="mr-2" aria-hidden="true">
+          <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
+        </svg>
+        Ver Mais
+      </a>
+      
+  </div>
+
+  <div class="col-start-3 col-span-4 mb-12 md:mb-0">
+    <%= label(:minibiografia, "BIOGRAFIA", class: "text-white uppercase font-semibold") %>
+    <blockquote>
+    <span class="text-white grow">
+     <%= @user.researcher.minibio %></span>
+    </blockquote>
+  </div>
+
+  <div class="col-start-3 col-span-4 ">
+    <%= label(:link_lattes, "LATTES", class: "text-white uppercase font-semibold") %>
+    <blockquote>
+    <span class="text-white">
+      <%= @user.researcher.link_lattes %></span>
+    </blockquote>
+  </div>
 </div>
