@@ -40,6 +40,8 @@ defmodule FuschiaWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+
+      use Surface.View, root: "lib/fuschia_web/templates"
     end
   end
 
