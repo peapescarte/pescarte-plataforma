@@ -1,0 +1,49 @@
+/* Design System variables and utility classes */
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Colors lighter to darker */
+  --blue-1: #66A2DE;
+  --blue-2: #3383D3;
+  --blue-3: #0064C8;
+  --blue-4: #003CC8;
+
+  --orange-1: #FFA866;
+  --orange-2: #FF8B33;
+  --orange-3: #FF6E00;
+
+  --gray-1: #E7E7E7;
+  --gray-2: #CFCFCF;
+  --gray-3: #9F9F9F;
+  --gray-4: #707070;
+  --gray-5: #404040;
+
+  --white-1: #FAFAFA;
+  --white-2: #F3F3F3;
+  --white-3: #F5F5F5;
+
+  --black: #101010;
+
+  /* Font family, weight and sizes */
+  font: 62.5% "Work Sans" regular, sans-serif;
+
+  /* Sizings */
+  --quark: 0.25rem;
+  --nano: 0.5rem;
+  --micro: 0.75rem;
+  --4xs: 1rem;
+  --3xs: 1.25rem;
+  --2xs: 1.5rem;
+  --xs: 2rem;
+  --sm: 2.5rem;
+  --md: 3rem;
+  --lg: 3.5rem;
+  --xl: 4rem;
+  --2xl: 4.5rem;
+  --3xl: 5rem;
+  --mega: 6rem;
+  --2mega: 7.5rem;
+  --3mega: 10rem;
+  --giga: 12.5rem;
+}
