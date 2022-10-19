@@ -1,22 +1,4 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
-:root {
-  font-size: 62.5%;
-
-  /* theme vars */
-  --blue-lighter: #BCE0EF;
-  --blue-light: #88B8CC;
-  --blue-dark: #277DA1;
-  --blue-darker: #0E4771;
-
-  --green: #25CE52;
-  --orange: #F8961E;
-  --yellow: #F5BD00;
-  --red: #FF635D;
-}
-
+@import "theme.css";
 
 * {
   margin: 0;
@@ -26,7 +8,6 @@
 }
 
 body {
-  font: 400 1.4rem 'Open Sans', sans-serif;
   min-height: 100vh;
   background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
