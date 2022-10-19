@@ -54,3 +54,9 @@ fuschia-*.tar
 
 # Ignore seeds
 /priv/repo/seed_prod.exs
+
+# Ignore generated js hook files for components
+assets/js/_hooks/
+
+# Ignore generated CSS file for components
+assets/css/_components.css

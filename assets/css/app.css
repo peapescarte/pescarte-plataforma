@@ -1,3 +1,6 @@
+/* Import scoped CSS rules for components */
+@import "./_components.css";
+
 @import "theme.css";
 
 * {

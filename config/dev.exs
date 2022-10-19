@@ -17,16 +17,17 @@ config :fuschia, FuschiaWeb.Endpoint,
   secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    esbuild: {Esbuild, :install_and_run, [:catalogue, ~w(--sourcemap=inline --watch)]}
   ]
 
 config :fuschia, FuschiaWeb.Endpoint,
-  reloadable_compilers: [:elixir],
+  reloadable_compilers: [:elixir, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"lib/fuschia_web/(|views|components)/.*(ex|js)$",
-      ~r"lib/fuschia_web/templates/.*(eex)$",
-      ~r"lib/fuschia_web/live/.*(sface)$",
+      ~r"lib/my_app_web/(live|views|components)/.*(ex|sface|js)$",
+      ~r"lib/my_app_web/templates/.*(eex|sface)$",
+      ~r"priv/catalogue/.*(ex)$"
     ]
   ]
 

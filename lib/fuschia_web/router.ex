@@ -1,6 +1,8 @@
 defmodule FuschiaWeb.Router do
   use FuschiaWeb, :router
 
+  import Surface.Catalogue.Router
+
   import FuschiaWeb.UserAuth
 
   pipeline :browser do
@@ -81,6 +83,8 @@ defmodule FuschiaWeb.Router do
       pipe_through :browser
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
+
+      surface_catalogue("/catalogue")
     end
   end
 end

@@ -42,6 +42,7 @@ defmodule FuschiaWeb do
       unquote(view_helpers())
 
       use Surface.View, root: "lib/fuschia_web/templates"
+      import Surface
     end
   end
 
