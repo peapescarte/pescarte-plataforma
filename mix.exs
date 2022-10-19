@@ -14,7 +14,7 @@ defmodule Fuschia.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ],
-      compilers: [:phoenix] ++ Mix.compilers(),
+      compilers: [:phoenix, :surface] ++ Mix.compilers(),
       elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -61,6 +61,7 @@ defmodule Fuschia.MixProject do
       {:bcrypt_elixir, "~> 2.0"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
+      {:pescarte, git: "git@github.com:/peapescarte/pescarte"},
       {:oban, "~> 2.8"},
       {:proper_case, "~> 1.0.2"},
       {:nanoid, "~> 2.0.5"},
@@ -82,7 +83,6 @@ defmodule Fuschia.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
     ]
   end
 
