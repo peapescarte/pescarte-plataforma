@@ -1,4 +1,4 @@
-defmodule Fuschia.Repo.Migrations.CreateMonthlyReport do
+defmodule Pescarte.Repo.Migrations.CreateMonthlyReport do
   use Ecto.Migration
 
   def change do

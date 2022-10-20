@@ -42,12 +42,12 @@
     rec {
       devShells = {
         "${systems.linux}".default = with pkgs systems.linux; mkShell {
-          name = "fuschia";
+          name = "pescarte";
           buildInputs = inputs systems.linux;
         };
 
         "${systems.darwin}".default = with pkgs systems.darwin; mkShell {
-          name = "fuschia";
+          name = "pescarte";
           buildInputs = inputs systems.darwin;
         };
       };

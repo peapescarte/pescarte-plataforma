@@ -4,26 +4,26 @@ import Config
 config :bcrypt_elixir, :log_rounds, 1
 
 # ignore audit log by default
-config :fuschia, carbonite_mode: :ignore
+config :pescarte, carbonite_mode: :ignore
 
-config :fuschia, Fuschia.Repo,
+config :pescarte, Pescarte.Repo,
   username: "pescarte",
   password: "pescarte",
-  database: "fuschia_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "pescarte_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
-config :fuschia, Oban, queues: false, plugins: false
+config :pescarte, Oban, queues: false, plugins: false
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :fuschia, FuschiaWeb.Endpoint,
+config :pescarte, PescarteWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "UMvQe3k+eH28J6exxhadrvKm+mIvF3n73YdsY6x7EZV7FJDRezMjvf/2reDRqkPJ",
   server: false
 
-config :fuschia, Fuschia.Mailer, adapter: Swoosh.Adapters.Test
+config :pescarte, Pescarte.Mailer, adapter: Swoosh.Adapters.Test
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

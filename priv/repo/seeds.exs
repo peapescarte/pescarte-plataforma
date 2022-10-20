@@ -1,5 +1,5 @@
-alias Fuschia.Accounts
-alias Fuschia.ResearchModulus
+alias Pescarte.Accounts
+alias Pescarte.ResearchModulus
 
 {:ok, city} = ResearchModulus.create_city(%{county: "Campos dos Goytacazes"})
 

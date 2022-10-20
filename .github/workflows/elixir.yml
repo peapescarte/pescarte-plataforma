@@ -128,7 +128,7 @@ jobs:
         env:
           POSTGRES_USER: pescarte
           POSTGRES_PASSWORD: pescarte
-          POSTGRES_DB: fuschia_test
+          POSTGRES_DB: pescarte_test
         image: postgres:13.5
         ports: ['5432:5432']
         options: >-
@@ -177,7 +177,7 @@ jobs:
         env:
           POSTGRES_USER: pescarte
           POSTGRES_PASSWORD: pescarte
-          POSTGRES_DB: fuschia_test
+          POSTGRES_DB: pescarte_test
         image: postgres:13.5
         ports: ['5432:5432']
         options: >-

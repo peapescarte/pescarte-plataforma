@@ -1,9 +1,9 @@
-defmodule Fuschia.MixProject do
+defmodule Pescarte.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :fuschia,
+      app: :pescarte,
       version: "0.0.1",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -14,18 +14,18 @@ defmodule Fuschia.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ],
-      compilers: [:phoenix, :surface] ++ Mix.compilers(),
+      compilers: [:phoenix] ++ Mix.compilers(),
       elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
       dialyzer: dialyzer(),
       # Documentação
-      name: "Fuschia",
-      source_url: "https://github.com/cciuenf/fuschia",
+      name: "Pescarte",
+      source_url: "https://github.com/cciuenf/pescarte",
       homepage_url: "",
       docs: [
-        main: "Fuschia",
+        main: "Pescarte",
         extras: ["README.md"]
       ]
     ]
@@ -33,7 +33,7 @@ defmodule Fuschia.MixProject do
 
   def application do
     [
-      mod: {Fuschia.Application, []},
+      mod: {Pescarte.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -88,9 +88,6 @@ defmodule Fuschia.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:surface_catalogue, "~> 0.5.0"},
-      {:surface, "~> 0.8.0"},
-      {:surface_formatter, "~> 0.7.5"}
     ]
   end
 

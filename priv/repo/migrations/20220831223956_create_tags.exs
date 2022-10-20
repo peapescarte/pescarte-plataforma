@@ -1,4 +1,4 @@
-defmodule Fuschia.Repo.Migrations.CreateTags do
+defmodule Pescarte.Repo.Migrations.CreateTags do
   use Ecto.Migration
 
   def change do
