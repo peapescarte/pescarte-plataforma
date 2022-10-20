@@ -1,6 +1,6 @@
-# fly.toml file generated for fuschia on 2022-07-16T12:59:37-03:00
+# fly.toml file generated for pescarte on 2022-07-16T12:59:37-03:00
 
-app = "fuschia"
+app = "pescarte"
 
 kill_signal = "SIGINT"
 kill_timeout = 5

@@ -1,7 +1,7 @@
 ```{=org}
 #+caption: CI
 ```
-<https://github.com/cciuenf/fuschia/workflows/elixir_ci/badge.svg?branch=dev>
+<https://github.com/cciuenf/pescarte/workflows/elixir_ci/badge.svg?branch=dev>
 
 Plataforma Digital PEA Pescarte
 
@@ -62,7 +62,7 @@ diferentes responsabilidades.
 # TODO
 ```
 
-### Fuschia.Mailer
+### Pescarte.Mailer
 
 Responsável pelo processamento e envio/disparo dos emails. Estamos
 utilizando o [Swoosh](https://github.com/swoosh/swoosh).
