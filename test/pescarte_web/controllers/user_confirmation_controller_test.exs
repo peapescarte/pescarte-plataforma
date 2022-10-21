@@ -1,10 +1,10 @@
-defmodule PescarteWeb.UserConfirmationControllerTest do
-  use PescarteWeb.ConnCase, async: true
+defmodule BackendWeb.UserConfirmationControllerTest do
+  use BackendWeb.ConnCase, async: true
 
-  alias Pescarte.Accounts
-  alias Pescarte.Repo
+  alias Backend.Accounts
+  alias Backend.Repo
 
-  import Pescarte.Factory
+  import Backend.Factory
 
   @moduletag :integration
 

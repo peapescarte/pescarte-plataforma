@@ -1,4 +1,4 @@
-defmodule Pescarte.Common.Wrapping do
+defmodule Backend.Common.Wrapping do
   @moduledoc """
   This module is used to handle wrapping on pipelines
   """

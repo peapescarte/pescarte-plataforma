@@ -1,7 +1,7 @@
-defmodule Pescarte.ResearchModulus.Models.ResearchCore do
-  use Pescarte, :model
+defmodule Backend.ResearchModulus.Models.ResearchCore do
+  use Backend, :model
 
-  alias Pescarte.ResearchModulus.Models.ResearchLine
+  alias Backend.ResearchModulus.Models.ResearchLine
 
   schema "research_core" do
     field :name, CapitalizedString

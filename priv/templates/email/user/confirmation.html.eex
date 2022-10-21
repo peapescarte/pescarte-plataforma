@@ -1,5 +1,5 @@
 <p>Olá, <strong><%= @nome %></strong>!</p>
-<p>Você recebeu um convite para se cadastrar na plataforma PEA Pescarte!</p>
+<p>Você recebeu um convite para se cadastrar na plataforma PEA Backend!</p>
 <p>Ao clicar no link abaixo, você irá se cadastrar como pesquisador!</p>
 <a
   href="<%= @link %>"

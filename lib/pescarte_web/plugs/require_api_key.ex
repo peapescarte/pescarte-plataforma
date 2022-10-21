@@ -1,4 +1,4 @@
-defmodule PescarteWeb.RequireApiKeyPlug do
+defmodule BackendWeb.RequireApiKeyPlug do
   @moduledoc """
   Plug to handle the API key for
   header or query parameter
@@ -6,8 +6,8 @@ defmodule PescarteWeb.RequireApiKeyPlug do
 
   import Plug.Conn
 
-  alias Pescarte.Accounts.Models.ApiKey
-  alias Pescarte.Database
+  alias Backend.Accounts.Models.ApiKey
+  alias Backend.Database
 
   @spec init(map) :: map
   def init(options), do: options

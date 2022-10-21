@@ -1,5 +1,5 @@
-defmodule PescarteWeb.UserProfileView do
-  use PescarteWeb, :view
+defmodule BackendWeb.UserProfileView do
+  use BackendWeb, :view
 
   def build_user_name(user) do
     if user.middle_name do

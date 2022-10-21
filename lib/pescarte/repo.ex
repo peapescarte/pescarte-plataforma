@@ -1,6 +1,6 @@
-defmodule Pescarte.Repo do
+defmodule Backend.Repo do
   use Ecto.Repo,
-    otp_app: :pescarte,
+    otp_app: :backend,
     adapter: Ecto.Adapters.Postgres
 
   @type changeset :: Ecto.Changeset.t()
@@ -23,7 +23,7 @@ defmodule Pescarte.Repo do
 
   @spec fetch_by(module | query, keyword) :: {:ok, struct} | {:error, :not_found}
   def fetch_by(source, params) do
-    case Pescarte.Database.get_by(source, params) do
+    case Backend.Database.get_by(source, params) do
       nil -> {:error, :not_found}
       model -> {:ok, model}
     end

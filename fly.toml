@@ -1,6 +1,6 @@
-# fly.toml file generated for pescarte on 2022-07-16T12:59:37-03:00
+# fly.toml file generated for backend on 2022-07-16T12:59:37-03:00
 
-app = "pescarte"
+app = "backend"
 
 kill_signal = "SIGINT"
 kill_timeout = 5

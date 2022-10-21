@@ -1,8 +1,8 @@
-defmodule PescarteWeb.UserProfileController do
-  use PescarteWeb, :controller
+defmodule BackendWeb.UserProfileController do
+  use BackendWeb, :controller
 
-  alias Pescarte.Accounts
-  alias PescarteWeb.UserAuth
+  alias Backend.Accounts
+  alias BackendWeb.UserAuth
 
   plug :assign_email_and_password_changesets
 

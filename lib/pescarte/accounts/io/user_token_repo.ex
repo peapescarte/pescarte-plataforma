@@ -1,7 +1,7 @@
-defmodule Pescarte.Accounts.IO.UserTokenRepo do
-  use Pescarte, :repo
+defmodule Backend.Accounts.IO.UserTokenRepo do
+  use Backend, :repo
 
-  alias Pescarte.Accounts.Models.UserToken
+  alias Backend.Accounts.Models.UserToken
 
   @hash_algorithm :sha256
 

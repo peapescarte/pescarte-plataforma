@@ -1,9 +1,9 @@
-defmodule Pescarte.MixProject do
+defmodule Backend.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :pescarte,
+      app: :backend,
       version: "0.0.1",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -21,11 +21,11 @@ defmodule Pescarte.MixProject do
       deps: deps(),
       dialyzer: dialyzer(),
       # Documentação
-      name: "Pescarte",
-      source_url: "https://github.com/cciuenf/pescarte",
+      name: "Backend",
+      source_url: "https://github.com/cciuenf/backend",
       homepage_url: "",
       docs: [
-        main: "Pescarte",
+        main: "Backend",
         extras: ["README.md"]
       ]
     ]
@@ -33,7 +33,7 @@ defmodule Pescarte.MixProject do
 
   def application do
     [
-      mod: {Pescarte.Application, []},
+      mod: {Backend.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

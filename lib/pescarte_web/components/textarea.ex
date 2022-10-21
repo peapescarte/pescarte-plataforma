@@ -1,7 +1,7 @@
-defmodule PescarteWeb.Components.TextArea do
+defmodule BackendWeb.Components.TextArea do
   @moduledoc false
 
-  use PescarteWeb, :component
+  use BackendWeb, :component
 
   def render(assigns) do
     ~H"""

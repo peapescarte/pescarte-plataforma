@@ -1,14 +1,14 @@
-defmodule PescarteWeb.UserRegistrationControllerTest do
-  use PescarteWeb.ConnCase, async: true
+defmodule BackendWeb.UserRegistrationControllerTest do
+  use BackendWeb.ConnCase, async: true
 
-  import Pescarte.Factory
+  import Backend.Factory
 
   @moduletag :integration
 
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, PescarteWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, BackendWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{conn: conn}

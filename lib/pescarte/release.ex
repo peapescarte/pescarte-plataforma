@@ -1,9 +1,9 @@
-defmodule Pescarte.Release do
+defmodule Backend.Release do
   @moduledoc """
   Used for executing DB release tasks when run in production without Mix
   installed.
   """
-  @app :pescarte
+  @app :backend
 
   def migrate do
     load_app()

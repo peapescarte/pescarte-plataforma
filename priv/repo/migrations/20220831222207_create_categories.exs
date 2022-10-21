@@ -1,4 +1,4 @@
-defmodule Pescarte.Repo.Migrations.CreateCategories do
+defmodule Backend.Repo.Migrations.CreateCategories do
   use Ecto.Migration
 
   def change do

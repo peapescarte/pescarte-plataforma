@@ -26,11 +26,11 @@ config :sentry,
 # ---------------------------#
 # Oban
 # ---------------------------#
-config :pescarte, Oban,
-  repo: Pescarte.Repo,
+config :backend, Oban,
+  repo: Backend.Repo,
   queues: [mailer: 5]
 
-config :pescarte, :jobs, start: System.get_env("START_OBAN_JOBS", "true")
+config :backend, :jobs, start: System.get_env("START_OBAN_JOBS", "true")
 
 # ---------------------------#
 # Mailer
@@ -45,18 +45,18 @@ if adapter == Swoosh.Adapters.Local and config_env() != :prod do
   config :swoosh, serve_mailbox: true, preview_port: 4001
 end
 
-config :pescarte, Pescarte.Mailer,
+config :backend, Backend.Mailer,
   adapter: adapter,
   relay: System.get_env("MAIL_SERVER", "smtp.gmail.com"),
-  username: System.get_env("MAIL_USERNAME", "notificacoes-noreply@peapescarte.uenf.br"),
+  username: System.get_env("MAIL_USERNAME", "notificacoes-noreply@peabackend.uenf.br"),
   password: System.get_env("MAIL_PASSWORD", ""),
   ssl: false,
   tls: :always,
   auth: :always,
   port: System.get_env("MAIL_PORT", "587")
 
-config :pescarte, :pea_pescarte_contact,
-  notifications_mail: "notifications-noreply@peapescarte.uenf.br",
+config :backend, :pea_backend_contact,
+  notifications_mail: "notifications-noreply@peabackend.uenf.br",
   telephone: " 0800 026 2828"
 
 # ---------------------------#
@@ -65,7 +65,7 @@ config :pescarte, :pea_pescarte_contact,
 config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
 if System.get_env("PHX_SERVER") do
-  config :pescarte, PescarteWeb.Endpoint, server: true
+  config :backend, BackendWeb.Endpoint, server: true
 end
 
 if config_env() == :prod do
@@ -74,10 +74,10 @@ if config_env() == :prod do
       raise "DATABASE_URL not available"
 
   if System.get_env("ECTO_IPV6") do
-    config :pescarte, Pescarte.Repo, socket_options: [:inet6]
+    config :backend, Backend.Repo, socket_options: [:inet6]
   end
 
-  config :pescarte, Pescarte.Repo,
+  config :backend, Backend.Repo,
     # fly.io don't need
     ssl: false,
     url: database_url,
@@ -91,7 +91,7 @@ if config_env() == :prod do
     System.get_env("FLY_APP_NAME") ||
       raise "FLY_APP_NAME not available"
 
-  config :pescarte, PescarteWeb.Endpoint,
+  config :backend, BackendWeb.Endpoint,
     url: [host: "#{app_name}.fly.dev", port: 443],
     http: [
       ip: {0, 0, 0, 0, 0, 0, 0, 0},

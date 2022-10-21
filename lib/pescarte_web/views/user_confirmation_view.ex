@@ -1,3 +1,3 @@
-defmodule PescarteWeb.UserConfirmationView do
-  use PescarteWeb, :view
+defmodule BackendWeb.UserConfirmationView do
+  use BackendWeb, :view
 end

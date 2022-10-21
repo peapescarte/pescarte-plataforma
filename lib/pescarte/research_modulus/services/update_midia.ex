@@ -1,7 +1,7 @@
-defmodule Pescarte.ResearchModulus.Services.UpdateMidia do
-  use Pescarte, :application_service
+defmodule Backend.ResearchModulus.Services.UpdateMidia do
+  use Backend, :application_service
 
-  alias Pescarte.ResearchModulus.IO.MidiaRepo
+  alias Backend.ResearchModulus.IO.MidiaRepo
 
   @impl true
   def process(params) do

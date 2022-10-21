@@ -1,4 +1,4 @@
-defmodule Pescarte.HttpClientBehaviour do
+defmodule Backend.HttpClientBehaviour do
   @moduledoc """
   Behaviour para comunicação HTTP, define argumentos necessários para realizar uma requisição
   """

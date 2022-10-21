@@ -1,4 +1,4 @@
-defmodule Pescarte.HttpClient do
+defmodule Backend.HttpClient do
   @moduledoc """
   Implementação de um HTTP Client a partir de um HttpClient.Behaviour
   que define informações básicas sobre uma conexão com

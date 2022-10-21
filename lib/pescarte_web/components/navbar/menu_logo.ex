@@ -1,14 +1,14 @@
-defmodule PescarteWeb.Components.Navbar.MenuLogo do
+defmodule BackendWeb.Components.Navbar.MenuLogo do
   @moduledoc false
 
-  use PescarteWeb, :component
+  use BackendWeb, :component
 
   def render(assigns) do
     ~H"""
     <figure>
       <img
         class={get_hidden_style(@hidden?)}
-        src="/images/pescarte_logo.png"
+        src="/images/backend_logo.png"
         alt="Logo completo do projeto com os dez peixinhos e nome"
         align="middle"
         width="200"

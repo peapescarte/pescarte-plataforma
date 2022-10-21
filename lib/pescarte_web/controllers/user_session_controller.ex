@@ -1,8 +1,8 @@
-defmodule PescarteWeb.UserSessionController do
-  use PescarteWeb, :controller
+defmodule BackendWeb.UserSessionController do
+  use BackendWeb, :controller
 
-  alias Pescarte.Accounts
-  alias PescarteWeb.UserAuth
+  alias Backend.Accounts
+  alias BackendWeb.UserAuth
 
   def new(conn, _params) do
     render(conn, "new.html", error_message: nil)

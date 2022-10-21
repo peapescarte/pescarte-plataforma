@@ -1,19 +1,19 @@
-defmodule PescarteWeb.UserAuthTest do
-  use PescarteWeb.ConnCase, async: true
+defmodule BackendWeb.UserAuthTest do
+  use BackendWeb.ConnCase, async: true
 
-  alias Pescarte.Accounts
-  alias PescarteWeb.UserAuth
+  alias Backend.Accounts
+  alias BackendWeb.UserAuth
 
-  import Pescarte.Factory
+  import Backend.Factory
 
   @moduletag :integration
 
-  @remember_me_cookie "_pescarte_web_user_remember_me"
+  @remember_me_cookie "_backend_web_user_remember_me"
 
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, PescarteWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, BackendWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{user: user_fixture(), conn: conn}
@@ -72,7 +72,7 @@ defmodule PescarteWeb.UserAuthTest do
 
     test "broadcasts to the given live_socket_id", %{conn: conn} do
       live_socket_id = "user_sessions:abcdef-token"
-      PescarteWeb.Endpoint.subscribe(live_socket_id)
+      BackendWeb.Endpoint.subscribe(live_socket_id)
 
       conn
       |> put_session(:live_socket_id, live_socket_id)

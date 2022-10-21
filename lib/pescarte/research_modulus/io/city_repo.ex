@@ -1,7 +1,7 @@
-defmodule Pescarte.ResearchModulus.IO.CityRepo do
-  use Pescarte, :repo
+defmodule Backend.ResearchModulus.IO.CityRepo do
+  use Backend, :repo
 
-  alias Pescarte.ResearchModulus.Models.City
+  alias Backend.ResearchModulus.Models.City
 
   @impl true
   def fetch(id) do

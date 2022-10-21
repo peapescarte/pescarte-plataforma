@@ -1,16 +1,16 @@
-defmodule Pescarte.Factory do
+defmodule Backend.Factory do
   @moduledoc false
 
-  use ExMachina.Ecto, repo: Pescarte.Repo
+  use ExMachina.Ecto, repo: Backend.Repo
 
-  alias Pescarte.Accounts.Models.Contact
-  alias Pescarte.Accounts.Models.User
-  alias Pescarte.ResearchModulus.Models.Campus
-  alias Pescarte.ResearchModulus.Models.City
-  alias Pescarte.ResearchModulus.Models.Midia
-  alias Pescarte.ResearchModulus.Models.ResearchCore
-  alias Pescarte.ResearchModulus.Models.Researcher
-  alias Pescarte.ResearchModulus.Models.ResearchLine
+  alias Backend.Accounts.Models.Contact
+  alias Backend.Accounts.Models.User
+  alias Backend.ResearchModulus.Models.Campus
+  alias Backend.ResearchModulus.Models.City
+  alias Backend.ResearchModulus.Models.Midia
+  alias Backend.ResearchModulus.Models.ResearchCore
+  alias Backend.ResearchModulus.Models.Researcher
+  alias Backend.ResearchModulus.Models.ResearchLine
 
   def campus_factory do
     %Campus{
@@ -95,8 +95,8 @@ defmodule Pescarte.Factory do
 
   def user_fixture(opts \\ []) do
     :user
-    |> Pescarte.Factory.insert(opts)
-    |> Pescarte.Repo.preload([:contact, :researcher])
+    |> Backend.Factory.insert(opts)
+    |> Backend.Repo.preload([:contact, :researcher])
   end
 
   def extract_user_token(fun) do

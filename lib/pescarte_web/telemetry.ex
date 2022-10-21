@@ -1,4 +1,4 @@
-defmodule PescarteWeb.Telemetry do
+defmodule BackendWeb.Telemetry do
   @moduledoc """
   Telemetry
   """
@@ -38,11 +38,11 @@ defmodule PescarteWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("pescarte.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("pescarte.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("pescarte.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("pescarte.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("pescarte.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("backend.repo.query.total_time", unit: {:native, :millisecond}),
+      summary("backend.repo.query.decode_time", unit: {:native, :millisecond}),
+      summary("backend.repo.query.query_time", unit: {:native, :millisecond}),
+      summary("backend.repo.query.queue_time", unit: {:native, :millisecond}),
+      summary("backend.repo.query.idle_time", unit: {:native, :millisecond}),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
@@ -56,7 +56,7 @@ defmodule PescarteWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {PescarteWeb, :count_users, []}
+      # {BackendWeb, :count_users, []}
     ]
   end
 end

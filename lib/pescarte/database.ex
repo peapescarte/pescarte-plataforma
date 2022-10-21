@@ -1,4 +1,4 @@
-defmodule Pescarte.Database do
+defmodule Backend.Database do
   @moduledoc """
   Este módulo centraliza os efeitos colaterais
   do banco de dados.
@@ -6,7 +6,7 @@ defmodule Pescarte.Database do
   Fontes: https://pt.stackoverflow.com/questions/330341/o-que-s%C3%A3o-efeitos-colaterais
   """
 
-  alias Pescarte.Repo
+  alias Backend.Repo
 
   @type query :: Ecto.Query.t()
   @type changeset :: Ecto.Changeset.t()

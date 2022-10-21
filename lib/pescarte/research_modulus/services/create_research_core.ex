@@ -1,7 +1,7 @@
-defmodule Pescarte.ResearchModulus.Services.CreateResearchCore do
-  use Pescarte, :application_service
+defmodule Backend.ResearchModulus.Services.CreateResearchCore do
+  use Backend, :application_service
 
-  alias Pescarte.ResearchModulus.IO.ResearchCoreRepo
+  alias Backend.ResearchModulus.IO.ResearchCoreRepo
 
   @impl true
   def process(params) do

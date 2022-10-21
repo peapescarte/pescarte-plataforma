@@ -1,15 +1,15 @@
-defmodule PescarteWeb.Components.Navbar.MenuLinks do
+defmodule BackendWeb.Components.Navbar.MenuLinks do
   @moduledoc """
   Componente que agrupa os links para a Navbar
   """
 
-  use PescarteWeb, :component
+  use BackendWeb, :component
 
-  # alias Pescarte.Accounts.Models.UserModel
-  import PescarteWeb.Components, only: [icon: 1]
+  # alias Backend.Accounts.Models.UserModel
+  import BackendWeb.Components, only: [icon: 1]
 
-  alias PescarteWeb.Components.Navbar.MenuItem
-  alias PescarteWeb.Router.Helpers, as: Routes
+  alias BackendWeb.Components.Navbar.MenuItem
+  alias BackendWeb.Router.Helpers, as: Routes
 
   def render(assigns) do
     ~H"""

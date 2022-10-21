@@ -2,27 +2,27 @@ import Config
 
 config :surface, :components, [
   {Surface.Components.Form.ErrorTag,
-   default_translator: {PescarteWeb.ErrorHelpers, :translate_error}}
+   default_translator: {BackendWeb.ErrorHelpers, :translate_error}}
 ]
 
-config :pescarte, carbonite_mode: :capture
+config :backend, carbonite_mode: :capture
 
 # ---------------------------#
 # Ecto
 # ---------------------------#
-config :pescarte,
-  ecto_repos: [Pescarte.Repo]
+config :backend,
+  ecto_repos: [Backend.Repo]
 
-config :pescarte, Pescarte.Repo, migration_timestamps: [type: :utc_datetime_usec]
+config :backend, Backend.Repo, migration_timestamps: [type: :utc_datetime_usec]
 
 # ---------------------------#
 # Endpoint
 # ---------------------------#
-config :pescarte, PescarteWeb.Endpoint,
+config :backend, BackendWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/tnqEz6BgkvSQoZdVePI7wI2tB6enxAPY66OSNNCGSeDy2VkzG0lIc/cguFxfA+0",
-  render_errors: [view: PescarteWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Pescarte.PubSub,
+  render_errors: [view: BackendWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Backend.PubSub,
   live_view: [signing_salt: "Fx-C9KDEakGhtwyh"]
 
 # ---------------------------#

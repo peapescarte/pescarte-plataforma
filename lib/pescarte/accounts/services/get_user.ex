@@ -1,11 +1,11 @@
-defmodule Pescarte.Accounts.Services.GetUser do
-  use Pescarte, :application_service
+defmodule Backend.Accounts.Services.GetUser do
+  use Backend, :application_service
 
-  alias Pescarte.Accounts.IO.UserRepo
-  alias Pescarte.Accounts.Services.UserFields
+  alias Backend.Accounts.IO.UserRepo
+  alias Backend.Accounts.Services.UserFields
 
   def process do
-    Pescarte.Helpers.maybe(UserRepo.all())
+    Backend.Helpers.maybe(UserRepo.all())
   end
 
   @impl true

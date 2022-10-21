@@ -1,4 +1,4 @@
-defmodule Pescarte.Repo.Migrations.CreateTags do
+defmodule Backend.Repo.Migrations.CreateTags do
   use Ecto.Migration
 
   def change do
