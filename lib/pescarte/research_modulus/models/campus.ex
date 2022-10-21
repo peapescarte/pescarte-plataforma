@@ -1,9 +1,9 @@
-defmodule Pescarte.ResearchModulus.Models.Campus do
-  use Pescarte, :model
+defmodule Backend.ResearchModulus.Models.Campus do
+  use Backend, :model
 
-  alias Pescarte.ResearchModulus.Models.City
-  alias Pescarte.ResearchModulus.Models.Researcher
-  alias Pescarte.Types.TrimmedString
+  alias Backend.ResearchModulus.Models.City
+  alias Backend.ResearchModulus.Models.Researcher
+  alias Backend.Types.TrimmedString
 
   schema "campus" do
     field :name, TrimmedString

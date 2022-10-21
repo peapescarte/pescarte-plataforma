@@ -1,5 +1,5 @@
-defmodule PescarteWeb.PescarteView do
-  use PescarteWeb, :view
+defmodule BackendWeb.BackendView do
+  use BackendWeb, :view
 
   @spec render(binary, map) :: map
   def render("response.json", %{data: data}) do

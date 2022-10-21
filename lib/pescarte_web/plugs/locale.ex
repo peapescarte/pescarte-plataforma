@@ -1,4 +1,4 @@
-defmodule PescarteWeb.LocalePlug do
+defmodule BackendWeb.LocalePlug do
   @moduledoc """
   Plug to handle gettext locale from request header
   """
@@ -18,7 +18,7 @@ defmodule PescarteWeb.LocalePlug do
       |> List.first()
 
     locale = req_locale || @default_locale
-    Gettext.put_locale(PescarteWeb.Gettext, locale)
+    Gettext.put_locale(BackendWeb.Gettext, locale)
     conn
   end
 end

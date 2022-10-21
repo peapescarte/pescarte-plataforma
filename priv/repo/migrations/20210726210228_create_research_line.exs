@@ -1,4 +1,4 @@
-defmodule Pescarte.Repo.Migrations.CreateResearchLine do
+defmodule Backend.Repo.Migrations.CreateResearchLine do
   use Ecto.Migration
 
   def change do

@@ -1,10 +1,10 @@
-defmodule Pescarte.Accounts.Services.UserFields do
+defmodule Backend.Accounts.Services.UserFields do
   @moduledoc false
-  use Pescarte, :domain_service
+  use Backend, :domain_service
 
   import Ecto.Changeset, only: [add_error: 3]
 
-  alias Pescarte.Accounts.Models.User
+  alias Backend.Accounts.Models.User
 
   @doc """
   Verifica a senha.

@@ -14,7 +14,7 @@ Essa API precisa de autenticação via token.
 
 Criamos um módulo com funções de ajuda para acessar essa API:
 ```elixir
-defmodule Pescarte.TestHelpers.ExternalApi do
+defmodule Backend.TestHelpers.ExternalApi do
   @moduledoc """
   Funções de ajuda para interagir com a API externa.
   """
@@ -55,11 +55,11 @@ diretamente por meio de `factories`.
 
 Já no teste em si:
 ```elixir
-defmodule Pescarte.ExternalApiTest do
-  use Pescarte.ConnCase, async: true
+defmodule Backend.ExternalApiTest do
+  use Backend.ConnCase, async: true
 
-  alias Pescarte.TestHelpers.UserUI
-  alias Pescarte.TestHelpers.ExternalApi
+  alias Backend.TestHelpers.UserUI
+  alias Backend.TestHelpers.ExternalApi
 
   @moduletag :integration
 

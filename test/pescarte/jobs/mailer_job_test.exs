@@ -1,10 +1,10 @@
-defmodule PescarteJobs.MailerJobTest do
-  use Pescarte.DataCase
-  use Oban.Testing, repo: Pescarte.Repo
+defmodule BackendJobs.MailerJobTest do
+  use Backend.DataCase
+  use Oban.Testing, repo: Backend.Repo
 
   import ExUnit.CaptureLog
 
-  alias Pescarte.Jobs.MailerJob
+  alias Backend.Jobs.MailerJob
 
   @moduletag :integration
 
@@ -15,7 +15,7 @@ defmodule PescarteJobs.MailerJobTest do
         subject: "some subject",
         layout: "user",
         template: "confirmation",
-        assigns: %{name: "Juninho testinho", link: "https://teste-peapescarte.uenf.br/confirm"},
+        assigns: %{name: "Juninho testinho", link: "https://teste-peabackend.uenf.br/confirm"},
         base: "base",
         bcc: []
       }

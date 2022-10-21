@@ -1,11 +1,11 @@
-defmodule PescarteWeb.UserRegistrationController do
+defmodule BackendWeb.UserRegistrationController do
   @moduledoc false
 
-  use PescarteWeb, :controller
+  use BackendWeb, :controller
 
-  alias Pescarte.Accounts
-  alias Pescarte.Accounts.Models.User
-  alias PescarteWeb.UserAuth
+  alias Backend.Accounts
+  alias Backend.Accounts.Models.User
+  alias BackendWeb.UserAuth
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})

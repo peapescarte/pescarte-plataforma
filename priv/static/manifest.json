@@ -1,6 +1,6 @@
 {
-    "name": "Plataforma PEA Pescarte",
-    "short_name": "Pescarte",
+    "name": "Plataforma PEA Backend",
+    "short_name": "Backend",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

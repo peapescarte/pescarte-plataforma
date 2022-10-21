@@ -1,3 +1,3 @@
-defmodule PescarteWeb.UserSessionView do
-  use PescarteWeb, :view
+defmodule BackendWeb.UserSessionView do
+  use BackendWeb, :view
 end

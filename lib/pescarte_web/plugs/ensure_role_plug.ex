@@ -1,18 +1,18 @@
-defmodule PescarteWeb.EnsureRolePlug do
+defmodule BackendWeb.EnsureRolePlug do
   @moduledoc """
   Esse plug certifica que um susuário possui um perfil antes de
   acessar uma rota.
 
   ## Example
 
-  plug PescarteWeb.EnsureRolePlug, :admin
+  plug BackendWeb.EnsureRolePlug, :admin
   """
 
   import Plug.Conn
 
-  alias Pescarte.Accounts
-  alias Pescarte.Accounts.Models.User
-  alias PescarteWeb.UserAuth
+  alias Backend.Accounts
+  alias Backend.Accounts.Models.User
+  alias BackendWeb.UserAuth
   alias Phoenix.Controller
 
   def init(config), do: config

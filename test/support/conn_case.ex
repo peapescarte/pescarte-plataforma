@@ -1,4 +1,4 @@
-defmodule PescarteWeb.ConnCase do
+defmodule BackendWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,31 +11,31 @@ defmodule PescarteWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use PescarteWeb.ConnCase, async: true`, although
+  by setting `use BackendWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
   use ExUnit.CaseTemplate
 
   alias Ecto.Adapters.SQL.Sandbox
-  alias Pescarte.Factory
+  alias Backend.Factory
 
   using do
     quote do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import PescarteWeb.ConnCase
+      import BackendWeb.ConnCase
 
-      alias PescarteWeb.Router.Helpers, as: Routes
+      alias BackendWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint PescarteWeb.Endpoint
+      @endpoint BackendWeb.Endpoint
     end
   end
 
   setup tags do
-    pid = Sandbox.start_owner!(Pescarte.Repo, shared: not tags[:async])
+    pid = Sandbox.start_owner!(Backend.Repo, shared: not tags[:async])
 
     on_exit(fn -> Sandbox.stop_owner(pid) end)
 
@@ -61,7 +61,7 @@ defmodule PescarteWeb.ConnCase do
   Ele retorna um `conn` atualizado.
   """
   def log_in_user(conn, user) do
-    token = Pescarte.Accounts.generate_user_session_token(user)
+    token = Backend.Accounts.generate_user_session_token(user)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})

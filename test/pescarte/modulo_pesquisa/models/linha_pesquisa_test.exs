@@ -1,9 +1,9 @@
-defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
-  use Pescarte.DataCase, async: true
+defmodule Backend.ModuloPesquisa.Models.LinhaPesquisaTest do
+  use Backend.DataCase, async: true
 
-  import Pescarte.Factory
+  import Backend.Factory
 
-  alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
+  alias Backend.ModuloPesquisa.Models.LinhaPesquisa
 
   @moduletag :unit
 

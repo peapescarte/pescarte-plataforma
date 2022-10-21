@@ -1,4 +1,4 @@
-defmodule Pescarte.Repo.Migrations.CreateCampus do
+defmodule Backend.Repo.Migrations.CreateCampus do
   use Ecto.Migration
 
   def change do

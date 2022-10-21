@@ -1,4 +1,4 @@
-defmodule Pescarte.Repo.Migrations.CreateMidia do
+defmodule Backend.Repo.Migrations.CreateMidia do
   use Ecto.Migration
 
   def change do

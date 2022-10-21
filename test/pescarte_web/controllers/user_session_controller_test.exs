@@ -1,14 +1,14 @@
-defmodule PescarteWeb.UserSessionControllerTest do
-  use PescarteWeb.ConnCase, async: true
+defmodule BackendWeb.UserSessionControllerTest do
+  use BackendWeb.ConnCase, async: true
 
-  import Pescarte.Factory
+  import Backend.Factory
 
   @moduletag :integration
 
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, PescarteWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, BackendWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{user: user_fixture(), conn: conn}
@@ -62,7 +62,7 @@ defmodule PescarteWeb.UserSessionControllerTest do
           }
         })
 
-      assert conn.resp_cookies["_pescarte_web_user_remember_me"]
+      assert conn.resp_cookies["_backend_web_user_remember_me"]
       assert redirected_to(conn) == "/app/usuarios/#{user.id}"
     end
 

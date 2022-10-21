@@ -1,8 +1,8 @@
-defmodule Pescarte.ResearchModulus.Models.Midia do
-  use Pescarte, :model
+defmodule Backend.ResearchModulus.Models.Midia do
+  use Backend, :model
 
-  alias Pescarte.ResearchModulus.Models.Researcher
-  alias Pescarte.Types.TrimmedString
+  alias Backend.ResearchModulus.Models.Researcher
+  alias Backend.Types.TrimmedString
 
   @midia_types ~w(video imagem documento)a
 

@@ -1,9 +1,9 @@
-defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
-  use Pescarte.DataCase, async: true
+defmodule Backend.ModuloPesquisa.Models.MidiaTest do
+  use Backend.DataCase, async: true
 
-  import Pescarte.Factory
+  import Backend.Factory
 
-  alias Pescarte.ModuloPesquisa.Models.Midia
+  alias Backend.ModuloPesquisa.Models.Midia
 
   @moduletag :unit
 

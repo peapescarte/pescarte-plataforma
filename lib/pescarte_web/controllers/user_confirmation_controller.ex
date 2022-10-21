@@ -1,9 +1,9 @@
-defmodule PescarteWeb.UserConfirmationController do
+defmodule BackendWeb.UserConfirmationController do
   @moduledoc false
 
-  use PescarteWeb, :controller
+  use BackendWeb, :controller
 
-  alias Pescarte.Accounts
+  alias Backend.Accounts
 
   def new(conn, _params) do
     render(conn, "new.html")

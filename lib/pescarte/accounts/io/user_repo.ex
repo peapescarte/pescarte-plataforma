@@ -1,10 +1,10 @@
-defmodule Pescarte.Accounts.IO.UserRepo do
-  use Pescarte, :repo
+defmodule Backend.Accounts.IO.UserRepo do
+  use Backend, :repo
 
   import Brcpfcnpj.Changeset, only: [validate_cpf: 2]
 
-  alias Pescarte.Accounts.IO.ContactRepo
-  alias Pescarte.Accounts.Models.User
+  alias Backend.Accounts.IO.ContactRepo
+  alias Backend.Accounts.Models.User
 
   @required_fields ~w(first_name last_name cpf birthdate)a
   @optional_fields ~w(confirmed_at last_seen middle_name active? role)a
@@ -75,7 +75,7 @@ defmodule Pescarte.Accounts.IO.UserRepo do
 
     query
     |> Database.one()
-    |> Pescarte.Helpers.maybe()
+    |> Backend.Helpers.maybe()
   end
 
   @impl true

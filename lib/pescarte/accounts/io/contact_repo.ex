@@ -1,8 +1,8 @@
-defmodule Pescarte.Accounts.IO.ContactRepo do
-  use Pescarte, :repo
+defmodule Backend.Accounts.IO.ContactRepo do
+  use Backend, :repo
 
-  alias Pescarte.Accounts.Models.Contact
-  alias Pescarte.Common.Formats
+  alias Backend.Accounts.Models.Contact
+  alias Backend.Common.Formats
 
   @email_format Formats.email()
   @mobile_format Formats.mobile()
@@ -16,7 +16,7 @@ defmodule Pescarte.Accounts.IO.ContactRepo do
     |> validate_format(:mobile, @mobile_format)
     |> validate_length(:email, max: 160)
     |> validate_format(:email, @email_format)
-    |> unsafe_validate_unique(:email, Pescarte.Repo)
+    |> unsafe_validate_unique(:email, Backend.Repo)
     |> unique_constraint(:email)
   end
 

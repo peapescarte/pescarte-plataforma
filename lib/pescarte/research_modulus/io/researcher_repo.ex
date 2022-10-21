@@ -1,7 +1,7 @@
-defmodule Pescarte.ResearchModulus.IO.ResearcherRepo do
-  use Pescarte, :repo
+defmodule Backend.ResearchModulus.IO.ResearcherRepo do
+  use Backend, :repo
 
-  alias Pescarte.ResearchModulus.Models.Researcher
+  alias Backend.ResearchModulus.Models.Researcher
 
   @required_fields ~w(
     minibio

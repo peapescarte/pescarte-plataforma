@@ -1,9 +1,9 @@
-defmodule PescarteWeb.FormHelpers do
+defmodule BackendWeb.FormHelpers do
   @moduledoc false
 
   use Phoenix.HTML
 
-  import PescarteWeb.ErrorHelpers, only: [error_tag: 2]
+  import BackendWeb.ErrorHelpers, only: [error_tag: 2]
   import Phoenix.HTML.Form, only: [input_type: 2, input_validations: 2, humanize: 1, label: 3]
 
   @input_base_style ~s(input bg-white)

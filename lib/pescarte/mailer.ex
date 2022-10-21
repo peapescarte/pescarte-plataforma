@@ -1,11 +1,11 @@
-defmodule Pescarte.Mailer do
+defmodule Backend.Mailer do
   @moduledoc """
   API pública para criação de emails
   """
 
-  use Swoosh.Mailer, otp_app: :pescarte
+  use Swoosh.Mailer, otp_app: :backend
 
-  alias Pescarte.Mailer.HTML
+  alias Backend.Mailer.HTML
   alias Swoosh.Email
 
   @doc """
@@ -20,8 +20,8 @@ defmodule Pescarte.Mailer do
     Email.new()
     |> Email.to(recipient)
     |> Email.bcc(bcc)
-    |> Email.from({"Plataforma PEA Pescarte", notifications_mail()})
-    |> Email.subject("[Plataforma PEA Pescarte] #{subject}")
+    |> Email.from({"Plataforma PEA Backend", notifications_mail()})
+    |> Email.subject("[Plataforma PEA Backend] #{subject}")
     |> Email.html_body(body)
   end
 
@@ -34,6 +34,6 @@ defmodule Pescarte.Mailer do
   end
 
   defp notifications_mail do
-    Application.get_env(:pescarte, :pea_pescarte_contact)[:notifications_mail]
+    Application.get_env(:backend, :pea_backend_contact)[:notifications_mail]
   end
 end

@@ -1,13 +1,13 @@
-defmodule PescarteWeb.Components.Navbar do
+defmodule BackendWeb.Components.Navbar do
   @moduledoc """
   A common Navbar component that wraps
   authenticated and public routes
   """
 
-  use PescarteWeb, :component
+  use BackendWeb, :component
 
-  alias PescarteWeb.Components.Navbar.MenuLinks
-  alias PescarteWeb.Components.Navbar.MenuLogo
+  alias BackendWeb.Components.Navbar.MenuLinks
+  alias BackendWeb.Components.Navbar.MenuLogo
 
   defdelegate menu_links(assigns), to: MenuLinks, as: :render
 

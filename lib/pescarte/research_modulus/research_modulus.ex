@@ -1,26 +1,26 @@
-defmodule Pescarte.ResearchModulus do
+defmodule Backend.ResearchModulus do
   @moduledoc """
   Módulo com funções públicas que realizam ações
   do contexto.
   """
 
-  alias Pescarte.ResearchModulus.IO.MonthlyReportRepo
-  alias Pescarte.ResearchModulus.Services.CreateCampus
-  alias Pescarte.ResearchModulus.Services.CreateCity
-  alias Pescarte.ResearchModulus.Services.CreateMidia
-  alias Pescarte.ResearchModulus.Services.CreateMonthlyReport
-  alias Pescarte.ResearchModulus.Services.CreateResearchCore
-  alias Pescarte.ResearchModulus.Services.CreateResearcher
-  alias Pescarte.ResearchModulus.Services.CreateResearchLine
-  alias Pescarte.ResearchModulus.Services.GetCampus
-  alias Pescarte.ResearchModulus.Services.GetCity
-  alias Pescarte.ResearchModulus.Services.GetMidia
-  alias Pescarte.ResearchModulus.Services.GetMonthlyReport
-  alias Pescarte.ResearchModulus.Services.GetResearchCore
-  alias Pescarte.ResearchModulus.Services.GetResearcher
-  alias Pescarte.ResearchModulus.Services.GetResearchLine
-  alias Pescarte.ResearchModulus.Services.UpdateMidia
-  alias Pescarte.ResearchModulus.Services.UpdateResearchCore
+  alias Backend.ResearchModulus.IO.MonthlyReportRepo
+  alias Backend.ResearchModulus.Services.CreateCampus
+  alias Backend.ResearchModulus.Services.CreateCity
+  alias Backend.ResearchModulus.Services.CreateMidia
+  alias Backend.ResearchModulus.Services.CreateMonthlyReport
+  alias Backend.ResearchModulus.Services.CreateResearchCore
+  alias Backend.ResearchModulus.Services.CreateResearcher
+  alias Backend.ResearchModulus.Services.CreateResearchLine
+  alias Backend.ResearchModulus.Services.GetCampus
+  alias Backend.ResearchModulus.Services.GetCity
+  alias Backend.ResearchModulus.Services.GetMidia
+  alias Backend.ResearchModulus.Services.GetMonthlyReport
+  alias Backend.ResearchModulus.Services.GetResearchCore
+  alias Backend.ResearchModulus.Services.GetResearcher
+  alias Backend.ResearchModulus.Services.GetResearchLine
+  alias Backend.ResearchModulus.Services.UpdateMidia
+  alias Backend.ResearchModulus.Services.UpdateResearchCore
 
   defdelegate create_campus(params), to: CreateCampus, as: :process
 
@@ -80,5 +80,5 @@ defmodule Pescarte.ResearchModulus do
 
   ## Generic
 
-  defdelegate delete(source), to: Pescarte.Database
+  defdelegate delete(source), to: Backend.Database
 end

@@ -1,9 +1,9 @@
-defmodule Pescarte.ModuloPesquisa.Models.NucleoTest do
-  use Pescarte.DataCase, async: true
+defmodule Backend.ModuloPesquisa.Models.NucleoTest do
+  use Backend.DataCase, async: true
 
-  import Pescarte.Factory
+  import Backend.Factory
 
-  alias Pescarte.ModuloPesquisa.Models.Nucleo
+  alias Backend.ModuloPesquisa.Models.Nucleo
 
   @moduletag :unit
 

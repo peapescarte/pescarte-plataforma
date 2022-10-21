@@ -1,4 +1,4 @@
-defmodule PescarteWeb.HealthCheck do
+defmodule BackendWeb.HealthCheck do
   @moduledoc """
   Plug to handle the API Health Check.
   """

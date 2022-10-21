@@ -1,7 +1,7 @@
-defmodule Pescarte.ResearchModulus.IO.MidiaRepo do
-  use Pescarte, :repo
+defmodule Backend.ResearchModulus.IO.MidiaRepo do
+  use Backend, :repo
 
-  alias Pescarte.ResearchModulus.Models.Midia
+  alias Backend.ResearchModulus.Models.Midia
 
   @required_fields ~w(type link researcher_id)a
 

@@ -10,7 +10,7 @@ de um determinado módulo.
 
 #### Teste unitário
 ```elixir
-defmodule Pescarte.UnitTests do
+defmodule Backend.UnitTests do
   @moduletag :unit
 
   describe "Test a function" do
@@ -21,7 +21,7 @@ end
 
 #### Teste de integração
 ```elixir
-defmodule Pescarte.IntegrationTests do
+defmodule Backend.IntegrationTests do
   @moduletag :integration
 
   describe "Test an external endpoint" do

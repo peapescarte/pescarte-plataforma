@@ -1,7 +1,7 @@
 ```{=org}
 #+caption: CI
 ```
-<https://github.com/cciuenf/pescarte/workflows/elixir_ci/badge.svg?branch=dev>
+<https://github.com/cciuenf/backend/workflows/elixir_ci/badge.svg?branch=dev>
 
 Plataforma Digital PEA Pescarte
 
@@ -62,7 +62,7 @@ diferentes responsabilidades.
 # TODO
 ```
 
-### Pescarte.Mailer
+### Backend.Mailer
 
 Responsável pelo processamento e envio/disparo dos emails. Estamos
 utilizando o [Swoosh](https://github.com/swoosh/swoosh).
@@ -76,7 +76,7 @@ Para testar o preview de email, siga a seguinte documentação:
     -   `MAIL_SERVER`{.verbatim}: Server do smtp (default:
         `smtp.gmail.com`{.verbatim})
     -   `MAIL_USERNAME`{.verbatim}: User do smtp (default:
-        `notificacoes-noreply@peapescarte.uenf.br`{.verbatim})
+        `notificacoes-noreply@peabackend.uenf.br`{.verbatim})
     -   `MAIL_PASSWORD`{.verbatim}: Senha do smtp
     -   `MAIL_PORT`{.verbatim}: Porta do smtp (default:
         `587`{.verbatim})
@@ -116,5 +116,5 @@ Para testar o preview de email, siga a seguinte documentação:
 
 Todo o material do projeto (tanto backend ou frontend) pode ser
 encontrado no repositório
-[documentos~peapescarte~](https://github.com/cciuenf/documentos_pea_pescarte),
+[documentos~peabackend~](https://github.com/cciuenf/documentos_pea_backend),
 que abriga diversos artigos.

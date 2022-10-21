@@ -1,11 +1,11 @@
-defmodule Pescarte.ModuloPesquisaTest do
-  use Pescarte.DataCase, async: true
+defmodule Backend.ModuloPesquisaTest do
+  use Backend.DataCase, async: true
 
-  import Pescarte.Factory
+  import Backend.Factory
 
-  alias Pescarte.ModuloPesquisa
+  alias Backend.ModuloPesquisa
 
-  alias Pescarte.ModuloPesquisa.Models.{
+  alias Backend.ModuloPesquisa.Models.{
     Campus,
     Cidade,
     LinhaPesquisa,

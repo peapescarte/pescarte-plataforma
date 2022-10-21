@@ -1,5 +1,5 @@
-alias Pescarte.Accounts
-alias Pescarte.ResearchModulus
+alias Backend.Accounts
+alias Backend.ResearchModulus
 
 {:ok, city} = ResearchModulus.create_city(%{county: "Campos dos Goytacazes"})
 
@@ -37,8 +37,8 @@ alias Pescarte.ResearchModulus
 
 {:ok, user} =
   Accounts.register_user(%{
-    password: "AnnaPescarte!",
-    password_confirmation: "AnnaPescarte!",
+    password: "AnnaBackend!",
+    password_confirmation: "AnnaBackend!",
     first_name: "Annabell",
     middle_name: "Del Real",
     last_name: "Tamariz",
@@ -75,7 +75,7 @@ alias Pescarte.ResearchModulus
     birthdate: ~D[1982-09-10],
     cpf: "014.246.816-93",
     contact: %{
-      email: "giselebragabastos.pescarte@gmail.com",
+      email: "giselebragabastos.backend@gmail.com",
       address: "Rua Cesário Alvin, 150, apto 403, bloco 3",
       mobile: "(32) 99124-1049"
     }
@@ -107,7 +107,7 @@ alias Pescarte.ResearchModulus
 
 {:ok, _researcher} =
   ResearchModulus.create_researcher(%{
-    minibio: "Eu sou Geraldo, atualmente o coordenador técnico do PEA Pescarte....",
+    minibio: "Eu sou Geraldo, atualmente o coordenador técnico do PEA Backend....",
     bursary: "coordenador_tecnico",
     link_lattes: "http://lattes.cnpq.br/8720264659381887",
     campus_id: campus.id,
