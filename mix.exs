@@ -38,14 +38,8 @@ defmodule Pescarte.MixProject do
     ]
   end
 
-  def catalogues do
-    [
-      "priv/catalogue"
-    ]
-  end
-
-  defp elixirc_paths(:dev), do: ["lib", "test/support"] ++ catalogues()
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp dialyzer do
@@ -67,6 +61,7 @@ defmodule Pescarte.MixProject do
       {:bcrypt_elixir, "~> 2.0"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
+      {:pescarte, git: "git@github.com:/peapescarte/pescarte"},
       {:oban, "~> 2.8"},
       {:proper_case, "~> 1.0.2"},
       {:nanoid, "~> 2.0.5"},
@@ -101,6 +96,7 @@ defmodule Pescarte.MixProject do
       "test.reset": ["ecto.drop", "test"],
       "assets.deploy": [
         "esbuild default --minify",
+        "tailwind default --minify",
         "phx.digest"
       ]
     ]
