@@ -1,7 +1,7 @@
-defmodule Backend.Accounts.Services.CreateContact do
-  use Backend, :application_service
+defmodule Pescarte.Accounts.Services.CreateContact do
+  use Pescarte, :application_service
 
-  alias Backend.Accounts.IO.ContactRepo
+  alias Pescarte.Accounts.IO.ContactRepo
 
   @impl true
   def process(params) do

@@ -1,6 +1,6 @@
-defmodule Backend.Encoder do
+defmodule Pescarte.Encoder do
   @moduledoc """
-  Backend Custom JSON Encoder
+  Pescarte Custom JSON Encoder
   """
 
   @spec encode(map, any) :: map

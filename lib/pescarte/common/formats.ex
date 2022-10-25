@@ -1,4 +1,4 @@
-defmodule Backend.Common.Formats do
+defmodule Pescarte.Common.Formats do
   @moduledoc """
   Our common place for formats
   """

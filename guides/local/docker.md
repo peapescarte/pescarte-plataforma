@@ -25,18 +25,18 @@ Como a opçã̀o padrã̀o para executar o projeto é com `Nix`, é necessári
 ```elixir
 import Config
 
-config :backend, Backend.Repo,
+config :pescarte, Pescarte.Repo,
   hostname: "db"
 ```
 
  Em seguida, execute o build dos containers e obtenha as dependencias do `mix`.
 
     docker-compose build
-    docker-compose run --rm backend mix deps.get
+    docker-compose run --rm pescarte mix deps.get
 
 Depois, basta rodar o setup do banco de dados.
 
-    docker-compose run --rm backend mix ecto.setup
+    docker-compose run --rm pescarte mix ecto.setup
 
 ### Sempre que for rodar o projeto
 
@@ -44,25 +44,25 @@ Depois, basta rodar o setup do banco de dados.
 
 ### Para atualizar ou instalar novas dependências
 
-    docker-compose run --rm backend mix deps.get
+    docker-compose run --rm pescarte mix deps.get
 
 ### Para executar migrações
 
-    docker-compose run --rm backend mix ecto.migrate
+    docker-compose run --rm pescarte mix ecto.migrate
 
 ### Para reverter migrações
 
-    docker-compose run --rm backend mix ecto.rollback
+    docker-compose run --rm pescarte mix ecto.rollback
 
 ### Para recriar o banco de dados
 
-    docker-compose run --rm backend mix ecto.reset
+    docker-compose run --rm pescarte mix ecto.reset
 
 ### Portas expostas no sistema do host
 
 | container     | port |
 | ------------- | ---- |
-| backend       | 4000 |
+| pescarte       | 4000 |
 | db            | 5432 |
 
 ---
@@ -71,11 +71,11 @@ Depois, basta rodar o setup do banco de dados.
 
 Para rodar os testes localmente execute o comando:
 
-    docker-compose run --rm backend mix test
+    docker-compose run --rm pescarte mix test
 
 E para rodar todos os testes (`format`, `credo` e `test`) use:
 
-    docker-compose run --rm backend mix ci
+    docker-compose run --rm pescarte mix ci
 
 É recomendável rodar os testes unitários sem efetuar a recriação do DB, pois o tempo de execução será
 sempre menor. Porém, se o banco de testes ficar em um estado em que os dados presentes influenciem na
@@ -83,4 +83,4 @@ execução dos testes com sucesso, é recomendado recriá-lo.
 Para recriar o banco de testes, rodar as seeds e os testes unitários
 (`ecto.drop`, `ecto.create`, `ecto.migrate`, `seeds` e `test`) execute:
 
-    docker-compose run --rm backend mix test.reset
+    docker-compose run --rm pescarte mix test.reset

@@ -1,8 +1,8 @@
-defmodule Backend.Accounts.Models.User do
-  use Backend, :model
+defmodule Pescarte.Accounts.Models.User do
+  use Pescarte, :model
 
-  alias Backend.Accounts.Models.Contact
-  alias Backend.ResearchModulus.Models.Researcher
+  alias Pescarte.Accounts.Models.Contact
+  alias Pescarte.ResearchModulus.Models.Researcher
 
   schema "user" do
     field :cpf, TrimmedString

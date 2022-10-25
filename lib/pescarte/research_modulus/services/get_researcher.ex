@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.Services.GetResearcher do
-  use Backend, :application_service
+defmodule Pescarte.ResearchModulus.Services.GetResearcher do
+  use Pescarte, :application_service
 
-  alias Backend.ResearchModulus.IO.ResearcherRepo
+  alias Pescarte.ResearchModulus.IO.ResearcherRepo
 
   def process do
     ResearcherRepo.all()

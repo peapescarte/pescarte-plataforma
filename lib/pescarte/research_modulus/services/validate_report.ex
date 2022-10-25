@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.Services.ValidateReport do
+defmodule Pescarte.ResearchModulus.Services.ValidateReport do
   @moduledoc false
 
-  use Backend, :domain_service
+  use Pescarte, :domain_service
 
   import Ecto.Changeset, only: [add_error: 3, get_field: 2]
 

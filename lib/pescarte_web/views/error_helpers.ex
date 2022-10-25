@@ -1,4 +1,4 @@
-defmodule BackendWeb.ErrorHelpers do
+defmodule PescarteWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -19,9 +19,9 @@ defmodule BackendWeb.ErrorHelpers do
   @spec translate_error(map) :: binary
   def translate_error({msg, opts}) do
     if count = opts[:count] do
-      Gettext.dngettext(BackendWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(PescarteWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(BackendWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(PescarteWeb.Gettext, "errors", msg, opts)
     end
   end
 end

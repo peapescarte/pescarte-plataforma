@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.Models.City do
-  use Backend, :model
+defmodule Pescarte.ResearchModulus.Models.City do
+  use Pescarte, :model
 
-  alias Backend.ResearchModulus.Models.Campus
+  alias Pescarte.ResearchModulus.Models.Campus
 
   schema "city" do
     field :county, CapitalizedString

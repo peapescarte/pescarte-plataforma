@@ -1,8 +1,8 @@
-defmodule Backend.ResearchModulus.Models.ResearchLine do
-  use Backend, :model
+defmodule Pescarte.ResearchModulus.Models.ResearchLine do
+  use Pescarte, :model
 
-  alias Backend.ResearchModulus.Models.ResearchCore
-  alias Backend.Types.TrimmedString
+  alias Pescarte.ResearchModulus.Models.ResearchCore
+  alias Pescarte.Types.TrimmedString
 
   schema "research_line" do
     field :number, :integer

@@ -1,7 +1,7 @@
-defmodule Backend.Accounts.Services.BuildUserToken do
-  use Backend, :domain_service
+defmodule Pescarte.Accounts.Services.BuildUserToken do
+  use Pescarte, :domain_service
 
-  alias Backend.Accounts.Models.UserToken
+  alias Pescarte.Accounts.Models.UserToken
 
   @hash_algorithm :sha256
   @rand_size 32

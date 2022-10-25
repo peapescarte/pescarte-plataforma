@@ -1,9 +1,9 @@
-defmodule BackendWeb.Components.Navbar.MenuItem do
+defmodule PescarteWeb.Components.Navbar.MenuItem do
   @moduledoc """
   Componente que representa um único item dentro do menu.
   """
 
-  use BackendWeb, :component
+  use PescarteWeb, :component
 
   def render(assigns) do
     ~H"""

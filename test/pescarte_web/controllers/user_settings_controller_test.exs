@@ -1,9 +1,9 @@
-defmodule BackendWeb.UserSettingsControllerTest do
-  use BackendWeb.ConnCase, async: true
+defmodule PescarteWeb.UserSettingsControllerTest do
+  use PescarteWeb.ConnCase, async: true
 
-  alias Backend.Accounts
+  alias Pescarte.Accounts
 
-  import Backend.Factory
+  import Pescarte.Factory
 
   @moduletag :integration
 

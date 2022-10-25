@@ -1,3 +1,3 @@
-defmodule BackendWeb.UserResetPasswordView do
-  use BackendWeb, :view
+defmodule PescarteWeb.UserResetPasswordView do
+  use PescarteWeb, :view
 end

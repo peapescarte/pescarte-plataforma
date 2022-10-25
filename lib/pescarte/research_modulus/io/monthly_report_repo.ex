@@ -1,9 +1,9 @@
-defmodule Backend.ResearchModulus.IO.MonthlyReportRepo do
-  use Backend, :repo
+defmodule Pescarte.ResearchModulus.IO.MonthlyReportRepo do
+  use Pescarte, :repo
 
-  import Backend.ResearchModulus.Services.ValidateReport
+  import Pescarte.ResearchModulus.Services.ValidateReport
 
-  alias Backend.ResearchModulus.Models.MonthlyReport
+  alias Pescarte.ResearchModulus.Models.MonthlyReport
 
   @required_fields ~w(year month researcher_id)a
 

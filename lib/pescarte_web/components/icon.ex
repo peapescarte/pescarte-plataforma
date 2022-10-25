@@ -1,11 +1,11 @@
-defmodule BackendWeb.Components.Icon do
+defmodule PescarteWeb.Components.Icon do
   @moduledoc """
   Componente de ícones reutilizável e dinâmico
   """
 
-  use BackendWeb, :component
+  use PescarteWeb, :component
 
-  alias BackendWeb.Router.Helpers, as: Routes
+  alias PescarteWeb.Router.Helpers, as: Routes
 
   @icons_path "/icons/"
 
@@ -19,7 +19,7 @@ defmodule BackendWeb.Components.Icon do
 
   def build_icon_path(icon_name) do
     path = @icons_path <> Atom.to_string(icon_name) <> ".svg"
-    Routes.static_path(BackendWeb.Endpoint, path)
+    Routes.static_path(PescarteWeb.Endpoint, path)
   end
 
   def get_alt_text(:attachment) do

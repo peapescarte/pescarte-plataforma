@@ -1,6 +1,6 @@
-defmodule Backend do
+defmodule Pescarte do
   @moduledoc """
-  Backend keeps the contexts that define your domain
+  Pescarte keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless
@@ -11,7 +11,7 @@ defmodule Backend do
 
   def application_service do
     quote do
-      @behaviour Backend.AppService
+      @behaviour Pescarte.AppService
     end
   end
 
@@ -24,8 +24,8 @@ defmodule Backend do
     quote do
       use Ecto.Schema
 
-      alias Backend.Types.CapitalizedString
-      alias Backend.Types.TrimmedString
+      alias Pescarte.Types.CapitalizedString
+      alias Pescarte.Types.TrimmedString
 
       @timestamps_opts [inserted_at: :inserted_at, type: :utc_datetime_usec]
     end
@@ -35,11 +35,11 @@ defmodule Backend do
     quote do
       import Ecto.Changeset
       import Ecto.Query
-      import Backend.Repo, only: [fetch: 2, fetch_by: 2]
+      import Pescarte.Repo, only: [fetch: 2, fetch_by: 2]
 
-      alias Backend.Database
+      alias Pescarte.Database
 
-      @behaviour Backend.Repo
+      @behaviour Pescarte.Repo
     end
   end
 

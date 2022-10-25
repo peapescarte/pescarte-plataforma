@@ -1,10 +1,10 @@
-defmodule BackendWeb.MonthlyReportController do
+defmodule PescarteWeb.MonthlyReportController do
   @moduledoc false
 
-  use BackendWeb, :controller
+  use PescarteWeb, :controller
 
-  alias Backend.ResearchModulus
-  alias Backend.ResearchModulus.Models.MonthlyReport
+  alias Pescarte.ResearchModulus
+  alias Pescarte.ResearchModulus.Models.MonthlyReport
 
   @today Date.utc_today()
 

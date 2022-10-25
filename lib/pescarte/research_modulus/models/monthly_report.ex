@@ -1,8 +1,8 @@
-defmodule Backend.ResearchModulus.Models.MonthlyReport do
-  use Backend, :model
+defmodule Pescarte.ResearchModulus.Models.MonthlyReport do
+  use Pescarte, :model
 
-  alias Backend.ResearchModulus.Models.Researcher
-  alias Backend.Types.TrimmedString
+  alias Pescarte.ResearchModulus.Models.Researcher
+  alias Pescarte.Types.TrimmedString
 
   schema "relatorio" do
     # Primeira seção

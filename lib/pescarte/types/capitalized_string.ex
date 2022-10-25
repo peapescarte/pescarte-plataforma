@@ -1,9 +1,9 @@
-defmodule Backend.Types.CapitalizedString do
+defmodule Pescarte.Types.CapitalizedString do
   @moduledoc """
   Provides a capitalized String Type
   """
 
-  import Backend.Helpers, only: [capitalize_all_words: 1]
+  import Pescarte.Helpers, only: [capitalize_all_words: 1]
 
   @behaviour Ecto.Type
 

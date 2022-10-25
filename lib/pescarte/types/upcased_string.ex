@@ -1,4 +1,4 @@
-defmodule Backend.Types.UpcaseString do
+defmodule Pescarte.Types.UpcaseString do
   @moduledoc """
   Provides an upcased String Type
   """

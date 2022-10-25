@@ -1,15 +1,15 @@
-defmodule Backend.AccountsTest do
-  use Backend.DataCase, async: true
+defmodule Pescarte.AccountsTest do
+  use Pescarte.DataCase, async: true
 
-  import Backend.Factory
+  import Pescarte.Factory
 
-  alias Backend.Accounts
-  alias Backend.Accounts.Models.AuthLog
-  alias Backend.Accounts.Models.User, as: UserModel
-  alias Backend.Accounts.Models.UserToken
-  alias Backend.Accounts.Queries.User, as: UserQueries
-  alias Backend.Database
-  alias Backend.Repo
+  alias Pescarte.Accounts
+  alias Pescarte.Accounts.Models.AuthLog
+  alias Pescarte.Accounts.Models.User, as: UserModel
+  alias Pescarte.Accounts.Models.UserToken
+  alias Pescarte.Accounts.Queries.User, as: UserQueries
+  alias Pescarte.Database
+  alias Pescarte.Repo
 
   @moduletag :integration
 

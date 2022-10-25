@@ -1,4 +1,4 @@
-defmodule Backend.Accounts.Models.UserToken do
+defmodule Pescarte.Accounts.Models.UserToken do
   @moduledoc """
   Schema que representa tokens de usuários.
 
@@ -8,9 +8,9 @@ defmodule Backend.Accounts.Models.UserToken do
   - token de sessão de login
   """
 
-  use Backend, :model
+  use Pescarte, :model
 
-  alias Backend.Accounts.Models.User
+  alias Pescarte.Accounts.Models.User
 
   schema "user_token" do
     field :token, :binary

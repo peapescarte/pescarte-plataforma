@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
-  <title> Plataforma PEA Backend </title>
+  <title> Plataforma PEA Pescarte </title>
   <!--[if !mso]><!-->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!--<![endif]-->
@@ -155,7 +155,7 @@
                                   <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                     <tbody>
                                       <tr>
-                                        <td style="width:154px;"> <img alt="Plataforma PEA Backend" height="auto" src="" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="154" /> </td>
+                                        <td style="width:154px;"> <img alt="Plataforma PEA Pescarte" height="auto" src="" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="154" /> </td>
                                       </tr>
                                     </tbody>
                                   </table>
@@ -231,7 +231,7 @@
                                   <tr>
                                     <td> <img align="left" src="" alt="Solfácil" width="44px" /> </td>
                                     <td vertical-align="middle" style="text-align: right">
-                                      <a href="https://pea-backend.uenf.br" title="Plataforma PEA Backend" style="text-decoration: none; color: #666"> <b>pea-backend.uenf.br</b> </a>
+                                      <a href="https://pea-pescarte.uenf.br" title="Plataforma PEA Pescarte" style="text-decoration: none; color: #666"> <b>pea-pescarte.uenf.br</b> </a>
                                     </td>
                                   </tr>
                                 </table>

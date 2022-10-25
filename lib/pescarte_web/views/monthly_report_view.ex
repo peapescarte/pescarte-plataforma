@@ -1,5 +1,5 @@
-defmodule BackendWeb.MonthlyReportView do
-  use BackendWeb, :view
+defmodule PescarteWeb.MonthlyReportView do
+  use PescarteWeb, :view
 
   @today Date.utc_today()
 

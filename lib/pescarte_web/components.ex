@@ -1,7 +1,7 @@
-defmodule BackendWeb.Components do
+defmodule PescarteWeb.Components do
   @moduledoc false
 
-  alias BackendWeb.Components.{
+  alias PescarteWeb.Components.{
     Footer,
     Icon,
     Navbar,
