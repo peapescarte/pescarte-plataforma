@@ -1,6 +1,6 @@
 {
   description = ''
-    Plataforma PEA Backend
+    Plataforma PEA Pescarte
   '';
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
@@ -42,12 +42,12 @@
     rec {
       devShells = {
         "${systems.linux}".default = with pkgs systems.linux; mkShell {
-          name = "backend";
+          name = "pescarte";
           buildInputs = inputs systems.linux;
         };
 
         "${systems.darwin}".default = with pkgs systems.darwin; mkShell {
-          name = "backend";
+          name = "pescarte";
           buildInputs = inputs systems.darwin;
         };
       };

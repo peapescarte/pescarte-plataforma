@@ -1,9 +1,9 @@
-defmodule BackendWeb.UserResetPasswordController do
+defmodule PescarteWeb.UserResetPasswordController do
   @moduledoc false
 
-  use BackendWeb, :controller
+  use PescarteWeb, :controller
 
-  alias Backend.Accounts
+  alias Pescarte.Accounts
 
   plug :get_user_by_reset_password_token when action in [:edit, :update]
 

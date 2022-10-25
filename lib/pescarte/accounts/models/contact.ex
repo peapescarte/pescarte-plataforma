@@ -1,5 +1,5 @@
-defmodule Backend.Accounts.Models.Contact do
-  use Backend, :model
+defmodule Pescarte.Accounts.Models.Contact do
+  use Pescarte, :model
 
   schema "contact" do
     field :mobile, :string

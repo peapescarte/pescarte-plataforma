@@ -1,3 +1,3 @@
-defmodule BackendWeb.UserRegistrationView do
-  use BackendWeb, :view
+defmodule PescarteWeb.UserRegistrationView do
+  use PescarteWeb, :view
 end

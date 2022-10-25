@@ -1,9 +1,9 @@
-defmodule Backend.Accounts.Models.UserTest do
-  use Backend.DataCase, async: true
+defmodule Pescarte.Accounts.Models.UserTest do
+  use Pescarte.DataCase, async: true
 
-  import Backend.Factory
+  import Pescarte.Factory
 
-  alias Backend.Accounts.Models.User
+  alias Pescarte.Accounts.Models.User
 
   @moduletag :unit
 

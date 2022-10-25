@@ -1,3 +1,3 @@
 #!/bin/sh
 cd -P -- "$(dirname -- "$0")"
-exec ./backend eval Backend.Release.migrate
+exec ./pescarte eval Pescarte.Release.migrate

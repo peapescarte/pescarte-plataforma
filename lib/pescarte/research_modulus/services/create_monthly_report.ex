@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.Services.CreateMonthlyReport do
-  use Backend, :application_service
+defmodule Pescarte.ResearchModulus.Services.CreateMonthlyReport do
+  use Pescarte, :application_service
 
-  alias Backend.ResearchModulus.IO.MonthlyReportRepo
+  alias Pescarte.ResearchModulus.IO.MonthlyReportRepo
 
   @impl true
   def process(params) do

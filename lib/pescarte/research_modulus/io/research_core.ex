@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.IO.ResearchCoreRepo do
-  use Backend, :repo
+defmodule Pescarte.ResearchModulus.IO.ResearchCoreRepo do
+  use Pescarte, :repo
 
-  alias Backend.ResearchModulus.Models.ResearchCore
+  alias Pescarte.ResearchModulus.Models.ResearchCore
 
   @impl true
   def all do

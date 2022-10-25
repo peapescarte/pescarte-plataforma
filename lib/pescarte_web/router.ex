@@ -1,13 +1,13 @@
-defmodule BackendWeb.Router do
-  use BackendWeb, :router
+defmodule PescarteWeb.Router do
+  use PescarteWeb, :router
 
-  import BackendWeb.UserAuth
+  import PescarteWeb.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {BackendWeb.LayoutView, :root}
+    plug :put_root_layout, {PescarteWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
@@ -15,14 +15,14 @@ defmodule BackendWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug BackendWeb.LocalePlug
-    plug BackendWeb.RequireApiKeyPlug
+    plug PescarteWeb.LocalePlug
+    plug PescarteWeb.RequireApiKeyPlug
     plug ProperCase.Plug.SnakeCaseParams
   end
 
   ## Endpoints para versão browser
 
-  scope "/", BackendWeb do
+  scope "/", PescarteWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     get "/cadastrar", UserRegistrationController, :new
@@ -37,7 +37,7 @@ defmodule BackendWeb.Router do
     put "/recuperar_senha/:token", UserResetPasswordController, :update
   end
 
-  scope "/app", BackendWeb do
+  scope "/app", PescarteWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     scope "/relatorios" do
@@ -53,7 +53,7 @@ defmodule BackendWeb.Router do
         :confirm_email
   end
 
-  scope "/app", BackendWeb do
+  scope "/app", PescarteWeb do
     pipe_through [:browser]
 
     delete "/desconectar", UserSessionController, :delete
@@ -72,7 +72,7 @@ defmodule BackendWeb.Router do
     scope "/" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: BackendWeb.Telemetry
+      live_dashboard "/dashboard", metrics: PescarteWeb.Telemetry
     end
   end
 

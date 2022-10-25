@@ -1,15 +1,15 @@
 import Config
 
 # Configure your database
-config :backend, Backend.Repo,
-  username: "backend",
-  password: "backend",
-  database: "backend_dev",
+config :pescarte, Pescarte.Repo,
+  username: "pescarte",
+  password: "pescarte",
+  database: "pescarte_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-config :backend, BackendWeb.Endpoint,
+config :pescarte, PescarteWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -20,7 +20,7 @@ config :backend, BackendWeb.Endpoint,
     esbuild: {Esbuild, :install_and_run, [:catalogue, ~w(--sourcemap=inline --watch)]}
   ]
 
-config :backend, BackendWeb.Endpoint,
+config :pescarte, PescarteWeb.Endpoint,
   reloadable_compilers: [:elixir, :surface],
   live_reload: [
     patterns: [

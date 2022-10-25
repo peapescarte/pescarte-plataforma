@@ -1,7 +1,7 @@
-defmodule BackendWeb.Components.Footer do
+defmodule PescarteWeb.Components.Footer do
   @moduledoc false
 
-  use BackendWeb, :component
+  use PescarteWeb, :component
 
   def render(assigns) do
     ~H"""
@@ -14,7 +14,7 @@ defmodule BackendWeb.Components.Footer do
   def alt_text do
     """
     Bloco de logos das instiuições relacionadas
-    ao projeto Backend: IPEAD; UENF; Petrobras;
+    ao projeto Pescarte: IPEAD; UENF; Petrobras;
     e Ibama.
     """
   end

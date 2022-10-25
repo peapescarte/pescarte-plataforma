@@ -1,13 +1,13 @@
-defmodule Backend.CarboniteHelpers do
+defmodule Pescarte.CarboniteHelpers do
   def carbonite_override_mode(_) do
-    Carbonite.override_mode(Backend.Repo)
+    Carbonite.override_mode(Pescarte.Repo)
 
     :ok
   end
 
   def current_transaction_meta do
     Carbonite.Query.current_transaction()
-    |> Backend.Repo.one!()
+    |> Pescarte.Repo.one!()
     |> Map.fetch(:meta)
   end
 end

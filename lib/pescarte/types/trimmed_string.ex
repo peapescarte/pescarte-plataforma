@@ -1,4 +1,4 @@
-defmodule Backend.Types.TrimmedString do
+defmodule Pescarte.Types.TrimmedString do
   @moduledoc """
   Provides a trimmed String Type
   """

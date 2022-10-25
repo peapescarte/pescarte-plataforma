@@ -1,16 +1,16 @@
-defmodule Backend.Accounts do
+defmodule Pescarte.Accounts do
   @moduledoc """
   The Accounts context.
   """
 
-  alias Backend.Accounts.UserNotifier
+  alias Pescarte.Accounts.UserNotifier
 
-  alias Backend.Accounts.IO.UserRepo
-  alias Backend.Accounts.IO.UserTokenRepo
-  alias Backend.Accounts.Models.User
-  alias Backend.Accounts.Models.UserToken
-  alias Backend.Accounts.Services
-  alias Backend.Database
+  alias Pescarte.Accounts.IO.UserRepo
+  alias Pescarte.Accounts.IO.UserTokenRepo
+  alias Pescarte.Accounts.Models.User
+  alias Pescarte.Accounts.Models.UserToken
+  alias Pescarte.Accounts.Services
+  alias Pescarte.Database
 
   defdelegate list_user, to: Services.GetUser, as: :process
 

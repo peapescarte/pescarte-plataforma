@@ -1,4 +1,4 @@
-defmodule Backend.Helpers do
+defmodule Pescarte.Helpers do
   @moduledoc """
   Implementa funções de ajuda para deixar o fluxo
   mais claro e legível

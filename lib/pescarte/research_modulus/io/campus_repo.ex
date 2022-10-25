@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.IO.CampusRepo do
-  use Backend, :repo
+defmodule Pescarte.ResearchModulus.IO.CampusRepo do
+  use Pescarte, :repo
 
-  alias Backend.ResearchModulus.Models.Campus
+  alias Pescarte.ResearchModulus.Models.Campus
 
   @required_fields ~w(initials city_id)a
   @optional_fields ~w(name)a

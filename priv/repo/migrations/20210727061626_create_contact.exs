@@ -1,4 +1,4 @@
-defmodule Backend.Repo.Migrations.CreateContact do
+defmodule Pescarte.Repo.Migrations.CreateContact do
   use Ecto.Migration
 
   def change do

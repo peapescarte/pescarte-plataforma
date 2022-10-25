@@ -1,7 +1,7 @@
-defmodule Backend.Accounts.Models.ApiKey do
+defmodule Pescarte.Accounts.Models.ApiKey do
   @moduledoc false
 
-  use Backend, :model
+  use Pescarte, :model
 
   schema "api_key" do
     field :key, Ecto.UUID

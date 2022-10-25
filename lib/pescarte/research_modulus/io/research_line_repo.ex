@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.IO.ResearchLineRepo do
-  use Backend, :repo
+defmodule Pescarte.ResearchModulus.IO.ResearchLineRepo do
+  use Pescarte, :repo
 
-  alias Backend.ResearchModulus.Models.ResearchLine
+  alias Pescarte.ResearchModulus.Models.ResearchLine
 
   @required_fields ~w(research_core_id sort_desc number)a
   @optional_fields ~w(desc)a

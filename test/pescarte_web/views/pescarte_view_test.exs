@@ -1,21 +1,21 @@
-defmodule BackendWeb.BackendViewTest do
-  use BackendWeb.ConnCase, async: true
+defmodule PescarteWeb.PescarteViewTest do
+  use PescarteWeb.ConnCase, async: true
 
   import Phoenix.View
 
-  alias BackendWeb.BackendView
+  alias PescarteWeb.PescarteView
 
   @moduletag :integration
 
   test "renders response.json" do
     data = %{test: true}
-    assert render(BackendView, "response.json", %{data: data}) == %{data: %{test: true}}
+    assert render(PescarteView, "response.json", %{data: data}) == %{data: %{test: true}}
   end
 
   test "renders paginated.json" do
     response = %{data: [%{test: true}], pagination: %{test: true}}
 
-    assert render(BackendView, "paginated.json", response) == %{
+    assert render(PescarteView, "paginated.json", response) == %{
              data: [%{test: true}],
              pagination: %{test: true}
            }

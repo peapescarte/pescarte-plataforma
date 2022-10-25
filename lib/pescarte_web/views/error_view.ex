@@ -1,5 +1,5 @@
-defmodule BackendWeb.ErrorView do
-  use BackendWeb, :view
+defmodule PescarteWeb.ErrorView do
+  use PescarteWeb, :view
 
   @spec translate_errors(Ecto.Changeset.t()) :: list(map)
   def translate_errors(changeset) do

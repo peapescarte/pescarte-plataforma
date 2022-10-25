@@ -1,9 +1,9 @@
-defmodule Backend.ModuloPesquisa.Models.CampusTest do
-  use Backend.DataCase, async: true
+defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
+  use Pescarte.DataCase, async: true
 
-  import Backend.Factory
+  import Pescarte.Factory
 
-  alias Backend.ModuloPesquisa.Models.Campus
+  alias Pescarte.ModuloPesquisa.Models.Campus
 
   @moduletag :unit
 

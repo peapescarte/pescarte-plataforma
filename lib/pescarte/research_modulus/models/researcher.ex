@@ -1,12 +1,12 @@
-defmodule Backend.ResearchModulus.Models.Researcher do
-  use Backend, :model
+defmodule Pescarte.ResearchModulus.Models.Researcher do
+  use Pescarte, :model
 
-  alias Backend.Accounts.Models.User
-  alias Backend.ResearchModulus.Models.Campus
-  alias Backend.ResearchModulus.Models.Midia
-  alias Backend.ResearchModulus.Models.MonthlyReport
-  alias Backend.ResearchModulus.Models.Researcher
-  alias Backend.Types.TrimmedString
+  alias Pescarte.Accounts.Models.User
+  alias Pescarte.ResearchModulus.Models.Campus
+  alias Pescarte.ResearchModulus.Models.Midia
+  alias Pescarte.ResearchModulus.Models.MonthlyReport
+  alias Pescarte.ResearchModulus.Models.Researcher
+  alias Pescarte.Types.TrimmedString
 
   @bursary_types ~w(
     ic pesquisa voluntario

@@ -1,9 +1,9 @@
-defmodule Backend.MailerTest.GenerateTests do
+defmodule Pescarte.MailerTest.GenerateTests do
   defmacro __using__(_opts) do
     quote do
       use ExUnit.Case
 
-      alias Backend.{Mailer, MailerTest}
+      alias Pescarte.{Mailer, MailerTest}
       alias Swoosh.Email
 
       @general_assigns %{
@@ -35,7 +35,7 @@ defmodule Backend.MailerTest.GenerateTests do
 
   @spec emails(binary) :: list(String.t())
   def emails(project) do
-    template_path = "#{:code.priv_dir(:backend)}/templates"
+    template_path = "#{:code.priv_dir(:pescarte)}/templates"
     path = Path.expand("#{template_path}/email/#{project}", __DIR__)
 
     (path <> "/*")
@@ -44,10 +44,10 @@ defmodule Backend.MailerTest.GenerateTests do
   end
 end
 
-defmodule Backend.MailerTest do
-  use Backend.MailerTest.GenerateTests
+defmodule Pescarte.MailerTest do
+  use Pescarte.MailerTest.GenerateTests
 
-  alias Backend.Mailer
+  alias Pescarte.Mailer
 
   @moduletag :unit
 

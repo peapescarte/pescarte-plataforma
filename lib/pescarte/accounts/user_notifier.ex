@@ -1,11 +1,11 @@
-defmodule Backend.Accounts.UserNotifier do
+defmodule Pescarte.Accounts.UserNotifier do
   @moduledoc """
   Define funções públicas para o envio de emails transacionais.
   """
 
   require Logger
 
-  alias Backend.Jobs.MailerJob
+  alias Pescarte.Jobs.MailerJob
 
   # Entrega o email por meio de um Job no banco de dados
   defp deliver(subject, template, assigns) do

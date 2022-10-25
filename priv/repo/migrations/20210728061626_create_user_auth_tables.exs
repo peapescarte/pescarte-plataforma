@@ -1,4 +1,4 @@
-defmodule Backend.Repo.Migrations.CreateUsuariosAuthTables do
+defmodule Pescarte.Repo.Migrations.CreateUsuariosAuthTables do
   use Ecto.Migration
 
   def change do

@@ -1,4 +1,4 @@
-defmodule Backend.Mailer.HTML do
+defmodule Pescarte.Mailer.HTML do
   @moduledoc false
 
   @doc """
@@ -17,11 +17,11 @@ defmodule Backend.Mailer.HTML do
   end
 
   @spec templates_path :: binary
-  def templates_path, do: "#{:code.priv_dir(:backend)}/templates"
+  def templates_path, do: "#{:code.priv_dir(:pescarte)}/templates"
 
-  defp pea_backend_contact do
-    :backend
-    |> Application.get_env(:pea_backend_contact)
+  defp pea_pescarte_contact do
+    :pescarte
+    |> Application.get_env(:pea_pescarte_contact)
     |> Map.new()
   end
 
@@ -35,7 +35,7 @@ defmodule Backend.Mailer.HTML do
   defp render_email(assigns, project, email) do
     EEx.eval_file("#{templates_path()}/email/#{project}/#{email}.html.eex",
       assigns: assigns,
-      pea_backend: pea_backend_contact()
+      pea_pescarte: pea_pescarte_contact()
     )
   end
 

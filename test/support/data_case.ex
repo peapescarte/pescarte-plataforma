@@ -1,4 +1,4 @@
-defmodule Backend.DataCase do
+defmodule Pescarte.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule Backend.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Backend.DataCase, async: true`, although
+  by setting `use Pescarte.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -20,17 +20,17 @@ defmodule Backend.DataCase do
 
   using do
     quote do
-      alias Backend.Repo
+      alias Pescarte.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Backend.DataCase
+      import Pescarte.DataCase
     end
   end
 
   setup tags do
-    pid = Sandbox.start_owner!(Backend.Repo, shared: not tags[:async])
+    pid = Sandbox.start_owner!(Pescarte.Repo, shared: not tags[:async])
 
     on_exit(fn -> Sandbox.stop_owner(pid) end)
 

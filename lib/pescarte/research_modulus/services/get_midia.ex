@@ -1,7 +1,7 @@
-defmodule Backend.ResearchModulus.Services.GetMidia do
-  use Backend, :application_service
+defmodule Pescarte.ResearchModulus.Services.GetMidia do
+  use Pescarte, :application_service
 
-  alias Backend.ResearchModulus.IO.MidiaRepo
+  alias Pescarte.ResearchModulus.IO.MidiaRepo
 
   def process do
     MidiaRepo.all()

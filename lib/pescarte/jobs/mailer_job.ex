@@ -1,12 +1,12 @@
-defmodule Backend.Jobs.MailerJob do
+defmodule Pescarte.Jobs.MailerJob do
   @moduledoc false
 
   use Oban.Worker, queue: :mailer, max_attempts: 4
 
   require Logger
 
-  alias Backend.Helpers
-  alias Backend.Mailer
+  alias Pescarte.Helpers
+  alias Pescarte.Mailer
 
   @doc """
   Deliver an email to partner
@@ -19,7 +19,7 @@ defmodule Backend.Jobs.MailerJob do
         template: "nova_midia",
         assigns: %{user_id: "mJUHrGXZBZpNX50x2xkzf"}
       }
-      |> Backend.Jobs.MailerJob.new()
+      |> Pescarte.Jobs.MailerJob.new()
       |> Oban.insert!()
       > {:ok, %Oban.Job{...}}
   """

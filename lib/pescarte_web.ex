@@ -1,12 +1,12 @@
-defmodule BackendWeb do
+defmodule PescarteWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use BackendWeb, :controller
-      use BackendWeb, :view
+      use PescarteWeb, :controller
+      use PescarteWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -20,10 +20,10 @@ defmodule BackendWeb do
   @spec controller :: Macro.t()
   def controller do
     quote do
-      use Phoenix.Controller, namespace: BackendWeb
+      use Phoenix.Controller, namespace: PescarteWeb
 
       import Plug.Conn
-      alias BackendWeb.Router.Helpers, as: Routes
+      alias PescarteWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -31,8 +31,8 @@ defmodule BackendWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/backend_web/templates",
-        namespace: BackendWeb
+        root: "lib/pescarte_web/templates",
+        namespace: PescarteWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -77,11 +77,11 @@ defmodule BackendWeb do
       import Phoenix.LiveView.Helpers
       import Phoenix.View
 
-      import BackendWeb.Components
-      import BackendWeb.ErrorHelpers
-      import BackendWeb.FormHelpers
+      import PescarteWeb.Components
+      import PescarteWeb.ErrorHelpers
+      import PescarteWeb.FormHelpers
 
-      alias BackendWeb.Router.Helpers, as: Routes
+      alias PescarteWeb.Router.Helpers, as: Routes
     end
   end
 

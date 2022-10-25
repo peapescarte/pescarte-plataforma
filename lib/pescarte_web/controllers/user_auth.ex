@@ -1,4 +1,4 @@
-defmodule BackendWeb.UserAuth do
+defmodule PescarteWeb.UserAuth do
   @moduledoc """
   Funções do contexto de autenticação de usuários
   via browser. Apenas Funções puras.
@@ -7,14 +7,14 @@ defmodule BackendWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
-  alias Backend.Accounts
-  alias BackendWeb.Router.Helpers, as: Routes
+  alias Pescarte.Accounts
+  alias PescarteWeb.Router.Helpers, as: Routes
 
   # Faça o cookie lembrar do usuário ser válido por 60 dias.
   # Se você quiser aumentar ou reduzir esse valor, altere também
   # a própria expiração do token em UserToken.
   @max_age 60 * 60 * 24 * 60
-  @remember_me_cookie "_backend_web_user_remember_me"
+  @remember_me_cookie "_pescarte_web_user_remember_me"
   @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
   @doc """
@@ -86,7 +86,7 @@ defmodule BackendWeb.UserAuth do
     user_token && Accounts.delete_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
-      BackendWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+      PescarteWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
     conn

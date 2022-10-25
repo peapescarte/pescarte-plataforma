@@ -1,7 +1,7 @@
-defmodule Backend.Accounts.Services.CreateUser do
-  use Backend, :application_service
+defmodule Pescarte.Accounts.Services.CreateUser do
+  use Pescarte, :application_service
 
-  alias Backend.Accounts.IO.UserRepo
+  alias Pescarte.Accounts.IO.UserRepo
 
   @impl true
   def process(params) do

@@ -1,4 +1,4 @@
-defmodule Backend.Repo.Migrations.CreateCity do
+defmodule Pescarte.Repo.Migrations.CreateCity do
   use Ecto.Migration
 
   def change do
