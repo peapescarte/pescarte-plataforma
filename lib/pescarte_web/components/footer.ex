@@ -6,7 +6,7 @@ defmodule PescarteWeb.Components.Footer do
   def render(assigns) do
     ~H"""
     <footer class="footer footer-center p-4 bg-white">
-      <img src="/images/footer_logo.png" alt={alt_text()} class="w-2/5" />
+      <img src="/images/footer_logos.svg" alt={alt_text()} class="w-2/5" />
     </footer>
     """
   end
