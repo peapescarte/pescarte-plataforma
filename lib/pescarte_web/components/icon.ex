@@ -7,8 +7,6 @@ defmodule PescarteWeb.Components.Icon do
 
   alias PescarteWeb.Router.Helpers, as: Routes
 
-  @icons_path "/icons/"
-
   def render(assigns) do
     ~H"""
     <figure>
@@ -18,63 +16,50 @@ defmodule PescarteWeb.Components.Icon do
   end
 
   def build_icon_path(icon_name) do
-    path = @icons_path <> Atom.to_string(icon_name) <> ".svg"
-    Routes.static_path(PescarteWeb.Endpoint, path)
+    Routes.static_path(PescarteWeb.Endpoint, "/icons/#{icon_name}.svg")
   end
 
-  def get_alt_text(:attachment) do
-    "Ícone de anexo"
+  def get_alt_text("accounts") do
+    "Ícone que representa duas ou mais contas"
   end
 
-  def get_alt_text(:bell) do
-    "Ícone de sino, que representa as notificações"
+  def get_alt_text("agenda") do
+    "Ícone que representa um calendário"
   end
 
-  def get_alt_text(:download) do
-    "Ícone de download"
+  def get_alt_text("compilation") do
+    "Ícone que representa uma compilação de arquivos"
   end
 
-  def get_alt_text(:dropdown) do
-    "Ícone de botão dropdown"
+  def get_alt_text("file") do
+    "Ícone que representa um arquivo"
   end
 
-  def get_alt_text(:edit_profile) do
-    "Ícone para edição das informações de perfil"
+  def get_alt_text("filter") do
+    "Ícone que representa um filtro"
   end
 
-  def get_alt_text(:edit) do
-    "Ícone para itens editáveis"
+  def get_alt_text("home") do
+    "Ícone que representa uma casa"
   end
 
-  def get_alt_text(:loading) do
-    "Ícone de carregamento"
+  def get_alt_text("image") do
+    "Ícone que representa uma imagem"
   end
 
-  def get_alt_text(:lock) do
-    "Ícone de cadeado"
+  def get_alt_text("message") do
+    "Ícone que representa uma mensagem"
   end
 
-  def get_alt_text(:merge) do
-    "Ícone que representa mesclagem"
+  def get_alt_text("new_account") do
+    "Ícone que representa uma nova conta a ser criada"
   end
 
-  def get_alt_text(:seen_eye) do
-    "Ícone que representa uma notificação visualizada"
+  def get_alt_text("new_file") do
+    "Ícone que representa um novo arquivo a ser criado"
   end
 
-  def get_alt_text(:trashcan) do
-    "Ícone de lixeira"
-  end
-
-  def get_alt_text(:upload) do
-    "Ícone que representa um upload"
-  end
-
-  def get_alt_text(:user) do
-    "Ícone padrão para foto de perfil/avatar"
-  end
-
-  def get_alt_text(:white_check) do
-    "Ícone de um check branco"
+  def get_alt_text("search") do
+    "Ícone que representa uma lupa para pesquisa"
   end
 end
