@@ -17,7 +17,6 @@ config :pescarte, PescarteWeb.Endpoint,
   secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    esbuild: {Esbuild, :install_and_run, [:catalogue, ~w(--sourcemap=inline --watch)]}
   ]
 
 config :pescarte, PescarteWeb.Endpoint,
@@ -25,9 +24,8 @@ config :pescarte, PescarteWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"lib/my_app_web/(live|views|components)/.*(ex|sface|js)$",
-      ~r"lib/my_app_web/templates/.*(eex|sface)$",
-      ~r"priv/catalogue/.*(ex)$"
+      ~r"lib/fuschia_web/(|views|components)/.*(ex|js)$",
+      ~r"lib/fuschia_web/templates/.*(eex)$",
     ]
   ]
 
