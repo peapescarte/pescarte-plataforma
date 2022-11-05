@@ -1,16 +1,16 @@
-defmodule Fuschia.Factory do
+defmodule Pescarte.Factory do
   @moduledoc false
 
-  use ExMachina.Ecto, repo: Fuschia.Repo
+  use ExMachina.Ecto, repo: Pescarte.Repo
 
-  alias Fuschia.Accounts.Models.Contact
-  alias Fuschia.Accounts.Models.User
-  alias Fuschia.ResearchModulus.Models.Campus
-  alias Fuschia.ResearchModulus.Models.City
-  alias Fuschia.ResearchModulus.Models.Midia
-  alias Fuschia.ResearchModulus.Models.ResearchCore
-  alias Fuschia.ResearchModulus.Models.Researcher
-  alias Fuschia.ResearchModulus.Models.ResearchLine
+  alias Pescarte.Accounts.Models.Contact
+  alias Pescarte.Accounts.Models.User
+  alias Pescarte.ResearchModulus.Models.Campus
+  alias Pescarte.ResearchModulus.Models.City
+  alias Pescarte.ResearchModulus.Models.Midia
+  alias Pescarte.ResearchModulus.Models.ResearchCore
+  alias Pescarte.ResearchModulus.Models.Researcher
+  alias Pescarte.ResearchModulus.Models.ResearchLine
 
   def campus_factory do
     %Campus{
@@ -95,8 +95,8 @@ defmodule Fuschia.Factory do
 
   def user_fixture(opts \\ []) do
     :user
-    |> Fuschia.Factory.insert(opts)
-    |> Fuschia.Repo.preload([:contact, :researcher])
+    |> Pescarte.Factory.insert(opts)
+    |> Pescarte.Repo.preload([:contact, :researcher])
   end
 
   def extract_user_token(fun) do

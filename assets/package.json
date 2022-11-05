@@ -1,13 +1,12 @@
 {
-  "name": "fuschia",
+  "name": "pescarte",
   "version": "0.1.0",
   "description": "Plataforma Digital PEA Pescarte",
-  "repository": "https://github.com/cciuenf/fuschia",
+  "repository": "https://github.com/cciuenf/pescarte",
   "author": "zoedsoupe",
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
-    "alpine": "^0.2.1",
     "daisyui": "^2.19.0",
     "inputmask": "^5.0.7"
   }

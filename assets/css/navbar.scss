@@ -1,0 +1,12 @@
+.menu-item {
+  @apply flex justify-center items-center;
+
+  padding: 12px 24px;
+  gap: 12px;
+  color: var(--blue-3);
+
+  &:hover {
+    background-color: var(--blue-3);
+    color: var(--white-1);
+  }
+}

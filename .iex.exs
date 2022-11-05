@@ -1,4 +1,4 @@
-alias Fuschia.{
+alias Pescarte.{
   Accounts,
   Database,
   ModuloPesquisa

@@ -1,23 +1,23 @@
 import Config
 
-config :fuschia, carbonite_mode: :capture
+config :pescarte, carbonite_mode: :capture
 
 # ---------------------------#
 # Ecto
 # ---------------------------#
-config :fuschia,
-  ecto_repos: [Fuschia.Repo]
+config :pescarte,
+  ecto_repos: [Pescarte.Repo]
 
-config :fuschia, Fuschia.Repo, migration_timestamps: [type: :utc_datetime_usec]
+config :pescarte, Pescarte.Repo, migration_timestamps: [type: :utc_datetime_usec]
 
 # ---------------------------#
 # Endpoint
 # ---------------------------#
-config :fuschia, FuschiaWeb.Endpoint,
+config :pescarte, PescarteWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/tnqEz6BgkvSQoZdVePI7wI2tB6enxAPY66OSNNCGSeDy2VkzG0lIc/cguFxfA+0",
-  render_errors: [view: FuschiaWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Fuschia.PubSub
+  render_errors: [view: PescarteWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Pescarte.PubSub
 
 # ---------------------------#
 # Phoenix
@@ -42,12 +42,19 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
+config :dart_sass,
+  version: "1.54.5",
+  default: [
+    args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
 config :tailwind,
   version: "3.0.24",
   default: [
     args: ~w(
       --config=tailwind.config.js
-      --input=css/app.css
+      --input=../priv/static/assets/app.css.tailwind
       --output=../priv/static/assets/app.css
     ),
     cd: Path.expand("../assets", __DIR__)

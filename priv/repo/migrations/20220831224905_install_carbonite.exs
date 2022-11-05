@@ -1,7 +1,7 @@
-defmodule Fuschia.Repo.Migrations.InstallCarbonite do
+defmodule Pescarte.Repo.Migrations.InstallCarbonite do
   use Ecto.Migration
 
-  @mode Application.compile_env!(:fuschia, :carbonite_mode)
+  @mode Application.compile_env!(:pescarte, :carbonite_mode)
 
   def up do
     Carbonite.Migrations.up(1)

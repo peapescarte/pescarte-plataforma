@@ -1,0 +1,54 @@
+// navbar
+.menu-item:hover {
+  .icon-accounts {
+    content: url("/icons/accounts_white.svg");
+  }
+
+  .icon-agenda {
+    content: url("/icons/agenda_white.svg");
+  }
+
+  .icon-book {
+    content: url("/icons/book_white.svg");
+  }
+
+  .icon-compilation {
+    content: url("/icons/compilation_white.svg");
+  }
+
+  .icon-file {
+    content: url("/icons/file_white.svg");
+  }
+
+  .icon-filter {
+    content: url("/icons/filter_white.svg");
+  }
+
+  .icon-home {
+    content: url("/icons/home_white.svg");
+  }
+
+  .icon-image {
+    content: url("/icons/image_white.svg");
+  }
+
+  .icon-login {
+    content: url("/icons/login_white.svg");
+  }
+
+  .icon-message {
+    content: url("/icons/message_white.svg");
+  }
+
+  .icon-new_account {
+    content: url("/icons/new_account_white.svg");
+  }
+
+  .icon-new_file {
+    content: url("/icons/new_file_white.svg");
+  }
+
+  .icon-search {
+    content: url("/icons/search_white.svg");
+  }
+}

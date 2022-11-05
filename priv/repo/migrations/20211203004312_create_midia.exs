@@ -1,4 +1,4 @@
-defmodule Fuschia.Repo.Migrations.CreateMidia do
+defmodule Pescarte.Repo.Migrations.CreateMidia do
   use Ecto.Migration
 
   def change do

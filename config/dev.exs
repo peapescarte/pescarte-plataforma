@@ -1,15 +1,15 @@
 import Config
 
 # Configure your database
-config :fuschia, Fuschia.Repo,
+config :pescarte, Pescarte.Repo,
   username: "pescarte",
   password: "pescarte",
-  database: "fuschia_dev",
+  database: "pescarte_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-config :fuschia, FuschiaWeb.Endpoint,
+config :pescarte, PescarteWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -17,16 +17,17 @@ config :fuschia, FuschiaWeb.Endpoint,
   secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
+    sass: {DartSass, :install_and_run, [:default, ~w(--watch)]}
   ]
 
-config :fuschia, FuschiaWeb.Endpoint,
-  reloadable_compilers: [:elixir],
+config :pescarte, PescarteWeb.Endpoint,
+  reloadable_compilers: [:elixir, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"lib/fuschia_web/(|views|components)/.*(ex|js)$",
-      ~r"lib/fuschia_web/templates/.*(eex)$"
+      ~r"lib/pescarte_web/(|views|components)/.*(ex|js)$",
+      ~r"lib/pescarte_web/templates/.*(eex)$"
     ]
   ]
 
