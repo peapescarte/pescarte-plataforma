@@ -1,4 +1,4 @@
-defmodule Fuschia.Common.Common do
+defmodule Pescarte.Common.Common do
 
 def build_user_name(user) do
   if user.middle_name do

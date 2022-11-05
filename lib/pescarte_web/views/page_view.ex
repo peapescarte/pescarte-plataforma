@@ -1,4 +1,4 @@
-defmodule FuschiaWeb.PageView do
-  use FuschiaWeb, :view
+defmodule PescarteWeb.PageView do
+  use PescarteWeb, :view
 
 end

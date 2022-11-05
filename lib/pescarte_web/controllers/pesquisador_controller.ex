@@ -1,8 +1,8 @@
-defmodule FuschiaWeb.PesquisadorController do
-  use FuschiaWeb, :controller
+defmodule PescarteWeb.PesquisadorController do
+  use PescarteWeb, :controller
 
   def index(conn, _params) do
-    list_research = Fuschia.ResearchModulus.list_researcher()
+    list_research = Pescarte.ResearchModulus.list_researcher()
     render(conn, "index.html", research: list_research)
   end
 
@@ -12,7 +12,7 @@ defmodule FuschiaWeb.PesquisadorController do
   end
 
   def new(conn, _params) do
-    ##  new_research = Fuschia.ResearchModulus.create_researcher(params)   research: new_research,
+    ##  new_research = Pescarte.ResearchModulus.create_researcher(params)   research: new_research,
       render(conn, "new.html", error_message: nil)
   end
 

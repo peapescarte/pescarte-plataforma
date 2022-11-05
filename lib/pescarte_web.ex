@@ -76,7 +76,7 @@ defmodule PescarteWeb do
 
       import Phoenix.LiveView.Helpers
       import Phoenix.View
-      import Fuschia.Common.Common
+      import Pescarte.Common.Common
 
       import PescarteWeb.Components
       import PescarteWeb.ErrorHelpers

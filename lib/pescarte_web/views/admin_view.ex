@@ -1,4 +1,3 @@
-defmodule FuschiaWeb.AdminView do
-  use FuschiaWeb, :view
-
+defmodule PescarteWeb.AdminView do
+  use PescarteWeb, :view
 end

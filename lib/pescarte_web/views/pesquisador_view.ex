@@ -1,6 +1,5 @@
-defmodule FuschiaWeb.PesquisadorView do
-  use FuschiaWeb, :view
+defmodule PescarteWeb.PesquisadorView do
+  use PescarteWeb, :view
 
-    alias Fuschia.ResearchModulus.Models.Researcher
-
-  end
+  alias Pescarte.ResearchModulus.Models.Researcher
+end
