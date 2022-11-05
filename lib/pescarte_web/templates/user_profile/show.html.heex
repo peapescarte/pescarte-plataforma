@@ -1,27 +1,85 @@
-<div class="container grid grid-flow-col grid-cols-6 gap-6">
-  <div class="col-start-1 col-span-2 mb-12 md:mb-0">
-      <div class="flex justify-center mb-6">
-          <img class="rounded-full shadow-lg w-64" src="/images/avatar/PerfilAnna2022.jpg"/>
+<div class="flex container">
+  <div class="w-1/4 md:w-full">
+    <div class="flex justify-center mb-12">
+        <img class="rounded-full shadow-lg w-64" src="/images/avatar/PerfilAnna2022.jpg"/>
           <!-- aqui devemos colocar um comando para trazer o campo foto do usuario 18/10/2022-->
-      </div>
-  </div>
+    </div>
 
-  <div class="col-start-1 col-span-2 text-white uppercase font-semibold text-2xl text-center justify-between">
+    <div class="text-white uppercase font-semibold text-2xl text-center justify-between">
       <h1><%= build_user_name(@user) %></h1>
 
       <h1><%= @user.researcher.bursary %></h1>  
-  </div>
+    </div>
 
-  <div class="col-start-1 col-span-2 mb-12 md:mb-0">
-    <div class="button h-14 w-11/12 flex-1 items-center justify-between">
+    <div class="button h-14 w-11/12 justify-between">
       <a href="/edit" class="flex items-center rounded-md">
         <.icon name={:edit_profile} class="w-12" />
         Editar Perfil
       </a>
     </div>
+
+
+    <div class="button h-14 w-11/12 flex justify-between">
+      <a href="/edit" class="flex items-center rounded-md">
+        <.icon name={:lock} class="w-12" />
+        Alterar Senha
+      </a>
+    </div>
+
+  </div>
+  <div class="w-3/4 h-2 md:w-full ...">
+    <div class="mb-12 md:mb-0">
+    <%= label(:minibiografia, "BIOGRAFIA", class: "text-white uppercase font-semibold") %>
+    <blockquote>
+    <span class="text-white grow">
+     <%= @user.researcher.minibio %></span>
+    </blockquote>
+    </div>
+    <div class="h-24">
+    </div>
+
+    <div class="h-24 mb-12 md:mb-0">
+      <%= label(:link_lattes, "LATTES", class: "text-white uppercase font-semibold") %>
+      <blockquote>
+      <span class="text-white">
+        <%= @user.researcher.link_lattes %></span>
+      </blockquote>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- Testando outras opções para fatorar o código -->
+
+<div class="container grid grid-flow-col grid-cols-6 gap-6">
+  <div class="col-start-1 col-span-2 mb-12 md:mb-0">
+  <!--    <div class="flex justify-center mb-6">
+          <img class="rounded-full shadow-lg w-64" src="/images/avatar/PerfilAnna2022.jpg"/>
+          <!-- aqui devemos colocar um comando para trazer o campo foto do usuario 18/10/2022
+      </div> -->
+  </div>
+
+<!--  <div class="col-start-1 col-span-2 text-white uppercase font-semibold text-2xl text-center justify-between">
+      <h1><%= build_user_name(@user) %></h1>
+
+      <h1><%= @user.researcher.bursary %></h1>  
+  </div> -->
+
+  <div class="col-start-1 col-span-2 mb-12 md:mb-0">
+  <!--  <div class="button h-14 w-11/12 flex-1 items-center justify-between">
+      <a href="/edit" class="flex items-center rounded-md">
+        <.icon name={:edit_profile} class="w-12" />
+        Editar Perfil
+      </a>
+    </div> -->
   </div> 
   
-  <div class="col-start-1 col-span-2 button h-14 w-11/12 flex items-center justify-between">
+  <div class="col-start-1 col-span-1 button h-14 w-11/12 flex items-center justify-between">
       <a href="/edit" class="flex items-center rounded-md">
         <.icon name={:lock} class="w-12" />
         Alterar Senha
@@ -38,13 +96,13 @@
       
   </div>
 
-  <div class="col-start-3 col-span-4 mb-12 md:mb-0">
+  <!-- <div class="col-start-3 col-span-4 mb-12 md:mb-0">
     <%= label(:minibiografia, "BIOGRAFIA", class: "text-white uppercase font-semibold") %>
     <blockquote>
     <span class="text-white grow">
      <%= @user.researcher.minibio %></span>
     </blockquote>
-  </div>
+  </div> 
 
   <div class="col-start-3 col-span-4 ">
     <%= label(:link_lattes, "LATTES", class: "text-white uppercase font-semibold") %>
@@ -52,5 +110,5 @@
     <span class="text-white">
       <%= @user.researcher.link_lattes %></span>
     </blockquote>
-  </div>
+  </div>-->
 </div>
