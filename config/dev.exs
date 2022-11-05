@@ -17,7 +17,8 @@ config :pescarte, PescarteWeb.Endpoint,
   secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
+    sass: {DartSass, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 config :pescarte, PescarteWeb.Endpoint,

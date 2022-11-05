@@ -82,20 +82,27 @@ defmodule Pescarte.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev}
     ]
   end
 
   defp aliases do
     [
       ci: ["format --check-formatted", "credo --strict", "test"],
-      setup: ["deps.get", "ecto.setup", "dialyzer --format dialyxir"],
+      setup: ["deps.get", "ecto.setup", "assets.build", "dialyzer --format dialyxir"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "run lib/mix/tasks/seeds.exs", "test"],
       "test.reset": ["ecto.drop", "test"],
+      "assets.build": [
+        "esbuild default",
+        "sass default",
+        "tailwind default"
+      ],
       "assets.deploy": [
         "esbuild default --minify",
+        "sass default",
         "tailwind default --minify",
         "phx.digest"
       ]

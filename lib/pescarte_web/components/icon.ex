@@ -10,7 +10,12 @@ defmodule PescarteWeb.Components.Icon do
   def render(assigns) do
     ~H"""
     <figure>
-      <img src={build_icon_path(@name)} alt={get_alt_text(@name)} class={assigns[:class] || ""} />
+      <img
+        role="img"
+        src={build_icon_path(@name)}
+        alt={get_alt_text(@name)}
+        class={["icon", "icon-#{@name}"]}
+      />
     </figure>
     """
   end
@@ -25,6 +30,10 @@ defmodule PescarteWeb.Components.Icon do
 
   def get_alt_text("agenda") do
     "Ícone que representa um calendário"
+  end
+
+  def get_alt_text("book") do
+    "Ícone que representa um livro aberto"
   end
 
   def get_alt_text("compilation") do
@@ -45,6 +54,10 @@ defmodule PescarteWeb.Components.Icon do
 
   def get_alt_text("image") do
     "Ícone que representa uma imagem"
+  end
+
+  def get_alt_text("login") do
+    "Ícone que representa uma seta para entrada"
   end
 
   def get_alt_text("message") do

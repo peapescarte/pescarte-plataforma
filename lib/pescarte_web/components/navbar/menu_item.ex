@@ -5,19 +5,16 @@ defmodule PescarteWeb.Components.Navbar.MenuItem do
 
   use PescarteWeb, :component
 
+  alias PescarteWeb.Components.Icon
+
   def render(assigns) do
     ~H"""
-    <li>
-      <%= link(@label,
-        to: @path,
-        method: @method,
-        class: "uppercase mx-4 #{get_current_style(@current?)} text-2xl font-semibold",
-        active: @current?
-      ) %>
+    <li class="menu-item">
+      <%= link to: @path, method: @method, active: @current? do %>
+        <Icon.render name={@icon} />
+        <%= @label %>
+      <% end %>
     </li>
     """
   end
-
-  def get_current_style(true), do: "text-white"
-  def get_current_style(false), do: "text-blue-500"
 end
