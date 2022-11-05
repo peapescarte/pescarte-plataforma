@@ -7,11 +7,10 @@ defmodule PescarteWeb.Components.Navbar.MenuLogo do
     ~H"""
     <figure>
       <img
-        class={get_hidden_style(@hidden?)}
-        src="/images/pescarte_logo.png"
+        class={["mt-3", "#{get_hidden_style(@hidden?)}"]}
+        src="/images/pescarte_logo.svg"
         alt="Logo completo do projeto com os dez peixinhos e nome"
-        align="middle"
-        width="200"
+        width="150"
       />
     </figure>
     """
