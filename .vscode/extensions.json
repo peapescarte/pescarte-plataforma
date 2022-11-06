@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "naumovs.color-highlight",
+    "editorconfig.editorconfig",
+    "jakebecker.elixir-ls",
+    "ecmel.vscode-html-css",
+    "kisstkondoros.vscode-gutter-preview",
+    "byi8220.indented-block-highlighting",
+    "pkief.material-icon-theme",
+    "christian-kohler.path-intellisense",
+    "phoenixframework.phoenix",
+    "jamilabreu.vscode-phoenix-snippets",
+    "syler.sass-indented"
+  ],
+}
