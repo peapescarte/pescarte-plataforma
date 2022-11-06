@@ -33,7 +33,7 @@ defmodule PescarteWeb.Components.Navbar.MenuLinks do
           current?={is_current_path?(@conn, item.path)}
         />
       <% end %>
-      <Button.render label="Acessar" path="/acessar" icon="login" />
+      <Button.render label="Acessar" to="/acessar" icon="login" />
     <% end %>
     """
   end
