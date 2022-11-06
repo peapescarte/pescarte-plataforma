@@ -36,12 +36,6 @@ defmodule PescarteWeb.Router do
     get "/recuperar_senha/:token", UserResetPasswordController, :edit
     put "/recuperar_senha/:token", UserResetPasswordController, :update
 
-# remover quando a Zoey corrigir o problema das rotas
-    get "/trimestral/criar", QuarterlyReportController, :new
-    post "/trimestral/criar", QuarterlyReportController, :create
-
-
-
   end
 
   scope "/app", PescarteWeb do
@@ -51,9 +45,8 @@ defmodule PescarteWeb.Router do
       get "/mensal/criar", MonthlyReportController, :new
       post "/mensal/criar", MonthlyReportController, :create
 
-      # descomentar quando a Zoey corrigir o problema das rotas
-      # get "/trimestral/criar", QuarterlyReportController, :new
-      # post "/trimestral/criar", QuarterlyReportController, :create
+      get "/trimestral/criar", QuarterlyReportController, :new
+      post "/trimestral/criar", QuarterlyReportController, :create
     end
 
     get "/perfil", UserProfileController, :edit
