@@ -5,10 +5,12 @@ defmodule Pescarte.ResearchModulus do
   """
 
   alias Pescarte.ResearchModulus.IO.MonthlyReportRepo
+  alias Pescarte.ResearchModulus.IO.QuarterlyReportRepo
   alias Pescarte.ResearchModulus.Services.CreateCampus
   alias Pescarte.ResearchModulus.Services.CreateCity
   alias Pescarte.ResearchModulus.Services.CreateMidia
   alias Pescarte.ResearchModulus.Services.CreateMonthlyReport
+  alias Pescarte.ResearchModulus.Services.CreateQuarterlyReport
   alias Pescarte.ResearchModulus.Services.CreateResearchCore
   alias Pescarte.ResearchModulus.Services.CreateResearcher
   alias Pescarte.ResearchModulus.Services.CreateResearchLine
@@ -16,6 +18,7 @@ defmodule Pescarte.ResearchModulus do
   alias Pescarte.ResearchModulus.Services.GetCity
   alias Pescarte.ResearchModulus.Services.GetMidia
   alias Pescarte.ResearchModulus.Services.GetMonthlyReport
+  alias Pescarte.ResearchModulus.Services.GetQuarterlyReport
   alias Pescarte.ResearchModulus.Services.GetResearchCore
   alias Pescarte.ResearchModulus.Services.GetResearcher
   alias Pescarte.ResearchModulus.Services.GetResearchLine
@@ -26,17 +29,16 @@ defmodule Pescarte.ResearchModulus do
 
   defdelegate get_campus(id), to: GetCampus, as: :process
 
-  defdelegate list_campus, to: GetCampus, as: :process
-
   defdelegate create_city(params), to: CreateCity, as: :process
+  defdelegate list_campus, to: GetCampus, as: :process
 
   defdelegate get_city(id), to: GetCity, as: :process
 
   defdelegate create_research_line(params), to: CreateResearchLine, as: :process
 
-  defdelegate get_research_line(id), to: GetResearchLine, as: :process
-
   defdelegate list_research_line, to: GetResearchLine, as: :process
+
+  defdelegate get_research_line(id), to: GetResearchLine, as: :process
 
   defdelegate create_midia(params), to: CreateMidia, as: :process
 
@@ -64,11 +66,21 @@ defmodule Pescarte.ResearchModulus do
 
   defdelegate get_monthly_report(id), to: GetMonthlyReport, as: :process
 
+  defdelegate create_quarterly_report(params), to: CreateQuarterlyReport, as: :process
+
+  defdelegate get_quarterly_report(id), to: GetQuarterlyReport, as: :process
+
   defdelegate list_monthly_report, to: GetMonthlyReport, as: :process
 
   def change_monthly_report(report, attrs \\ %{}) do
     MonthlyReportRepo.changeset(report, attrs)
   end
+
+  def change_quarterly_report(report, attrs \\ %{}) do
+    QuarterlyReportRepo.changeset(report, attrs)
+  end
+
+  defdelegate list_quarterly_report, to: GetQuarterlyReport, as: :process
 
   def list_campus_by_county(id) do
     GetCampus.process(municipio: id)
@@ -79,6 +91,5 @@ defmodule Pescarte.ResearchModulus do
   end
 
   ## Generic
-
   defdelegate delete(source), to: Pescarte.Database
 end
