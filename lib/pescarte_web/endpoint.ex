@@ -54,4 +54,5 @@ defmodule PescarteWeb.Endpoint do
   plug Plug.Session, @session_options
 
   plug PescarteWeb.Router
+
 end

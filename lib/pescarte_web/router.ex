@@ -45,7 +45,7 @@ defmodule PescarteWeb.Router do
       get "/mensal/criar", MonthlyReportController, :new
       post "/mensal/criar", MonthlyReportController, :create
 
-      get "/trimestral/criar", QuarterlyReportController, :new
+      get "/trimestral/criar/", QuarterlyReportController, :new
       post "/trimestral/criar", QuarterlyReportController, :create
     end
 

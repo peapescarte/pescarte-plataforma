@@ -1,7 +1,7 @@
 <section class="flex flex-col items-center justify-between py-10">
   <div class="flex justify-between items-center w-4/6">
     <h1 class="text-black uppercase font-semibold text-3xl text-left">
-      Relatório Trimestral de Pesquisa: 
+      Relatório Trimestral de Pesquisa:
     </h1>
     <h1 class="text-black uppercase font-semibold text-3xl text-center">
       <%= get_current_quarter() %> Trimestre de <%= get_current_year() %>
@@ -14,9 +14,10 @@
   </div>
 
   <.form let={f} for={@changeset} class="flex flex-col items-center justify-evenly p-10">
+
     <section class="flex flex-col items-center">
 
-      <.textarea 
+      <.textarea
         form={f}
         field={:title}
         placeholder="Título"
@@ -59,5 +60,6 @@
     </section>
 
     <%= submit("salvar", class: "h-16 w-1/5 mt-10") %>
+
   </.form>
 </section>
