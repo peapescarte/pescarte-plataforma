@@ -9,17 +9,20 @@
   <div class="col-start-1 col-span-2 text-white uppercase font-semibold text-2xl text-center justify-between">
       <h1><%= build_user_name(@user) %></h1>
 
-      <h1><%= @user.researcher.bursary %></h1>  
+      <h1><%= @user.researcher.bursary %></h1>
   </div>
 
   <div class="col-start-1 col-span-2 mb-12 md:mb-0">
     <div class="button h-14 w-11/12 flex-1 items-center justify-between">
       <a href="/edit" class="flex items-center rounded-md">
-        <.icon name={:edit_profile} class="w-12" />
         SALVAR
       </a>
     </div>
-  </div> 
+  </div>
+  <!-- Tentando refatorar o código 5/11/2022, este aparece abaixo do link do lattes-->
+  <%= submit("SALVAR", class: "h-16 w-1/5 mt-10") %>
+
+  <!-- ============================== -->
 
   <section class="col-start-3 col-span-4 mb-12 md:mb-0 justify-between items-center">
     <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
@@ -28,7 +31,7 @@
       <%= textarea(f, :minibiografia,
         readonly: true,
         rows: 12,
-        cols: 73,
+        cols: 76,
         value: @user.researcher.minibio
       ) %>
       </blockquote>

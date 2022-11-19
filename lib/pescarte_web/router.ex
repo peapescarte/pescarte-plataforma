@@ -40,6 +40,11 @@ defmodule PescarteWeb.Router do
 
     ## Será que posso criar um ResearchRegistrationController ou seria um UserRegistrationController com
     ## :bursary = pesquisador ?????
+
+    ## testando, pois após as mudança de nome não está rodando o que fiz:
+  #  get "/perfil", UserProfileController, :edit
+  #  put "/perfil", UserProfileController, :update
+  #  get "/perfil/listar", UserProfileController, :show
   end
 
   scope "/app", PescarteWeb do

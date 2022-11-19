@@ -79,6 +79,8 @@ defmodule PescarteWeb do
       import Pescarte.Common.Common
 
       import PescarteWeb.Components
+      alias PescarteWeb.Components.Perfil
+      alias PescarteWeb.Components.Icon
       import PescarteWeb.ErrorHelpers
       import PescarteWeb.FormHelpers
 

@@ -75,4 +75,24 @@ defmodule PescarteWeb.Components.Icon do
   def get_alt_text("search") do
     "Ícone que representa uma lupa para pesquisa"
   end
+
+  def get_alt_text("edit_profile") do
+    "Ícone que representa a edição do perfil"
+  end
+
+  def get_alt_text("points") do
+    "Ícone que representa o menu de edição no perfil"
+  end
+
+  def get_alt_text("password") do
+    "Ícone que representa a troca de password"
+  end
+
+  def get_alt_text("lattes") do
+    "Ícone que representa o curriculo lattes"
+  end
+
+  def get_alt_text("linkedin") do
+    "Ícone que representa o linkedin"
+  end
 end
