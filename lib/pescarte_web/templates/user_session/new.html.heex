@@ -1,10 +1,15 @@
+<img
+  src={Routes.static_path(@conn, "/images/fish_background.svg")}
+  class="absolute -z-50 h-screen w-screen top-10"
+/>
+
 <.form
   let={f}
   for={@conn}
   action={Routes.user_session_path(@conn, :create)}
   as={:user}
   ,
-  class="flex flex-col items-center justify-center h-full"
+  class="flex flex-col items-center justify-center h-full relative"
 >
   <%= if @error_message do %>
     <div class="alert alert-danger">
