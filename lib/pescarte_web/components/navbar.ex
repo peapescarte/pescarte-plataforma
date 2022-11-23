@@ -19,6 +19,7 @@ defmodule PescarteWeb.Components.Navbar do
       <div class="navbar-start p-1 w-3/4 flex justify-between lg:hidden">
         <div class="dropdown">
           <label tabindex="0">
+            <!-- hamburguer icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-12 w-12"
