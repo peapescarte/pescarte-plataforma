@@ -1,7 +1,6 @@
 <div class="container flex justify-between items-center">
   <section class="flex flex-col justify-between items-center">
-    <span class="bg-blue-100 rounded-full">
-    </span>
+    <span class="bg-blue-100 rounded-full"></span>
     <span class="h-20">
       <!-- criei uma separação entre os itens -->
     </span>
@@ -45,7 +44,7 @@
   </section>
 
   <section class="flex flex-col justify-between items-center">
-    <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
+    <.form :let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
       <%= label(f, :minibiografia, "BIOGRAFIA", class: "text-white") %>
 
       <%= textarea(f, :minibiografia,
