@@ -14,7 +14,6 @@ defmodule Pescarte.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ],
-      compilers: [:phoenix] ++ Mix.compilers(),
       elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -50,7 +49,8 @@ defmodule Pescarte.MixProject do
 
   defp deps do
     [
-      {:phoenix, "~> 1.6.6"},
+      {:phoenix, "~> 1.7.0-rc.0", override: true},
+      {:phoenix_view, "~> 2.0"},
       {:phoenix_ecto, "~> 4.1"},
       {:swoosh, "~> 1.4"},
       {:mail, ">= 0.0.0"},
@@ -72,8 +72,8 @@ defmodule Pescarte.MixProject do
       {:carbonite, "~> 0.4.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
-      {:phoenix_live_view, "~> 0.17"},
-      {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_live_view, "~> 0.18"},
+      {:phoenix_live_dashboard, "~> 0.7"},
       {:jason, "~> 1.0"},
       {:tesla, "~> 1.4"},
       {:finch, "~> 0.9.0"},

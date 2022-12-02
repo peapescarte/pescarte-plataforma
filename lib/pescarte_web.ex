@@ -17,6 +17,10 @@ defmodule PescarteWeb do
   and import those modules here.
   """
 
+  def static_paths do
+    ~w(assets fonts images favicon.ico apple-touch-icon.png favicon-32x32.png favicon-16x16.png safari-pinned-tab.svg browserconfig.xml service_worker.js cache_manifest.json manifest.json android-chrome-192x192.png android-chrome-384x384.png icons)
+  end
+
   @spec controller :: Macro.t()
   def controller do
     quote do
@@ -24,6 +28,8 @@ defmodule PescarteWeb do
 
       import Plug.Conn
       alias PescarteWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
     end
   end
 
@@ -74,7 +80,7 @@ defmodule PescarteWeb do
     quote do
       use Phoenix.HTML
 
-      import Phoenix.LiveView.Helpers
+      import Phoenix.Component
       import Phoenix.View
 
       import PescarteWeb.Components
@@ -82,6 +88,16 @@ defmodule PescarteWeb do
       import PescarteWeb.FormHelpers
 
       alias PescarteWeb.Router.Helpers, as: Routes
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: PescarteWeb.Endpoint,
+        router: PescarteWeb.Router,
+        statics: PescarteWeb.static_paths()
     end
   end
 

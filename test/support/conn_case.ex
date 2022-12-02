@@ -22,6 +22,7 @@ defmodule PescarteWeb.ConnCase do
 
   using do
     quote do
+      use PescarteWeb, :verified_routes
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
