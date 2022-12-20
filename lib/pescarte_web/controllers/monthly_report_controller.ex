@@ -8,6 +8,14 @@ defmodule PescarteWeb.MonthlyReportController do
 
   @today Date.utc_today()
 
+  # Helper - repetido em cada controller, onde unificar?
+  def key_to_atom(map) do
+    Enum.reduce(map, %{}, fn
+      {key, value}, acc when is_atom(key) -> Map.put(acc, key, value)
+      {key, value}, acc when is_binary(key) -> Map.put(acc, String.to_existing_atom(key), value)
+    end)
+  end
+
   def new(conn, _params) do
     attrs = get_default_attrs()
     changeset = ResearchModulus.change_monthly_report(%MonthlyReport{}, attrs)
@@ -16,7 +24,14 @@ defmodule PescarteWeb.MonthlyReportController do
 
   def create(conn, %{"monthly_report" => params}) do
     researcher = conn.assigns.current_user.researcher
-    attrs = Map.put(params, :researcher_id, researcher.id)
+    # params = params
+    # |> key_to_atom
+
+    attrs = Map.put(params, "researcher_id", researcher.id)
+    |> Map.put("year", @today.year)
+    |> Map.put("month", @today.month)
+    |> Map.put("status", "em_edicao")
+    |> IO.inspect
 
     case ResearchModulus.create_monthly_report(attrs) do
       {:ok, _report} ->

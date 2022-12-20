@@ -55,4 +55,5 @@ defmodule PescarteWeb.FormHelpers do
   defp input(type, form, field, input_opts) do
     apply(Phoenix.HTML.Form, type, [form, field, input_opts])
   end
+
 end

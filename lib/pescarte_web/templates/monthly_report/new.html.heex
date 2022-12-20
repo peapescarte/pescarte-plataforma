@@ -10,7 +10,11 @@
     ) %>
   </div>
 
-  <.form let={f} for={@changeset} class="flex flex-col items-center justify-evenly p-10">
+  <.form let={f} for={@changeset}
+    action={Routes.monthly_report_path(@conn, :create)}
+    class="flex flex-col items-center justify-evenly p-10"
+  >
+
     <section class="flex flex-col items-center">
       <h1 class="text-white uppercase font-semibold text-3xl text-center">
         Atividades Desenvolvidas:

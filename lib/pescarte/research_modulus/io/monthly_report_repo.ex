@@ -14,6 +14,7 @@ defmodule Pescarte.ResearchModulus.IO.MonthlyReportRepo do
     publication next_planning_action
     next_study_group next_guidance_metting
     next_research_actions
+    status
   )a
 
   @update_fields @optional_fields ++ ~w(year month link)a
@@ -42,6 +43,7 @@ defmodule Pescarte.ResearchModulus.IO.MonthlyReportRepo do
   def insert(attrs) do
     %MonthlyReport{}
     |> changeset(attrs)
+    |> IO.inspect
     |> Database.insert()
   end
 

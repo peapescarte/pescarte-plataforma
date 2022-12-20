@@ -13,7 +13,10 @@
     ) %>
   </div>
 
-  <.form let={f} for={@changeset} class="flex flex-col items-center justify-evenly p-10">
+  <.form let={f} for={@changeset}
+    action={Routes.quarterly_report_path(@conn, :create)}
+    class="flex flex-col items-center justify-evenly p-10"
+  >
 
     <section class="flex flex-col items-center">
 

@@ -4,7 +4,9 @@ defmodule Pescarte.ResearchModulus.Models.MonthlyReport do
   alias Pescarte.ResearchModulus.Models.Researcher
   alias Pescarte.Types.TrimmedString
 
-  schema "relatorio" do
+  @status_types ~w(novo em_edicao submetido)a
+
+  schema "monthly_report" do
     # Primeira seção
     field :planning_action, TrimmedString
     field :study_group, TrimmedString
@@ -23,6 +25,8 @@ defmodule Pescarte.ResearchModulus.Models.MonthlyReport do
     field :month, :integer
     field :link, :string
     field :public_id, :string
+
+    field :status, Ecto.Enum, values: @status_types
 
     belongs_to :researcher, Researcher, on_replace: :update
 

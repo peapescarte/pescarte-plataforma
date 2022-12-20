@@ -16,6 +16,7 @@ defmodule Pescarte.ResearchModulus.IO.QuarterlyReportRepo do
     academic_activities
     non_academic_activities
     references
+    status
   )a
 
   @update_fields @optional_fields ++ ~w(year month link)a
