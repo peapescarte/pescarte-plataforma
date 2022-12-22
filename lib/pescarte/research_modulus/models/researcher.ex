@@ -26,6 +26,8 @@ defmodule Pescarte.ResearchModulus.Models.Researcher do
     has_many :advisored, Researcher
     has_many :midias, Midia
     has_many :monthly_reports, MonthlyReport
+    has_many :quarterly_reports, QuarterlyReport
+    has_many :yearly_reports, YearlyReport
 
     belongs_to :campus, Campus
     belongs_to :user, User, on_replace: :update

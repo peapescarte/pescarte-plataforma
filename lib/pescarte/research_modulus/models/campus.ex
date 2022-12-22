@@ -10,6 +10,8 @@ defmodule Pescarte.ResearchModulus.Models.Campus do
     field :initials, TrimmedString
     field :public_id, :string
 
+    # field :university, CapitalizedString
+
     has_many :researchers, Researcher
     belongs_to :city, City, on_replace: :delete
 

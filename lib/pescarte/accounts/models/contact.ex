@@ -5,6 +5,7 @@ defmodule Pescarte.Accounts.Models.Contact do
     field :mobile, :string
     field :email, :string
     field :address, :string
+    # field :cep, :string
 
     timestamps()
   end
