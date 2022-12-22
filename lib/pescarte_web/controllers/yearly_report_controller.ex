@@ -1,21 +1,21 @@
-defmodule PescarteWeb.MonthlyReportController do
+defmodule PescarteWeb.YearlyReportController do
   @moduledoc false
 
   use PescarteWeb, :controller
 
   alias Pescarte.ResearchModulus
-  alias Pescarte.ResearchModulus.Models.MonthlyReport
+  alias Pescarte.ResearchModulus.Models.YearlyReport
 
 
   @today Date.utc_today()
 
   def new(conn, _params) do
     attrs = get_default_attrs()
-    changeset = ResearchModulus.change_monthly_report(%MonthlyReport{}, attrs)
+    changeset = ResearchModulus.change_yearly_report(%YearlyReport{}, attrs)
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"monthly_report" => params}) do
+  def create(conn, %{"yearly_report" => params}) do
     researcher = conn.assigns.current_user.researcher
 
     attrs = Map.put(params, "researcher_id", researcher.id)
@@ -24,13 +24,15 @@ defmodule PescarteWeb.MonthlyReportController do
     |> Map.put("status", "em_edicao")
     |> IO.inspect
 
-    case ResearchModulus.create_monthly_report(attrs) do
+    case ResearchModulus.create_yearly_report(attrs) do
       {:ok, _report} ->
         conn
         |> put_flash(:success, "Relatório criado com sucesso")
         |> redirect(to: Routes.user_profile_path(conn, :edit))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        # conn
+        # |> put_flash(:success, "Relatório nao nao nao criado com sucesso")
         render(conn, "new.html", changeset: changeset)
     end
   end

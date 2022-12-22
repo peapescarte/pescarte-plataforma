@@ -6,11 +6,13 @@ defmodule Pescarte.ResearchModulus do
 
   alias Pescarte.ResearchModulus.IO.MonthlyReportRepo
   alias Pescarte.ResearchModulus.IO.QuarterlyReportRepo
+  alias Pescarte.ResearchModulus.IO.YearlyReportRepo
   alias Pescarte.ResearchModulus.Services.CreateCampus
   alias Pescarte.ResearchModulus.Services.CreateCity
   alias Pescarte.ResearchModulus.Services.CreateMidia
   alias Pescarte.ResearchModulus.Services.CreateMonthlyReport
   alias Pescarte.ResearchModulus.Services.CreateQuarterlyReport
+  alias Pescarte.ResearchModulus.Services.CreateYearlyReport
   alias Pescarte.ResearchModulus.Services.CreateResearchCore
   alias Pescarte.ResearchModulus.Services.CreateResearcher
   alias Pescarte.ResearchModulus.Services.CreateResearchLine
@@ -19,6 +21,7 @@ defmodule Pescarte.ResearchModulus do
   alias Pescarte.ResearchModulus.Services.GetMidia
   alias Pescarte.ResearchModulus.Services.GetMonthlyReport
   alias Pescarte.ResearchModulus.Services.GetQuarterlyReport
+  alias Pescarte.ResearchModulus.Services.GetYearlyReport
   alias Pescarte.ResearchModulus.Services.GetResearchCore
   alias Pescarte.ResearchModulus.Services.GetResearcher
   alias Pescarte.ResearchModulus.Services.GetResearchLine
@@ -70,6 +73,10 @@ defmodule Pescarte.ResearchModulus do
 
   defdelegate get_quarterly_report(id), to: GetQuarterlyReport, as: :process
 
+  defdelegate create_yearly_report(params), to: CreateYearlyReport, as: :process
+
+  defdelegate get_yearly_report(id), to: GetYearlyReport, as: :process
+
   defdelegate list_monthly_report, to: GetMonthlyReport, as: :process
 
   def change_monthly_report(report, attrs \\ %{}) do
@@ -81,6 +88,12 @@ defmodule Pescarte.ResearchModulus do
   end
 
   defdelegate list_quarterly_report, to: GetQuarterlyReport, as: :process
+
+  def change_yearly_report(report, attrs \\ %{}) do
+    YearlyReportRepo.changeset(report, attrs)
+  end
+
+  defdelegate list_yearly_report, to: GetYearlyReport, as: :process
 
   def list_campus_by_county(id) do
     GetCampus.process(municipio: id)

@@ -1,0 +1,74 @@
+<section class="flex flex-col items-center justify-between py-10">
+  <div class="flex justify-between items-center w-4/6">
+    <h1 class="text-black uppercase font-semibold text-3xl text-left">
+      Relatório Anual de Pesquisa:
+    </h1>
+    <h1 class="text-black uppercase font-semibold text-3xl text-center">
+      <%= get_current_year() %>
+    </h1>
+
+    <%= link("voltar",
+      to: Routes.user_profile_path(@conn, :edit),
+      class: "button h-14 w-2/12 flex justify-center items-center"
+    ) %>
+  </div>
+
+  <.form let={f} for={@changeset}
+    action={Routes.yearly_report_path(@conn, :create)}
+    class="flex flex-col items-center justify-evenly p-10"
+  >
+
+    <section class="flex flex-col items-center">
+
+      <.textarea
+        form={f}
+        field={:plan}
+        placeholder="Plano de Trabalho"
+      />
+
+      <.textarea
+        form={f}
+        field={:abstract}
+        placeholder="Resumo"
+      />
+
+
+      <.textarea form={f} field={:introduction} placeholder="Introdução" />
+
+      <.textarea form={f} field={:theoretical_embasement} placeholder="Fundamentação Teórica" />
+
+      <.textarea
+        form={f}
+        field={:results}
+        placeholder="Resultados Alcançados"
+      />
+
+      <.textarea
+        form={f}
+        field={:academic_activities}
+        placeholder="ATIVIDADES ACADÊMICAS RELACIONADAS AO PEA-PESCARTE "
+      />
+
+      <.textarea
+        form={f}
+        field={:non_academic_activities}
+        placeholder="ATIVIDADES NÃO ACADÊMICAS RELACIONADAS AO PEA-PESCARTE "
+      />
+
+      <.textarea
+        form={f}
+        field={:conclusion}
+        placeholder="Conclusões ou considerações finais"
+      />
+
+      <.textarea
+        form={f}
+        field={:references}
+        placeholder="REFERÊNCIAS BIBLIOGRÁFICAS"
+      />
+    </section>
+
+    <%= submit("salvar", class: "h-16 w-1/5 mt-10") %>
+
+  </.form>
+</section>
