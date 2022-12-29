@@ -1,21 +1,17 @@
+<div class="flex container"> <!-- tela não responsiva !!!!!! 23/11/2024 -->
+
+  <div class="w-full ml-10 mr-20 md:w-full flex flex-row justify-between ">
+    <Pesquisador.MenuHeader.render label="Pesquisar" icon="search" to={Routes.pesquisador_path(@conn, :index)} />
+  </div>
+  <div class="w-full ml-10 mr-20 md:w-full flex flex-row justify-between ">
+    <Pesquisador.MenuHeader.render label="filtros" icon="filter" to={Routes.pesquisador_path(@conn, :index)} />
+
+<!--    <Button.render to={Routes.pesquisador_path(@conn, :new)} method={:new} icon="accounts" label="Cadastrar" /> -->
+  </div>
+  <Perfil.SectionHeaderRight.render icon={"accounts"} label="Cadastrar"/> <!-- botão responsivo !!!!!! 23/11/2024 -->
+</div>
+
 <section class="container p-10 w-full">
-  <!--  <div class="container flex justify-between items-center w-1/2">
-     <h1 class="text-white uppercase font-semibold text-2xl text-center">
-      Relação de Pesquisadores
-      </h1> </div>  -->
-
-   <span class="button h-14 w-11/12 flex justify-center ">
-   <.icon name={:lock} class="w-12" />
-   <%= submit("Cadastrar Pesquisador(a)", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
-  </span>
-
-  <span class="button h-14 w-11/12 flex justify-center ">
-   <.icon name={:edit} class="w-12" />
-   <%= submit("Buscar por nome de Pesquisador(a)", to: Routes.user_profile_path(@conn, :edit), class: "h-14 w-4/12") %>
-  </span>
-
-  <!-- <input type="text" placeholder="Buscar por nome" class="input input-bordered w-full max-w-xs">  -->
-
   <div class="overflow-x-auto">
   <table class="table table-compact w-full">
     <thead>
@@ -32,8 +28,7 @@
        <td><%= research.bursary %></td>
        <td><%= research.user.cpf %></td>
        <td><%= research.user.contact.email %>  </td>
-       <td><.icon name={:edit_profile} class="w-12" /></td>
-       <!--   <Icon.render name={:edit_profile} /></td> -->
+       <td><Icon.render name="bell" class="w-12" /></td> <!-- devo chamar "bell" -->
       </tr>
     <% end %>
     </tbody>

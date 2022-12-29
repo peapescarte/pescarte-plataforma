@@ -95,4 +95,16 @@ defmodule PescarteWeb.Components.Icon do
   def get_alt_text("linkedin") do
     "Ícone que representa o linkedin"
   end
+
+  def get_alt_text("bell") do
+    "Icone que representa a campainha"
+  end
+
+  def get_alt_text("logout") do
+    "Icone para sair do login"
+  end
+
+  def get_alt_text("lock") do
+    "Icone de cadeado"
+  end
 end

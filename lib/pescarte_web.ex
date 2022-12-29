@@ -77,7 +77,8 @@ defmodule PescarteWeb do
       import Phoenix.LiveView.Helpers
       import Phoenix.View
       import Pescarte.Common.Common
-
+      alias PescarteWeb.Components.Pesquisador
+      alias PescarteWeb.Components.Button
       import PescarteWeb.Components
       alias PescarteWeb.Components.Perfil
       alias PescarteWeb.Components.Icon

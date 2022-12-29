@@ -29,9 +29,9 @@ defmodule PescarteWeb.Components.Perfil.HeaderLinks do
 
   def drop_menu do
     [
-      %{path: "/app/perfil", label: "Editar Perfil", method: :get, icon: "file"},
-      %{path: "/recuperar_senha/:token", label: "Alterar Senha", method: :get, icon: "book"},
-      %{path: "/app/desconectar", label: "Sair", method: :delete, icon: "login"}
+      %{path: "/app/perfil", label: "Editar Perfil", method: :get, icon: "edit_profile"},
+      %{path: "/recuperar_senha/:token", label: "Alterar Senha", method: :get, icon: "lock"},
+      %{path: "/app/desconectar", label: "Sair", method: :delete, icon: "logout"}
     ]
 
   end

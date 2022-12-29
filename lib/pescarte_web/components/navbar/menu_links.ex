@@ -61,7 +61,7 @@ defmodule PescarteWeb.Components.Navbar.MenuLinks do
   def authenticated_menu do
     [
       %{path: "/app/dashboard", label: "Home", method: :get, icon: "home"},
-      %{path: "/app/pesquisadores", label: "Pesquisadores", method: :get, icon: "accounts"},
+      %{path: "/app/admin/pesq", label: "Pesquisadores", method: :get, icon: "accounts"},
       %{path: "/app/relatorios", label: "Relatórios", method: :get, icon: "file"},
       %{path: "/app/agenda", label: "Agenda", method: :get, icon: "agenda"},
       %{path: "/app/mensagens", label: "Mensagens", method: :get, icon: "message"}

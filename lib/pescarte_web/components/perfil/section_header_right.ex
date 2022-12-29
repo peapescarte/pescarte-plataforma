@@ -7,6 +7,7 @@ defmodule PescarteWeb.Components.Perfil.SectionHeaderRight do
     ~H"""
     <label tabindex="0" class="btn m-1">
       <Icon.render name={@icon} />
+      <%= @label %>
     </label>
     """
   end
