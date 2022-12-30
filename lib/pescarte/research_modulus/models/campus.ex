@@ -7,7 +7,7 @@ defmodule Pescarte.ResearchModulus.Models.Campus do
 
   schema "campus" do
     field :name, TrimmedString
-    field :initials, TrimmedString
+    field :initials, TrimmedString # deveria ser CapitalizedString
     field :public_id, :string
 
     # field :university, CapitalizedString
