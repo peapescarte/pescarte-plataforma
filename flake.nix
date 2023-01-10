@@ -26,7 +26,7 @@
         libxml2
         curl
         libiconv
-        elixir
+        elixir_1_14
         glibcLocales
         postgresql
         redpanda

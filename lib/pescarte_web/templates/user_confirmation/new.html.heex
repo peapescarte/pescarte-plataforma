@@ -1,6 +1,6 @@
 <h1>Resend confirmation instructions</h1>
 
-<.form let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
+<.form :let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
   <%= input(f, :email, required: true) %>
 
   <%= submit("Resend confirmation instructions ") %>
