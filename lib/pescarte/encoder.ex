@@ -7,7 +7,7 @@ defmodule Pescarte.Encoder do
   def encode(attrs, opts) do
     attrs
     |> remove_not_loaded()
-    |> ProperCase.to_camel_case()
+    # |> ProperCase.to_camel_case()
     |> Jason.Encode.map(opts)
   end
 

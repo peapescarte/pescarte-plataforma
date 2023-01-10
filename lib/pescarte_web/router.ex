@@ -17,7 +17,6 @@ defmodule PescarteWeb.Router do
     plug :accepts, ["json"]
     plug PescarteWeb.LocalePlug
     plug PescarteWeb.RequireApiKeyPlug
-    plug ProperCase.Plug.SnakeCaseParams
   end
 
   ## Endpoints para versão browser
