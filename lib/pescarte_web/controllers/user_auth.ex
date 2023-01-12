@@ -4,11 +4,12 @@ defmodule PescarteWeb.UserAuth do
   via browser. Apenas Funções puras.
   """
 
+  use PescarteWeb, :verified_routes
+
   import Plug.Conn
   import Phoenix.Controller
 
   alias Pescarte.Accounts
-  alias PescarteWeb.Router.Helpers, as: Routes
 
   # Faça o cookie lembrar do usuário ser válido por 60 dias.
   # Se você quiser aumentar ou reduzir esse valor, altere também
@@ -21,8 +22,8 @@ defmodule PescarteWeb.UserAuth do
   Define para qual rota o usuário será
   redirecionado após o login
   """
-  def signed_in_path(conn) do
-    Routes.user_profile_path(conn, :edit)
+  def signed_in_path do
+    ~p"/app/perfil"
   end
 
   @doc """
@@ -44,7 +45,7 @@ defmodule PescarteWeb.UserAuth do
     |> renew_session()
     |> put_session(:user_token, token)
     |> maybe_write_remember_me_cookie(token, params)
-    |> redirect(to: user_return_to || signed_in_path(conn))
+    |> redirect(to: user_return_to || signed_in_path())
   end
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
@@ -92,7 +93,7 @@ defmodule PescarteWeb.UserAuth do
     conn
     |> renew_session()
     |> delete_resp_cookie(@remember_me_cookie)
-    |> redirect(to: "/")
+    |> redirect(to: ~p"/")
   end
 
   @doc """
@@ -124,7 +125,7 @@ defmodule PescarteWeb.UserAuth do
   def redirect_if_user_is_authenticated(conn, _opts) do
     if conn.assigns[:current_user] do
       conn
-      |> redirect(to: signed_in_path(conn))
+      |> redirect(to: signed_in_path())
       |> halt()
     else
       conn
@@ -144,7 +145,7 @@ defmodule PescarteWeb.UserAuth do
       conn
       |> put_flash(:error, "You must log in to access this page.")
       |> maybe_store_return_to()
-      |> redirect(to: Routes.user_session_path(conn, :new))
+      |> redirect(to: ~p"/acessar")
       |> halt()
     end
   end

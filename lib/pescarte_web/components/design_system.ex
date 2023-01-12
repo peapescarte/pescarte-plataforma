@@ -101,7 +101,7 @@ defmodule PescarteWeb.DesignSystem do
   @doc """
   """
   attr :conn, :any
-  attr :hidden?, :boolean
+  attr :hidden?, :boolean, default: true
 
   def navbar(assigns) do
     ~H"""
@@ -129,15 +129,15 @@ defmodule PescarteWeb.DesignSystem do
             tabindex="0"
             class="menu menu-compact dropdown-content dropdown-left mt-3 p-2 shadow bg-white rounded-box w-52"
           >
-            <.menu_links {@conn} />
+            <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
           </ul>
         </div>
-        <.menu_logo {@hidden?} />
+        <.menu_logo hidden?={@hidden?} />
       </div>
       <div class="navbar-center container hidden lg:flex lg:justify-center">
         <ul class="menu menu-horizontal p-0">
           <.menu_logo hidden?={false} />
-          <.menu_links {@conn} />
+          <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
         </ul>
       </div>
     </nav>
@@ -177,11 +177,12 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  attr :conn, :any
+  attr :current_user?, :boolean
+  attr :path, :string
 
   defp menu_links(assigns) do
     ~H"""
-    <%= if @conn.assigns.current_user do %>
+    <%= if @current_user do %>
       <%= for item <- authenticated_menu() do %>
         <.menu_item
           icon={item.icon}
@@ -199,16 +200,17 @@ defmodule PescarteWeb.DesignSystem do
           path={item.path}
           label={item.label}
           method={item.method}
-          current?={is_current_path?(@conn, item.path)}
+          current?={is_current_path?(@path, item.path)}
         />
       <% end %>
-      <.button label="Acessar" to="/acessar" icon="login" />
+      <.button label="Acessar" to={~p"/acessar"} icon="login" />
     <% end %>
     """
   end
 
-  defp is_current_path?(%Plug.Conn{} = conn, to) do
-    path = Enum.join(conn.path_info, "/")
+  defp is_current_path?(path_info, to) do
+    # get from %Plug.Conn{}
+    path = Enum.join(path_info, "/")
 
     to =~ path
   end

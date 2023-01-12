@@ -39,7 +39,7 @@ defmodule PescarteWeb.EnsureRolePlug do
   defp maybe_halt(_any, conn) do
     conn
     |> Controller.put_flash(:error, "Unauthorized")
-    |> Controller.redirect(to: UserAuth.signed_in_path(conn))
+    |> Controller.redirect(to: UserAuth.signed_in_path())
     |> halt()
   end
 end

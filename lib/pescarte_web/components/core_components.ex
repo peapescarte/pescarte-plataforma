@@ -6,8 +6,8 @@ defmodule PescarteWeb.CoreComponents do
   See the [Tailwind CSS documentation](https://tailwindcss.com) to learn how to
   customize the generated components in this module.
 
-  Icons are provided by [heroicons](https://heroicons.com), using the
-  [heroicons_elixir](https://github.com/mveytsman/heroicons_elixir) project.
+  Icons are provided by [lucide](https://lucide.dev), using the
+  [lucideicons_elixir](https://github.com/zoedsoupe/lucide_icons) project.
   """
   use Phoenix.Component
 
