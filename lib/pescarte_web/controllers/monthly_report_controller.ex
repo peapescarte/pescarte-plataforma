@@ -22,7 +22,7 @@ defmodule PescarteWeb.MonthlyReportController do
       {:ok, _report} ->
         conn
         |> put_flash(:success, "Relatório criado com sucesso")
-        |> redirect(to: Routes.user_profile_path(conn, :edit))
+        |> redirect(to: ~p"/app/perfil")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

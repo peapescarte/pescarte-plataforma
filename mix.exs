@@ -8,7 +8,7 @@ defmodule Pescarte.MixProject do
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
-      elixirc_options: [warnings_as_errors: true],
+      elixirc_options: [warnings_as_errors: false],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()

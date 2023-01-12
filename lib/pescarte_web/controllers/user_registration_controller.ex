@@ -18,7 +18,7 @@ defmodule PescarteWeb.UserRegistrationController do
         {:ok, user} =
           Accounts.deliver_user_confirmation_instructions(
             user,
-            &Routes.user_confirmation_url(conn, :edit, &1)
+            &url(~p"/app/confirmar/#{&1}")
           )
 
         conn
