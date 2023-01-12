@@ -28,7 +28,7 @@ defmodule Pescarte.MixProject do
 
   defp deps do
     [
-      {:phoenix, "~> 1.7.0-rc.0", override: true},
+      {:phoenix, "~> 1.7.0-rc.1", override: true},
       {:phoenix_view, "~> 2.0"},
       {:phoenix_ecto, "~> 4.1"},
       {:swoosh, "~> 1.4"},
@@ -47,6 +47,7 @@ defmodule Pescarte.MixProject do
       {:ex_machina, "~> 2.7.0"},
       {:postgrex, ">= 0.0.0"},
       {:carbonite, "~> 0.4.0"},
+      {:lucide_icons, "~> 1.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:phoenix_live_view, "~> 0.18"},
