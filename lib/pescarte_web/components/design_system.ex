@@ -23,16 +23,17 @@ defmodule PescarteWeb.DesignSystem do
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
   """
-  attr :type, :string, values: ["primary", "secondary"]
-  attr :rounded, :boolean, default: false
+  attr :type, :string, values: ~w(button reset submit)
+  attr :rounded?, :boolean, default: false
   attr :class, :string, default: nil
+  attr :style, :string, values: ~w(primary secondary link)
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
 
   def button(assigns) do
     ~H"""
-    <button type={@type} class={[@class, btn_class(@type, @rounded)]} {@rest}>
+    <button type={@type} class={[@class, btn_class(@style, @rounded?)]} {@rest}>
       <%= render_slot(@inner_block) %>
     </button>
     """
@@ -40,18 +41,16 @@ defmodule PescarteWeb.DesignSystem do
 
   defp btn_class("primary", rounded) do
     """
-    phx-submit-loading:opacity-75 bg-white
-    hover:bg-blue-60 py-2 px-3
-    text-base font-semibold leading-4 text-white
+    bg-blue-80 hover:bg-white text-base
+    font-semibold leading-4 text-white
     #{if rounded, do: "rounded-full", else: "rounded"}
     """
   end
 
   defp btn_class("secondary", rounded) do
     """
-    phx-submit-loading:opacity-75 bg-white
-    hover:border-blue-60 py-2 px-3 border-1
-    text-base font-semibold leading-4
+    bg-white hover:border-blue-60 py-2
+    px-3 border-1 text-base font-semibold leading-4
     text-blue-80 border-blue-80 hover:text-blue-60
     #{if rounded, do: "rounded-full", else: "rounded"}
     """
@@ -90,20 +89,7 @@ defmodule PescarteWeb.DesignSystem do
         <div class="dropdown">
           <label tabindex="0">
             <!-- hamburguer icon -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-12 w-12"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="#F8961E"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+            <Lucideicons.menu stroke="#FF6E00" />
           </label>
           <ul
             tabindex="0"
@@ -112,11 +98,11 @@ defmodule PescarteWeb.DesignSystem do
             <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
           </ul>
         </div>
-        <.menu_logo hidden?={@hidden?} />
+        <li class="menu-item"><.menu_logo hidden?={@hidden?} /></li>
       </div>
       <div class="navbar-center container hidden lg:flex lg:justify-center">
         <ul class="menu menu-horizontal p-0">
-          <.menu_logo hidden?={false} />
+          <li class="menu-item"><.menu_logo hidden?={false} /></li>
           <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
         </ul>
       </div>
@@ -202,9 +188,10 @@ defmodule PescarteWeb.DesignSystem do
         <%= component(item.icon, [], caller()) %>
       </.menu_item>
     <% end %>
-    <.link type="button" navigate={~p"/acessar"}>
+    <.button type="button" style="primary">
+      <Lucideicons.log_in />
       Acessar
-    </.link>
+    </.button>
     """
   end
 
@@ -493,7 +480,7 @@ defmodule PescarteWeb.DesignSystem do
 
   attr :type, :string,
     default: "text",
-    values: ~w(checkbox color date datetime-local email file hidden month number password
+    values: ~w(checkbox date datetime-local email file hidden month number password
                range radio search select tel text textarea time url week)
 
   attr :value, :any
