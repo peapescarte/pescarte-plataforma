@@ -88,7 +88,6 @@ defmodule PescarteWeb do
       import Phoenix.HTML
       import Phoenix.LiveView.HTMLEngine, only: [component: 3]
       # Core UI components and translation
-      import PescarteWeb.CoreComponents
       import PescarteWeb.DesignSystem
 
       # Shortcut for generating JS commands
