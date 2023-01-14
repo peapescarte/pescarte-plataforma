@@ -76,7 +76,7 @@ defmodule PescarteWeb.CoreComponents do
                   phx-click={hide_modal(@on_cancel, @id)}
                   type="button"
                   class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
-                  aria-label={"close"}
+                  aria-label="close"
                 >
                   <Lucideicons.x_circle class="h-5 w-5 stroke-current" />
                 </button>
@@ -161,12 +161,7 @@ defmodule PescarteWeb.CoreComponents do
         <%= @title %>
       </p>
       <p class="mt-2 text-[0.8125rem] leading-5"><%= msg %></p>
-      <button
-        :if={@close}
-        type="button"
-        class="group absolute top-2 right-1 p-2"
-        aria-label={"close"}
-      >
+      <button :if={@close} type="button" class="group absolute top-2 right-1 p-2" aria-label="close">
         <Lucideicons.x_circle class="h-5 w-5 stroke-current opacity-40 group-hover:opacity-70" />
       </button>
     </div>
