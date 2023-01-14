@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "theme.scss";
 @import "navbar.scss";
 @import "icons.scss";
 
@@ -17,25 +16,23 @@ body {
   min-height: 100vh;
   background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
+  font: 62.5% 'Work Sans' regular !important;
 }
 
 input,
 textarea {
   color: #000;
-  font: 400 1.6rem 'Open Sans', sans-serif !important;
 }
 
 input::placeholder {
   text-transform: uppercase;
   color: var(--blue-light);
   text-align: center;
-  font: 400 1.6rem 'Open Sans';
 }
 
 textarea::placeholder {
   color: var(--blue-light);
   text-align: left;
-  font: 400 1.6rem 'Open Sans';
 }
 
 textarea:focus, input:focus, fieldset:focus {
@@ -83,11 +80,4 @@ textarea {
 
 ::-webkit-scrollbar-track {
   background: transparent;
-}
-
-.active {
-  background: var(--orange);
-  padding: 10px;
-  margin: -10px;
-  clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
 }

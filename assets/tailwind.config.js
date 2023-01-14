@@ -5,7 +5,9 @@ module.exports = {
     '../lib/*_web/**/*.*ex'
   ],
   theme: {
+    borderWith: {1: '1.5px'},
     colors: {
+      white: '#fafafa',
       black: {
         100: '#101010',
         80: '#404040',
@@ -61,8 +63,26 @@ module.exports = {
         5: '#fff5f5'
       }
     },
+    lineHeight: {
+      10: '46px',
+      9: '38px',
+      8: '28px',
+      7: '24px',
+      6: '22px',
+      5: '20px',
+      4: '18px',
+    },
+    fontSize: {
+      xs: '12px',
+      sm: '14px',
+      base: '16px',
+      lg: '20px',
+      xl: '24px',
+      2xl: '32px',
+      3xl: '40px'
+    },
     fontFamily: {
-      sans: ['Woek Sans', 'sans-serif']
+      sans: ['Work Sans', 'sans-serif']
     },
     container: {
       center: true
@@ -71,6 +91,5 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require("daisyui")
   ]
 }
