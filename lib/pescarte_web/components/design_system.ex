@@ -4,7 +4,7 @@ defmodule PescarteWeb.DesignSystem do
   use PescarteWeb, :verified_routes
   use Phoenix.Component
 
-  import PescarteWeb.CoreComponents, only: [button: 1]
+  import Phoenix.LiveView.HTMLEngine, only: [component: 3]
 
   @doc """
 
@@ -23,79 +23,6 @@ defmodule PescarteWeb.DesignSystem do
     ao projeto Pescarte: IPEAD; UENF; Petrobras;
     e Ibama.
     """
-  end
-
-  @doc """
-  """
-  attr :name, :string
-
-  def icon(assigns) do
-    ~H"""
-    <figure>
-      <img
-        role="img"
-        src={build_icon_path(@name)}
-        alt={get_alt_text(@name)}
-        class={["icon", "icon-#{@name}"]}
-      />
-    </figure>
-    """
-  end
-
-  defp build_icon_path(icon_name) do
-    "/icons/#{icon_name}.svg"
-  end
-
-  defp get_alt_text("accounts") do
-    "Ícone que representa duas ou mais contas"
-  end
-
-  defp get_alt_text("agenda") do
-    "Ícone que representa um calendário"
-  end
-
-  defp get_alt_text("book") do
-    "Ícone que representa um livro aberto"
-  end
-
-  defp get_alt_text("compilation") do
-    "Ícone que representa uma compilação de arquivos"
-  end
-
-  defp get_alt_text("file") do
-    "Ícone que representa um arquivo"
-  end
-
-  defp get_alt_text("filter") do
-    "Ícone que representa um filtro"
-  end
-
-  defp get_alt_text("home") do
-    "Ícone que representa uma casa"
-  end
-
-  defp get_alt_text("image") do
-    "Ícone que representa uma imagem"
-  end
-
-  defp get_alt_text("login") do
-    "Ícone que representa uma seta para entrada"
-  end
-
-  defp get_alt_text("message") do
-    "Ícone que representa uma mensagem"
-  end
-
-  defp get_alt_text("new_account") do
-    "Ícone que representa uma nova conta a ser criada"
-  end
-
-  defp get_alt_text("new_file") do
-    "Ícone que representa um novo arquivo a ser criado"
-  end
-
-  defp get_alt_text("search") do
-    "Ícone que representa uma lupa para pesquisa"
   end
 
   @doc """
@@ -161,51 +88,74 @@ defmodule PescarteWeb.DesignSystem do
   defp get_hidden_style(false), do: ""
 
   attr :path, :string
-  attr :method, :atom
-  attr :current?, :boolean
+  attr :method, :string, default: "get"
+  attr :current?, :boolean, default: false
   attr :label, :string
-  attr :icon, :string, default: nil
+
+  slot :inner_block, required: true
 
   defp menu_item(assigns) do
     ~H"""
     <li class="menu-item">
-      <.link to: @path, method: @method, active: @current? do %>
-        <.icon :if={@icon} name={@icon} />
+      <.link navigate={@path} method={@method} class={@current? && "current"}>
+        <%= render_slot(@inner_block) %>
         <%= @label %>
       </.link>
     </li>
     """
   end
 
-  attr :current_user?, :boolean
-  attr :path, :string
+  attr :current_user, Pescarte.Accounts.Models.User, default: nil
 
+  # Utiliza a função `Phoenix.LivewView.HTMLEngine.component/1`
+  # manualmente para renderizar componentes dinâmicamente
+  # dentro do `for/1`
   defp menu_links(assigns) do
     ~H"""
-    <%= if @current_user do %>
-      <%= for item <- authenticated_menu() do %>
-        <.menu_item
-          icon={item.icon}
-          path={item.path}
-          label={item.label}
-          method={item.method}
-          current?={is_current_path?(@conn, item.path)}
-        />
-      <% end %>
-      <.button label="Acessar" to="/acessar" />
-    <% else %>
-      <%= for item <- guest_menu() do %>
-        <.menu_item
-          icon={item.icon}
-          path={item.path}
-          label={item.label}
-          method={item.method}
-          current?={is_current_path?(@path, item.path)}
-        />
-      <% end %>
-      <.button label="Acessar" to={~p"/acessar"} icon="login" />
+    <.authenticated_menu :if={@current_user} path={@path} />
+    <.guest_menu :if={!@current_user} path={@path} />
+    """
+  end
+
+  attr :path, :string
+
+  defp authenticated_menu(assigns) do
+    ~H"""
+    <%= for item <- authenticated_menu_items() do %>
+      <.menu_item
+        path={item.path}
+        label={item.label}
+        method={item.method}
+        current?={is_current_path?(@conn, item.path)}
+      >
+        <%= component(item.icon, [], caller()) %>
+      </.menu_item>
     <% end %>
     """
+  end
+
+  attr :path, :string
+
+  defp guest_menu(assigns) do
+    ~H"""
+    <%= for item <- guest_menu_items() do %>
+      <.menu_item
+        path={item.path}
+        label={item.label}
+        method={item.method}
+        current?={is_current_path?(@path, item.path)}
+      >
+        <%= component(item.icon, [], caller()) %>
+      </.menu_item>
+    <% end %>
+    <.link type="button" navigate={~p"/acessar"}>
+      Acessar
+    </.link>
+    """
+  end
+
+  defp caller do
+    {__ENV__.module, __ENV__.function, __ENV__.file, __ENV__.line}
   end
 
   defp is_current_path?(path_info, to) do
@@ -215,27 +165,32 @@ defmodule PescarteWeb.DesignSystem do
     to =~ path
   end
 
-  defp guest_menu do
+  defp guest_menu_items do
     [
-      %{path: "/", label: "Home", method: :get, icon: "home"},
-      %{path: "/pesquisa", label: "Pesquisa", method: :get, icon: "file"},
-      %{path: "/biblioteca", label: "Biblioteca", method: :get, icon: "book"},
+      %{path: "/", label: "Home", method: :get, icon: &Lucideicons.home/1},
+      %{path: "/pesquisa", label: "Pesquisa", method: :get, icon: &Lucideicons.file/1},
+      %{path: "/biblioteca", label: "Biblioteca", method: :get, icon: &Lucideicons.book/1},
       %{
         path: "/agenda_socioambiental",
         label: "Agenda Socioambiental",
         method: :get,
-        icon: "agenda"
+        icon: &Lucideicons.calendar/1
       }
     ]
   end
 
-  defp authenticated_menu do
+  defp authenticated_menu_items do
     [
-      %{path: "/app/dashboard", label: "Home", method: :get, icon: "home"},
-      %{path: "/app/pesquisadores", label: "Pesquisadores", method: :get, icon: "accounts"},
-      %{path: "/app/relatorios", label: "Relatórios", method: :get, icon: "file"},
-      %{path: "/app/agenda", label: "Agenda", method: :get, icon: "agenda"},
-      %{path: "/app/mensagens", label: "Mensagens", method: :get, icon: "message"}
+      %{path: "/app/dashboard", label: "Home", method: :get, icon: &Lucideicons.home/1},
+      %{
+        path: "/app/pesquisadores",
+        label: "Pesquisadores",
+        method: :get,
+        icon: &Lucideicons.users/1
+      },
+      %{path: "/app/relatorios", label: "Relatórios", method: :get, icon: &Lucideicons.file/1},
+      %{path: "/app/agenda", label: "Agenda", method: :get, icon: &Lucideicons.calendar/1},
+      %{path: "/app/mensagens", label: "Mensagens", method: :get, icon: &Lucideicons.mail/1}
     ]
   end
 end
