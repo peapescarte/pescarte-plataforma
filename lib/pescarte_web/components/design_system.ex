@@ -84,11 +84,10 @@ defmodule PescarteWeb.DesignSystem do
 
   def navbar(assigns) do
     ~H"""
-    <nav class="navbar bg-white w-full">
-      <div class="navbar-start p-1 w-3/4 flex justify-between lg:hidden">
+    <nav class="navbar w-full">
+      <div class="navbar-start flex justify-between">
         <div class="dropdown">
-          <label tabindex="0">
-            <!-- hamburguer icon -->
+          <label tabindex="0" class="btn btn-ghost lg:hidden">
             <Lucideicons.menu stroke="#FF6E00" />
           </label>
           <ul
@@ -98,7 +97,7 @@ defmodule PescarteWeb.DesignSystem do
             <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
           </ul>
         </div>
-        <li class="menu-item"><.menu_logo hidden?={@hidden?} /></li>
+        <li class="btn btn-ghost"><.menu_logo hidden?={@hidden?} /></li>
       </div>
       <div class="navbar-center container hidden lg:flex lg:justify-center">
         <ul class="menu menu-horizontal p-0">
@@ -129,18 +128,23 @@ defmodule PescarteWeb.DesignSystem do
   attr :path, :string
   attr :method, :string, default: "get"
   attr :current?, :boolean, default: false
-  attr :label, :string
 
   slot :inner_block, required: true
 
   defp menu_item(assigns) do
     ~H"""
     <li class="menu-item">
-      <.link navigate={@path} method={@method} class={@current? && "current"}>
+      <.link navigate={@path} method={@method} class={menu_item_class(@current?)}>
         <%= render_slot(@inner_block) %>
-        <%= @label %>
       </.link>
     </li>
+    """
+  end
+
+  defp menu_item_class(current?) do
+    """
+    hover:text-white hover:bg-blue-60 btn btn-primary
+    #{current? && "bg-blue-100 text-white" || "text-blue-100"}
     """
   end
 
@@ -164,11 +168,11 @@ defmodule PescarteWeb.DesignSystem do
     <%= for item <- authenticated_menu_items() do %>
       <.menu_item
         path={item.path}
-        label={item.label}
         method={item.method}
         current?={is_current_path?(@conn, item.path)}
       >
-        <%= component(item.icon, [], caller()) %>
+        <.icon name={item.icon} />
+        <%= item.label %>
       </.menu_item>
     <% end %>
     """
@@ -181,11 +185,11 @@ defmodule PescarteWeb.DesignSystem do
     <%= for item <- guest_menu_items() do %>
       <.menu_item
         path={item.path}
-        label={item.label}
         method={item.method}
         current?={is_current_path?(@path, item.path)}
       >
-        <%= component(item.icon, [], caller()) %>
+        <.icon name={item.icon} />
+        <%= item.label %>
       </.menu_item>
     <% end %>
     <.button type="button" style="primary">
@@ -195,9 +199,15 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  defp caller do
-    {__ENV__.module, __ENV__.function, __ENV__.file, __ENV__.line}
+  attr :name, :atom, required: true
+
+  defp icon(assigns) do
+    apply(Lucideicons, assigns.name, [assigns])
   end
+
+  defp is_current_path?([], "/"), do: true
+
+  defp is_current_path?([], _to), do: false
 
   defp is_current_path?(path_info, to) do
     # get from %Plug.Conn{}
@@ -208,30 +218,30 @@ defmodule PescarteWeb.DesignSystem do
 
   defp guest_menu_items do
     [
-      %{path: "/", label: "Home", method: :get, icon: &Lucideicons.home/1},
-      %{path: "/pesquisa", label: "Pesquisa", method: :get, icon: &Lucideicons.file/1},
-      %{path: "/biblioteca", label: "Biblioteca", method: :get, icon: &Lucideicons.book/1},
+      %{path: "/", label: "Home", method: :get, icon: :home},
+      %{path: "/pesquisa", label: "Pesquisa", method: :get, icon: :file},
+      %{path: "/biblioteca", label: "Biblioteca", method: :get, icon: :book},
       %{
         path: "/agenda_socioambiental",
         label: "Agenda Socioambiental",
         method: :get,
-        icon: &Lucideicons.calendar/1
+        icon: :calendar
       }
     ]
   end
 
   defp authenticated_menu_items do
     [
-      %{path: "/app/dashboard", label: "Home", method: :get, icon: &Lucideicons.home/1},
+      %{path: "/app/dashboard", label: "Home", method: :get, icon: :home},
       %{
         path: "/app/pesquisadores",
         label: "Pesquisadores",
         method: :get,
-        icon: &Lucideicons.users/1
+        icon: :users
       },
-      %{path: "/app/relatorios", label: "Relatórios", method: :get, icon: &Lucideicons.file/1},
-      %{path: "/app/agenda", label: "Agenda", method: :get, icon: &Lucideicons.calendar/1},
-      %{path: "/app/mensagens", label: "Mensagens", method: :get, icon: &Lucideicons.mail/1}
+      %{path: "/app/relatorios", label: "Relatórios", method: :get, icon: :file},
+      %{path: "/app/agenda", label: "Agenda", method: :get, icon: :calendar},
+      %{path: "/app/mensagens", label: "Mensagens", method: :get, icon: :mail}
     ]
   end
 

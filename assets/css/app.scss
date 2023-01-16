@@ -11,9 +11,13 @@
 
 body {
   min-height: 100vh;
-  background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
   font: 62.5% 'Work Sans' regular !important;
+}
+
+button {
+  border-color: red;
+  border-width: 2px;
 }
 
 textarea:focus, input:focus, fieldset:focus {
