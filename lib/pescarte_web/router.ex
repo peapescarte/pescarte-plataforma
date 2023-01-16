@@ -7,7 +7,7 @@ defmodule PescarteWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {PescarteWeb.LayoutView, :root}
+    plug :put_root_layout, {PescarteWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
@@ -17,10 +17,15 @@ defmodule PescarteWeb.Router do
     plug :accepts, ["json"]
     plug PescarteWeb.LocalePlug
     plug PescarteWeb.RequireApiKeyPlug
-    plug ProperCase.Plug.SnakeCaseParams
   end
 
   ## Endpoints para versão browser
+
+  scope "/", PescarteWeb do
+    pipe_through [:browser]
+
+    get "/", LandingPageController, :show
+  end
 
   scope "/", PescarteWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]

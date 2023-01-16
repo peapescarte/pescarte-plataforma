@@ -15,7 +15,7 @@ defmodule PescarteWeb.UserResetPasswordController do
     if user = Accounts.get_user_by_email(email) do
       Accounts.deliver_user_reset_password_instructions(
         user,
-        &Routes.user_reset_password_url(conn, :edit, &1)
+        &url(~p"/recuperar_senha/#{&1}")
       )
     end
 
@@ -24,7 +24,7 @@ defmodule PescarteWeb.UserResetPasswordController do
       :info,
       "If your email is in our system, you will receive instructions to reset your password shortly."
     )
-    |> redirect(to: "/")
+    |> redirect(to: ~p"/")
   end
 
   # Não faça login do usuário após redefinir a senha para evitar uma
@@ -34,7 +34,7 @@ defmodule PescarteWeb.UserResetPasswordController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Password reset successfully.")
-        |> redirect(to: Routes.user_session_path(conn, :new))
+        |> redirect(to: ~p"/acessar")
 
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
@@ -54,7 +54,7 @@ defmodule PescarteWeb.UserResetPasswordController do
         :error,
         "Reset password link is invalid or it has expired."
       )
-      |> redirect(to: "/")
+      |> redirect(to: ~p"/")
       |> halt()
     end
   end

@@ -38,7 +38,7 @@ defmodule PescarteWeb.UserProfileController do
       :ok ->
         conn
         |> put_flash(:info, "Email changed successfully.")
-        |> redirect(to: Routes.user_profile_path(conn, :edit, user_id: user.id))
+        |> redirect(to: ~p"/app/perfil")
 
       :error ->
         conn
@@ -46,7 +46,7 @@ defmodule PescarteWeb.UserProfileController do
           :error,
           "Email change link is invalid or it has expired."
         )
-        |> redirect(to: Routes.user_profile_path(conn, :edit, user_id: user.id))
+        |> redirect(to: ~p"/app/perfil")
     end
   end
 

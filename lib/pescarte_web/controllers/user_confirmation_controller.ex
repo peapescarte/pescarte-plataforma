@@ -13,13 +13,13 @@ defmodule PescarteWeb.UserConfirmationController do
     if user = Accounts.get_user_by_email(email) do
       Accounts.deliver_user_confirmation_instructions(
         user,
-        &Routes.user_confirmation_url(conn, :edit, &1)
+        &url(~p"/app/confirmar/#{&1}")
       )
     end
 
     conn
     |> put_flash(:info, message())
-    |> redirect(to: "/")
+    |> redirect(to: ~p"/")
   end
 
   # Não faça login do usuário após a confirmação para evitar um

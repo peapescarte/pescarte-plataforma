@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "theme.scss";
-@import "navbar.scss";
-@import "icons.scss";
-
 * {
   margin: 0;
   padding: 0;
@@ -15,27 +11,13 @@
 
 body {
   min-height: 100vh;
-  background: var(--blue-dark);
   -webkit-font-smoothing: antialiased;
+  font: 62.5% 'Work Sans' regular !important;
 }
 
-input,
-textarea {
-  color: #000;
-  font: 400 1.6rem 'Open Sans', sans-serif !important;
-}
-
-input::placeholder {
-  text-transform: uppercase;
-  color: var(--blue-light);
-  text-align: center;
-  font: 400 1.6rem 'Open Sans';
-}
-
-textarea::placeholder {
-  color: var(--blue-light);
-  text-align: left;
-  font: 400 1.6rem 'Open Sans';
+button {
+  border-color: red;
+  border-width: 2px;
 }
 
 textarea:focus, input:focus, fieldset:focus {
@@ -43,28 +25,6 @@ textarea:focus, input:focus, fieldset:focus {
   outline-style: none !important;
   box-shadow: none !important;
   border-color: transparent !important;
-}
-
-button, .btn {
-  @apply rounded-full;
-
-  border-color: var(--blue-3);
-  cursor: pointer;
-  background-color: var(--white-1);
-  font: 500 var(--4xs) 'Work Sans', sans-serif;
-  color: var(--blue-3);
-
-  &:hover {
-    background-color: var(--blue-3);
-  }
-}
-
-.btn-small {
-  width: var(--3mega);
-}
-
-.btn-icon {
-  @apply flex justify-center items-center;
 }
 
 textarea {
@@ -83,11 +43,4 @@ textarea {
 
 ::-webkit-scrollbar-track {
   background: transparent;
-}
-
-.active {
-  background: var(--orange);
-  padding: 10px;
-  margin: -10px;
-  clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
 }
