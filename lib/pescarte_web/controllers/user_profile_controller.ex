@@ -1,7 +1,7 @@
 defmodule PescarteWeb.UserProfileController do
   use PescarteWeb, :controller
 
-  alias Pescarte.Accounts
+  alias Pescarte.Domains.Accounts
   alias PescarteWeb.UserAuth
 
   plug :assign_email_and_password_changesets

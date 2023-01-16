@@ -19,9 +19,9 @@ defmodule Pescarte.Mailer.HTML do
   @spec templates_path :: binary
   def templates_path, do: "#{:code.priv_dir(:pescarte)}/templates"
 
-  defp pea_pescarte_contact do
+  defp pea_pescarte_contato do
     :pescarte
-    |> Application.get_env(:pea_pescarte_contact)
+    |> Application.get_env(:pea_pescarte_contato)
     |> Map.new()
   end
 
@@ -35,7 +35,7 @@ defmodule Pescarte.Mailer.HTML do
   defp render_email(assigns, project, email) do
     EEx.eval_file("#{templates_path()}/email/#{project}/#{email}.html.eex",
       assigns: assigns,
-      pea_pescarte: pea_pescarte_contact()
+      pea_pescarte: pea_pescarte_contato()
     )
   end
 

@@ -1,7 +1,7 @@
 defmodule PescarteWeb.UserSessionController do
   use PescarteWeb, :controller
 
-  alias Pescarte.Accounts
+  alias Pescarte.Domains.Accounts
   alias PescarteWeb.UserAuth
 
   def new(conn, _params) do

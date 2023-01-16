@@ -318,7 +318,7 @@ defmodule PescarteWeb.DesignSystem do
       phx-remove={hide_modal(@id)}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="fixed inset-0 bg-zinc-50/90 transition-opacity" aria-hidden="true" />
+      <div id={"#{@id}-bg"} class="fixed inset-0 bg-zinc-50/90 transition-opacidade" aria-hidden="true" />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -341,7 +341,7 @@ defmodule PescarteWeb.DesignSystem do
                 <button
                   phx-click={hide_modal(@on_cancel, @id)}
                   type="button"
-                  class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
+                  class="-m-3 flex-none p-3 opacidade-20 hover:opacidade-40"
                   aria-label="close"
                 >
                   <Lucideicons.x_circle class="h-5 w-5 stroke-current" />
@@ -428,7 +428,7 @@ defmodule PescarteWeb.DesignSystem do
       </p>
       <p class="mt-2 text-[0.8125rem] leading-5"><%= msg %></p>
       <button :if={@close} type="button" class="group absolute top-2 right-1 p-2" aria-label="close">
-        <Lucideicons.x_circle class="h-5 w-5 stroke-current opacity-40 group-hover:opacity-70" />
+        <Lucideicons.x_circle class="h-5 w-5 stroke-current opacidade-40 group-hover:opacidade-70" />
       </button>
     </div>
     """
@@ -757,8 +757,8 @@ defmodule PescarteWeb.DesignSystem do
       to: selector,
       transition:
         {"transition-all transform ease-out duration-300",
-         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
-         "opacity-100 translate-y-0 sm:scale-100"}
+         "opacidade-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+         "opacidade-100 translate-y-0 sm:scale-100"}
     )
   end
 
@@ -768,8 +768,8 @@ defmodule PescarteWeb.DesignSystem do
       time: 200,
       transition:
         {"transition-all transform ease-in duration-200",
-         "opacity-100 translate-y-0 sm:scale-100",
-         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
+         "opacidade-100 translate-y-0 sm:scale-100",
+         "opacidade-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
     )
   end
 
@@ -778,7 +778,7 @@ defmodule PescarteWeb.DesignSystem do
     |> JS.show(to: "##{id}")
     |> JS.show(
       to: "##{id}-bg",
-      transition: {"transition-all transform ease-out duration-300", "opacity-0", "opacity-100"}
+      transition: {"transition-all transform ease-out duration-300", "opacidade-0", "opacidade-100"}
     )
     |> show("##{id}-container")
     |> JS.add_class("overflow-hidden", to: "body")
@@ -789,7 +789,7 @@ defmodule PescarteWeb.DesignSystem do
     js
     |> JS.hide(
       to: "##{id}-bg",
-      transition: {"transition-all transform ease-in duration-200", "opacity-100", "opacity-0"}
+      transition: {"transition-all transform ease-in duration-200", "opacidade-100", "opacidade-0"}
     )
     |> hide("##{id}-container")
     |> JS.hide(to: "##{id}", transition: {"block", "block", "hidden"})

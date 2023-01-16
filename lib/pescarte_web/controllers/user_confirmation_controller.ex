@@ -3,7 +3,7 @@ defmodule PescarteWeb.UserConfirmationController do
 
   use PescarteWeb, :controller
 
-  alias Pescarte.Accounts
+  alias Pescarte.Domains.Accounts
 
   def new(conn, _params) do
     render(conn, "new.html")
