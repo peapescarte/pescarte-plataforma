@@ -1,5 +1,5 @@
 defmodule PescarteWeb.Components.Pesquisador.SectionHeader do
-  use PescarteWeb, :component
+  use PescarteWeb, :html
 
   alias PescarteWeb.Components.Navbar.MenuItem
 

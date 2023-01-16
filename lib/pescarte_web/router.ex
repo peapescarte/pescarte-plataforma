@@ -30,8 +30,6 @@ defmodule PescarteWeb.Router do
   scope "/", PescarteWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/", PageController, :index
-
     get "/cadastrar", UserRegistrationController, :new
     post "/cadastrar", UserRegistrationController, :create
 

@@ -1,5 +1,5 @@
 defmodule PescarteWeb.Components.Perfil.SectionName do
-  use PescarteWeb, :component
+  use PescarteWeb, :html
 
   def render(assigns) do
   ~H"""

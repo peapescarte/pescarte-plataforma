@@ -11,8 +11,6 @@ defmodule PescarteWeb.DesignSystem do
   use PescarteWeb, :verified_routes
   use Phoenix.Component
 
-  import Phoenix.LiveView.HTMLEngine, only: [component: 3]
-
   alias Phoenix.LiveView.JS
 
   @doc """
