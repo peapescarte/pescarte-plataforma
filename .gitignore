@@ -44,3 +44,6 @@ pescarte-*.tar
 
 # Ignore seeds
 /priv/repo/seed_prod.exs
+
+# Local scripts
+/.local_scripts/

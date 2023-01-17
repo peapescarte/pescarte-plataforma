@@ -131,13 +131,13 @@ defmodule Pescarte.AccountsTest do
 
     test "registers user with a hashed password" do
       email = unique_user_email()
-      contact = params_for(:contato, email: email)
+      contato = params_for(:contato, email: email)
       password = valid_user_password()
 
       valid_user_attributes =
         :user
         |> params_for()
-        |> Map.put(:contato, contact)
+        |> Map.put(:contato, contato)
         |> Map.merge(%{password: password, password_confirmation: password})
 
       {:ok, user} = Accounts.register_user(valid_user_attributes)
@@ -158,12 +158,12 @@ defmodule Pescarte.AccountsTest do
       email = unique_user_email()
       password = valid_user_password()
 
-      contact = params_for(:contato, email: email)
+      contato = params_for(:contato, email: email)
 
       valid_user_attributes =
         :user
         |> params_for()
-        |> Map.put(:contato, contact)
+        |> Map.put(:contato, contato)
         |> Map.merge(%{password: password, password_confirmation: password})
 
       changeset =
@@ -265,12 +265,12 @@ defmodule Pescarte.AccountsTest do
       user = user_fixture()
       email = unique_user_email()
 
-      contact = user.contato |> Map.delete([:id, :__struct__]) |> Map.put(:email, email)
+      contato = user.contato |> Map.delete([:id, :__struct__]) |> Map.put(:email, email)
 
       token =
         extract_user_token(fn url ->
           Accounts.deliver_update_email_instructions(
-            %{user | contato: contact},
+            %{user | contato: contato},
             user.contato.email,
             url
           )
@@ -296,8 +296,8 @@ defmodule Pescarte.AccountsTest do
     end
 
     test "does not update email if user email changed", %{user: user, token: token} do
-      contact = %{user.contato | email: "current@example.com"}
-      assert Accounts.update_user_email(%{user | contato: contact}, token) == :error
+      contato = %{user.contato | email: "current@example.com"}
+      assert Accounts.update_user_email(%{user | contato: contato}, token) == :error
       assert Accounts.get_user(user.cpf).contato.email == user.contato.email
       assert Repo.get_by(UserToken, user_cpf: user.cpf)
     end

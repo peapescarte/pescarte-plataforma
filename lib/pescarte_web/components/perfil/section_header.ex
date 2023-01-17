@@ -1,5 +1,5 @@
 defmodule PescarteWeb.Components.Perfil.SectionHeader do
-  use PescarteWeb, :component
+  use PescarteWeb, :html
 
 ##  alias PescarteWeb.Components.Icon
 

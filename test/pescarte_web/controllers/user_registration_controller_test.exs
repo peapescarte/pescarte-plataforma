@@ -41,13 +41,13 @@ defmodule PescarteWeb.UserRegistrationControllerTest do
     @tag :capture_log
     test "creates account and logs the user in", %{conn: conn} do
       email = unique_user_email()
-      contact = params_for(:contato, email: email)
+      contato = params_for(:contato, email: email)
       password = valid_user_password()
 
       valid_user_attributes =
         :user
         |> params_for()
-        |> Map.put(:contato, contact)
+        |> Map.put(:contato, contato)
         |> Map.merge(%{password: password, password_confirmation: password})
 
       conn =

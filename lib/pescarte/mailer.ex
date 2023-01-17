@@ -34,6 +34,6 @@ defmodule Pescarte.Mailer do
   end
 
   defp notifications_mail do
-    Application.get_env(:pescarte, :pea_pescarte_contact)[:notifications_mail]
+    Application.get_env(:pescarte, :pea_pescarte_contato)[:notifications_mail]
   end
 end

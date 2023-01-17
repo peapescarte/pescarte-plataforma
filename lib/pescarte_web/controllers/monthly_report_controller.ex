@@ -1,28 +1,28 @@
-defmodule PescarteWeb.MonthlyReportController do
+defmodule PescarteWeb.RelatorioMensalController do
   @moduledoc false
 
   use PescarteWeb, :controller
 
-  alias Pescarte.ResearchModulus
-  alias Pescarte.ResearchModulus.Models.MonthlyReport
+  alias Pescarte.Domains.ModuloPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
 
   @today Date.utc_today()
 
   def new(conn, _params) do
     attrs = get_default_attrs()
-    changeset = ResearchModulus.change_monthly_report(%MonthlyReport{}, attrs)
+    changeset = ModuloPesquisa.change_relatorio_mensal(%RelatorioMensal{}, attrs)
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"monthly_report" => params}) do
-    researcher = conn.assigns.current_user.researcher
-    attrs = Map.put(params, :researcher_id, researcher.id)
+  def create(conn, %{"relatorio_mensal" => params}) do
+    pesquisador = conn.assigns.current_user.pesquisador
+    attrs = Map.put(params, :pesquisador_id, pesquisador.id)
 
-    case ResearchModulus.create_monthly_report(attrs) do
+    case ModuloPesquisa.create_relatorio_mensal(attrs) do
       {:ok, _report} ->
         conn
         |> put_flash(:success, "Relatório criado com sucesso")
-        |> redirect(to: Routes.user_profile_path(conn, :edit))
+        |> redirect(to: ~p"/app/perfil")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

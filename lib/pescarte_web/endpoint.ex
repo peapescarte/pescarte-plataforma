@@ -1,5 +1,4 @@
 defmodule PescarteWeb.Endpoint do
-  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :pescarte
 
   plug PescarteWeb.HealthCheck
@@ -24,8 +23,7 @@ defmodule PescarteWeb.Endpoint do
     at: "/",
     from: :pescarte,
     gzip: false,
-    only:
-      ~w(assets fonts images favicon.ico apple-touch-icon.png favicon-32x32.png favicon-16x16.png safari-pinned-tab.svg browserconfig.xml service_worker.js cache_manifest.json manifest.json android-chrome-192x192.png android-chrome-384x384.png icons)
+    only: PescarteWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -48,7 +46,6 @@ defmodule PescarteWeb.Endpoint do
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 
-  plug Sentry.PlugContext
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options

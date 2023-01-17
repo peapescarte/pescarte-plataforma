@@ -2,7 +2,7 @@ defmodule PescarteWeb.PesquisadorController do
   use PescarteWeb, :controller
 
   def index(conn, _params) do
-    list_research = Pescarte.ResearchModulus.list_researcher()
+    list_research = Pescarte.Domains.ModuloPesquisa.list_pesquisador()
     render(conn, "index.html", research: list_research)
   end
 
@@ -12,7 +12,7 @@ defmodule PescarteWeb.PesquisadorController do
   end
 
   def new(conn, _params) do
-    ##  new_research = Pescarte.ResearchModulus.create_researcher(params)   research: new_research,
+    ##  new_research = Pescarte.ModuloPesquisa.create_pesquisador(params)   research: new_research,
       render(conn, "new.html", error_message: nil)
   end
 

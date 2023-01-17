@@ -10,8 +10,8 @@ defmodule PescarteWeb.EnsureRolePlug do
 
   import Plug.Conn
 
-  alias Pescarte.Accounts
-  alias Pescarte.Accounts.Models.User
+  alias Pescarte.Domains.Accounts
+  alias Pescarte.Domains.Accounts.Models.User
   alias PescarteWeb.UserAuth
   alias Phoenix.Controller
 
@@ -39,7 +39,7 @@ defmodule PescarteWeb.EnsureRolePlug do
   defp maybe_halt(_any, conn) do
     conn
     |> Controller.put_flash(:error, "Unauthorized")
-    |> Controller.redirect(to: UserAuth.signed_in_path(conn))
+    |> Controller.redirect(to: UserAuth.signed_in_path())
     |> halt()
   end
 end

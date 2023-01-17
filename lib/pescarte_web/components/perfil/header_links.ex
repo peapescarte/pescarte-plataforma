@@ -2,7 +2,7 @@ defmodule PescarteWeb.Components.Perfil.HeaderLinks do
   @moduledoc """
   Componente que agrupa os links para o dropdown no perfil do pesquisador
   """
-  use PescarteWeb, :component
+  use PescarteWeb, :html
   alias PescarteWeb.Components.Navbar.MenuItem
 
   def render(assigns) do
