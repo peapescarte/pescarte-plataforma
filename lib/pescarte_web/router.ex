@@ -84,9 +84,6 @@ defmodule PescarteWeb.Router do
     post "/confirmar", UserConfirmationController, :create
     get "/confirmar/:token", UserConfirmationController, :edit
     put "/confirmar/:token", UserConfirmationController, :update
-
-    get "/pedagogico", PedagogicoController, :index
-    get "/pesquisa", PesquisaController, :index
   end
 
   ## Endpoints para ambiente de desenvolvimento
