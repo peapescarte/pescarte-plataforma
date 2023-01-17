@@ -52,7 +52,6 @@ defmodule PescarteWeb.DesignSystem do
     text-blue-80 border-blue-80 hover:text-blue-60
     #{if rounded, do: "rounded-full", else: "rounded"}
     """
-
   end
 
   @doc """
@@ -142,7 +141,7 @@ defmodule PescarteWeb.DesignSystem do
   defp menu_item_class(current?) do
     """
     hover:text-white hover:bg-blue-60 btn btn-primary
-    #{current? && "bg-blue-100 text-white" || "text-blue-100"}
+    #{(current? && "bg-blue-100 text-white") || "text-blue-100"}
     """
   end
 
@@ -164,11 +163,7 @@ defmodule PescarteWeb.DesignSystem do
   defp authenticated_menu(assigns) do
     ~H"""
     <%= for item <- authenticated_menu_items() do %>
-      <.menu_item
-        path={item.path}
-        method={item.method}
-        current?={is_current_path?(@conn, item.path)}
-      >
+      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@conn, item.path)}>
         <.icon name={item.icon} />
         <%= item.label %>
       </.menu_item>
@@ -181,18 +176,13 @@ defmodule PescarteWeb.DesignSystem do
   defp guest_menu(assigns) do
     ~H"""
     <%= for item <- guest_menu_items() do %>
-      <.menu_item
-        path={item.path}
-        method={item.method}
-        current?={is_current_path?(@path, item.path)}
-      >
+      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@path, item.path)}>
         <.icon name={item.icon} />
         <%= item.label %>
       </.menu_item>
     <% end %>
     <.button type="button" style="primary">
-      <Lucideicons.log_in />
-      Acessar
+      <Lucideicons.log_in /> Acessar
     </.button>
     """
   end
@@ -243,29 +233,30 @@ defmodule PescarteWeb.DesignSystem do
     ]
   end
 
-  attr :level, :string, values: ["h1", "h2", "h3", "h4", "h5", "btn", "btn-lg", "btn-md", "btn-sm"]
+  attr :level, :string,
+    values: ["h1", "h2", "h3", "h4", "h5", "btn", "btn-lg", "btn-md", "btn-sm"]
 
   slot :inner_block, required: true
 
   def text(assigns) do
     ~H"""
     <h1 :if={@level == "h1"} class="font-bold text-3xl leading-10">
-      <%= render_slot @inner_block %>
+      <%= render_slot(@inner_block) %>
     </h1>
     <h2 :if={@level == "h2"} class="font-bold text-2xl leading-9">
-      <%= render_slot @inner_block %>
+      <%= render_slot(@inner_block) %>
     </h2>
     <h3 :if={@level == "h3"} class="font-bold text-xl leading-8">
-      <%= render_slot @inner_block %>
+      <%= render_slot(@inner_block) %>
     </h3>
     <h4 :if={@level == "h4"} class="font-medium text-lg leading-7">
-      <%= render_slot @inner_block %>
+      <%= render_slot(@inner_block) %>
     </h4>
     <h5 :if={@level == "h5"} class="font-bold text-base leading-4">
-      <%= render_slot @inner_block %>
+      <%= render_slot(@inner_block) %>
     </h5>
     <span :if={@level =~ "btn"} class={build_text_class(@level)}>
-      <%= render_slot @inner_block %>
+      <%= render_slot(@inner_block) %>
     </span>
     """
   end
@@ -318,7 +309,11 @@ defmodule PescarteWeb.DesignSystem do
       phx-remove={hide_modal(@id)}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="fixed inset-0 bg-zinc-50/90 transition-opacidade" aria-hidden="true" />
+      <div
+        id={"#{@id}-bg"}
+        class="fixed inset-0 bg-zinc-50/90 transition-opacidade"
+        aria-hidden="true"
+      />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -778,7 +773,8 @@ defmodule PescarteWeb.DesignSystem do
     |> JS.show(to: "##{id}")
     |> JS.show(
       to: "##{id}-bg",
-      transition: {"transition-all transform ease-out duration-300", "opacidade-0", "opacidade-100"}
+      transition:
+        {"transition-all transform ease-out duration-300", "opacidade-0", "opacidade-100"}
     )
     |> show("##{id}-container")
     |> JS.add_class("overflow-hidden", to: "body")
@@ -789,7 +785,8 @@ defmodule PescarteWeb.DesignSystem do
     js
     |> JS.hide(
       to: "##{id}-bg",
-      transition: {"transition-all transform ease-in duration-200", "opacidade-100", "opacidade-0"}
+      transition:
+        {"transition-all transform ease-in duration-200", "opacidade-100", "opacidade-0"}
     )
     |> hide("##{id}-container")
     |> JS.hide(to: "##{id}", transition: {"block", "block", "hidden"})

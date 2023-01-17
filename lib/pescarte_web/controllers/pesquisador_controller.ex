@@ -13,7 +13,6 @@ defmodule PescarteWeb.PesquisadorController do
 
   def new(conn, _params) do
     ##  new_research = Pescarte.ModuloPesquisa.create_pesquisador(params)   research: new_research,
-      render(conn, "new.html", error_message: nil)
+    render(conn, "new.html", error_message: nil)
   end
-
 end

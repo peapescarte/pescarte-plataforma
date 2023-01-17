@@ -35,5 +35,4 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
   end
 
   def bursary_types, do: @bursary_types
-
 end

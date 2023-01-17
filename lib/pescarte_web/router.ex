@@ -45,9 +45,9 @@ defmodule PescarteWeb.Router do
     ## :bursary = pesquisador ?????
 
     ## testando, pois após as mudança de nome não está rodando o que fiz:
-  #  get "/perfil", UserProfileController, :edit
-  #  put "/perfil", UserProfileController, :update
-  #  get "/perfil/listar", UserProfileController, :show
+    #  get "/perfil", UserProfileController, :edit
+    #  put "/perfil", UserProfileController, :update
+    #  get "/perfil/listar", UserProfileController, :show
   end
 
   scope "/app", PescarteWeb do
@@ -85,10 +85,8 @@ defmodule PescarteWeb.Router do
     get "/confirmar/:token", UserConfirmationController, :edit
     put "/confirmar/:token", UserConfirmationController, :update
 
-
     get "/pedagogico", PedagogicoController, :index
     get "/pesquisa", PesquisaController, :index
-
   end
 
   ## Endpoints para ambiente de desenvolvimento

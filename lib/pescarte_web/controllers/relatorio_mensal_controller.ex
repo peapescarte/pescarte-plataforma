@@ -11,7 +11,7 @@ defmodule PescarteWeb.RelatorioMensalController do
   def new(conn, _params) do
     attrs = get_default_attrs()
     changeset = ModuloPesquisa.change_relatorio_mensal(%RelatorioMensal{}, attrs)
-    render(conn, "new.html", changeset: changeset)
+    render(conn, :new, changeset: changeset)
   end
 
   def create(conn, %{"relatorio_mensal" => params}) do
@@ -25,7 +25,7 @@ defmodule PescarteWeb.RelatorioMensalController do
         |> redirect(to: ~p"/app/perfil")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, :new, changeset: changeset)
     end
   end
 

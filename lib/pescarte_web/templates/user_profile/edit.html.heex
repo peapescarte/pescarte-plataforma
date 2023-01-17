@@ -1,16 +1,15 @@
 <div class="container grid grid-flow-col grid-cols-6 gap-6">
   <div class="col-start-1 col-span-2 mb-12 md:mb-0">
-      <div class="flex justify-center mb-6">
-          <img class="rounded-full shadow-lg w-64" src="/images/avatar/PerfilAnna2022.jpg"/>
-          <!-- aqui devemos colocar um comando para trazer o campo foto do usuario 18/10/2022-->
-      </div>
+    <div class="flex justify-center mb-6">
+      <img class="rounded-full shadow-lg w-64" src="/images/avatar/PerfilAnna2022.jpg" />
+      <!-- aqui devemos colocar um comando para trazer o campo foto do usuario 18/10/2022-->
+    </div>
   </div>
 
   <div class="col-start-1 col-span-2 text-white uppercase font-semibold text-2xl text-center justify-between">
+    <h1><%= build_user_name(@user) %></h1>
 
-      <h1><%= build_user_name(@user) %></h1>
-
-      <h1><%= @user.researcher.bursary %></h1>
+    <h1><%= @user.researcher.bursary %></h1>
   </div>
 
   <div class="col-start-1 col-span-2 mb-12 md:mb-0">
@@ -22,26 +21,24 @@
   </div>
   <!-- Tentando refatorar o código 5/11/2022, este aparece abaixo do link do lattes-->
   <%= submit("SALVAR", class: "h-16 w-1/5 mt-10") %>
-
   <!-- ============================== -->
-
   <section class="col-start-3 col-span-4 mb-12 md:mb-0 justify-between items-center">
-    <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
+    <.form :let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
       <%= label(f, :minibiografia, "BIOGRAFIA", class: "text-white uppercase font-semibold") %>
       <blockquote>
-      <%= textarea(f, :minibiografia,
-        readonly: true,
-        rows: 12,
-        cols: 76,
-        value: @user.researcher.minibio
-      ) %>
+        <%= textarea(f, :minibiografia,
+          readonly: true,
+          rows: 12,
+          cols: 76,
+          value: @user.researcher.minibio
+        ) %>
       </blockquote>
       <%= label(f, :link_lattes, "LATTES", class: "text-white uppercase font-semibold") %>
       <blockquote>
-      <%= input(f, :link_lattes,
-        readonly?: @edit?,
-        value: @user.researcher.link_lattes
-      ) %>
+        <%= input(f, :link_lattes,
+          readonly?: @edit?,
+          value: @user.researcher.link_lattes
+        ) %>
       </blockquote>
     </.form>
   </section>
