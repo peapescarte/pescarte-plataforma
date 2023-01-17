@@ -1,3 +1,4 @@
+
 <div class="flex container">
   <div class="w-full md:w-full">
     <Perfil.SectionHeader.render  src={"/images/avatar/PerfilAnna2022.jpg"} />
@@ -48,4 +49,30 @@
     <Button.render to={Routes.user_profile_path(@conn, :update)} method={:update} label="Salvar" />
     <Perfil.SectionHeaderRight.render icon={"accounts"} label="Salvar"/>
   </div>
+<<<<<<< HEAD
+=======
+  <!-- Tentando refatorar o código 5/11/2022, este aparece abaixo do link do lattes-->
+  <%= submit("SALVAR", class: "h-16 w-1/5 mt-10") %>
+  <!-- ============================== -->
+  <section class="col-start-3 col-span-4 mb-12 md:mb-0 justify-between items-center">
+    <.form :let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
+      <%= label(f, :minibiografia, "BIOGRAFIA", class: "text-white uppercase font-semibold") %>
+      <blockquote>
+        <%= textarea(f, :minibiografia,
+          readonly: true,
+          rows: 12,
+          cols: 76,
+          value: @user.researcher.minibio
+        ) %>
+      </blockquote>
+      <%= label(f, :link_lattes, "LATTES", class: "text-white uppercase font-semibold") %>
+      <blockquote>
+        <%= input(f, :link_lattes,
+          readonly?: @edit?,
+          value: @user.researcher.link_lattes
+        ) %>
+      </blockquote>
+    </.form>
+  </section>
+>>>>>>> 89931d3be1ec5877886e6ec5987d266bae01e738
 </div>

@@ -33,7 +33,5 @@ defmodule PescarteWeb.Components.Perfil.HeaderLinks do
       %{path: "/recuperar_senha/:token", label: "Alterar Senha", method: :get, icon: "lock"},
       %{path: "/app/desconectar", label: "Sair", method: :delete, icon: "logout"}
     ]
-
   end
-
 end

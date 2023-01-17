@@ -29,7 +29,7 @@
         elixir_1_14
         glibcLocales
         postgresql
-        redpanda
+        #redpanda
         yarn
       ] ++ lib.optional stdenv.isLinux [
         inotify-tools

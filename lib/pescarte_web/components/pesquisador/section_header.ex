@@ -6,14 +6,14 @@ defmodule PescarteWeb.Components.Pesquisador.SectionHeader do
   def render(assigns) do
     ~H"""
     <%= for item <- navbar_menu() do %>
-        <MenuItem.render
-          icon={item.icon}
-          path={item.path}
-          label={item.label}
-          method={item.method}
-          current?={is_current_path?(@conn, item.path)}
-        />
-      <% end %>
+      <MenuItem.render
+        icon={item.icon}
+        path={item.path}
+        label={item.label}
+        method={item.method}
+        current?={is_current_path?(@conn, item.path)}
+      />
+    <% end %>
     """
   end
 
@@ -29,8 +29,5 @@ defmodule PescarteWeb.Components.Pesquisador.SectionHeader do
       %{path: "/recuperar_senha/:token", label: "Filtros", method: :get, icon: "filter"},
       %{path: "/admin/pesq/novo", label: "Cadastrar", method: :new, icon: "accounts"}
     ]
-
   end
-
-
 end
