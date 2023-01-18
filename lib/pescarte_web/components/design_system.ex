@@ -83,7 +83,6 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-
   attr :level, :string,
     values: ["h1", "h2", "h3", "h4", "h5", "btn", "btn-lg", "btn-md", "btn-sm"]
 
@@ -315,7 +314,6 @@ defmodule PescarteWeb.DesignSystem do
     </.form>
     """
   end
-
 
   @doc ~S"""
   Renders a table with generic styling.

@@ -1,12 +1,11 @@
-
 <div class="flex container">
   <div class="w-full md:w-full">
-    <Perfil.SectionHeader.render  src={"/images/avatar/PerfilAnna2022.jpg"} />
+    <Perfil.SectionHeader.render src="/images/avatar/PerfilAnna2022.jpg" />
     <div class="static flex flex-row w-full ml-10">
       <.nameBursary name={@user.first_name} bursary={@user.researcher.bursary} />
       <div class="flex items-center flex-column w-2/12 h-15 right-0 mr-4">
         <div class="dropdown dropdown-left">
-          <Perfil.SectionHeaderRight.render icon={"points"} label="" />
+          <Perfil.SectionHeaderRight.render icon="points" label="" />
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52">
             <Perfil.HeaderLinks.render conn={@conn} />
           </ul>
@@ -18,34 +17,30 @@
 
     <div class="text-left ml-10 mr-4">
       <a class="text-black font-semibold h-8 w-8"> Biografia </a>
-<!--      <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
+      <!--      <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
       </.form>  -->
     </div>
-      <div class="text-left ml-10 mr-4">
-        <a class="text-black font-semibold h-12 w-8"> Links </a>
-        <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
-          <div class="flex items-center space-x-4 flex-row h-12">
-            <div class="grow-0">
-              <Icon.render name={"file"} />
-            </div>
-            <div class="grow">
-              <%# input(f, :link_lattes, readonly?: @edit?,  value: @user.researcher.link_lattes, required: true) %>
-            </div>
+    <div class="text-left ml-10 mr-4">
+      <a class="text-black font-semibold h-12 w-8"> Links </a>
+      <.form :let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
+        <div class="flex items-center space-x-4 flex-row h-12">
+          <div class="grow-0">
+            <Icon.render name="file" />
           </div>
-          <div class="flex items-center space-x-4 flex-row h-12">
-            <div class="grow-0">
-              <Icon.render name={"linkedin"} />
-            </div>
-            <div class="grow">
-            <%# input(f, :link_lattes,  readonly?: @edit?,  value: "https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/") %>
-            </div>
+          <div class="grow"></div>
+        </div>
+        <div class="flex items-center space-x-4 flex-row h-12">
+          <div class="grow-0">
+            <Icon.render name="linkedin" />
           </div>
-        </.form>
-      </div>
+          <div class="grow"></div>
+        </div>
+      </.form>
+    </div>
 
     <div class="divider ml-10 mr-4"></div>
 
     <Button.render to={Routes.user_profile_path(@conn, :update)} method={:update} label="Salvar" />
-    <Perfil.SectionHeaderRight.render icon={"accounts"} label="Salvar"/>
+    <Perfil.SectionHeaderRight.render icon="accounts" label="Salvar" />
   </div>
 </div>

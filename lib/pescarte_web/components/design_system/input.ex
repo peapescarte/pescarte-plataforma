@@ -71,13 +71,7 @@ defmodule PescarteWeb.DesignSystem.Input do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      <select
-        id={@id}
-        name={@name}
-        class=""
-        multiple={@multiple}
-        {@rest}
-      >
+      <select id={@id} name={@name} class="" multiple={@multiple} {@rest}>
         <option :if={@prompt} value=""><%= @prompt %></option>
         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
@@ -94,7 +88,7 @@ defmodule PescarteWeb.DesignSystem.Input do
         id={@id || @name}
         name={@name}
         class={[
-          input_border(@errors),
+          input_border(@errors)
         ]}
         {@rest}
       >
@@ -114,7 +108,7 @@ defmodule PescarteWeb.DesignSystem.Input do
         id={@id || @name}
         value={@value}
         class={[
-          input_border(@errors),
+          input_border(@errors)
         ]}
         {@rest}
       />

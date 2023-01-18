@@ -42,13 +42,6 @@ defmodule PescarteWeb.UserProfileHTML do
     ~H"""
     <%= if @conn.assigns.current_user do %>
       <%= for _item <- drop_menu() do %>
-        <%#menu_item
-          icon={item.icon}
-          path={item.path}
-          label={item.label}
-          method={item.method}
-          current?={is_current_path?(@conn, item.path)}
-        %>
       <% end %>
     <% end %>
     """
@@ -85,5 +78,4 @@ defmodule PescarteWeb.UserProfileHTML do
     </div>
     """
   end
-
 end
