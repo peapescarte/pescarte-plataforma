@@ -163,7 +163,7 @@ defmodule PescarteWeb.DesignSystem do
   defp authenticated_menu(assigns) do
     ~H"""
     <%= for item <- authenticated_menu_items() do %>
-      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@conn, item.path)}>
+      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@path, item.path)}>
         <.icon name={item.icon} />
         <%= item.label %>
       </.menu_item>

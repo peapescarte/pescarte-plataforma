@@ -3,7 +3,8 @@ defmodule PescarteWeb.UserProfileHTML do
 
   embed_templates "user_profile_html/*"
 
-  def header(assigns) do
+
+  def section_header(assigns) do
     ~H"""
     <div class="relative">
       <div class="navbar bg-blue-100 h-32 w-full"></div>
@@ -19,7 +20,7 @@ defmodule PescarteWeb.UserProfileHTML do
     """
   end
 
-  def nameBursary(assigns) do
+  def name_bursary(assigns) do
     ~H"""
     <div class="flex items-center flex-column space-x-10 w-10/12 h-15">
       <div class="text-black font-semibold text-2xl text-left justify-between md:w-1/2">
@@ -30,7 +31,7 @@ defmodule PescarteWeb.UserProfileHTML do
     """
   end
 
-  def headerRight(assigns) do
+  def header_right(assigns) do
     ~H"""
     <label tabindex="0" class="btn m-1">
       <%= @label %>
@@ -38,17 +39,13 @@ defmodule PescarteWeb.UserProfileHTML do
     """
   end
 
-  def headerLinks(assigns) do
+  def header_links(assigns) do
     ~H"""
     <%= if @conn.assigns.current_user do %>
       <%= for item <- drop_menu() do %>
-        <.menu_item
-          icon={item.icon}
-          path={item.path}
-          label={item.label}
-          method={item.method}
-          current?={is_current_path?(@conn, item.path)}
-        />
+        <a href={item.path}>
+          <%= item.label %>
+        </a>
       <% end %>
     <% end %>
     """
@@ -68,7 +65,7 @@ defmodule PescarteWeb.UserProfileHTML do
     ]
   end
 
-  def body(assigns) do
+  def section_body(assigns) do
     ~H"""
     <div class="ml-10 mr-4">
       <blockquote>
@@ -78,7 +75,7 @@ defmodule PescarteWeb.UserProfileHTML do
     """
   end
 
-  def footer(assigns) do
+  def section_footer(assigns) do
     ~H"""
     <div class="flex items-center space-x-4 flex-row h-12">
       <a href={@value} class="text-blue link link-hover"><%= @text %></a>
