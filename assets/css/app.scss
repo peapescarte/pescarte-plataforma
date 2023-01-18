@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./login.scss";
+@import "./input.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -13,34 +16,4 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   font: 62.5% 'Work Sans' regular !important;
-}
-
-button {
-  border-color: red;
-  border-width: 2px;
-}
-
-textarea:focus, input:focus, fieldset:focus {
-  outline: none !important;
-  outline-style: none !important;
-  box-shadow: none !important;
-  border-color: transparent !important;
-}
-
-textarea {
-  resize: none;
-  padding: 2rem;
-}
-
-::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: transparent;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
 }

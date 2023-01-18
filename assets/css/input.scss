@@ -1,0 +1,42 @@
+input {
+  @apply border-black-10 focus:border-black-10 ring:border-black-10;
+
+  border-radius: 0.25rem;
+  border-width: 0.094rem;
+}
+
+input:disabled {
+  @apply text-black-20 bg-black-5;
+  @apply border-black-20 focus:border-black-20 ring:border-black-20;
+}
+
+.input_sucess {
+  @apply text-green-100;
+  @apply border-green-40 focus:border-green-40 ring:border-green-40;
+
+  .dot {
+    @apply bg-green-100;
+  }
+}
+
+.input_error {
+  @apply text-red-100;
+  @apply border-red-40 focus:border-red-40 ring:border-red-40;
+
+  .dot {
+    @apply bg-red-100;
+  }
+}
+
+.input_warning {
+  @apply border-black-10;
+
+  .dot {
+    @apply bg-yellow-100;
+  }
+}
+
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+}

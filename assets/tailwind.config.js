@@ -6,20 +6,25 @@ module.exports = {
   ],
   daisyui: {
     themes: [
-      pescarte: {
+      {
+        pescarte: {
 
+        },
       }
     ]
   },
   theme: {
     borderWith: {1: '1.5px'},
     colors: {
-      white: '#fafafa',
+      white: {
+        100:  '#fff',
+        80: '#fafafa',
+      },
       black: {
         100: '#101010',
         80: '#404040',
         60: '#707070',
-        40: '9f9f9f',
+        40: '#9f9f9f',
         20: '#cfcfcf',
         10: '#9f9f9f',
         5: '#f3f3f3'
