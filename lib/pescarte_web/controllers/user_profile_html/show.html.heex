@@ -1,12 +1,13 @@
 <div class="flex container">
   <div class="w-full md:w-full">
-    <Perfil.SectionHeader.render src="/images/avatar/PerfilAnna2022.jpg" />
+    <.header src="/images/avatar/PerfilAnna2022.jpg" />
     <div class="static flex flex-row w-full ml-10">
-      <Perfil.SectionName.render name={build_user_name(@user)} bursary={@user.researcher.bursary} />
+      <.nameBursary name={@user.first_name} bursary={@user.researcher.bursary} />
+
 
       <div class="flex items-center flex-column w-2/12 h-15 right-0 mr-4">
         <div class="dropdown dropdown-left">
-          <Perfil.SectionHeaderRight.render icon="points" label="" />
+          <.headerRight icon="points" label="" />
 
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52">
             <Perfil.HeaderLinks.render conn={@conn} />

@@ -8,7 +8,7 @@ defmodule PescarteWeb.UserProfileController do
 
   def edit(conn, _params) do
     user = conn.assigns.current_user
-    render(conn, "edit.html", user: user, edit?: false)
+    render(conn, :edit, user: user, edit?: false)
   end
 
   def update(conn, %{"action" => "update_password"} = params) do
@@ -22,13 +22,13 @@ defmodule PescarteWeb.UserProfileController do
         |> UserAuth.log_in_user(user)
 
       {:error, changeset} ->
-        render(conn, "edit.html", changeset: changeset)
+        render(conn, :edit, changeset: changeset)
     end
   end
 
   def show(conn, _params) do
     user = conn.assigns.current_user
-    render(conn, "show.html", user: user)
+    render(conn, :show, user: user)
   end
 
   def confirm_email(conn, %{"token" => token}) do

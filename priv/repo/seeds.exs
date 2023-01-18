@@ -1,5 +1,5 @@
-alias Pescarte.Accounts
-alias Pescarte.ModuloPesquisa
+alias Pescarte.Domains.Accounts
+alias Pescarte.Domains.ModuloPesquisa
 
 {:ok, cidade} = ModuloPesquisa.create_cidade(%{county: "Campos dos Goytacazes"})
 
