@@ -19,7 +19,6 @@
     <div class="text-left ml-10 mr-4">
       <a class="text-black font-semibold h-8 w-8"> Biografia </a>
 <!--      <.form let={f} for={:pesquisador} action={Routes.user_profile_path(@conn, :update)}>
-        <%= textarea(f, :minibiografia,  readonly?: @edit?,  value: @user.researcher.minibio, cols: 80, rows: 4) %>
       </.form>  -->
     </div>
       <div class="text-left ml-10 mr-4">
@@ -30,7 +29,7 @@
               <Icon.render name={"file"} />
             </div>
             <div class="grow">
-              <%= input(f, :link_lattes, readonly?: @edit?,  value: @user.researcher.link_lattes, required: true) %>
+              <%# input(f, :link_lattes, readonly?: @edit?,  value: @user.researcher.link_lattes, required: true) %>
             </div>
           </div>
           <div class="flex items-center space-x-4 flex-row h-12">
@@ -38,7 +37,7 @@
               <Icon.render name={"linkedin"} />
             </div>
             <div class="grow">
-            <%= input(f, :link_lattes,  readonly?: @edit?,  value: "https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/") %>
+            <%# input(f, :link_lattes,  readonly?: @edit?,  value: "https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/") %>
             </div>
           </div>
         </.form>

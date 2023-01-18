@@ -41,14 +41,14 @@ defmodule PescarteWeb.UserProfileHTML do
   def headerLinks(assigns) do
     ~H"""
     <%= if @conn.assigns.current_user do %>
-      <%= for item <- drop_menu() do %>
-        <.menu_item
+      <%= for _item <- drop_menu() do %>
+        <%#menu_item
           icon={item.icon}
           path={item.path}
           label={item.label}
           method={item.method}
           current?={is_current_path?(@conn, item.path)}
-        />
+        %>
       <% end %>
     <% end %>
     """
@@ -78,7 +78,7 @@ defmodule PescarteWeb.UserProfileHTML do
     """
   end
 
-  def footer(assigns) do
+  def section_footer(assigns) do
     ~H"""
     <div class="flex items-center space-x-4 flex-row h-12">
       <a href={@value} class="text-blue link link-hover"><%= @text %></a>
