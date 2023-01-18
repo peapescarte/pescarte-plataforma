@@ -85,6 +85,7 @@ defmodule PescarteWeb do
     quote do
       # HTML escaping functionality
       import Phoenix.HTML
+      import Phoenix.HTML.Form, only: [submit: 1, submit: 2]
       import Phoenix.LiveView.HTMLEngine, only: [component: 3]
       # Core UI components and translation
       import PescarteWeb.DesignSystem

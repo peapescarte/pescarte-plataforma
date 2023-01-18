@@ -33,8 +33,8 @@ defmodule PescarteWeb.Router do
     get "/cadastrar", UserRegistrationController, :new
     post "/cadastrar", UserRegistrationController, :create
 
-    get "/acessar", UserSessionController, :new
-    post "/acessar", UserSessionController, :create
+    get "/acessar", LoginController, :new
+    post "/acessar", LoginController, :create
 
     get "/recuperar_senha", UserResetPasswordController, :new
     post "/recuperar_senha", UserResetPasswordController, :create
@@ -84,9 +84,6 @@ defmodule PescarteWeb.Router do
     post "/confirmar", UserConfirmationController, :create
     get "/confirmar/:token", UserConfirmationController, :edit
     put "/confirmar/:token", UserConfirmationController, :update
-
-    get "/pedagogico", PedagogicoController, :index
-    get "/pesquisa", PesquisaController, :index
   end
 
   ## Endpoints para ambiente de desenvolvimento
