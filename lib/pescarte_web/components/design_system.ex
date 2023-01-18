@@ -11,7 +11,17 @@ defmodule PescarteWeb.DesignSystem do
   use PescarteWeb, :verified_routes
   use Phoenix.Component
 
+  alias __MODULE__
+  alias PescarteWeb.DesignSystem
   alias Phoenix.LiveView.JS
+
+  defdelegate input(assigns), to: DesignSystem.Input
+
+  defdelegate label(assigns), to: DesignSystem.Input
+
+  defdelegate error(assigns), to: DesignSystem.Input
+
+  defdelegate navbar(assigns), to: DesignSystem.NavBar
 
   @doc """
   Renders a button.
@@ -73,165 +83,6 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  @doc """
-  """
-  attr :conn, :any
-  attr :path, :string
-  attr :hidden?, :boolean, default: true
-
-  def navbar(assigns) do
-    ~H"""
-    <nav class="navbar w-full">
-      <div class="navbar-start flex justify-between">
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost lg:hidden">
-            <Lucideicons.menu stroke="#FF6E00" />
-          </label>
-          <ul
-            tabindex="0"
-            class="menu menu-compact dropdown-content dropdown-left mt-3 p-2 shadow bg-white rounded-box w-52"
-          >
-            <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
-          </ul>
-        </div>
-        <li class="btn btn-ghost"><.menu_logo hidden?={@hidden?} /></li>
-      </div>
-      <div class="navbar-center container hidden lg:flex lg:justify-center">
-        <ul class="menu menu-horizontal p-0">
-          <li class="menu-item"><.menu_logo hidden?={false} /></li>
-          <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
-        </ul>
-      </div>
-    </nav>
-    """
-  end
-
-  defp menu_logo(assigns) do
-    ~H"""
-    <figure>
-      <img
-        class={["mt-3", get_hidden_style(@hidden?)]}
-        src={~p"/images/pescarte_logo.svg"}
-        alt="Logo completo do projeto com os dez peixinhos e nome"
-        width="150"
-      />
-    </figure>
-    """
-  end
-
-  defp get_hidden_style(true), do: "lg:hidden"
-  defp get_hidden_style(false), do: ""
-
-  attr :path, :string
-  attr :method, :string, default: "get"
-  attr :current?, :boolean, default: false
-
-  slot :inner_block, required: true
-
-  defp menu_item(assigns) do
-    ~H"""
-    <li class="menu-item">
-      <.link navigate={@path} method={@method} class={menu_item_class(@current?)}>
-        <%= render_slot(@inner_block) %>
-      </.link>
-    </li>
-    """
-  end
-
-  defp menu_item_class(current?) do
-    """
-    hover:text-white hover:bg-blue-60 btn btn-primary
-    #{(current? && "bg-blue-100 text-white") || "text-blue-100"}
-    """
-  end
-
-  attr :path, :string
-  attr :current_user, Pescarte.Accounts.Models.User, default: nil
-
-  # Utiliza a função `Phoenix.LivewView.HTMLEngine.component/1`
-  # manualmente para renderizar componentes dinâmicamente
-  # dentro do `for/1`
-  defp menu_links(assigns) do
-    ~H"""
-    <.authenticated_menu :if={@current_user} path={@path} />
-    <.guest_menu :if={!@current_user} path={@path} />
-    """
-  end
-
-  attr :path, :string
-
-  defp authenticated_menu(assigns) do
-    ~H"""
-    <%= for item <- authenticated_menu_items() do %>
-      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@conn, item.path)}>
-        <.icon name={item.icon} />
-        <%= item.label %>
-      </.menu_item>
-    <% end %>
-    """
-  end
-
-  attr :path, :string
-
-  defp guest_menu(assigns) do
-    ~H"""
-    <%= for item <- guest_menu_items() do %>
-      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@path, item.path)}>
-        <.icon name={item.icon} />
-        <%= item.label %>
-      </.menu_item>
-    <% end %>
-    <.button type="button" style="primary">
-      <Lucideicons.log_in /> Acessar
-    </.button>
-    """
-  end
-
-  attr :name, :atom, required: true
-
-  defp icon(assigns) do
-    apply(Lucideicons, assigns.name, [assigns])
-  end
-
-  defp is_current_path?([], "/"), do: true
-
-  defp is_current_path?([], _to), do: false
-
-  defp is_current_path?(path_info, to) do
-    # get from %Plug.Conn{}
-    path = Enum.join(path_info, "/")
-
-    to =~ path
-  end
-
-  defp guest_menu_items do
-    [
-      %{path: "/", label: "Home", method: :get, icon: :home},
-      %{path: "/pesquisa", label: "Pesquisa", method: :get, icon: :file},
-      %{path: "/biblioteca", label: "Biblioteca", method: :get, icon: :book},
-      %{
-        path: "/agenda_socioambiental",
-        label: "Agenda Socioambiental",
-        method: :get,
-        icon: :calendar
-      }
-    ]
-  end
-
-  defp authenticated_menu_items do
-    [
-      %{path: "/app/dashboard", label: "Home", method: :get, icon: :home},
-      %{
-        path: "/app/pesquisadores",
-        label: "Pesquisadores",
-        method: :get,
-        icon: :users
-      },
-      %{path: "/app/relatorios", label: "Relatórios", method: :get, icon: :file},
-      %{path: "/app/agenda", label: "Agenda", method: :get, icon: :calendar},
-      %{path: "/app/mensagens", label: "Mensagens", method: :get, icon: :mail}
-    ]
-  end
 
   attr :level, :string,
     values: ["h1", "h2", "h3", "h4", "h5", "btn", "btn-lg", "btn-md", "btn-sm"]
@@ -465,166 +316,6 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  @doc """
-  Renders an input with label and error messages.
-
-  A `%Phoenix.HTML.Form{}` and field name may be passed to the input
-  to build input names and error messages, or all the attributes and
-  errors may be passed explicitly.
-
-  ## Examples
-
-      <.input field={{f, :email}} type="email" />
-      <.input name="my-input" errors={["oh no!"]} />
-  """
-  attr :id, :any
-  attr :name, :any
-  attr :label, :string, default: nil
-
-  attr :type, :string,
-    default: "text",
-    values: ~w(checkbox date datetime-local email file hidden month number password
-               range radio search select tel text textarea time url week)
-
-  attr :value, :any
-  attr :field, :any, doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: {f, :email}"
-  attr :errors, :list
-  attr :checked, :boolean, doc: "the checked flag for checkbox inputs"
-  attr :prompt, :string, default: nil, doc: "the prompt for select inputs"
-  attr :options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2"
-  attr :multiple, :boolean, default: false, doc: "the multiple flag for select inputs"
-  attr :rest, :global, include: ~w(autocomplete cols disabled form max maxlength min minlength
-                                   pattern placeholder readonly required rows size step)
-  slot :inner_block
-
-  def input(%{field: {f, field}} = assigns) do
-    assigns
-    |> assign(field: nil)
-    |> assign_new(:name, fn ->
-      name = Phoenix.HTML.Form.input_name(f, field)
-      if assigns.multiple, do: name <> "[]", else: name
-    end)
-    |> assign_new(:id, fn -> Phoenix.HTML.Form.input_id(f, field) end)
-    |> assign_new(:value, fn -> Phoenix.HTML.Form.input_value(f, field) end)
-    |> assign_new(:errors, fn -> f.errors || [] end)
-    |> input()
-  end
-
-  def input(%{type: "checkbox"} = assigns) do
-    assigns = assign_new(assigns, :checked, fn -> input_equals?(assigns.value, "true") end)
-
-    ~H"""
-    <label phx-feedback-for={@name} class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
-      <input type="hidden" name={@name} value="false" />
-      <input
-        type="checkbox"
-        id={@id || @name}
-        name={@name}
-        value="true"
-        checked={@checked}
-        class="rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900"
-        {@rest}
-      />
-      <%= @label %>
-    </label>
-    """
-  end
-
-  def input(%{type: "select"} = assigns) do
-    ~H"""
-    <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
-      <select
-        id={@id}
-        name={@name}
-        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
-        multiple={@multiple}
-        {@rest}
-      >
-        <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
-      </select>
-      <.error :for={msg <- @errors}><%= msg %></.error>
-    </div>
-    """
-  end
-
-  def input(%{type: "textarea"} = assigns) do
-    ~H"""
-    <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
-      <textarea
-        id={@id || @name}
-        name={@name}
-        class={[
-          input_border(@errors),
-          "mt-2 block min-h-[6rem] w-full rounded-lg border-zinc-300 py-[7px] px-[11px]",
-          "text-zinc-900 focus:border-zinc-400 focus:outline-none focus:ring-4 focus:ring-zinc-800/5 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400 phx-no-feedback:focus:ring-zinc-800/5"
-        ]}
-        {@rest}
-      >
-    <%= @value %></textarea>
-      <.error :for={msg <- @errors}><%= msg %></.error>
-    </div>
-    """
-  end
-
-  def input(assigns) do
-    ~H"""
-    <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
-      <input
-        type={@type}
-        name={@name}
-        id={@id || @name}
-        value={@value}
-        class={[
-          input_border(@errors),
-          "mt-2 block w-full rounded-lg border-zinc-300 py-[7px] px-[11px]",
-          "text-zinc-900 focus:outline-none focus:ring-4 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400 phx-no-feedback:focus:ring-zinc-800/5"
-        ]}
-        {@rest}
-      />
-      <.error :for={msg <- @errors}><%= msg %></.error>
-    </div>
-    """
-  end
-
-  defp input_border([] = _errors),
-    do: "border-zinc-300 focus:border-zinc-400 focus:ring-zinc-800/5"
-
-  defp input_border([_ | _] = _errors),
-    do: "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
-
-  @doc """
-  Renders a label.
-  """
-  attr :for, :string, default: nil
-  slot :inner_block, required: true
-
-  def label(assigns) do
-    ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
-      <%= render_slot(@inner_block) %>
-    </label>
-    """
-  end
-
-  @doc """
-  Generates a generic error message.
-  """
-  slot :inner_block, required: true
-
-  def error(assigns) do
-    ~H"""
-    <p class="phx-no-feedback:hidden mt-3 flex gap-3 text-sm leading-6 text-rose-600">
-      <Lucideicons.slash class="mt-0.5 h-5 w-5 flex-none fill-rose-500" />
-      <%= render_slot(@inner_block) %>
-    </p>
-    """
-  end
 
   @doc ~S"""
   Renders a table with generic styling.
@@ -792,9 +483,5 @@ defmodule PescarteWeb.DesignSystem do
     |> JS.hide(to: "##{id}", transition: {"block", "block", "hidden"})
     |> JS.remove_class("overflow-hidden", to: "body")
     |> JS.pop_focus()
-  end
-
-  defp input_equals?(val1, val2) do
-    Phoenix.HTML.html_escape(val1) == Phoenix.HTML.html_escape(val2)
   end
 end
