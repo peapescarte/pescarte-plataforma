@@ -78,7 +78,7 @@ defmodule PescarteWeb.Router do
   scope "/app", PescarteWeb do
     pipe_through [:browser]
 
-    delete "/desconectar", UserSessionController, :delete
+    delete "/desconectar", LoginController, :delete
 
     get "/confirmar", UserConfirmationController, :new
     post "/confirmar", UserConfirmationController, :create
