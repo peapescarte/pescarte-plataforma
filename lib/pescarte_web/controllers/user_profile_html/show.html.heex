@@ -1,31 +1,27 @@
 <div class="flex container">
   <div class="w-full md:w-full">
-    <.header src="/images/avatar/PerfilAnna2022.jpg" />
+    <.section_header src="/images/avatar/PerfilAnna2022.jpg" />
     <div class="static flex flex-row w-full ml-10">
-      <.nameBursary name={@user.first_name} bursary={@user.researcher.bursary} />
+      <.name_bursary name={@user.first_name} bursary={@user.researcher.bursary} />
 
       <div class="flex items-center flex-column w-2/12 h-15 right-0 mr-4">
         <div class="dropdown dropdown-left">
-          <.headerRight icon="points" label="" />
+          <.header_right icon="points" label="" />
 
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52">
-            <.headerLinks conn={@conn} />
+            <.header_links conn={@conn} />
           </ul>
         </div>
       </div>
     </div>
     <div class="divider ml-10 mr-4"></div>
-    <.body field={:minibiografia} text="Biografia" value={@user.researcher.minibio} />
+    <.section_body  field={:minibiografia}  text="Biografia"  value={@user.researcher.minibio} />
     <div class="divider ml-10 mr-4"></div>
 
     <div class="text-left ml-10 mr-4">
       <a class="text-black font-semibold h-8 w-8"> Links </a>
-      <.footer name="file" text="Lattes" value={@user.researcher.link_lattes} />
-      <.footer
-        name="linkedin"
-        text="Linkedin"
-        value="https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/"
-      />
+      <.section_footer name="file"     text="Lattes"   value={@user.researcher.link_lattes} />
+      <.section_footer name="linkedin" text="Linkedin" value="https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/" />
     </div>
   </div>
 </div>

@@ -40,14 +40,6 @@ defmodule PescarteWeb.Router do
     post "/recuperar_senha", UserResetPasswordController, :create
     get "/recuperar_senha/:token", UserResetPasswordController, :edit
     put "/recuperar_senha/:token", UserResetPasswordController, :update
-
-    ## Será que posso criar um ResearchRegistrationController ou seria um UserRegistrationController com
-    ## :bursary = pesquisador ?????
-
-    ## testando, pois após as mudança de nome não está rodando o que fiz:
-    #  get "/perfil", UserProfileController, :edit
-    #  put "/perfil", UserProfileController, :update
-    #  get "/perfil/listar", UserProfileController, :show
   end
 
   scope "/app", PescarteWeb do
