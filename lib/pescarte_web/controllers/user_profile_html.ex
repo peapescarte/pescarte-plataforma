@@ -37,4 +37,53 @@ defmodule PescarteWeb.UserProfileHTML do
     </label>
     """
   end
+
+  def headerLinks(assigns) do
+    ~H"""
+    <%= if @conn.assigns.current_user do %>
+      <%= for item <- drop_menu() do %>
+        <.menu_item
+          icon={item.icon}
+          path={item.path}
+          label={item.label}
+          method={item.method}
+          current?={is_current_path?(@conn, item.path)}
+        />
+      <% end %>
+    <% end %>
+    """
+  end
+
+  def is_current_path?(%Plug.Conn{} = conn, to) do
+    path = Enum.join(conn.path_info, "/")
+
+    to =~ path
+  end
+
+  def drop_menu do
+    [
+      %{path: "/app/perfil", label: "Editar Perfil", method: :get, icon: "edit_profile"},
+      %{path: "/recuperar_senha/:token", label: "Alterar Senha", method: :get, icon: "lock"},
+      %{path: "/app/desconectar", label: "Sair", method: :delete, icon: "logout"}
+    ]
+  end
+
+  def body(assigns) do
+    ~H"""
+    <div class="ml-10 mr-4">
+      <blockquote>
+        <span class="text-black grow"><%= @value %></span>
+      </blockquote>
+    </div>
+    """
+  end
+
+  def footer(assigns) do
+    ~H"""
+    <div class="flex items-center space-x-4 flex-row h-12">
+      <a href={@value} class="text-blue link link-hover"><%= @text %></a>
+    </div>
+    """
+  end
+
 end

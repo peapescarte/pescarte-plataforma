@@ -10,27 +10,19 @@
           <.headerRight icon="points" label="" />
 
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52">
-            <Perfil.HeaderLinks.render conn={@conn} />
+            <.headerLinks conn={@conn} />
           </ul>
         </div>
       </div>
     </div>
     <div class="divider ml-10 mr-4"></div>
-    <Perfil.SectionBody.render
-      field={:minibiografia}
-      text="Biografia"
-      value={@user.researcher.minibio}
-    />
+    <.body  field={:minibiografia}  text="Biografia"  value={@user.researcher.minibio} />
     <div class="divider ml-10 mr-4"></div>
 
     <div class="text-left ml-10 mr-4">
       <a class="text-black font-semibold h-8 w-8"> Links </a>
-      <Perfil.SectionFooter.render name="file" text="Lattes" value={@user.researcher.link_lattes} />
-      <Perfil.SectionFooter.render
-        name="linkedin"
-        text="Linkedin"
-        value="https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/"
-      />
+      <.footer name="file"     text="Lattes"   value={@user.researcher.link_lattes} />
+      <.footer name="linkedin" text="Linkedin" value="https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/" />
     </div>
   </div>
 </div>
