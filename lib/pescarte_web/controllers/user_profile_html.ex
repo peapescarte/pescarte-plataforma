@@ -3,7 +3,6 @@ defmodule PescarteWeb.UserProfileHTML do
 
   embed_templates "user_profile_html/*"
 
-
   def section_header(assigns) do
     ~H"""
     <div class="relative">

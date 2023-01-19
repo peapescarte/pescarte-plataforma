@@ -12,9 +12,13 @@ defmodule PescarteWeb.LoginController do
 
   def create(conn, %{"cpf" => cpf, "password" => password} = params) do
     case Accounts.get_user_by_cpf_and_password(cpf, password) do
-      {:ok, user} -> UserAuth.log_in_user(conn, user, params)
+      {:ok, user} ->
+        Phoenix.LiveView.JS.add_class("input_success", to: "input")
+        UserAuth.log_in_user(conn, user, params)
+
       # Para evitar ataques de enumeração de usuários, não divulgue se o email está registrado.
-      {:error, :not_found} -> render(conn, :new, error: @err_msg)
+      {:error, :not_found} ->
+        render(conn, :new, error: @err_msg)
     end
   end
 

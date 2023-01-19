@@ -31,7 +31,7 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="min-h-screen flex flex-col items-center justify-between oveflow-y-hidden">
+  <body>
     <.navbar conn={@conn} />
     <%= @inner_content %>
     <.footer />

@@ -69,7 +69,7 @@ defmodule PescarteWeb.DesignSystem do
   """
   def footer(assigns) do
     ~H"""
-    <footer class="footer footer-center p-4 bg-white">
+    <footer class="footer footer-center p-4 bg-white-100">
       <img src={~p"/images/footer_logos.svg"} alt={footer_alt_text()} class="w-3/5" />
     </footer>
     """

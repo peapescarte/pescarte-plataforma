@@ -1,42 +1,45 @@
 input {
-  @apply border-black-10 focus:border-black-10 ring:border-black-10;
+  @apply text-black-80;
 
   border-radius: 0.25rem;
   border-width: 0.094rem;
+  gap: 0.75rem;
+  padding: 0.75rem;
+
+  &::placeholder {
+    @apply text-black-40;
+  }
 }
 
 input:disabled {
   @apply text-black-20 bg-black-5;
-  @apply border-black-20 focus:border-black-20 ring:border-black-20;
+  @apply border-black-20 focus:border-black-20;
+}
+
+.input_default {
+  @apply border-black-10 focus:border-black-10;
 }
 
 .input_sucess {
   @apply text-green-100;
-  @apply border-green-40 focus:border-green-40 ring:border-green-40;
-
-  .dot {
-    @apply bg-green-100;
-  }
+  @apply border-green-40 focus:border-green-40;
 }
 
 .input_error {
   @apply text-red-100;
-  @apply border-red-40 focus:border-red-40 ring:border-red-40;
-
-  .dot {
-    @apply bg-red-100;
-  }
+  @apply border-red-40 focus:border-red-40;
 }
 
 .input_warning {
   @apply border-black-10;
-
-  .dot {
-    @apply bg-yellow-100;
-  }
 }
 
 .dot {
+  @apply h-4 w-4;
+
+  right: 43%;
+  top: 49.6%;
+  position: absolute;
   display: inline-block;
   border-radius: 50%;
 }

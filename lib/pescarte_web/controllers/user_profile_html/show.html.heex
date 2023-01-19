@@ -15,13 +15,17 @@
       </div>
     </div>
     <div class="divider ml-10 mr-4"></div>
-    <.section_body  field={:minibiografia}  text="Biografia"  value={@user.researcher.minibio} />
+    <.section_body field={:minibiografia} text="Biografia" value={@user.researcher.minibio} />
     <div class="divider ml-10 mr-4"></div>
 
     <div class="text-left ml-10 mr-4">
       <a class="text-black font-semibold h-8 w-8"> Links </a>
-      <.section_footer name="file"     text="Lattes"   value={@user.researcher.link_lattes} />
-      <.section_footer name="linkedin" text="Linkedin" value="https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/" />
+      <.section_footer name="file" text="Lattes" value={@user.researcher.link_lattes} />
+      <.section_footer
+        name="linkedin"
+        text="Linkedin"
+        value="https://www.linkedin.com/in/annabell-del-real-tamariz-947bb538/"
+      />
     </div>
   </div>
 </div>

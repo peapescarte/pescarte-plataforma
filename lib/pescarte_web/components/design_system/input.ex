@@ -17,6 +17,8 @@ defmodule PescarteWeb.DesignSystem.Input do
   attr :id, :any
   attr :name, :any
   attr :label, :string, default: nil
+  attr :success?, :boolean, default: false
+  attr :error?, :boolean, default: false
 
   attr :type, :string,
     default: "text",
@@ -87,9 +89,7 @@ defmodule PescarteWeb.DesignSystem.Input do
       <textarea
         id={@id || @name}
         name={@name}
-        class={[
-          input_border(@errors)
-        ]}
+        class={input_style(@errors, @error?, @success?)}
         {@rest}
       >
     <%= @value %></textarea>
@@ -101,15 +101,14 @@ defmodule PescarteWeb.DesignSystem.Input do
   def input(assigns) do
     ~H"""
     <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
+      <span :if={@success? || @error?} class={["dot", dot_background(@success?, @error?)]} />
       <input
         type={@type}
         name={@name}
         id={@id || @name}
         value={@value}
-        class={[
-          input_border(@errors)
-        ]}
+        class={input_style(@errors, @error?, @success?)}
+        placeholder={@label}
         {@rest}
       />
       <.error :for={msg <- @errors}><%= msg %></.error>
@@ -117,12 +116,34 @@ defmodule PescarteWeb.DesignSystem.Input do
     """
   end
 
-  defp input_border(errors) do
+  defp input_style(_err, false, false) do
+    "input_default"
+  end
+
+  defp input_style(_err, _err?, true) do
+    "input_success"
+  end
+
+  defp input_style(_err, true, _success?) do
+    "input_error"
+  end
+
+  defp input_style(errors, _err?, _success?) when is_list(errors) do
     case errors do
-      [] -> "input_success"
+      [] -> "input_default"
       [_ | _] -> "input_error"
     end
   end
+
+  defp dot_background(true, _err?) do
+    "bg-green-100"
+  end
+
+  defp dot_background(_success?, true) do
+    "bg-red-100"
+  end
+
+  defp dot_background(_success?, _err?), do: "bg-yellow-100"
 
   @doc """
   Renders a label.
@@ -145,8 +166,8 @@ defmodule PescarteWeb.DesignSystem.Input do
 
   def error(assigns) do
     ~H"""
-    <p class="phx-no-feedback:hidden mt-3 flex gap-3 text-sm leading-6 text-rose-600">
-      <Lucideicons.slash class="mt-0.5 h-5 w-5 flex-none fill-rose-500" />
+    <p class="phx-no-feedback:hidden mt-3 flex gap-3 text-sm text-red-100 border-1 border-red-100">
+      <Lucideicons.x_circle class="mt-0.5 h-4 w-4 fill-red-100 text-white-100" />
       <%= render_slot(@inner_block) %>
     </p>
     """
