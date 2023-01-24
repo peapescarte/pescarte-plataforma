@@ -3,7 +3,7 @@ defmodule PescarteWeb.UserResetPasswordController do
 
   use PescarteWeb, :controller
 
-  alias Pescarte.Accounts
+  alias Pescarte.Domains.Accounts
 
   plug :get_user_by_reset_password_token when action in [:edit, :update]
 

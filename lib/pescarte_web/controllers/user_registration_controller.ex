@@ -3,8 +3,8 @@ defmodule PescarteWeb.UserRegistrationController do
 
   use PescarteWeb, :controller
 
-  alias Pescarte.Accounts
-  alias Pescarte.Accounts.Models.User
+  alias Pescarte.Domains.Accounts
+  alias Pescarte.Domains.Accounts.Models.User
   alias PescarteWeb.UserAuth
 
   def new(conn, _params) do

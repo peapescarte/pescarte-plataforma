@@ -10,8 +10,8 @@ defmodule PescarteWeb.EnsureRolePlug do
 
   import Plug.Conn
 
-  alias Pescarte.Accounts
-  alias Pescarte.Accounts.Models.User
+  alias Pescarte.Domains.Accounts
+  alias Pescarte.Domains.Accounts.Models.User
   alias PescarteWeb.UserAuth
   alias Phoenix.Controller
 
