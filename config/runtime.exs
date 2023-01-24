@@ -41,7 +41,7 @@ config :pescarte, Pescarte.Mailer,
   auth: :always,
   port: System.get_env("MAIL_PORT", "587")
 
-config :pescarte, :pea_pescarte_contact,
+config :pescarte, :pea_pescarte_contato,
   notifications_mail: "notifications-noreply@peapescarte.uenf.br",
   telephone: " 0800 026 2828"
 

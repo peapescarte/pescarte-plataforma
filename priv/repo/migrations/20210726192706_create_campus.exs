@@ -6,12 +6,12 @@ defmodule Pescarte.Repo.Migrations.CreateCampus do
       add :initials, :string, null: false
       add :name, :string
       add :public_id, :string
-      add :city_id, references(:city), null: false
+      add :cidade_id, references(:cidade), null: false
 
       timestamps()
     end
 
     create unique_index(:campus, [:initials])
-    create unique_index(:campus, [:city_id, :initials])
+    create unique_index(:campus, [:cidade_id, :initials])
   end
 end

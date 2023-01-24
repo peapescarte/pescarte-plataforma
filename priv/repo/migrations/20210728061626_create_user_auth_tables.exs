@@ -14,7 +14,7 @@ defmodule Pescarte.Repo.Migrations.CreateUsuariosAuthTables do
       add :active?, :boolean, default: true, null: false
       add :password_hash, :string
       add :confirmed_at, :naive_datetime
-      add :contact_id, references(:contact, on_replace: :update), null: false
+      add :contato_id, references(:contato, on_replace: :update), null: false
 
       timestamps()
     end
