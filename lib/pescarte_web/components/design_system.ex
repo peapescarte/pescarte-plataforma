@@ -34,34 +34,27 @@ defmodule PescarteWeb.DesignSystem do
   attr :type, :string, values: ~w(button reset submit)
   attr :rounded?, :boolean, default: false
   attr :class, :string, default: nil
-  attr :style, :string, values: ~w(primary secondary link)
+  attr :style, :string, values: ~w(primary secondary)
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
 
   def button(assigns) do
     ~H"""
-    <button type={@type} class={[@class, btn_class(@style, @rounded?)]} {@rest}>
+    <button type={@type} class={[@class, btn_style(@style)]} {@rest}>
       <%= render_slot(@inner_block) %>
     </button>
     """
   end
 
-  defp btn_class("primary", rounded) do
-    """
-    bg-blue-80 hover:bg-white text-base
-    font-semibold leading-4 text-white
-    #{if rounded, do: "rounded-full", else: "rounded"}
-    """
-  end
+  defp btn_style(style) do
+    style =
+      case style do
+        "primary" -> "btn-primary"
+        "secondary" -> "btn-secondary"
+      end
 
-  defp btn_class("secondary", rounded) do
-    """
-    bg-white hover:border-blue-60 py-2
-    px-3 border-1 text-base font-semibold leading-4
-    text-blue-80 border-blue-80 hover:text-blue-60
-    #{if rounded, do: "rounded-full", else: "rounded"}
-    """
+    "btn " <> style
   end
 
   @doc """
@@ -69,8 +62,8 @@ defmodule PescarteWeb.DesignSystem do
   """
   def footer(assigns) do
     ~H"""
-    <footer class="footer footer-center p-4 bg-white-100">
-      <img src={~p"/images/footer_logos.svg"} alt={footer_alt_text()} class="w-3/5" />
+    <footer class="w-full p-4 bg-white-100">
+      <img src={~p"/images/footer_logos.svg"} alt={footer_alt_text()} class="w-3/5 mx-auto" />
     </footer>
     """
   end

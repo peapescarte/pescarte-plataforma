@@ -4,30 +4,29 @@ defmodule PescarteWeb.DesignSystem.NavBar do
 
   alias PescarteWeb.DesignSystem
 
-  attr :conn, :any
-  attr :path, :string
-  attr :hidden?, :boolean, default: true
+  attr(:conn, :any)
+  attr(:path, :string)
+  attr(:hidden?, :boolean, default: true)
 
   def navbar(assigns) do
     ~H"""
-    <nav class="navbar w-full bg-white-100">
-      <div class="navbar-start flex justify-between">
+    <nav class="navbar">
+      <div class="mobile">
         <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost lg:hidden">
+          <label tabindex="0" class="btn btn-ghost">
             <Lucideicons.menu stroke="#FF6E00" />
           </label>
-          <ul
-            tabindex="0"
-            class="menu menu-compact dropdown-content dropdown-left mt-3 p-2 shadow bg-white rounded-box w-52"
-          >
+          <ul tabindex="0">
             <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
           </ul>
         </div>
-        <li class="btn btn-ghost"><.menu_logo hidden?={@hidden?} /></li>
+        <li class="btn btn-ghost">
+          <.menu_logo hidden?={@hidden?} />
+        </li>
       </div>
-      <div class="navbar-center container hidden lg:flex lg:justify-center">
-        <ul class="menu menu-horizontal p-0">
-          <li class="menu-item"><.menu_logo hidden?={false} /></li>
+      <div class="desktop">
+        <ul>
+          <li class="menu-logo"><.menu_logo hidden?={false} /></li>
           <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
         </ul>
       </div>
@@ -39,25 +38,24 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     ~H"""
     <figure>
       <img
-        class={["mt-3", @hidden? && "lg:hidden"]}
+        class={[@hidden? && "lg:hidden"]}
         src={~p"/images/pescarte_logo.svg"}
         alt="Logo completo do projeto com os dez peixinhos e nome"
-        width="150"
       />
     </figure>
     """
   end
 
-  attr :path, :string
-  attr :method, :string, default: "get"
-  attr :current?, :boolean, default: false
+  attr(:path, :string)
+  attr(:method, :string, default: "get")
+  attr(:current?, :boolean, default: false)
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   defp menu_item(assigns) do
     ~H"""
     <li class="menu-item">
-      <.link navigate={@path} method={@method} class={menu_item_class(@current?)}>
+      <.link navigate={@path} method={@method} class={[menu_item_class(@current?)]}>
         <%= render_slot(@inner_block) %>
       </.link>
     </li>
@@ -65,14 +63,11 @@ defmodule PescarteWeb.DesignSystem.NavBar do
   end
 
   defp menu_item_class(current?) do
-    """
-    hover:text-white hover:bg-blue-60 btn btn-primary
-    #{(current? && "bg-blue-100 text-white") || "text-blue-100"}
-    """
+    (current? && "bg-blue-100 text-white-100") || "text-blue-100"
   end
 
-  attr :path, :string
-  attr :current_user, Pescarte.Accounts.Models.User, default: nil
+  attr(:path, :string)
+  attr(:current_user, Pescarte.Accounts.Models.User, default: nil)
 
   # Utiliza a função `Phoenix.LivewView.HTMLEngine.component/1`
   # manualmente para renderizar componentes dinâmicamente
@@ -84,7 +79,7 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     """
   end
 
-  attr :path, :string
+  attr(:path, :string)
 
   defp authenticated_menu(assigns) do
     ~H"""
@@ -97,7 +92,7 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     """
   end
 
-  attr :path, :string
+  attr(:path, :string)
 
   defp guest_menu(assigns) do
     ~H"""
@@ -153,7 +148,7 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     ]
   end
 
-  attr :name, :atom, required: true
+  attr(:name, :atom, required: true)
 
   defp icon(assigns) do
     apply(Lucideicons, assigns.name, [assigns])
