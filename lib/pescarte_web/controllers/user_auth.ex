@@ -9,7 +9,7 @@ defmodule PescarteWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
-  alias Pescarte.Accounts
+  alias Pescarte.Domains.Accounts
 
   # Faça o cookie lembrar do usuário ser válido por 60 dias.
   # Se você quiser aumentar ou reduzir esse valor, altere também

@@ -14,14 +14,17 @@ module.exports = {
   theme: {
     borderWith: {1: '1.5px'},
     colors: {
-      white: '#fafafa',
+      white: {
+        100:  '#fff',
+        80: '#fafafa',
+      },
       black: {
         100: '#101010',
         80: '#404040',
         60: '#707070',
-        40: '9f9f9f',
+        40: '#9f9f9f',
         20: '#cfcfcf',
-        10: '#9f9f9f',
+        10: '#e7e7e7',
         5: '#f3f3f3'
       },
       blue: {

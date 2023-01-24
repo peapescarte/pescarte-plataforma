@@ -25,12 +25,12 @@ defmodule Pescarte.Repo.Migrations.InstallCarbonite do
   defp audit_tables do
     [
       :campus,
-      :city,
-      :research_line,
+      :cidade,
+      :linha_pesquisa,
       :midia,
-      :research_core,
-      :researcher,
-      :monthly_report,
+      :nucleo_pesquisa,
+      :pesquisador,
+      :relatorio_mensal,
       :user,
       :tags,
       :category

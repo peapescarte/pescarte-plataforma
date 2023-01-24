@@ -15,7 +15,7 @@ defmodule Pescarte.MailerTest.GenerateTests do
         endereco_street: "Av. Paulista, 9876",
         endereco_neighborhood: "Bela Vista",
         endereco_cep: "01310-100",
-        endereco_city: "São Paulo",
+        endereco_cidade: "São Paulo",
         endereco_state: "SP"
       }
 
