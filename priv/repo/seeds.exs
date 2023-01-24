@@ -1,13 +1,13 @@
-alias Pescarte.Accounts
-alias Pescarte.ResearchModulus
+alias Pescarte.Domains.Accounts
+alias Pescarte.Domains.ModuloPesquisa
 
-{:ok, city} = ResearchModulus.create_city(%{county: "Campos dos Goytacazes"})
+{:ok, cidade} = ModuloPesquisa.create_cidade(%{county: "Campos dos Goytacazes"})
 
 {:ok, campus} =
-  ResearchModulus.create_campus(%{
+  ModuloPesquisa.create_campus(%{
     name: "Universidade Estadual do Norte Fluminense Darcy Ribeiro",
     initials: "UENF",
-    city_id: city.id
+    cidade_id: cidade.id
   })
 
 {:ok, user} =
@@ -19,15 +19,15 @@ alias Pescarte.ResearchModulus
     last_name: "Pessanha",
     birthdate: ~D[2001-07-27],
     cpf: "133.590.177-90",
-    contact: %{
+    contato: %{
       email: "zoey.spessanha@outlook.com",
       address: "R. Conselheiro José Fernandes, 341 - Campos do Goytacazes",
       mobile: "(22)99839-9070"
     }
   })
 
-{:ok, _researcher} =
-  ResearchModulus.create_researcher(%{
+{:ok, _pesquisador} =
+  ModuloPesquisa.create_pesquisador(%{
     minibio: "Olá",
     bursary: "pesquisa",
     link_lattes: "https://github.com/zoedsoupe",
@@ -44,15 +44,15 @@ alias Pescarte.ResearchModulus
     last_name: "Tamariz",
     birthdate: ~D[1969-01-13],
     cpf: "214.047.038-96",
-    contact: %{
+    contato: %{
       email: "annabell@uenf.br",
       address: "Av. Alberto Lamego 2000, Campos dos Goytacazes",
       mobile: "(22)99831-5575"
     }
   })
 
-{:ok, _researcher} =
-  ResearchModulus.create_researcher(%{
+{:ok, _pesquisador} =
+  ModuloPesquisa.create_pesquisador(%{
     minibio: """
     Possui graduação em Ciência da Computação - Universidad de la Habana (1992),
     Mestrado em Engenharia Elétrica e Computação pela Universidade Estadual de
@@ -74,15 +74,15 @@ alias Pescarte.ResearchModulus
     last_name: "Bastos",
     birthdate: ~D[1982-09-10],
     cpf: "014.246.816-93",
-    contact: %{
+    contato: %{
       email: "giselebragabastos.pescarte@gmail.com",
       address: "Rua Cesário Alvin, 150, apto 403, bloco 3",
       mobile: "(32) 99124-1049"
     }
   })
 
-{:ok, _researcher} =
-  ResearchModulus.create_researcher(%{
+{:ok, _pesquisador} =
+  ModuloPesquisa.create_pesquisador(%{
     minibio: "Eu sou Gisele Braga....",
     bursary: "celetista",
     link_lattes: "http://lattes.cnpq.br/1675744772217864",
@@ -98,15 +98,15 @@ alias Pescarte.ResearchModulus
     last_name: "Timóteo",
     birthdate: ~D[1966-09-25],
     cpf: "553.901.536-34",
-    contact: %{
+    contato: %{
       email: "geraldotimoteo@gmail.com",
       address: "Av. Alberto Lamego, 637, Bloco 11, apart. 202, Bairro: Pq. Califórnia",
       mobile: "(22) 99779-4886"
     }
   })
 
-{:ok, _researcher} =
-  ResearchModulus.create_researcher(%{
+{:ok, _pesquisador} =
+  ModuloPesquisa.create_pesquisador(%{
     minibio: "Eu sou Geraldo, atualmente o coordenador técnico do PEA Pescarte....",
     bursary: "coordenador_tecnico",
     link_lattes: "http://lattes.cnpq.br/8720264659381887",
@@ -114,13 +114,13 @@ alias Pescarte.ResearchModulus
     user_id: user.id
   })
 
-{:ok, city} = ResearchModulus.create_city(%{county: "Sorocaba"})
+{:ok, cidade} = ModuloPesquisa.create_cidade(%{county: "Sorocaba"})
 
 {:ok, _campus} =
-  ResearchModulus.create_campus(%{
+  ModuloPesquisa.create_campus(%{
     name: "Universidade Federal de São Carlos",
     initials: "UFSCar",
-    city_id: city.id
+    cidade_id: cidade.id
   })
 
 {:ok, user} =
@@ -132,15 +132,15 @@ alias Pescarte.ResearchModulus
     last_name: "González",
     birthdate: ~D[1972-06-16],
     cpf: "214.521.238-88",
-    contact: %{
+    contato: %{
       email: "sahudy.montenegro@gmail.com",
       address: "UFSCar, Rod SP-264 KM 110, Sorocaba",
       mobile: "(15)98126-4233"
     }
   })
 
-{:ok, _researcher} =
-  ResearchModulus.create_researcher(%{
+{:ok, _pesquisador} =
+  ModuloPesquisa.create_pesquisador(%{
     minibio: """
     Graduada em Ciência da Computação pela Universidad de la Habana.
     Mestrado e Doutorado em Automação pela Universidade Estadual de Campinas

@@ -33,8 +33,8 @@ defmodule PescarteWeb.Router do
     get "/cadastrar", UserRegistrationController, :new
     post "/cadastrar", UserRegistrationController, :create
 
-    get "/acessar", UserSessionController, :new
-    post "/acessar", UserSessionController, :create
+    get "/acessar", LoginController, :new
+    post "/acessar", LoginController, :create
 
     get "/recuperar_senha", UserResetPasswordController, :new
     post "/recuperar_senha", UserResetPasswordController, :create
@@ -46,12 +46,21 @@ defmodule PescarteWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     scope "/relatorios" do
-      get "/mensal/criar", MonthlyReportController, :new
-      post "/mensal/criar", MonthlyReportController, :create
+      get "/mensal/criar", RelatorioMensalController, :new
+      post "/mensal/criar", RelatorioMensalController, :create
+      get "/mensal/listar", RelatorioMensalController, :show
     end
 
     get "/perfil", UserProfileController, :edit
     put "/perfil", UserProfileController, :update
+    get "/perfil/listar", UserProfileController, :show
+
+    scope "/admin" do
+      get "/", AdminController, :index
+      get "/pesq/listar", PesquisadorController, :show
+      get "/pesq", PesquisadorController, :index
+      get "/pesq/novo", PesquisadorController, :new
+    end
 
     get "/perfil/confirmar_email/:token",
         UserProfileController,
@@ -61,7 +70,7 @@ defmodule PescarteWeb.Router do
   scope "/app", PescarteWeb do
     pipe_through [:browser]
 
-    delete "/desconectar", UserSessionController, :delete
+    delete "/desconectar", LoginController, :delete
 
     get "/confirmar", UserConfirmationController, :new
     post "/confirmar", UserConfirmationController, :create

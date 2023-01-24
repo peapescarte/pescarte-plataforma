@@ -1,0 +1,176 @@
+<section class="flex flex-col items-center justify-between">
+  <h1 class="my-10 text-5xl text-white font-heading text-center">
+    Cadastro de Novo Pesquisador(a)
+  </h1>
+
+  <div class="flex justify-between">
+    <span class="bg-blue-100 rounded-full">
+      <.icon name={:upload} class="w-52" />
+    </span>
+    <!--    <.form let={f} for={@conn}  action={Routes.user_session_path(@conn, :create)}
+      as={:researcher}, class="flex flex-col items-center justify-center h-full">
+      <%= if @error_message do %>
+        <div class="alert alert-danger">
+          <p><%= @error_message %></p>
+        </div>
+      <% end %>
+    </.form>  -->
+  </div>
+  <!-- <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}> 
+     só para fazer um comparativo
+     action={Routes.research_registration_path(@conn, :create)}-->
+  <div class="flex flex-wrap justify-between w-4/6">
+    <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+      <%= input(f, :first_name,
+        required: true,
+        class: "rounded-full h-16",
+        wrapper_class: "w-1/3 m-4",
+        placeholder: "Nome"
+      ) %>
+    </.form>
+    <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+      <%= input(f, :middle_name,
+        required: false,
+        class: "rounded-full h-16",
+        wrapper_class: "w-1/3 m-4",
+        placeholder: "Nome do Meio"
+      ) %>
+    </.form>
+    <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+      <%= input(f, :last_name,
+        required: true,
+        class: "rounded-full h-16",
+        wrapper_class: "w-1/3 m-4",
+        placeholder: "Último Nome"
+      ) %>
+    </.form>
+  </div>
+
+  <div class="flex-wrap justify-between w-3/4 p-2">
+    <div class="text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :address,
+          required: true,
+          class: "rounded-full",
+          wrapper_class: "w-3/4 m-4",
+          placeholder: "Endereço Completo"
+        ) %>
+      </.form>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap justify-between p-2">
+    <div class="flex-1 text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:contact} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :mobile,
+          required: true,
+          class: "rounded-full h-16",
+          wrapper_class: "w-1/3 m-4",
+          placeholder: "Telefone"
+        ) %>
+      </.form>
+    </div>
+    <div class="flex-1 text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :birthdate,
+          required: true,
+          class: "rounded-full h-16",
+          wrapper_class: "w-1/3 m-4",
+          placeholder: "Data de Nascimento"
+        ) %>
+      </.form>
+    </div>
+    <div class="flex-1 text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :cpf,
+          required: true,
+          class: "rounded-full h-16",
+          wrapper_class: "w-1/3 m-4",
+          placeholder: "CPF"
+        ) %>
+      </.form>
+    </div>
+    <div class="flex-1 text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :email,
+          required: true,
+          class: "rounded-full h-16",
+          wrapper_class: "w-1/3 m-4",
+          placeholder: "e-mail"
+        ) %>
+      </.form>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap justify-between p-2">
+    <div class="flex-1 text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :bursary,
+          required: true,
+          class: "rounded-full h-16",
+          wrapper_class: "w-1/3 m-4",
+          placeholder: "Tipo de Participação/Bolsa",
+          type: :select,
+          values: Researcher.bursary_types()
+        ) %>
+      </.form>
+    </div>
+    <div class="flex-1 text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :cpf,
+          required: true,
+          class: "rounded-full h-16",
+          wrapper_class: "w-1/3 m-4",
+          placeholder: "Início da Bolsa"
+        ) %>
+      </.form>
+    </div>
+    <div class="flex-1 text-gray-700 text-center bg-blue-50 p-2">
+      <.form :let={f} for={:researcher} action={Routes.user_profile_path(@conn, :update)}>
+        <%= input(f, :cpf,
+          required: true,
+          class: "rounded-full h-16",
+          wrapper_class: "w-1/3 m-4",
+          placeholder: "Fim da Bolsa"
+        ) %>
+      </.form>
+    </div>
+  </div>
+</section>
+
+<section class="flex flex-col items-center justify-between py-10">
+  <%= link("Cadastrar",
+    # deve ser create!!!!
+    to: Routes.user_profile_path(@conn, :edit),
+    class: "button h-14 w-2/12 flex justify-center items-center"
+  ) %>
+</section>
+<!-- pensar como fazer o topdown, para escolher o tipo de participação 30/9/2022 -->
+<.form
+  :let={f}
+  for={@conn}
+  action={Routes.user_session_path(@conn, :create)}
+  as={:researcher}
+  ,
+  class="flex flex-col items-center justify-center h-full"
+>
+  <%= if @error_message do %>
+    <div class="alert alert-danger">
+      <p><%= @error_message %></p>
+    </div>
+  <% end %>
+  <!--<%= input(f, :bursary,
+    required: true,
+    class: "rounded-full h-16",
+    wrapper_class: "w-1/3 m-4",
+    placeholder: "Tipo de Bolsa"
+  ) %>
+  <select class="select w-full max-w-xs">
+  <option disabled selected>Tipo de Bolsa</option>
+  <option>Homer</option>
+  <option>Marge</option>
+  <option>Bart</option>
+  <option>Lisa</option>
+  <option>Maggie</option>
+</select> -->
+</.form>

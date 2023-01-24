@@ -99,12 +99,12 @@ defmodule PescarteWeb.UserSettingsControllerTest do
     setup %{user: user} do
       email = unique_user_email()
 
-      contact = %{user.contato | email: email}
+      contato = %{user.contato | email: email}
 
       token =
         extract_user_token(fn url ->
           Accounts.deliver_update_email_instructions(
-            %{user | contato: contact},
+            %{user | contato: contato},
             user.contato.email,
             url
           )

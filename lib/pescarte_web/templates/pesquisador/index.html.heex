@@ -1,0 +1,53 @@
+<div class="flex container">
+  <!-- tela não responsiva !!!!!! 23/11/2024 -->
+  <div class="w-full ml-10 mr-20 md:w-full flex flex-row justify-between ">
+    <Pesquisador.MenuHeader.render
+      label="Pesquisar"
+      icon="search"
+      to={Routes.pesquisador_path(@conn, :index)}
+    />
+  </div>
+  <div class="w-full ml-10 mr-20 md:w-full flex flex-row justify-between ">
+    <Pesquisador.MenuHeader.render
+      label="filtros"
+      icon="filter"
+      to={Routes.pesquisador_path(@conn, :index)}
+    />
+    <!--    <Button.render to={Routes.pesquisador_path(@conn, :new)} method={:new} icon="accounts" label="Cadastrar" /> -->
+  </div>
+  <Perfil.SectionHeaderRight.render icon="accounts" label="Cadastrar" />
+  <!-- botão responsivo !!!!!! 23/11/2024 -->
+</div>
+
+<section class="container p-10 w-full">
+  <div class="overflow-x-auto">
+    <table class="table table-compact w-full">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Participação</th>
+
+          <th>CPF</th>
+
+          <th>e-mail</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for research <- @research do %>
+          <tr>
+            <td><%= build_user_name(research.user) %></td>
+            <td><%= research.bursary %></td>
+            <td><%= research.user.cpf %></td>
+            <td><%= research.user.contact.email %></td>
+            <td></td>
+            <!-- devo chamar "bell" -->
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr></tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
