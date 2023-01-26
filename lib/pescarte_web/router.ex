@@ -46,9 +46,10 @@ defmodule PescarteWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     scope "/relatorios" do
-      get "/mensal/criar", RelatorioMensalController, :new
-      post "/mensal/criar", RelatorioMensalController, :create
-      get "/mensal/listar", RelatorioMensalController, :show
+      get "/", RelatorioController, :index
+
+      get "/mensal", RelatorioMensalController, :new
+      post "/mensal", RelatorioMensalController, :create
     end
 
     get "/perfil", UserProfileController, :edit

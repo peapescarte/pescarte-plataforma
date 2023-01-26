@@ -6,6 +6,7 @@
 @import "./input.scss";
 @import "./navbar.scss";
 @import "./button.scss";
+@import "./relatorio.scss";
 
 * {
   margin: 0;
@@ -25,6 +26,7 @@
 
 body {
   @apply flex flex-col;
+  @apply text-blue-100;
   @apply items-center justify-between;
 
   position: relative;
