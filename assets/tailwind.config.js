@@ -4,13 +4,6 @@ module.exports = {
     '../lib/*_web.ex',
     '../lib/*_web/**/*.*ex'
   ],
-  daisyui: {
-    themes: [
-      pescarte: {
-
-      }
-    ]
-  },
   theme: {
     borderWith: {1: '1.5px'},
     colors: {
@@ -101,6 +94,5 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require('daisyui')
   ]
 }

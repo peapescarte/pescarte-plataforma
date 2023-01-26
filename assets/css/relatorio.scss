@@ -1,0 +1,43 @@
+.relatorio-mensal-form {
+  @apply flex flex-col px-10;
+  @apply justify-center items-start;
+
+  overflow-y: scroll;
+
+  div {
+    @apply w-full;
+
+    .relatorio-mensal-buttons {
+      @apply w-2/12 mx-auto;
+      @apply flex justify-between items-center;
+
+      button {
+        border-radius: 6.25rem;
+      }
+    }
+  }
+
+  div > section {
+    div:nth-child(1) {
+      @apply mt-8;
+    }
+
+    div {
+      @apply w-full my-6;;
+
+      .relatorio-mensal-input {
+        @apply w-full;
+        @apply text-base leading-7 font-normal;
+        @apply border-2 border-blue-60;
+
+        border-radius: 0.5rem;
+        height: 12rem;
+        resize: none;
+      }
+
+      label {
+        @apply text-lg mb-2;
+      }
+    }
+  }
+}

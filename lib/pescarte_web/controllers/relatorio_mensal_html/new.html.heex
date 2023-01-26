@@ -1,17 +1,95 @@
-<section class="flex flex-col items-center justify-between py-10">
-  <.header />
+<.simple_form :let={f} for={@changeset} class="relatorio-mensal-form">
+  <.text level="h2">
+    Relatório Mensal de Pesquisa de <%= now_month() %> de <%= now_year() %>
+  </.text>
 
-  <.form :let={f} for={@changeset} class="flex flex-col items-center justify-evenly p-10">
-    <section class="flex flex-col items-center">
-      <h1 class="text-white uppercase font-semibold text-3xl text-center">
-        Atividades Desenvolvidas:
-      </h1>
-    </section>
+  <section>
+    <.text level="h3">
+      Relato das Atividades Desenvolvidas
+    </.text>
 
-    <section class="flex flex-col items-center mt-14">
-      <h1 class="text-white uppercase font-semibold text-3xl text-center">
-        Planejamento de Estudos ou de Pesquisa
-      </h1>
-    </section>
-  </.form>
-</section>
+    <.input
+      class="relatorio-mensal-input"
+      label="Ações de planejamento e construção de pesquisa"
+      type="textarea"
+      field={{f, :plannig_action}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Participação em grupo de estudos"
+      type="textarea"
+      field={{f, :study_group}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Reunião de orientação"
+      type="textarea"
+      field={{f, :guidance_metting}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Ações de pesquisa de campo, análise de dados e construção audiovisua"
+      type="textarea"
+      field={{f, :research_actions}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Participação em treinamentos e cursos PEA Pescarte"
+      type="textarea"
+      field={{f, :training_participation}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Publicação"
+      type="textarea"
+      field={{f, :publication}}
+    />
+  </section>
+
+  <section>
+    <.text level="h3">
+      Planejamento de Estudos ou de Pesquisa
+    </.text>
+
+    <.input
+      class="relatorio-mensal-input"
+      label="Ações de planejamento e construção da pesquisa"
+      type="textarea"
+      field={{f, :next_planning_action}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Participação em grupo de estudos"
+      type="textarea"
+      field={{f, :next_study_group}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Reunião de Orientação"
+      type="textarea"
+      field={{f, :next_guidance_metting}}
+    />
+    <.input
+      class="relatorio-mensal-input"
+      label="Ações de pesquisa de campo, análise de dados e construção audiovisual"
+      type="textarea"
+      field={{f, :next_research_actions}}
+    />
+  </section>
+
+  <:actions>
+    <div class="relatorio-mensal-buttons">
+      <.button type="button" phx-click="save" style="primary">
+        <.text level="btn-md">
+          Salvar
+        </.text>
+      </.button>
+
+      <.button type="submit" style="primary">
+        <.text level="btn-md">
+          Enviar
+        </.text>
+      </.button>
+    </div>
+  </:actions>
+</.simple_form>

@@ -76,7 +76,6 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-
   attr :level, :string,
     values: ["h1", "h2", "h3", "h4", "h5", "btn", "btn-lg", "btn-md", "btn-sm"]
 
@@ -108,7 +107,7 @@ defmodule PescarteWeb.DesignSystem do
   defp build_text_class(level) do
     case level do
       "btn" -> ["font-medium", "text-base", "leading-4"]
-      "btn-lg" -> ["font-regular", "text-base", "leading-6"]
+      "btn-lg" -> ["font-regular", "text-lg", "leading-6"]
       "btn-md" -> ["font-regular", "text-sm", "leading-5"]
       "btn-sm" -> ["font-regular", "text-xs", "leading-4"]
     end

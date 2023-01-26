@@ -25,6 +25,7 @@ defmodule PescarteWeb.DesignSystem.Input do
     values: ~w(checkbox date datetime-local email file hidden month number password
                range radio search select tel text textarea time url week)
 
+  attr :class, :string, default: ""
   attr :value, :any
   attr :field, :any, doc: "a %Phoenix.HTML.Form{}/field name tuple, for example: {f, :email}"
   attr :errors, :list
@@ -89,7 +90,7 @@ defmodule PescarteWeb.DesignSystem.Input do
       <textarea
         id={@id || @name}
         name={@name}
-        class={input_style(@errors, @error?, @success?)}
+        class={[@class, input_style(@errors, @error?, @success?)]}
         {@rest}
       >
     <%= @value %></textarea>
