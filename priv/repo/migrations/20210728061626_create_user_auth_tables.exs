@@ -10,8 +10,6 @@ defmodule Pescarte.Repo.Migrations.CreateUsuariosAuthTables do
       add :last_name, :string, null: false
       add :birthdate, :date, null: false
       add :role, :string, default: "avulso", null: false
-      add :last_seen, :utc_datetime_usec
-      add :active?, :boolean, default: true, null: false
       add :password_hash, :string
       add :confirmed_at, :naive_datetime
       add :contato_id, references(:contato, on_replace: :update), null: false
