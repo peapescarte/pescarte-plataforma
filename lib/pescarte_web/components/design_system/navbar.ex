@@ -2,8 +2,6 @@ defmodule PescarteWeb.DesignSystem.NavBar do
   use PescarteWeb, :verified_routes
   use Phoenix.Component
 
-  alias PescarteWeb.DesignSystem
-
   attr(:conn, :any)
   attr(:path, :string)
   attr(:hidden?, :boolean, default: true)
@@ -55,15 +53,11 @@ defmodule PescarteWeb.DesignSystem.NavBar do
   defp menu_item(assigns) do
     ~H"""
     <li class="menu-item">
-      <.link navigate={@path} method={@method} class={[menu_item_class(@current?)]}>
+      <.link navigate={@path} method={@method}>
         <%= render_slot(@inner_block) %>
       </.link>
     </li>
     """
-  end
-
-  defp menu_item_class(current?) do
-    (current? && "bg-blue-100 text-white-100") || "text-blue-100"
   end
 
   attr(:path, :string)
@@ -102,9 +96,9 @@ defmodule PescarteWeb.DesignSystem.NavBar do
         <%= item.label %>
       </.menu_item>
     <% end %>
-    <DesignSystem.button type="button" style="primary">
+    <.link href={~p"/acessar"} class="btn btn-primary">
       <Lucideicons.log_in /> Acessar
-    </DesignSystem.button>
+    </.link>
     """
   end
 

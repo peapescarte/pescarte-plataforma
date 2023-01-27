@@ -9,9 +9,9 @@ FROM ${BUILDER_IMAGE} as builder
 
 ARG ESBUILD_PATH=/usr/local/bin/esbuild
 
-RUN apt-get update -y \
-    && apt-get install -y build-essential git nodejs npm \
-    && apt-get clean && rm -f /var/lib/apt/lists/*_*
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y git npm
 
 WORKDIR /app
 

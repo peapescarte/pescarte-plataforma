@@ -7,13 +7,11 @@
   div {
     @apply w-full;
 
-    .relatorio-mensal-buttons {
+    button {
       @apply w-2/12 mx-auto;
-      @apply flex justify-between items-center;
+      @apply flex justify-center items-center;
 
-      button {
-        border-radius: 6.25rem;
-      }
+      border-radius: 6.25rem;
     }
   }
 

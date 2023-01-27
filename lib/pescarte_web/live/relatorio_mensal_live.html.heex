@@ -1,4 +1,11 @@
-<.simple_form :let={f} for={@changeset} class="relatorio-mensal-form">
+<.simple_form
+  :let={f}
+  as="relatorio_mensal"
+  for={@changeset}
+  phx-change="save"
+  phx-submit="create"
+  class="relatorio-mensal-form"
+>
   <.text level="h2">
     Relatório Mensal de Pesquisa de <%= now_month() %> de <%= now_year() %>
   </.text>
@@ -78,18 +85,10 @@
   </section>
 
   <:actions>
-    <div class="relatorio-mensal-buttons">
-      <.button type="button" phx-click="save" style="primary">
-        <.text level="btn-md">
-          Salvar
-        </.text>
-      </.button>
-
-      <.button type="submit" style="primary">
-        <.text level="btn-md">
-          Enviar
-        </.text>
-      </.button>
-    </div>
+    <.button type="submit" style="primary">
+      <.text level="btn-md">
+        Enviar
+      </.text>
+    </.button>
   </:actions>
 </.simple_form>

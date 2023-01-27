@@ -17,7 +17,8 @@ config :pescarte, PescarteWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/tnqEz6BgkvSQoZdVePI7wI2tB6enxAPY66OSNNCGSeDy2VkzG0lIc/cguFxfA+0",
   render_errors: [view: PescarteWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Pescarte.PubSub
+  pubsub_server: Pescarte.PubSub,
+  live_view: [signing_salt: "Fz4O74-XJOgrKgnj"]
 
 # ---------------------------#
 # Phoenix
