@@ -28,7 +28,7 @@ defmodule Pescarte.MixProject do
 
   defp deps do
     [
-      {:phoenix, "~> 1.7.0-rc.1", override: true},
+      {:phoenix, "~> 1.7.0-rc.2", override: true},
       {:phoenix_view, "~> 2.0"},
       {:phoenix_ecto, "~> 4.1"},
       {:swoosh, "~> 1.4"},

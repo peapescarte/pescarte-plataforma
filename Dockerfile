@@ -1,6 +1,6 @@
-ARG ELIXIR_VERSION=1.13.4
-ARG OTP_VERSION=25.0.2
-ARG DEBIAN_VERSION=bullseye-20210902-slim
+ARG ELIXIR_VERSION=1.14.2
+ARG OTP_VERSION=25.1.2.1
+ARG DEBIAN_VERSION=buster-20230109-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
@@ -33,9 +33,8 @@ COPY lib lib
 COPY assets assets
 
 # compile assets
-RUN npm install --global yarn
-RUN yarn global add esbuild --prefix /usr/local
-RUN yarn --cwd ./assets --frozen-lockfile
+RUN npm i -g esbuild
+RUN npm i --prefix ./assets
 RUN mix assets.deploy
 
 # Compile the release
