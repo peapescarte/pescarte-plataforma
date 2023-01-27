@@ -4,8 +4,6 @@ defmodule PescarteWeb.RelatorioMensalLive do
   alias Pescarte.Domains.ModuloPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
 
-  on_mount PescarteWeb.UserLiveAuth
-
   @today Date.utc_today()
 
   @full_month %{
@@ -23,7 +21,6 @@ defmodule PescarteWeb.RelatorioMensalLive do
     "12" => "Dezembro"
   }
 
-  @impl true
   def mount(_params, _session, socket) do
     pesquisador = socket.assigns.current_user.pesquisador
     attrs = get_default_attrs(pesquisador)

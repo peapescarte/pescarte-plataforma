@@ -8,7 +8,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.Types.TrimmedString
 
-  @bursary_types ~w(
+  @tipo_bolsas ~w(
     ic pesquisa voluntario
     celetista consultoria
     coordenador_tecnico
@@ -19,20 +19,20 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
 
   schema "pesquisador" do
     field :minibio, TrimmedString
-    field :bursary, Ecto.Enum, values: @bursary_types
+    field :bolsa, Ecto.Enum, values: @tipo_bolsas
     field :link_lattes, TrimmedString
     field :public_id, :string
 
-    has_many :advisored, Pesquisador
+    has_many :orientandos, Pesquisador
     has_many :midias, Midia
     has_many :relatorio_mensais, RelatorioMensal
 
     belongs_to :campus, Campus
     belongs_to :user, User, on_replace: :update
-    belongs_to :advisor, Pesquisador, on_replace: :update
+    belongs_to :orientador, Pesquisador, on_replace: :update
 
     timestamps()
   end
 
-  def bursary_types, do: @bursary_types
+  def tipo_bolsas, do: @tipo_bolsas
 end

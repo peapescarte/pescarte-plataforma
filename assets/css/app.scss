@@ -7,6 +7,7 @@
 @import "./navbar.scss";
 @import "./button.scss";
 @import "./relatorio.scss";
+@import "./profile.scss";
 
 * {
   margin: 0;
@@ -36,6 +37,10 @@ body {
   min-width: 100vw;
   -webkit-font-smoothing: antialiased;
   font: 62.5% 'Work Sans' regular !important;
+
+  .phx-connected {
+    @apply w-full h-full;
+  }
 }
 
 body.fish {
