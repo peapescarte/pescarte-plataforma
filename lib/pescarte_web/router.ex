@@ -51,9 +51,7 @@ defmodule PescarteWeb.Router do
       live "/mensal", RelatorioMensalLive
     end
 
-    get "/perfil", UserProfileController, :edit
-    put "/perfil", UserProfileController, :update
-    get "/perfil/listar", UserProfileController, :show
+    live "/perfil", UserProfileLive
 
     scope "/admin" do
       get "/", AdminController, :index

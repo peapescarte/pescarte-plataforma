@@ -1,0 +1,27 @@
+.user-profile-wrapper {
+  .user-profile-banner {
+    @apply w-full;
+    @apply bg-orange-60;
+
+    height: 12.5rem;
+    position: absolute;
+    top: 0;
+  }
+
+  .user-profile-avatar {
+    @apply bg-orange-100;
+    @apply border-4 border-white-100;
+
+    position: absolute;
+    top: 6.25rem;
+    left: 10.9rem;
+    width: 12.5rem;
+    height: 12.5rem;
+    border-radius: 50%;
+    display: inline-block;
+
+    svg {
+      margin: 20% auto;
+    }
+  }
+}
