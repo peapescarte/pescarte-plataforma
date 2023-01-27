@@ -48,8 +48,7 @@ defmodule PescarteWeb.Router do
     scope "/relatorios" do
       get "/", RelatorioController, :index
 
-      get "/mensal", RelatorioMensalController, :new
-      post "/mensal", RelatorioMensalController, :create
+      live "/mensal", RelatorioMensalLive
     end
 
     get "/perfil", UserProfileController, :edit

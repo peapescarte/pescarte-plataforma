@@ -30,7 +30,7 @@
         glibcLocales
         postgresql
         #redpanda
-        yarn
+        nodejs
       ] ++ lib.optional stdenv.isLinux [
         inotify-tools
         gtk-engine-murrine
