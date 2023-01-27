@@ -18,6 +18,7 @@ alias Pescarte.Domains.ModuloPesquisa
     middle_name: "de Souza",
     last_name: "Pessanha",
     birthdate: ~D[2001-07-27],
+    confirmed_at: NaiveDateTime.utc_now(),
     cpf: "133.590.177-90",
     contato: %{
       email: "zoey.spessanha@outlook.com",
@@ -29,7 +30,7 @@ alias Pescarte.Domains.ModuloPesquisa
 {:ok, _pesquisador} =
   ModuloPesquisa.create_pesquisador(%{
     minibio: "Olá",
-    bursary: "pesquisa",
+    bolsa: :pesquisa,
     link_lattes: "https://github.com/zoedsoupe",
     campus_id: campus.id,
     user_id: user.id
@@ -42,6 +43,7 @@ alias Pescarte.Domains.ModuloPesquisa
     first_name: "Annabell",
     middle_name: "Del Real",
     last_name: "Tamariz",
+    confirmed_at: NaiveDateTime.utc_now(),
     birthdate: ~D[1969-01-13],
     cpf: "214.047.038-96",
     contato: %{
@@ -59,7 +61,7 @@ alias Pescarte.Domains.ModuloPesquisa
     Campinas (1999) e Doutorado em Engenharia Elétrica na área de automação pela
     Universidade Estadual de Campinas (2005).
     """,
-    bursary: "pesquisa",
+    bolsa: :pesquisa,
     link_lattes: "http://lattes.cnpq.br/7484786835288826",
     campus_id: campus.id,
     user_id: user.id
@@ -72,6 +74,7 @@ alias Pescarte.Domains.ModuloPesquisa
     first_name: "Gisele",
     middle_name: "Braga",
     last_name: "Bastos",
+    confirmed_at: NaiveDateTime.utc_now(),
     birthdate: ~D[1982-09-10],
     cpf: "014.246.816-93",
     contato: %{
@@ -84,7 +87,7 @@ alias Pescarte.Domains.ModuloPesquisa
 {:ok, _pesquisador} =
   ModuloPesquisa.create_pesquisador(%{
     minibio: "Eu sou Gisele Braga....",
-    bursary: "celetista",
+    bolsa: :celetista,
     link_lattes: "http://lattes.cnpq.br/1675744772217864",
     campus_id: campus.id,
     user_id: user.id
@@ -98,6 +101,7 @@ alias Pescarte.Domains.ModuloPesquisa
     last_name: "Timóteo",
     birthdate: ~D[1966-09-25],
     cpf: "553.901.536-34",
+    confirmed_at: NaiveDateTime.utc_now(),
     contato: %{
       email: "geraldotimoteo@gmail.com",
       address: "Av. Alberto Lamego, 637, Bloco 11, apart. 202, Bairro: Pq. Califórnia",
@@ -108,7 +112,7 @@ alias Pescarte.Domains.ModuloPesquisa
 {:ok, _pesquisador} =
   ModuloPesquisa.create_pesquisador(%{
     minibio: "Eu sou Geraldo, atualmente o coordenador técnico do PEA Pescarte....",
-    bursary: "coordenador_tecnico",
+    bolsa: :coordenador_tecnico,
     link_lattes: "http://lattes.cnpq.br/8720264659381887",
     campus_id: campus.id,
     user_id: user.id
@@ -131,6 +135,7 @@ alias Pescarte.Domains.ModuloPesquisa
     middle_name: "Montenegro",
     last_name: "González",
     birthdate: ~D[1972-06-16],
+    confirmed_at: NaiveDateTime.utc_now(),
     cpf: "214.521.238-88",
     contato: %{
       email: "sahudy.montenegro@gmail.com",
@@ -145,7 +150,7 @@ alias Pescarte.Domains.ModuloPesquisa
     Graduada em Ciência da Computação pela Universidad de la Habana.
     Mestrado e Doutorado em Automação pela Universidade Estadual de Campinas
     """,
-    bursary: "consultoria",
+    bolsa: :consultoria,
     link_lattes: "http://lattes.cnpq.br/9826346918182685",
     campus_id: campus.id,
     user_id: user.id

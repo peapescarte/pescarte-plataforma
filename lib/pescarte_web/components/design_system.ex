@@ -31,7 +31,7 @@ defmodule PescarteWeb.DesignSystem do
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
   """
-  attr :type, :string, values: ~w(button reset submit)
+  attr :type, :string, values: ~w(button reset submit), default: "button"
   attr :rounded?, :boolean, default: false
   attr :class, :string, default: nil
   attr :style, :string, values: ~w(primary secondary)
@@ -305,6 +305,31 @@ defmodule PescarteWeb.DesignSystem do
         </div>
       </div>
     </.form>
+    """
+  end
+
+  @doc """
+  Renders a header with title.
+  """
+  attr :class, :string, default: nil
+
+  slot :inner_block, required: true
+  slot :subtitle
+  slot :actions
+
+  def header(assigns) do
+    ~H"""
+    <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
+      <div>
+        <h1 class="text-lg font-semibold leading-8 text-blue-100">
+          <%= render_slot(@inner_block) %>
+        </h1>
+        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-blue-80">
+          <%= render_slot(@subtitle) %>
+        </p>
+      </div>
+      <div class="flex-none"><%= render_slot(@actions) %></div>
+    </header>
     """
   end
 

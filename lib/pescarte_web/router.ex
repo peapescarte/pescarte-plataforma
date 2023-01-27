@@ -1,7 +1,11 @@
 defmodule PescarteWeb.Router do
   use PescarteWeb, :router
 
-  import PescarteWeb.UserAuth
+  alias PescarteWeb.UserAuthentication
+  alias PescarteWeb.UserAuthorization
+
+  import PescarteWeb.UserAuthentication
+  import PescarteWeb.UserAuthorization
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -30,52 +34,55 @@ defmodule PescarteWeb.Router do
   scope "/", PescarteWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/cadastrar", UserRegistrationController, :new
-    post "/cadastrar", UserRegistrationController, :create
+    live_session :redirect_if_user_is_authenticated,
+      on_mount: [{UserAuthentication, :redirect_if_user_is_authenticated}] do
+      live "/acessar", UserLoginLive, :new
+      live "/usuarios/recuperar_senha", UserForgotPasswordLive, :new
+      live "/usuarios/recuperar_senha/:token", UserResetPasswordLive, :edit
+    end
 
-    get "/acessar", LoginController, :new
     post "/acessar", LoginController, :create
+  end
 
-    get "/recuperar_senha", UserResetPasswordController, :new
-    post "/recuperar_senha", UserResetPasswordController, :create
-    get "/recuperar_senha/:token", UserResetPasswordController, :edit
-    put "/recuperar_senha/:token", UserResetPasswordController, :update
+  scope "/", PescarteWeb do
+    pipe_through [:browser]
+
+    live_session :current_user,
+      on_mount: [{UserAuthentication, :mount_current_user}] do
+      live "/usuarios/confirmar", UserConfirmationInstructionsLive, :new
+      live "/usuarios/confirmar/:token", UserConfirmationLive, :edit
+    end
   end
 
   scope "/app", PescarteWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    scope "/relatorios" do
-      get "/", RelatorioController, :index
+    live_session :require_authenticated_user,
+      on_mount: [{UserAuthentication, :ensure_authenticated}] do
+      live "/perfil", UserProfileLive
 
-      live "/mensal", RelatorioMensalLive
+      scope "/relatorios" do
+        # FIXME mudar para live view
+        get "/", RelatorioController, :index
+        live "/mensal", RelatorioMensalLive
+      end
     end
-
-    get "/perfil", UserProfileController, :edit
-    put "/perfil", UserProfileController, :update
-    get "/perfil/listar", UserProfileController, :show
-
-    scope "/admin" do
-      get "/", AdminController, :index
-      get "/pesq/listar", PesquisadorController, :show
-      get "/pesq", PesquisadorController, :index
-      get "/pesq/novo", PesquisadorController, :new
-    end
-
-    get "/perfil/confirmar_email/:token",
-        UserProfileController,
-        :confirm_email
-  end
-
-  scope "/app", PescarteWeb do
-    pipe_through [:browser]
 
     delete "/desconectar", LoginController, :delete
+  end
 
-    get "/confirmar", UserConfirmationController, :new
-    post "/confirmar", UserConfirmationController, :create
-    get "/confirmar/:token", UserConfirmationController, :edit
-    put "/confirmar/:token", UserConfirmationController, :update
+  scope "/app/admin", PescarteWeb do
+    pipe_through [:browser, :require_authenticated_user, :require_admin_role]
+
+    live_session :require_admin_role,
+      on_mount: [
+        {UserAuthentication, :ensure_authenticated},
+        {UserAuthorization, :ensure_admin_role}
+      ] do
+      live "/pesquisadores", AdminPesquisadoresLive, :index
+      live "/pesquisadores/:id", AdminPesquisadoresLive, :show
+      live "/pesquisadores/cadastrar", AdminPesquisadoresLive, :new
+    end
   end
 
   ## Endpoints para ambiente de desenvolvimento

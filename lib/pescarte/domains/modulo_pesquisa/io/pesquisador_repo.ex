@@ -3,17 +3,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.PesquisadorRepo do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
-  @required_fields ~w(
-    minibio
-    bursary
-    link_lattes
-    campus_id
-    user_id
-  )a
+  @required_fields ~w(minibio bolsa link_lattes campus_id user_id)a
 
-  @optional_fields ~w(advisor_id)a
+  @optional_fields ~w(orientador_id)a
 
-  @update_fields ~w(minibio bursary link_lattes)a
+  @update_fields ~w(minibio bolsa link_lattes)a
 
   def changeset(%Pesquisador{} = pesquisador, attrs \\ %{}) do
     pesquisador
@@ -21,7 +15,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.PesquisadorRepo do
     |> validate_required(@required_fields)
     |> validate_length(:minibio, max: 280)
     |> foreign_key_constraint(:user_id)
-    |> foreign_key_constraint(:advisor_id)
+    |> foreign_key_constraint(:orientador_id)
     |> foreign_key_constraint(:campus_id)
     |> put_change(:public_id, Nanoid.generate())
   end

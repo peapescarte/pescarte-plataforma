@@ -7,14 +7,12 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
   alias Pescarte.Domains.Accounts.Models.User
 
   @required_fields ~w(first_name last_name cpf birthdate)a
-  @optional_fields ~w(confirmed_at last_seen middle_name active? role)a
-  @update_fields ~w(active? last_seen first_name middle_name last_name permissions)a
+  @optional_fields ~w(confirmed_at middle_name role)a
+  @update_fields ~w(first_name middle_name last_name permissions)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
-
-  @valid_roles ~w(pesquisador pescador admin avulso)
 
   @impl true
   def all do
@@ -27,7 +25,6 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
     |> validate_required(@required_fields)
     |> validate_cpf(:cpf)
     |> unique_constraint(:cpf)
-    |> validate_inclusion(:role, @valid_roles)
     |> cast_assoc(:contato, required: true, with: &ContatoRepo.changeset/2)
     |> put_change(:public_id, Nanoid.generate())
   end
@@ -88,7 +85,7 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
   def insert_pesquisador(attrs) do
     attrs
     |> changeset()
-    |> put_change(:role, "pesquisador")
+    |> put_change(:role, :pesquisador)
     |> password_changeset(attrs)
     |> Database.insert()
   end
@@ -96,7 +93,7 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
   def insert_admin(attrs) do
     attrs
     |> changeset()
-    |> put_change(:role, "admin")
+    |> put_change(:role, :admin)
     |> Database.insert()
   end
 
@@ -132,7 +129,6 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
   def update(%User{} = user, attrs) do
     user
     |> cast(attrs, @update_fields)
-    |> validate_inclusion(:role, @valid_roles)
     |> Database.update()
   end
 end
