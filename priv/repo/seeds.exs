@@ -27,7 +27,7 @@ alias Pescarte.Domains.ModuloPesquisa
     }
   })
 
-{:ok, _pesquisador} =
+{:ok, zoey} =
   ModuloPesquisa.create_pesquisador(%{
     minibio: "Olá",
     bolsa: :pesquisa,
@@ -155,3 +155,41 @@ alias Pescarte.Domains.ModuloPesquisa
     campus_id: campus.id,
     user_id: user.id
   })
+
+for name <- ["autoral", "local", "conteudo", "eventos"] do
+  {:ok, categoria} = ModuloPesquisa.create_categoria(%{name: name})
+
+  case name do
+    "autoral" ->
+      {:ok, tag} =
+        ModuloPesquisa.create_tag(%{
+          label: "fulano_da_silva",
+          categoria_id: categoria.id
+        })
+
+    "conteudo" ->
+      tags =
+        for label <- ~w(redes peixes mar barco) do
+          {:ok, tag} =
+            ModuloPesquisa.create_tag(%{
+              label: label,
+              categoria_id: categoria.id
+            })
+
+          tag
+        end
+
+      {:ok, _} =
+        ModuloPesquisa.create_midia(%{
+          tags: tags,
+          filename: "IMG20230126.png",
+          type: :imagem,
+          filedate: Date.utc_today(),
+          pesquisador_id: zoey.id,
+          link: "https://drive.google.com/uc?export=view&id=1YqVklE01-XPX-6iAO0iYie5acOCk0rhk"
+        })
+
+    _ ->
+      nil
+  end
+end

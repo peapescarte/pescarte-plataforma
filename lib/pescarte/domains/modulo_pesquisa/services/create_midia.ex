@@ -4,7 +4,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.CreateMidia do
   alias Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo
 
   @impl true
-  def process(params) do
-    MidiaRepo.insert(params)
+  def process(%{tags: tags} = params) do
+    MidiaRepo.insert(params, tags)
   end
 end

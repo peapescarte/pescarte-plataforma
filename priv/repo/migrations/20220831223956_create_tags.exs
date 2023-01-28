@@ -11,7 +11,7 @@ defmodule Pescarte.Repo.Migrations.CreateTags do
     end
 
     create index(:tags, [:label])
-    create unique_index(:tags, [:categoria_id])
+    create index(:tags, [:categoria_id])
 
     alter table(:midia) do
       remove :tags

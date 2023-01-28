@@ -12,6 +12,8 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateNucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Services.CreatePesquisador
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateLinhaPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Services.CreateCategoria
+  alias Pescarte.Domains.ModuloPesquisa.Services.CreateTag
   alias Pescarte.Domains.ModuloPesquisa.Services.GetCampus
   alias Pescarte.Domains.ModuloPesquisa.Services.GetCidade
   alias Pescarte.Domains.ModuloPesquisa.Services.GetMidia
@@ -19,6 +21,8 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   alias Pescarte.Domains.ModuloPesquisa.Services.GetNucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Services.GetPesquisador
   alias Pescarte.Domains.ModuloPesquisa.Services.GetLinhaPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Services.GetCategoria
+  alias Pescarte.Domains.ModuloPesquisa.Services.GetTag
   alias Pescarte.Domains.ModuloPesquisa.Services.UpdateMidia
   alias Pescarte.Domains.ModuloPesquisa.Services.UpdateNucleoPesquisa
 
@@ -42,7 +46,9 @@ defmodule Pescarte.Domains.ModuloPesquisa do
 
   defdelegate get_midia(id), to: GetMidia, as: :process
 
-  defdelegate list_midia, to: GetMidia, as: :process
+  defdelegate list_midias, to: GetMidia, as: :process
+
+  defdelegate list_midias_by(tag), to: GetMidia, as: :process
 
   defdelegate update_midia(params), to: UpdateMidia, as: :process
 
@@ -65,6 +71,16 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   defdelegate get_relatorio_mensal(id), to: GetRelatorioMensal, as: :process
 
   defdelegate list_relatorio_mensal, to: GetRelatorioMensal, as: :process
+
+  defdelegate list_categorias, to: GetCategoria, as: :process
+
+  defdelegate create_categoria(params), to: CreateCategoria, as: :process
+
+  defdelegate list_tags, to: GetTag, as: :process
+
+  defdelegate list_tags_by(midia), to: GetTag, as: :process
+
+  defdelegate create_tag(params), to: CreateTag, as: :process
 
   def change_relatorio_mensal(report, attrs \\ %{}) do
     RelatorioMensalRepo.changeset(report, attrs)

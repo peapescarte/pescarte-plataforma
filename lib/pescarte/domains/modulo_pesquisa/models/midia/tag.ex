@@ -9,5 +9,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     field :public_id, :string
 
     belongs_to :categoria, Categoria
+
+    timestamps()
   end
 end

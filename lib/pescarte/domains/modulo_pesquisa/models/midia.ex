@@ -23,4 +23,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
 
     timestamps()
   end
+
+  def types, do: @types
 end
