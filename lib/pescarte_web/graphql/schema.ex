@@ -5,6 +5,9 @@ defmodule PescarteWeb.GraphQL.Schema do
   alias PescarteWeb.GraphQL.Resolvers
   alias PescarteWeb.GraphQL.Types
 
+  import_types(Types.Scalars.Date)
+
+  import_types(Types.Auth)
   import_types(Types.Categoria)
   import_types(Types.Midia)
   import_types(Types.Tag)
@@ -51,13 +54,22 @@ defmodule PescarteWeb.GraphQL.Schema do
 
       resolve(&Resolvers.Midia.create_midia/2)
     end
-  end
 
-  # if it's a field for the mutation object, add this middleware to the end
-  def middleware(middleware, _field, %{identifier: :mutation}) do
-    middleware ++ [Middlewares.HandleChangesetErrors]
+    field :login, :login do
+      arg(:cpf, non_null(:string))
+      arg(:password, non_null(:string))
+
+      resolve(&Resolvers.Login.resolve/2)
+    end
   end
 
   # if it's any other object keep things as is
-  def middleware(middleware, _field, _object), do: middleware
+  def middleware(middleware, _field, object) do
+    middleware = [Middlewares.EnsureAuthentication | middleware]
+
+    case object do
+      %{identifier: :mutation} -> middleware ++ [Middlewares.HandleChangesetErrors]
+      _ -> middleware
+    end
+  end
 end

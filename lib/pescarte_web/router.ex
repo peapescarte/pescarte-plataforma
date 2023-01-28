@@ -20,6 +20,7 @@ defmodule PescarteWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug PescarteWeb.LocalePlug
+    plug PescarteWeb.GraphQL.Context
   end
 
   ## Endpoints para versão browser

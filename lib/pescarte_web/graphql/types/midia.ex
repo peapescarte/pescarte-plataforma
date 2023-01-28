@@ -2,9 +2,6 @@ defmodule PescarteWeb.GraphQL.Types.Midia do
   use Absinthe.Schema.Notation
 
   alias PescarteWeb.GraphQL.Resolvers
-  alias PescarteWeb.GraphQL.Types
-
-  import_types(Types.Scalars.Date)
 
   @desc "Tipos possíveis de Midias"
   enum :midia_type do

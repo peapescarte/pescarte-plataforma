@@ -44,22 +44,22 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
   end
 
   defp midia_multi(tags_attrs, midia_attrs) do
-      tags_attrs
-      |> Enum.reduce(Ecto.Multi.new(), fn attrs, multi ->
-        Ecto.Multi.run(multi, :tag, fn _, _ ->
-          ModuloPesquisa.create_tag(attrs)
-        end)
+    tags_attrs
+    |> Enum.reduce(Ecto.Multi.new(), fn attrs, multi ->
+      Ecto.Multi.run(multi, :tag, fn _, _ ->
+        ModuloPesquisa.create_tag(attrs)
       end)
-      |> Ecto.Multi.run(:tags, fn _repo, _changes ->
-        {:ok, ModuloPesquisa.list_tags()}
-      end)
-      |> Ecto.Multi.insert(:midia, fn tags ->
-        Midia.changeset(midia_attrs, tags)
-      end)
-      |> Database.transaction()
-      |> case do
-        {:ok, %{midia: midia}} -> {:ok, midia}
-        {:error, _, changeset, _} -> {:error, changeset}
-      end
+    end)
+    |> Ecto.Multi.run(:tags, fn _repo, _changes ->
+      {:ok, ModuloPesquisa.list_tags()}
+    end)
+    |> Ecto.Multi.insert(:midia, fn tags ->
+      Midia.changeset(midia_attrs, tags)
+    end)
+    |> Database.transaction()
+    |> case do
+      {:ok, %{midia: midia}} -> {:ok, midia}
+      {:error, _, changeset, _} -> {:error, changeset}
+    end
   end
 end
