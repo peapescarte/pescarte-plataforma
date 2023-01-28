@@ -5,8 +5,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.TagRepo do
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
-  @required_fields ~w(label categoria_id)a
-
   @impl true
   def all do
     Database.all(Tag)
@@ -36,12 +34,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.TagRepo do
 
   @impl true
   def insert(attrs) do
-    %Tag{}
-    |> cast(attrs, @required_fields)
-    |> validate_required(@required_fields)
-    |> unique_constraint(:label)
-    |> foreign_key_constraint(:categoria_id)
-    |> put_change(:public_id, Nanoid.generate())
+    attrs
+    |> Tag.changeset()
     |> Database.insert()
   end
 end

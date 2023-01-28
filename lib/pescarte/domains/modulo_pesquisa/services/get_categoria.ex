@@ -11,4 +11,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.GetCategoria do
   def process(id: id) do
     CategoriaRepo.fetch(id)
   end
+
+  def process(params) do
+    CategoriaRepo.fetch_by(params)
+  end
 end

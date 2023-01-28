@@ -12,7 +12,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.CategoriaRepo do
 
   @impl true
   def fetch(id) do
-    Database.fetch(Categoria, id)
+    fetch(Categoria, id)
+  end
+
+  @impl true
+  def fetch_by(params) do
+    fetch_by(Categoria, params)
   end
 
   @impl true

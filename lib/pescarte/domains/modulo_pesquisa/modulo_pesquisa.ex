@@ -74,6 +74,8 @@ defmodule Pescarte.Domains.ModuloPesquisa do
 
   defdelegate list_categorias, to: GetCategoria, as: :process
 
+  defdelegate get_categoria(params), to: GetCategoria, as: :process
+
   defdelegate create_categoria(params), to: CreateCategoria, as: :process
 
   defdelegate list_tags, to: GetTag, as: :process

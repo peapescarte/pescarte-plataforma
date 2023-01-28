@@ -24,6 +24,8 @@ defmodule Pescarte do
     quote do
       use Ecto.Schema
 
+      import Ecto.Changeset
+
       alias Pescarte.Types.CapitalizedString
       alias Pescarte.Types.TrimmedString
 

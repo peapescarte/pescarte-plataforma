@@ -4,9 +4,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo do
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
-  @required_fields ~w(type filename filedate sensible? link pesquisador_id)a
-  @optional_fields ~w(observation alt_text)a
-
   @impl true
   def all do
     Database.all(Midia)
@@ -30,12 +27,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo do
 
   @impl true
   def insert(attrs, tags \\ []) do
-    %Midia{}
-    |> cast(attrs, @required_fields ++ @optional_fields)
-    |> validate_required(@required_fields)
-    |> unique_constraint(:link)
-    |> foreign_key_constraint(:pesquisador_id)
-    |> put_assoc(:tags, tags)
+    attrs
+    |> Midia.changeset(tags)
     |> Database.insert()
   end
 
