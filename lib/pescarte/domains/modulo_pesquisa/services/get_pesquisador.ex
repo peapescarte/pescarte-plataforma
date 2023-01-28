@@ -11,4 +11,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.GetPesquisador do
   def process(id: id) do
     PesquisadorRepo.fetch(id)
   end
+
+  def process(params) do
+    PesquisadorRepo.fetch_by(params)
+  end
 end

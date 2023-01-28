@@ -2,12 +2,17 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo do
   use Pescarte, :repo
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
-
-  @required_fields ~w(type link pesquisador_id)a
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
   @impl true
   def all do
     Database.all(Midia)
+  end
+
+  def all_by_tag(%Tag{} = tag) do
+    [tag] = Database.all(from t in Tag, where: t.id == ^tag.id, preload: :midias)
+
+    tag.midias
   end
 
   @impl true
@@ -16,22 +21,24 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo do
   end
 
   @impl true
-  def insert(attrs) do
-    %Midia{}
-    |> cast(attrs, @required_fields)
-    |> validate_required(@required_fields)
-    |> unique_constraint(:link)
-    |> foreign_key_constraint(:pesquisador_id)
-    |> put_change(:public_id, Nanoid.generate())
+  def fetch_by(params) do
+    fetch_by(Midia, params)
+  end
+
+  @impl true
+  def insert(attrs, tags \\ []) do
+    attrs
+    |> Midia.changeset(tags)
     |> Database.insert()
   end
 
   @impl true
   def update(%Midia{} = midia, attrs) do
-    fields = ~w(type link)a
+    fields = ~w(type link filename filedate observation alt_text)a
 
     midia
     |> cast(attrs, fields)
+    |> unique_constraint(:filename)
     |> unique_constraint(:link)
     |> Database.update()
   end

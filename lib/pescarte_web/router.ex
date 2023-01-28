@@ -20,10 +20,16 @@ defmodule PescarteWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug PescarteWeb.LocalePlug
-    plug PescarteWeb.RequireApiKeyPlug
+    plug PescarteWeb.GraphQL.Context
   end
 
   ## Endpoints para versão browser
+
+  scope "/api" do
+    pipe_through [:api]
+
+    forward "/", Absinthe.Plug, schema: PescarteWeb.GraphQL.Schema
+  end
 
   scope "/", PescarteWeb do
     pipe_through [:browser]
@@ -102,6 +108,12 @@ defmodule PescarteWeb.Router do
       pipe_through :browser
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
+
+    scope "/dev" do
+      pipe_through :api
+
+      forward "/graphiql", Absinthe.Plug.GraphiQL, schema: PescarteWeb.GraphQL.Schema
     end
   end
 end

@@ -2,12 +2,13 @@ defmodule Pescarte.Repo.Migrations.CreateCategories do
   use Ecto.Migration
 
   def change do
-    create table(:category) do
+    create table("categorias") do
       add :name, :string, null: false
+      add :public_id, :string
 
       timestamps()
     end
 
-    create index(:category, [:name])
+    create index("categorias", [:name])
   end
 end

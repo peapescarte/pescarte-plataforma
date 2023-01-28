@@ -33,6 +33,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.PesquisadorRepo do
   end
 
   @impl true
+  def fetch_by(params) do
+    fetch_by(Pesquisador, params)
+  end
+
+  @impl true
   def insert(attrs) do
     %Pesquisador{}
     |> changeset(attrs)

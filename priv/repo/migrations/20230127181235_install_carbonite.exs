@@ -33,7 +33,7 @@ defmodule Pescarte.Repo.Migrations.InstallCarbonite do
       :relatorio_mensal,
       :user,
       :tags,
-      :category
+      :categorias
     ]
   end
 end

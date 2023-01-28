@@ -117,6 +117,13 @@ defmodule Pescarte.Database do
     end
   end
 
+  def insert!(source) do
+    case insert(source) do
+      {:ok, result} -> result
+      _ -> raise Ecto.CastError
+    end
+  end
+
   @doc """
   Deleta uma entidade existente no banco.
 
