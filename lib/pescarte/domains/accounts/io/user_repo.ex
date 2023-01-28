@@ -66,7 +66,6 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
       from u in User,
         left_join: c in assoc(u, :contato),
         where: fragment("lower(?)", c.email) == ^email,
-        where: u.active?,
         order_by: [desc: u.inserted_at],
         limit: 1
 

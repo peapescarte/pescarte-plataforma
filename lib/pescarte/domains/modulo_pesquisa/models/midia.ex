@@ -34,6 +34,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     |> unique_constraint(:link)
     |> foreign_key_constraint(:pesquisador_id)
     |> put_assoc(:tags, tags)
+    |> put_change(:public_id, Nanoid.generate())
   end
 
   def types, do: @types

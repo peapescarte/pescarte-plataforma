@@ -20,7 +20,7 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
   end
 
   defp put_categorias(tags) do
-    state = %{succes: [], errors: []}
+    state = %{success: [], errors: []}
 
     tags
     |> Enum.reduce(state, fn %{categoria_id: id} = tag, state ->
@@ -38,7 +38,7 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
       end
     end)
     |> case do
-      %{errors: [], succes: tags} -> {:ok, tags}
+      %{errors: [], success: tags} -> {:ok, tags}
       %{errors: errors} -> {:error, errors}
     end
   end
@@ -53,8 +53,16 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     |> Ecto.Multi.run(:tags, fn _repo, _changes ->
       {:ok, ModuloPesquisa.list_tags()}
     end)
-    |> Ecto.Multi.insert(:midia, fn tags ->
-      Midia.changeset(midia_attrs, tags)
+    |> Ecto.Multi.run(:pesquisador, fn _repo, _changes ->
+      case ModuloPesquisa.get_pesquisador_by(public_id: midia_attrs[:pesquisador_id]) do
+        {:error, :not_found} -> {:error, "Pesquisador não encontrado"}
+        {:ok, pesquisador} -> {:ok, pesquisador}
+      end
+    end)
+    |> Ecto.Multi.insert(:midia, fn %{tags: tags, pesquisador: pesquisador} ->
+      midia_attrs
+      |> Map.update!(:pesquisador_id, fn _ -> pesquisador.id end)
+      |> Midia.changeset(tags)
     end)
     |> Database.transaction()
     |> case do

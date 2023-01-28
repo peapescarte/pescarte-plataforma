@@ -64,6 +64,8 @@ defmodule Pescarte.Domains.ModuloPesquisa do
 
   defdelegate get_pesquisador(id), to: GetPesquisador, as: :process
 
+  defdelegate get_pesquisador_by(params), to: GetPesquisador, as: :process
+
   defdelegate list_pesquisador, to: GetPesquisador, as: :process
 
   defdelegate create_relatorio_mensal(params), to: CreateRelatorioMensal, as: :process
