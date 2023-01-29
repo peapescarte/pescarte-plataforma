@@ -1,8 +1,12 @@
-app = "pescarte"
+# fly.toml file generated for pescarte on 2023-01-28T19:15:47-03:00
 
+app = "pescarte"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
+
+[build]
+  image = "pescarte"
 
 [env]
 
@@ -16,7 +20,6 @@ processes = []
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
-
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20

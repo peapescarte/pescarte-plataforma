@@ -15,7 +15,7 @@ defmodule PescarteWeb.GraphQL.Context do
   defp build_context(conn) do
     with ["Bearer " <> token] <- get_req_header(conn, "authorization"),
          {:ok, current_user} <- authorize(token) do
-      %{current_user: current_user}
+      %{current_user: Database.preload(current_user, [:pesquisador])}
     else
       _ -> %{}
     end

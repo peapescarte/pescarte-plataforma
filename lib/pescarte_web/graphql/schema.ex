@@ -49,7 +49,6 @@ defmodule PescarteWeb.GraphQL.Schema do
       arg(:type, non_null(:midia_type))
       arg(:observation, :string)
       arg(:alt_text, :string)
-      arg(:pesquisador_id, non_null(:string))
       arg(:tags, list_of(:tag_input))
 
       resolve(&Resolvers.Midia.create_midia/2)

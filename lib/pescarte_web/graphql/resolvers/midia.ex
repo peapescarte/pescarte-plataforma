@@ -13,9 +13,9 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     {:ok, ModuloPesquisa.list_midias_by(tag)}
   end
 
-  def create_midia(%{tags: tags_attrs} = args, _resolution) do
+  def create_midia(%{tags: tags_attrs} = args, %{context: %{current_user: user}}) do
     with {:ok, tags} <- put_categorias(tags_attrs) do
-      midia_multi(tags, args)
+      midia_multi(tags, args, user)
     end
   end
 
@@ -43,7 +43,7 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     end
   end
 
-  defp midia_multi(tags_attrs, midia_attrs) do
+  defp midia_multi(tags_attrs, midia_attrs, user) do
     tags_attrs
     |> Enum.reduce(Ecto.Multi.new(), fn attrs, multi ->
       Ecto.Multi.run(multi, :tag, fn _, _ ->
@@ -53,15 +53,9 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     |> Ecto.Multi.run(:tags, fn _repo, _changes ->
       {:ok, ModuloPesquisa.list_tags()}
     end)
-    |> Ecto.Multi.run(:pesquisador, fn _repo, _changes ->
-      case ModuloPesquisa.get_pesquisador_by(public_id: midia_attrs[:pesquisador_id]) do
-        {:error, :not_found} -> {:error, "Pesquisador não encontrado"}
-        {:ok, pesquisador} -> {:ok, pesquisador}
-      end
-    end)
-    |> Ecto.Multi.insert(:midia, fn %{tags: tags, pesquisador: pesquisador} ->
+    |> Ecto.Multi.insert(:midia, fn %{tags: tags} ->
       midia_attrs
-      |> Map.update!(:pesquisador_id, fn _ -> pesquisador.id end)
+      |> Map.update!(:pesquisador_id, fn _ -> user.pesquisador.id end)
       |> Midia.changeset(tags)
     end)
     |> Database.transaction()
