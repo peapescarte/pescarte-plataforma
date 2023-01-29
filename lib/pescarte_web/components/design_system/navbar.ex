@@ -2,31 +2,33 @@ defmodule PescarteWeb.DesignSystem.NavBar do
   use PescarteWeb, :verified_routes
   use Phoenix.Component
 
-  attr(:conn, :any)
+  alias Pescarte.Domains.Accounts.Models.User
+  alias PescarteWeb.DesignSystem
+
+  attr(:current_user, User, default: nil)
   attr(:path, :string)
-  attr(:hidden?, :boolean, default: true)
 
   def navbar(assigns) do
     ~H"""
-    <nav class="navbar">
-      <div class="mobile">
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost">
-            <Lucideicons.menu stroke="#FF6E00" />
-          </label>
-          <ul tabindex="0">
-            <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
-          </ul>
-        </div>
-        <li class="btn btn-ghost">
-          <.menu_logo hidden?={@hidden?} />
-        </li>
-      </div>
+    <nav class={["navbar", @current_user && "authenticated"]}>
       <div class="desktop">
         <ul>
-          <li class="menu-logo"><.menu_logo hidden?={false} /></li>
-          <.menu_links current_user={@conn.assigns.current_user} path={@conn.path_info} />
+          <li class="menu-logo">
+            <.menu_logo />
+          </li>
+          <.guest_menu :if={!@current_user} />
+          <.authenticated_menu :if={@current_user} path={@path} />
         </ul>
+        <div class="user-info">
+          <%= if @current_user && @current_user.pesquisador.avatar do %>
+            <img class="avatar" src={@current_user.pesquisador.avatar} />
+          <% else %>
+            <Lucideicons.user :if={@current_user} />
+          <% end %>
+          <DesignSystem.text :if={@current_user} size="base" color="black-80" text_case="capitalize">
+            <%= @current_user.first_name %>
+          </DesignSystem.text>
+        </div>
       </div>
     </nav>
     """
@@ -36,7 +38,6 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     ~H"""
     <figure>
       <img
-        class={[@hidden? && "lg:hidden"]}
         src={~p"/images/pescarte_logo.svg"}
         alt="Logo completo do projeto com os dez peixinhos e nome"
       />
@@ -49,10 +50,12 @@ defmodule PescarteWeb.DesignSystem.NavBar do
   attr(:current?, :boolean, default: false)
 
   slot(:inner_block, required: true)
+  slot(:icon, required: true)
 
   defp menu_item(assigns) do
     ~H"""
     <li class="menu-item">
+      <%= render_slot(@icon) %>
       <.link navigate={@path} method={@method}>
         <%= render_slot(@inner_block) %>
       </.link>
@@ -60,39 +63,16 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     """
   end
 
-  attr(:path, :string)
-  attr(:current_user, Pescarte.Accounts.Models.User, default: nil)
-
   # Utiliza a função `Phoenix.LivewView.HTMLEngine.component/1`
   # manualmente para renderizar componentes dinâmicamente
   # dentro do `for/1`
-  defp menu_links(assigns) do
-    ~H"""
-    <.authenticated_menu :if={@current_user} path={@path} />
-    <.guest_menu :if={!@current_user} path={@path} />
-    """
-  end
-
-  attr(:path, :string)
-
-  defp authenticated_menu(assigns) do
-    ~H"""
-    <%= for item <- authenticated_menu_items() do %>
-      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@path, item.path)}>
-        <.icon name={item.icon} />
-        <%= item.label %>
-      </.menu_item>
-    <% end %>
-    """
-  end
-
-  attr(:path, :string)
-
   defp guest_menu(assigns) do
     ~H"""
     <%= for item <- guest_menu_items() do %>
-      <.menu_item path={item.path} method={item.method} current?={is_current_path?(@path, item.path)}>
-        <.icon name={item.icon} />
+      <.menu_item path={item.path} method={item.method}>
+        <:icon>
+          <.icon name={item.icon} />
+        </:icon>
         <%= item.label %>
       </.menu_item>
     <% end %>
@@ -102,11 +82,26 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     """
   end
 
-  defp is_current_path?([], "/"), do: true
+  attr(:path, :string)
 
-  defp is_current_path?([], _to), do: false
+  defp authenticated_menu(assigns) do
+    ~H"""
+    <%= for item <- authenticated_menu_items() do %>
+      <.menu_item path={item.path} method={item.method} current?={current_path?(@path, item.path)}>
+        <:icon>
+          <.icon name={item.icon} />
+        </:icon>
+        <%= item.label %>
+      </.menu_item>
+    <% end %>
+    """
+  end
 
-  defp is_current_path?(path_info, to) do
+  defp current_path?([], "/"), do: true
+
+  defp current_path?([], _to), do: false
+
+  defp current_path?(path_info, to) do
     # get from %Plug.Conn{}
     path = Enum.join(path_info, "/")
 

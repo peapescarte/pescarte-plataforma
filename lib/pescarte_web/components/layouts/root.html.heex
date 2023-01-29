@@ -32,7 +32,7 @@
     </script>
   </head>
   <body>
-    <.navbar conn={@conn} />
+    <.navbar current_user={@conn.assigns.current_user} path={@conn.path_info} />
     <%= @inner_content %>
     <.footer />
   </body>

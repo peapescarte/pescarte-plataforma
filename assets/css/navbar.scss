@@ -15,32 +15,105 @@
 
     ul {
       @apply w-11/12;
-      @apply flex justify-between items-center;
+      @apply flex justify-evenly items-center;
+
+      .menu-item {
+        @apply flex justify-center items-center;
+        @apply text-blue-100 font-medium;
+        @apply font-medium leading-8;
+        @apply border-0 bg-white-100;
+
+        padding: 0.75rem 1.5rem;
+        height: 3.25rem;
+        width: 16rem;
+        border-radius: 6.25rem;
+        white-space: nowrap;
+
+        svg {
+          @apply mr-6;
+        }
+
+        a {
+          @apply w-max h-max;
+          @apply flex justify-between items-center;
+
+          svg {
+            @apply mr-3;
+          }
+        }
+      }
+    }
+  }
+
+  &.authenticated {
+    @apply h-full w-max bg-white-100;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6.540rem;
+    overflow: hidden;
+    -webkit-transition:width .05s linear;
+    transition:width .05s linear;
+    -webkit-transform:translateZ(0) scale(1,1);
+    z-index:1000;
+
+    &:hover {
+      width: 20rem;
+      overflow: visible;
+    }
+
+    .desktop {
+      @apply w-max h-full;
+
+      ul {
+        @apply h-1/2;
+        @apply flex flex-col justify-between items-start;
+
+        position: absolute;
+        left: 2rem;
+        top: 6rem;
+
+        li > figure {
+          position: absolute;
+          left: 1.5rem;
+          width: 9.75rem;
+          height: 3.125rem;
+        }
+
+        .menu-item {
+          @apply flex items-start justify-between;
+          @apply text-black-60;
+
+          width: 13rem;
+
+          &:hover {
+            @apply text-blue-100;
+          }
+        }
+
+        .current {
+          @apply text-blue-100;
+        }
+      }
+
+      .user-info {
+        @apply flex items-center justify-between;
+
+        position: absolute;
+        top: 45.5rem;
+        left: 4rem;
+        width: 6rem;
+        height: 8rem;
+
+        img {
+          border-radius: 50%;
+        }
+      }
     }
   }
 }
 
-.menu-item {
-  @apply flex justify-center items-center;
-  @apply text-blue-100 font-medium;
-  @apply font-medium leading-8;
-  @apply border-0 bg-white-100;
-
-  padding: 0.75rem 1.5rem;
-  height: 3.25rem;
-  width: 10rem;
-  border-radius: 6.25rem;
-  white-space: nowrap;
-
-  a {
-    @apply w-max h-max;
-    @apply flex justify-between items-center;
-
-    svg {
-      @apply mr-3
-    }
-  }
-}
 
 .menu-logo {
   width: 9.75rem;
