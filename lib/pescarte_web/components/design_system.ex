@@ -34,7 +34,7 @@ defmodule PescarteWeb.DesignSystem do
   attr :type, :string, values: ~w(button reset submit), default: "button"
   attr :rounded?, :boolean, default: false
   attr :class, :string, default: nil
-  attr :style, :string, values: ~w(primary secondary)
+  attr :style, :string, values: ~w(primary secondary link)
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
@@ -52,6 +52,7 @@ defmodule PescarteWeb.DesignSystem do
       case style do
         "primary" -> "btn-primary"
         "secondary" -> "btn-secondary"
+        "link" -> "btn-link"
       end
 
     "btn " <> style
@@ -76,41 +77,58 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  attr :level, :string,
-    values: ["h1", "h2", "h3", "h4", "h5", "btn", "btn-lg", "btn-md", "btn-sm"]
+  attr :size, :string, values: ~w(h1 h2 h3 h4 h5 base lg md sm)
+  attr :color, :string, default: "blue-100"
+  attr :text_case, :string, default: "normal"
 
   slot :inner_block, required: true
 
   def text(assigns) do
     ~H"""
-    <h1 :if={@level == "h1"} class="font-bold text-3xl leading-10">
+    <h1 :if={@size == "h1"} class={build_text_class(@size, @color, @text_case)}>
       <%= render_slot(@inner_block) %>
     </h1>
-    <h2 :if={@level == "h2"} class="font-bold text-2xl leading-9">
+    <h2 :if={@size == "h2"} class={build_text_class(@size, @color, @text_case)}>
       <%= render_slot(@inner_block) %>
     </h2>
-    <h3 :if={@level == "h3"} class="font-bold text-xl leading-8">
+    <h3 :if={@size == "h3"} class={build_text_class(@size, @color, @text_case)}>
       <%= render_slot(@inner_block) %>
     </h3>
-    <h4 :if={@level == "h4"} class="font-medium text-lg leading-7">
+    <h4 :if={@size == "h4"} class={build_text_class(@size, @color, @text_case)}>
       <%= render_slot(@inner_block) %>
     </h4>
-    <h5 :if={@level == "h5"} class="font-bold text-base leading-4">
+    <h5 :if={@size == "h5"} class={build_text_class(@size, @color, @text_case)}>
       <%= render_slot(@inner_block) %>
     </h5>
-    <span :if={@level =~ "btn"} class={build_text_class(@level)}>
+    <span :if={!(@size =~ "h")} class={build_text_class(@size, @color, @text_case)}>
       <%= render_slot(@inner_block) %>
     </span>
     """
   end
 
-  defp build_text_class(level) do
-    case level do
-      "btn" -> ["font-medium", "text-base", "leading-4"]
-      "btn-lg" -> ["font-regular", "text-lg", "leading-6"]
-      "btn-md" -> ["font-regular", "text-sm", "leading-5"]
-      "btn-sm" -> ["font-regular", "text-xs", "leading-4"]
-    end
+  defp build_text_class(size, color, text_case) do
+    size =
+      case size do
+        "h1" -> ~w(font-bold text-3xl leading-10)
+        "h2" -> ~w(font-bold text-2xl leading-9)
+        "h3" -> ~w(font-bold text-xl leading-8)
+        "h4" -> ~w(font-medium text-lg leading-7)
+        "h5" -> ~w(font-bold text-base leading-4)
+        "base" -> ~w(font-medium text-base leading-4)
+        "lg" -> ~w(font-regular text-lg leading-6)
+        "md" -> ~w(font-regular text-sm leading-5)
+        "sm" -> ~w(font-regular text-xs leading-4)
+      end
+
+    color = "text-" <> color
+
+    text_case =
+      case text_case do
+        "normal" -> "normal-case"
+        other -> other
+      end
+
+    size ++ [color, text_case]
   end
 
   @doc """

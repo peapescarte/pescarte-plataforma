@@ -27,7 +27,6 @@
 
 body {
   @apply flex flex-col;
-  @apply text-blue-100;
   @apply items-center justify-between;
 
   position: relative;
@@ -39,7 +38,7 @@ body {
   font: 62.5% 'Work Sans' regular !important;
 
   .phx-connected {
-    @apply w-full h-full;
+    @apply h-full;
   }
 }
 

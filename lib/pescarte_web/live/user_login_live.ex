@@ -14,7 +14,7 @@ defmodule PescarteWeb.UserLoginLive do
       <:actions :let={f}>
         <.input field={{f, :remember_me}} type="checkbox" label="Mantanha-me conectado" />
         <.link href={~p"/usuarios/recuperar_senha"} class="text-sm font-semibold">
-          <.text level="btn-sm">
+          <.text size="sm">
             Esqueceu sua senha?
           </.text>
         </.link>
@@ -22,7 +22,7 @@ defmodule PescarteWeb.UserLoginLive do
 
       <:actions>
         <.button type="submit" style="primary">
-          <.text level="btn-lg">
+          <.text size="lg">
             Acessar
           </.text>
         </.button>

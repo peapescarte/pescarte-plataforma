@@ -21,6 +21,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     field :minibio, TrimmedString
     field :bolsa, Ecto.Enum, values: @tipo_bolsas
     field :link_lattes, TrimmedString
+    field :avatar, :string
+    field :link_linkedin, :string
+    field :profile_banner, :string
     field :public_id, :string
 
     has_many :orientandos, Pesquisador

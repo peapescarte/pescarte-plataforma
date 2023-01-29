@@ -1,11 +1,15 @@
 .user-profile-wrapper {
   .user-profile-banner {
     @apply w-full;
-    @apply bg-orange-60;
-
     height: 12.5rem;
     position: absolute;
     top: 0;
+
+    .user-profile-banner-default {
+      @apply bg-orange-60;
+
+      height: 12.5rem;
+    }
   }
 
   .user-profile-avatar {
@@ -23,5 +27,88 @@
     svg {
       margin: 20% auto;
     }
+  }
+
+  .user-profile-menu {
+    @apply bg-white-100 flex flex-col items-center justify-between;
+    @apply border-2 border-blue-80 text-blue-80;
+
+    &:hover {
+      position: absolute;
+    }
+
+    position: hidden;
+    border-radius: 1rem;
+    height: 10.9rem;
+    width: 11.5rem;
+    left: 75rem;
+    top: 14.5rem;
+  }
+
+  .user-profile-menu-dots {
+    @apply flex items-center;
+    @apply border-2 border-blue-80;
+
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 6.25rem;
+
+    position: absolute;
+    left: 75rem;
+    top: 14.5rem;
+
+    &:hover {
+      display: hidden;
+    }
+
+    .dots {
+      @apply w-1/2 mx-auto hover:hidden;
+      @apply flex justify-between items-center;
+
+      span {
+        @apply bg-blue-80;
+
+        border-radius: 50%;
+        height: 0.25rem;
+        width: 0.25rem;
+      }
+    }
+  }
+
+  .user-profile-info {
+    .basic-info {
+      @apply flex flex-col items-start justify-between;
+      @apply ml-6;
+
+      height: 4.65rem;
+    }
+
+    .about {
+      @apply w-full ml-6;
+      @apply flex flex-col items-start;
+
+      width: 62.5rem;
+      height: 6rem;
+
+      span {
+        height: 7.5rem;
+      }
+    }
+
+    .links {
+      @apply ml-6;
+      @apply flex flex-col items-start justify-between;
+
+      height: 8.75rem;
+    }
+
+     hr {
+      @apply border-2 bg-black-10;
+      @apply text-black-10 mx-auto my-10;
+
+      height: 2px;
+      width: 62.6rem;
+      opacity: 0.4;
+     }
   }
 }

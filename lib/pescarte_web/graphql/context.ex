@@ -3,6 +3,7 @@ defmodule PescarteWeb.GraphQL.Context do
 
   import Plug.Conn
 
+  alias Pescarte.Database
   alias Pescarte.Domains.Accounts
 
   def init(opts), do: opts

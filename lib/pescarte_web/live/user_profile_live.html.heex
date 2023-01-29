@@ -1,9 +1,36 @@
 <div class="user-profile-wrapper">
-  <div class="user-profile-banner">
-    <!-- <img :if={@current_user}  /> -->
-  </div>
-  <div class="user-profile-avatar">
-    <!-- <img :if={@current_user}  /> -->
-    <Lucideicons.user width="100" height="100" />
-  </div>
+  <.banner current_user={@current_user} />
+  <.avatar current_user={@current_user} />
+  <.user_profile_menu />
+  <section class="user-profile-info">
+    <div class="basic-info">
+      <.text size="h2" color="black-80">
+        <%= full_name(@current_user) %>
+      </.text>
+      <.text size="h4" color="black-80" text_case="uppercase">
+        <%= @current_user.pesquisador.bolsa %>
+      </.text>
+    </div>
+    <hr />
+    <div class="about">
+      <.text size="lg" color="black-80" text_case="capitalize">
+        sobre
+      </.text>
+      <.text size="base" color="black-80" text_case="capitalize">
+        <%= @current_user.pesquisador.minibio %>
+      </.text>
+    </div>
+    <hr />
+    <div class="links">
+      <.text size="lg" color="black-80" text_case="capitalize">
+        links
+      </.text>
+      <.profile_link href={@current_user.pesquisador.link_lattes} label="Lattes">
+        <Lucideicons.file width="35" height="23" class="text-white-100" />
+      </.profile_link>
+      <.profile_link href={@current_user.pesquisador.link_linkedin} label="LinkedIn">
+        <Lucideicons.linkedin width="35" height="23" class="text-white-100" />
+      </.profile_link>
+    </div>
+  </section>
 </div>

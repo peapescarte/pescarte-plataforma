@@ -37,4 +37,8 @@
     @apply border-blue-20;
     @apply text-blue-20;
   }
+
+  .btn-link {
+    @apply text-blue-80 hover:underline decoration-blue-80;
+  }
 }
