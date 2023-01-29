@@ -38,7 +38,8 @@ body {
   font: 62.5% 'Work Sans' regular !important;
 
   .phx-connected {
-    @apply h-full;
+    @apply h-full w-full;
+    margin-left: 6.540rem;
   }
 }
 

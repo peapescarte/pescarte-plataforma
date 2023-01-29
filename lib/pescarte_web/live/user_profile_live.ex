@@ -35,12 +35,13 @@ defmodule PescarteWeb.UserProfileLive do
 
   def user_profile_menu(assigns) do
     ~H"""
-    <div class="user-profile-menu-dots">
-      <div class="dots">
-        <span /> <span /> <span />
-      </div>
-    </div>
     <div class="user-profile-menu">
+      <div class="user-profile-menu-dots">
+        <div class="dots">
+          <span /> <span /> <span />
+        </div>
+      </div>
+
       <.profile_menu_link on_click="edit_profile" label="Editar Perfil">
         <Lucideicons.edit />
       </.profile_menu_link>
@@ -56,18 +57,18 @@ defmodule PescarteWeb.UserProfileLive do
     """
   end
 
-  attr :on_click, :string, required: true
-  attr :label, :string, required: true
+  attr(:on_click, :string, required: true)
+  attr(:label, :string, required: true)
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   defp profile_menu_link(assigns) do
     ~H"""
-    <div class="flex justify-between items-center w-28">
+    <div class="profile-menu-link">
       <span class="flex items-center justify-center bg-white-100 h-12 w-12">
         <%= render_slot(@inner_block) %>
       </span>
-      <.button style="link" phx-click={@on_click}>
+      <.button style="link" class="whitespace-nowrap" phx-click={@on_click}>
         <.text size="base" color="blue-80" text_case="capitalize">
           <%= @label %>
         </.text>
@@ -76,10 +77,10 @@ defmodule PescarteWeb.UserProfileLive do
     """
   end
 
-  attr :href, :string, required: true
-  attr :label, :string, required: true
+  attr(:href, :string, required: true)
+  attr(:label, :string, required: true)
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   def profile_link(assigns) do
     ~H"""
