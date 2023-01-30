@@ -12,7 +12,6 @@ defmodule PescarteWeb.Telemetry do
   end
 
   @impl Supervisor
-  @spec init(any) :: {:ok, tuple}
   def init(_arg) do
     children = [
       # Telemetry poller will execute the given period measurements

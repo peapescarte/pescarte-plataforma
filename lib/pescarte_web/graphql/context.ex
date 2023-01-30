@@ -25,8 +25,8 @@ defmodule PescarteWeb.GraphQL.Context do
   defp authorize(token) do
     with {:ok, user_id} <- Phoenix.Token.verify(PescarteWeb.Endpoint, "user auth", token) do
       case Accounts.get_user_by_id(user_id) do
-        nil -> %{}
-        user -> user
+        {:error, _} -> %{}
+        {:ok, user} -> user
       end
     end
   end
