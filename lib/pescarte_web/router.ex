@@ -2,10 +2,10 @@ defmodule PescarteWeb.Router do
   use PescarteWeb, :router
 
   alias PescarteWeb.UserAuthentication
-  alias PescarteWeb.UserAuthorization
+  # alias PescarteWeb.UserAuthorization
 
   import PescarteWeb.UserAuthentication
-  import PescarteWeb.UserAuthorization
+  # import PescarteWeb.UserAuthorization
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -70,7 +70,7 @@ defmodule PescarteWeb.Router do
 
       scope "/relatorios" do
         # FIXME mudar para live view
-        get "/", RelatorioController, :index
+        # get "/", RelatorioController, :index
         live "/mensal", RelatorioMensalLive
       end
     end

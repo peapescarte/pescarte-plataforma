@@ -77,7 +77,7 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  attr :size, :string, values: ~w(h1 h2 h3 h4 h5 base lg md sm)
+  attr :size, :string, values: ~w(h1 h2 h3 h4 h5 base lg md sm), default: "base"
   attr :color, :string, default: "blue-100"
   attr :text_case, :string, default: "normal"
 
@@ -362,7 +362,6 @@ defmodule PescarteWeb.DesignSystem do
       </.table>
   """
   attr :id, :string, required: true
-  attr :row_click, :any, default: nil
   attr :rows, :list, required: true
 
   slot :col, required: true do
@@ -373,41 +372,28 @@ defmodule PescarteWeb.DesignSystem do
 
   def table(assigns) do
     ~H"""
-    <div id={@id} class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-      <table class="mt-11 w-[40rem] sm:w-full">
-        <thead class="text-left text-[0.8125rem] leading-6 text-zinc-500">
+    <div id={@id} class="overflow-y-auto px-4">
+      <table class="mt-11 sm:w-full">
+        <thead class="text-center bg-blue-100 text-white-100">
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
-            <th class="relative p-0 pb-4"><span class="sr-only">"Actions"</span></th>
+            <th :for={col <- @col}><%= col[:label] %></th>
+            <th class="relative p-0 pb-4">
+              <span class="sr-only">"Actions"</span>
+            </th>
           </tr>
         </thead>
-        <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
-          <tr
-            :for={row <- @rows}
-            id={"#{@id}-#{Phoenix.Param.to_param(row)}"}
-            class="relative group hover:bg-zinc-50"
-          >
-            <td
-              :for={{col, i} <- Enum.with_index(@col)}
-              phx-click={@row_click && @row_click.(row)}
-              class={["p-0", @row_click && "hover:cursor-pointer"]}
-            >
-              <div :if={i == 0}>
-                <span class="absolute h-full w-4 top-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
-                <span class="absolute h-full w-4 top-0 -right-4 group-hover:bg-zinc-50 sm:rounded-r-xl" />
-              </div>
+        <tbody>
+          <tr :for={row <- @rows} id={"#{@id}-#{Phoenix.Param.to_param(row)}"} class="group">
+            <td :for={col <- @col}>
               <div class="block py-4 pr-6">
-                <span class={["relative", i == 0 && "font-semibold text-zinc-900"]}>
+                <span class="relative">
                   <%= render_slot(col, row) %>
                 </span>
               </div>
             </td>
             <td :if={@action != []} class="p-0 w-14">
-              <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
-                <span
-                  :for={action <- @action}
-                  class="relative ml-4 font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
-                >
+              <div class="">
+                <span :for={action <- @action} class="">
                   <%= render_slot(action, row) %>
                 </span>
               </div>

@@ -8,6 +8,7 @@
 @import "./button.scss";
 @import "./relatorio.scss";
 @import "./profile.scss";
+@import "./pesquisadores.scss";
 
 * {
   margin: 0;
@@ -39,7 +40,7 @@ body {
 
   .phx-connected {
     @apply h-full w-full;
-    margin-left: 6.540rem;
+    margin-left: 15rem;
   }
 }
 

@@ -1,6 +1,8 @@
 defmodule PescarteWeb.UserProfileLive do
   use PescarteWeb, :live_view
 
+  alias Pescarte.Domains.Accounts.Models.User
+
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
@@ -98,11 +100,5 @@ defmodule PescarteWeb.UserProfileLive do
       </.link>
     </div>
     """
-  end
-
-  def full_name(user) do
-    names = [user.first_name, user.middle_name, user.last_name]
-
-    Enum.join(names, " ")
   end
 end

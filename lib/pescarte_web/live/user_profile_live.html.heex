@@ -5,7 +5,7 @@
   <section class="user-profile-info">
     <div class="basic-info">
       <.text size="h2" color="black-80">
-        <%= full_name(@current_user) %>
+        <%= User.full_name(@current_user) %>
       </.text>
       <.text size="h4" color="black-80" text_case="uppercase">
         <%= @current_user.pesquisador.bolsa %>

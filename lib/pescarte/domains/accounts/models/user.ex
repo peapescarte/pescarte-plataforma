@@ -24,5 +24,11 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     timestamps()
   end
 
+  def full_name(user) do
+    names = [user.first_name, user.middle_name, user.last_name]
+
+    Enum.join(names, " ")
+  end
+
   def user_roles, do: @valid_roles
 end
