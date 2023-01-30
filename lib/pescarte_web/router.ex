@@ -66,6 +66,7 @@ defmodule PescarteWeb.Router do
     live_session :require_authenticated_user,
       on_mount: [{UserAuthentication, :ensure_authenticated}] do
       live "/perfil", UserProfileLive
+      live "/pesquisadores", PesquisadoresLive, :index
 
       scope "/relatorios" do
         # FIXME mudar para live view
@@ -77,19 +78,16 @@ defmodule PescarteWeb.Router do
     delete "/desconectar", LoginController, :delete
   end
 
-  scope "/app/admin", PescarteWeb do
-    pipe_through [:browser, :require_authenticated_user, :require_admin_role]
+  # scope "/app/admin", PescarteWeb do
+  #   pipe_through [:browser, :require_authenticated_user, :require_admin_role]
 
-    live_session :require_admin_role,
-      on_mount: [
-        {UserAuthentication, :ensure_authenticated},
-        {UserAuthorization, :ensure_admin_role}
-      ] do
-      live "/pesquisadores", AdminPesquisadoresLive, :index
-      live "/pesquisadores/:id", AdminPesquisadoresLive, :show
-      live "/pesquisadores/cadastrar", AdminPesquisadoresLive, :new
-    end
-  end
+  #   live_session :require_admin_role,
+  #     on_mount: [
+  #       {UserAuthentication, :ensure_authenticated},
+  #       {UserAuthorization, :ensure_admin_role}
+  #     ] do
+  #   end
+  # end
 
   ## Endpoints para ambiente de desenvolvimento
 
