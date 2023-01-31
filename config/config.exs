@@ -35,29 +35,31 @@ if esbuild_path do
 end
 
 config :esbuild,
-  version: "0.14.0",
+  version: "0.17.5",
   default: [
     args:
-      ~w(js/app.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/* --external:/icons/*),
+      ~w(js/app.js js/storybook.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
 config :dart_sass,
-  version: "1.54.5",
+  version: "1.57.1",
   default: [
     args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
     cd: Path.expand("../assets", __DIR__)
   ]
 
 config :tailwind,
-  version: "3.0.24",
+  version: "3.2.4",
   default: [
-    args: ~w(
-      --config=tailwind.config.js
-      --input=../priv/static/assets/app.css.tailwind
-      --output=../priv/static/assets/app.css
-    ),
+    args:
+      ~w(--config=tailwind.config.js --input=../priv/static/assets/app.css.tailwind --output=../priv/static/assets/app.css),
+    cd: Path.expand("../assets", __DIR__)
+  ],
+  storybook: [
+    args:
+      ~w(--config=tailwind.config.js --input=css/storybook.css --output=../priv/static/assets/storybook.css),
     cd: Path.expand("../assets", __DIR__)
   ]
 

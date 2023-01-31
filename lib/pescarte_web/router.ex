@@ -1,11 +1,12 @@
 defmodule PescarteWeb.Router do
   use PescarteWeb, :router
 
-  alias PescarteWeb.UserAuthentication
-  # alias PescarteWeb.UserAuthorization
-
+  import PhxLiveStorybook.Router
   import PescarteWeb.UserAuthentication
   # import PescarteWeb.UserAuthorization
+
+  alias PescarteWeb.UserAuthentication
+  # alias PescarteWeb.UserAuthorization
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -31,10 +32,13 @@ defmodule PescarteWeb.Router do
     forward "/", Absinthe.Plug, schema: PescarteWeb.GraphQL.Schema
   end
 
+  scope("/", do: storybook_assets())
+
   scope "/", PescarteWeb do
     pipe_through [:browser]
 
     get "/", LandingPageController, :show
+    live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
   end
 
   scope "/", PescarteWeb do
