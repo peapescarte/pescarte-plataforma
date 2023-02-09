@@ -11,5 +11,9 @@ defmodule PescarteWeb.GraphQL.Types.Tag do
     field :midias, list_of(:midia) do
       resolve(&Resolvers.Midia.list_tags/3)
     end
+
+    field :categoria, :categoria do
+      resolve(&Resolvers.Categoria.get/3)
+    end
   end
 end
