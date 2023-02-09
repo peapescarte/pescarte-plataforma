@@ -18,7 +18,6 @@ config :pescarte, PescarteWeb.Endpoint,
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
-    storybook_tailwind: {Tailwind, :install_and_run, [:storybook, ~w(--watch)]},
     sass: {DartSass, :install_and_run, [:default, ~w(--watch)]}
   ]
 
@@ -28,8 +27,7 @@ config :pescarte, PescarteWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"lib/pescarte_web/(|views|components)/.*(ex|js)$",
-      ~r"lib/pescarte_web/templates/.*(eex)$",
-      ~r"storybook/.*(exs)$"
+      ~r"lib/pescarte_web/templates/.*(eex)$"
     ]
   ]
 

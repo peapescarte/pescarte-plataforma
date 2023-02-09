@@ -86,6 +86,8 @@ defmodule Pescarte.Domains.ModuloPesquisa do
 
   defdelegate create_tag(params), to: CreateTag, as: :process
 
+  defdelegate get_tag(params), to: GetTag, as: :process
+
   def change_relatorio_mensal(report, attrs \\ %{}) do
     RelatorioMensalRepo.changeset(report, attrs)
   end

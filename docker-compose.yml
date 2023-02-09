@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - 4000:4000
+    depends_on:
+      db:
+        condition: service_healthy
+
+    env_file:
+      - .env-sample
+
+
+  db:
+    image: postgres:14.6
+    environment:
+      - POSTGRES_USER=peapescarte
+      - POSTGRES_PASSWORD=peapescarte
+    ports:
+      - 5432:5432
+    volumes:
+      - .postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U peapescarte"]
+      interval: 5s
+      timeout: 2s
+      retries: 1

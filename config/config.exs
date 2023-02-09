@@ -37,8 +37,7 @@ end
 config :esbuild,
   version: "0.17.5",
   default: [
-    args:
-      ~w(js/app.js js/storybook.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
+    args: ~w(js/app.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
@@ -55,11 +54,6 @@ config :tailwind,
   default: [
     args:
       ~w(--config=tailwind.config.js --input=../priv/static/assets/app.css.tailwind --output=../priv/static/assets/app.css),
-    cd: Path.expand("../assets", __DIR__)
-  ],
-  storybook: [
-    args:
-      ~w(--config=tailwind.config.js --input=css/storybook.css --output=../priv/static/assets/storybook.css),
     cd: Path.expand("../assets", __DIR__)
   ]
 

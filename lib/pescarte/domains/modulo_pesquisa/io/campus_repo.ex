@@ -17,6 +17,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.CampusRepo do
   end
 
   @impl true
+  def fetch_by(params) do
+    fetch_by(Campus, params)
+  end
+
+  @impl true
   def insert(attrs) do
     %Campus{}
     |> cast(attrs, @optional_fields ++ @required_fields)

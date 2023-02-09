@@ -73,15 +73,14 @@ if config_env() == :prod do
     System.get_env("SECRET_KEY_BASE") ||
       raise "SECRET_KEY_BASE not available"
 
-  app_name =
-    System.get_env("FLY_APP_NAME") ||
-      raise "FLY_APP_NAME not available"
-
   config :pescarte, PescarteWeb.Endpoint,
-    url: [host: "#{app_name}.fly.dev", port: 443],
     http: [
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
     ],
     secret_key_base: secret_key_base
+
+  if app_name = System.get_env("FLY_APP_NAME") do
+    config :pescarte, PescarteWeb.Endpoint, url: [host: "#{app_name}.fly.dev", port: 443]
+  end
 end

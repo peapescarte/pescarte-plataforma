@@ -14,6 +14,8 @@ defmodule Pescarte.Domains.Accounts do
 
   defdelegate list_user, to: Services.GetUser, as: :process
 
+  defdelegate get_user(params), to: Services.GetUser, as: :process
+
   def get_user_by_cpf_and_password(cpf, pass) do
     Services.GetUser.process(cpf: cpf, password: pass)
   end

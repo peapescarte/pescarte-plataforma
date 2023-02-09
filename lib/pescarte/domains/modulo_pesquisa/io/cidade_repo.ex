@@ -9,6 +9,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.CidadeRepo do
   end
 
   @impl true
+  def fetch_by(params) do
+    fetch_by(Cidade, params)
+  end
+
+  @impl true
   def insert(attrs) do
     %Cidade{}
     |> cast(attrs, [:county])

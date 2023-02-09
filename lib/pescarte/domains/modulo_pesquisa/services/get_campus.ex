@@ -11,4 +11,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.GetCampus do
   def process(municipio: id) do
     CampusRepo.fetch(id)
   end
+
+  def process(params) do
+    CampusRepo.fetch_by(params)
+  end
 end
