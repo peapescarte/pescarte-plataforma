@@ -80,6 +80,10 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  if is_uenf? = System.get_env("UENF_SERVER") do
+    config :pescarte, PescarteWeb.Endpoint, url: [host: "pescarte.uenf.br", port: 8080]
+  end
+
   if app_name = System.get_env("FLY_APP_NAME") do
     config :pescarte, PescarteWeb.Endpoint, url: [host: "#{app_name}.fly.dev", port: 443]
   end
