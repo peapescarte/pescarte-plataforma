@@ -11,7 +11,19 @@ defmodule PescarteWeb.GraphQL.Resolvers.Tag do
     {:ok, ModuloPesquisa.list_tags_by(midia)}
   end
 
-  def create_tag(args, _resolution) do
-    ModuloPesquisa.create_tag(args)
+  def update_tag(%{input: args}, _resolution) do
+    with {:ok, tag} <- ModuloPesquisa.get_tag(public_id: args.id) do
+      ModuloPesquisa.update_tag(%{tag | label: args.label})
+    end
+  end
+
+  def create_tag(%{categoria_id: cat_id} = args, _resolution) do
+    case ModuloPesquisa.get_categoria(public_id: cat_id) do
+      {:ok, categoria} ->
+        ModuloPesquisa.create_tag(%{args | categoria_id: categoria.id})
+
+      {:error, :not_found} ->
+        {:error, "Categoria não encontrada"}
+    end
   end
 end

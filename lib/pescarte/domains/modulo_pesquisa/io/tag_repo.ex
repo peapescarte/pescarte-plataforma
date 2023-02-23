@@ -38,4 +38,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.TagRepo do
     |> Tag.changeset()
     |> Database.insert()
   end
+
+  @impl true
+  def update(%Tag{} = tag, attrs) do
+    tag
+    |> cast(attrs, [:label])
+    |> unique_constraint(:label)
+    |> Database.update()
+  end
 end

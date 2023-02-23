@@ -17,12 +17,18 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo do
 
   @impl true
   def fetch(id) do
-    fetch(Midia, id)
+    case fetch(Midia, id) do
+      {:ok, midia} -> {:ok, Database.preload(midia, [:tags])}
+      error -> error
+    end
   end
 
   @impl true
   def fetch_by(params) do
-    fetch_by(Midia, params)
+    case fetch_by(Midia, params) do
+      {:ok, midia} -> {:ok, Database.preload(midia, [:tags])}
+      error -> error
+    end
   end
 
   @impl true
@@ -30,6 +36,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo do
     attrs
     |> Midia.changeset(tags)
     |> Database.insert()
+    |> case do
+      {:ok, midia} -> {:ok, Database.preload(midia, [:tags])}
+      error -> error
+    end
   end
 
   @impl true
@@ -40,6 +50,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo do
     |> cast(attrs, fields)
     |> unique_constraint(:filename)
     |> unique_constraint(:link)
+    |> put_assoc(:tags, attrs[:tags] || midia.tags)
     |> Database.update()
+    |> case do
+      {:ok, midia} -> {:ok, Database.preload(midia, [:tags])}
+      error -> error
+    end
   end
 end

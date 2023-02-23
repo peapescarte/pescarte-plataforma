@@ -17,33 +17,64 @@ defmodule PescarteWeb.GraphQL.Schema do
       resolve(&Resolvers.Midia.list/2)
     end
 
+    field :categorias, list_of(:categoria) do
+      resolve(&Resolvers.Categoria.list/2)
+    end
+
     field :users, list_of(:user) do
       resolve(&Resolvers.User.list/2)
     end
   end
 
-  input_object :tag_input do
+  input_object :create_tag_input do
     field :label, non_null(:string)
     field :categoria_id, non_null(:string)
   end
 
+  input_object :update_tag_input do
+    field :id, non_null(:string)
+    field :label, non_null(:string)
+  end
+
+  input_object :remove_tag_input do
+    field :id, non_null(:string)
+  end
+
+  input_object :create_midia_input do
+    field :filename, non_null(:string)
+    field :filedate, non_null(:date)
+    field :link, non_null(:string)
+    field :sensible?, :boolean, name: "sensible"
+    field :type, non_null(:midia_type)
+    field :observation, :string
+    field :alt_text, :string
+    field :author_id, non_null(:string)
+    field :tags, list_of(:create_tag_input)
+  end
+
   mutation do
-    field :tag, :tag do
+    field :create_tag, :tag do
       arg(:label, non_null(:string))
       arg(:categoria_id, non_null(:string))
 
       resolve(&Resolvers.Tag.create_tag/2)
     end
 
-    field :midia, :midia do
-      arg(:filename, non_null(:string))
-      arg(:filedate, non_null(:date))
-      arg(:link, non_null(:string))
-      arg(:sensible?, :boolean, name: "sensible")
-      arg(:type, non_null(:midia_type))
-      arg(:observation, :string)
-      arg(:alt_text, :string)
-      arg(:tags, list_of(:tag_input))
+    field :update_tag, :tag do
+      arg(:input, :update_tag_input)
+
+      resolve(&Resolvers.Tag.update_tag/2)
+    end
+
+    field :remove_midia_tags, list_of(:tag) do
+      arg(:midia_id, non_null(:string))
+      arg(:tags, list_of(:remove_tag_input))
+
+      resolve(&Resolvers.Midia.remove_tags/2)
+    end
+
+    field :create_midia, :midia do
+      arg(:input, :create_midia_input)
 
       resolve(&Resolvers.Midia.create_midia/2)
     end

@@ -14,6 +14,9 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
+  @impl true
+  def all(fields \\ [])
+
   def all([]) do
     Database.all(User)
   end

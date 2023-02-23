@@ -1,6 +1,7 @@
 defmodule PescarteWeb.GraphQL.Resolvers.Midia do
   alias Pescarte.Database
 
+  alias Pescarte.Domains.Accounts
   alias Pescarte.Domains.ModuloPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
@@ -13,8 +14,24 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     {:ok, ModuloPesquisa.list_midias_by(tag)}
   end
 
-  def create_midia(%{tags: tags_attrs} = args, %{context: %{current_user: user}}) do
-    with {:ok, tags} <- put_categorias(tags_attrs) do
+  def remove_tags(args, _resolution) do
+    with {:ok, midia} <- ModuloPesquisa.get_midia(public_id: args.midia_id) do
+      tags_ids = Enum.map(midia.tags, & &1.public_id) -- Enum.map(args.tags, & &1.id)
+
+      new_tags = Enum.filter(midia.tags, &(&1.public_id in tags_ids)) |> IO.inspect()
+
+      case ModuloPesquisa.update_midia(%{midia | tags: new_tags}) do
+        {:ok, midia} -> {:ok, midia.tags}
+        error -> error
+      end
+    end
+  end
+
+  def create_midia(%{input: args}, _resolution) do
+    tags_attrs = Map.get(args, :tags, [])
+
+    with {:ok, user} <- Accounts.get_user(public_id: args.author_id),
+         {:ok, tags} <- put_categorias(tags_attrs) do
       midia_multi(tags, args, user)
     end
   end
@@ -45,8 +62,9 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
 
   defp midia_multi(tags_attrs, midia_attrs, user) do
     tags_attrs
-    |> Enum.reduce(Ecto.Multi.new(), fn attrs, multi ->
-      Ecto.Multi.run(multi, :tag, fn _, _ ->
+    |> Enum.with_index()
+    |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
+      Ecto.Multi.run(multi, :"tag-#{idx}", fn _, _ ->
         ModuloPesquisa.create_tag(attrs)
       end)
     end)
@@ -55,7 +73,7 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     end)
     |> Ecto.Multi.insert(:midia, fn %{tags: tags} ->
       midia_attrs
-      |> Map.update!(:pesquisador_id, fn _ -> user.pesquisador.id end)
+      |> Map.update!(:author_id, fn _ -> user.id end)
       |> Midia.changeset(tags)
     end)
     |> Database.transaction()

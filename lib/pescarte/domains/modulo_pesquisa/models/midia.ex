@@ -1,7 +1,7 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
   use Pescarte, :model
 
-  alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
+  alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Types.TrimmedString
 
@@ -20,9 +20,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     field :alt_text, TrimmedString
     field :public_id, :string
 
-    belongs_to :author, Pesquisador, on_replace: :update
+    belongs_to :author, User, on_replace: :update
 
-    many_to_many :tags, Tag, join_through: "midias_tags"
+    many_to_many :tags, Tag, join_through: "midias_tags", on_replace: :delete, unique: true
 
     timestamps()
   end

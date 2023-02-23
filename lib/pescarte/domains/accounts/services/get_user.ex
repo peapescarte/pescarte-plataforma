@@ -5,18 +5,6 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
   alias Pescarte.Domains.Accounts.Services.UserFields
 
   @impl true
-  def process(cpf: cpf) do
-    with {:ok, user} <- UserRepo.fetch_by(cpf: cpf) do
-      {:ok, UserFields.put_permissions(user)}
-    end
-  end
-
-  def process(id: id) do
-    with {:ok, user} <- UserRepo.fetch(id) do
-      {:ok, UserFields.put_permissions(user)}
-    end
-  end
-
   def process(cpf: cpf, password: password) do
     with {:ok, user} <- UserRepo.fetch_by(cpf: cpf) do
       if UserFields.valid_password?(user, password) do
@@ -44,11 +32,20 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
     |> UserRepo.fetch_by_email()
   end
 
+  def process([]) do
+    UserRepo.all()
+  end
+
   def process(args) do
-    if Enum.all?(args, &is_atom/1) do
-      UserRepo.all(args)
-    else
-      process(args)
+    cond do
+      Enum.all?(args, &is_tuple/1) ->
+        UserRepo.fetch_by(args)
+
+      Enum.all?(args, &is_atom/1) ->
+        UserRepo.all(args)
+
+      true ->
+        {:error, :invalid_args}
     end
   end
 end

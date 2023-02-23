@@ -25,6 +25,7 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   alias Pescarte.Domains.ModuloPesquisa.Services.GetTag
   alias Pescarte.Domains.ModuloPesquisa.Services.UpdateMidia
   alias Pescarte.Domains.ModuloPesquisa.Services.UpdateNucleoPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Services.UpdateTag
 
   defdelegate create_campus(params), to: CreateCampus, as: :process
 
@@ -44,7 +45,7 @@ defmodule Pescarte.Domains.ModuloPesquisa do
 
   defdelegate create_midia(params), to: CreateMidia, as: :process
 
-  defdelegate get_midia(id), to: GetMidia, as: :process
+  defdelegate get_midia(params), to: GetMidia, as: :process
 
   defdelegate list_midias, to: GetMidia, as: :process
 
@@ -87,6 +88,8 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   defdelegate create_tag(params), to: CreateTag, as: :process
 
   defdelegate get_tag(params), to: GetTag, as: :process
+
+  defdelegate update_tag(attrs), to: UpdateTag, as: :process
 
   def change_relatorio_mensal(report, attrs \\ %{}) do
     RelatorioMensalRepo.changeset(report, attrs)

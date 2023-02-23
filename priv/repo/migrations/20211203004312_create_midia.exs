@@ -7,7 +7,7 @@ defmodule Pescarte.Repo.Migrations.CreateMidia do
       add :type, :string, null: false
       add :tags, {:array, :string}, null: false
       add :link, :string, null: false
-      add :author_id, references(:pesquisador), null: false
+      add :author_id, references(:user), null: false
 
       timestamps()
     end
