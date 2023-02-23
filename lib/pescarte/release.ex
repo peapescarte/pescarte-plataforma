@@ -22,16 +22,16 @@ defmodule Pescarte.Release do
     load_app()
 
     for repo <- repos() do
-      {:ok, _, _} = Ecto.Migrator.with_repo(repo, &run_seeds/1)
-    end
-  end
-
-  defp run_seeds(_repo) do
-    priv_dir = :code.priv_dir(@app) |> List.to_string()
-    script = Path.join(priv_dir, "/repo/seeds.exs")
-
-    if File.exists?(script) do
-      Code.eval_file(script)
+      {:ok, _, _} =
+        Ecto.Migrator.with_repo(repo, fn _repo ->
+          Seeds.Cidades.run()
+          Seeds.Campi.run()
+          Seeds.Users.run()
+          Seeds.Pesquisadores.run()
+          Seeds.Categorias.run()
+          Seeds.Tags.run()
+          Seeds.Midias.run()
+        end)
     end
   end
 

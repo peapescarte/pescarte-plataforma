@@ -1,5 +1,7 @@
 import Config
 
+config :pescarte, env: config_env()
+
 config :pescarte, carbonite_mode: :capture
 
 # ---------------------------#

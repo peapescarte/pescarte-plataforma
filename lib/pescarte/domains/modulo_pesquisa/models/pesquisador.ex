@@ -27,7 +27,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     field :public_id, :string
 
     has_many :orientandos, Pesquisador
-    has_many :midias, Midia
+    has_many :midias, Midia, foreign_key: :author_id
     has_many :relatorio_mensais, RelatorioMensal
 
     belongs_to :campus, Campus
