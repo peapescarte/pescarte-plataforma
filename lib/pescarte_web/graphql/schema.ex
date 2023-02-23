@@ -13,12 +13,12 @@ defmodule PescarteWeb.GraphQL.Schema do
   import_types(Types.Tag)
 
   query do
-    field :categorias, list_of(:categoria) do
-      resolve(&Resolvers.Categoria.list/2)
-    end
-
     field :midias, list_of(:midia) do
       resolve(&Resolvers.Midia.list/2)
+    end
+
+    field :users, list_of(:user) do
+      resolve(&Resolvers.User.list/2)
     end
   end
 
@@ -28,12 +28,6 @@ defmodule PescarteWeb.GraphQL.Schema do
   end
 
   mutation do
-    field :categoria, :categoria do
-      arg(:name, non_null(:string))
-
-      resolve(&Resolvers.Categoria.create_categoria/2)
-    end
-
     field :tag, :tag do
       arg(:label, non_null(:string))
       arg(:categoria_id, non_null(:string))

@@ -14,9 +14,16 @@ defmodule Pescarte.Domains.Accounts.IO.UserRepo do
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
-  @impl true
-  def all do
+  def all([]) do
     Database.all(User)
+  end
+
+  def all(fields) do
+    query = from User, select: ^fields
+
+    query
+    |> Database.all()
+    |> Enum.map(&Map.take(&1, fields))
   end
 
   def changeset(attrs) do

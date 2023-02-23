@@ -12,7 +12,7 @@ defmodule Pescarte.Domains.Accounts do
   alias Pescarte.Domains.Accounts.Services
   alias Pescarte.Database
 
-  defdelegate list_user, to: Services.GetUser, as: :process
+  defdelegate list_user(fields \\ []), to: Services.GetUser, as: :process
 
   defdelegate get_user(params), to: Services.GetUser, as: :process
 

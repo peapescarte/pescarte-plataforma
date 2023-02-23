@@ -7,12 +7,12 @@ defmodule Pescarte.Repo.Migrations.CreateMidia do
       add :type, :string, null: false
       add :tags, {:array, :string}, null: false
       add :link, :string, null: false
-      add :pesquisador_id, references(:pesquisador), null: false
+      add :author_id, references(:pesquisador), null: false
 
       timestamps()
     end
 
     create unique_index(:midia, [:link])
-    create index(:midia, [:pesquisador_id])
+    create index(:midia, [:author_id])
   end
 end

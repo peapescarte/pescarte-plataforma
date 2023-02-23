@@ -49,7 +49,7 @@ defmodule Pescarte.Factory do
   def midia_factory do
     %Midia{
       public_id: Nanoid.generate_non_secure(),
-      pesquisador: build(:pesquisador),
+      author: build(:pesquisador),
       type: sequence(:tipo, ["video", "documento", "imagem"]),
       link: sequence(:link, &"https://example#{&1}.com")
     }

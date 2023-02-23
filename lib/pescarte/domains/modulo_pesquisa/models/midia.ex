@@ -5,7 +5,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Types.TrimmedString
 
-  @required_fields ~w(type filename filedate sensible? link pesquisador_id)a
+  @required_fields ~w(type filename filedate sensible? link author_id)a
   @optional_fields ~w(observation alt_text)a
 
   @types ~w(imagem video documento)a
@@ -20,7 +20,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     field :alt_text, TrimmedString
     field :public_id, :string
 
-    belongs_to :pesquisador, Pesquisador, on_replace: :update
+    belongs_to :author, Pesquisador, on_replace: :update
 
     many_to_many :tags, Tag, join_through: "midias_tags"
 
@@ -32,7 +32,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:link)
-    |> foreign_key_constraint(:pesquisador_id)
+    |> foreign_key_constraint(:author_id)
     |> put_assoc(:tags, tags)
     |> put_change(:public_id, Nanoid.generate())
   end

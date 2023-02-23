@@ -273,8 +273,7 @@ defmodule Pescarte.Seeds do
         filename: "IMG20230126.png",
         type: :imagem,
         filedate: Date.utc_today(),
-        pesquisador_id:
-          ModuloPesquisa.get_pesquisador(link_lattes: "https://github.com/zoedsoupe"),
+        author_id: ModuloPesquisa.get_pesquisador(link_lattes: "https://github.com/zoedsoupe"),
         link: "https://drive.google.com/uc?export=view&id=1YqVklE01-XPX-6iAO0iYie5acOCk0rhk"
       }
     ]

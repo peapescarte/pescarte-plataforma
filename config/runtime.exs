@@ -80,7 +80,7 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
-  if is_uenf? = System.get_env("UENF_SERVER") do
+  if System.get_env("UENF_SERVER") do
     config :pescarte, PescarteWeb.Endpoint, url: [host: "pescarte.uenf.br", port: 8080]
   end
 

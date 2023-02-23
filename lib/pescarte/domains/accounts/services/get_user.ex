@@ -4,10 +4,6 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
   alias Pescarte.Domains.Accounts.IO.UserRepo
   alias Pescarte.Domains.Accounts.Services.UserFields
 
-  def process do
-    Pescarte.Helpers.maybe(UserRepo.all())
-  end
-
   @impl true
   def process(cpf: cpf) do
     with {:ok, user} <- UserRepo.fetch_by(cpf: cpf) do
@@ -46,5 +42,13 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
     |> String.downcase()
     |> String.trim()
     |> UserRepo.fetch_by_email()
+  end
+
+  def process(args) do
+    if Enum.all?(args, &is_atom/1) do
+      UserRepo.all(args)
+    else
+      process(args)
+    end
   end
 end
