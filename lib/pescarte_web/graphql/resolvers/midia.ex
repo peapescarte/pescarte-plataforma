@@ -6,6 +6,10 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
+  def get(%{id: midia_id}, _resolution) do
+    ModuloPesquisa.get_midia(public_id: midia_id)
+  end
+
   def list(_args, _resolution) do
     {:ok, ModuloPesquisa.list_midias()}
   end
@@ -18,12 +22,47 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     with {:ok, midia} <- ModuloPesquisa.get_midia(public_id: args.midia_id) do
       tags_ids = Enum.map(midia.tags, & &1.public_id) -- Enum.map(args.tags, & &1.id)
 
-      new_tags = Enum.filter(midia.tags, &(&1.public_id in tags_ids)) |> IO.inspect()
+      new_tags = Enum.filter(midia.tags, &(&1.public_id in tags_ids))
 
       case ModuloPesquisa.update_midia(%{midia | tags: new_tags}) do
         {:ok, midia} -> {:ok, midia.tags}
         error -> error
       end
+    end
+  end
+
+  def update_midia(%{input: args}, _resolution) do
+    with {:ok, tags} <- put_tags_ids(args.tags),
+         {:ok, midia} <- ModuloPesquisa.get_midia(public_id: args.id) do
+      new_tags = ModuloPesquisa.list_tags(Enum.map(tags, & &1.id))
+      tags = midia.tags ++ new_tags
+      midia = Map.merge(midia, args) |> Map.put(:id, midia.id)
+
+      ModuloPesquisa.update_midia(%{midia | tags: tags})
+    end
+  end
+
+  defp put_tags_ids(tags) do
+    state = %{success: [], errors: []}
+
+    tags
+    |> Enum.reduce(state, fn id, state ->
+      case ModuloPesquisa.get_tag(public_id: id) do
+        {:ok, tag} ->
+          success = [%{tag | id: tag.id} | state[:success]]
+
+          %{state | success: success}
+
+        {:error, :not_found} ->
+          error = "Tag id #{id} é inválida"
+          errors = [error | state[:errors]]
+
+          %{state | errors: errors}
+      end
+    end)
+    |> case do
+      %{errors: [], success: tags} -> {:ok, tags}
+      %{errors: errors} -> {:error, errors}
     end
   end
 

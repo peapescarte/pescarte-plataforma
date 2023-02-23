@@ -10,6 +10,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.IO.TagRepo do
     Database.all(Tag)
   end
 
+  def all(fields) do
+    query = from t in Tag, where: t.id in ^fields
+
+    Database.all(query)
+  end
+
   def all_by_midia(%Midia{} = midia) do
     [midia] = Database.all(from m in Midia, where: m.id == ^midia.id, preload: :tags)
 

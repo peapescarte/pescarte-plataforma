@@ -10,6 +10,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.GetTag do
   end
 
   @impl true
+  def process([]) do
+    process()
+  end
+
   def process(%Midia{} = midia) do
     TagRepo.all_by_midia(midia)
   end
@@ -19,6 +23,15 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.GetTag do
   end
 
   def process(params) do
-    TagRepo.fetch_by(params)
+    cond do
+      Enum.all?(params, &is_tuple/1) ->
+        TagRepo.fetch_by(params)
+
+      Enum.all?(params, &is_number/1) ->
+        TagRepo.all(params)
+
+      true ->
+        {:error, :invalid_params}
+    end
   end
 end

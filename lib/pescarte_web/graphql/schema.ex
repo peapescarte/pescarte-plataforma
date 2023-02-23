@@ -13,15 +13,25 @@ defmodule PescarteWeb.GraphQL.Schema do
   import_types(Types.Tag)
 
   query do
-    field :midias, list_of(:midia) do
+    field :list_midias, list_of(:midia) do
       resolve(&Resolvers.Midia.list/2)
     end
 
-    field :categorias, list_of(:categoria) do
+    field :get_midia, :midia do
+      arg(:id, non_null(:string))
+
+      resolve(&Resolvers.Midia.get/2)
+    end
+
+    field :list_tags, list_of(:tag) do
+      resolve(&Resolvers.Tag.list/2)
+    end
+
+    field :list_categorias, list_of(:categoria) do
       resolve(&Resolvers.Categoria.list/2)
     end
 
-    field :users, list_of(:user) do
+    field :list_users, list_of(:user) do
       resolve(&Resolvers.User.list/2)
     end
   end
@@ -52,6 +62,19 @@ defmodule PescarteWeb.GraphQL.Schema do
     field :tags, list_of(:create_tag_input)
   end
 
+  input_object :update_midia_input do
+    field :id, non_null(:string)
+    field :filename, :string
+    field :filedate, :date
+    field :link, :string
+    field :sensible?, :boolean, name: "sensible"
+    field :type, :midia_type
+    field :observation, :string
+    field :alt_text, :string
+    field :author_id, :string
+    field :tags, list_of(:string)
+  end
+
   mutation do
     field :create_tag, :tag do
       arg(:label, non_null(:string))
@@ -77,6 +100,12 @@ defmodule PescarteWeb.GraphQL.Schema do
       arg(:input, :create_midia_input)
 
       resolve(&Resolvers.Midia.create_midia/2)
+    end
+
+    field :update_midia, :midia do
+      arg(:input, :update_midia_input)
+
+      resolve(&Resolvers.Midia.update_midia/2)
     end
 
     field :login, :login do

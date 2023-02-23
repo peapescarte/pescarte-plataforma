@@ -3,6 +3,10 @@ defmodule PescarteWeb.GraphQL.Resolvers.Tag do
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
 
+  def list(_args, _resolution) do
+    {:ok, ModuloPesquisa.list_tags()}
+  end
+
   def list_categorias(%Categoria{} = categoria, _args, _resolution) do
     {:ok, ModuloPesquisa.list_tags_by(categoria)}
   end

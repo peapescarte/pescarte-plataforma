@@ -22,7 +22,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
 
     belongs_to :author, User, on_replace: :update
 
-    many_to_many :tags, Tag, join_through: "midias_tags", on_replace: :delete, unique: true
+    many_to_many :tags, Tag,
+      join_through: "midias_tags",
+      on_replace: :delete,
+      unique: true
 
     timestamps()
   end
