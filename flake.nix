@@ -42,23 +42,18 @@
       applications."${systems.linux}".pescarte =
         let
           inherit (pkgs systems.linux) beam callPackage;
-          beamPkgs = beam.packagesWith beam.interpreters.erlang;
+          beamPackages = beam.packagesWith beam.interpreters.erlang;
 
           pname = "pescarte";
           version = "0.1.0";
 
           src = ./.;
 
-          mixFodDeps = beamPkgs.fetchMixDeps {
-            inherit src version;
-            pname = "mix-deps-${pname}";
-            sha256 = "t0n2aFtgVgQVWdJ99ucI5NcaZxplTnmbNR62IwK2AUI=";
-          };
-
           nodeDependencies = (callPackage ./assets/default.nix { }).shell.nodeDependencies;
-        in beamPkgs.mixRelease {
-          inherit src pname version mixFodDeps;
+        in beamPackages.mixRelease {
+          inherit src pname version;
 
+          mixNixDeps = with pkgs systems.linux; import ./deps.nix { inherit lib beamPackages; };
           preBuild = "ln -sf ${nodeDependencies}/lib/node_modules assets/node_modules";
           postBuild = "mix do deps.loadpaths --no-deps-check, assets.deploy";
         };
