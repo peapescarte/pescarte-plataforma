@@ -71,7 +71,7 @@ defmodule PescarteWeb.DesignSystem.NavBar do
     <%= for item <- guest_menu_items() do %>
       <.menu_item path={item.path} method={item.method}>
         <:icon>
-          <.icon name={item.icon} />
+          <Lucideicons.home />
         </:icon>
         <%= item.label %>
       </.menu_item>

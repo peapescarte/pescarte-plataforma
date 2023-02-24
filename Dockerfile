@@ -8,6 +8,8 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 FROM ${BUILDER_IMAGE} as builder
 
 ARG ESBUILD_PATH=/usr/local/bin/esbuild
+ARG ESBUILD_PATH=/usr/local/bin/tailwindcss
+ARG ESBUILD_PATH=/usr/local/bin/dart-sass
 
 RUN apt-get update -y
 RUN apt-get install -y build-essential git curl
@@ -35,7 +37,7 @@ COPY lib lib
 COPY assets assets
 
 # compile assets
-RUN npm i -g esbuild
+RUN npm i -g esbuild dart-sass tailwindcss
 RUN npm i --prefix ./assets
 RUN mix assets.deploy
 
