@@ -77,10 +77,15 @@ defmodule PescarteWeb.GraphQL.Schema do
 
   mutation do
     field :create_tag, :tag do
-      arg(:label, non_null(:string))
-      arg(:categoria_id, non_null(:string))
+      arg(:input, non_null(:create_tag_input))
 
       resolve(&Resolvers.Tag.create_tag/2)
+    end
+
+    field :create_tags, list_of(:tag) do
+      arg(:input, list_of(:create_tag_input))
+
+      resolve(&Resolvers.Tag.create_tags/2)
     end
 
     field :update_tag, :tag do
