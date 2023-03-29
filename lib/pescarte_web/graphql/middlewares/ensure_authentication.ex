@@ -11,7 +11,10 @@ defmodule PescarteWeb.GraphQL.Middlewares.EnsureAuthentication do
     if "login" in path_names do
       resolution
     else
-      %{resolution | errors: ["Usuário não autenticado"]}
+      err_msg = "Usuário não autenticado ou token expirado"
+      error = [message: err_msg, code: 401]
+
+      %{resolution | errors: [error]}
     end
   end
 
