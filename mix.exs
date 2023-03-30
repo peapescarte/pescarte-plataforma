@@ -29,16 +29,12 @@ defmodule Pescarte.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.0-rc.2", override: true},
-      {:phoenix_view, "~> 2.0"},
       {:phoenix_ecto, "~> 4.1"},
       {:swoosh, "~> 1.4"},
       {:mail, ">= 0.0.0"},
       {:brcpfcnpj, "~> 1.0.0"},
-      {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:floki, ">= 0.30.0", only: :test},
       {:bcrypt_elixir, "~> 2.0"},
-      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
       {:oban, "~> 2.8"},
       {:nanoid, "~> 2.0.5"},
@@ -47,11 +43,8 @@ defmodule Pescarte.MixProject do
       {:ex_machina, "~> 2.7.0"},
       {:postgrex, ">= 0.0.0"},
       {:carbonite, "~> 0.4.0"},
-      {:lucide_icons, "~> 1.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
-      {:phoenix_live_view, "~> 0.18"},
-      {:phoenix_live_dashboard, "~> 0.7"},
       {:jason, "~> 1.0"},
       {:tesla, "~> 1.4"},
       {:finch, "~> 0.9.0"},
@@ -59,9 +52,7 @@ defmodule Pescarte.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
       {:plug_cowboy, "~> 2.3"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
     ]
   end
 
