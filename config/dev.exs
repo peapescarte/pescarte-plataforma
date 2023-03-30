@@ -20,7 +20,7 @@ config :pescarte, PescarteWeb.Endpoint,
   reloadable_compilers: [:elixir],
   live_reload: [
     patterns: [
-      ~r"lib/pescarte_web/graphql/.*(ex)$",
+      ~r"lib/pescarte_web/graphql/.*(ex)$"
     ]
   ]
 

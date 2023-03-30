@@ -17,7 +17,6 @@ defmodule PescarteWeb do
   and import those modules here.
   """
 
-
   @spec router :: Macro.t()
   def router do
     quote do
