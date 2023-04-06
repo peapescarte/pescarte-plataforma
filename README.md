@@ -52,7 +52,9 @@ Num último caso, imagine que existe apenas 1 (uma) máquina de refrigerante (CP
 
 A imagem a seguir exemplifica os conceitos de _Paralelismo_ e _Concorrência_:
 
-![concorrencia_paralelismo](https://user-images.githubusercontent.com/44469426/230241225-60c9ac79-302d-4a19-96bd-b76585c5b902.png)
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/44469426/230241225-60c9ac79-302d-4a19-96bd-b76585c5b902.png" />
+</p>
 
 ### BEAM - máquina virtual do Erlang
 
@@ -62,7 +64,9 @@ A [BEAM][ beam-meaning ] é a máquina virtual do [Erlang][ erlang-meaning ] (as
 
 Quando uma aplição Elixir/Erlang é iniciada, a BEAM cria um "Agendador" (Scheduler) para cada núcleo da CPU da máquina. Esses Agendadores também são processos, mas que supervisionam, agendam e gerenciam os outros processos da aplicação. A imagem a seguir exemplifica a crição dos Agendadores:
 
-![beam_schedulers](https://user-images.githubusercontent.com/44469426/230241258-08aeb6d8-9038-4eda-89f0-fb13de077aa9.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/44469426/230241258-08aeb6d8-9038-4eda-89f0-fb13de077aa9.png" />
+</p>
 
 [beam-meaning]: https://www.erlang.org/blog/a-brief-beam-primer/
 [erlang-meaning]: https://coodesh.com/blog/dicionario/o-que-e-erlang/
