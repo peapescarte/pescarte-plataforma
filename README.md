@@ -1,6 +1,7 @@
 # API PEA Pescarte
 
-<img src="https://github.com/peapescarte/pescarte/workflows/elixir_ci/badge.svg?branch=main" />
+[![lint](https://github.com/peapescarte/pescarte-api/actions/workflows/lint.yml/badge.svg)](https://github.com/peapescarte/pescarte-api/actions/workflows/lint.yml)
+[![test](https://github.com/peapescarte/pescarte-api/actions/workflows/test.yml/badge.svg)](https://github.com/peapescarte/pescarte-api/actions/workflows/test.yml)
 
 ------------------------------------------------------------------------
 
