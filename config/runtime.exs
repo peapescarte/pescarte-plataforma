@@ -10,42 +10,6 @@ config :logger, :console,
   metadata: [:request_id]
 
 # ---------------------------#
-# Oban
-# ---------------------------#
-config :pescarte, Oban,
-  repo: Pescarte.Repo,
-  queues: [mailer: 5]
-
-config :pescarte, :jobs, start: System.get_env("START_OBAN_JOBS", "true")
-
-# ---------------------------#
-# Mailer
-# ---------------------------#
-adapter =
-  case System.get_env("MAIL_SERVICE", "local") do
-    "gmail" -> Swoosh.Adapters.SMTP
-    _ -> Swoosh.Adapters.Local
-  end
-
-if adapter == Swoosh.Adapters.Local and config_env() != :prod do
-  config :swoosh, serve_mailbox: true, preview_port: 4001
-end
-
-config :pescarte, Pescarte.Mailer,
-  adapter: adapter,
-  relay: System.get_env("MAIL_SERVER", "smtp.gmail.com"),
-  username: System.get_env("MAIL_USERNAME", "notificacoes-noreply@peapescarte.uenf.br"),
-  password: System.get_env("MAIL_PASSWORD", ""),
-  ssl: false,
-  tls: :always,
-  auth: :always,
-  port: System.get_env("MAIL_PORT", "587")
-
-config :pescarte, :pea_pescarte_contato,
-  notifications_mail: "notifications-noreply@peapescarte.uenf.br",
-  telephone: " 0800 026 2828"
-
-# ---------------------------#
 # Timex
 # ---------------------------#
 config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")

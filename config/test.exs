@@ -23,8 +23,6 @@ config :pescarte, PescarteWeb.Endpoint,
   secret_key_base: "UMvQe3k+eH28J6exxhadrvKm+mIvF3n73YdsY6x7EZV7FJDRezMjvf/2reDRqkPJ",
   server: false
 
-config :pescarte, Pescarte.Mailer, adapter: Swoosh.Adapters.Test
-
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
 
