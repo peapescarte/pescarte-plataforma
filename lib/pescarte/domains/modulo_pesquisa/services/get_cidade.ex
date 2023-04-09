@@ -1,14 +1,14 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.GetCidade do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.CidadeRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Cidade
 
   @impl true
   def process(id: id) do
-    CidadeRepo.fetch(id)
+    Database.get(Cidade, id)
   end
 
   def process(params) do
-    CidadeRepo.fetch_by(params)
+    Database.get_by(Cidade, params)
   end
 end

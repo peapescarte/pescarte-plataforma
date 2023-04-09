@@ -1,10 +1,12 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.CreateCidade do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.CidadeRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Cidade
 
   @impl true
   def process(params) do
-    CidadeRepo.insert(params)
+    with {:ok, changeset} <- Cidade.changeset(params) do
+      Database.insert(changeset)
+    end
   end
 end

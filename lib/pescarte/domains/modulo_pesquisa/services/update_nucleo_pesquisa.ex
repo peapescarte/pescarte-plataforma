@@ -1,12 +1,13 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.UpdateNucleoPesquisa do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.NucleoPesquisaRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa, as: NP
 
   @impl true
-  def process(params) do
-    with {:ok, nucleo_pesquisa} <- NucleoPesquisaRepo.fetch(params.nucleo_pesquisa_id) do
-      NucleoPesquisaRepo.update(nucleo_pesquisa, params)
+  def process(%{nucleo_pesquisa_id: id} = params) do
+    with nucleo_pesquisa = %NP{} <- Database.get(NP, id),
+         {:ok, changeset} <- NP.update_changeset(nucleo_pesquisa, params) do
+      Database.update(changeset)
     end
   end
 end

@@ -4,8 +4,8 @@ defmodule PescarteWeb.GraphQL.Resolvers.Categoria do
 
   def get(%Tag{} = tag, _args, _resolution) do
     case ModuloPesquisa.get_categoria(id: tag.categoria_id) do
-      {:ok, categoria} -> {:ok, categoria}
-      {:error, :not_found} -> {:error, "Categoria não encontrada"}
+      nil -> {:error, "Categoria não encontrada"}
+      categoria -> {:ok, categoria}
     end
   end
 

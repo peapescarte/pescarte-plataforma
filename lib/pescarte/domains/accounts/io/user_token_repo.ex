@@ -1,6 +1,7 @@
 defmodule Pescarte.Domains.Accounts.IO.UserTokenRepo do
-  use Pescarte, :repo
+  import Ecto.Query
 
+  alias Pescarte.Database
   alias Pescarte.Domains.Accounts.Models.UserToken
 
   @hash_algorithm :sha256
@@ -12,9 +13,8 @@ defmodule Pescarte.Domains.Accounts.IO.UserTokenRepo do
   @change_email_validity_in_days 7
   @session_validity_in_days 60
 
-  @impl true
-  def fetch(id) do
-    fetch(UserToken, id)
+  def get(id) do
+    Database.get(UserToken, id)
   end
 
   @doc """

@@ -12,4 +12,20 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
 
     timestamps()
   end
+
+  def changeset(attrs) do
+    %__MODULE__{}
+    |> cast(attrs, [:name, :desc])
+    |> validate_required([:name, :desc])
+    |> validate_length(:desc, max: 400)
+    |> put_change(:public_id, Nanoid.generate())
+    |> apply_action(:parse)
+  end
+
+  def update_changeset(nucleo_pesquisa, attrs) do
+    nucleo_pesquisa
+    |> cast(attrs, [:desc])
+    |> validate_required([:desc])
+    |> apply_action(:parse)
+  end
 end

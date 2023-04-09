@@ -1,7 +1,6 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.UpdateMidia do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
 
   @impl true
@@ -13,8 +12,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.UpdateMidia do
   end
 
   def process(%{} = params) do
-    with {:ok, midia} <- MidiaRepo.fetch(params[:midia_id]) do
-      MidiaRepo.update(midia, params)
+    with midia = %Midia{} <- Database.get(Midia, params[:midia_id]),
+         {:ok, changeset} <- Midia.update_changeset(midia, params) do
+      Database.update(changeset)
     end
   end
 end

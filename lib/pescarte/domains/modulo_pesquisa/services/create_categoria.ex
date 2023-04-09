@@ -1,10 +1,12 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.CreateCategoria do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.CategoriaRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
 
   @impl true
   def process(params) do
-    CategoriaRepo.insert(params)
+    with {:ok, changeset} <- Categoria.changeset(params) do
+      Database.insert(changeset)
+    end
   end
 end

@@ -1,23 +1,27 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.GetMidia do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.MidiaRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
   def process do
-    MidiaRepo.all()
+    Database.all(Midia)
   end
 
   @impl true
   def process(id: id) do
-    MidiaRepo.fetch(id)
+    Database.get(Midia, id)
   end
 
   def process(%Tag{} = tag) do
-    MidiaRepo.all_by_tag(tag)
+    tag
+    |> Tag.list_midias_query()
+    |> Database.all()
+    |> hd()
+    |> Map.get(:midias)
   end
 
   def process(params) do
-    MidiaRepo.fetch_by(params)
+    Database.get_by(Midia, params)
   end
 end

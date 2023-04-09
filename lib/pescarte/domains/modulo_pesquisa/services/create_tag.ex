@@ -1,10 +1,12 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.CreateTag do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.TagRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
   @impl true
   def process(params) do
-    TagRepo.insert(params)
+    with {:ok, changeset} <- Tag.changeset(params) do
+      Database.insert(changeset)
+    end
   end
 end

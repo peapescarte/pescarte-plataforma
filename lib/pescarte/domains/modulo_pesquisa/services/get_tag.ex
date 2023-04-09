@@ -1,12 +1,12 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.GetTag do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.TagRepo
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
   def process do
-    TagRepo.all()
+    Database.all(Tag)
   end
 
   @impl true
@@ -15,20 +15,28 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.GetTag do
   end
 
   def process(%Midia{} = midia) do
-    TagRepo.all_by_midia(midia)
+    midia
+    |> Midia.list_tags_query()
+    |> Database.all()
+    |> hd()
+    |> Map.get(:tags)
   end
 
   def process(%Categoria{} = categoria) do
-    TagRepo.all_by_categoria(categoria)
+    categoria
+    |> Categoria.list_tags_query()
+    |> Database.all()
   end
 
   def process(params) do
     cond do
       Enum.all?(params, &is_tuple/1) ->
-        TagRepo.fetch_by(params)
+        Database.get_by(Tag, params)
 
       Enum.all?(params, &is_number/1) ->
-        TagRepo.all(params)
+        params
+        |> Tag.list_by_query()
+        |> Database.all()
 
       true ->
         {:error, :invalid_params}

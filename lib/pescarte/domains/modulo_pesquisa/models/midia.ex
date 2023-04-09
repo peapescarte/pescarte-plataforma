@@ -7,6 +7,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
 
   @required_fields ~w(type filename filedate sensible? link author_id)a
   @optional_fields ~w(observation alt_text)a
+  @update_fields ~w(type link filename filedate observation alt_text)a
 
   @types ~w(imagem video documento)a
 
@@ -38,6 +39,20 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     |> foreign_key_constraint(:author_id)
     |> put_assoc(:tags, tags)
     |> put_change(:public_id, Nanoid.generate())
+    |> apply_action(:parse)
+  end
+
+  def update_changeset(midia, attrs) do
+    midia
+    |> cast(attrs, @update_fields)
+    |> unique_constraint(:filename)
+    |> unique_constraint(:link)
+    |> put_assoc(:tags, attrs[:tags] || midia.tags)
+    |> apply_action(:parse)
+  end
+
+  def list_tags_query(midia = %__MODULE__{}) do
+    from m in __MODULE__, where: m.id == ^midia.id, preload: :tags
   end
 
   def types, do: @types

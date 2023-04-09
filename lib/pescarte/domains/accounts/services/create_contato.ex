@@ -1,10 +1,12 @@
 defmodule Pescarte.Domains.Accounts.Services.CreateContato do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.Accounts.IO.ContatoRepo
+  alias Pescarte.Domains.Accounts.Models.Contato
 
   @impl true
   def process(params) do
-    ContatoRepo.insert_or_update(params)
+    with {:ok, changeset} <- Contato.changeset(params) do
+      Database.insert_or_update(changeset)
+    end
   end
 end

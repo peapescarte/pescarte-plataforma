@@ -21,7 +21,7 @@ defmodule Pescarte.Application do
   end
 
   defp children do
-    base_children = [
+    [
       # Start the Ecto repository
       Pescarte.Repo,
       # Start the Telemetry supervisor
@@ -32,19 +32,6 @@ defmodule Pescarte.Application do
       PescarteWeb.Endpoint,
       # Start external http client
       {Finch, name: HttpClientFinch, pools: %{default: [size: 10]}}
-      # Start Oban jobs
     ]
-
-    start_oban? =
-      :pescarte
-      |> Application.get_env(:jobs)
-      |> Keyword.get(:start)
-      |> Pescarte.Helpers.to_boolean()
-
-    if start_oban? do
-      Enum.reverse([{Oban, Application.get_env(:pescarte, Oban)} | base_children])
-    else
-      base_children
-    end
   end
 end

@@ -11,6 +11,8 @@ defmodule Pescarte do
 
   def application_service do
     quote do
+      alias Pescarte.Database
+
       @behaviour Pescarte.AppService
     end
   end
@@ -25,6 +27,7 @@ defmodule Pescarte do
       use Ecto.Schema
 
       import Ecto.Changeset
+      import Ecto.Query
 
       alias Pescarte.Types.CapitalizedString
       alias Pescarte.Types.TrimmedString
@@ -35,11 +38,9 @@ defmodule Pescarte do
 
   def repo do
     quote do
-      import Ecto.Changeset
-      import Ecto.Query
-      import Pescarte.Repo, only: [fetch: 2, fetch_by: 2]
-
       alias Pescarte.Database
+
+      import Ecto.Query
 
       @behaviour Pescarte.Repo
     end

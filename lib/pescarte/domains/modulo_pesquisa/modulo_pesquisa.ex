@@ -4,7 +4,6 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   do contexto.
   """
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.RelatorioMensalRepo
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateCampus
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateCidade
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateMidia
@@ -92,7 +91,7 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   defdelegate update_tag(attrs), to: UpdateTag, as: :process
 
   def change_relatorio_mensal(report, attrs \\ %{}) do
-    RelatorioMensalRepo.changeset(report, attrs)
+    __MODULE__.Models.RelatorioMensal.changeset(report, attrs)
   end
 
   def list_campus_by_county(id) do
@@ -100,7 +99,7 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   end
 
   def list_linha_pesquisa_by_nucleo_pesquisa(nucleo_pesquisa_id) do
-    GetLinhaPesquisa.process(nucleo: nucleo_pesquisa_id)
+    GetLinhaPesquisa.process(nucleo_pesquisa_id: nucleo_pesquisa_id)
   end
 
   ## Generic

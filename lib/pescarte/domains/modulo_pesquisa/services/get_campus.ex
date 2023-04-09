@@ -1,18 +1,18 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.GetCampus do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.CampusRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Campus
 
   def process do
-    CampusRepo.all()
+    Database.all(Campus)
   end
 
   @impl true
-  def process(municipio: id) do
-    CampusRepo.fetch(id)
+  def process(id: id) do
+    Database.get(Campus, id)
   end
 
   def process(params) do
-    CampusRepo.fetch_by(params)
+    Database.get_by(Campus, params)
   end
 end

@@ -1,12 +1,12 @@
 defmodule Pescarte.Domains.Accounts.Services.GetUser do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.Accounts.IO.UserRepo
+  alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Services.UserFields
 
   @impl true
   def process(cpf: cpf, password: password) do
-    with {:ok, user} <- UserRepo.fetch_by(cpf: cpf) do
+    with user = %User{} <- Database.get_by(User, cpf: cpf) do
       if UserFields.valid_password?(user, password) do
         {:ok, user}
       else
@@ -16,7 +16,7 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
   end
 
   def process(email: email, password: password) do
-    with {:ok, user} <- UserRepo.fetch_by(email: email) do
+    with user = %User{} <- Database.get_by(User, email: email) do
       if UserFields.valid_password?(user, password) do
         {:ok, user}
       else
@@ -29,20 +29,23 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
     email
     |> String.downcase()
     |> String.trim()
-    |> UserRepo.fetch_by_email()
+    |> User.get_by_email_query()
+    |> Database.one()
   end
 
   def process([]) do
-    UserRepo.all()
+    Database.all(User)
   end
 
-  def process(args) do
+  def process(params) do
     cond do
-      Enum.all?(args, &is_tuple/1) ->
-        UserRepo.fetch_by(args)
+      Enum.all?(params, &is_tuple/1) ->
+        Database.get_by(User, params)
 
-      Enum.all?(args, &is_atom/1) ->
-        UserRepo.all(args)
+      Enum.all?(params, &is_atom/1) ->
+        params
+        |> User.list_by_query()
+        |> Database.all()
 
       true ->
         {:error, :invalid_args}

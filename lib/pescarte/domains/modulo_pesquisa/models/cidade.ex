@@ -11,4 +11,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Cidade do
 
     timestamps()
   end
+
+  def changeset(attrs) do
+    %__MODULE__{}
+    |> cast(attrs, [:county])
+    |> validate_required([:county])
+    |> unique_constraint(:county)
+    |> put_change(:public_id, Nanoid.generate())
+    |> apply_action(:parse)
+  end
 end

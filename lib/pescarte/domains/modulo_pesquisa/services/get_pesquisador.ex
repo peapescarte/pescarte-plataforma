@@ -1,18 +1,18 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.GetPesquisador do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.PesquisadorRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
   def process do
-    PesquisadorRepo.all()
+    Database.all(Pesquisador)
   end
 
   @impl true
   def process(id: id) do
-    PesquisadorRepo.fetch(id)
+    Database.get(Pesquisador, id)
   end
 
   def process(params) do
-    PesquisadorRepo.fetch_by(params)
+    Database.get_by(Pesquisador, params)
   end
 end

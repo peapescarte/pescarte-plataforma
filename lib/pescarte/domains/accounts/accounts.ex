@@ -3,9 +3,6 @@ defmodule Pescarte.Domains.Accounts do
   The Accounts context.
   """
 
-  alias Pescarte.Domains.Accounts.UserNotifier
-
-  alias Pescarte.Domains.Accounts.IO.UserRepo
   alias Pescarte.Domains.Accounts.IO.UserTokenRepo
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
@@ -104,8 +101,8 @@ defmodule Pescarte.Domains.Accounts do
   """
   def change_user_registration(attrs \\ %{}) do
     attrs
-    |> UserRepo.changeset()
-    |> UserRepo.password_changeset(attrs, hash_password: false)
+    |> User.changeset()
+    |> User.password_changeset(attrs, hash_password: false)
   end
 
   ## Settings
@@ -120,7 +117,7 @@ defmodule Pescarte.Domains.Accounts do
 
   """
   def change_user_email(user, attrs \\ %{}) do
-    UserRepo.email_changeset(user, attrs)
+    User.email_changeset(user, attrs)
   end
 
   @doc """
@@ -138,7 +135,7 @@ defmodule Pescarte.Domains.Accounts do
   """
   def apply_user_email(user, password, attrs) do
     with %Ecto.Changeset{valid?: true, params: contato} <-
-           UserRepo.email_changeset(user, attrs),
+           User.email_changeset(user, attrs),
          %Ecto.Changeset{valid?: true} = user <-
            user
            |> Ecto.Changeset.cast(%{contato: contato}, [])
@@ -170,13 +167,15 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   defp user_email_multi(user, email, context) do
+    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+
     with %Ecto.Changeset{valid?: true, params: contato} <-
-           UserRepo.email_changeset(user, %{email: email}),
+           User.email_changeset(user, %{email: email}),
          %Ecto.Changeset{valid?: true} = changeset <-
            user
            |> Ecto.Changeset.cast(%{contato: contato}, [])
            |> Ecto.Changeset.cast_assoc(:contato)
-           |> UserRepo.confirm_changeset() do
+           |> User.confirm_changeset(now) do
       meta = %{meta: %{type: "user_update_email"}}
 
       Ecto.Multi.new()
@@ -196,7 +195,7 @@ defmodule Pescarte.Domains.Accounts do
 
   """
   def change_user_password(user, attrs \\ %{}) do
-    UserRepo.password_changeset(user, attrs, hash_password: false)
+    User.password_changeset(user, attrs, hash_password: false)
   end
 
   @doc """
@@ -214,7 +213,7 @@ defmodule Pescarte.Domains.Accounts do
   def update_user_password(user, password, attrs) do
     changeset =
       user
-      |> UserRepo.password_changeset(attrs)
+      |> User.password_changeset(attrs)
       |> Services.UserFields.validate_current_password(password)
 
     meta = %{meta: %{type: "user_update_password"}}
@@ -282,8 +281,10 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   defp confirm_user_multi(user) do
+    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+
     Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, UserRepo.confirm_changeset(user))
+    |> Ecto.Multi.update(:user, User.confirm_changeset(user, now))
     |> Ecto.Multi.delete_all(:tokens, UserTokenRepo.user_and_contexts_query(user, ["confirm"]))
   end
 
@@ -322,7 +323,7 @@ defmodule Pescarte.Domains.Accounts do
   """
   def reset_user_password(user, attrs) do
     Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, UserRepo.password_changeset(user, attrs))
+    |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
     |> Ecto.Multi.delete_all(:tokens, UserTokenRepo.user_and_contexts_query(user, :all))
     |> Database.transaction()
     |> case do

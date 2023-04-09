@@ -1,18 +1,18 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.GetCategoria do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.CategoriaRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
 
   def process do
-    CategoriaRepo.all()
+    Database.all(Categoria)
   end
 
   @impl true
   def process(id: id) do
-    CategoriaRepo.fetch(id)
+    Database.get(Categoria, id)
   end
 
   def process(params) do
-    CategoriaRepo.fetch_by(params)
+    Database.get_by(Categoria, params)
   end
 end

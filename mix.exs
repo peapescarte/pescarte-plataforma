@@ -28,7 +28,7 @@ defmodule Pescarte.MixProject do
 
   defp deps do
     [
-      {:phoenix, "~> 1.7.0-rc.2", override: true},
+      {:phoenix, "~> 1.7", override: true},
       {:phoenix_ecto, "~> 4.1"},
       {:swoosh, "~> 1.4"},
       {:mail, ">= 0.0.0"},
@@ -63,18 +63,7 @@ defmodule Pescarte.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "seeds", "test"],
-      "test.reset": ["ecto.drop", "test"],
-      "assets.build": [
-        "esbuild default",
-        "sass default",
-        "tailwind default"
-      ],
-      "assets.deploy": [
-        "esbuild default --minify",
-        "sass default",
-        "tailwind default --minify",
-        "phx.digest"
-      ]
+      "test.reset": ["ecto.drop", "test"]
     ]
   end
 end

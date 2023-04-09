@@ -1,14 +1,14 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Services.GetLinhaPesquisa do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.ModuloPesquisa.IO.LinhaPesquisaRepo
+  alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
 
   def process do
-    LinhaPesquisaRepo.all()
+    Database.all(LinhaPesquisa)
   end
 
   @impl true
-  def process(nucleo: id) do
-    LinhaPesquisaRepo.fetch(id)
+  def process(id: id) do
+    Database.get(LinhaPesquisa, id)
   end
 end

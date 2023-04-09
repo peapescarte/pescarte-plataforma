@@ -7,6 +7,9 @@ defmodule PescarteWeb.GraphQL.Resolvers.User do
   end
 
   def get_by_midia(%Midia{} = midia, _args, _resolution) do
-    Accounts.get_user_by_id(midia.author_id)
+    case Accounts.get_user_by_id(midia.author_id) do
+      nil -> {:error, "Usuário não encontrado"}
+      user -> {:ok, user}
+    end
   end
 end

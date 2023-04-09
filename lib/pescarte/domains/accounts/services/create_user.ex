@@ -1,14 +1,18 @@
 defmodule Pescarte.Domains.Accounts.Services.CreateUser do
   use Pescarte, :application_service
 
-  alias Pescarte.Domains.Accounts.IO.UserRepo
+  alias Pescarte.Domains.Accounts.Models.User
 
   @impl true
   def process(params) do
-    UserRepo.insert_pesquisador(params)
+    with {:ok, changeset} <- User.pesquisador_changeset(params) do
+      Database.insert(changeset)
+    end
   end
 
   def process(params, :admin) do
-    UserRepo.insert_admin(params)
+    with {:ok, changeset} <- User.admin_changeset(params) do
+      Database.insert(changeset)
+    end
   end
 end
