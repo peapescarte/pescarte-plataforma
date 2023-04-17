@@ -7,14 +7,13 @@ config :bcrypt_elixir, :log_rounds, 1
 config :pescarte, carbonite_mode: :ignore
 
 config :pescarte, Pescarte.Repo,
-  username: "pescarte",
-  password: "pescarte",
+  username: System.fetch_env!("PGUSER"),
+  password: System.get_env("PGPASSWORD", ""),
   database: "pescarte_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
-
-config :pescarte, Oban, queues: false, plugins: false
+  pool_size: 10,
+  show_sensitive_data_on_connection_error: true
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

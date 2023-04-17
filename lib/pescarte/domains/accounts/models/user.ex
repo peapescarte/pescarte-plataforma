@@ -55,12 +55,14 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     |> changeset()
     |> put_change(:role, :pesquisador)
     |> password_changeset(attrs)
+    |> apply_action(:parse)
   end
 
   def admin_changeset(attrs) do
     attrs
     |> changeset()
     |> put_change(:role, :admin)
+    |> apply_action(:parse)
   end
 
   def confirm_changeset(%__MODULE__{} = user, now) do

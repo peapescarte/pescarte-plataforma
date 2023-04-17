@@ -22,8 +22,8 @@ defmodule Seeds.Tags do
   end
 
   defp tags do
-    conteudo_id = elem(ModuloPesquisa.get_categoria(name: "conteudo"), 1).id
-    autoral_id = elem(ModuloPesquisa.get_categoria(name: "autoral"), 1).id
+    conteudo_id = ModuloPesquisa.get_categoria(name: "conteudo").id
+    autoral_id = ModuloPesquisa.get_categoria(name: "autoral").id
 
     [
       %{

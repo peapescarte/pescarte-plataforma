@@ -13,7 +13,7 @@ defmodule Seeds.Users do
         IO.puts("==> User with name #{attrs.first_name} already exists")
 
       _ ->
-        Accounts.register_user(attrs)
+        {:ok, _user} = Accounts.register_user(attrs)
     end
   end
 

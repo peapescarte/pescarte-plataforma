@@ -36,7 +36,6 @@ defmodule Pescarte.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:bcrypt_elixir, "~> 2.0"},
       {:ecto_sql, "~> 3.4"},
-      {:oban, "~> 2.8"},
       {:nanoid, "~> 2.0.5"},
       {:hackney, "~> 1.8"},
       {:timex, "~> 3.0"},

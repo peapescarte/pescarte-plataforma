@@ -26,13 +26,13 @@ defmodule Seeds.Campi do
       %{
         name: "Universidade Estadual do Norte Fluminense Darcy Ribeiro",
         initials: "UENF",
-        cidade_id: elem(ModuloPesquisa.get_cidade(county: "Campos dos Goytacazes"), 1).id,
+        cidade_id: ModuloPesquisa.get_cidade(county: "Campos dos Goytacazes").id,
         public_id: Nanoid.generate()
       },
       %{
         name: "Universidade Federal de São Carlos",
         initials: "UFSCar",
-        cidade_id: elem(ModuloPesquisa.get_cidade(county: "Sorocaba"), 1).id,
+        cidade_id: ModuloPesquisa.get_cidade(county: "Sorocaba").id,
         public_id: Nanoid.generate()
       }
     ]

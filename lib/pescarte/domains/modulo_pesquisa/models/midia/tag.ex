@@ -24,6 +24,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     |> unique_constraint(:label)
     |> foreign_key_constraint(:categoria_id)
     |> put_change(:public_id, Nanoid.generate())
+    |> apply_action(:parse)
   end
 
   def list_by_query(fields) do

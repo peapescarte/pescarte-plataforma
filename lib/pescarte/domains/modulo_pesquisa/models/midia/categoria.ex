@@ -21,6 +21,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
     |> validate_required(@required_fields)
     |> unique_constraint(:name)
     |> put_change(:public_id, Nanoid.generate())
+    |> apply_action(:parse)
   end
 
   def list_tags_query(categoria = %__MODULE__{}) do

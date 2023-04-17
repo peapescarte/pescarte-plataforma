@@ -23,9 +23,9 @@ defmodule Seeds.Pesquisadores do
   end
 
   defp pesquisadores do
-    uenf = elem(ModuloPesquisa.get_campus(initials: "UENF"), 1).id
+    uenf = ModuloPesquisa.get_campus(initials: "UENF").id
 
-    user_id = fn cpf -> elem(Accounts.get_user(cpf: cpf), 1).id end
+    user_id = fn cpf -> Accounts.get_user(cpf: cpf).id end
 
     [
       %{
@@ -72,7 +72,7 @@ defmodule Seeds.Pesquisadores do
         """,
         bolsa: :consultoria,
         link_lattes: "http://lattes.cnpq.br/9826346918182685",
-        campus_id: elem(ModuloPesquisa.get_campus(initials: "UFSCar"), 1).id,
+        campus_id: ModuloPesquisa.get_campus(initials: "UFSCar").id,
         user_id: user_id.("214.521.238-88"),
         public_id: Nanoid.generate()
       }

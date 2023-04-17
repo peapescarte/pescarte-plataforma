@@ -22,11 +22,10 @@ defmodule Seeds.Midias do
   end
 
   defp midias do
-    {:ok, categoria} = ModuloPesquisa.get_categoria(name: "conteudo")
+    categoria = ModuloPesquisa.get_categoria(name: "conteudo")
     tags = ModuloPesquisa.list_tags_by(categoria)
 
-    author_id =
-      elem(ModuloPesquisa.get_pesquisador(link_lattes: "https://github.com/zoedsoupe"), 1).id
+    author_id = ModuloPesquisa.get_pesquisador(link_lattes: "https://github.com/zoedsoupe").id
 
     [
       %{
