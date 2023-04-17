@@ -3,6 +3,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
 
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
+  alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
@@ -17,7 +18,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     coordenador_pedagogico
   )a
 
-  @required_fields ~w(minibio bolsa link_lattes campus_id user_id)a
+  @required_fields ~w(minibio bolsa link_lattes campus_id user_id rg data_inicio_bolsa data_fim_bolsa data_contratacao formacao)a
+
   @optional_fields ~w(orientador_id)a
   @update_fields ~w(minibio bolsa link_lattes)a
 
@@ -29,10 +31,18 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     field :link_linkedin, :string
     field :profile_banner, :string
     field :public_id, :string
+    field :data_inicio_bolsa, :date
+    field :data_fim_bolsa, :date
+    field :data_contratacao, :date
+    field :rg, :string
+    field :formacao, TrimmedString
+
+    has_one :linha_pesquisa, LinhaPesquisa, foreign_key: :responsavel_lp_id
 
     has_many :orientandos, Pesquisador
     has_many :midias, Midia, foreign_key: :author_id
     has_many :relatorio_mensais, RelatorioMensal
+    has_many :linhas_pesquisa, LinhaPesquisa
 
     belongs_to :campus, Campus
     belongs_to :user, User, on_replace: :update

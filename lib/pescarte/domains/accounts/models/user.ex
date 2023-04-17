@@ -26,6 +26,7 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     field :middle_name, CapitalizedString
     field :last_name, CapitalizedString
     field :public_id, :string
+    field :avatar_link, :string
 
     has_one :pesquisador, Pesquisador
     belongs_to :contato, Contato, on_replace: :update

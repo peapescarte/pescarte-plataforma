@@ -31,8 +31,7 @@ defmodule Pescarte.Factory do
   def contato_factory do
     %Contato{
       email: sequence(:email, &"test-#{&1}@example.com"),
-      mobile: sequence(:celular, ["(22)12345-6789"]),
-      address: sequence(:endereco, &"Teste, Rua teste, número #{&1}")
+      mobile: sequence(:celular, ["(22)12345-6789"])
     }
   end
 

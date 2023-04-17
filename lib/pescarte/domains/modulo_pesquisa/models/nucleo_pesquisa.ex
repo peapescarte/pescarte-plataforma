@@ -5,6 +5,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
 
   schema "nucleo_pesquisa" do
     field :name, CapitalizedString
+    field :letter, CapitalizedString
     field :desc, :string
     field :public_id, :string
 
@@ -15,8 +16,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
 
   def changeset(attrs) do
     %__MODULE__{}
-    |> cast(attrs, [:name, :desc])
-    |> validate_required([:name, :desc])
+    |> cast(attrs, [:name, :desc, :letter])
+    |> validate_required([:name, :desc, :letter])
     |> validate_length(:desc, max: 400)
     |> put_change(:public_id, Nanoid.generate())
     |> apply_action(:parse)

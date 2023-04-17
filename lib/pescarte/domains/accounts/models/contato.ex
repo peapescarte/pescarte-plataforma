@@ -1,12 +1,15 @@
 defmodule Pescarte.Domains.Accounts.Models.Contato do
   use Pescarte, :model
 
-  @fields ~w(mobile email address)a
+  alias Pescarte.Domains.ModuloPesquisa.Models.Cidade
+
+  @fields ~w(mobile email)a
 
   schema "contato" do
     field :mobile, :string
     field :email, :string
-    field :address, :string
+
+    has_one :city, Cidade
 
     timestamps()
   end

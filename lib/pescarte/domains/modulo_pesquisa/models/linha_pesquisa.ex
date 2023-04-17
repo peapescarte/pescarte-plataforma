@@ -2,10 +2,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
   use Pescarte, :model
 
   alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.Types.TrimmedString
 
   @required_fields ~w(nucleo_pesquisa_id sort_desc number)a
-  @optional_fields ~w(desc)a
+  @optional_fields ~w(desc pesquisador_id responsavel_lp_id)a
 
   schema "linha_pesquisa" do
     field :number, :integer
@@ -14,6 +15,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     field :public_id, :string
 
     belongs_to :nucleo_pesquisa, NucleoPesquisa
+    belongs_to :pesquisador, Pesquisador
+    belongs_to :responsavel_lp, Pesquisador, foreign_key: :responsavel_lp_id
 
     timestamps()
   end
@@ -25,6 +28,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     |> validate_length(:short_desc, max: 90)
     |> validate_length(:desc, max: 280)
     |> foreign_key_constraint(:nucleo_pesquisa_id)
+    |> foreign_key_constraint(:pesquisador_id)
+    |> foreign_key_constraint(:responsavel_lp_id)
     |> put_change(:public_id, Nanoid.generate())
     |> apply_action(:parse)
   end
