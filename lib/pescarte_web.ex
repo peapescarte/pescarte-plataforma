@@ -17,6 +17,23 @@ defmodule PescarteWeb do
   and import those modules here.
   """
 
+  def static_paths do
+    ~w(assets fonts images favicon.ico apple-touch-icon.png favicon-32x32.png favicon-16x16.png safari-pinned-tab.svg browserconfig.xml service_worker.js cache_manifest.json manifest.json android-chrome-192x192.png android-chrome-384x384.png icons)
+  end
+
+  @spec controller :: Macro.t()
+  def controller do
+    quote do
+      use Phoenix.Controller,
+        formats: [:html, :json],
+        layouts: [html: PescarteWeb.Layouts]
+
+      import Plug.Conn
+
+      unquote(verified_routes())
+    end
+  end
+
   @spec router :: Macro.t()
   def router do
     quote do
@@ -24,6 +41,7 @@ defmodule PescarteWeb do
 
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
@@ -34,11 +52,58 @@ defmodule PescarteWeb do
     end
   end
 
+  def live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {PescarteWeb.Layouts, :app}
+
+      unquote(html_helpers())
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+      unquote(html_helpers())
+    end
+  end
+
+  def html do
+    quote do
+      use Phoenix.Component
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
+
+      # Include general helpers for rendering HTML
+      unquote(html_helpers())
+    end
+  end
+
+  defp html_helpers do
+    quote do
+      # HTML escaping functionality
+      import Phoenix.HTML
+      import Phoenix.HTML.Form, only: [submit: 1, submit: 2]
+      import Phoenix.LiveView.HTMLEngine, only: [component: 3]
+      # Core UI components and translation
+      # import PescarteWeb.DesignSystem
+
+      # Shortcut for generating JS commands
+      alias Phoenix.LiveView.JS
+
+      # Routes generation with the ~p sigil
+      unquote(verified_routes())
+    end
+  end
+
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
         endpoint: PescarteWeb.Endpoint,
-        router: PescarteWeb.Router
+        router: PescarteWeb.Router,
+        statics: PescarteWeb.static_paths()
     end
   end
 

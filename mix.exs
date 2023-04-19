@@ -44,14 +44,20 @@ defmodule Pescarte.MixProject do
       {:carbonite, "~> 0.4.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
+      {:phoenix_live_view, "~> 0.18"},
+      {:floki, ">= 0.30.0", only: :test},
       {:jason, "~> 1.0"},
       {:tesla, "~> 1.4"},
       {:finch, "~> 0.9.0"},
       {:absinthe, "~> 1.5"},
+      {:lucide_icons, "~> 1.0"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
       {:plug_cowboy, "~> 2.3"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev}
     ]
   end
 
