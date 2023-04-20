@@ -32,7 +32,14 @@
     </script>
   </head>
   <body>
+    <.navbar>
+      <:nav_btn>
+        <Lucideicons.log_in class="text-white-100" />
+        <.text size="base" color="text-white-100">Acessar</.text>
+      </:nav_btn>
+    </.navbar>
     <%= @inner_content %>
+    <.footer />
   </body>
   <script>
     if (navigator.serviceWorker) {

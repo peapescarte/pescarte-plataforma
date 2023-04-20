@@ -1,10 +1,11 @@
 [
   import_deps: [:ecto, :phoenix],
   subdirectories: ["priv/*/migrations"],
+  plugins: [Phoenix.LiveView.HTMLFormatter],
   inputs: [
-    "*.{ex,exs}",
-    "{config,lib,test}/**/*.{ex,exs}",
+    "*.{heex,ex,exs}",
     "priv/*/seeds.exs",
-    "storybook/**/*.exs"
+    "storybook/**/*.exs",
+    "{config,lib,test}/**/*.{heex,ex,exs}"
   ]
 ]
