@@ -67,22 +67,22 @@ module.exports = {
       }
     },
     lineHeight: {
-      10: '46px',
-      9: '38px',
-      8: '28px',
-      7: '24px',
-      6: '22px',
-      5: '20px',
-      4: '18px',
+      10: '2.25rem',
+      9: '2.375rem',
+      8: '1.75rem',
+      7: '1.5rem',
+      6: '1.375rem',
+      5: '1.25rem',
+      4: '1.125rem',
     },
     fontSize: {
-      xs: '12px',
-      sm: '14px',
-      base: '16px',
-      lg: '20px',
-      xl: '24px',
-      '2xl': '32px',
-      '3xl': '40px'
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.25rem',
+      xl: '1.5rem',
+      '2xl': '2rem',
+      '3xl': '2.5rem',
     },
     fontFamily: {
       sans: ['Work Sans', 'sans-serif']
