@@ -38,7 +38,7 @@ defmodule PescarteWeb.DesignSystem do
   def text(%{size: "h" <> _} = assigns) do
     ~H"""
     <%= content_tag @size, class: get_text_style(@size, @color, @class) do %>
-      {render(@inner_block)}
+      <%= render_slot(@inner_block) %>
     <% end %>
     """
   end
@@ -46,7 +46,7 @@ defmodule PescarteWeb.DesignSystem do
   def text(assigns) do
     ~H"""
     <p class={get_text_style(@size, @color, @class)}>
-      {render(@inner_block)}
+      <%= render_slot(@inner_block) %>
     </p>
     """
   end
@@ -63,7 +63,7 @@ defmodule PescarteWeb.DesignSystem do
   defp get_text_style("h4", color, custom_class),
     do: get_text_style("text-lg leading-7 font-medium" <> " " <> color, custom_class)
 
-  defp get_text_style(size, color, custom_class) when size in ~w(h1 base),
+  defp get_text_style(size, color, custom_class) when size in ~w(h5 base),
     do: get_text_style("text-base leading-4 font-medium" <> " " <> color, custom_class)
 
   defp get_text_style("lg", color, custom_class),

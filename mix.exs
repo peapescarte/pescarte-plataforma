@@ -54,6 +54,7 @@ defmodule Pescarte.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
       {:plug_cowboy, "~> 2.3"},
+      {:phoenix_storybook, "~> 0.5.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
@@ -68,7 +69,20 @@ defmodule Pescarte.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "seeds", "test"],
-      "test.reset": ["ecto.drop", "test"]
+      "test.reset": ["ecto.drop", "test"],
+      "assets.build": [
+        "esbuild default",
+        "sass default",
+        "tailwind default",
+        "tailwind storybook"
+      ],
+      "assets.deploy": [
+        "esbuild default --minify",
+        "sass default",
+        "tailwind default --minify",
+        "tailwind storybook --minify",
+        "phx.digest"
+      ]
     ]
   end
 end
