@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./button.scss";
+
 $nav-width: 8.75rem;
 $navbar-height: 6.125rem;
 $footer-height: 6.438rem;

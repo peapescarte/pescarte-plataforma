@@ -21,8 +21,7 @@ defmodule PescarteWeb.DesignSystem do
   opcional `class`, que recebe uma string.
 
   ## Exemplo
-      <.text size="h1">
-      </.text>
+      <.text size="h1"> Lorem ipsum dolor sit amet </.text>
   """
 
   use PescarteWeb, :html
@@ -77,5 +76,59 @@ defmodule PescarteWeb.DesignSystem do
 
   defp get_text_style(final_class, custom_class) do
     final_class <> " " <> custom_class
+  end
+
+  @doc """
+  Componente de botão, que representa uma ação na plataforma.
+
+  Esse componente possui 2 variantes:
+
+  - Primário
+  - Secundário
+
+  que é controlado pelo atributo `style`.
+
+  Esse componente també pode ter um ícone em conjunto com o texto,
+  basta informar o nome do ícone da biblioteca [lucide](https://lucide.dev),
+  em minúsculo (veja o exemplo abaixo).
+
+  Caso o componente esteja dentro de um formulário, passe o atributo `submit`,
+  desta forma o botão irá ser acionado assim que o formua'ário tiver seu
+  preenchimento finalizado.
+
+  ## Exemplo
+      <.button style="primary"> Primário </.button>
+
+      <.button style="secondary"> Secundário </.button>
+
+      <.button style="primary" submit> Submissão </.button>
+
+      <.button style="primary" icon={:log_in}> Primário com ícone </.button>
+  """
+
+  attr :style, :string, values: ~w(primary secondary), required: true
+  attr :submit, :boolean, default: false
+  attr :icon, :atom, required: false, default: nil
+
+  slot :inner_block
+
+  def button(assigns) do
+    ~H"""
+    <button type={if @submit, do: "submit", else: "button"} class={["btn", "btn-#{@style}"]}>
+      <.icon :if={@icon} name={@icon} />
+
+      <.text :if={@style == "primary"} size="base" color="text-white-100">
+        <%= render_slot(@inner_block) %>
+      </.text>
+
+      <.text :if={@style != "primary"} size="base" color="text-blue-80">
+        <%= render_slot(@inner_block) %>
+      </.text>
+    </button>
+    """
+  end
+
+  defp icon(assigns) do
+    apply(Lucideicons, assigns.name, [assigns])
   end
 end
