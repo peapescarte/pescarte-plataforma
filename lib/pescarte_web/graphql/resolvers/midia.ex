@@ -36,7 +36,7 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
          {:ok, midia} <- ModuloPesquisa.get_midia(public_id: args.id) do
       new_tags = ModuloPesquisa.list_tags(Enum.map(tags, & &1.id))
       tags = new_tags
-      midia = Map.merge(midia, args) |> Map.put(:id, midia.id)
+      midia = midia |> Map.merge(args) |> Map.put(:id, midia.id)
 
       ModuloPesquisa.update_midia(%{midia | tags: tags})
     end

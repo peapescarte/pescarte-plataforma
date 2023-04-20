@@ -51,7 +51,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     |> apply_action(:parse)
   end
 
-  def list_tags_query(midia = %__MODULE__{}) do
+  def list_tags_query(%__MODULE__{} = midia) do
     from m in __MODULE__, where: m.id == ^midia.id, preload: :tags
   end
 

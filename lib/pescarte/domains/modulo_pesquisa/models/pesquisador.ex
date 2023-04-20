@@ -5,8 +5,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
-  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
   alias Pescarte.Types.TrimmedString
 
   @tipo_bolsas ~w(

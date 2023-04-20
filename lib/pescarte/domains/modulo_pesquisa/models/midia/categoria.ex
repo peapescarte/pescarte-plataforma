@@ -24,7 +24,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
     |> apply_action(:parse)
   end
 
-  def list_tags_query(categoria = %__MODULE__{}) do
+  def list_tags_query(%__MODULE__{} = categoria) do
     from t in Tag, where: t.categoria_id == ^categoria.id
   end
 end

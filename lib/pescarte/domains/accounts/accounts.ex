@@ -3,11 +3,11 @@ defmodule Pescarte.Domains.Accounts do
   The Accounts context.
   """
 
+  alias Pescarte.Database
   alias Pescarte.Domains.Accounts.IO.UserTokenRepo
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
   alias Pescarte.Domains.Accounts.Services
-  alias Pescarte.Database
 
   defdelegate list_user(fields \\ []), to: Services.GetUser, as: :process
 
