@@ -27,14 +27,17 @@ defmodule PescarteWeb.Router do
   end
 
   scope "/", PescarteWeb do
-    pipe_through(:browser)
+    pipe_through :browser
+
+    get "/", LandingController, :show
+
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
   end
 
   ## Endpoints para API pública
 
   scope "/api" do
-    pipe_through [:api]
+    pipe_through :api
 
     forward "/", Absinthe.Plug, schema: PescarteWeb.GraphQL.Schema
   end

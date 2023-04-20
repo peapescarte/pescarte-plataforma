@@ -47,3 +47,6 @@ pescarte-*.tar
 
 # Local scripts
 /.local_scripts/
+
+# Temporary images
+**/*.tmp.*

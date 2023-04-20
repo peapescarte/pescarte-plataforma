@@ -1,9 +1,13 @@
 defmodule PescarteWeb.DesignSystem do
   @moduledoc """
-  Este módulo implementa os compoentes que
+  Este módulo implementa os componentes que
   respeitam o design system, que pode ser encontrado no link
   a seguir: https://www.figma.com/file/PhkO37jz3ofCHwc1pHtPyz/PESCARTE?node-id=0%3A1&t=Glx6Q8JbPkPX9gZx-1
   """
+
+  use Phoenix.Component
+
+  import Phoenix.HTML.Tag, only: [content_tag: 3]
 
   @doc """
   Este componente renderiza um texto, porém com os estilos
@@ -23,10 +27,6 @@ defmodule PescarteWeb.DesignSystem do
   ## Exemplo
       <.text size="h1"> Lorem ipsum dolor sit amet </.text>
   """
-
-  use PescarteWeb, :html
-
-  import Phoenix.HTML.Tag, only: [content_tag: 3]
 
   attr :size, :string, values: ~w(h1 h2 h3 h4 h5 base lg md sm), required: true
   attr :color, :string, default: "text-color-black-80"
@@ -129,6 +129,7 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   defp icon(assigns) do
+    assigns = Map.put(assigns, :size, 24)
     apply(Lucideicons, assigns.name, [assigns])
   end
 end
