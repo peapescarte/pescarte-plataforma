@@ -28,6 +28,7 @@ defmodule PescarteWeb.DesignSystem do
   opcional `class`, que recebe uma string.
 
   ## Exemplo
+
       <.text size="h1"> Lorem ipsum dolor sit amet </.text>
   """
 
@@ -100,6 +101,7 @@ defmodule PescarteWeb.DesignSystem do
   preenchimento finalizado.
 
   ## Exemplo
+
       <.button style="primary"> Primário </.button>
 
       <.button style="secondary"> Secundário </.button>
@@ -136,28 +138,37 @@ defmodule PescarteWeb.DesignSystem do
   Componente de checkbox, usado para representar valores que podem
   ter um valor ambíguo.
 
-  O mesmo obrigatoriamente recebe os atributos `id` e `label`. O primeiro
-  é responsável por identificar cada instância desse componente no DOM,
-  já o segundo é a etiqueta, o texto nome do campo em questão que é um
-  checkbox.
+  O mesmo obrigatoriamente recebe o atributos `label`, que representa a etiqueta,
+  o texto nome do campo em questão que é um checkbox.
 
   Também é possível controlar dinamicamente se o componente será desabilitado
   ou se o valor do checkbox será "assinado" com atributos `disabled` e
   `checked` respectivamente.
 
   ## Exemplo
+
       <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
   """
 
-  attr :id, :string, required: true
+  attr :id, :string, required: false
   attr :checked, :boolean, default: false
   attr :disabled, :boolean, default: false
   attr :label, :string, required: true
+  attr :field, Phoenix.HTML.FormField
+  attr :name, :string
+
+  def checkbox(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    assigns
+    |> assign(field: nil, id: assigns.id || field.id)
+    |> assign_new(:name, fn -> field.name end)
+    |> assign_new(:value, fn -> field.value end)
+    |> checkbox()
+  end
 
   def checkbox(assigns) do
     ~H"""
     <div class="checkbox-container">
-      <input id={@id} type="checkbox" checked={@checked} disabled={@disabled} />
+      <input id={@name} name={@name} type="checkbox" checked={@checked} disabled={@disabled} />
       <label for={@id}>
         <.text size="base"><%= @label %></.text>
       </label>
@@ -199,18 +210,33 @@ defmodule PescarteWeb.DesignSystem do
   Caso queira dar um valor inicial para o componente, use o atributo `value`!
 
   ## Exemplo
+
       <.text_input name="cpf" mask="999.999.999-99" label="CPF" />
 
       <.text_input name="password" label="Senha" type="password" />
   """
 
+  attr :id, :string, default: nil
   attr :type, :string, default: "text", values: ~w(text password)
-  attr :placeholder, :string, required: false
+  attr :placeholder, :string, required: false, default: ""
   attr :value, :string, required: false
-  attr :name, :string, required: true
-  attr :mask, :string, required: false
+  attr :mask, :string, required: false, default: nil
   attr :valid, :boolean, required: false, default: nil
   attr :label, :string, required: true
+  attr :field, Phoenix.HTML.FormField
+  attr :name, :string
+
+  attr :rest, :global,
+    include: ~w(autocomplete cols disabled form list max maxlength min minlength
+                pattern placeholder readonly required rows size step)
+
+  def text_input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    assigns
+    |> assign(field: nil, id: assigns.id || field.id)
+    |> assign_new(:name, fn -> field.name end)
+    |> assign_new(:value, fn -> field.value end)
+    |> text_input()
+  end
 
   def text_input(assigns) do
     ~H"""
@@ -219,13 +245,14 @@ defmodule PescarteWeb.DesignSystem do
         <.text size="h4"><%= @label %></.text>
       </label>
       <input
-        id={@name}
+        id={@id}
         name={@name}
         value={@value}
         type={@type}
         placeholder={@placeholder}
-        data-inputmask={"mask: #{@mask}"}
+        data-inputmask={if @mask, do: "mask: #{@mask}"}
         class={["input", text_input_state(@valid)]}
+        {@rest}
       />
       <span :if={!is_nil(@valid)} class="dot">
         <Lucideicons.check_circle_2 :if={@valid} />
@@ -296,6 +323,7 @@ defmodule PescarteWeb.DesignSystem do
   o componente de texto definido em `PescarteWeb.DesignSystem.text/1`.
 
   ## Exemplo
+
       <.link navigate={~p"/app/perfil"}>Ir para Perfil</.link>
 
       <.link href="https://google.com" text_size="lg">Google.com</.link>
@@ -308,6 +336,7 @@ defmodule PescarteWeb.DesignSystem do
   attr :href, :string, required: false, default: nil
   attr :method, :string, default: "get", values: ~w(get put post delete patch)
   attr :styless, :boolean, default: false
+  attr :class, :string, default: ""
 
   slot :inner_block
 
@@ -318,10 +347,46 @@ defmodule PescarteWeb.DesignSystem do
       patch={@patch}
       href={@href}
       method={@method}
-      class={if !@styless, do: "link"}
+      class={[if(!@styless, do: "link"), @class]}
     >
       <%= render_slot(@inner_block) %>
     </Phoenix.Component.link>
+    """
+  end
+
+  @doc """
+  Renderiza um formulário simples.
+
+  ## Exemplos
+
+      <.simple_form for={@form} phx-change="validate" phx-submit="save">
+        <.input field={@form[:email]} label="Email"/>
+        <.input field={@form[:username]} label="Username" />
+        <:actions>
+          <.button>Save</.button>
+        </:actions>
+      </.simple_form>
+  """
+  attr :for, :any, required: true, doc: "a entidade de dados que será usada no formulário"
+  attr :as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados"
+
+  attr :rest, :global,
+    include: ~w(autocomplete name rel action enctype method novalidate target),
+    doc: "atributos HTML adicionais e opcionais a serem adicionados na tag do formulário"
+
+  slot :inner_block, required: true
+  slot :actions, doc: "slot para ações do formulário, como o botão de submissão"
+
+  def simple_form(assigns) do
+    ~H"""
+    <.form :let={f} for={@for} as={@as} {@rest}>
+      <div class="mt-10 space-y-8 bg-white">
+        <%= render_slot(@inner_block, f) %>
+        <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
+          <%= render_slot(action, f) %>
+        </div>
+      </div>
+    </.form>
     """
   end
 

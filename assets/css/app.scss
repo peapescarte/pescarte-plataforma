@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+// Componentes
 @import "./button.scss";
 @import "./checkbox.scss";
 @import "./input.scss";
 @import "./landing.scss";
 @import "./navbar.scss";
+
+// Páginas
+@import "./pages/login.scss";
 
 $nav-width: 8.75rem;
 $navbar-height: 6.125rem;

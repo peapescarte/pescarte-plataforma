@@ -34,6 +34,13 @@ defmodule PescarteWeb.Router do
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
   end
 
+  scope "/", PescarteWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    get "/acessar", LoginController, :show
+    post "/acessar", LoginController, :create
+  end
+
   ## Endpoints para API pública
 
   scope "/api" do
