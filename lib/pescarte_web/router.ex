@@ -29,6 +29,7 @@ defmodule PescarteWeb.Router do
   scope "/", PescarteWeb do
     pipe_through(:browser)
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
+  #  get "404", ErrorHTML
   end
 
   ## Endpoints para API pública
