@@ -10,8 +10,8 @@ defmodule PescarteWeb.ErrorHTML do
   #  Phoenix.Controller.status_message_from_template(template)
   #end
 
-   def render("404.html", _assigns) do
-#    "OOPS !!!! Error, página não encontrada"
-    Phoenix.Controller.status_message_from_template("404.html")
-   end
+#   def render("404.html", _assigns) do
+##    "OOPS !!!! Error, página não encontrada"
+#    Phoenix.Controller.status_message_from_template("404.html")
+#   end
 end
