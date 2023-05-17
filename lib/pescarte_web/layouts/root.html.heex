@@ -15,7 +15,6 @@
       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link href="" rel="icones" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -31,8 +30,15 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body>
+  <body class={if @conn.assigns.current_user, do: "auth-grid", else: "grid"}>
+    <.navbar>
+      <:nav_btn>
+        <Lucideicons.log_in class="text-white-100" />
+        <.text size="base" color="text-white-100">Acessar</.text>
+      </:nav_btn>
+    </.navbar>
     <%= @inner_content %>
+    <.footer />
   </body>
   <script>
     if (navigator.serviceWorker) {

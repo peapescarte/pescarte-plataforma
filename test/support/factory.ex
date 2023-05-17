@@ -7,10 +7,10 @@ defmodule Pescarte.Factory do
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
   alias Pescarte.Domains.ModuloPesquisa.Models.Cidade
+  alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
 
   def campus_factory do
     %Campus{

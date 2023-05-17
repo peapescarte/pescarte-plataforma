@@ -5,22 +5,22 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   """
 
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateCampus
+  alias Pescarte.Domains.ModuloPesquisa.Services.CreateCategoria
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateCidade
+  alias Pescarte.Domains.ModuloPesquisa.Services.CreateLinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateMidia
-  alias Pescarte.Domains.ModuloPesquisa.Services.CreateRelatorioMensal
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateNucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Services.CreatePesquisador
-  alias Pescarte.Domains.ModuloPesquisa.Services.CreateLinhaPesquisa
-  alias Pescarte.Domains.ModuloPesquisa.Services.CreateCategoria
+  alias Pescarte.Domains.ModuloPesquisa.Services.CreateRelatorioMensal
   alias Pescarte.Domains.ModuloPesquisa.Services.CreateTag
   alias Pescarte.Domains.ModuloPesquisa.Services.GetCampus
+  alias Pescarte.Domains.ModuloPesquisa.Services.GetCategoria
   alias Pescarte.Domains.ModuloPesquisa.Services.GetCidade
+  alias Pescarte.Domains.ModuloPesquisa.Services.GetLinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Services.GetMidia
-  alias Pescarte.Domains.ModuloPesquisa.Services.GetRelatorioMensal
   alias Pescarte.Domains.ModuloPesquisa.Services.GetNucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Services.GetPesquisador
-  alias Pescarte.Domains.ModuloPesquisa.Services.GetLinhaPesquisa
-  alias Pescarte.Domains.ModuloPesquisa.Services.GetCategoria
+  alias Pescarte.Domains.ModuloPesquisa.Services.GetRelatorioMensal
   alias Pescarte.Domains.ModuloPesquisa.Services.GetTag
   alias Pescarte.Domains.ModuloPesquisa.Services.UpdateMidia
   alias Pescarte.Domains.ModuloPesquisa.Services.UpdateNucleoPesquisa

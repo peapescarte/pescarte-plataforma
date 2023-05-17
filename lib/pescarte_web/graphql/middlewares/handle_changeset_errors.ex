@@ -17,18 +17,21 @@ defmodule PescarteWeb.GraphQL.Middlewares.HandleChangesetErrors do
     Enum.flat_map(errors, fn
       {e, err} when is_list(err) ->
         Enum.reduce(err, [], fn
-          err, acc ->
-            if Enum.empty?(err) do
-              acc
-            else
-              [{k, v}] = Map.to_list(err)
-              err = "#{e} => #{k}: #{v}"
-              [err | acc]
-            end
+          err, acc -> format_nested_error(err, acc, e)
         end)
 
       {k, v} ->
         "#{k}: #{v}"
     end)
+  end
+
+  defp format_nested_error(err, acc, outer_err) do
+    if Enum.empty?(err) do
+      acc
+    else
+      [{k, v}] = Map.to_list(err)
+      err = "#{outer_err} => #{k}: #{v}"
+      [err | acc]
+    end
   end
 end

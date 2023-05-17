@@ -126,7 +126,7 @@ defmodule PescarteWeb.GraphQL.Schema do
     middleware = [Middlewares.EnsureAuthentication | middleware]
 
     case object do
-      %{identifier: :mutation} -> middleware ++ [Middlewares.HandleChangesetErrors]
+      %{identifier: :mutation} -> [Middlewares.HandleChangesetErrors | middleware]
       _ -> middleware
     end
   end

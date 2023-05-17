@@ -1,9 +1,16 @@
 defmodule PescarteWeb.DesignSystem do
   @moduledoc """
-  Este módulo implementa os compoentes que
+  Este módulo implementa os componentes que
   respeitam o design system, que pode ser encontrado no link
   a seguir: https://www.figma.com/file/PhkO37jz3ofCHwc1pHtPyz/PESCARTE?node-id=0%3A1&t=Glx6Q8JbPkPX9gZx-1
   """
+
+  use Phoenix.Component
+  use PescarteWeb, :verified_routes
+
+  import Phoenix.HTML.Tag, only: [content_tag: 3]
+
+  @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm)
 
   @doc """
   Este componente renderiza um texto, porém com os estilos
@@ -21,14 +28,11 @@ defmodule PescarteWeb.DesignSystem do
   opcional `class`, que recebe uma string.
 
   ## Exemplo
+
       <.text size="h1"> Lorem ipsum dolor sit amet </.text>
   """
 
-  use PescarteWeb, :html
-
-  import Phoenix.HTML.Tag, only: [content_tag: 3]
-
-  attr :size, :string, values: ~w(h1 h2 h3 h4 h5 base lg md sm), required: true
+  attr :size, :string, values: @text_sizes, required: true
   attr :color, :string, default: "text-color-black-80"
   attr :class, :string, required: false, default: ""
 
@@ -97,6 +101,7 @@ defmodule PescarteWeb.DesignSystem do
   preenchimento finalizado.
 
   ## Exemplo
+
       <.button style="primary"> Primário </.button>
 
       <.button style="secondary"> Secundário </.button>
@@ -109,12 +114,18 @@ defmodule PescarteWeb.DesignSystem do
   attr :style, :string, values: ~w(primary secondary), required: true
   attr :submit, :boolean, default: false
   attr :icon, :atom, required: false, default: nil
+  attr :class, :string, default: ""
+  attr :rest, :global, doc: ~s(used for phoenix events like "phx-click" and "phx-target")
 
   slot :inner_block
 
   def button(assigns) do
     ~H"""
-    <button type={if @submit, do: "submit", else: "button"} class={["btn", "btn-#{@style}"]}>
+    <button
+      type={if @submit, do: "submit", else: "button"}
+      class={["btn", "btn-#{@style}", @class]}
+      {@rest}
+    >
       <.icon :if={@icon} name={@icon} />
 
       <.text :if={@style == "primary"} size="base" color="text-white-100">
@@ -128,7 +139,262 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
+  @doc """
+  Componente de checkbox, usado para representar valores que podem
+  ter um valor ambíguo.
+
+  O mesmo obrigatoriamente recebe o atributos `label`, que representa a etiqueta,
+  o texto nome do campo em questão que é um checkbox.
+
+  Também é possível controlar dinamicamente se o componente será desabilitado
+  ou se o valor do checkbox será "assinado" com atributos `disabled` e
+  `checked` respectivamente.
+
+  ## Exemplo
+
+      <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
+  """
+
+  attr :id, :string, required: false
+  attr :checked, :boolean, default: false
+  attr :disabled, :boolean, default: false
+  attr :label, :string, required: true
+  attr :field, Phoenix.HTML.FormField
+  attr :name, :string
+
+  def checkbox(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    assigns
+    |> assign(field: nil, id: assigns.id || field.id)
+    |> assign_new(:name, fn -> field.name end)
+    |> assign_new(:value, fn -> field.value end)
+    |> checkbox()
+  end
+
+  def checkbox(assigns) do
+    ~H"""
+    <div class="checkbox-container">
+      <input id={@name} name={@name} type="checkbox" checked={@checked} disabled={@disabled} />
+      <label for={@id}>
+        <.text size="base"><%= @label %></.text>
+      </label>
+    </div>
+    """
+  end
+
+  @doc """
+  Um componente de rodapé para a plataforma, expondo os logos
+  dos apoiadores e empresas parceiras.
+
+  É um componente estático, sem atributos, sem estado.
+  """
+
+  def footer(assigns) do
+    ~H"""
+    <footer class="w-full flex justify-center items-center">
+      <img src="/images/footer_logos.svg" />
+    </footer>
+    """
+  end
+
+  @doc """
+  Um componente de input de texto, para receber entradas da pessoa
+  usuária.
+
+  O mesmo recebe obrigatoriamente os atributos `name` e `label`,
+  para que seja possível o formulário que usar este componente
+  direcionar corretamente o dado da entrada da pessoa usuária, e a
+  etiqueta para ficar visivel sobre o que se trata o input em questão.
+
+  Opcionalmente o componente também recebe o atributo `mask`, que controla
+  o formato do texto que será escrito. Por exemplo um documento CPF tem o
+  formato "111.111.111-11".
+
+  Além disso é possível definir um texto de ajuda que será colocado "dentro"
+  do componte, com o atributo `placeholder`.
+
+  Caso queira dar um valor inicial para o componente, use o atributo `value`!
+
+  ## Exemplo
+
+      <.text_input name="cpf" mask="999.999.999-99" label="CPF" />
+
+      <.text_input name="password" label="Senha" type="password" />
+  """
+
+  attr :id, :string, default: nil
+  attr :type, :string, default: "text", values: ~w(text password)
+  attr :placeholder, :string, required: false, default: ""
+  attr :value, :string, required: false
+  attr :mask, :string, required: false, default: nil
+  attr :valid, :boolean, required: false, default: nil
+  attr :label, :string, required: true
+  attr :field, Phoenix.HTML.FormField
+  attr :name, :string
+
+  attr :rest, :global,
+    include: ~w(autocomplete cols disabled form list max maxlength min minlength
+                pattern placeholder readonly required rows size step)
+
+  def text_input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    assigns
+    |> assign(field: nil, id: assigns.id || field.id)
+    |> assign_new(:name, fn -> field.name end)
+    |> assign_new(:value, fn -> field.value end)
+    |> text_input()
+  end
+
+  def text_input(assigns) do
+    ~H"""
+    <div class="text-input-container">
+      <label for={@name}>
+        <.text size="h4"><%= @label %></.text>
+      </label>
+      <input
+        id={@id}
+        name={@name}
+        value={@value}
+        type={@type}
+        placeholder={@placeholder}
+        data-inputmask={if @mask, do: "mask: #{@mask}"}
+        class={["input", text_input_state(@valid)]}
+        {@rest}
+      />
+      <span :if={!is_nil(@valid)} class="dot">
+        <Lucideicons.check_circle_2 :if={@valid} />
+        <Lucideicons.x_circle :if={!@valid} />
+      </span>
+    </div>
+    """
+  end
+
+  defp text_input_state(nil), do: "input-default"
+  defp text_input_state(false), do: "input-error"
+  defp text_input_state(true), do: "input-success"
+
+  @doc """
+  Componente de barra de navegação.
+  """
+
+  slot :nav_btn, required: true
+
+  def navbar(assigns) do
+    ~H"""
+    <header>
+      <nav class="w-full h-full navbar">
+        <img src="/images/pescarte_logo.svg" class="logo" />
+        <!-- TODO: Use named slots to render links -->
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <.text size="h4" color="text-blue-100">Cooperativas</.text>
+            <Lucideicons.chevron_down class="text-blue-100" />
+          </li>
+          <li class="nav-item">
+            <.text size="h4" color="text-blue-100">Equipes</.text>
+            <Lucideicons.chevron_down class="text-blue-100" />
+          </li>
+          <li class="nav-item">
+            <.text size="h4" color="text-blue-100">Relatórios</.text>
+            <Lucideicons.chevron_down class="text-blue-100" />
+          </li>
+          <li class="nav-item">
+            <.text size="h4" color="text-blue-100">Pesca</.text>
+            <Lucideicons.chevron_down class="text-blue-100" />
+          </li>
+        </ul>
+        <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
+          <.button style="primary" class="login-button">
+            <%= render_slot(@nav_btn) %>
+          </.button>
+        </PescarteWeb.DesignSystem.link>
+      </nav>
+    </header>
+    """
+  end
+
+  @doc """
+  Componente para criar links, que direcionam o usuário para outras
+  páginas internas da aplicação ou páginas externas de outras aplicações.
+
+  Recebe os mesmos atributos do componente nativo `Phoenix.Component.link/1`:
+
+  - `navigate`: redireciona a pessoa usuária, sem recarregar a página
+  - `patch`: redireciona a pessoa usuária para a mesma página, com parâmetros diferentes
+  - `href`: redireciona a pessoa usuária para outra página, interna ou externa da aplicação,
+  recarregando a página atual.
+
+  Além desses atributos esse componente precisa de uma `label`, que será o texto
+  exibido ao renderizar o link e também aceita um atributo opcional que controla
+  o tamanho da fonte do texto renderizado. Os possíveis valores são os mesmos que
+  o componente de texto definido em `PescarteWeb.DesignSystem.text/1`.
+
+  ## Exemplo
+
+      <.link navigate={~p"/app/perfil"}>Ir para Perfil</.link>
+
+      <.link href="https://google.com" text_size="lg">Google.com</.link>
+
+      <.link patch={~p"/app/relatorios"} text_size="lg">Recarregar lista de relatórios</.link>
+  """
+
+  attr :navigate, :string, required: false, default: nil
+  attr :patch, :string, required: false, default: nil
+  attr :href, :string, required: false, default: nil
+  attr :method, :string, default: "get", values: ~w(get put post delete patch)
+  attr :styless, :boolean, default: false
+  attr :class, :string, default: ""
+
+  slot :inner_block
+
+  def link(assigns) do
+    ~H"""
+    <Phoenix.Component.link
+      navigate={@navigate}
+      patch={@patch}
+      href={@href}
+      method={@method}
+      class={[if(!@styless, do: "link"), @class]}
+    >
+      <%= render_slot(@inner_block) %>
+    </Phoenix.Component.link>
+    """
+  end
+
+  @doc """
+  Renderiza um formulário simples.
+
+  ## Exemplos
+
+      <.simple_form for={@form} phx-change="validate" phx-submit="save">
+        <.input field={@form[:email]} label="Email"/>
+        <.input field={@form[:username]} label="Username" />
+        <:actions>
+          <.button>Save</.button>
+        </:actions>
+      </.simple_form>
+  """
+  attr :for, :any, required: true, doc: "a entidade de dados que será usada no formulário"
+  attr :as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados"
+
+  attr :rest, :global,
+    include: ~w(autocomplete name rel action enctype method novalidate target),
+    doc: "atributos HTML adicionais e opcionais a serem adicionados na tag do formulário"
+
+  slot :inner_block, required: true
+  slot :actions, doc: "slot para ações do formulário, como o botão de submissão"
+
+  def simple_form(assigns) do
+    ~H"""
+    <.form :let={f} for={@for} as={@as} {@rest}>
+      <%= render_slot(@inner_block, f) %>
+      <%= for action <- @actions do %>
+        <%= render_slot(action, f) %>
+      <% end %>
+    </.form>
+    """
+  end
+
   defp icon(assigns) do
+    assigns = Map.put(assigns, :size, 24)
     apply(Lucideicons, assigns.name, [assigns])
   end
 end

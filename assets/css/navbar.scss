@@ -1,0 +1,29 @@
+.navbar {
+  @apply flex justify-between items-center;
+  @apply w-full border-black-10 bg-white-100;
+  border-bottom-width: 1px;
+}
+
+.logo {
+  margin-left: 2.5rem;
+  width: 9.75rem;
+  height: 3.125rem;
+}
+
+.login-button {
+  margin-right: 2.5rem;
+}
+
+.nav-menu {
+  @apply flex justify-evenly;
+  width: 30rem;
+}
+
+.nav-item {
+  @apply flex justify-between items-center;
+  padding: 1rem 1.5rem;
+
+  > svg {
+    margin-left: 0.5rem;
+  }
+}

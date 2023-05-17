@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+// Componentes
 @import "./button.scss";
+@import "./checkbox.scss";
+@import "./input.scss";
+@import "./landing.scss";
+@import "./navbar.scss";
+
+// Páginas
+@import "./pages/app/researcher/profile.scss";
+@import "./pages/login.scss";
 
 $nav-width: 8.75rem;
 $navbar-height: 6.125rem;
@@ -37,6 +46,11 @@ body {
   @apply bg-white-100;
   -webkit-font-smoothing: antialiased;
   font: 62.5% 'Work Sans' regular !important;
+}
+
+footer {
+  @apply border-black-10;
+  border-top-width: 1px;
 }
 
 .grid {

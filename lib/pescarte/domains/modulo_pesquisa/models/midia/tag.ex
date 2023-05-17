@@ -31,7 +31,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     from t in Tag, where: t.id in ^fields
   end
 
-  def list_midias_query(tag = %__MODULE__{}) do
+  def list_midias_query(%__MODULE__{} = tag) do
     from t in Tag, where: t.id == ^tag.id, preload: :midias
   end
 end

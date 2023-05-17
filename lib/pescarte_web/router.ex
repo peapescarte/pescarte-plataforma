@@ -29,7 +29,10 @@ defmodule PescarteWeb.Router do
   end
 
   scope "/", PescarteWeb do
-    pipe_through(:browser)
+    pipe_through :browser
+
+    get "/", LandingController, :show
+
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
 
   end
@@ -37,10 +40,24 @@ defmodule PescarteWeb.Router do
   #  send_resp(conn, 404, "not found")
   #end
 
+  scope "/", PescarteWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    get "/acessar", LoginController, :show
+    post "/acessar", LoginController, :create
+  end
+
+  scope "/app", PescarteWeb.App do
+    pipe_through :browser
+    # pipe_through [:browser, :require_authenticated_user]
+
+    get "/perfil", ResearcherController, :show_profile
+  end
+
   ## Endpoints para API pública
 
   scope "/api" do
-    pipe_through [:api]
+    pipe_through :api
 
     forward "/", Absinthe.Plug, schema: PescarteWeb.GraphQL.Schema
   end
