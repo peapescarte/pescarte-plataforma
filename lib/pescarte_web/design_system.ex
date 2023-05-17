@@ -115,12 +115,17 @@ defmodule PescarteWeb.DesignSystem do
   attr :submit, :boolean, default: false
   attr :icon, :atom, required: false, default: nil
   attr :class, :string, default: ""
+  attr :rest, :global, doc: ~s(used for phoenix events like "phx-click" and "phx-target")
 
   slot :inner_block
 
   def button(assigns) do
     ~H"""
-    <button type={if @submit, do: "submit", else: "button"} class={["btn", "btn-#{@style}", @class]}>
+    <button
+      type={if @submit, do: "submit", else: "button"}
+      class={["btn", "btn-#{@style}", @class]}
+      {@rest}
+    >
       <.icon :if={@icon} name={@icon} />
 
       <.text :if={@style == "primary"} size="base" color="text-white-100">
@@ -380,12 +385,10 @@ defmodule PescarteWeb.DesignSystem do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
-        <%= render_slot(@inner_block, f) %>
-        <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
-          <%= render_slot(action, f) %>
-        </div>
-      </div>
+      <%= render_slot(@inner_block, f) %>
+      <%= for action <- @actions do %>
+        <%= render_slot(action, f) %>
+      <% end %>
     </.form>
     """
   end

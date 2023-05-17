@@ -1,0 +1,129 @@
+.user-profile-wrapper {
+  @apply w-full flex flex-col items-end;
+
+  .user-profile-banner {
+    @apply w-full;
+    height: 12.5rem;
+
+    .user-profile-banner-default {
+      @apply bg-orange-60;
+      height: inherit;
+    }
+  }
+
+  .user-profile-avatar {
+    @apply bg-orange-100;
+    @apply border-4 border-white-100;
+
+    z-index: 10;
+    position: absolute;
+    top: 6.25rem;
+    left: 12rem;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    display: inline-block;
+
+    svg {
+      margin: 20% auto;
+    }
+  }
+
+  .user-profile-menu {
+    @apply flex flex-col items-center justify-center;
+    @apply bg-white-100;
+    @apply border-2 border-blue-80 text-blue-80;
+    @apply pt-14 pr-8;
+
+    &:hover {
+      visibility: visible;
+
+      .user-profile-menu-dots {
+        @apply border-0;
+      }
+
+      pointer-events: visible;
+    }
+
+    position: relative;
+    border-radius: 1rem;
+    height: 13rem;
+    width: 13rem;
+    right: 2rem;
+    top: 1rem;
+    pointer-events: none;
+    visibility: hidden;
+
+    .profile-menu-link {
+      @apply flex justify-between items-start w-28;
+    }
+
+    .user-profile-menu-dots {
+      @apply flex items-center;
+      @apply border-2 border-blue-80 bg-white-100;
+
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 6.25rem;
+
+      position: absolute;
+      bottom: 70%;
+      left: 70%;
+      pointer-events: auto;
+      visibility: visible;
+
+      &:hidden {
+        pointer-events: none;
+      }
+
+      .dots {
+        @apply w-1/2 mx-auto hover:hidden;
+        @apply flex justify-between items-center;
+
+        span {
+          @apply bg-blue-80;
+
+          border-radius: 50%;
+          height: 0.25rem;
+          width: 0.25rem;
+        }
+      }
+    }
+  }
+
+  .user-profile-info {
+    width: calc(100% - 4rem);
+    height: 29rem;
+    margin-top: -8rem;
+
+    .basic-info {
+      @apply flex flex-col items-start;
+    }
+
+    .about {
+      @apply w-full;
+      @apply flex flex-col items-start;
+
+      height: 6rem;
+
+      span {
+        height: 7.5rem;
+      }
+    }
+
+    .links {
+      @apply flex flex-col items-start justify-between;
+
+      height: 8.75rem;
+    }
+
+    hr {
+      @apply border-2;
+      @apply text-black-10 my-10;
+
+      height: 2px;
+      width: 58.75rem;
+      opacity: 0.4;
+    }
+  }
+}

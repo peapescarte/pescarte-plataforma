@@ -30,7 +30,7 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body>
+  <body class={if @conn.assigns.current_user, do: "auth-grid", else: "grid"}>
     <.navbar>
       <:nav_btn>
         <Lucideicons.log_in class="text-white-100" />

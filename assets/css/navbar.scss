@@ -15,12 +15,13 @@
 }
 
 .nav-menu {
-  @apply flex justify-around;
+  @apply flex justify-evenly;
   width: 30rem;
 }
 
 .nav-item {
   @apply flex justify-between items-center;
+  padding: 1rem 1.5rem;
 
   > svg {
     margin-left: 0.5rem;

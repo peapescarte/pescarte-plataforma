@@ -6,7 +6,7 @@ defmodule PescarteWeb.LoginHTML do
 
     ~H"""
     <main class="fish-bg h-full">
-      <.simple_form for={@form} action={~p"/acessar"} id="login_form">
+      <.simple_form for={@form} action={~p"/acessar"} class="login-form">
         <.text size="h3" color="text-black-80">
           Faça login para acessar a plataforma
         </.text>
@@ -20,11 +20,13 @@ defmodule PescarteWeb.LoginHTML do
         </fieldset>
 
         <:actions>
-          <.checkbox field={@form[:remember_me]} label="Mantanha-me conectado" id="remember" />
+          <div class="flex justify-between items-center">
+            <.checkbox field={@form[:remember_me]} label="Mantanha-me conectado" id="remember" />
 
-          <DesignSystem.link href={~p"/usuarios/recuperar_senha"} class="text-sm font-semibold">
-            <.text size="sm">Esqueceu sua senha?</.text>
-          </DesignSystem.link>
+            <DesignSystem.link href={~p"/usuarios/recuperar_senha"} class="text-sm font-semibold">
+              <.text size="sm">Esqueceu sua senha?</.text>
+            </DesignSystem.link>
+          </div>
         </:actions>
 
         <:actions>
