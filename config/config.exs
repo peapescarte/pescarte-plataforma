@@ -18,7 +18,7 @@ config :pescarte, Pescarte.Repo, migration_timestamps: [type: :utc_datetime_usec
 config :pescarte, PescarteWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/tnqEz6BgkvSQoZdVePI7wI2tB6enxAPY66OSNNCGSeDy2VkzG0lIc/cguFxfA+0",
-  render_errors: [view: PescarteWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [formats: [html: PescarteWeb.ErrorHTML], layout: false],
   pubsub_server: Pescarte.PubSub,
   live_view: [signing_salt: "TxTzLCT/WGlob2+Vo0uZ1IQAfkgq53M"]
 

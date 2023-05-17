@@ -13,6 +13,9 @@
 @import "./pages/app/researcher/profile.scss";
 @import "./pages/login.scss";
 
+// Páginas de Erros
+@import "./errors/404.scss";
+
 $nav-width: 8.75rem;
 $navbar-height: 6.125rem;
 $footer-height: 6.438rem;

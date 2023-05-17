@@ -13,8 +13,6 @@ defmodule PescarteWeb.Router do
     plug :put_secure_browser_headers
     plug :fetch_current_user
   end
-  #plug :match
-  plug PescarteWeb.ErrorHTML, layout: false
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -36,9 +34,6 @@ defmodule PescarteWeb.Router do
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
 
   end
-  #match _ do
-  #  send_resp(conn, 404, "not found")
-  #end
 
   scope "/", PescarteWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
