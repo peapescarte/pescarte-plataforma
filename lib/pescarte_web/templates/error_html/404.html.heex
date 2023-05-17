@@ -27,15 +27,7 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
   </head>
   <body>
-    <div class="container">
-      <section class="phx-hero">
-        <p>OOPS, Página não existe</p>
-      </section>
-      <img src="/priv/static/images/404.svg" alt="erro404" class="top-banner" />
-      <a href=" " class="phx-hero">
-        <img src="/priv/static/images/404.svg" alt="erro404"/>
-      </a>
-    </div>
+    <%= render PescarteWeb.ErrorHTML, "404.html", _assigns %>
   </body>
   <script>
     if (navigator.serviceWorker) {

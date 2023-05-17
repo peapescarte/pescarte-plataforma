@@ -13,6 +13,8 @@ defmodule PescarteWeb.Router do
     plug :put_secure_browser_headers
     plug :fetch_current_user
   end
+  #plug :match
+  plug PescarteWeb.ErrorHTML, layout: false
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -29,8 +31,11 @@ defmodule PescarteWeb.Router do
   scope "/", PescarteWeb do
     pipe_through(:browser)
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
-  #  get "404", ErrorHTML
+
   end
+  #match _ do
+  #  send_resp(conn, 404, "not found")
+  #end
 
   ## Endpoints para API pública
 
