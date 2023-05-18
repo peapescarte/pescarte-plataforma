@@ -27,43 +27,26 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
   </head>
   <body>
-  <.navbar>
-    <:nav_btn>
+    <.navbar>
+      <:nav_btn>
         <Lucideicons.log_in class="text-white-100" />
         <.text size="base" color="text-white-100">Acessar</.text>
       </:nav_btn>
-  </.navbar>
+    </.navbar>
+
     <div class="container">
-      <section class="phx-hero">
-        <p class="uppercase text-blue-100 text-4xl leading-10 font-bold">
-          oops
-        </p>
-        <p class="text-blue-100 text-2xl leading-8 font-regular">
-          Página não existe
-        </p>
-      </section>
-      <img src={~p"/images/404.svg"} alt="erro404" class="top-banner" />
-      <a href=" " class="phx-hero">
-        <img src={~p"/images/404.svg"} alt="erro404"/>
-      </a>
+      <main class="error-grid">
+        <div class="top-text text-blue-100">
+          <div class="text-title text-4xl uppercase leading-10">oops!</div>
+
+          <div class="text-subtitle item1 text-2xl leading-8 ">Página não</div>
+          <div class="text-subtitle item2 text-2xl leading-8 "> encontrada.</div>
+        </div>
+      </main>
+
+      <img src={~p"/images/404.svg"} alt="erro404" class="banner" />
+
     </div>
     <.footer />
   </body>
 </html>
-
-
-<!--  <body>
-    <div class="container">
-      <main role="main">
-        <h2>404 - Nothing to see here</h2>
-      </main>
-      <div>
-        <h2>OOPS !!!!! </h2>
-        <title>OOPS !!!!! Será??? </title>
-        <h5> Página não Encontrada. </h5>
-      </div>
-      <a href=" " class="phx-hero">
-        <img src="/priv/static/images/404.svg" alt="erro404"/>
-      </a>
-    </div>
-  </body> -->

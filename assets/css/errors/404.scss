@@ -1,0 +1,72 @@
+.error-grid{
+  @apply flex justify-center items-center;
+//  width: 9.75rem;
+//  height: 3.125rem;
+//  justify-content: space-between;
+
+
+  display: grid; // minha tela é um grid com textos e banner
+  gap: 2rem;
+  grid-template-areas:
+    'top-text'
+    'banner';
+}
+
+.top-text{
+  @apply justify-center
+  padding: 3rem 5rem;
+//  max-width: 1000px; // no figma o espaço é de 1300px. Isto garante que se adapte ao tamanho de tela
+  position: relative;
+  display: grid;
+//  place-items: center;  // ou justify-items: center; + align-items: center;
+//  place-content: center;
+
+  // centrado com duas colunas e a 2 coluna tenha 2 linhas:
+  grid-template-columns: 2fr 4fr;   // criando 2 colunas
+  grid-template-rows: 30px;
+  column-gap: 32px;  // column-gap para garantir o espaço entre as duas colunas de 32px como no figma.
+  grid-auto-flow: column; // para que se crie a cada elemento do grid, duas colunas como especificado
+
+  .text-title{
+    grid-row: 1 /-2;
+  //  height: 46px;
+  //  width: 297px;   // dados do Figma, corresponde ao texto: OOPS!
+    //left: 530px;
+    //top: 147px;
+  //  font-family: 'Work Sans';
+  //  font-style: normal;
+  //  font-weight: 700;
+   // font-size: 96px; // corresponde à 96px
+  //  line-height: 46px;
+  }
+  .text-subtitle{
+  //  grid-row: span 2;
+    .item1{
+      grid-row: 1/1;
+    }
+    .item2{
+      grid-row: 2/2
+    }
+    // corresponde ao texto: Página não encontrada.
+  //  width: 191px;
+  //  height: 76px;
+  //left: 859px;
+  //top: 132px;
+
+// font-family: 'Work Sans';
+// font-style: normal; // font-regular
+// font-weight: 500;
+// font-size: text-2xl; // corresponde à 32px;
+// line-height: 38px;
+// até aqui... o espaçamento entre os dois é de 32.
+  }
+
+  grid-area: top-text;
+}
+.banner {
+  padding: 3rem 5rem;
+  @apply w-full relative;
+
+//  height: 30rem;
+  grid-area: banner;
+}
