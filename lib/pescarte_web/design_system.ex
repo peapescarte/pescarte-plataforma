@@ -115,7 +115,8 @@ defmodule PescarteWeb.DesignSystem do
   attr :submit, :boolean, default: false
   attr :icon, :atom, required: false, default: nil
   attr :class, :string, default: ""
-  attr :rest, :global, doc: ~s(used for phoenix events like "phx-click" and "phx-target")
+  attr :click, :string, default: "", doc: ~s(the click event to handle)
+  attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
 
   slot :inner_block
 
@@ -124,6 +125,7 @@ defmodule PescarteWeb.DesignSystem do
     <button
       type={if @submit, do: "submit", else: "button"}
       class={["btn", "btn-#{@style}", @class]}
+      phx-click={@click}
       {@rest}
     >
       <.icon :if={@icon} name={@icon} />
