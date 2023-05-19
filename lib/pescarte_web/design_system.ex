@@ -11,6 +11,7 @@ defmodule PescarteWeb.DesignSystem do
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
   alias Pescarte.Domains.Accounts.Models.User
+  alias Phoenix.LiveView.JS
 
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm)
 
@@ -448,6 +449,32 @@ defmodule PescarteWeb.DesignSystem do
       <% end %>
     </.form>
     """
+  end
+
+  attr :type, :string, values: ~w(success error warning), required: true
+  attr :message, :string, required: true
+  attr :id, :string, required: true
+
+  @toast_spawn_time 150 ** 100
+
+  def toast(%{id: toast_id} = assigns) do
+    :timer.apply_after(@toast_spawn_time, __MODULE__, :hide_toast, [toast_id])
+
+    ~H"""
+    <div id={@id} class={["toast", @type]} role="alert" phx-remove={hide_toast(@id)}>
+      <div class="toast-icon">
+          <Lucideicons.check_circle_2 :if={@type == "success"} />
+          <Lucideicons.info :if={@type == "warning"} />
+          <Lucideicons.x_circle :if={@type == "error"} />
+          <span class="sr-only"><%= @type %> icon</span>
+      </div>
+      <.text size="lg"><%= @message %></.text>
+    </div>
+    """
+  end
+
+  defp hide_toast(toast_id) do
+    JS.hide(%JS{}, transition: "fade-out", to: toast_id)
   end
 
   defp icon(assigns) do

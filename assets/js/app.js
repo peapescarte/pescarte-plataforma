@@ -1,4 +1,5 @@
 import "phoenix_html";
+import "flowbite/dist/flowbite.phoenix.js";
 import Inputmask from "inputmask";
 
 const cpf = document.querySelector("#user_cpf");

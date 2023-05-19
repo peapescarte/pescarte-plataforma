@@ -1,0 +1,44 @@
+.toast {
+  @apply flex items-center;
+  @apply w-full max-w-xs;
+  @apply text-black-80 bg-white-100;
+
+  height: 3rem;
+  width: 14.8rem;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  border-width: 0.094rem;
+  position: absolute;
+  top: calc($navbar-height + 1rem);
+  left: calc(100vh - 5.5rem);
+
+  .toast-icon {
+    @apply text-white-100;
+    @apply inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full;
+    margin-right: 0.75rem;
+  }
+}
+
+.toast.success {
+  @apply border-green-40;
+
+  .toast-icon > svg {
+    @apply fill-red-100;
+  }
+}
+
+.toast.warning {
+  @apply border-yellow-40;
+
+  .toast-icon > svg {
+    @apply fill-yellow-100;
+  }
+}
+
+.toast.error {
+  @apply border-red-40;
+
+  .toast-icon > svg {
+    @apply fill-red-100;
+  }
+}

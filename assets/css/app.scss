@@ -2,20 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+$nav-width: 8.75rem;
+$navbar-height: 6.125rem;
+$footer-height: 6.438rem;
+
 // Componentes
 @import "./button.scss";
 @import "./checkbox.scss";
 @import "./input.scss";
 @import "./landing.scss";
 @import "./navbar.scss";
+@import "./toast.scss";
 
 // Páginas
 @import "./pages/app/researcher/profile.scss";
 @import "./pages/login.scss";
-
-$nav-width: 8.75rem;
-$navbar-height: 6.125rem;
-$footer-height: 6.438rem;
 
 * {
   margin: 0;
