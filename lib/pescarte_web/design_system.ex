@@ -10,6 +10,8 @@ defmodule PescarteWeb.DesignSystem do
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
+  alias Pescarte.Domains.Accounts.Models.User
+
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm)
 
   @doc """
@@ -277,39 +279,92 @@ defmodule PescarteWeb.DesignSystem do
   Componente de barra de navegação.
   """
 
-  slot :nav_btn, required: true
+  attr :user, User, default: nil
 
   def navbar(assigns) do
     ~H"""
     <header>
-      <nav class="w-full h-full navbar">
-        <img src="/images/pescarte_logo.svg" class="logo" />
-        <!-- TODO: Use named slots to render links -->
-        <ul class="nav-menu">
-          <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Cooperativas</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-          <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Equipes</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-          <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Relatórios</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-          <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Pesca</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-        </ul>
-        <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
-          <.button style="primary" class="login-button">
-            <%= render_slot(@nav_btn) %>
-          </.button>
-        </PescarteWeb.DesignSystem.link>
-      </nav>
+      <.default_navbar :if={is_nil(@user)} />
+      <.authenticated_navbar :if={@user} user={@user} />
     </header>
+    """
+  end
+
+  defp default_navbar(assigns) do
+    ~H"""
+    <nav class="w-full h-full navbar">
+      <img src="/images/pescarte_logo.svg" class="logo" />
+      <!-- TODO: Use named slots to render links -->
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <.text size="h4" color="text-blue-100">Cooperativas</.text>
+          <Lucideicons.chevron_down class="text-blue-100" />
+        </li>
+        <li class="nav-item">
+          <.text size="h4" color="text-blue-100">Equipes</.text>
+          <Lucideicons.chevron_down class="text-blue-100" />
+        </li>
+        <li class="nav-item">
+          <.text size="h4" color="text-blue-100">Relatórios</.text>
+          <Lucideicons.chevron_down class="text-blue-100" />
+        </li>
+        <li class="nav-item">
+          <.text size="h4" color="text-blue-100">Pesca</.text>
+          <Lucideicons.chevron_down class="text-blue-100" />
+        </li>
+      </ul>
+      <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
+        <.button style="primary" class="login-button">
+          <Lucideicons.log_in class="text-white-100" />
+          <.text size="base" color="text-white-100">Acessar</.text>
+        </.button>
+      </PescarteWeb.DesignSystem.link>
+    </nav>
+    """
+  end
+
+  attr :user, User, required: true
+
+  defp authenticated_navbar(assigns) do
+    ~H"""
+    <nav class="h-full navbar authenticated">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <img src={~p"/images/icon_logo.svg"} class="logo" />
+          <img src={~p"/images/pescarte_logo.svg"} class="logo" />
+        </li>
+        <li class="nav-item">
+          <Lucideicons.home />
+          <.text size="base" color="text-black-60">Home</.text>
+        </li>
+        <li class="nav-item">
+          <Lucideicons.users />
+          <.text size="base" color="text-black-60">
+            Pesquisadores
+          </.text>
+        </li>
+        <li class="nav-item">
+          <Lucideicons.file_text />
+          <.text size="base" color="text-black-60">
+            Relatórios
+          </.text>
+        </li>
+        <li class="nav-item">
+          <Lucideicons.calendar_days />
+          <.text size="base" color="text-black-60">Agenda</.text>
+        </li>
+        <li class="nav-item">
+          <Lucideicons.mail />
+          <.text size="base" color="text-black-60">Mensagens</.text>
+        </li>
+      </ul>
+      <div class="user-info">
+        <Lucideicons.user class="text-black-60" />
+        <.text size="base" color="text-black-80">
+          Zoey de Souza Pessanha
+        </.text>
+      </div>
+    </nav>
     """
   end
 

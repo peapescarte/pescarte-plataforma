@@ -1,7 +1,26 @@
-defmodule PescarteWeb.App.ResearcherHTML do
-  use PescarteWeb, :html
+defmodule PescarteWeb.Researcher.ProfileLive do
+  use PescarteWeb, :live_view
 
-  embed_templates "researcher_html/*"
+  @impl true
+  def mount(_params, _session, socket) do
+    # current_user = socket.assigns.current_user
+    mock_user = %{
+      avatar: nil,
+      profile_banner: nil,
+      first_name: "Zoey",
+      last_name: "Pessanha",
+      pesquisador: %{
+        minibio: "Olá sou eu mesma!",
+        link_lattes: "https://github.com/zoedsoupe",
+        link_linkedin: "https://linkedin.com/in/zoedsoupe",
+        bolsa: :pesquisa
+      }
+    }
+
+    {:ok, assign(socket, user: mock_user)}
+  end
+
+  # Components
 
   attr :href, :string, required: true
   attr :label, :string, required: true
@@ -24,7 +43,7 @@ defmodule PescarteWeb.App.ResearcherHTML do
   end
 
   attr :label, :string, required: true
-  attr :"phx-click", :any, required: true
+  attr :click, :string, required: true
 
   slot :inner_block
 
@@ -34,12 +53,7 @@ defmodule PescarteWeb.App.ResearcherHTML do
       <span class="flex items-center justify-center bg-white-100 h-12 w-12">
         <%= render_slot(@inner_block) %>
       </span>
-      <.button
-        phx-click={Map.get(assigns, :"phx-click")}
-        phx-target={@myself}
-        style="primary"
-        class="whitespace-nowrap"
-      >
+      <.button style="primary" class="whitespace-nowrap" click={@click}>
         <.text size="base" color="text-blue-80">
           <%= @label %>
         </.text>

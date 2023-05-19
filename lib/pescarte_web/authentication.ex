@@ -23,7 +23,8 @@ defmodule PescarteWeb.Authentication do
   redirecionado após o login
   """
   def signed_in_path do
-    ~p"/app/perfil"
+    # TODO: change depending of the type of user
+    ~p"/app/pesquisa/perfil"
   end
 
   @doc """

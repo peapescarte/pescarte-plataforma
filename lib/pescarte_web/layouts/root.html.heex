@@ -30,13 +30,8 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class={if @conn.assigns.current_user, do: "auth-grid", else: "grid"}>
-    <.navbar>
-      <:nav_btn>
-        <Lucideicons.log_in class="text-white-100" />
-        <.text size="base" color="text-white-100">Acessar</.text>
-      </:nav_btn>
-    </.navbar>
+  <body class={if @conn.assigns[:current_user], do: "auth-grid", else: "grid"}>
+    <.navbar user={@conn.assigns[:current_user]} />
     <%= @inner_content %>
     <.footer />
   </body>
