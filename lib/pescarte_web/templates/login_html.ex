@@ -6,6 +6,8 @@ defmodule PescarteWeb.LoginHTML do
 
     ~H"""
     <main class="fish-bg h-full">
+      <.toast :if={@error_message} id="login-error" type="error" message={@error_message} />
+
       <.simple_form for={@form} action={~p"/acessar"} class="login-form">
         <.text size="h3" color="text-black-80">
           Faça login para acessar a plataforma

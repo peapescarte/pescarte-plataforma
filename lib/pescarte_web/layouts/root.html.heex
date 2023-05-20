@@ -30,11 +30,7 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class={if @conn.assigns[:current_user], do: "auth-grid", else: "grid"}>
-    <.navbar user={@conn.assigns[:current_user]} />
-    <%= @inner_content %>
-    <.footer />
-  </body>
+  <%= @inner_content %>
   <script>
     if (navigator.serviceWorker) {
       navigator.serviceWorker.register('/service_worker.js', { scope: './' })

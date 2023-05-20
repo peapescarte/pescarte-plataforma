@@ -6,12 +6,12 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
 
   @impl true
   def process(cpf: cpf, password: password) do
-    with user = %User{} <- Database.get_by(User, cpf: cpf) do
-      if UserFields.valid_password?(user, password) do
-        {:ok, user}
-      else
-        {:error, :not_found}
-      end
+    user = Database.get_by(User, cpf: cpf)
+
+    if user && UserFields.valid_password?(user, password) do
+      {:ok, user}
+    else
+      {:error, :not_found}
     end
   end
 

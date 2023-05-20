@@ -41,6 +41,17 @@ body,
   min-width: 100vw;
   max-height: 100vh;
   min-height: 100vh;
+
+  > div {
+    min-height: 100vh;
+    min-width: 100vw;
+    max-height: 100vh;
+    min-height: 100vh;
+  }
+}
+
+.phx-connected {
+  @apply auth-grid;
 }
 
 body {
@@ -134,4 +145,13 @@ footer {
 
 .flex-center {
   @apply flex justify-center items-center;
+}
+
+.phx-error {
+  opacity: .25;
+  cursor: not-allowed;
+}
+
+.phx-error * {
+  pointer-events: none;
 }

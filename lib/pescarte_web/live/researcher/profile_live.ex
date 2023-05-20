@@ -1,5 +1,5 @@
 defmodule PescarteWeb.Researcher.ProfileLive do
-  use PescarteWeb, :live_view
+  use PescarteWeb, :auth_live_view
 
   @impl true
   def mount(_params, _session, socket) do
