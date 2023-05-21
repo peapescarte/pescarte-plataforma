@@ -1,4 +1,5 @@
 import "phoenix_html";
+import "flowbite/dist/flowbite.phoenix.js";
 import Inputmask from "inputmask";
 
 const cpf = document.querySelector("#user_cpf");
@@ -22,12 +23,41 @@ if (window.location.pathname === "/acessar") {
   });
 }
 
+// Phoenix Hooks
+let Hooks = {};
+
+Hooks.NavbarHover = {
+  mounted() {
+    const navbar = document.querySelector("#auth-navbar");
+
+    navbar.addEventListener("mouseover", e => {
+      this.pushEventTo(navbar, "mouseover");
+    });
+
+    navbar.addEventListener("mouseleave", e => {
+      this.pushEventTo(navbar, "mouseleave");
+    });
+
+    // click outside
+    window.addEventListener("click", e => {
+      this.pushEventTo(navbar, "mouseleave");
+    });
+
+    navbar.addEventListener("click", e => {
+      e.stopPropagation();
+    });
+  }
+};
+
 // LIVE VIEW
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}});
+let liveSocket = new LiveSocket("/live", Socket, {
+  params: { _csrf_token: csrfToken },
+  hooks: Hooks
+});
 
 // Connect if there are any LiveViews on the page
 liveSocket.connect();

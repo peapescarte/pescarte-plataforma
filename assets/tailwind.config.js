@@ -2,10 +2,10 @@ module.exports = {
   content: [
     './js/**/*.js',
     '../lib/*_web.ex',
-    '../lib/*_web/**/*.*ex'
+    '../lib/*_web/**/*.*ex',
+    './node_modules/flowbite/**/*.js',
   ],
   theme: {
-    borderWith: {1: '1.5px'},
     colors: {
       white: {
         100:  '#fff',
@@ -91,9 +91,12 @@ module.exports = {
     container: {
       center: true
     },
-    extend: {},
+    extend: {
+      borderWith: {1: '1.5px'},
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
+    // require('flowbite/plugin'),
   ]
 }

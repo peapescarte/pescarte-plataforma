@@ -1,6 +1,6 @@
 .btn {
   @apply py-6 px-4;
-  @apply flex justify-center items-center;
+  @apply flex-center;
 
   height: 3rem;
   gap: 0.5rem;
@@ -44,4 +44,12 @@
   svg {
     @apply text-blue-80;
   }
+}
+
+.btn-link {
+  @apply link;
+
+  gap: 0;
+  padding: 0;
+  border-radius: 0;
 }

@@ -8,8 +8,10 @@ defmodule PescarteWeb.Authentication do
 
   import Plug.Conn
   import Phoenix.Controller
+  import Phoenix.Component, only: [assign_new: 3]
 
   alias Pescarte.Domains.Accounts
+  alias Phoenix.LiveView.Socket
 
   # Faça o cookie lembrar do usuário ser válido por 60 dias.
   # Se você quiser aumentar ou reduzir esse valor, altere também
@@ -23,7 +25,8 @@ defmodule PescarteWeb.Authentication do
   redirecionado após o login
   """
   def signed_in_path do
-    ~p"/app/perfil"
+    # TODO: change depending of the type of user
+    ~p"/app/pesquisa/perfil"
   end
 
   @doc """
@@ -79,7 +82,7 @@ defmodule PescarteWeb.Authentication do
   Desconecta o usuário.
   Ele limpa todos os dados da sessão por segurança. Consulte renovação_sessão.
   """
-  def log_out_user(conn) do
+  def log_out_user(%Plug.Conn{} = conn) do
     user_token = get_session(conn, :user_token)
     user_token && Accounts.delete_session_token(user_token)
 
@@ -91,6 +94,13 @@ defmodule PescarteWeb.Authentication do
     |> renew_session()
     |> delete_resp_cookie(@remember_me_cookie)
     |> redirect(to: ~p"/")
+  end
+
+  def log_out_user(%Socket{} = socket) do
+    user = socket.assigns.current_user
+    user_token = socket.assigns[:user_token]
+    user_token && Accounts.delete_session_token(user_token)
+    PescarteWeb.Endpoint.broadcast_from(self(), socket.id, "disconnect", %{user: user})
   end
 
   @doc """
@@ -212,12 +222,14 @@ defmodule PescarteWeb.Authentication do
   def mount_current_user(session, socket) do
     case session do
       %{"user_token" => user_token} ->
-        Phoenix.Component.assign_new(socket, :current_user, fn ->
+        socket
+        |> assign_new(:current_user, fn ->
           Accounts.get_user_by_session_token(user_token)
         end)
+        |> assign_new(:user_token, fn -> user_token end)
 
       %{} ->
-        Phoenix.Component.assign_new(socket, :current_user, fn -> nil end)
+        assign_new(socket, :current_user, fn -> nil end)
     end
   end
 

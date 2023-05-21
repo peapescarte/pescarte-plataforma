@@ -9,6 +9,8 @@ defmodule PescarteWeb.DesignSystem do
   use PescarteWeb, :verified_routes
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
+  
+  alias Pescarte.Domains.Accounts.Models.User
 
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
 
@@ -33,7 +35,7 @@ defmodule PescarteWeb.DesignSystem do
   """
 
   attr :size, :string, values: @text_sizes, required: true
-  attr :color, :string, default: "text-color-black-80"
+  attr :color, :string, default: "text-black-80"
   attr :class, :string, required: false, default: ""
 
   slot :inner_block
@@ -114,11 +116,12 @@ defmodule PescarteWeb.DesignSystem do
       <.button style="primary" icon={:log_in}> Primário com ícone </.button>
   """
 
-  attr :style, :string, values: ~w(primary secondary), required: true
+  attr :style, :string, values: ~w(primary secondary link), required: true
   attr :submit, :boolean, default: false
   attr :icon, :atom, required: false, default: nil
   attr :class, :string, default: ""
-  attr :rest, :global, doc: ~s(used for phoenix events like "phx-click" and "phx-target")
+  attr :click, :string, default: "", doc: ~s(the click event to handle)
+  attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
 
   slot :inner_block
 
@@ -127,6 +130,7 @@ defmodule PescarteWeb.DesignSystem do
     <button
       type={if @submit, do: "submit", else: "button"}
       class={["btn", "btn-#{@style}", @class]}
+      phx-click={@click}
       {@rest}
     >
       <.icon :if={@icon} name={@icon} />
@@ -190,11 +194,10 @@ defmodule PescarteWeb.DesignSystem do
 
   É um componente estático, sem atributos, sem estado.
   """
-
   def footer(assigns) do
     ~H"""
-    <footer class="w-full flex justify-center items-center">
-      <img src="/images/footer_logos.svg" />
+    <footer class="flex justify-center items-center " }>
+      <img src={~p"/images/footer_logos.svg"} />
     </footer>
     """
   end
@@ -278,12 +281,10 @@ defmodule PescarteWeb.DesignSystem do
   Componente de barra de navegação.
   """
 
-  slot :nav_btn, required: true
-
   def navbar(assigns) do
     ~H"""
     <header>
-      <nav class="w-full h-full navbar">
+      <nav id="navbar" class="w-full h-full navbar">
         <img src="/images/pescarte_logo.svg" class="logo" />
         <!-- TODO: Use named slots to render links -->
         <ul class="nav-menu">
@@ -306,7 +307,8 @@ defmodule PescarteWeb.DesignSystem do
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
-            <%= render_slot(@nav_btn) %>
+            <Lucideicons.log_in class="text-white-100" />
+            <.text size="base" color="text-white-100">Acessar</.text>
           </.button>
         </PescarteWeb.DesignSystem.link>
       </nav>
@@ -393,6 +395,24 @@ defmodule PescarteWeb.DesignSystem do
         <%= render_slot(action, f) %>
       <% end %>
     </.form>
+    """
+  end
+
+  attr :type, :string, values: ~w(success error warning), required: true
+  attr :message, :string, required: true
+  attr :id, :string, required: true
+
+  def toast(assigns) do
+    ~H"""
+    <div id={@id} class={["toast", @type, "show"]} role="alert">
+      <div class="toast-icon">
+        <Lucideicons.check_circle_2 :if={@type == "success"} />
+        <Lucideicons.info :if={@type == "warning"} />
+        <Lucideicons.x_circle :if={@type == "error"} />
+        <span class="sr-only"><%= @type %> icon</span>
+      </div>
+      <.text size="lg"><%= @message %></.text>
+    </div>
     """
   end
 

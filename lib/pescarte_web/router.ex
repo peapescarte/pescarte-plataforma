@@ -42,11 +42,14 @@ defmodule PescarteWeb.Router do
     post "/acessar", LoginController, :create
   end
 
-  scope "/app", PescarteWeb.App do
+  scope "/app/pesquisa", PescarteWeb do
     pipe_through :browser
     # pipe_through [:browser, :require_authenticated_user]
 
-    get "/perfil", ResearcherController, :show_profile
+    live_session :require_authenticated_user,
+      on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
+      live "/perfil", Researcher.ProfileLive
+    end
   end
 
   ## Endpoints para API pública
