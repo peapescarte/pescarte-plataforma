@@ -1,0 +1,16 @@
+.error-grid {
+  @apply flex flex-col justify-center items-center;
+
+  margin: 0 auto;
+
+  .error-message {
+    @apply flex items-center justify-between;
+
+    width: max-content;
+
+    > h2 {
+      margin-left: 2rem;
+      font-weight: 500;
+    }
+  }
+}

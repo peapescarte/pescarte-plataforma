@@ -11,7 +11,7 @@ config :pescarte, Pescarte.Repo,
 
 config :pescarte, PescarteWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
-  debug_errors: true,
+  debug_errors: false,
   code_reloader: true,
   check_origin: false,
   secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",

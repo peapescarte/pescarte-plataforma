@@ -32,6 +32,7 @@ defmodule PescarteWeb.Router do
     get "/", LandingController, :show
 
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
+
   end
 
   scope "/", PescarteWeb do

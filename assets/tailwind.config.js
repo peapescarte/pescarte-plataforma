@@ -83,6 +83,7 @@ module.exports = {
       xl: '1.5rem',
       '2xl': '2rem',
       '3xl': '2.5rem',
+      '4xl': '6rem'
     },
     fontFamily: {
       sans: ['Work Sans', 'sans-serif']

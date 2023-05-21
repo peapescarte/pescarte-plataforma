@@ -9,10 +9,10 @@ defmodule PescarteWeb.DesignSystem do
   use PescarteWeb, :verified_routes
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
-
+  
   alias Pescarte.Domains.Accounts.Models.User
 
-  @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm)
+  @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
 
   @doc """
   Este componente renderiza um texto, porém com os estilos
@@ -79,6 +79,9 @@ defmodule PescarteWeb.DesignSystem do
 
   defp get_text_style("sm", color, custom_class),
     do: get_text_style("text-xs leading-4 font-regular" <> " " <> color, custom_class)
+
+  defp get_text_style("giant", color, custom_class),
+    do: get_text_style("text-4xl leading-10 font-bold" <> " " <> color, custom_class)
 
   defp get_text_style(final_class, custom_class) do
     final_class <> " " <> custom_class
