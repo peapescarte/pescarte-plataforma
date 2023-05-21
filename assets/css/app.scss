@@ -6,17 +6,14 @@ $nav-width: 8.75rem;
 $navbar-height: 6.125rem;
 $footer-height: 6.438rem;
 
-// Componentes
-@import "./button.scss";
-@import "./checkbox.scss";
-@import "./input.scss";
-@import "./landing.scss";
-@import "./navbar.scss";
-@import "./toast.scss";
+.link {
+  @apply hover:underline decoration-from-font;
+  @apply text-blue-80 decoration-blue-80;
+}
 
-// Páginas
-@import "./pages/app/researcher/profile.scss";
-@import "./pages/login.scss";
+.flex-center {
+  @apply flex justify-center items-center;
+}
 
 * {
   margin: 0;
@@ -34,24 +31,30 @@ $footer-height: 6.438rem;
   -moz-appearance: none;
 }
 
-body,
-.grid,
-.auth-grid {
+.wh-screen {
   min-height: 100vh;
   min-width: 100vw;
   max-height: 100vh;
   min-height: 100vh;
-
-  > div {
-    min-height: 100vh;
-    min-width: 100vw;
-    max-height: 100vh;
-    min-height: 100vh;
-  }
 }
 
-.phx-connected {
-  @apply auth-grid;
+body,
+.grid,
+.auth-grid {
+  @apply wh-screen;
+}
+
+.phx-connected, .phx-loading {
+  @apply auth-grid wh-screen;
+}
+
+.phx-error {
+  opacity: .25;
+  cursor: not-allowed;
+}
+
+.phx-error * {
+  pointer-events: none;
 }
 
 body {
@@ -73,9 +76,23 @@ footer {
 
 .auth-grid {
   display: grid;
-  grid-template-rows: 1fr $footer-height;
+  grid-template-rows: calc(100vh - $footer-height) $footer-height;
   grid-template-columns: $nav-width 1fr;
-  grid-template-areas: 'nav content' 'nav footer';
+  grid-template-areas:
+    'nav content'
+    'nav footer';
+
+  header {
+    @apply h-screen;
+  }
+
+  header > nav {
+    @apply h-full;
+  }
+
+  main {
+    @apply h-full w-full;
+  }
 }
 
 nav {
@@ -138,20 +155,14 @@ footer {
   grid-column: span 12 / span 12;
 }
 
-.link {
-  @apply hover:underline decoration-from-font;
-  @apply text-blue-80 decoration-blue-80;
-}
+// Componentes
+@import "./button.scss";
+@import "./checkbox.scss";
+@import "./input.scss";
+@import "./landing.scss";
+@import "./navbar.scss";
+@import "./toast.scss";
 
-.flex-center {
-  @apply flex justify-center items-center;
-}
-
-.phx-error {
-  opacity: .25;
-  cursor: not-allowed;
-}
-
-.phx-error * {
-  pointer-events: none;
-}
+// Páginas
+@import "./pages/app/researcher/profile.scss";
+@import "./pages/login.scss";

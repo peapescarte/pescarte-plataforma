@@ -1,7 +1,6 @@
 .navbar {
   @apply flex justify-between items-center;
   @apply w-full border-black-10 bg-white-100;
-  border-bottom-width: 1px;
 }
 
 .logo {
@@ -39,6 +38,26 @@
   transform: translateZ(0) scale(1, 1);
   border-right-width: 1px;
 
+  > span {
+    @apply border-black-10 rounded-full;
+
+    border-width: 1.5px;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    padding: 0.5rem;
+    top: 50vh;
+    left: 8rem;
+    z-index: 1000;
+
+    > svg {
+      @apply text-blue-100;
+
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
   .user-info {
     @apply flex justify-center;
     margin-top: 12rem;
@@ -64,8 +83,11 @@
 .navbar.authenticated.open {
   @apply bg-white-100 items-center;
 
-  z-index: 1000;
   width: 20rem;
+
+  // > span {
+  //   left: 20rem;
+  // }
 
   .user-info {
     @apply items-center;

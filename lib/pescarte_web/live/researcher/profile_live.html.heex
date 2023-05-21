@@ -1,26 +1,26 @@
-<main class="user-profile-wrapper">
+<div class="user-profile-wrapper">
   <div class="user-profile-avatar">
     <img :if={@user.avatar} src={@user.avatar} />
     <Lucideicons.user :if={!@user.avatar} width="100" height="100" />
   </div>
   <div class="user-profile-banner">
     <img :if={@user.profile_banner} src={@user.profile_banner} />
-    <div class="user-profile-banner-default" />
+    <div :if={!@user.profile_banner} class="user-profile-banner-default" />
   </div>
   <div class="user-profile-menu">
     <div class="user-profile-menu-dots">
       <div class="dots"><span /> <span /> <span /></div>
     </div>
     <.profile_menu_link click="edit_profile" label="Editar Perfil">
-      <Lucideicons.edit />
+      <Lucideicons.edit width="18" height="18" />
     </.profile_menu_link>
 
     <.profile_menu_link click="change_pass" label="Alterar Senha">
-      <Lucideicons.lock />
+      <Lucideicons.lock width="18" height="18" />
     </.profile_menu_link>
 
     <.profile_menu_link click="logout" label="Sair">
-      <Lucideicons.log_out />
+      <Lucideicons.log_out width="18" height="18" />
     </.profile_menu_link>
   </div>
   <section class="user-profile-info">
@@ -33,15 +33,15 @@
       </.text>
     </div>
     <hr />
-    <div class="about">
+    <div class="profile-about">
       <.text size="h4" color="text-black-80">Sobre</.text>
       <.text size="base" color="text-black-80">
         <%= @user.pesquisador.minibio %>
       </.text>
     </div>
     <hr />
-    <div class="links">
-      <.text size="lg" color="text-black-80">links</.text>
+    <div class="profile-links">
+      <.text size="lg" color="text-black-80">Links</.text>
       <.profile_link href={@user.pesquisador.link_lattes} label="Lattes">
         <Lucideicons.file_text width="35" height="23" class="text-white-100" />
       </.profile_link>
@@ -50,4 +50,4 @@
       </.profile_link>
     </div>
   </section>
-</main>
+</div>

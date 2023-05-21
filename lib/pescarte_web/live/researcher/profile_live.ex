@@ -1,6 +1,8 @@
 defmodule PescarteWeb.Researcher.ProfileLive do
   use PescarteWeb, :auth_live_view
 
+  alias PescarteWeb.Authentication
+
   @impl true
   def mount(_params, _session, socket) do
     # current_user = socket.assigns.current_user
@@ -29,7 +31,7 @@ defmodule PescarteWeb.Researcher.ProfileLive do
 
   def profile_link(assigns) do
     ~H"""
-    <div class="flex items-center justify-between w-28">
+    <div class="flex items-center profile-link">
       <span class="rounded-full bg-blue-80 h-12 w-12 flex-center">
         <%= render_slot(@inner_block) %>
       </span>
@@ -50,15 +52,29 @@ defmodule PescarteWeb.Researcher.ProfileLive do
   def profile_menu_link(assigns) do
     ~H"""
     <div class="profile-menu-link">
-      <span class="flex items-center justify-center bg-white-100 h-12 w-12">
+      <span class="flex items-center justify-center bg-white-100">
         <%= render_slot(@inner_block) %>
       </span>
-      <.button style="primary" class="whitespace-nowrap" click={@click}>
+      <.button style="link" class="whitespace-nowrap" click={@click} phx-target=".profile-menu-link">
         <.text size="base" color="text-blue-80">
           <%= @label %>
         </.text>
       </.button>
     </div>
     """
+  end
+
+  @impl true
+  def handle_event("edit_profile", _, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("change_pass", _, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("logout", _, socket) do
+    Authentication.log_out_user(socket)
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/")}
   end
 end

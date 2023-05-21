@@ -5,7 +5,7 @@ defmodule PescarteWeb.LoginHTML do
     assigns = Map.put(assigns, :form, to_form(%{}, as: :user))
 
     ~H"""
-    <main class="fish-bg h-full">
+    <div class="fish-bg h-full" id="login-wrapper">
       <.toast :if={@error_message} id="login-error" type="error" message={@error_message} />
 
       <.simple_form for={@form} action={~p"/acessar"} class="login-form">
@@ -37,7 +37,7 @@ defmodule PescarteWeb.LoginHTML do
           </.button>
         </:actions>
       </.simple_form>
-    </main>
+    </div>
     """
   end
 end

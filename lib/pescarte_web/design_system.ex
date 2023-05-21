@@ -113,7 +113,7 @@ defmodule PescarteWeb.DesignSystem do
       <.button style="primary" icon={:log_in}> Primário com ícone </.button>
   """
 
-  attr :style, :string, values: ~w(primary secondary), required: true
+  attr :style, :string, values: ~w(primary secondary link), required: true
   attr :submit, :boolean, default: false
   attr :icon, :atom, required: false, default: nil
   attr :class, :string, default: ""
