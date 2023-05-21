@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :pescarte, Pescarte.Repo,
-  username: System.fetch_env!("PGUSER"),
-  password: System.get_env("PGPASSSWORD", ""),
+  username: System.get_env("PGUSER", "pescarte"),
+  password: System.get_env("PGPASSSWORD", "pescarte"),
   database: "pescarte_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
