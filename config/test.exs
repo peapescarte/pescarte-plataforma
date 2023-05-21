@@ -7,8 +7,8 @@ config :bcrypt_elixir, :log_rounds, 1
 config :pescarte, carbonite_mode: :ignore
 
 config :pescarte, Pescarte.Repo,
-  username: System.fetch_env!("PGUSER"),
-  password: System.get_env("PGPASSWORD", ""),
+  username: System.get_env("PGUSER", "pescarte"),
+  password: System.get_env("PGPASSWORD", "pescarte"),
   database: "pescarte_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
