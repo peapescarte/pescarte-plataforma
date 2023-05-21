@@ -26,27 +26,20 @@
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
   </head>
-  <body>
+  <body class="grid">
     <.navbar>
       <:nav_btn>
         <Lucideicons.log_in class="text-white-100" />
         <.text size="base" color="text-white-100">Acessar</.text>
       </:nav_btn>
     </.navbar>
-
-    <div class="container">
-      <main class="error-grid">
-        <div class="top-text text-blue-100">
-          <div class="text-title text-4xl uppercase leading-10">oops!</div>
-
-          <div class="text-subtitle item1 text-2xl leading-8 ">Página não</div>
-          <div class="text-subtitle item2 text-2xl leading-8 "> encontrada.</div>
-        </div>
-      </main>
-
-      <img src={~p"/images/404.svg"} alt="erro404" class="banner" />
-
-    </div>
+    <main class="error-grid">
+      <span class="error-message">
+        <.text size="giant" color="text-blue-100" class="uppercase">oops!</.text>
+        <.text size="h2" color="text-blue-100">Página não<br />encontrada</.text>
+      </span>
+      <img src={~p"/images/404.svg"} alt="erro404" class="error-banner" />
+    </main>
     <.footer />
   </body>
 </html>
