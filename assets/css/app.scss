@@ -44,12 +44,13 @@ body,
   @apply wh-screen;
 }
 
-.phx-connected, .phx-loading {
+.phx-connected,
+.phx-loading {
   @apply auth-grid wh-screen;
 }
 
 .phx-error {
-  opacity: .25;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 
@@ -60,7 +61,10 @@ body,
 body {
   @apply bg-white-100;
   -webkit-font-smoothing: antialiased;
-  font: 62.5% 'Work Sans' regular !important;
+  font-family: "Work Sans";
+  font-size: 62.5%;
+  font-weight: 400;
+  position: relative;
 }
 
 footer {
@@ -71,7 +75,7 @@ footer {
 .grid {
   display: grid;
   grid-template-rows: $navbar-height 1fr $footer-height;
-  grid-template-areas: 'nav' 'content' 'footer';
+  grid-template-areas: "nav" "content" "footer";
 }
 
 .auth-grid {
@@ -79,8 +83,8 @@ footer {
   grid-template-rows: calc(100vh - $footer-height) $footer-height;
   grid-template-columns: $nav-width 1fr;
   grid-template-areas:
-    'nav content'
-    'nav footer';
+    "nav content"
+    "nav footer";
 
   header {
     @apply h-screen;
@@ -162,10 +166,15 @@ footer {
 @import "./landing.scss";
 @import "./navbar.scss";
 @import "./toast.scss";
+@import "./textarea.scss";
 
 // Páginas
-@import "./pages/app/researcher/profile.scss";
+// Sem autenticação
 @import "./pages/login.scss";
+
+// Com autenticação
+@import "./pages/app/researcher/profile.scss";
+@import "./pages/app/researcher/relatorio/mensal.scss";
 
 // Páginas de Erros
 @import "./errors/404.scss";

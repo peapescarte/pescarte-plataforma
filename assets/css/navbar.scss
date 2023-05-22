@@ -44,10 +44,10 @@
     border-width: 1.5px;
     width: 2rem;
     height: 2rem;
-    position: absolute;
+    position: fixed;
     padding: 0.5rem;
     top: 50vh;
-    left: 8rem;
+    left: calc($nav-width + 1rem);
     z-index: 1000;
 
     > svg {
@@ -85,9 +85,9 @@
 
   width: 20rem;
 
-  // > span {
-  //   left: 20rem;
-  // }
+  > span {
+    left: 21rem;
+  }
 
   .user-info {
     @apply items-center;

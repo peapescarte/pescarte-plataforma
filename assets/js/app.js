@@ -5,13 +5,13 @@ import Inputmask from "inputmask";
 const cpf = document.querySelector("#user_cpf");
 
 // input masks
-if (cpf) Inputmask({mask: "999.999.999-99"}).mask(cpf);
+if (cpf) Inputmask({ mask: "999.999.999-99" }).mask(cpf);
 
 function onVisible(elem, callback) {
   const options = { root: document.documentElement };
 
   const observer = new IntersectionObserver((entries, _observer) => {
-    entries.forEach(entry => callback(entry.intersectionRatio > 0));
+    entries.forEach((entry) => callback(entry.intersectionRatio > 0));
   }, options);
 
   observer.observe(elem);
@@ -30,33 +30,26 @@ Hooks.NavbarHover = {
   mounted() {
     const navbar = document.querySelector("#auth-navbar");
 
-    navbar.addEventListener("mouseover", e => {
+    navbar.addEventListener("mouseover", (e) => {
       this.pushEventTo(navbar, "mouseover");
     });
 
-    navbar.addEventListener("mouseleave", e => {
+    navbar.addEventListener("mouseleave", (e) => {
       this.pushEventTo(navbar, "mouseleave");
     });
-
-    // click outside
-    window.addEventListener("click", e => {
-      this.pushEventTo(navbar, "mouseleave");
-    });
-
-    navbar.addEventListener("click", e => {
-      e.stopPropagation();
-    });
-  }
+  },
 };
 
 // LIVE VIEW
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+let csrfToken = document
+  .querySelector("meta[name='csrf-token']")
+  .getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
-  hooks: Hooks
+  hooks: Hooks,
 });
 
 // Connect if there are any LiveViews on the page
@@ -73,6 +66,6 @@ window.liveSocket = liveSocket;
 // Show progress bar on live navigation and form submits
 import topbar from "topbar";
 
-topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"});
-window.addEventListener("phx:page-loading-start", info => topbar.show());
-window.addEventListener("phx:page-loading-stop", info => topbar.hide());
+topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
+window.addEventListener("phx:page-loading-start", (info) => topbar.show());
+window.addEventListener("phx:page-loading-stop", (info) => topbar.hide());
