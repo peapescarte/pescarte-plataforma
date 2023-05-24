@@ -1,11 +1,12 @@
-defmodule Pescarte.Repo.Migrations.CreateNucleoPesquisa do
+defmodule Pescarte.Repo.Migrations.CriaNucleoPesquisa do
   use Ecto.Migration
 
   def change do
     create table(:nucleo_pesquisa) do
-      add :name, :string, null: false
+      add :nome, :string, null: false
       add :desc, :string, size: 400
-      add :public_id, :string, null: false
+      add :letra, :string, null: true
+      add :id_publico, :string, null: false
 
       timestamps()
     end

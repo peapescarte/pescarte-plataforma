@@ -3,16 +3,17 @@ defmodule Pescarte.Repo.Migrations.CreateLinhaPesquisa do
 
   def change do
     create table(:linha_pesquisa) do
-      add :public_id, :string
-      add :number, :integer, null: false
-      add :short_desc, :string, size: 90, null: false
+      add :id_publico, :string
+      add :numero, :integer, null: false
+      add :desc_curta, :string, size: 90, null: false
       add :desc, :string, size: 280
+
       add :nucleo_pesquisa_id, references(:nucleo_pesquisa), null: false
 
       timestamps()
     end
 
-    create unique_index(:linha_pesquisa, [:number])
+    create unique_index(:linha_pesquisa, [:numero])
     create unique_index(:linha_pesquisa, [:nucleo_pesquisa_id])
   end
 end
