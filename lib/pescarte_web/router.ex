@@ -40,6 +40,8 @@ defmodule PescarteWeb.Router do
 
     get "/acessar", LoginController, :show
     post "/acessar", LoginController, :create
+
+
   end
 
   scope "/app/pesquisa", PescarteWeb do
@@ -50,6 +52,8 @@ defmodule PescarteWeb.Router do
       on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
       live "/perfil", Researcher.ProfileLive
     end
+
+    get "/relatorios", RelatorioListController, :show
   end
 
   ## Endpoints para API pública

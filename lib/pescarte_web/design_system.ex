@@ -9,7 +9,7 @@ defmodule PescarteWeb.DesignSystem do
   use PescarteWeb, :verified_routes
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
-  
+
   alias Pescarte.Domains.Accounts.Models.User
 
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
@@ -420,4 +420,46 @@ defmodule PescarteWeb.DesignSystem do
     assigns = Map.put(assigns, :size, 24)
     apply(Lucideicons, assigns.name, [assigns])
   end
+
+  @doc """
+  Renderiza uma tabela de 6 colunas - primeira versão em 25/5/2023:
+
+  Acredito que devo chamar passando o nome da coluna e o respectivo atributo do banco para pegar o valor desse atributo:
+  <.table >
+    coluna1={@nome1} col1={@col1}
+    coluna2={@nome2} col2={@col2}
+  </.table>
+  OU definir os nomes das colunas de forma estática como aparece a seguir e encaminhar somente os atributos respectivos:
+  %{col1: <.checkbox />, col2: @col2, col3: "Valor 3", col4: "Valor 4", col5: "Valor 5", col6: "Valor 6"}
+  """
+  def table(assigns) do
+    ~H"""
+    <table>
+      <thead>
+        <tr>
+          <th><.text size="h4" color="text-blue-100">    </.text></th>
+          <th><.text size="h4" color="text-blue-100">Data</.text></th>
+          <th><.text size="h4" color="text-blue-100">Tipo</.text></th>
+          <th><.text size="h4" color="text-blue-100">Mês/Ano</.text></th>
+          <th><.text size="h4" color="text-blue-100">Nome</.text></th>
+          <th><.text size="h4" color="text-blue-100">Status</.text></th>
+          <th><.text size="h4" color="text-blue-100">Baixar</.text></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for row <- assigns.data do %>
+          <tr>
+            <td><%= row.col1 %></td>
+            <td><%= row.col2 %></td>
+            <td><%= row.col3 %></td>
+            <td><%= row.col4 %></td>
+            <td><%= row.col5 %></td>
+            <td><%= row.col6 %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    """
+  end
+
 end
