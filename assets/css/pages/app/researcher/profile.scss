@@ -117,7 +117,9 @@ $profile-banner-width: 12.5rem;
       margin-bottom: 2.5rem;
       width: max-content;
 
-      > h2 { margin-bottom: 0.5rem; }
+      > h2 {
+        margin-bottom: 0.5rem;
+      }
     }
 
     .profile-about {
@@ -128,7 +130,9 @@ $profile-banner-width: 12.5rem;
       height: max-content;
       max-width: 58.5rem;
 
-      > h4 { margin-bottom: 0.75rem; }
+      > h4 {
+        margin-bottom: 0.75rem;
+      }
     }
 
     .profile-links {
@@ -136,7 +140,9 @@ $profile-banner-width: 12.5rem;
 
       width: max-content;
 
-      > p { margin-bottom: 0.75rem; }
+      > p {
+        margin-bottom: 0.75rem;
+      }
 
       > .profile-link {
         margin-bottom: 1.125rem;

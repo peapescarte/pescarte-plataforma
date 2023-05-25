@@ -1,4 +1,4 @@
-.checkbox-container input[type='checkbox'] {
+.checkbox-container input[type="checkbox"] {
   @apply border-black-10;
   border: none;
   -webkit-appearance: none;
@@ -14,17 +14,17 @@
   transition: background-color 0.2s ease-in-out;
 }
 
-.checkbox-container input[type='checkbox']:checked {
+.checkbox-container input[type="checkbox"]:checked {
   @apply bg-blue-100 border-blue-40;
   border-width: 1px;
 }
 
-.checkbox-container input[type='checkbox']:focus {
+.checkbox-container input[type="checkbox"]:focus {
   outline: none;
   box-shadow: none;
 }
 
-.checkbox-container input[type='checkbox']:disabled {
+.checkbox-container input[type="checkbox"]:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

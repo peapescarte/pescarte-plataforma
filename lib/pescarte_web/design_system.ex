@@ -10,8 +10,6 @@ defmodule PescarteWeb.DesignSystem do
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
-  alias Pescarte.Domains.Accounts.Models.User
-
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
 
   @doc """
@@ -147,6 +145,22 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   @doc """
+  Um componente de rodapé para a plataforma, expondo os logos
+  dos apoiadores e empresas parceiras.
+
+  É um componente estático, sem atributos, sem estado.
+  """
+  def footer(assigns) do
+    ~H"""
+    <footer class="flex justify-center items-center " }>
+      <img src={~p"/images/footer_logos.svg"} />
+    </footer>
+    """
+  end
+
+  ### COMPONENTES DE INPUT ####
+
+  @doc """
   Componente de checkbox, usado para representar valores que podem
   ter um valor ambíguo.
 
@@ -169,11 +183,9 @@ defmodule PescarteWeb.DesignSystem do
   attr :field, Phoenix.HTML.FormField
   attr :name, :string
 
-  def checkbox(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+  def checkbox(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
-    |> assign(field: nil, id: assigns.id || field.id)
-    |> assign_new(:name, fn -> field.name end)
-    |> assign_new(:value, fn -> field.value end)
+    |> input()
     |> checkbox()
   end
 
@@ -185,20 +197,6 @@ defmodule PescarteWeb.DesignSystem do
         <.text size="base"><%= @label %></.text>
       </label>
     </div>
-    """
-  end
-
-  @doc """
-  Um componente de rodapé para a plataforma, expondo os logos
-  dos apoiadores e empresas parceiras.
-
-  É um componente estático, sem atributos, sem estado.
-  """
-  def footer(assigns) do
-    ~H"""
-    <footer class="flex justify-center items-center " }>
-      <img src={~p"/images/footer_logos.svg"} />
-    </footer>
     """
   end
 
@@ -233,26 +231,22 @@ defmodule PescarteWeb.DesignSystem do
   attr :value, :string, required: false
   attr :mask, :string, required: false, default: nil
   attr :valid, :boolean, required: false, default: nil
-  attr :label, :string, required: true
+  attr :label, :string, default: nil
   attr :field, Phoenix.HTML.FormField
   attr :name, :string
 
-  attr :rest, :global,
-    include: ~w(autocomplete cols disabled form list max maxlength min minlength
-                pattern placeholder readonly required rows size step)
+  attr :rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required)
 
-  def text_input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+  def text_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
-    |> assign(field: nil, id: assigns.id || field.id)
-    |> assign_new(:name, fn -> field.name end)
-    |> assign_new(:value, fn -> field.value end)
+    |> input()
     |> text_input()
   end
 
   def text_input(assigns) do
     ~H"""
-    <div class="text-input-container">
-      <label for={@name}>
+    <fieldset class="text-input-container">
+      <label :if={@label} for={@name}>
         <.text size="h4"><%= @label %></.text>
       </label>
       <input
@@ -269,13 +263,58 @@ defmodule PescarteWeb.DesignSystem do
         <Lucideicons.check_circle_2 :if={@valid} />
         <Lucideicons.x_circle :if={!@valid} />
       </span>
-    </div>
+    </fieldset>
     """
   end
 
   defp text_input_state(nil), do: "input-default"
   defp text_input_state(false), do: "input-error"
   defp text_input_state(true), do: "input-success"
+
+  attr :id, :string, default: nil
+  attr :placeholder, :string, required: false, default: ""
+  attr :value, :string, default: ""
+  attr :valid, :boolean, required: false, default: nil
+  attr :field, Phoenix.HTML.FormField
+  attr :class, :string, default: ""
+
+  slot :label, required: true
+
+  def text_area(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> text_area()
+  end
+
+  def text_area(assigns) do
+    ~H"""
+    <fieldset class={@class}>
+      <%= render_slot(@label) %>
+      <div class="textarea-grow-wrapper">
+        <textarea
+          id={@id}
+          placeholder={@placeholder}
+          class="textarea"
+          onInput="this.parentNode.dataset.replicatedValue = this.value"
+        >
+          <%= @value %>
+        </textarea>
+      </div>
+    </fieldset>
+    """
+  end
+
+  # função interna para criação de inputs dinâmicos
+  # cada componente de input possui sua função própria
+  # para melhor semântica, como `text_input` ou `checkbox`
+  defp input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    assigns
+    |> assign(field: nil, id: assigns.id || field.id)
+    |> assign_new(:name, fn -> field.name end)
+    |> assign_new(:value, fn -> field.value end)
+  end
+
+  ### ACABA COMPONENTES DE INPUT ####
 
   @doc """
   Componente de barra de navegação.

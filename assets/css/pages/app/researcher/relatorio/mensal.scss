@@ -1,0 +1,24 @@
+.monthly-report-wrapper {
+  @apply w-full;
+
+  padding: 0 2.5rem;
+  overflow-y: scroll;
+  height: calc(100vh - $footer-height);
+
+  > h1 {
+    margin: 2.5rem 0;
+  }
+
+  > form .report-field {
+    height: max-content;
+    margin-bottom: 2.25rem;
+
+    h3 {
+      margin-bottom: 0.75rem;
+    }
+
+    textarea {
+      min-height: 12rem;
+    }
+  }
+}

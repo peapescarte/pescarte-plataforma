@@ -32,7 +32,6 @@ defmodule PescarteWeb.Router do
     get "/", LandingController, :show
 
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
-
   end
 
   scope "/", PescarteWeb do
@@ -51,6 +50,10 @@ defmodule PescarteWeb.Router do
     live_session :require_authenticated_user,
       on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
       live "/perfil", Researcher.ProfileLive
+
+      scope "/relatorios" do
+        live "/mensal", Researcher.Relatorio.MensalLive
+      end
     end
 
     get "/relatorios", RelatorioListController, :show
