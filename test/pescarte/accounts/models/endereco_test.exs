@@ -28,7 +28,7 @@ defmodule Pescarte.Accounts.Models.EnderecoTest do
       estado: "rio de janeiro",
       numero: 123,
       rua: "Teste",
-      complemento: "um complemento",
+      complemento: "um complemento"
     }
 
     changeset = Endereco.changeset(attrs)

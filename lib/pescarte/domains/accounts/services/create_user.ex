@@ -3,16 +3,24 @@ defmodule Pescarte.Domains.Accounts.Services.CreateUser do
 
   alias Pescarte.Domains.Accounts.Models.User
 
+  @doc """
+  O usuário padrão da plataforma são os pesquisadores
+  """
   @impl true
   def process(params) do
-    with {:ok, changeset} <- User.pesquisador_changeset(params) do
-      Database.insert(changeset)
-    end
+    process(params, :pesquisador)
+  end
+
+  @impl true
+  def process(params, :pesquisador) do
+    params
+    |> User.pesquisador_changeset()
+    |> Repo.insert()
   end
 
   def process(params, :admin) do
-    with {:ok, changeset} <- User.admin_changeset(params) do
-      Database.insert(changeset)
-    end
+    params
+    |> User.admin_changeset()
+    |> Repo.insert()
   end
 end

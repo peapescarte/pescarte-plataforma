@@ -11,7 +11,8 @@ defmodule Pescarte.MixProject do
       elixirc_options: [warnings_as_errors: false],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: ["test.reset": :test]
     ]
   end
 
@@ -41,7 +42,6 @@ defmodule Pescarte.MixProject do
       {:timex, "~> 3.0"},
       {:ex_machina, "~> 2.7.0"},
       {:postgrex, ">= 0.0.0"},
-      {:carbonite, "~> 0.4.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:phoenix_live_view, "~> 0.18"},

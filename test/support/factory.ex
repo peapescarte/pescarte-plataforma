@@ -34,20 +34,21 @@ defmodule Pescarte.Factory do
       celular_principal: sequence(:celular, ["(22)12345-6789"]),
       emails_adicionais: sequence_list(:emails, &"test-#{&1}@example.com", limit: 3),
       celulares_adicionais:
-        sequence_list(:celulares, &"(22)12345-67#{&1 < 10 && "#{&1}0" || &1}", limit: 4),
-    endereco: build(:endereco)
+        sequence_list(:celulares, &"(22)12345-67#{(&1 < 10 && "#{&1}0") || &1}", limit: 4),
+      endereco: build(:endereco)
     }
   end
 
   def endereco_factory do
     alias Pescarte.Domains.Accounts.Models.Endereco
+
     %Endereco{
       cep: "00000-000",
       cidade: "Campos dos Goytacazes",
       complemento: "Um complemento",
       estado: "Rio de Janeiro",
       numero: 100,
-      rua: "Rua Exemplo de Queiras",
+      rua: "Rua Exemplo de Queiras"
     }
   end
 
@@ -95,7 +96,7 @@ defmodule Pescarte.Factory do
   @spec user_factory :: User.t()
   def user_factory do
     %User{
-      id: Nanoid.generate_non_secure(),
+      id_publico: Nanoid.generate_non_secure(),
       tipo: sequence(:role, ["avulso", "pesquisador"]),
       primeiro_nome: sequence(:first, &"User #{&1}"),
       sobrenome: sequence(:last, &"Last User #{&1}"),
@@ -123,10 +124,17 @@ defmodule Pescarte.Factory do
   defp sequence_list(label, custom, opts \\ []) do
     limit = Keyword.get(opts, :limit, 1)
 
-    sequences = for _ <- 1..limit do
-      sequence(label, custom)
-    end
+    sequences =
+      for _ <- 1..limit do
+        sequence(label, custom)
+      end
 
     if limit > 1, do: sequences, else: hd(sequences)
+  end
+
+  def attrs(factory) do
+    factory
+    |> build()
+    |> Map.from_struct()
   end
 end

@@ -3,7 +3,6 @@ defmodule Pescarte.Domains.Accounts.Models.Contato do
 
   alias Pescarte.Domains.Accounts.Models.Endereco
 
-
   @fields ~w(emails_adicionais celulares_adicionais endereco_id)a
 
   @required_fields ~w(email_principal celular_principal)a

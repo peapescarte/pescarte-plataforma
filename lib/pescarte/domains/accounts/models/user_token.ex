@@ -13,11 +13,11 @@ defmodule Pescarte.Domains.Accounts.Models.UserToken do
   alias Pescarte.Domains.Accounts.Models.User
 
   schema "user_token" do
-    field(:token, :binary)
-    field(:context, :string)
-    field(:sent_to, :string)
+    field :token, :binary
+    field :contexto, :string
+    field :enviado_para, :string
 
-    belongs_to(:user, User)
+    belongs_to :usuario, User
 
     timestamps(updated_at: false)
   end

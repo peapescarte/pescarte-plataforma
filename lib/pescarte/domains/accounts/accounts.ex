@@ -25,8 +25,6 @@ defmodule Pescarte.Domains.Accounts do
   """
   defdelegate get_user(params), to: Services.GetUser, as: :process
 
-  defdelegate insert_contato(params), to: Services.CreateContato, as: :process
-
   def get_user_by_cpf_and_password(cpf, pass) do
     Services.GetUser.process(cpf: cpf, password: pass)
   end
@@ -156,7 +154,7 @@ defmodule Pescarte.Domains.Accounts do
     context = "change:#{user.contato.email}"
 
     with {:ok, query} <- UserTokenRepo.verify_change_email_token_query(token, context),
-         %UserToken{sent_to: email} <- Database.one(query),
+         %UserToken{enviado_para: email} <- Database.one(query),
          {:ok, _} <- Database.transaction(user_email_multi(user, email, context)) do
       :ok
     else
@@ -193,7 +191,7 @@ defmodule Pescarte.Domains.Accounts do
 
   """
   def change_user_password(user, attrs \\ %{}) do
-    User.password_changeset(user, attrs, hash_password: false)
+    User.password_changeset(user, attrs, hash_senha: false)
   end
 
   @doc """

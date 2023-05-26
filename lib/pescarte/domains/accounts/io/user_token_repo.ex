@@ -58,7 +58,7 @@ defmodule Pescarte.Domains.Accounts.IO.UserTokenRepo do
           from token in token_and_context_query(hashed_token, context),
             join: user in assoc(token, :user),
             join: contato in assoc(user, :contato),
-            where: token.inserted_at > ago(^days, "day") and token.sent_to == contato.email,
+            where: token.inserted_at > ago(^days, "day") and token.enviado_para == contato.email,
             select: user
 
         {:ok, query}
@@ -105,17 +105,17 @@ defmodule Pescarte.Domains.Accounts.IO.UserTokenRepo do
   Retorna a estrutura de token para o valor e o contexto de token fornecidos.
   """
   def token_and_context_query(token, context) do
-    from UserToken, where: [token: ^token, context: ^context]
+    from UserToken, where: [token: ^token, contexto: ^context]
   end
 
   @doc """
   Obtém todos os tokens do usuário fornecido para os contextos fornecidos.
   """
   def user_and_contexts_query(user, :all) do
-    from t in UserToken, where: t.user_id == ^user.id
+    from t in UserToken, where: t.usuario_id == ^user.id
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in UserToken, where: t.user_id == ^user.id and t.context in ^contexts
+    from t in UserToken, where: t.usuario_id == ^user.id and t.contexto in ^contexts
   end
 end

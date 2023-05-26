@@ -7,11 +7,16 @@ defmodule Pescarte do
   if it comes from the database, an external API or others.
   """
 
-  defmodule AppService, do: @callback(process(map | keyword) :: {:ok, term} | {:error, term})
+  defmodule AppService do
+    @callback process(map | keyword) :: {:ok, term} | {:error, term}
+    @callback process(map | keyword, atom) :: {:ok, term} | {:error, term}
+
+    @optional_callbacks [process: 2]
+  end
 
   def application_service do
     quote do
-      alias Pescarte.Database
+      alias Pescarte.Repo
 
       @behaviour Pescarte.AppService
     end

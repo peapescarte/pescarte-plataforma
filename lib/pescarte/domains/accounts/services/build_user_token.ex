@@ -27,7 +27,7 @@ defmodule Pescarte.Domains.Accounts.Services.BuildUserToken do
   """
   def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %UserToken{token: token, context: "session", user_id: user.id}}
+    {token, %UserToken{token: token, contexto: "session", usuario_id: user.id}}
   end
 
   @doc """
@@ -55,9 +55,9 @@ defmodule Pescarte.Domains.Accounts.Services.BuildUserToken do
     {Base.url_encode64(token, padding: false),
      %UserToken{
        token: hashed_token,
-       context: context,
-       sent_to: sent_to,
-       user_id: user.id
+       contexto: context,
+       enviado_para: sent_to,
+       usuario_id: user.id
      }}
   end
 end

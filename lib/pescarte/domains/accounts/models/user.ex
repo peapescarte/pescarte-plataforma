@@ -10,7 +10,6 @@ defmodule Pescarte.Domains.Accounts.Models.User do
 
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento)a
   @optional_fields ~w(confirmado_em)a
-  # @update_fields ~w(first_name middle_name last_name permissions)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
@@ -55,14 +54,12 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     |> changeset()
     |> put_change(:tipo, :pesquisador)
     |> password_changeset(attrs)
-    |> apply_action(:parse)
   end
 
   def admin_changeset(attrs) do
     attrs
     |> changeset()
     |> put_change(:tipo, :admin)
-    |> apply_action(:parse)
   end
 
   def confirm_changeset(%__MODULE__{} = user, now) do
@@ -75,7 +72,7 @@ defmodule Pescarte.Domains.Accounts.Models.User do
 
   def email_changeset(%{contato: contato}, attrs) do
     contato
-    |> cast(attrs, [:emai_principall])
+    |> cast(attrs, [:email_principal])
     |> validate_required([:email_principal])
   end
 

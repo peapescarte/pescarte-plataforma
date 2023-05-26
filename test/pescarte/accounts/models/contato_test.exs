@@ -5,8 +5,9 @@ defmodule Pescarte.Accounts.Models.ContatoTest do
 
   alias Pescarte.Domains.Accounts.Models.Contato
 
-  test "cria contato com emails e celulares adicionais" do
+  test "changeset com emails e celulares adicionais" do
     endereco = insert(:endereco)
+
     attrs = %{
       email_principal: "test@example.com",
       celular_principal: "(22)12345-6789",
@@ -20,8 +21,9 @@ defmodule Pescarte.Accounts.Models.ContatoTest do
     assert changeset.valid?
   end
 
-  test "cria contato com emails e celulares adicionais vazios" do
+  test "changeset com emails e celulares adicionais vazios" do
     endereco = insert(:endereco)
+
     attrs = %{
       email_principal: "test@example.com",
       celular_principal: "(22)12345-6789",
@@ -35,8 +37,9 @@ defmodule Pescarte.Accounts.Models.ContatoTest do
     assert changeset.valid?
   end
 
-  test "cria contato com emails e celulares adicionais duplicados" do
+  test "changeset com emails e celulares adicionais duplicados" do
     endereco = insert(:endereco)
+
     attrs = %{
       email_principal: "test@example.com",
       celular_principal: "(22)12345-6789",
@@ -52,8 +55,9 @@ defmodule Pescarte.Accounts.Models.ContatoTest do
     assert Keyword.get(changeset.errors, :celulares_adicionais)
   end
 
-  test "cria contato sem campos adicionais" do
+  test "changeset sem campos adicionais" do
     endereco = insert(:endereco)
+
     attrs = %{
       email_principal: "test@example.com",
       celular_principal: "(22)12345-6789",
@@ -65,8 +69,9 @@ defmodule Pescarte.Accounts.Models.ContatoTest do
     assert changeset.valid?
   end
 
-  test "cria contato com formato de email e celular invalido" do
+  test "changeset com formato de email e celular invalido" do
     endereco = insert(:endereco)
+
     attrs = %{
       email_principal: "test@example",
       celular_principal: "123456789",
