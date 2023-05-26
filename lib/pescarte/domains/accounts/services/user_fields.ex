@@ -11,7 +11,7 @@ defmodule Pescarte.Domains.Accounts.Services.UserFields do
   Se não houver usuário ou o usuário não tiver uma senha, chamamos
   `Bcrypt.no_user_verify/0` para evitar ataques de tempo.
   """
-  def valid_password?(%User{password_hash: password_hash}, password)
+  def valid_password?(%User{hash_senha: password_hash}, password)
       when is_binary(password_hash) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, password_hash)
   end
@@ -28,7 +28,7 @@ defmodule Pescarte.Domains.Accounts.Services.UserFields do
     if valid_password?(changeset.data, password) do
       changeset
     else
-      add_error(changeset, :current_password, "is not valid")
+      add_error(changeset, :current_password, "não é válida")
     end
   end
 

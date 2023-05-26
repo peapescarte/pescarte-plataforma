@@ -68,7 +68,7 @@ defmodule Pescarte.MixProject do
       setup: ["deps.get", "ecto.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "seeds", "test"],
+      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "test.reset": ["ecto.drop", "test"],
       "assets.build": [
         "esbuild default",

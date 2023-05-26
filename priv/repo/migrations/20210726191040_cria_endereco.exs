@@ -9,7 +9,6 @@ defmodule Pescarte.Repo.Migrations.CriaEndereco do
       add :cep, :string
       add :cidade, :string
       add :estado, :string
-      add :id_publico, :string, null: false
 
       timestamps()
     end

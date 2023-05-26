@@ -11,7 +11,21 @@ defmodule Pescarte.Domains.Accounts do
 
   defdelegate list_user(fields \\ []), to: Services.GetUser, as: :process
 
+  @doc """
+  Obtém apenas um usuário
+
+  ## Exemplos
+
+      iex> get_user("999.999.999-99")
+      %User{}
+
+      iex> get_user("")
+      nil
+
+  """
   defdelegate get_user(params), to: Services.GetUser, as: :process
+
+  defdelegate insert_contato(params), to: Services.CreateContato, as: :process
 
   def get_user_by_cpf_and_password(cpf, pass) do
     Services.GetUser.process(cpf: cpf, password: pass)
@@ -47,22 +61,6 @@ defmodule Pescarte.Domains.Accounts do
   """
   def get_user_by_email_and_password(email, pass) do
     Services.GetUser.process(email: email, password: pass)
-  end
-
-  @doc """
-  Obtém apenas um usuário
-
-  ## Exemplos
-
-      iex> get_user("999.999.999-99")
-      %User{}
-
-      iex> get_user("")
-      nil
-
-  """
-  def fetch_user(cpf) do
-    Services.GetUser.process(cpf: cpf)
   end
 
   @doc """

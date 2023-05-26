@@ -7,26 +7,26 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
   @valid_roles ~w(pesquisador pescador admin avulso)a
-  @required_fields ~w(first_name last_name cpf birthdate)a
-  @optional_fields ~w(confirmed_at middle_name role)a
+
+  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento)a
+  @optional_fields ~w(confirmado_em)a
   # @update_fields ~w(first_name middle_name last_name permissions)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
-  schema "user" do
+  schema "usuario" do
     field :cpf, TrimmedString
-    field :confirmed_at, :naive_datetime
-    field :password_hash, :string, redact: true
-    field :password, TrimmedString, virtual: true, redact: true
-    field :birthdate, :date
-    field :role, Ecto.Enum, default: :avulso, values: @valid_roles
-    field :first_name, CapitalizedString
-    field :middle_name, CapitalizedString
-    field :last_name, CapitalizedString
-    field :public_id, :string
-    field :avatar_link, :string
+    field :confirmado_em, :naive_datetime
+    field :hash_senha, :string, redact: true
+    field :senha, TrimmedString, virtual: true, redact: true
+    field :data_nascimento, :date
+    field :tipo, Ecto.Enum, default: :avulso, values: @valid_roles
+    field :primeiro_nome, CapitalizedString
+    field :sobrenome, CapitalizedString
+    field :id_publico, :string
+    field :ativo?, :boolean, default: false
 
     has_one :pesquisador, Pesquisador
     belongs_to :contato, Contato, on_replace: :update
@@ -35,7 +35,7 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   end
 
   def full_name(user) do
-    names = [user.first_name, user.middle_name, user.last_name]
+    names = [user.primeiro_nome, user.sobrenome]
 
     Enum.join(names, " ")
   end
@@ -47,13 +47,13 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     |> validate_cpf(:cpf)
     |> unique_constraint(:cpf)
     |> cast_assoc(:contato, required: true, with: &Contato.changeset/2)
-    |> put_change(:public_id, Nanoid.generate())
+    |> put_change(:id_publico, Nanoid.generate())
   end
 
   def pesquisador_changeset(attrs) do
     attrs
     |> changeset()
-    |> put_change(:role, :pesquisador)
+    |> put_change(:tipo, :pesquisador)
     |> password_changeset(attrs)
     |> apply_action(:parse)
   end
@@ -61,12 +61,12 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   def admin_changeset(attrs) do
     attrs
     |> changeset()
-    |> put_change(:role, :admin)
+    |> put_change(:tipo, :admin)
     |> apply_action(:parse)
   end
 
   def confirm_changeset(%__MODULE__{} = user, now) do
-    change(user, confirmed_at: now)
+    change(user, confirmado_em: now)
   end
 
   def email_changeset(%{contato: nil} = user, attrs) do
@@ -75,33 +75,33 @@ defmodule Pescarte.Domains.Accounts.Models.User do
 
   def email_changeset(%{contato: contato}, attrs) do
     contato
-    |> cast(attrs, [:email])
-    |> validate_required([:email])
+    |> cast(attrs, [:emai_principall])
+    |> validate_required([:email_principal])
   end
 
   def password_changeset(changeset, attrs \\ %{}, opts \\ []) do
     changeset
-    |> cast(attrs, [:password])
-    |> validate_required([:password])
-    |> validate_confirmation(:password, required: true)
-    |> validate_length(:password, min: 12, max: 72)
-    |> validate_format(:password, @lower_pass_format, message: "at least one lower case character")
-    |> validate_format(:password, @upper_pass_format, message: "at least one upper case character")
-    |> validate_format(:password, @special_pass_format,
-      message: "at least one digit or punctuation character"
+    |> cast(attrs, [:senha])
+    |> validate_required([:senha])
+    |> validate_confirmation(:senha, required: true)
+    |> validate_length(:senha, min: 12, max: 72)
+    |> validate_format(:senha, @lower_pass_format, message: "pelo menos uma letra minúscula")
+    |> validate_format(:senha, @upper_pass_format, message: "pelo menos uma letra maiúscula")
+    |> validate_format(:senha, @special_pass_format,
+      message: "pelo menos um digito ou caractere digital"
     )
     |> maybe_hash_password(opts)
   end
 
   defp maybe_hash_password(changeset, opts) do
-    hash_password? = Keyword.get(opts, :hash_password, true)
-    password = get_change(changeset, :password)
+    hash_password? = Keyword.get(opts, :hash_senha, true)
+    password = get_change(changeset, :senha)
 
     if hash_password? && password && changeset.valid? do
       changeset
-      |> validate_length(:password, max: 72, count: :bytes)
-      |> put_change(:password_hash, Bcrypt.hash_pwd_salt(password))
-      |> delete_change(:password)
+      |> validate_length(:senha, max: 72, count: :bytes)
+      |> put_change(:senha, Bcrypt.hash_pwd_salt(password))
+      |> delete_change(:senha)
     else
       changeset
     end
@@ -114,7 +114,7 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   def get_by_email_query(email) do
     from u in __MODULE__,
       left_join: c in assoc(u, :contato),
-      where: fragment("lower(?)", c.email) == ^email,
+      where: fragment("lower(?)", c.email_principal) == ^email,
       order_by: [desc: u.inserted_at],
       limit: 1
   end

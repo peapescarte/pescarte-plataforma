@@ -30,8 +30,24 @@ defmodule Pescarte.Factory do
 
   def contato_factory do
     %Contato{
-      email: sequence(:email, &"test-#{&1}@example.com"),
-      mobile: sequence(:celular, ["(22)12345-6789"])
+      email_principal: sequence(:email, &"test-#{&1}@example.com"),
+      celular_principal: sequence(:celular, ["(22)12345-6789"]),
+      emails_adicionais: sequence_list(:emails, &"test-#{&1}@example.com", limit: 3),
+      celulares_adicionais:
+        sequence_list(:celulares, &"(22)12345-67#{&1 < 10 && "#{&1}0" || &1}", limit: 4),
+    endereco: build(:endereco)
+    }
+  end
+
+  def endereco_factory do
+    alias Pescarte.Domains.Accounts.Models.Endereco
+    %Endereco{
+      cep: "00000-000",
+      cidade: "Campos dos Goytacazes",
+      complemento: "Um complemento",
+      estado: "Rio de Janeiro",
+      numero: 100,
+      rua: "Rua Exemplo de Queiras",
     }
   end
 
@@ -80,13 +96,12 @@ defmodule Pescarte.Factory do
   def user_factory do
     %User{
       id: Nanoid.generate_non_secure(),
-      role: sequence(:role, ["avulso", "pesquisador"]),
-      first_name: sequence(:first, &"User #{&1}"),
-      middle_name: sequence(:middle, &"Middle User #{&1}"),
-      last_name: sequence(:last, &"Last User #{&1}"),
+      tipo: sequence(:role, ["avulso", "pesquisador"]),
+      primeiro_nome: sequence(:first, &"User #{&1}"),
+      sobrenome: sequence(:last, &"Last User #{&1}"),
       cpf: Brcpfcnpj.cpf_generate(true),
-      birthdate: Date.utc_today(),
-      password_hash: "$2b$12$AZdxCkw/Rb5AlI/5S7Ebb.hIyG.ocs18MGkHAW2gdZibH7a1wHTyu",
+      data_nascimento: Date.utc_today(),
+      hash_senha: "$2b$12$AZdxCkw/Rb5AlI/5S7Ebb.hIyG.ocs18MGkHAW2gdZibH7a1wHTyu",
       contato: build(:contato)
     }
   end
@@ -101,5 +116,17 @@ defmodule Pescarte.Factory do
     {:ok, captured_email} = fun.(&"[TOKEN]#{&1}[TOKEN]")
     [_, token | _] = String.split(captured_email.url, "[TOKEN]")
     token
+  end
+
+  # Convenience API
+
+  defp sequence_list(label, custom, opts \\ []) do
+    limit = Keyword.get(opts, :limit, 1)
+
+    sequences = for _ <- 1..limit do
+      sequence(label, custom)
+    end
+
+    if limit > 1, do: sequences, else: hd(sequences)
   end
 end

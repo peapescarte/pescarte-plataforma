@@ -5,7 +5,7 @@ defmodule Pescarte.Domains.Accounts.Services.GetUser do
   alias Pescarte.Domains.Accounts.Services.UserFields
 
   @impl true
-  def process(cpf: cpf, password: password) do
+  def process(cpf: cpf, senha: password) do
     user = Database.get_by(User, cpf: cpf)
 
     if user && UserFields.valid_password?(user, password) do
