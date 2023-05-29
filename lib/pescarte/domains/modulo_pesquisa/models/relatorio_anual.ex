@@ -1,4 +1,4 @@
-defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
+defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
   use Pescarte, :model
 
   import Pescarte.Domains.ModuloPesquisa.Services.ValidateRelatorioMensal
@@ -10,40 +10,37 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
   @required_fields ~w(ano mes pesquisador_id)a
 
   @optional_fields ~w(
-    acao_planejamento
-    participacao_grupos_estudo
-    acoes_pesquisa
-    participacao_treinamentos
-    publicacao
-    previsao_acao_planejamento
-    previsao_participacao_grupos_estudo
-    previsao_participacao_treinamentos
-    previsao_acoes_pesquisa
+    plano_de_trabalho
+    resumo
+    introducao
+    embasamento_teorico
+    resultados
+    atividades_academicas
+    atividades_nao_academicas
+    conclusao
+    referencias
     status
     link
   )a
 
   @update_fields @optional_fields ++ ~w(year month link)a
 
-  schema "relatorio_mensal_pesquisa" do
-    # Primeira seção
-    field :acao_planejamento, :string
-    field :participacao_grupos_estudo, :string
-    field :acoes_pesquisa, :string
-    field :participacao_treinamentos, :string
-    field :publicacao, :string
-
-    # Segunda seção
-    field :previsao_acao_planejamento, :string
-    field :previsao_participacao_grupos_estudo, :string
-    field :previsao_participacao_treinamentos, :string
-    field :previsao_acoes_pesquisa, :string
-
-    field :status, Ecto.Enum, values: @status, default: :nao_enviado
+  schema "relatorio_anual_pesquisa" do
     field :ano, :integer
     field :mes, :integer
     field :link, :string
     field :id_publico, :string
+    field :status, Ecto.Enum, values: @status, default: :nao_enviado
+
+    field :plano_de_trabalho, :string
+    field :resumo, :string
+    field :introducao, :string
+    field :embasamento_teorico, :string
+    field :resultados, :string
+    field :atividades_academicas, :string
+    field :atividades_nao_academicas, :string
+    field :conclusao, :string
+    field :referencias, :string
 
     belongs_to :pesquisador, Pesquisador, on_replace: :update
 

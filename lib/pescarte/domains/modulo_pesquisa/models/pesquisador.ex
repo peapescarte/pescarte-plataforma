@@ -22,6 +22,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
   @optional_fields ~w(orientador_id link_avatar link_banner_perfil link_linkedin data_termino)a
   @update_fields ~w(minibio bolsa link_lattes)a
 
+  @rg_format ~r/\d{2}\.\d{3}\.\d{3}\-\d/
+
   schema "pesquisador" do
     field :minibio, TrimmedString
     field :bolsa, Ecto.Enum, values: @tipo_bolsas
@@ -40,7 +42,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     has_one :linha_pesquisa, LinhaPesquisa, foreign_key: :responsavel_lp_id
 
     has_many :orientandos, Pesquisador
-    has_many :midias, Midia, foreign_key: :author_id
+    has_many :midias, Midia, foreign_key: :autor_id
     has_many :relatorio_mensais, RelatorioMensal
 
     belongs_to :campus, Campus
@@ -55,6 +57,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_length(:minibio, max: 280)
+    |> validate_format(:rg, @rg_format)
     |> foreign_key_constraint(:usuario_id)
     |> foreign_key_constraint(:orientador_id)
     |> foreign_key_constraint(:campus_id)

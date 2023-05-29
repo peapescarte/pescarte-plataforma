@@ -19,6 +19,7 @@ defmodule Pescarte.Repo.Migrations.CreateRelatorioMensal do
       add :ano, :smallint, null: false
       add :mes, :smallint, null: false
       add :link, :string
+      add :status, :string, null: false
       add :id_publico, :string
 
       add :pesquisador_id, references(:pesquisador), null: false

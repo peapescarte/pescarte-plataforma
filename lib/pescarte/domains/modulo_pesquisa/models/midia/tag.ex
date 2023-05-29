@@ -6,10 +6,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
 
   alias __MODULE__
 
-  @required_fields ~w(label categoria_id)a
+  @required_fields ~w(etiqueta categoria_id)a
 
-  schema "tags" do
-    field :label, TrimmedString
+  schema "tag" do
+    field :etiqueta, TrimmedString
     field :id_publico, :string
 
     belongs_to :categoria, Categoria
@@ -21,10 +21,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     tag
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint(:label)
+    |> unique_constraint(:etiqueta)
     |> foreign_key_constraint(:categoria_id)
     |> put_change(:id_publico, Nanoid.generate())
-    |> apply_action(:parse)
   end
 
   def list_by_query(fields) do

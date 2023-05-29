@@ -3,6 +3,8 @@ defmodule Pescarte.Factory do
 
   use ExMachina.Ecto, repo: Pescarte.Repo
 
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Domains.Accounts.Models.Contato
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
@@ -17,6 +19,13 @@ defmodule Pescarte.Factory do
       nome: sequence(:nome, &"Campus #{&1}"),
       endereco_id: insert(:endereco).id,
       acronimo: sequence(:sigla, &"C#{&1}")
+    }
+  end
+
+  def categoria_factory do
+    %Categoria{
+      id_publico: Nanoid.generate_non_secure(),
+      nome: sequence("nome")
     }
   end
 
@@ -57,9 +66,13 @@ defmodule Pescarte.Factory do
   def midia_factory do
     %Midia{
       id_publico: Nanoid.generate_non_secure(),
-      author: build(:pesquisador),
-      type: sequence(:tipo, ["video", "documento", "imagem"]),
-      link: sequence(:link, &"https://example#{&1}.com")
+      autor: build(:user),
+      tipo: sequence(:tipo, ["video", "documento", "imagem"]),
+      link: sequence(:link, &"https://example#{&1}.com"),
+      tags: [insert(:tag)],
+      nome_arquivo: sequence(:arquivo, &"arquivo#{&1}.jpg"),
+      data_arquivo: ~D[2023-05-29],
+      restrito?: false
     }
   end
 
@@ -68,7 +81,7 @@ defmodule Pescarte.Factory do
       id_publico: Nanoid.generate_non_secure(),
       nome: sequence(:name, &"Nucleo #{&1}"),
       desc: sequence(:desc, &"Descricao Nucleo #{&1}"),
-      letra: sequence(:letra, &String.upcase("A#{&1}")),
+      letra: sequence(:letra, &String.upcase("A#{&1}"))
     }
   end
 
@@ -101,7 +114,7 @@ defmodule Pescarte.Factory do
         cpf: Brcpfcnpj.cpf_generate(true),
         hash_senha: "$2b$12$VbolDic21AxNGu8W2jbTd.6pxqwv9d4m4UpR/2rP8s3Qd/UO.6mTO",
         contato: build(:contato),
-        data_nascimento: ~D[1990-03-27],
+        data_nascimento: ~D[1990-03-27]
       },
       bolsa: "pesquisa",
       minibio: "hello",
@@ -113,6 +126,14 @@ defmodule Pescarte.Factory do
         id_publico: Nanoid.generate_non_secure(),
         endereco: build(:endereco)
       }
+    }
+  end
+
+  def tag_factory do
+    %Tag{
+      id_publico: Nanoid.generate_non_secure(),
+      etiqueta: sequence("etiqueta"),
+      categoria: build(:categoria)
     }
   end
 

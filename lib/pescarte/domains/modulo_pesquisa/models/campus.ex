@@ -26,7 +26,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     |> unique_constraint(:nome)
     |> unique_constraint(:acronimo)
     |> validate_change(:acronimo, fn f, v ->
-      v == String.upcase(v) && [] || [{f, "não está em caixa alta"}]
+      (v == String.upcase(v) && []) || [{f, "não está em caixa alta"}]
     end)
     |> foreign_key_constraint(:endereco_id)
     |> put_change(:id_publico, Nanoid.generate())

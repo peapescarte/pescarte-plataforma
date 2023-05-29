@@ -2,7 +2,7 @@ defmodule Pescarte.Repo.Migrations.CriaMidia do
   use Ecto.Migration
 
   def change do
-    create table("midia") do
+    create table(:midia) do
       add :id_publico, :string
       add :tipo, :string, null: false
       add :tags, {:array, :string}, null: false

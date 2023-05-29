@@ -9,6 +9,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
 
   test "changeset válido com campos obrigatórios" do
     nucleo_pesquisa = insert(:nucleo_pesquisa)
+
     attrs = %{
       nucleo_pesquisa_id: nucleo_pesquisa.id,
       desc_curta: "Desc Curta",
@@ -26,6 +27,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
   test "changeset válido com campo adicional" do
     nucleo_pesquisa = insert(:nucleo_pesquisa)
     responsavel_lp = insert(:pesquisador)
+
     attrs = %{
       nucleo_pesquisa_id: nucleo_pesquisa.id,
       desc_curta: "Desc Curta",
