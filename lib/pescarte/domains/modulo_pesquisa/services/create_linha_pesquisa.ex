@@ -5,8 +5,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Services.CreateLinhaPesquisa do
 
   @impl true
   def process(params) do
-    with {:ok, changeset} <- LinhaPesquisa.changeset(params) do
-      Database.insert(changeset)
-    end
+    params
+    |> LinhaPesquisa.changeset()
+    |> Repo.insert()
   end
 end

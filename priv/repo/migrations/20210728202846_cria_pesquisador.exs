@@ -18,7 +18,7 @@ defmodule Pescarte.Repo.Migrations.CreatePesquisador do
       add :data_contratacao, :date
       add :data_termino, :date
 
-      add :orientador_id, references(:pesquisador), null: false
+      add :orientador_id, references(:pesquisador), null: true
       add :usuario_id, references(:usuario), null: false
       add :campus_id, references(:campus), null: false
 

@@ -5,6 +5,8 @@ defmodule Pescarte.Accounts.Models.ContatoTest do
 
   alias Pescarte.Domains.Accounts.Models.Contato
 
+  @moduletag :unit
+
   test "changeset com emails e celulares adicionais" do
     endereco = insert(:endereco)
 

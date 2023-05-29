@@ -5,9 +5,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
 
   alias Pescarte.Domains.Accounts.Models.User
 
-  defp contato_attrs do
-    :contato |> build() |> Map.from_struct()
-  end
+  @moduletag :unit
 
   test "changeset válido com campos obrigatórios" do
     attrs = %{
@@ -15,7 +13,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
-      contato: contato_attrs()
+      contato: attrs(:contato)
     }
 
     changeset = User.changeset(attrs)
@@ -41,7 +39,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "12345678900",
       data_nascimento: ~D[1990-01-01],
-      contato: contato_attrs()
+      contato: attrs(:contato)
     }
 
     changeset = User.changeset(attrs)
@@ -71,7 +69,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
-      contato: contato_attrs(),
+      contato: attrs(:contato),
       senha: "Password123!",
       senha_confirmation: "Password123!"
     }
@@ -88,7 +86,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
-      contato: contato_attrs(),
+      contato: attrs(:contato),
       senha: nil,
       senha_confirmation: nil
     }
@@ -105,7 +103,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
-      contato: contato_attrs(),
+      contato: attrs(:contato),
       senha: "Password123!",
       senha_confirmation: "DifferentPassword456?"
     }
@@ -122,7 +120,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
-      contato: contato_attrs(),
+      contato: attrs(:contato),
       senha: "weakpassword",
       senha_confirmation: "weakpassword"
     }
@@ -139,7 +137,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
-      contato: contato_attrs(),
+      contato: attrs(:contato),
       senha: "Password123!",
       senha_confirmation: "Password123!"
     }

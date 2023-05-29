@@ -19,7 +19,7 @@ defmodule PescarteWeb.GraphQL.Types.Midia do
     field :type, :midia_type
     field :observation, :string
     field :alt_text, :string
-    field :public_id, :string, name: "id"
+    field :id_publico, :string, name: "id"
 
     field :author, :user do
       resolve(&Resolvers.User.get_by_midia/3)

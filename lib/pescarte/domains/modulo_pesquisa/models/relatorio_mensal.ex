@@ -37,7 +37,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     field :year, :integer
     field :month, :integer
     field :link, :string
-    field :public_id, :string
+    field :id_publico, :string
 
     belongs_to(:pesquisador, Pesquisador, on_replace: :update)
 
@@ -51,7 +51,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     |> validate_month(:month)
     |> validate_year(:year, Date.utc_today())
     |> foreign_key_constraint(:pesquisador_id)
-    |> put_change(:public_id, Nanoid.generate())
+    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 

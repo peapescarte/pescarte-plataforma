@@ -10,7 +10,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
 
   schema "tags" do
     field :label, TrimmedString
-    field :public_id, :string
+    field :id_publico, :string
 
     belongs_to :categoria, Categoria
 
@@ -23,7 +23,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     |> validate_required(@required_fields)
     |> unique_constraint(:label)
     |> foreign_key_constraint(:categoria_id)
-    |> put_change(:public_id, Nanoid.generate())
+    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 

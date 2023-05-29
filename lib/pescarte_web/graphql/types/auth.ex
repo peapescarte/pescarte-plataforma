@@ -15,7 +15,7 @@ defmodule PescarteWeb.GraphQL.Types.Auth do
     field :first_name, :string
     field :middle_name, :string
     field :last_name, :string
-    field :public_id, :string, name: "id"
+    field :id_publico, :string, name: "id"
   end
 
   object :login do

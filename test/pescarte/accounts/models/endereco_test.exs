@@ -3,6 +3,8 @@ defmodule Pescarte.Accounts.Models.EnderecoTest do
 
   alias Pescarte.Domains.Accounts.Models.Endereco
 
+  @moduletag :unit
+
   test "cria um endereco sem cep obrigatório" do
     attrs = %{}
 

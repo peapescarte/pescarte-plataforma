@@ -6,7 +6,6 @@ defmodule Pescarte.Factory do
   alias Pescarte.Domains.Accounts.Models.Contato
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
-  alias Pescarte.Domains.ModuloPesquisa.Models.Cidade
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
@@ -14,27 +13,19 @@ defmodule Pescarte.Factory do
 
   def campus_factory do
     %Campus{
-      public_id: Nanoid.generate_non_secure(),
-      name: sequence(:nome, &"Campus #{&1}"),
-      cidade: build(:cidade),
-      initials: sequence(:sigla, &"C#{&1}")
-    }
-  end
-
-  def cidade_factory do
-    %Cidade{
-      public_id: Nanoid.generate_non_secure(),
-      county: sequence(:municipio, &"Cidade #{&1}")
+      id_publico: Nanoid.generate_non_secure(),
+      nome: sequence(:nome, &"Campus #{&1}"),
+      endereco_id: insert(:endereco).id,
+      acronimo: sequence(:sigla, &"C#{&1}")
     }
   end
 
   def contato_factory do
     %Contato{
       email_principal: sequence(:email, &"test-#{&1}@example.com"),
-      celular_principal: sequence(:celular, ["(22)12345-6789"]),
+      celular_principal: sequence(:celular, &"(22)12451-67#{digit_rem(&1)}"),
       emails_adicionais: sequence_list(:emails, &"test-#{&1}@example.com", limit: 3),
-      celulares_adicionais:
-        sequence_list(:celulares, &"(22)12345-67#{(&1 < 10 && "#{&1}0") || &1}", limit: 4),
+      celulares_adicionais: sequence_list(:celulares, &"(22)12345-67#{digit_rem(&1)}", limit: 4),
       endereco: build(:endereco)
     }
   end
@@ -54,17 +45,18 @@ defmodule Pescarte.Factory do
 
   def linha_pesquisa_factory do
     %LinhaPesquisa{
-      public_id: Nanoid.generate_non_secure(),
-      number: sequence(:numero, Enum.to_list(1..21)),
-      short_desc: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),
+      id_publico: Nanoid.generate_non_secure(),
+      numero: sequence(:numero, Enum.to_list(1..21)),
+      desc_curta: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),
       desc: sequence(:descricao_longa, &"Descricao LinhaPesquisa Longa #{&1}"),
-      nucleo_pesquisa_id: build(:nucleo_pesquisa)
+      nucleo_pesquisa_id: insert(:nucleo_pesquisa).id,
+      responsavel_lp_id: insert(:pesquisador).id
     }
   end
 
   def midia_factory do
     %Midia{
-      public_id: Nanoid.generate_non_secure(),
+      id_publico: Nanoid.generate_non_secure(),
       author: build(:pesquisador),
       type: sequence(:tipo, ["video", "documento", "imagem"]),
       link: sequence(:link, &"https://example#{&1}.com")
@@ -73,20 +65,54 @@ defmodule Pescarte.Factory do
 
   def nucleo_pesquisa_factory do
     %NucleoPesquisa{
-      public_id: Nanoid.generate_non_secure(),
-      name: sequence(:name, &"Nucleo #{&1}"),
-      desc: sequence(:desc, &"Descricao Nucleo #{&1}")
+      id_publico: Nanoid.generate_non_secure(),
+      nome: sequence(:name, &"Nucleo #{&1}"),
+      desc: sequence(:desc, &"Descricao Nucleo #{&1}"),
+      letra: sequence(:letra, &String.upcase("A#{&1}")),
     }
   end
 
   def pesquisador_factory do
     %Pesquisador{
-      public_id: Nanoid.generate_non_secure(),
-      user: build(:user),
+      id_publico: Nanoid.generate_non_secure(),
+      usuario: build(:user),
       minibio: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
       bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),
       link_lattes: sequence(:link_lattes, &"http://buscatextual.cnpq.br/buscatextual/:#{&1}"),
-      campus: build(:campus)
+      campus: build(:campus),
+      data_inicio_bolsa: ~D[2023-05-26],
+      data_contratacao: ~D[2023-04-23],
+      data_fim_bolsa: ~D[2024-05-30],
+      formacao: "Advogado",
+      rg: "13.121.346-5",
+      link_linkedin: "https://linkedin.com/in/zoedsoupe",
+      orientador: orientador()
+    }
+  end
+
+  defp orientador do
+    %Pesquisador{
+      id_publico: Nanoid.generate_non_secure(),
+      usuario: %User{
+        id_publico: Nanoid.generate_non_secure(),
+        tipo: "pesquisador",
+        primeiro_nome: "José",
+        sobrenome: "Caldas",
+        cpf: Brcpfcnpj.cpf_generate(true),
+        hash_senha: "$2b$12$VbolDic21AxNGu8W2jbTd.6pxqwv9d4m4UpR/2rP8s3Qd/UO.6mTO",
+        contato: build(:contato),
+        data_nascimento: ~D[1990-03-27],
+      },
+      bolsa: "pesquisa",
+      minibio: "hello",
+      rg: "14.111.346-5",
+      link_lattes: "https://lattes.com.br",
+      link_linkedin: "https://linkedin.com",
+      campus: %Campus{
+        acronimo: "ABCD",
+        id_publico: Nanoid.generate_non_secure(),
+        endereco: build(:endereco)
+      }
     }
   end
 
@@ -121,7 +147,7 @@ defmodule Pescarte.Factory do
 
   # Convenience API
 
-  defp sequence_list(label, custom, opts \\ []) do
+  defp sequence_list(label, custom, opts) do
     limit = Keyword.get(opts, :limit, 1)
 
     sequences =
@@ -136,5 +162,9 @@ defmodule Pescarte.Factory do
     factory
     |> build()
     |> Map.from_struct()
+  end
+
+  defp digit_rem(digit) do
+    (digit < 10 && "#{digit}0") || digit
   end
 end

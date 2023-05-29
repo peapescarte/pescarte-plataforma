@@ -4,10 +4,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
 
   schema "nucleo_pesquisa" do
-    field :name, CapitalizedString
-    field :letter, CapitalizedString
+    field :nome, CapitalizedString
+    field :letra, CapitalizedString
     field :desc, :string
-    field :public_id, :string
+    field :id_publico, :string
 
     has_many :linha_pesquisas, LinhaPesquisa
 
@@ -16,17 +16,15 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
 
   def changeset(attrs) do
     %__MODULE__{}
-    |> cast(attrs, [:name, :desc, :letter])
-    |> validate_required([:name, :desc, :letter])
+    |> cast(attrs, [:nome, :desc, :letra])
+    |> validate_required([:nome, :desc, :letra])
     |> validate_length(:desc, max: 400)
-    |> put_change(:public_id, Nanoid.generate())
-    |> apply_action(:parse)
+    |> put_change(:id_publico, Nanoid.generate())
   end
 
   def update_changeset(nucleo_pesquisa, attrs) do
     nucleo_pesquisa
     |> cast(attrs, [:desc])
     |> validate_required([:desc])
-    |> apply_action(:parse)
   end
 end
