@@ -79,8 +79,7 @@ defmodule Monads.Maybe do
   @doc """
   Retorna o valor existente ou lança uma exceção.
   """
-  def unwrap!(:none), do:
-    raise(Error, "Erro ao desencapsular `Maybe` sem valor existente")
+  def unwrap!(:none), do: raise(Error, "Erro ao desencapsular `Maybe` sem valor existente")
 
   def unwrap!({:some, v}), do: v
 

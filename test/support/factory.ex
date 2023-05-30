@@ -3,6 +3,7 @@ defmodule Pescarte.Factory do
 
   use ExMachina.Ecto, repo: Pescarte.Repo
 
+  alias Pescarte.Domains.Accounts.Models.UserToken
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Domains.Accounts.Models.Contato
@@ -32,9 +33,9 @@ defmodule Pescarte.Factory do
   def contato_factory do
     %Contato{
       email_principal: sequence(:email, &"test-#{&1}@example.com"),
-      celular_principal: sequence(:celular, &"(22)12451-67#{digit_rem(&1)}"),
+      celular_principal: sequence(:celular, &"221245167#{digit_rem(&1)}"),
       emails_adicionais: sequence_list(:emails, &"test-#{&1}@example.com", limit: 3),
-      celulares_adicionais: sequence_list(:celulares, &"(22)12345-67#{digit_rem(&1)}", limit: 4),
+      celulares_adicionais: sequence_list(:celulares, &"221234567#{digit_rem(&1)}", limit: 4),
       endereco: build(:endereco)
     }
   end
@@ -43,7 +44,7 @@ defmodule Pescarte.Factory do
     alias Pescarte.Domains.Accounts.Models.Endereco
 
     %Endereco{
-      cep: "00000-000",
+      cep: "00000000",
       cidade: "Campos dos Goytacazes",
       complemento: "Um complemento",
       estado: "Rio de Janeiro",
@@ -97,7 +98,7 @@ defmodule Pescarte.Factory do
       data_contratacao: ~D[2023-04-23],
       data_fim_bolsa: ~D[2024-05-30],
       formacao: "Advogado",
-      rg: "13.121.346-5",
+      rg: "131213465",
       link_linkedin: "https://linkedin.com/in/zoedsoupe",
       orientador: orientador()
     }
@@ -111,14 +112,14 @@ defmodule Pescarte.Factory do
         tipo: "pesquisador",
         primeiro_nome: "José",
         sobrenome: "Caldas",
-        cpf: Brcpfcnpj.cpf_generate(true),
+        cpf: Brcpfcnpj.cpf_generate(),
         hash_senha: "$2b$12$VbolDic21AxNGu8W2jbTd.6pxqwv9d4m4UpR/2rP8s3Qd/UO.6mTO",
         contato: build(:contato),
         data_nascimento: ~D[1990-03-27]
       },
       bolsa: "pesquisa",
       minibio: "hello",
-      rg: "14.111.346-5",
+      rg: "141113465",
       link_lattes: "https://lattes.com.br",
       link_linkedin: "https://linkedin.com",
       campus: %Campus{
@@ -140,17 +141,35 @@ defmodule Pescarte.Factory do
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "Hello World 42!"
 
-  @spec user_factory :: User.t()
   def user_factory do
     %User{
       id_publico: Nanoid.generate_non_secure(),
       tipo: sequence(:role, ["avulso", "pesquisador"]),
       primeiro_nome: sequence(:first, &"User #{&1}"),
       sobrenome: sequence(:last, &"Last User #{&1}"),
-      cpf: Brcpfcnpj.cpf_generate(true),
+      cpf: Brcpfcnpj.cpf_generate(),
       data_nascimento: Date.utc_today(),
       hash_senha: "$2b$12$AZdxCkw/Rb5AlI/5S7Ebb.hIyG.ocs18MGkHAW2gdZibH7a1wHTyu",
-      contato: build(:contato)
+      contato_id: insert(:contato).id
+    }
+  end
+
+  def user_token_factory do
+    context = sequence(:contexto, ["session", "confirm", "reset_password"])
+
+    token =
+      if context == "session" do
+        :crypto.strong_rand_bytes(32)
+      else
+        token = :crypto.strong_rand_bytes(32)
+        :crypto.hash(:sha256, token)
+      end
+
+    %UserToken{
+      contexto: context,
+      usuario_id: insert(:user).id,
+      enviado_para: "test@example.com",
+      token: token
     }
   end
 
@@ -177,12 +196,6 @@ defmodule Pescarte.Factory do
       end
 
     if limit > 1, do: sequences, else: hd(sequences)
-  end
-
-  def attrs(factory) do
-    factory
-    |> build()
-    |> Map.from_struct()
   end
 
   defp digit_rem(digit) do

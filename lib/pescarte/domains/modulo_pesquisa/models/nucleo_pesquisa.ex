@@ -3,9 +3,18 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
 
+  @opaque t :: %NucleoPesquisa{
+            id: integer,
+            nome: binary,
+            letra: binary,
+            desc: binary,
+            id_publico: binary,
+            linha_pesquisas: list(LinhaPesquisa.t())
+          }
+
   schema "nucleo_pesquisa" do
-    field :nome, CapitalizedString
-    field :letra, CapitalizedString
+    field :nome, :string
+    field :letra, :string
     field :desc, :string
     field :id_publico, :string
 
@@ -14,17 +23,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
     timestamps()
   end
 
-  def changeset(attrs) do
-    %__MODULE__{}
+  @spec changeset(map) :: Result.t(NucleoPesquisa.t(), changeset)
+  def changeset(nucleo_pesquisa \\ %__MODULE__{}, attrs) do
+    nucleo_pesquisa
     |> cast(attrs, [:nome, :desc, :letra])
     |> validate_required([:nome, :desc, :letra])
-    |> validate_length(:desc, max: 400)
     |> put_change(:id_publico, Nanoid.generate())
-  end
-
-  def update_changeset(nucleo_pesquisa, attrs) do
-    nucleo_pesquisa
-    |> cast(attrs, [:desc])
-    |> validate_required([:desc])
+    |> apply_action(:parse)
   end
 end

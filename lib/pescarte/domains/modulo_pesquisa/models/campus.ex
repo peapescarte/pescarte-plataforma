@@ -3,14 +3,22 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
 
   alias Pescarte.Domains.Accounts.Models.Endereco
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Types.TrimmedString
+
+  @opaque t :: %Campus{
+            id: integer,
+            nome: binary,
+            acronimo: binary,
+            id_publico: binary,
+            endereco: Endereco.t(),
+            pesquisadores: list(Pesquisador.t())
+          }
 
   @required_fields ~w(acronimo endereco_id)a
   @optional_fields ~w(nome)a
 
   schema "campus" do
-    field :nome, TrimmedString
-    field :acronimo, TrimmedString
+    field :nome, :string
+    field :acronimo, :string
     field :id_publico, :string
 
     has_many :pesquisadores, Pesquisador
@@ -19,20 +27,15 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     timestamps()
   end
 
-  def changeset(attrs) do
-    %__MODULE__{}
+  @spec changeset(map) :: Result.t(Campus.t(), changeset)
+  def changeset(campus \\ %__MODULE__{}, attrs) do
+    campus
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
     |> unique_constraint(:acronimo)
-    |> validate_change(:acronimo, fn f, v ->
-      (v == String.upcase(v) && []) || [{f, "não está em caixa alta"}]
-    end)
     |> foreign_key_constraint(:endereco_id)
     |> put_change(:id_publico, Nanoid.generate())
-  end
-
-  def list_campus_by_county_query(county) do
-    from c in __MODULE__, where: c.county == ^county
+    |> apply_action(:parse)
   end
 end

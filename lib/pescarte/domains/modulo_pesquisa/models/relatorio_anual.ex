@@ -1,9 +1,26 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
   use Pescarte, :model
 
-  import Pescarte.Domains.ModuloPesquisa.Services.ValidateRelatorioMensal
-
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
+
+  @opaque t :: %RelatorioAnual{
+            id: integer,
+            plano_de_trabalho: binary,
+            resumo: binary,
+            introducao: binary,
+            embasamento_teorico: binary,
+            resultados: binary,
+            atividades_academicas: binary,
+            atividades_nao_academicas: binary,
+            conclusao: binary,
+            referencias: binary,
+            status: atom,
+            link: binary,
+            ano: integer,
+            mes: integer,
+            pesquisador: Pesquisador.t(),
+            id_publico: binary
+          }
 
   @status ~w(entregue atrasado nao_enviado)a
 
@@ -22,8 +39,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
     status
     link
   )a
-
-  @update_fields @optional_fields ++ ~w(year month link)a
 
   schema "relatorio_anual_pesquisa" do
     field :ano, :integer
@@ -47,20 +62,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
     timestamps()
   end
 
-  def changeset(report \\ %__MODULE__{}, attrs) do
-    report
+  @spec changeset(map) :: Result.t(RelatorioAnual.t(), changeset)
+  def changeset(relatorio_anual \\ %__MODULE__{}, attrs) do
+    relatorio_anual
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> validate_month(:mes)
-    |> validate_year(:ano, Date.utc_today())
     |> foreign_key_constraint(:pesquisador_id)
     |> put_change(:id_publico, Nanoid.generate())
-  end
-
-  def update_changeset(report, attrs) do
-    report
-    |> cast(attrs, @update_fields)
-    |> validate_month(:mes)
-    |> validate_year(:ano, Date.utc_today())
+    |> apply_action(:parse)
   end
 end

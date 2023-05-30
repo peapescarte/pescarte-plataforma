@@ -23,6 +23,13 @@ defmodule Monads.Result do
   def error(reason), do: {:error, reason}
 
   @doc """
+  Cria um `Result.t()` a partir de valores nativos.
+  """
+  def new(value, err) do
+    if value, do: ok(value), else: error(err)
+  end
+
+  @doc """
   Aplica uma função `f/1` no valor encapsulado caso seja uma
   operação de sucesso. Caso seja um erro, nada é modificado.
 
@@ -35,6 +42,26 @@ defmodule Monads.Result do
   """
   def map({:error, _} = err, _), do: err
   def map({:ok, v}, f), do: ok(f.(v))
+
+  @doc """
+  Aplica uma função `f/1` no valor encapsulado caso seja um sucesso,
+  e retorna seu valor, que precisa também ser um `Result.t()`. Caso
+  seja um erro, nada é modificado.
+
+  ## Exemplos
+
+      iex> Result.error(:invalid) |> Result.and_then(&Result.ok(String.length(&1)))
+      Result.error(:invalid)
+
+      iex> Result.ok("valid") |> Result.and_then(&Result.ok(String.length(&1)))
+      Result.ok(5)
+
+      iex> Result.ok("valid") |> Result.and_then(fn _ -> Result.error(:invalid) end)
+      Result.error(:invalid)
+
+  """
+  def and_then({:error, _} = err, _), do: err
+  def and_then({:ok, v}, f), do: f.(v)
 
   @doc """
   Retorna o valor de sucesso encapsulado ou em caso de erro, retorna
@@ -53,8 +80,7 @@ defmodule Monads.Result do
   @doc """
   Retorna o valor de sucesso ou lança uma exceção com a razão do erro.
   """
-  def unwrap!({:error, err}), do:
-    raise(Error, "Erro ao desencapsular `Result`: #{inspect(err)}")
+  def unwrap!({:error, err}), do: raise(Error, "Erro ao desencapsular `Result`: #{inspect(err)}")
 
   def unwrap!({:ok, v}), do: v
 

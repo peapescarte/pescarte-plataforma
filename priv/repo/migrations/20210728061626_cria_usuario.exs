@@ -21,7 +21,7 @@ defmodule Pescarte.Repo.Migrations.CriaUsuario do
     create unique_index(:usuario, [:cpf])
     create unique_index(:usuario, [:primeiro_nome, :sobrenome, :cpf])
 
-    create table(:token_usuario) do
+    create table(:user_token) do
       add :token, :binary, null: false
       add :contexto, :string, null: false
       add :enviado_para, :string
@@ -31,7 +31,7 @@ defmodule Pescarte.Repo.Migrations.CriaUsuario do
       timestamps(updated_at: false)
     end
 
-    create index(:token_usuario, [:usuario_id])
-    create unique_index(:token_usuario, [:contexto, :token])
+    create index(:user_token, [:usuario_id])
+    create unique_index(:user_token, [:contexto, :token])
   end
 end

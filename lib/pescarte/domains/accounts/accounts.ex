@@ -1,197 +1,199 @@
 defmodule Pescarte.Domains.Accounts do
-  @moduledoc """
-  The Accounts context.
-  """
+  # TODO: melhorar documentação
+  @moduledoc false
 
-  alias Pescarte.Database
-  alias Pescarte.Domains.Accounts.IO.UserTokenRepo
+  import Pescarte.Domains.Accounts.Services.ValidateUserPassword
+
+  alias Monads.Result
+  alias Pescarte.Domains.Accounts.IManageAccounts
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
-  alias Pescarte.Domains.Accounts.Services
+  alias Pescarte.Domains.Accounts.Repository
+  alias Pescarte.Repo
 
-  defdelegate list_user(fields \\ []), to: Services.GetUser, as: :process
+  @behaviour IManageAccounts
 
-  @doc """
-  Obtém apenas um usuário
+  @hash_algorithm :sha256
+  @login_token_rand_size 32
 
-  ## Exemplos
-
-      iex> get_user("999.999.999-99")
-      %User{}
-
-      iex> get_user("")
-      nil
-
-  """
-  defdelegate get_user(params), to: Services.GetUser, as: :process
-
-  def get_user_by_cpf_and_password(cpf, pass) do
-    Services.GetUser.process(cpf: cpf, password: pass)
-  end
+  # É muito importante manter a expiração do token de redefinição de senha curta,
+  # já que alguém com acesso ao e-mail pode assumir a conta.
+  @reset_password_validity_in_days 1
+  @confirm_validity_in_days 7
+  @change_email_validity_in_days 7
+  @session_validity_in_days 60
 
   @doc """
-  Obtém um usuário a partir de um email
-
-  ## Exemplos
-
-      iex> get_user_by_email("foo@example.com")
-      %User{}
-
-      iex> get_user_by_email("unknown@example.com")
-      nil
-
+  Confirma um usuário com base em um token de confirmação.
+  Caso o token seja válido, o usuário é confirmado e o token deletado.
   """
-  def get_user_by_email(email) do
-    Services.GetUser.process(email: email)
-  end
+  @impl true
+  def confirm_user(token, now) do
+    with {:ok, decoded} <- Base.url_decode64(token) do
+      hashed_token = :crypto.hash(@hash_algorithm, decoded)
 
-  @doc """
-  Obtém um usuário a partir do email e senha
+      hashed_token
+      |> Repository.fetch_user_by_token("confirm", @confirm_validity_in_days)
+      |> Result.and_then(fn user ->
+        changeset = User.confirm_changeset(user, now)
+        token_query = UserToken.user_and_contexts_query(user, ["confirm"])
 
-  ## Exemplos
-
-      iex> get_user_by_email_and_password("foo@example.com", "correct_password")
-      %User{}
-
-      iex> get_user_by_email_and_password("foo@example.com", "invalid_password")
-      nil
-
-  """
-  def get_user_by_email_and_password(email, pass) do
-    Services.GetUser.process(email: email, password: pass)
+        Ecto.Multi.new()
+        |> Ecto.Multi.update(:user, changeset)
+        |> Ecto.Multi.delete_all(:tokens, token_query)
+        |> Repo.transaction()
+        |> case do
+          {:ok, %{user: user}} -> Result.ok(user)
+          {:error, :user, changeset, _} -> Result.error(changeset)
+        end
+      end)
+    else
+      :error -> Result.error(:invalid_token)
+    end
   end
 
   @doc """
-  Obtém apenas um usuário pelo id
-
-  ## Exemplos
-
-      iex> get_user_by_id("JY85XgrT6NYAcaAYhXMQq")
-      %User{}
-
-      iex> get_user_by_id("")
-      nil
-
+  Cria um usuário do tipo `:admin`.
   """
-  def get_user_by_id(id) do
-    Services.GetUser.process(id: id)
-  end
-
-  def insert_user(params) do
-    Services.CreateUser.process(params, :admin)
-  end
-
-  def register_user(params) do
-    Services.CreateUser.process(params)
+  @impl true
+  def create_user_admin(attrs) do
+    create_user(attrs, :admin)
   end
 
   @doc """
-  Retorna um `%Ecto.Changeset{}` para acompanhar as mudanças
-  de um usuário.
-
-  ## Exemplos
-
-      iex> change_user_registration(user)
-      %Ecto.Changeset{data: %User{}}
-
+  Cria um usuário do tipo `:avulso`.
   """
-  def change_user_registration(attrs \\ %{}) do
+  @impl true
+  def create_user_avulso(attrs) do
+    create_user(attrs, :avulso)
+  end
+
+  @doc """
+  Cria um usuário do tipo `:pesquisador`.
+  """
+  @impl true
+  def create_user_pesquisador(attrs) do
+    create_user(attrs, :pesquisador)
+  end
+
+  defp create_user(attrs, tipo) when tipo in ~w(pesquisador admin)a do
     attrs
+    |> Map.put(:tipo, tipo)
     |> User.changeset()
-    |> User.password_changeset(attrs, hash_password: false)
+    |> Result.map(&User.password_changeset(&1, attrs))
+    |> Result.and_then(&Repo.insert/1)
   end
 
-  ## Settings
+  defp create_user(attrs, tipo) do
+    attrs
+    |> Map.put(:tipo, tipo)
+    |> User.changeset()
+    |> Result.and_then(&Repo.insert/1)
+  end
 
   @doc """
-  Retorna um `%Ecto.Changeset{}` para mudar o email.
+  Delete um `UserToken`.
+  """
+  @impl true
+  def delete_session_token(%UserToken{} = user_token) do
+    Repo.delete(user_token)
+  end
+
+  @doc """
+  Busca um registro de `User.t()`, com base no `:cpf`
+  e na `:senha`, caso seja válida.
 
   ## Exemplos
 
-      iex> change_user_email(user)
-      %Ecto.Changeset{data: %User{}}
+      iex> fetch_user_by_cpf_and_password("12345678910", "123")
+      {:ok, %User{}}
+
+      iex> fetch_user_by_cpf_and_password("12345678910", "invalid")
+      {:error, :not_found}
+
+      iex> fetch_user_by_cpf_and_password("invalid", "123")
+      {:error, :not_found}
 
   """
-  def change_user_email(user, attrs \\ %{}) do
-    User.email_changeset(user, attrs)
+  @impl true
+  def fetch_user_by_cpf_and_password(cpf, pass) do
+    cpf
+    |> Repository.fetch_user_by_cpf()
+    |> Result.and_then(fn user ->
+      user |> valid_password?(pass) |> Result.new(:not_found)
+    end)
   end
 
   @doc """
-  Emula a atualizaçõa do email de um usuário porém não insere
-  no banco de dados.
+  Busca um registro de `User.t()`, com base no `:email`
+  e na `:senha`, caso seja válida.
 
   ## Exemplos
 
-    iex> apply_user_email(user, "valid password", %{email: ...})
-    {:ok, %User{}}
+      iex> fetch_user_by_email_and_password("foo@example.com", "correct_password")
+      {:ok, %User{}}
 
-    iex> apply_user_email(user, "invalid password", %{email: ...})
-    {:error, %Ecto.Changeset{}}
+      iex> fetch_user_by_email_and_password("foo@example.com", "invalid_password")
+      {:error, :not_found}
 
   """
-  def apply_user_email(user, password, attrs) do
-    with %Ecto.Changeset{valid?: true, params: contato} <-
-           User.email_changeset(user, attrs),
-         %Ecto.Changeset{valid?: true} = user <-
-           user
-           |> Ecto.Changeset.cast(%{contato: contato}, [])
-           |> Ecto.Changeset.cast_assoc(user, :contato) do
-      user
-      |> Services.UserFields.validate_current_password(password)
-      |> Ecto.Changeset.apply_action(:update)
-    else
-      changeset -> {:error, changeset}
-    end
+  @impl true
+  def fetch_user_by_email_and_password(email, pass) do
+    email
+    |> Repository.fetch_user_by_email()
+    |> Result.and_then(fn user ->
+      user |> valid_password?(pass) |> Result.new(:not_found)
+    end)
   end
 
   @doc """
-  Atualiza o email de um susuário dado um token.
-
-  Se o token for válido, o email é atualizado e o token deletado.
-  O campo `confirmed_at` também é atualizado para a data atual
+  Busca um usuário a partir de um token de recuperação de senha.
   """
-  def update_user_email(user, token) do
-    context = "change:#{user.contato.email}"
-
-    with {:ok, query} <- UserTokenRepo.verify_change_email_token_query(token, context),
-         %UserToken{enviado_para: email} <- Database.one(query),
-         {:ok, _} <- Database.transaction(user_email_multi(user, email, context)) do
-      :ok
-    else
-      _ -> :error
-    end
-  end
-
-  defp user_email_multi(user, email, context) do
-    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
-
-    with %Ecto.Changeset{valid?: true, params: contato} <-
-           User.email_changeset(user, %{email: email}),
-         %Ecto.Changeset{valid?: true} = changeset <-
-           user
-           |> Ecto.Changeset.cast(%{contato: contato}, [])
-           |> Ecto.Changeset.cast_assoc(:contato)
-           |> User.confirm_changeset(now) do
-      meta = %{meta: %{type: "user_update_email"}}
-
-      Ecto.Multi.new()
-      |> Carbonite.Multi.insert_transaction(meta)
-      |> Ecto.Multi.update(:user, changeset)
-      |> Ecto.Multi.delete_all(:tokens, UserTokenRepo.user_and_contexts_query(user, [context]))
-    end
+  @impl true
+  def fetch_user_by_reset_password_token(token) do
+    Repository.fetch_user_by_token(token, "reset_password", @reset_password_validity_in_days)
   end
 
   @doc """
-  Retorna um `%Ecto.Changeset{}` para troca de senha.
-
-  ## Exemplos
-
-      iex> change_user_password(user)
-      %Ecto.Changeset{data: %User{}}
-
+  Busca um usuária a partir de um token de login/sessão.
   """
-  def change_user_password(user, attrs \\ %{}) do
-    User.password_changeset(user, attrs, hash_senha: false)
+  @impl true
+  def fetch_user_by_session_token(token) do
+    Repository.fetch_user_by_token(token, "session", @session_validity_in_days)
+  end
+
+  @doc """
+  Cria um token e seu hash para ser entregue no email do usuário.
+  """
+  @impl true
+  def generate_email_token(%User{} = user, context)
+      when context in ~w(confirm session reset_password) do
+    token = :crypto.strong_rand_bytes(@login_token_rand_size)
+    hashed_token = :crypto.hash(@hash_algorithm, token)
+
+    %{
+      token: hashed_token,
+      context: context,
+      user_id: user.id,
+      enviado_para: user.contato.email_principal
+    }
+    |> UserToken.changeset()
+    |> Result.and_then(&Repo.insert/1)
+    |> Result.map(fn _ ->
+      Base.url_encode64(token, padding: false)
+    end)
+  end
+
+  @doc """
+  Gera um novo token de login/sessão para um usuário.
+  """
+  @impl true
+  def generate_session_token(%User{id: user_id}) do
+    token = :crypto.strong_rand_bytes(@login_token_rand_size)
+
+    %{token: token, context: "session", user_id: user_id}
+    |> UserToken.changeset()
+    |> Result.and_then(&Repo.insert/1)
   end
 
   @doc """
@@ -206,102 +208,22 @@ defmodule Pescarte.Domains.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_user_password(user, password, attrs) do
+  @impl true
+  def update_user_password(%User{} = user, password, attrs) do
     changeset =
       user
       |> User.password_changeset(attrs)
-      |> Services.UserFields.validate_current_password(password)
+      |> validate_current_password(password)
 
-    meta = %{meta: %{type: "user_update_password"}}
+    token_query = UserToken.user_and_contexts_query(user, :all)
 
     Ecto.Multi.new()
-    |> Carbonite.Multi.insert_transaction(meta)
     |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserTokenRepo.user_and_contexts_query(user, :all))
-    |> Database.transaction()
+    |> Ecto.Multi.delete_all(:tokens, token_query)
+    |> Repo.transaction()
     |> case do
-      {:ok, %{user: user}} -> {:ok, user}
-      {:error, :user, changeset, _} -> {:error, changeset}
-    end
-  end
-
-  ## Session
-
-  @doc """
-  Gera um token de sessão.
-  """
-  def generate_user_session_token(user) do
-    {token, user_token} = Services.BuildUserToken.build_session_token(user)
-    {:ok, _} = Database.insert(user_token)
-    token
-  end
-
-  @doc """
-  Obtém um usuário dado um token de sessão.
-  """
-  def get_user_by_session_token(token) do
-    {:ok, query} = UserTokenRepo.verify_session_token_query(token)
-
-    query
-    |> Database.one()
-    |> Database.preload([:contato, :pesquisador])
-  end
-
-  @doc """
-  Deleta um token registrato dado um contexto.
-  """
-  def delete_session_token(token) do
-    token
-    |> UserTokenRepo.token_and_context_query("session")
-    |> Database.delete_all()
-
-    :ok
-  end
-
-  ## Confirmation
-
-  @doc """
-  Confirma um usuário dado um token.
-
-  Caso o token seja válido o usuário é confirmado
-  e o token deletado.
-  """
-  def confirm_user(token) do
-    with {:ok, query} <- UserTokenRepo.verify_email_token_query(token, "confirm"),
-         %User{} = user <- Database.one(query),
-         {:ok, %{user: user}} <- Database.transaction(confirm_user_multi(user)) do
-      {:ok, user}
-    else
-      _ -> :error
-    end
-  end
-
-  defp confirm_user_multi(user) do
-    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
-
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, User.confirm_changeset(user, now))
-    |> Ecto.Multi.delete_all(:tokens, UserTokenRepo.user_and_contexts_query(user, ["confirm"]))
-  end
-
-  @doc """
-  Obtém um usuário dado um token de recuperação de senha.
-
-  ## Exemplos
-
-      iex> get_user_by_reset_password_token("validtoken")
-      %User{}
-
-      iex> get_user_by_reset_password_token("invalidtoken")
-      nil
-
-  """
-  def get_user_by_reset_password_token(token) do
-    with {:ok, query} <- UserTokenRepo.verify_email_token_query(token, "reset_password"),
-         %User{} = user <- Database.one(query) do
-      user
-    else
-      _ -> nil
+      {:ok, %{user: user}} -> Result.ok(user)
+      {:error, :user, changeset, _} -> Result.error(changeset)
     end
   end
 
@@ -317,14 +239,15 @@ defmodule Pescarte.Domains.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def reset_user_password(user, attrs) do
+  @impl true
+  def reset_user_password(%User{} = user, attrs) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
-    |> Ecto.Multi.delete_all(:tokens, UserTokenRepo.user_and_contexts_query(user, :all))
-    |> Database.transaction()
+    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+    |> Repo.transaction()
     |> case do
-      {:ok, %{user: user}} -> {:ok, user}
-      {:error, :user, changeset, _} -> {:error, changeset}
+      {:ok, %{user: user}} -> Result.ok(user)
+      {:error, :user, changeset, _} -> Result.error(changeset)
     end
   end
 end

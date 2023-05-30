@@ -1,27 +1,34 @@
 defmodule Pescarte.Domains.Accounts.Models.Endereco do
   use Pescarte, :model
 
-  alias Pescarte.Types.CapitalizedString
+  @opaque t :: %Endereco{
+            id: integer,
+            rua: binary,
+            numero: integer,
+            complemento: binary,
+            cep: binary,
+            cidade: binary,
+            estado: binary
+          }
 
   @fields ~w(rua numero complemento cep cidade estado)a
 
-  @cep_format ~r/\d{5}-\d{3}/
-
   schema "endereco" do
-    field :rua, CapitalizedString
+    field :rua, :string
     field :numero, :integer
     field :complemento, :string
     field :cep, :string
-    field :cidade, CapitalizedString
-    field :estado, CapitalizedString
+    field :cidade, :string
+    field :estado, :string
 
     timestamps()
   end
 
+  @spec changeset(map) :: Result.t(Endereco.t(), changeset)
   def changeset(endereco \\ %__MODULE__{}, attrs) do
     endereco
     |> cast(attrs, @fields)
     |> validate_required([:cep])
-    |> validate_format(:cep, @cep_format)
+    |> apply_action(:parse)
   end
 end

@@ -3,15 +3,24 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Types.TrimmedString
+
+  @opaque t :: %LinhaPesquisa{
+            id: integer,
+            numero: integer,
+            desc: binary,
+            desc_curta: binary,
+            id_publico: binary,
+            nucleo_pesquisa: NucleoPesquisa.t(),
+            responsavel_lp: Pesquisador.t()
+          }
 
   @required_fields ~w(nucleo_pesquisa_id desc_curta numero)a
   @optional_fields ~w(desc responsavel_lp_id)a
 
   schema "linha_pesquisa" do
     field :numero, :integer
-    field :desc_curta, TrimmedString
-    field :desc, TrimmedString
+    field :desc_curta, :string
+    field :desc, :string
     field :id_publico, :string
 
     belongs_to :nucleo_pesquisa, NucleoPesquisa
@@ -20,21 +29,14 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     timestamps()
   end
 
-  def changeset(attrs) do
-    %__MODULE__{}
+  @spec changeset(map) :: Result.t(struct, changeset)
+  def changeset(linha_pesquisa \\ %__MODULE__{}, attrs) do
+    linha_pesquisa
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> validate_length(:desc_curta, max: 90)
-    |> validate_length(:desc, max: 280)
     |> foreign_key_constraint(:nucleo_pesquisa_id)
     |> foreign_key_constraint(:responsavel_lp_id)
     |> put_change(:id_publico, Nanoid.generate())
-  end
-
-  def list_linha_pesquisa_by_nucleo_pesquisa_query(nucleo_pesquisa_id) do
-    from(l in __MODULE__,
-      inner_join: n in assoc(l, :nucleo_pesquisa),
-      where: n.id == ^nucleo_pesquisa_id
-    )
+    |> apply_action(:parse)
   end
 end

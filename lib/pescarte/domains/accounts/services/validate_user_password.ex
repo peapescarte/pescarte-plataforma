@@ -1,9 +1,4 @@
-defmodule Pescarte.Domains.Accounts.Services.UserFields do
-  @moduledoc false
-  use Pescarte, :domain_service
-
-  import Ecto.Changeset, only: [add_error: 3]
-
+defmodule Pescarte.Domains.Accounts.Services.ValidateUserPassword do
   alias Pescarte.Domains.Accounts.Models.User
 
   @doc """
@@ -11,6 +6,7 @@ defmodule Pescarte.Domains.Accounts.Services.UserFields do
   Se não houver usuário ou o usuário não tiver uma senha, chamamos
   `Bcrypt.no_user_verify/0` para evitar ataques de tempo.
   """
+  @spec valid_password?(User.t(), binary) :: boolean
   def valid_password?(%User{hash_senha: password_hash}, password)
       when is_binary(password_hash) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, password_hash)
@@ -24,18 +20,12 @@ defmodule Pescarte.Domains.Accounts.Services.UserFields do
   @doc """
   Valida a senha atual, caso contrário adiciona erro ao Changeset
   """
+  @spec validate_current_password(Ecto.Changeset.t(), binary) :: Ecto.Changeset.t()
   def validate_current_password(changeset, password) do
     if valid_password?(changeset.data, password) do
       changeset
     else
-      add_error(changeset, :current_password, "não é válida")
+      Ecto.Changeset.add_error(changeset, :current_password, "is not valid")
     end
   end
-
-  def put_permissions(%User{} = user) do
-    # TODO
-    Map.put(user, :permissoes, nil)
-  end
-
-  def put_permissions(nil), do: nil
 end

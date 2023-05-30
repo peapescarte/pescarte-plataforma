@@ -2,12 +2,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
   use Pescarte, :model
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
-  alias Pescarte.Types.TrimmedString
+
+  @opaque t :: %Categoria{id: integer, nome: binary, id_publico: binary, tags: list(Tag.t())}
 
   @required_fields ~w(nome)a
 
   schema "categoria" do
-    field :nome, TrimmedString
+    field :nome, :string
     field :id_publico, :string
 
     has_many :tags, Tag
@@ -15,15 +16,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
     timestamps()
   end
 
-  def changeset(attrs) do
-    %__MODULE__{}
+  @spec changeset(map) :: Result.t(Categoria.t(), changeset)
+  def changeset(categoria \\ %__MODULE__{}, attrs) do
+    categoria
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
     |> put_change(:id_publico, Nanoid.generate())
-  end
-
-  def list_tags_query(%__MODULE__{} = categoria) do
-    from t in Tag, where: t.categoria_id == ^categoria.id
   end
 end

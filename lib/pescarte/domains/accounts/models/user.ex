@@ -1,14 +1,29 @@
 defmodule Pescarte.Domains.Accounts.Models.User do
   use Pescarte, :model
 
-  import Brcpfcnpj.Changeset, only: [validate_cpf: 2]
+  import Brcpfcnpj.Changeset, only: [validate_cpf: 3]
 
   alias Pescarte.Domains.Accounts.Models.Contato
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
+  @opaque t :: %User{
+            id: integer,
+            cpf: binary,
+            confirmado_em: NaiveDateTime.t(),
+            hash_senha: binary,
+            data_nascimento: Date.t(),
+            tipo: atom,
+            primeiro_nome: binary,
+            sobrenome: binary,
+            id_publico: binary,
+            ativo?: boolean,
+            pesquisador: Pesquisador.t(),
+            contato: Contato.t()
+          }
+
   @valid_roles ~w(pesquisador pescador admin avulso)a
 
-  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento)a
+  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id tipo)a
   @optional_fields ~w(confirmado_em)a
 
   @lower_pass_format ~r/[a-z]/
@@ -16,68 +31,42 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
   schema "usuario" do
-    field :cpf, TrimmedString
+    field :cpf, :string
     field :confirmado_em, :naive_datetime
     field :hash_senha, :string, redact: true
-    field :senha, TrimmedString, virtual: true, redact: true
+    field :senha, :string, virtual: true, redact: true
     field :data_nascimento, :date
     field :tipo, Ecto.Enum, default: :avulso, values: @valid_roles
-    field :primeiro_nome, CapitalizedString
-    field :sobrenome, CapitalizedString
+    field :primeiro_nome, :string
+    field :sobrenome, :string
     field :id_publico, :string
     field :ativo?, :boolean, default: false
 
-    has_one :pesquisador, Pesquisador
+    has_one :pesquisador, Pesquisador, foreign_key: :usuario_id
     belongs_to :contato, Contato, on_replace: :update
 
     timestamps()
   end
 
-  def full_name(user) do
-    names = [user.primeiro_nome, user.sobrenome]
-
-    Enum.join(names, " ")
-  end
-
-  def changeset(attrs) do
-    %__MODULE__{}
+  @spec changeset(Usert.t(), map) :: Result.t(User.t(), changeset)
+  def changeset(user \\ %User{}, attrs) do
+    user
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> validate_cpf(:cpf)
+    |> validate_cpf(:cpf, message: "CPF inválido")
     |> unique_constraint(:cpf)
-    |> cast_assoc(:contato, required: true, with: &Contato.changeset/2)
     |> put_change(:id_publico, Nanoid.generate())
+    |> apply_action(:parse)
   end
 
-  def pesquisador_changeset(attrs) do
-    attrs
-    |> changeset()
-    |> put_change(:tipo, :pesquisador)
-    |> password_changeset(attrs)
-  end
-
-  def admin_changeset(attrs) do
-    attrs
-    |> changeset()
-    |> put_change(:tipo, :admin)
-  end
-
+  @spec confirm_changeset(User.t(), NaiveDateTime.t()) :: changeset
   def confirm_changeset(%__MODULE__{} = user, now) do
     change(user, confirmado_em: now)
   end
 
-  def email_changeset(%{contato: nil} = user, attrs) do
-    user |> cast(attrs, []) |> validate_required([:contato])
-  end
-
-  def email_changeset(%{contato: contato}, attrs) do
-    contato
-    |> cast(attrs, [:email_principal])
-    |> validate_required([:email_principal])
-  end
-
-  def password_changeset(changeset, attrs \\ %{}, opts \\ []) do
-    changeset
+  @spec password_changeset(User.t() | changeset, map, keyword) :: changeset
+  def password_changeset(source, attrs \\ %{}, opts \\ []) do
+    source
     |> cast(attrs, [:senha])
     |> validate_required([:senha])
     |> validate_confirmation(:senha, required: true)
@@ -102,18 +91,6 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     else
       changeset
     end
-  end
-
-  def list_by_query(fields) do
-    from u in __MODULE__, select: ^fields
-  end
-
-  def get_by_email_query(email) do
-    from u in __MODULE__,
-      left_join: c in assoc(u, :contato),
-      where: fragment("lower(?)", c.email_principal) == ^email,
-      order_by: [desc: u.inserted_at],
-      limit: 1
   end
 
   def user_roles, do: @valid_roles
