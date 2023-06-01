@@ -3,7 +3,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
 
-  @opaque t :: %Tag{id: integer, etiqueta: binary, id_publico: binary, categoria: Categoria.t()}
+  @type t :: %Tag{id: integer, etiqueta: binary, id_publico: binary, categoria: Categoria.t()}
 
   @required_fields ~w(etiqueta categoria_id)a
 

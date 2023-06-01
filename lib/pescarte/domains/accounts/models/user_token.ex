@@ -14,13 +14,13 @@ defmodule Pescarte.Domains.Accounts.Models.UserToken do
 
   alias Pescarte.Domains.Accounts.Models.User
 
-  @opaque t :: %UserToken{
-            id: integer,
-            token: binary,
-            contexto: binary,
-            enviado_para: binary,
-            usuario: User.t()
-          }
+  @type t :: %UserToken{
+          id: integer,
+          token: binary,
+          contexto: binary,
+          enviado_para: binary,
+          usuario: User.t()
+        }
 
   schema "user_token" do
     field :token, :binary

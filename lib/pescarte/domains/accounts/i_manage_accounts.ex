@@ -21,6 +21,6 @@ defmodule Pescarte.Domains.Accounts.IManageAccounts do
   @callback generate_email_token(User.t(), binary) :: {:ok, UserToken.t()} | {:error, changeset}
   @callback generate_session_token(User.t()) :: {:ok, UserToken.t()} | {:error, changeset}
 
-  @callback update_user_password(User.t(), binary, map) :: Result.t(Usert.t(), changeset)
+  @callback update_user_password(User.t(), binary, map) :: {:ok, User.t()} | {:error, changeset}
   @callback reset_user_password(User.t(), map) :: {:ok, User.t()} | {:error, changeset}
 end

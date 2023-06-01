@@ -6,20 +6,20 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   alias Pescarte.Domains.Accounts.Models.Contato
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
-  @opaque t :: %User{
-            id: integer,
-            cpf: binary,
-            confirmado_em: NaiveDateTime.t(),
-            hash_senha: binary,
-            data_nascimento: Date.t(),
-            tipo: atom,
-            primeiro_nome: binary,
-            sobrenome: binary,
-            id_publico: binary,
-            ativo?: boolean,
-            pesquisador: Pesquisador.t(),
-            contato: Contato.t()
-          }
+  @type t :: %User{
+          id: integer,
+          cpf: binary,
+          confirmado_em: NaiveDateTime.t(),
+          hash_senha: binary,
+          data_nascimento: Date.t(),
+          tipo: atom,
+          primeiro_nome: binary,
+          sobrenome: binary,
+          id_publico: binary,
+          ativo?: boolean,
+          pesquisador: Pesquisador.t(),
+          contato: Contato.t()
+        }
 
   @valid_roles ~w(pesquisador pescador admin)a
 
@@ -80,13 +80,13 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   end
 
   defp maybe_hash_password(changeset, opts) do
-    hash_password? = Keyword.get(opts, :hash_senha, true)
+    hash_password? = Keyword.get(opts, :hash, true)
     password = get_change(changeset, :senha)
 
     if hash_password? && password && changeset.valid? do
       changeset
       |> validate_length(:senha, max: 72, count: :bytes)
-      |> put_change(:senha, Bcrypt.hash_pwd_salt(password))
+      |> put_change(:hash_senha, Bcrypt.hash_pwd_salt(password))
       |> delete_change(:senha)
     else
       changeset

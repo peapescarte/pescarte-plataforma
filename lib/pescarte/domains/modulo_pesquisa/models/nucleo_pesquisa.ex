@@ -3,14 +3,14 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
 
-  @opaque t :: %NucleoPesquisa{
-            id: integer,
-            nome: binary,
-            letra: binary,
-            desc: binary,
-            id_publico: binary,
-            linha_pesquisas: list(LinhaPesquisa.t())
-          }
+  @type t :: %NucleoPesquisa{
+          id: integer,
+          nome: binary,
+          letra: binary,
+          desc: binary,
+          id_publico: binary,
+          linha_pesquisas: list(LinhaPesquisa.t())
+        }
 
   schema "nucleo_pesquisa" do
     field :nome, :string

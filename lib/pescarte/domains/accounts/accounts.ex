@@ -143,7 +143,7 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def fetch_user_by_reset_password_token(token) do
-    with {:ok, decoded} <- Base.url_decode64(token) do
+    with {:ok, decoded} <- Base.url_decode64(token, padding: false) do
       hashed_token = :crypto.hash(@hash_algorithm, decoded)
 
       Repository.fetch_user_by_token(

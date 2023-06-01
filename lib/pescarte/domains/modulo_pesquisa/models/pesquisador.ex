@@ -8,29 +8,29 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
 
-  @opaque t :: %Pesquisador{
-            id: integer,
-            minibio: binary,
-            bolsa: atom,
-            link_lattes: binary,
-            link_banner_perfil: binary,
-            link_avatar: binary,
-            link_linkedin: binary,
-            rg: binary,
-            formacao: binary,
-            data_inicio_bolsa: Date.t(),
-            data_fim_bolsa: Date.t(),
-            data_contratacao: Date.t(),
-            data_termino: Date.t(),
-            id_publico: binary,
-            linha_pesquisa: LinhaPesquisa.t(),
-            orientandos: list(Pesquisador.t()),
-            orientador: Maybe.t(Pesquisador.t()),
-            midias: list(Midia.t()),
-            relatorio_mensais: list(RelatorioMensal.t()),
-            campus: Campus.t(),
-            usuario: User.t()
-          }
+  @type t :: %Pesquisador{
+          id: integer,
+          minibio: binary,
+          bolsa: atom,
+          link_lattes: binary,
+          link_banner_perfil: binary,
+          link_avatar: binary,
+          link_linkedin: binary,
+          rg: binary,
+          formacao: binary,
+          data_inicio_bolsa: Date.t(),
+          data_fim_bolsa: Date.t(),
+          data_contratacao: Date.t(),
+          data_termino: Date.t(),
+          id_publico: binary,
+          linha_pesquisa: LinhaPesquisa.t(),
+          orientandos: list(Pesquisador.t()),
+          orientador: Maybe.t(Pesquisador.t()),
+          midias: list(Midia.t()),
+          relatorio_mensais: list(RelatorioMensal.t()),
+          campus: Campus.t(),
+          usuario: User.t()
+        }
 
   @tipo_bolsas ~w(
     ic pesquisa voluntario

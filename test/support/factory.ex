@@ -193,6 +193,10 @@ defmodule Pescarte.Factory do
     token
   end
 
+  def senha_atual do
+    "Password!123"
+  end
+
   # Convenience API
 
   defp sequence_list(label, custom, opts) do

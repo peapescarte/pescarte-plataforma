@@ -4,15 +4,15 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
   alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
-  @opaque t :: %LinhaPesquisa{
-            id: integer,
-            numero: integer,
-            desc: binary,
-            desc_curta: binary,
-            id_publico: binary,
-            nucleo_pesquisa: NucleoPesquisa.t(),
-            responsavel_lp: Pesquisador.t()
-          }
+  @type t :: %LinhaPesquisa{
+          id: integer,
+          numero: integer,
+          desc: binary,
+          desc_curta: binary,
+          id_publico: binary,
+          nucleo_pesquisa: NucleoPesquisa.t(),
+          responsavel_lp: Pesquisador.t()
+        }
 
   @required_fields ~w(nucleo_pesquisa_id desc_curta numero)a
   @optional_fields ~w(desc responsavel_lp_id)a

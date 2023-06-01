@@ -3,6 +3,7 @@ defmodule Pescarte.Accounts.AccountsTest do
 
   alias Pescarte.Domains.Accounts
   alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.UserToken
 
   import Pescarte.Factory
 
@@ -149,7 +150,6 @@ defmodule Pescarte.Accounts.AccountsTest do
       user = Repo.preload(insert(:user), :contato)
 
       assert {:ok, token} = Accounts.generate_email_token(user, "reset_password")
-      assert {:ok, _} = Base.url_decode64(token)
       assert {:ok, fetched} = Accounts.fetch_user_by_reset_password_token(token)
       assert fetched.id == user.id
     end
@@ -166,8 +166,73 @@ defmodule Pescarte.Accounts.AccountsTest do
   end
 
   describe "update_user_password/3" do
+    setup do
+      %{user: Repo.preload(insert(:user), :contato)}
+    end
+
+    test "quando a senha atual for incorreta", ctx do
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:error, _} = Accounts.update_user_password(ctx.user, "incorreta", %{})
+    end
+
+    test "quando as novas senhas forem inválidas", ctx do
+      senhas = %{senha: "123", senha_confirmation: "123"}
+      atual = senha_atual()
+
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:error, _} = Accounts.update_user_password(ctx.user, atual, senhas)
+    end
+
+    test "quando a atual é válida e as senhas novas são iguais a atual", ctx do
+      atual = senha_atual()
+      senhas = %{senha: atual, senha_confirmation: atual}
+
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.update_user_password(ctx.user, atual, senhas)
+      assert changed.hash_senha == ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
+    end
+
+    test "quando a senha atual e as senhas novas forem válidas", ctx do
+      atual = senha_atual()
+      senhas = %{senha: "pASSw0rd!234", senha_confirmation: "pASSw0rd!234"}
+
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.update_user_password(ctx.user, atual, senhas)
+      assert changed.hash_senha != ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
+    end
   end
 
   describe "reset_user_password/2" do
+    setup do
+      %{user: Repo.preload(insert(:user), :contato)}
+    end
+
+    test "quando as novas senhas são inválidas", ctx do
+      senhas = %{senha: "123", senha_confirmation: "123"}
+
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:error, _} = Accounts.reset_user_password(ctx.user, senhas)
+    end
+
+    test "quando as senhas novas são iguais a atual", ctx do
+      atual = senha_atual()
+      senhas = %{senha: atual, senha_confirmation: atual}
+
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.reset_user_password(ctx.user, senhas)
+      assert changed.hash_senha == ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
+    end
+
+    test "quando as senhas novas são válidas", ctx do
+      senhas = %{senha: "pASSw0rd!234", senha_confirmation: "pASSw0rd!234"}
+
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.reset_user_password(ctx.user, senhas)
+      assert changed.hash_senha != ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
+    end
   end
 end

@@ -3,24 +3,24 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
-  @opaque t :: %RelatorioMensal{
-            id: integer,
-            acao_planejamento: binary,
-            participacao_grupos_estudo: binary,
-            acoes_pesquisa: binary,
-            participacao_treinamentos: binary,
-            publicacao: binary,
-            previsao_acao_planejamento: binary,
-            previsao_participacao_grupos_estudo: binary,
-            previsao_participacao_treinamentos: binary,
-            previsao_acoes_pesquisa: binary,
-            status: atom,
-            link: binary,
-            ano: integer,
-            mes: integer,
-            pesquisador: Pesquisador.t(),
-            id_publico: binary
-          }
+  @type t :: %RelatorioMensal{
+          id: integer,
+          acao_planejamento: binary,
+          participacao_grupos_estudo: binary,
+          acoes_pesquisa: binary,
+          participacao_treinamentos: binary,
+          publicacao: binary,
+          previsao_acao_planejamento: binary,
+          previsao_participacao_grupos_estudo: binary,
+          previsao_participacao_treinamentos: binary,
+          previsao_acoes_pesquisa: binary,
+          status: atom,
+          link: binary,
+          ano: integer,
+          mes: integer,
+          pesquisador: Pesquisador.t(),
+          id_publico: binary
+        }
 
   @status ~w(entregue atrasado nao_enviado)a
 

@@ -3,14 +3,14 @@ defmodule Pescarte.Domains.Accounts.Models.Contato do
 
   alias Pescarte.Domains.Accounts.Models.Endereco
 
-  @opaque t :: %Contato{
-            id: integer,
-            email_principal: binary,
-            celular_principal: binary,
-            emails_adicionais: list(binary),
-            celulares_adicionais: list(binary),
-            endereco: Endereco.t()
-          }
+  @type t :: %Contato{
+          id: integer,
+          email_principal: binary,
+          celular_principal: binary,
+          emails_adicionais: list(binary),
+          celulares_adicionais: list(binary),
+          endereco: Endereco.t()
+        }
 
   @optional_fields ~w(emails_adicionais celulares_adicionais endereco_id)a
   @required_fields ~w(email_principal celular_principal)a

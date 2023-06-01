@@ -4,14 +4,14 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
   alias Pescarte.Domains.Accounts.Models.Endereco
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
-  @opaque t :: %Campus{
-            id: integer,
-            nome: binary,
-            acronimo: binary,
-            id_publico: binary,
-            endereco: Endereco.t(),
-            pesquisadores: list(Pesquisador.t())
-          }
+  @type t :: %Campus{
+          id: integer,
+          nome: binary,
+          acronimo: binary,
+          id_publico: binary,
+          endereco: Endereco.t(),
+          pesquisadores: list(Pesquisador.t())
+        }
 
   @required_fields ~w(acronimo endereco_id)a
   @optional_fields ~w(nome)a

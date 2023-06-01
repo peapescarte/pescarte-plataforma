@@ -3,12 +3,12 @@ defmodule Pescarte.Domains.Accounts.Models.ApiKey do
 
   use Pescarte, :model
 
-  @opaque t :: %ApiKey{
-            id: integer,
-            key: binary,
-            description: binary,
-            active: boolean
-          }
+  @type t :: %ApiKey{
+          id: integer,
+          key: binary,
+          description: binary,
+          active: boolean
+        }
 
   schema "api_key" do
     field :key, Ecto.UUID

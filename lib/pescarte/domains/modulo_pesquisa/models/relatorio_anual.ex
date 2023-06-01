@@ -3,24 +3,24 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
-  @opaque t :: %RelatorioAnual{
-            id: integer,
-            plano_de_trabalho: binary,
-            resumo: binary,
-            introducao: binary,
-            embasamento_teorico: binary,
-            resultados: binary,
-            atividades_academicas: binary,
-            atividades_nao_academicas: binary,
-            conclusao: binary,
-            referencias: binary,
-            status: atom,
-            link: binary,
-            ano: integer,
-            mes: integer,
-            pesquisador: Pesquisador.t(),
-            id_publico: binary
-          }
+  @type t :: %RelatorioAnual{
+          id: integer,
+          plano_de_trabalho: binary,
+          resumo: binary,
+          introducao: binary,
+          embasamento_teorico: binary,
+          resultados: binary,
+          atividades_academicas: binary,
+          atividades_nao_academicas: binary,
+          conclusao: binary,
+          referencias: binary,
+          status: atom,
+          link: binary,
+          ano: integer,
+          mes: integer,
+          pesquisador: Pesquisador.t(),
+          id_publico: binary
+        }
 
   @status ~w(entregue atrasado nao_enviado)a
 

@@ -1,15 +1,15 @@
 defmodule Pescarte.Domains.Accounts.Models.Endereco do
   use Pescarte, :model
 
-  @opaque t :: %Endereco{
-            id: integer,
-            rua: binary,
-            numero: integer,
-            complemento: binary,
-            cep: binary,
-            cidade: binary,
-            estado: binary
-          }
+  @type t :: %Endereco{
+          id: integer,
+          rua: binary,
+          numero: integer,
+          complemento: binary,
+          cep: binary,
+          cidade: binary,
+          estado: binary
+        }
 
   @fields ~w(rua numero complemento cep cidade estado)a
 

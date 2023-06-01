@@ -4,19 +4,19 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
-  @opaque t :: %Midia{
-            id: integer,
-            tipo: atom,
-            nome_arquivo: binary,
-            data_arquivo: Date.t(),
-            restrito?: boolean,
-            observacao: binary,
-            link: binary,
-            texto_alternativo: binary,
-            id_publico: binary,
-            autor: User.t(),
-            tags: list(Tag.t())
-          }
+  @type t :: %Midia{
+          id: integer,
+          tipo: atom,
+          nome_arquivo: binary,
+          data_arquivo: Date.t(),
+          restrito?: boolean,
+          observacao: binary,
+          link: binary,
+          texto_alternativo: binary,
+          id_publico: binary,
+          autor: User.t(),
+          tags: list(Tag.t())
+        }
 
   @required_fields ~w(tipo nome_arquivo data_arquivo link autor_id)a
   @optional_fields ~w(observacao texto_alternativo restrito?)a
