@@ -12,16 +12,16 @@ defmodule PescarteWeb.GraphQL.Types.Midia do
 
   @desc "Representa uma Mídia genérica da plataforma"
   object :midia do
-    field :filename, :string
-    field :filedate, :date
+    field :nome_arquivo, :string
+    field :data_arquivo, :date
     field :link, :string
-    field :sensible?, :boolean, name: "sensible"
-    field :type, :midia_type
-    field :observation, :string
-    field :alt_text, :string
+    field :restrito?, :boolean, name: "restrito"
+    field :tipo, :midia_type
+    field :observacao, :string
+    field :texto_alternativo, :string
     field :id_publico, :string, name: "id"
 
-    field :author, :user do
+    field :autor, :user do
       resolve(&Resolvers.User.get_by_midia/3)
     end
 

@@ -1,4 +1,4 @@
-defmodule Pescarte.Domains.ModuloPesquisa do
+defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   # TODO: melhorar documentação
   @moduledoc false
 
@@ -15,10 +15,10 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
-  alias Pescarte.Domains.ModuloPesquisa.IManageModuloPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.IManageRepository
   alias Pescarte.Repo
 
-  @behaviour IManageModuloPesquisa
+  @behaviour IManageRepository
 
   @impl true
   def create_campus(attrs) do
@@ -46,6 +46,28 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   def create_midia_with_tags(attrs, tags) do
     with {:ok, midia} <- Midia.changeset(%Midia{}, attrs, tags) do
       Repo.insert(midia)
+    end
+  end
+
+  @impl true
+  def create_midia_and_tags_multi(attrs, tags_attrs) do
+    tags_attrs
+    |> Enum.with_index()
+    |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
+      Ecto.Multi.run(multi, :"tag-#{idx}", fn _, _ ->
+        create_tag(attrs)
+      end)
+    end)
+    |> Ecto.Multi.run(:tags, fn _repo, _changes ->
+      {:ok, list_tag()}
+    end)
+    |> Ecto.Multi.insert(:midia, fn %{tags: tags} ->
+      Midia.changeset(%Midia{}, attrs, tags)
+    end)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{midia: midia}} -> {:ok, midia}
+      {:error, _, changeset, _} -> {:error, changeset}
     end
   end
 
@@ -86,6 +108,11 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   end
 
   @impl true
+  def fetch_categoria(id) do
+    Repo.fetch_by(Categoria, id_publico: id)
+  end
+
+  @impl true
   def fetch_pesquisador(id) do
     Repo.fetch_by(Pesquisador, id_publico: id)
   end
@@ -104,6 +131,16 @@ defmodule Pescarte.Domains.ModuloPesquisa do
       |> change()
       |> Repo.update()
     end
+  end
+
+  @impl true
+  def fetch_tag(id) do
+    Repo.fetch_by(Tag, id_publico: id)
+  end
+
+  @impl true
+  def fetch_tag_by_etiqueta(etiqueta) do
+    Repo.fetch_by(Tag, etiqueta: etiqueta)
   end
 
   @impl true
@@ -142,6 +179,21 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   end
 
   @impl true
+  def list_midia do
+    Repo.all(Midia)
+  end
+
+  @impl true
+  def list_midias_from_tag(tag_id) do
+    query = from t in Tag, where: t.id == ^tag_id, preload: :midias
+
+    case Repo.fetch_one(query) do
+      {:error, :not_found} -> []
+      {:ok, tag} -> tag.midias
+    end
+  end
+
+  @impl true
   def list_pesquisador do
     Repo.all(Pesquisador)
   end
@@ -168,10 +220,28 @@ defmodule Pescarte.Domains.ModuloPesquisa do
   end
 
   @impl true
-  def list_tags_from_midia(id) do
+  def list_tag do
+    Repo.all(Tag)
+  end
+
+  @impl true
+  def list_tags_from_categoria(categoria_id) do
+    query =
+      from c in Categoria,
+        where: c.id == ^categoria_id,
+        preload: :tags
+
+    case Repo.fetch_one(query) do
+      {:error, :not_found} -> []
+      {:ok, categoria} -> categoria.tags
+    end
+  end
+
+  @impl true
+  def list_tags_from_midia(midia_id) do
     query =
       from m in Midia,
-        where: m.id_publico == ^id,
+        where: m.id_publico == ^midia_id,
         preload: :tags
 
     case Repo.fetch_one(query) do

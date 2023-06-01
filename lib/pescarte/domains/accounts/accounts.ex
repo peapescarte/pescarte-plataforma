@@ -2,6 +2,7 @@ defmodule Pescarte.Domains.Accounts do
   # TODO: melhorar documentação
   @moduledoc false
 
+  import Ecto.Query, only: [from: 2]
   import Pescarte.Domains.Accounts.Services.ValidateUserPassword
 
   alias Pescarte.Domains.Accounts.IManageAccounts
@@ -85,6 +86,16 @@ defmodule Pescarte.Domains.Accounts do
   @impl true
   def delete_session_token(%UserToken{} = user_token) do
     Repo.delete(user_token)
+  end
+
+  @impl true
+  def fetch_user(id) do
+    query =
+      from u in User,
+        where: u.id == ^id or u.id_publico == ^id,
+        select: u
+
+    Repo.fetch_one(query)
   end
 
   @doc """
@@ -199,6 +210,9 @@ defmodule Pescarte.Domains.Accounts do
       {:ok, token}
     end
   end
+
+  @impl true
+  defdelegate list_user, to: Repository
 
   @doc """
   Atualiza a senha de um usuário

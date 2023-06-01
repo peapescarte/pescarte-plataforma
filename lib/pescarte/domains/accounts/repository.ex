@@ -67,4 +67,9 @@ defmodule Pescarte.Domains.Accounts.Repository do
       select: u
     )
   end
+
+  @impl true
+  def list_user do
+    Repo.all(User)
+  end
 end
