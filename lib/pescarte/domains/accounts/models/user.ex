@@ -21,7 +21,7 @@ defmodule Pescarte.Domains.Accounts.Models.User do
             contato: Contato.t()
           }
 
-  @valid_roles ~w(pesquisador pescador admin avulso)a
+  @valid_roles ~w(pesquisador pescador admin)a
 
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id tipo)a
   @optional_fields ~w(confirmado_em)a
@@ -36,7 +36,7 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     field :hash_senha, :string, redact: true
     field :senha, :string, virtual: true, redact: true
     field :data_nascimento, :date
-    field :tipo, Ecto.Enum, default: :avulso, values: @valid_roles
+    field :tipo, Ecto.Enum, values: @valid_roles
     field :primeiro_nome, :string
     field :sobrenome, :string
     field :id_publico, :string

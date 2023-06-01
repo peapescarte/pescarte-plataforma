@@ -39,28 +39,32 @@ defmodule Pescarte.Domains.Accounts.Repository do
   end
 
   defp email_query(email) do
-    from u in User,
+    from(u in User,
       left_join: c in assoc(u, :contato),
-      where: fragment("lower(?)", c.email) == ^email,
+      where: c.email_principal == ^email or ^email in c.emails_adicionais,
       order_by: [desc: u.inserted_at],
       limit: 1
+    )
   end
 
   defp account_token_query(token, context, confirm_validity_days) do
-    from t in UserToken,
+    from(t in UserToken,
       where: [token: ^token, contexto: ^context],
       join: u in assoc(t, :usuario),
       join: c in assoc(u, :contato),
       where:
-        t.inserted_at > ago(^confirm_validity_days, "day") and t.enviado_para == c.email_principal,
+        t.inserted_at > ago(^confirm_validity_days, "day") and
+          (t.enviado_para == c.email_principal or t.enviado_para in c.emails_adicionais),
       select: u
+    )
   end
 
   defp session_token_query(token, session_validity_days) do
-    from t in UserToken,
+    from(t in UserToken,
       where: [token: ^token, contexto: "session"],
       join: u in assoc(t, :usuario),
       where: t.inserted_at > ago(^session_validity_days, "day"),
       select: u
+    )
   end
 end

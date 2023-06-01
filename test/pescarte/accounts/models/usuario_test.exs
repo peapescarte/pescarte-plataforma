@@ -15,7 +15,8 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "82879666040",
       data_nascimento: ~D[1990-01-01],
-      contato_id: contato.id
+      contato_id: contato.id,
+      tipo: :pesquisador
     }
 
     assert {:ok, user} = User.changeset(attrs)
@@ -43,6 +44,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "12345678900",
       data_nascimento: ~D[1990-01-01],
+      tipo: :pesquisador,
       contato_id: contato.id
     }
 
@@ -56,6 +58,7 @@ defmodule Pescarte.Accounts.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
+      tipo: :pesquisador,
       contato_id: nil
     }
 

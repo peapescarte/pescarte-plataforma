@@ -10,7 +10,6 @@ defmodule Pescarte do
   def model do
     quote do
       use Ecto.Schema
-      alias Monads.Result
       alias __MODULE__
       import Ecto.Changeset
       @typep changeset :: Ecto.Changeset.t()

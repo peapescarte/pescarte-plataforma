@@ -144,39 +144,47 @@ defmodule Pescarte.Factory do
   def user_factory do
     %User{
       id_publico: Nanoid.generate_non_secure(),
-      tipo: sequence(:role, ["avulso", "pesquisador"]),
+      tipo: sequence(:role, ["admin", "pesquisador"]),
       primeiro_nome: sequence(:first, &"User #{&1}"),
       sobrenome: sequence(:last, &"Last User #{&1}"),
       cpf: Brcpfcnpj.cpf_generate(),
       data_nascimento: Date.utc_today(),
-      hash_senha: "$2b$12$AZdxCkw/Rb5AlI/5S7Ebb.hIyG.ocs18MGkHAW2gdZibH7a1wHTyu",
-      contato_id: insert(:contato).id
+      hash_senha: "$2b$12$6beq5zEplVZjji7Jm7itJuTXd3wH9rDN.V5VRcaS/A8YJ28mi1LBG",
+      contato_id: insert(:contato).id,
+      senha: "Password!123"
     }
   end
 
-  def user_token_factory do
-    context = sequence(:contexto, ["session", "confirm", "reset_password"])
+  def user_creation_factory do
+    user = build(:user)
+    user |> Map.from_struct() |> Map.put(:senha_confirmation, user.senha)
+  end
 
-    token =
-      if context == "session" do
-        :crypto.strong_rand_bytes(32)
-      else
-        token = :crypto.strong_rand_bytes(32)
-        :crypto.hash(:sha256, token)
-      end
+  def email_token_factory do
+    context = sequence(:contexto, ["confirm", "reset_password"])
+    token = :crypto.strong_rand_bytes(32)
+    hashed = :crypto.hash(:sha256, token)
+    contato = insert(:contato)
+    user = insert(:user, contato_id: contato.id)
 
     %UserToken{
       contexto: context,
-      usuario_id: insert(:user).id,
-      enviado_para: "test@example.com",
-      token: token
+      usuario_id: user.id,
+      enviado_para: contato.email_principal,
+      token: hashed
     }
   end
 
-  def user_fixture(opts \\ []) do
-    :user
-    |> Pescarte.Factory.insert(opts)
-    |> Pescarte.Repo.preload([:contato, :pesquisador])
+  def session_token_factory do
+    contato = insert(:contato)
+    user = insert(:user, contato_id: contato.id)
+
+    %UserToken{
+      contexto: "session",
+      usuario_id: user.id,
+      enviado_para: contato.email_principal,
+      token: :crypto.strong_rand_bytes(32)
+    }
   end
 
   def extract_user_token(fun) do

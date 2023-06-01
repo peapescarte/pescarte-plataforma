@@ -4,7 +4,6 @@ defmodule Pescarte.Domains.Accounts do
 
   import Pescarte.Domains.Accounts.Services.ValidateUserPassword
 
-  alias Monads.Result
   alias Pescarte.Domains.Accounts.IManageAccounts
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
@@ -29,26 +28,24 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def confirm_user(token, now) do
-    with {:ok, decoded} <- Base.url_decode64(token) do
-      hashed_token = :crypto.hash(@hash_algorithm, decoded)
+    with {:ok, decoded} <- Base.url_decode64(token),
+         hashed_token = :crypto.hash(@hash_algorithm, decoded),
+         {:ok, user} <-
+           Repository.fetch_user_by_token(hashed_token, "confirm", @confirm_validity_in_days) do
+      changeset = User.confirm_changeset(user, now)
+      token_query = UserToken.user_and_contexts_query(user, ["confirm"])
 
-      hashed_token
-      |> Repository.fetch_user_by_token("confirm", @confirm_validity_in_days)
-      |> Result.and_then(fn user ->
-        changeset = User.confirm_changeset(user, now)
-        token_query = UserToken.user_and_contexts_query(user, ["confirm"])
-
-        Ecto.Multi.new()
-        |> Ecto.Multi.update(:user, changeset)
-        |> Ecto.Multi.delete_all(:tokens, token_query)
-        |> Repo.transaction()
-        |> case do
-          {:ok, %{user: user}} -> Result.ok(user)
-          {:error, :user, changeset, _} -> Result.error(changeset)
-        end
-      end)
+      Ecto.Multi.new()
+      |> Ecto.Multi.update(:user, changeset)
+      |> Ecto.Multi.delete_all(:tokens, token_query)
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{user: user}} -> {:ok, user}
+        {:error, :user, changeset, _} -> {:error, changeset}
+      end
     else
-      :error -> Result.error(:invalid_token)
+      :error -> {:error, :invalid_token}
+      err -> err
     end
   end
 
@@ -61,14 +58,6 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   @doc """
-  Cria um usuário do tipo `:avulso`.
-  """
-  @impl true
-  def create_user_avulso(attrs) do
-    create_user(attrs, :avulso)
-  end
-
-  @doc """
   Cria um usuário do tipo `:pesquisador`.
   """
   @impl true
@@ -77,18 +66,17 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   defp create_user(attrs, tipo) when tipo in ~w(pesquisador admin)a do
-    attrs
-    |> Map.put(:tipo, tipo)
-    |> User.changeset()
-    |> Result.map(&User.password_changeset(&1, attrs))
-    |> Result.and_then(&Repo.insert/1)
+    with {:ok, changeset} <- attrs |> Map.put(:tipo, tipo) |> User.changeset() do
+      changeset
+      |> User.password_changeset(attrs)
+      |> Repo.insert()
+    end
   end
 
   defp create_user(attrs, tipo) do
-    attrs
-    |> Map.put(:tipo, tipo)
-    |> User.changeset()
-    |> Result.and_then(&Repo.insert/1)
+    with {:ok, changeset} <- attrs |> Map.put(:tipo, tipo) |> User.changeset() do
+      Repo.insert(changeset)
+    end
   end
 
   @doc """
@@ -117,11 +105,13 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def fetch_user_by_cpf_and_password(cpf, pass) do
-    cpf
-    |> Repository.fetch_user_by_cpf()
-    |> Result.and_then(fn user ->
-      user |> valid_password?(pass) |> Result.new(:not_found)
-    end)
+    with {:ok, user} <- Repository.fetch_user_by_cpf(cpf) do
+      if valid_password?(user, pass) do
+        {:ok, user}
+      else
+        {:error, :invalid_password}
+      end
+    end
   end
 
   @doc """
@@ -139,11 +129,13 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def fetch_user_by_email_and_password(email, pass) do
-    email
-    |> Repository.fetch_user_by_email()
-    |> Result.and_then(fn user ->
-      user |> valid_password?(pass) |> Result.new(:not_found)
-    end)
+    with {:ok, user} <- Repository.fetch_user_by_email(email) do
+      if valid_password?(user, pass) do
+        {:ok, user}
+      else
+        {:error, :invalid_password}
+      end
+    end
   end
 
   @doc """
@@ -151,7 +143,17 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def fetch_user_by_reset_password_token(token) do
-    Repository.fetch_user_by_token(token, "reset_password", @reset_password_validity_in_days)
+    with {:ok, decoded} <- Base.url_decode64(token) do
+      hashed_token = :crypto.hash(@hash_algorithm, decoded)
+
+      Repository.fetch_user_by_token(
+        hashed_token,
+        "reset_password",
+        @reset_password_validity_in_days
+      )
+    else
+      :error -> {:error, :invalid_token}
+    end
   end
 
   @doc """
@@ -167,21 +169,21 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def generate_email_token(%User{} = user, context)
-      when context in ~w(confirm session reset_password) do
+      when context in ~w(confirm reset_password) do
     token = :crypto.strong_rand_bytes(@login_token_rand_size)
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
-    %{
+    attrs = %{
       token: hashed_token,
-      context: context,
-      user_id: user.id,
+      contexto: context,
+      usuario_id: user.id,
       enviado_para: user.contato.email_principal
     }
-    |> UserToken.changeset()
-    |> Result.and_then(&Repo.insert/1)
-    |> Result.map(fn _ ->
-      Base.url_encode64(token, padding: false)
-    end)
+
+    with {:ok, changeset} <- UserToken.changeset(attrs),
+         {:ok, _user_token} <- Repo.insert(changeset) do
+      {:ok, Base.url_encode64(token, padding: false)}
+    end
   end
 
   @doc """
@@ -190,10 +192,12 @@ defmodule Pescarte.Domains.Accounts do
   @impl true
   def generate_session_token(%User{id: user_id}) do
     token = :crypto.strong_rand_bytes(@login_token_rand_size)
+    attrs = %{token: token, contexto: "session", usuario_id: user_id}
 
-    %{token: token, context: "session", user_id: user_id}
-    |> UserToken.changeset()
-    |> Result.and_then(&Repo.insert/1)
+    with {:ok, changeset} <- UserToken.changeset(attrs),
+         {:ok, _user_token} <- Repo.insert(changeset) do
+      {:ok, token}
+    end
   end
 
   @doc """
@@ -222,8 +226,8 @@ defmodule Pescarte.Domains.Accounts do
     |> Ecto.Multi.delete_all(:tokens, token_query)
     |> Repo.transaction()
     |> case do
-      {:ok, %{user: user}} -> Result.ok(user)
-      {:error, :user, changeset, _} -> Result.error(changeset)
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
 
@@ -246,8 +250,8 @@ defmodule Pescarte.Domains.Accounts do
     |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
     |> Repo.transaction()
     |> case do
-      {:ok, %{user: user}} -> Result.ok(user)
-      {:error, :user, changeset, _} -> Result.error(changeset)
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
 end
