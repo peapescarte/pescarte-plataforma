@@ -16,12 +16,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(Categoria.t(), changeset)
+  @spec changeset(struct, map) :: {:ok, Categoria.t()} | {:error, changeset}
   def changeset(categoria \\ %__MODULE__{}, attrs) do
     categoria
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
     |> put_change(:id_publico, Nanoid.generate())
+    |> apply_action(:parse)
   end
 end

@@ -1,4 +1,4 @@
-defmodule Pescarte.Repo.Migrations.CreateRelatorioMensal do
+defmodule Pescarte.Repo.Migrations.CreateRelatorioMensalPesquisa do
   use Ecto.Migration
 
   def change do
@@ -11,10 +11,10 @@ defmodule Pescarte.Repo.Migrations.CreateRelatorioMensal do
       add :publicacao, :text
 
       # Segunda seção
-      add :next_planning_action, :text
-      add :next_study_group, :text
-      add :next_guidance_metting, :text
-      add :next_research_actions, :text
+      add :previsao_acao_planejamento, :text
+      add :previsao_participacao_grupos_estudo, :text
+      add :previsao_participacao_treinamentos, :text
+      add :previsao_acoes_pesquisa, :text
 
       add :ano, :smallint, null: false
       add :mes, :smallint, null: false

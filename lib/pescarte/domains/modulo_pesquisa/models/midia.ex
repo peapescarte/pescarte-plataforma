@@ -43,8 +43,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     timestamps()
   end
 
-  @spec changeset(map, list(struct)) :: Result.t(Midia.t(), changeset)
-  def changeset(midia \\ %__MODULE__{}, attrs, tags) do
+  @spec changeset(Midia.t(), map, list(struct)) :: {:ok, Midia.t()} | {:error, changeset}
+  def changeset(%__MODULE__{} = midia, attrs, tags \\ []) do
     midia
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)

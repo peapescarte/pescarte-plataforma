@@ -19,6 +19,8 @@ defmodule Pescarte.Repo.Migrations.CriaRelatorioTrimestralPesquisa do
       add :referencias, :text
 
       add :pesquisador_id, references(:pesquisador), null: false
+
+      timestamps()
     end
 
     create unique_index(:relatorio_trimestral_pesquisa, [:ano, :mes])

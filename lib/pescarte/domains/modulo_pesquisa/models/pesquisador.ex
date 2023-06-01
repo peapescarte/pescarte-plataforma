@@ -6,7 +6,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual
   alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral
 
   @type t :: %Pesquisador{
           id: integer,
@@ -27,7 +29,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
           orientandos: list(Pesquisador.t()),
           orientador: Maybe.t(Pesquisador.t()),
           midias: list(Midia.t()),
-          relatorio_mensais: list(RelatorioMensal.t()),
+          relatorio_anual: RelatorioAnual.t(),
+          relatorios_mensais: list(RelatorioMensal.t()),
+          relatorios_trimestrais: list(RelatorioTrimestral.t()),
           campus: Campus.t(),
           usuario: User.t()
         }
@@ -60,10 +64,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     field :id_publico, :string
 
     has_one :linha_pesquisa, LinhaPesquisa, foreign_key: :responsavel_lp_id
+    has_one :relatorio_anual, RelatorioAnual
 
     has_many :orientandos, Pesquisador
     has_many :midias, Midia, foreign_key: :autor_id
-    has_many :relatorio_mensais, RelatorioMensal
+    has_many :relatorios_mensais, RelatorioMensal
+    has_many :relatorios_trimestrais, RelatorioTrimestral
 
     belongs_to :campus, Campus
     belongs_to :usuario, User, on_replace: :update
@@ -72,11 +78,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(Pesquisador.t(), changeset)
+  @spec changeset(map) :: {:ok, Pesquisador.t()} | {:error, changeset}
   def changeset(pesquisador \\ %Pesquisador{}, attrs) do
     pesquisador
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> validate_length(:minibio, max: 280)
     |> foreign_key_constraint(:usuario_id)
     |> foreign_key_constraint(:orientador_id)
     |> foreign_key_constraint(:campus_id)

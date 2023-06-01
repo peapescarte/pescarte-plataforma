@@ -26,14 +26,21 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     belongs_to :nucleo_pesquisa, NucleoPesquisa
     belongs_to :responsavel_lp, Pesquisador, foreign_key: :responsavel_lp_id
 
+    many_to_many :pesquisadores, Pesquisador,
+      join_through: "LPs_pesquisadores",
+      on_replace: :delete,
+      unique: true
+
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(struct, changeset)
+  @spec changeset(map) :: {:ok, LinhaPesquisa.t()} | {:error, changeset}
   def changeset(linha_pesquisa \\ %__MODULE__{}, attrs) do
     linha_pesquisa
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> validate_length(:desc_curta, max: 90)
+    |> validate_length(:desc, max: 280)
     |> foreign_key_constraint(:nucleo_pesquisa_id)
     |> foreign_key_constraint(:responsavel_lp_id)
     |> put_change(:id_publico, Nanoid.generate())

@@ -1,4 +1,4 @@
-defmodule Pescarte.Repo.Migrations.CriaRelatorioMensalPesquisa do
+defmodule Pescarte.Repo.Migrations.CriaRelatorioAnualPesquisa do
   use Ecto.Migration
 
   def change do
@@ -20,6 +20,8 @@ defmodule Pescarte.Repo.Migrations.CriaRelatorioMensalPesquisa do
       add :referencias, :text
 
       add :pesquisador_id, references(:pesquisador), null: false
+
+      timestamps()
     end
 
     create unique_index(:relatorio_anual_pesquisa, [:ano, :mes])

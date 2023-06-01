@@ -19,16 +19,13 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
       autor_id: autor.id
     }
 
-    changeset = Midia.changeset(attrs, [tag])
-
-    assert changeset.valid?
-    assert get_change(changeset, :tipo) == :imagem
-    assert get_change(changeset, :nome_arquivo) == "arquivo.jpg"
-    assert get_change(changeset, :data_arquivo) == ~D[2023-01-01]
-    assert get_change(changeset, :link) == "https://exemplo.com/imagem.jpg"
-    assert get_change(changeset, :autor_id) == autor.id
-    assert tags = get_change(changeset, :tags)
-    assert length(tags) == 1
+    assert {:ok, midia} = Midia.changeset(%Midia{}, attrs, [tag])
+    assert midia.tipo == :imagem
+    assert midia.nome_arquivo == "arquivo.jpg"
+    assert midia.data_arquivo == ~D[2023-01-01]
+    assert midia.link == "https://exemplo.com/imagem.jpg"
+    assert midia.autor_id == autor.id
+    assert length(midia.tags) == 1
   end
 
   test "alterações inválidas no changeset sem campos obrigatórios" do
@@ -40,32 +37,15 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
       link: "https://exemplo.com/imagem.jpg"
     }
 
-    changeset = Midia.changeset(attrs, [])
-
-    refute changeset.valid?
+    assert {:error, changeset} = Midia.changeset(%Midia{}, attrs, [])
     assert Keyword.get(changeset.errors, :autor_id)
   end
 
-  test "alterações válidas no changeset de atualização" do
-    midia = insert(:midia)
-    attrs = %{nome_arquivo: "novo_arquivo.jpg", link: "https://exemplo.com/nova_imagem.jpg"}
-
-    changeset = Midia.update_changeset(midia, attrs)
-
-    assert changeset.valid?
-    assert get_change(changeset, :nome_arquivo) == "novo_arquivo.jpg"
-    assert get_change(changeset, :link) == "https://exemplo.com/nova_imagem.jpg"
-    refute get_change(changeset, :tags)
-  end
-
-  test "alterações válidas no changeset de atualização com novas tags" do
-    midia = insert(:midia)
+  test "alterações válidas no changeset com novas tags" do
+    midia = Repo.preload(insert(:midia), :tags)
     tags = insert_list(2, :tag)
-    attrs = %{tags: tags}
 
-    changeset = Midia.update_changeset(midia, attrs)
-
-    assert changeset.valid?
-    assert get_change(changeset, :tags)
+    assert {:ok, midia} = Midia.changeset(midia, %{}, tags)
+    assert length(midia.tags) == 2
   end
 end

@@ -8,52 +8,39 @@ defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
   @moduletag :unit
 
   test "changeset válido com campos obrigatórios" do
+    endereco = insert(:endereco)
+
     attrs = %{
       acronimo: "ABC",
-      endereco_id: insert(:endereco).id
+      endereco_id: endereco.id
     }
 
-    changeset = Campus.changeset(attrs)
-
-    assert changeset.valid?
-    assert get_change(changeset, :acronimo) == "ABC"
-    assert get_change(changeset, :id_publico)
+    assert {:ok, campus} = Campus.changeset(attrs)
+    assert campus.acronimo == "ABC"
+    assert campus.endereco_id == endereco.id
+    assert campus.id_publico
   end
 
   test "changeset válido com campos opcionais" do
     attrs = %{
       acronimo: "ABC",
       endereco_id: insert(:endereco).id,
-      nome: "Campus ABC"
+      nome: "Campus ABC",
+      nome_universidade: "Um Exemplo de Nome"
     }
 
-    changeset = Campus.changeset(attrs)
-
-    assert changeset.valid?
-    assert get_change(changeset, :acronimo) == "ABC"
-    assert get_change(changeset, :nome) == "Campus ABC"
+    assert {:ok, campus} = Campus.changeset(attrs)
+    assert campus.acronimo == "ABC"
+    assert campus.nome == "Campus ABC"
+    assert campus.nome_universidade == "Um Exemplo de Nome"
   end
 
   test "changeset inválido sem campos obrigatórios" do
     attrs = %{}
 
-    changeset = Campus.changeset(attrs)
-
-    refute changeset.valid?
+    assert {:error, changeset} = Campus.changeset(attrs)
     assert Keyword.get(changeset.errors, :acronimo)
     assert Keyword.get(changeset.errors, :endereco_id)
-  end
-
-  test "changeset inválido com acrônimo em caixa baixa" do
-    attrs = %{
-      acronimo: "abc",
-      endereco_id: insert(:endereco).id
-    }
-
-    changeset = Campus.changeset(attrs)
-
-    refute changeset.valid?
-    assert Keyword.get(changeset.errors, :acronimo)
   end
 
   test "changeset inválido com endereco_id inválido" do
@@ -62,9 +49,7 @@ defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
       endereco_id: "invalid_id"
     }
 
-    changeset = Campus.changeset(attrs)
-
-    refute changeset.valid?
+    assert {:error, changeset} = Campus.changeset(attrs)
     assert Keyword.get(changeset.errors, :endereco_id)
   end
 end

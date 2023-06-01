@@ -14,17 +14,13 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioAnualTest do
       pesquisador_id: insert(:pesquisador).id
     }
 
-    changeset = RelatorioAnual.changeset(attrs)
-
-    assert changeset.valid?
-    assert get_change(changeset, :ano) == 2023
-    assert get_change(changeset, :mes) == 1
+    assert {:ok, relatorio_anual} = RelatorioAnual.changeset(attrs)
+    assert relatorio_anual.ano == 2023
+    assert relatorio_anual.mes == 1
   end
 
   test "alterações inválidas no changeset sem campos obrigatórios" do
-    changeset = RelatorioAnual.changeset(%{})
-
-    refute changeset.valid?
+    assert {:error, changeset} = RelatorioAnual.changeset(%{})
     assert Keyword.get(changeset.errors, :ano)
     assert Keyword.get(changeset.errors, :mes)
     assert Keyword.get(changeset.errors, :pesquisador_id)

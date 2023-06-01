@@ -23,11 +23,12 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(NucleoPesquisa.t(), changeset)
+  @spec changeset(map) :: {:ok, NucleoPesquisa.t()} | {:error, changeset}
   def changeset(nucleo_pesquisa \\ %__MODULE__{}, attrs) do
     nucleo_pesquisa
     |> cast(attrs, [:nome, :desc, :letra])
     |> validate_required([:nome, :desc, :letra])
+    |> validate_length(:desc, max: 400)
     |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end

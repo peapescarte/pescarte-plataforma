@@ -22,7 +22,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
           id_publico: binary
         }
 
-  @status ~w(entregue atrasado nao_enviado)a
+  @status ~w(entregue atrasado pendente)a
 
   @required_fields ~w(ano mes pesquisador_id)a
 
@@ -54,7 +54,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     field :previsao_participacao_treinamentos, :string
     field :previsao_acoes_pesquisa, :string
 
-    field :status, Ecto.Enum, values: @status, default: :nao_enviado
+    field :status, Ecto.Enum, values: @status, default: :pendente
     field :ano, :integer
     field :mes, :integer
     field :link, :string
@@ -65,12 +65,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(RelatorioMensal.t(), changeset)
+  @spec changeset(map) :: {:ok, RelatorioMensal.t()} | {:error, changeset}
   def changeset(relatorio_mensal \\ %__MODULE__{}, attrs) do
     relatorio_mensal
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> foreign_key_constraint(:pesquisador_id)
     |> put_change(:id_publico, Nanoid.generate())
+    |> apply_action(:parse)
   end
 end

@@ -10,14 +10,16 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
           acronimo: binary,
           id_publico: binary,
           endereco: Endereco.t(),
+          nome_universidade: binary,
           pesquisadores: list(Pesquisador.t())
         }
 
   @required_fields ~w(acronimo endereco_id)a
-  @optional_fields ~w(nome)a
+  @optional_fields ~w(nome nome_universidade)a
 
   schema "campus" do
     field :nome, :string
+    field :nome_universidade, :string
     field :acronimo, :string
     field :id_publico, :string
 
@@ -27,7 +29,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(Campus.t(), changeset)
+  @spec changeset(map) :: {:ok, Campus.t()} | {:error, changeset}
   def changeset(campus \\ %__MODULE__{}, attrs) do
     campus
     |> cast(attrs, @optional_fields ++ @required_fields)

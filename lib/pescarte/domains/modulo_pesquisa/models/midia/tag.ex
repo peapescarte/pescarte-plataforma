@@ -16,7 +16,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(Tag.t(), changeset)
+  @spec changeset(map) :: {:ok, Tag.t()} | {:error, changeset}
   def changeset(tag \\ %__MODULE__{}, attrs) do
     tag
     |> cast(attrs, @required_fields)
@@ -24,5 +24,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     |> unique_constraint(:etiqueta)
     |> foreign_key_constraint(:categoria_id)
     |> put_change(:id_publico, Nanoid.generate())
+    |> apply_action(:parse)
   end
 end

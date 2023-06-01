@@ -16,12 +16,10 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
       numero: 123
     }
 
-    changeset = LinhaPesquisa.changeset(attrs)
-
-    assert changeset.valid?
-    assert get_change(changeset, :nucleo_pesquisa_id) == nucleo_pesquisa.id
-    assert get_change(changeset, :desc_curta) == "Desc Curta"
-    assert get_change(changeset, :numero) == 123
+    assert {:ok, linha_pesquisa} = LinhaPesquisa.changeset(attrs)
+    assert linha_pesquisa.nucleo_pesquisa_id == nucleo_pesquisa.id
+    assert linha_pesquisa.desc_curta == "Desc Curta"
+    assert linha_pesquisa.numero == 123
   end
 
   test "changeset válido com campo adicional" do
@@ -36,14 +34,12 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
       responsavel_lp_id: responsavel_lp.id
     }
 
-    changeset = LinhaPesquisa.changeset(attrs)
-
-    assert changeset.valid?
-    assert get_change(changeset, :nucleo_pesquisa_id) == nucleo_pesquisa.id
-    assert get_change(changeset, :desc_curta) == "Desc Curta"
-    assert get_change(changeset, :numero) == 123
-    assert get_change(changeset, :desc) == "Desc"
-    assert get_change(changeset, :responsavel_lp_id) == responsavel_lp.id
+    assert {:ok, linha_pesquisa} = LinhaPesquisa.changeset(attrs)
+    assert linha_pesquisa.nucleo_pesquisa_id == nucleo_pesquisa.id
+    assert linha_pesquisa.desc_curta == "Desc Curta"
+    assert linha_pesquisa.numero == 123
+    assert linha_pesquisa.desc == "Desc"
+    assert linha_pesquisa.responsavel_lp_id == responsavel_lp.id
   end
 
   test "changeset inválido sem campo obrigatório" do
@@ -52,9 +48,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
       numero: 123
     }
 
-    changeset = LinhaPesquisa.changeset(attrs)
-
-    refute changeset.valid?
+    assert {:error, changeset} = LinhaPesquisa.changeset(attrs)
     assert Keyword.get(changeset.errors, :nucleo_pesquisa_id)
   end
 
@@ -65,9 +59,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
       numero: 123
     }
 
-    changeset = LinhaPesquisa.changeset(attrs)
-
-    refute changeset.valid?
+    assert {:error, changeset} = LinhaPesquisa.changeset(attrs)
     assert Keyword.get(changeset.errors, :desc_curta)
   end
 
@@ -79,9 +71,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
       desc: "a" |> String.duplicate(281)
     }
 
-    changeset = LinhaPesquisa.changeset(attrs)
-
-    refute changeset.valid?
+    assert {:error, changeset} = LinhaPesquisa.changeset(attrs)
     assert Keyword.get(changeset.errors, :desc)
   end
 end
