@@ -7,42 +7,25 @@ defmodule Pescarte do
   if it comes from the database, an external API or others.
   """
 
-  defmodule AppService, do: @callback(process(map | keyword) :: {:ok, term} | {:error, term})
-
-  def application_service do
-    quote do
-      alias Pescarte.Database
-
-      @behaviour Pescarte.AppService
-    end
-  end
-
-  def domain_service do
-    quote do
-    end
-  end
-
   def model do
     quote do
       use Ecto.Schema
-
+      alias __MODULE__
       import Ecto.Changeset
-      import Ecto.Query
-
-      alias Pescarte.Types.CapitalizedString
-      alias Pescarte.Types.TrimmedString
-
+      @typep changeset :: Ecto.Changeset.t()
       @timestamps_opts [inserted_at: :inserted_at, type: :utc_datetime_usec]
     end
   end
 
-  def repo do
+  def repository do
     quote do
-      alias Pescarte.Database
-
+      alias Pescarte.Repo
       import Ecto.Query
+    end
+  end
 
-      @behaviour Pescarte.Repo
+  def service do
+    quote do
     end
   end
 

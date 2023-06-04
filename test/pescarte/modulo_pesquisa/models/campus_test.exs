@@ -3,26 +3,53 @@ defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
 
   import Pescarte.Factory
 
-  alias Pescarte.ModuloPesquisa.Models.Campus
+  alias Pescarte.Domains.ModuloPesquisa.Models.Campus
 
   @moduletag :unit
 
-  describe "changeset/2" do
-    @invalid_params %{nome: nil, cidade: nil}
+  test "changeset válido com campos obrigatórios" do
+    endereco = insert(:endereco)
 
-    test "when all params are valid, return a valid changeset" do
-      cidade = params_for(:cidade)
+    attrs = %{
+      acronimo: "ABC",
+      endereco_id: endereco.id
+    }
 
-      default_params =
-        :campus
-        |> params_for()
-        |> Map.put(:cidade, cidade)
+    assert {:ok, campus} = Campus.changeset(attrs)
+    assert campus.acronimo == "ABC"
+    assert campus.endereco_id == endereco.id
+    assert campus.id_publico
+  end
 
-      assert %Ecto.Changeset{valid?: true} = Campus.changeset(%Campus{}, default_params)
-    end
+  test "changeset válido com campos opcionais" do
+    attrs = %{
+      acronimo: "ABC",
+      endereco_id: insert(:endereco).id,
+      nome: "Campus ABC",
+      nome_universidade: "Um Exemplo de Nome"
+    }
 
-    test "when params are invalid, return an error changeset" do
-      assert %Ecto.Changeset{valid?: false} = Campus.changeset(%Campus{}, @invalid_params)
-    end
+    assert {:ok, campus} = Campus.changeset(attrs)
+    assert campus.acronimo == "ABC"
+    assert campus.nome == "Campus ABC"
+    assert campus.nome_universidade == "Um Exemplo de Nome"
+  end
+
+  test "changeset inválido sem campos obrigatórios" do
+    attrs = %{}
+
+    assert {:error, changeset} = Campus.changeset(attrs)
+    assert Keyword.get(changeset.errors, :acronimo)
+    assert Keyword.get(changeset.errors, :endereco_id)
+  end
+
+  test "changeset inválido com endereco_id inválido" do
+    attrs = %{
+      acronimo: "ABC",
+      endereco_id: "invalid_id"
+    }
+
+    assert {:error, changeset} = Campus.changeset(attrs)
+    assert Keyword.get(changeset.errors, :endereco_id)
   end
 end

@@ -1,15 +1,12 @@
 defmodule PescarteWeb.GraphQL.Resolvers.Categoria do
-  alias Pescarte.Domains.ModuloPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Handlers
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
   def get(%Tag{} = tag, _args, _resolution) do
-    case ModuloPesquisa.get_categoria(id: tag.categoria_id) do
-      nil -> {:error, "Categoria não encontrada"}
-      categoria -> {:ok, categoria}
-    end
+    Handlers.Midias.fetch_categoria(tag.categoria_id)
   end
 
   def list(_args, _resolution) do
-    {:ok, ModuloPesquisa.list_categorias()}
+    {:ok, Handlers.Midias.list_categoria()}
   end
 end

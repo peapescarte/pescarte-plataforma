@@ -64,7 +64,7 @@ defmodule PescarteWeb.ConnCase do
   def log_in_user(conn, user) do
     alias Pescarte.Domains.Accounts
 
-    token = Accounts.generate_user_session_token(user)
+    token = Accounts.generate_session_token(user)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
