@@ -1,6 +1,8 @@
 name: test
 
-on: [push, pull_request]
+on:
+  repository_dispatch:
+    types: [trigger-testing]
 
 jobs:
   unit_tests:

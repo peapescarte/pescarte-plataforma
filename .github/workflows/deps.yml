@@ -43,3 +43,12 @@ jobs:
           mix local.hex --force
           mix deps.get
           mix deps.compile
+
+      - name: Trigger linting
+        if: success()
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: ${{ github.repository }}
+          event-type: trigger-linting
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
