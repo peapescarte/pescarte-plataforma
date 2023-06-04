@@ -32,7 +32,7 @@ defmodule Pescarte.ModuloPesquisa.Models.NucleoPesquisaTest do
     attrs = %{
       nome: "Nome do Núcleo",
       letra: "A",
-      desc: "a" |> String.duplicate(401)
+      desc: String.duplicate("a", 401)
     }
 
     assert {:error, changeset} = NucleoPesquisa.changeset(attrs)

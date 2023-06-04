@@ -55,7 +55,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
   test "changeset inválido com desc_curta longa demais" do
     attrs = %{
       nucleo_pesquisa_id: insert(:nucleo_pesquisa).id,
-      desc_curta: "a" |> String.duplicate(91),
+      desc_curta: String.duplicate("a", 91),
       numero: 123
     }
 
@@ -68,7 +68,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisaTest do
       nucleo_pesquisa_id: insert(:nucleo_pesquisa).id,
       desc_curta: "Desc Curta",
       numero: 123,
-      desc: "a" |> String.duplicate(281)
+      desc: String.duplicate("a", 281)
     }
 
     assert {:error, changeset} = LinhaPesquisa.changeset(attrs)

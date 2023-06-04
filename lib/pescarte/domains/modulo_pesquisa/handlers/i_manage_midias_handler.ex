@@ -1,8 +1,8 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Handlers.IManageMidiasHandler do
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
-  alias PescarteWeb.GraphQL.Types.Tag
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
+  alias PescarteWeb.GraphQL.Types.Tag
 
   @callback create_categoria(map) :: {:ok, Categoria.t()} | {:error, Ecto.Changeset.t()}
   @callback create_midia(map) :: {:ok, Midia.t()} | {:error, Ecto.Changeset.t()}

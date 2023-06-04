@@ -2,8 +2,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.IManageRepository do
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual

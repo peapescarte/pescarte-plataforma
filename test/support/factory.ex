@@ -3,19 +3,19 @@ defmodule Pescarte.Factory do
 
   use ExMachina.Ecto, repo: Pescarte.Repo
 
-  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral
-  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
-  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual
-  alias Pescarte.Domains.Accounts.Models.UserToken
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Domains.Accounts.Models.Contato
   alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.UserToken
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral
 
   def campus_factory do
     %Campus{

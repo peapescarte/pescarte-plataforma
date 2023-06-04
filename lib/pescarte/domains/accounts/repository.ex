@@ -1,9 +1,9 @@
 defmodule Pescarte.Domains.Accounts.Repository do
   use Pescarte, :repository
 
-  alias Pescarte.Domains.Accounts.Models.UserToken
-  alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.IManageRepository
+  alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.UserToken
 
   @behaviour IManageRepository
 

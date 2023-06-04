@@ -56,7 +56,7 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
 
   test "alterações inválidas no changeset de atualização com minibio muito longa" do
     pesquisador = insert(:pesquisador)
-    attrs = %{minibio: "a" |> String.duplicate(281)}
+    attrs = %{minibio: String.duplicate("a", 281)}
 
     assert {:error, changeset} = Pesquisador.changeset(pesquisador, attrs)
     assert Keyword.get(changeset.errors, :minibio)

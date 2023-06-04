@@ -233,7 +233,7 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
   describe "list_categoria/0" do
     test "quando não há nenhum registro" do
       categorias = Repository.list_categoria()
-      assert length(categorias) == 0
+      assert Enum.empty?(categorias)
     end
 
     test "quando há registros" do
@@ -246,7 +246,7 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
   describe "list_pesquisador/0" do
     test "quando não há nenhum registro" do
       pesquisadores = Repository.list_pesquisador()
-      assert length(pesquisadores) == 0
+      assert Enum.empty?(pesquisadores)
     end
 
     test "quando há registros" do
@@ -260,7 +260,7 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
   describe "list_relatorios_pesquisa/0" do
     test "quando não há nenhum registro" do
       relatorios = Repository.list_relatorios_pesquisa()
-      assert length(relatorios) == 0
+      assert Enum.empty?(relatorios)
     end
 
     test "quando há registros" do
@@ -277,7 +277,7 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     test "quando não há nenhum registro" do
       pesquisador = insert(:pesquisador)
       relatorios = Repository.list_relatorios_pesquisa_from_pesquisador(pesquisador.id)
-      assert length(relatorios) == 0
+      assert Enum.empty?(relatorios)
     end
 
     test "quando há registros" do
@@ -295,7 +295,7 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     test "quando não há nenhum registro" do
       midia = insert(:midia)
       tags = Repository.list_tags_from_midia(midia.id_publico)
-      assert length(tags) == 0
+      assert Enum.empty?(tags)
     end
 
     test "quando há registros" do

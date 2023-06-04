@@ -1,7 +1,7 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
   alias Pescarte.Domains.Accounts
-  alias Pescarte.Domains.ModuloPesquisa.Repository
   alias Pescarte.Domains.ModuloPesquisa.Handlers.IManageMidiasHandler
+  alias Pescarte.Domains.ModuloPesquisa.Repository
 
   @behaviour IManageMidiasHandler
 

@@ -154,16 +154,18 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def fetch_user_by_reset_password_token(token) do
-    with {:ok, decoded} <- Base.url_decode64(token, padding: false) do
-      hashed_token = :crypto.hash(@hash_algorithm, decoded)
+    case Base.url_decode64(token, padding: false) do
+      {:ok, decoded} ->
+        hashed_token = :crypto.hash(@hash_algorithm, decoded)
 
-      Repository.fetch_user_by_token(
-        hashed_token,
-        "reset_password",
-        @reset_password_validity_in_days
-      )
-    else
-      :error -> {:error, :invalid_token}
+        Repository.fetch_user_by_token(
+          hashed_token,
+          "reset_password",
+          @reset_password_validity_in_days
+        )
+
+      :error ->
+        {:error, :invalid_token}
     end
   end
 

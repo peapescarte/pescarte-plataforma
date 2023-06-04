@@ -5,17 +5,17 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   import Ecto.Changeset, only: [change: 1]
   import Ecto.Query, only: [from: 2]
 
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
-  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral
-  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
-  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual
-  alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia
-  alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
-  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
-  alias Pescarte.Domains.ModuloPesquisa.Models.Campus
   alias Pescarte.Domains.ModuloPesquisa.IManageRepository
+  alias Pescarte.Domains.ModuloPesquisa.Models.Campus
+  alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
+  alias Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa
+  alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal
+  alias Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral
   alias Pescarte.Repo
 
   @behaviour IManageRepository
