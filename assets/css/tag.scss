@@ -1,0 +1,46 @@
+.tag {
+  @apply flex;
+  @apply items-center;
+  @apply m-1;
+}
+
+.tag-primary {
+  @apply m-1;
+  @apply cursor-pointer;
+  @apply flex;
+  @apply flex-wrap;
+  @apply items-center;
+  @apply bg-blue-10;
+
+  padding-left: 0.5rem;
+  border-radius: 0.25rem;
+  height: 3rem;
+  margin-left: 0.5rem;
+
+  svg {
+    @apply text-blue-100;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+.tag-secondary {
+  @apply cursor-pointer;
+  @apply flex;
+  @apply flex-wrap;
+  @apply items-center;
+  @apply bg-orange-10;
+  @apply text-orange-80;
+  @apply border-orange-80;
+
+  padding-left: 0.5rem;
+  border-radius: 0.25rem;
+  height: 3rem;
+  margin-left: 0.25rem;
+
+  svg {
+    @apply text-orange-80;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}

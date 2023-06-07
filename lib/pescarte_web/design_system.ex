@@ -455,6 +455,51 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
+  @doc """
+  Um componente de tag é um recurso usado para categorizar ou classificar o conteúdo.
+  Elas são palavras-chave ou frases curtas que descrevem o assunto principal ou temas abordados
+  em um determinado artigo ou postagem dentro da plataforma.
+
+  Esse componente possui 2 variantes:
+
+  - Primário
+  - Secundário
+
+  que é controlado pelo atributo `style`.
+
+  O mesmo recebe obrigatoriamente os atributos `id` e `label`,
+  para que seja possível criar um identificador e exibir o conteúdo da tag.
+
+  Além disso possui o atributo `class` caso seja necessário sobreescrever a classe.
+
+   ## Exemplos
+
+      <.tag id="pescarte" style="primary" label="pescarte" />
+
+      <.tag id="pesca" style="secondary" label="pesca" />
+  """
+
+  attr :id, :string, required: true
+  attr :label, :string, required: true
+  attr :class, :string, required: false, default: ""
+  attr :style, :string, values: ~w(primary secondary)
+
+  def tag(assigns) do
+    ~H"""
+    <div id={"tag-#{@id}"} class="tag">
+      <span class={["tag-#{@style}", @class]}>
+        <.text :if={@style == "primary"} size="h4" color="text-blue-100">
+          <%= @label %>
+        </.text>
+        <.text :if={@style != "primary"} size="h4" color="text-orange-100">
+          <%= @label %>
+        </.text>
+        <Lucideicons.x />
+      </span>
+    </div>
+    """
+  end
+
   defp icon(assigns) do
     assigns = Map.put(assigns, :size, 24)
     apply(Lucideicons, assigns.name, [assigns])
