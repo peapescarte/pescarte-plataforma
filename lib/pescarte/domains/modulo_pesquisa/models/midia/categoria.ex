@@ -9,7 +9,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
 
   schema "categoria" do
     field :nome, :string
-    field :id_publico, :string
+    field :id_publico, Pescarte.Types.PublicId
 
     has_many :tags, Tag
 
@@ -22,7 +22,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
-    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 end

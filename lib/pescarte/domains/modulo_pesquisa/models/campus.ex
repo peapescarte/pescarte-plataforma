@@ -3,6 +3,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
 
   alias Pescarte.Domains.Accounts.Models.Endereco
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
+  alias Pescarte.Types.PublicId
 
   @type t :: %Campus{
           id: integer,
@@ -21,7 +22,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     field :nome, :string
     field :nome_universidade, :string
     field :acronimo, :string
-    field :id_publico, :string
+    field :id_publico, PublicId
 
     has_many :pesquisadores, Pesquisador
     belongs_to :endereco, Endereco, on_replace: :delete
@@ -37,7 +38,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     |> unique_constraint(:nome)
     |> unique_constraint(:acronimo)
     |> foreign_key_constraint(:endereco_id)
-    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 end

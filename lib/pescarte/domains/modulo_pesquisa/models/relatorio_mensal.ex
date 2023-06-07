@@ -58,7 +58,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     field :ano, :integer
     field :mes, :integer
     field :link, :string
-    field :id_publico, :string
+    field :id_publico, Pescarte.Types.PublicId
 
     belongs_to :pesquisador, Pesquisador, on_replace: :update
 
@@ -71,7 +71,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> foreign_key_constraint(:pesquisador_id)
-    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 end

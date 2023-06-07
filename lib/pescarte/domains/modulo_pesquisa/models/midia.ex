@@ -3,6 +3,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
 
   alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
+  alias Pescarte.Types.PublicId
 
   @type t :: %Midia{
           id: integer,
@@ -31,7 +32,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     field :observacao, :string
     field :link, :string
     field :texto_alternativo, :string
-    field :id_publico, :string
+    field :id_publico, PublicId
 
     belongs_to :autor, User, on_replace: :update
 
@@ -43,7 +44,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     timestamps()
   end
 
-  @spec changeset(Midia.t(), map, list(struct)) :: {:ok, Midia.t()} | {:error, changeset}
+  @spec changeset(Midia.t(), map, list(Tag.t())) :: {:ok, Midia.t()} | {:error, changeset}
   def changeset(%__MODULE__{} = midia, attrs, tags \\ []) do
     midia
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -52,7 +53,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
     |> unique_constraint(:nome_arquivo)
     |> foreign_key_constraint(:autor_id)
     |> put_assoc(:tags, tags)
-    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 

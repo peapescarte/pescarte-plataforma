@@ -21,7 +21,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     field :numero, :integer
     field :desc_curta, :string
     field :desc, :string
-    field :id_publico, :string
+    field :id_publico, Pescarte.Types.PublicId
 
     belongs_to :nucleo_pesquisa, NucleoPesquisa
     belongs_to :responsavel_lp, Pesquisador, foreign_key: :responsavel_lp_id
@@ -43,7 +43,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     |> validate_length(:desc, max: 280)
     |> foreign_key_constraint(:nucleo_pesquisa_id)
     |> foreign_key_constraint(:responsavel_lp_id)
-    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 end

@@ -42,7 +42,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral do
     field :ano, :integer
     field :mes, :integer
     field :link, :string
-    field :id_publico, :string
+    field :id_publico, Pescarte.Types.PublicId
     field :status, Ecto.Enum, values: @status, default: :pendente
 
     field :titulo, :string
@@ -65,7 +65,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> foreign_key_constraint(:pesquisador_id)
-    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 end

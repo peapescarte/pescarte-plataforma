@@ -16,7 +16,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
     field :nome, :string
     field :letra, :string
     field :desc, :string
-    field :id_publico, :string
+    field :id_publico, Pescarte.Types.PublicId
 
     has_many :linha_pesquisas, LinhaPesquisa
 
@@ -29,7 +29,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
     |> cast(attrs, [:nome, :desc, :letra])
     |> validate_required([:nome, :desc, :letra])
     |> validate_length(:desc, max: 400)
-    |> put_change(:id_publico, Nanoid.generate())
     |> apply_action(:parse)
   end
 end
