@@ -301,8 +301,8 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     test "quando há registros" do
       tags = insert_list(4, :tag)
       midia = insert(:midia, tags: tags)
-      tags = Repository.list_tags_from_midia(midia.id_publico)
-      assert length(tags) == 4
+      listed = Repository.list_tags_from_midia(midia.id_publico)
+      assert length(listed) == 4
     end
   end
 end

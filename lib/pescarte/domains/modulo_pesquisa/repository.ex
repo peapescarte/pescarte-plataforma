@@ -23,7 +23,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
     tags_attrs
     |> Enum.with_index()
     |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
-      Ecto.Multi.run(multi, :"tag-#{idx}", fn _, _ ->
+      multi_id = String.to_existing_atom("tag-#{idx}")
+
+      Ecto.Multi.run(multi, multi_id, fn _, _ ->
         upsert_tag(attrs)
       end)
     end)

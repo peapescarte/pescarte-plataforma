@@ -1,5 +1,4 @@
 defmodule Pescarte.Domains.Accounts do
-  # TODO: melhorar documentação
   @moduledoc false
 
   import Ecto.Query, only: [from: 2]
