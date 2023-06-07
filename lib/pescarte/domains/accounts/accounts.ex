@@ -92,7 +92,7 @@ defmodule Pescarte.Domains.Accounts do
   def fetch_user(id) do
     query =
       from u in User,
-        where: u.id == ^id or u.id_publico == ^id,
+        where: u.id_publico == ^id,
         select: u
 
     Repo.fetch_one(query)

@@ -1,8 +1,6 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Repository do
-  # TODO: melhorar documentação
   @moduledoc false
 
-  import Ecto.Changeset, only: [change: 1]
   import Ecto.Query, only: [from: 2]
 
   alias Pescarte.Domains.ModuloPesquisa.IManageRepository
@@ -21,89 +19,25 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   @behaviour IManageRepository
 
   @impl true
-  def create_campus(attrs) do
-    create_entity(Campus, attrs)
-  end
-
-  @impl true
-  def create_categoria(attrs) do
-    create_entity(Categoria, attrs)
-  end
-
-  @impl true
-  def create_linha_pesquisa(attrs) do
-    create_entity(LinhaPesquisa, attrs)
-  end
-
-  @impl true
-  def create_midia(attrs) do
-    with {:ok, midia} <- Midia.changeset(%Midia{}, attrs) do
-      Repo.insert(midia)
-    end
-  end
-
-  @impl true
-  def create_midia_with_tags(attrs, tags) do
-    with {:ok, midia} <- Midia.changeset(%Midia{}, attrs, tags) do
-      Repo.insert(midia)
-    end
-  end
-
-  @impl true
   def create_midia_and_tags_multi(attrs, tags_attrs) do
     tags_attrs
     |> Enum.with_index()
     |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
       Ecto.Multi.run(multi, :"tag-#{idx}", fn _, _ ->
-        create_tag(attrs)
+        upsert_tag(attrs)
       end)
     end)
-    |> Ecto.Multi.run(:tags, fn _repo, _changes ->
-      {:ok, list_tag()}
-    end)
-    |> Ecto.Multi.insert(:midia, fn %{tags: tags} ->
-      Midia.changeset(%Midia{}, attrs, tags)
+    |> Ecto.Multi.run(:midia, fn _repo, tags ->
+      tags = Map.values(tags)
+
+      attrs
+      |> Map.put(:tags, tags)
+      |> upsert_midia()
     end)
     |> Repo.transaction()
     |> case do
       {:ok, %{midia: midia}} -> {:ok, midia}
       {:error, _, changeset, _} -> {:error, changeset}
-    end
-  end
-
-  @impl true
-  def create_nucleo_pesquisa(attrs) do
-    create_entity(NucleoPesquisa, attrs)
-  end
-
-  @impl true
-  def create_pesquisador(attrs) do
-    create_entity(Pesquisador, attrs)
-  end
-
-  @impl true
-  def create_relatorio_anual(attrs) do
-    create_entity(RelatorioAnual, attrs)
-  end
-
-  @impl true
-  def create_relatorio_mensal(attrs) do
-    create_entity(RelatorioMensal, attrs)
-  end
-
-  @impl true
-  def create_relatorio_trimestral(attrs) do
-    create_entity(RelatorioTrimestral, attrs)
-  end
-
-  @impl true
-  def create_tag(attrs) do
-    create_entity(Tag, attrs)
-  end
-
-  defp create_entity(entity, attrs) do
-    with {:ok, entity} <- entity.changeset(attrs) do
-      Repo.insert(entity)
     end
   end
 
@@ -119,17 +53,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_midia(id) do
-    Repo.fetch_by(Midia, id_publico: id)
-  end
-
-  @impl true
-  def update_midia(%Midia{} = midia, attrs) do
-    midia = Repo.preload(midia, :tags)
-
-    with {:ok, midia} <- Midia.changeset(midia, attrs, midia.tags) do
-      midia
-      |> change()
-      |> Repo.update()
+    case Repo.fetch_by(Midia, id_publico: id) do
+      {:ok, midia} -> {:ok, Repo.preload(midia, :tags)}
+      error -> error
     end
   end
 
@@ -141,36 +67,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   @impl true
   def fetch_tag_by_etiqueta(etiqueta) do
     Repo.fetch_by(Tag, etiqueta: etiqueta)
-  end
-
-  @impl true
-  def update_midia_with_tags(%Midia{} = midia, attrs, tags) do
-    midia = Repo.preload(midia, :tags)
-    tags = midia.tags ++ tags
-
-    with {:ok, midia} <- Midia.changeset(midia, attrs, tags) do
-      midia
-      |> change()
-      |> Repo.update()
-    end
-  end
-
-  @impl true
-  def update_pesquisador(%Pesquisador{} = pesquisador, attrs) do
-    update_entity(Pesquisador, pesquisador, attrs)
-  end
-
-  @impl true
-  def update_tag(%Tag{} = tag, attrs) do
-    update_entity(Tag, tag, attrs)
-  end
-
-  defp update_entity(entity, current, attrs) do
-    with {:ok, entity} <- entity.changeset(current, attrs) do
-      entity
-      |> change()
-      |> Repo.update()
-    end
   end
 
   @impl true
@@ -196,11 +92,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   @impl true
   def list_pesquisador do
     Repo.all(Pesquisador)
-  end
-
-  @impl true
-  def list_relatorios_pesquisa do
-    Repo.all(RelatorioAnual) ++ Repo.all(RelatorioMensal) ++ Repo.all(RelatorioTrimestral)
   end
 
   @impl true
@@ -247,6 +138,81 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
     case Repo.fetch_one(query) do
       {:error, :not_found} -> []
       {:ok, midia} -> midia.tags
+    end
+  end
+
+  @impl true
+  def upsert_campus(campus \\ %Campus{}, attrs) do
+    with {:ok, campus} <- Campus.changeset(campus, attrs) do
+      Repo.insert(campus)
+    end
+  end
+
+  @impl true
+  def upsert_categoria(categoria \\ %Categoria{}, attrs) do
+    with {:ok, categoria} <- Categoria.changeset(categoria, attrs) do
+      Repo.insert(categoria)
+    end
+  end
+
+  @impl true
+  def upsert_linha_pesquisa(lp \\ %LinhaPesquisa{}, attrs) do
+    with {:ok, linha_pesquisa} <- LinhaPesquisa.changeset(lp, attrs) do
+      Repo.insert(linha_pesquisa)
+    end
+  end
+
+  @impl true
+  def upsert_midia(midia \\ %Midia{}, attrs) do
+    tags = attrs[:tags] || midia.tags
+
+    with {:ok, midia} <- Midia.changeset(midia, attrs, tags) do
+      Repo.insert(midia,
+        on_conflict: {:replace_all_except, [:id, :id_publico]},
+        conflict_target: [:link]
+      )
+    end
+  end
+
+  @impl true
+  def upsert_nucleo_pesquisa(np \\ %NucleoPesquisa{}, attrs) do
+    with {:ok, nucleo_pesquisa} <- NucleoPesquisa.changeset(np, attrs) do
+      Repo.insert(nucleo_pesquisa)
+    end
+  end
+
+  @impl true
+  def upsert_pesquisador(pesq \\ %Pesquisador{}, attrs) do
+    with {:ok, pesquisador} <- Pesquisador.changeset(pesq, attrs) do
+      Repo.insert(pesquisador)
+    end
+  end
+
+  @impl true
+  def upsert_relatorio_anual(rap \\ %RelatorioAnual{}, attrs) do
+    with {:ok, relatorio_anual} <- RelatorioAnual.changeset(rap, attrs) do
+      Repo.insert(relatorio_anual)
+    end
+  end
+
+  @impl true
+  def upsert_relatorio_mensal(rmp \\ %RelatorioMensal{}, attrs) do
+    with {:ok, relatorio_mensal} <- RelatorioMensal.changeset(rmp, attrs) do
+      Repo.insert(relatorio_mensal)
+    end
+  end
+
+  @impl true
+  def upsert_relatorio_trimestral(rtp \\ %RelatorioTrimestral{}, attrs) do
+    with {:ok, relatorio_trimestral} <- RelatorioTrimestral.changeset(rtp, attrs) do
+      Repo.insert(relatorio_trimestral)
+    end
+  end
+
+  @impl true
+  def upsert_tag(tag \\ %Tag{}, attrs) do
+    with {:ok, tag} <- Tag.changeset(tag, attrs) do
+      Repo.insert(tag)
     end
   end
 end
