@@ -14,9 +14,9 @@
 }
 
 .tabela {
-  text-align: center;
+  text-align: left;
   border-collapse: collapse;
-  padding: 12px;
+  padding: 40px;
 
   width: 90%;
 }
@@ -30,9 +30,14 @@
   }
 
 .linhas{
+  @apply text-black-80;
+
     border: 1px solid #99C1E9;
     border-radius: 0px;
     height: 52px;
-    color: black-80;
+
+    .td{
+      border: 1px solid #99C1E9;
+    }
 
   }
