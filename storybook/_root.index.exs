@@ -20,4 +20,21 @@ defmodule Storybook.Root do
       icon: {:fa, "duotone-group"}
     ]
   end
+
+  # TODO nova cláusula da função entry para tabela `def entry("tabela")`
+  def entry("tabela") do
+    [
+      name: "Componente Tabela",
+      icon: {:fa, "duotone-group"}
+    ]
+  end
+  # TODO criar arquivo tabela.story.exs, assim como a typography.story.exs
+
+  def entry("botaofiltro") do
+    [
+      name: "Botão Filtro - Relatórios",
+      icon: {:fa, "duotone-group"}
+    ]
+  end
+
 end

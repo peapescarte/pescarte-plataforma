@@ -56,7 +56,7 @@ defmodule PescarteWeb.Router do
       end
     end
 
-    get "/relatorios", RelatorioListController, :show
+  #  get "/relatorios", RelatorioListController, :show
   end
 
   ## Endpoints para API pública

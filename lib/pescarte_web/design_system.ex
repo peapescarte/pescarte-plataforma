@@ -110,13 +110,10 @@ defmodule PescarteWeb.DesignSystem do
       <.button style="secondary"> Secundário </.button>
 
       <.button style="primary" submit> Submissão </.button>
-
-      <.button style="primary" icon={:log_in}> Primário com ícone </.button>
   """
 
   attr :style, :string, values: ~w(primary secondary link), required: true
   attr :submit, :boolean, default: false
-  attr :icon, :atom, required: false, default: nil
   attr :class, :string, default: ""
   attr :click, :string, default: "", doc: ~s(the click event to handle)
   attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
@@ -131,8 +128,6 @@ defmodule PescarteWeb.DesignSystem do
       phx-click={@click}
       {@rest}
     >
-      <.icon :if={@icon} name={@icon} />
-
       <.text :if={@style == "primary"} size="base" color="text-white-100">
         <%= render_slot(@inner_block) %>
       </.text>
@@ -461,43 +456,34 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   @doc """
-  Renderiza uma tabela de 6 colunas - primeira versão em 25/5/2023:
+  Renderiza uma tabela com diferentes colunas - versão 4/6/2023:
 
-  Acredito que devo chamar passando o nome da coluna e o respectivo atributo do banco para pegar o valor desse atributo:
-  <.table >
-    coluna1={@nome1} col1={@col1}
-    coluna2={@nome2} col2={@col2}
-  </.table>
-  OU definir os nomes das colunas de forma estática como aparece a seguir e encaminhar somente os atributos respectivos:
-  %{col1: <.checkbox />, col2: @col2, col3: "Valor 3", col4: "Valor 4", col5: "Valor 5", col6: "Valor 6"}
   """
+  slot :column, doc: "Columns with column labels" do
+    attr :label, :string, required: true, doc: "Column label"
+  end
+
+  attr :rows, :list, default: []
+
+
   def table(assigns) do
     ~H"""
-    <table>
-      <thead>
-        <tr>
-          <th><.text size="h4" color="text-blue-100">    </.text></th>
-          <th><.text size="h4" color="text-blue-100">Data</.text></th>
-          <th><.text size="h4" color="text-blue-100">Tipo</.text></th>
-          <th><.text size="h4" color="text-blue-100">Mês/Ano</.text></th>
-          <th><.text size="h4" color="text-blue-100">Nome</.text></th>
-          <th><.text size="h4" color="text-blue-100">Status</.text></th>
-          <th><.text size="h4" color="text-blue-100">Baixar</.text></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for row <- assigns.data do %>
-          <tr>
-            <td><%= row.col1 %></td>
-            <td><%= row.col2 %></td>
-            <td><%= row.col3 %></td>
-            <td><%= row.col4 %></td>
-            <td><%= row.col5 %></td>
-            <td><%= row.col6 %></td>
-          </tr>
+    <div style="overflow-x: auto;">
+    <table class="tabela">
+      <tr class="header-primary">
+        <%= for col <- @column do %>
+          <th><%= col.label %></th>
         <% end %>
-      </tbody>
+      </tr>
+      <%= for row <- @rows do %>
+        <tr class="linhas">
+          <%= for col <- @column do %>
+            <td><%= render_slot(col, row) %></td>
+          <% end %>
+        </tr>
+      <% end %>
     </table>
+    </div>
     """
   end
 
