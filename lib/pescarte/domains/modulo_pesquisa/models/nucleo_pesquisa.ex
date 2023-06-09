@@ -16,19 +16,19 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
     field :nome, :string
     field :letra, :string
     field :desc, :string
-    field :id_publico, Pescarte.Types.PublicId
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
     has_many :linha_pesquisas, LinhaPesquisa
 
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, NucleoPesquisa.t()} | {:error, changeset}
-  def changeset(nucleo_pesquisa \\ %__MODULE__{}, attrs) do
+  @spec changeset(NucleoPesquisa.t(), map) :: changeset
+  def changeset(%NucleoPesquisa{} = nucleo_pesquisa, attrs) do
     nucleo_pesquisa
     |> cast(attrs, [:nome, :desc, :letra])
     |> validate_required([:nome, :desc, :letra])
     |> validate_length(:desc, max: 400)
-    |> apply_action(:parse)
+    |> unique_constraint([:nome, :letra])
   end
 end

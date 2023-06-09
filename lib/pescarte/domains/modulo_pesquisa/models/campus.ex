@@ -22,7 +22,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     field :nome, :string
     field :nome_universidade, :string
     field :acronimo, :string
-    field :id_publico, PublicId
+    field :id_publico, PublicId, autogenerate: true
 
     has_many :pesquisadores, Pesquisador
     belongs_to :endereco, Endereco, on_replace: :delete
@@ -30,14 +30,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, Campus.t()} | {:error, changeset}
-  def changeset(campus \\ %__MODULE__{}, attrs) do
+  @spec changeset(Campus.t(), map) :: changeset
+  def changeset(%Campus{} = campus, attrs) do
     campus
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
     |> unique_constraint(:acronimo)
     |> foreign_key_constraint(:endereco_id)
-    |> apply_action(:parse)
   end
 end

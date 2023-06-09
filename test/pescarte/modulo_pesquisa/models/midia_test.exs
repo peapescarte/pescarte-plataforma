@@ -19,13 +19,15 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
       autor_id: autor.id
     }
 
-    assert {:ok, midia} = Midia.changeset(%Midia{}, attrs, [tag])
-    assert midia.tipo == :imagem
-    assert midia.nome_arquivo == "arquivo.jpg"
-    assert midia.data_arquivo == ~D[2023-01-01]
-    assert midia.link == "https://exemplo.com/imagem.jpg"
-    assert midia.autor_id == autor.id
-    assert length(midia.tags) == 1
+    changeset = Midia.changeset(%Midia{}, attrs, [tag])
+
+    assert changeset.valid?
+    assert get_change(changeset, :tipo) == :imagem
+    assert get_change(changeset, :nome_arquivo) == "arquivo.jpg"
+    assert get_change(changeset, :data_arquivo) == ~D[2023-01-01]
+    assert get_change(changeset, :link) == "https://exemplo.com/imagem.jpg"
+    assert get_change(changeset, :autor_id) == autor.id
+    assert length(get_change(changeset, :tags)) == 1
   end
 
   test "alterações inválidas no changeset sem campos obrigatórios" do
@@ -37,15 +39,19 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
       link: "https://exemplo.com/imagem.jpg"
     }
 
-    assert {:error, changeset} = Midia.changeset(%Midia{}, attrs, [])
+    changeset = Midia.changeset(%Midia{}, attrs, [])
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :autor_id)
   end
 
   test "alterações válidas no changeset com novas tags" do
-    midia = Repo.preload(insert(:midia), :tags)
+    midia = Repo.preload(insert(:midia, tags: []), :tags)
     tags = insert_list(2, :tag)
 
-    assert {:ok, midia} = Midia.changeset(midia, %{}, tags)
-    assert length(midia.tags) == 2
+    changeset = Midia.changeset(midia, %{}, tags)
+
+    assert changeset.valid?
+    assert length(get_change(changeset, :tags)) == 2
   end
 end

@@ -61,7 +61,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     field :data_fim_bolsa, :date
     field :data_contratacao, :date
     field :data_termino, :date
-    field :id_publico, Pescarte.Types.PublicId
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
     has_one :linha_pesquisa, LinhaPesquisa, foreign_key: :responsavel_lp_id
     has_one :relatorio_anual, RelatorioAnual
@@ -78,16 +78,16 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Pesquisador do
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, Pesquisador.t()} | {:error, changeset}
-  def changeset(pesquisador \\ %Pesquisador{}, attrs) do
+  @spec changeset(Pesquisador.t(), map) :: changeset
+  def changeset(%Pesquisador{} = pesquisador, attrs) do
     pesquisador
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_length(:minibio, max: 280)
+    |> unique_constraint(:rg)
     |> foreign_key_constraint(:usuario_id)
     |> foreign_key_constraint(:orientador_id)
     |> foreign_key_constraint(:campus_id)
-    |> apply_action(:parse)
   end
 
   def tipo_bolsas, do: @tipo_bolsas

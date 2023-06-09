@@ -39,7 +39,7 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     field :tipo, Ecto.Enum, values: @valid_roles
     field :primeiro_nome, :string
     field :sobrenome, :string
-    field :id_publico, Pescarte.Types.PublicId
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
     field :ativo?, :boolean, default: false
 
     has_one :pesquisador, Pesquisador, foreign_key: :usuario_id

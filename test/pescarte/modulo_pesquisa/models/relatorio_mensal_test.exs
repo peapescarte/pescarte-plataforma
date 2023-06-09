@@ -21,17 +21,19 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioMensalTest do
       publicacao: "Publicação"
     }
 
-    assert {:ok, relatorio_mensal} = RelatorioMensal.changeset(attrs)
-    assert relatorio_mensal.ano == 2023
-    assert relatorio_mensal.mes == 1
-    assert relatorio_mensal.acao_planejamento == "Ação de Planejamento"
+    changeset = RelatorioMensal.changeset(%RelatorioMensal{}, attrs)
 
-    assert relatorio_mensal.participacao_grupos_estudo ==
+    assert changeset.valid?
+    assert get_change(changeset, :ano) == 2023
+    assert get_change(changeset, :mes) == 1
+    assert get_change(changeset, :acao_planejamento) == "Ação de Planejamento"
+
+    assert get_change(changeset, :participacao_grupos_estudo) ==
              "Participação em Grupos de Estudo"
 
-    assert relatorio_mensal.acoes_pesquisa == "Ações de Pesquisa"
-    assert relatorio_mensal.participacao_treinamentos == "Participação em Treinamentos"
-    assert relatorio_mensal.publicacao == "Publicação"
+    assert get_change(changeset, :acoes_pesquisa) == "Ações de Pesquisa"
+    assert get_change(changeset, :participacao_treinamentos) == "Participação em Treinamentos"
+    assert get_change(changeset, :publicacao) == "Publicação"
   end
 
   test "alterações inválidas no changeset sem campos obrigatórios" do
@@ -46,7 +48,9 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioMensalTest do
       participacao_treinamentos: "Participação em Treinamentos"
     }
 
-    assert {:error, changeset} = RelatorioMensal.changeset(attrs)
+    changeset = RelatorioMensal.changeset(%RelatorioMensal{}, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :ano)
   end
 end

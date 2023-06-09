@@ -21,7 +21,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     field :numero, :integer
     field :desc_curta, :string
     field :desc, :string
-    field :id_publico, Pescarte.Types.PublicId
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
     belongs_to :nucleo_pesquisa, NucleoPesquisa
     belongs_to :responsavel_lp, Pesquisador, foreign_key: :responsavel_lp_id
@@ -34,8 +34,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, LinhaPesquisa.t()} | {:error, changeset}
-  def changeset(linha_pesquisa \\ %__MODULE__{}, attrs) do
+  @spec changeset(LinhaPesquisa.t(), map) :: changeset
+  def changeset(%LinhaPesquisa{} = linha_pesquisa, attrs) do
     linha_pesquisa
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
@@ -43,6 +43,5 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa do
     |> validate_length(:desc, max: 280)
     |> foreign_key_constraint(:nucleo_pesquisa_id)
     |> foreign_key_constraint(:responsavel_lp_id)
-    |> apply_action(:parse)
   end
 end

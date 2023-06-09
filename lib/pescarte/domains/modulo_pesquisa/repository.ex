@@ -145,76 +145,73 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
 
   @impl true
   def upsert_campus(campus \\ %Campus{}, attrs) do
-    with {:ok, campus} <- Campus.changeset(campus, attrs) do
-      Repo.insert(campus)
-    end
+    campus
+    |> Campus.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_categoria(categoria \\ %Categoria{}, attrs) do
-    with {:ok, categoria} <- Categoria.changeset(categoria, attrs) do
-      Repo.insert(categoria)
-    end
+    categoria
+    |> Categoria.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_linha_pesquisa(lp \\ %LinhaPesquisa{}, attrs) do
-    with {:ok, linha_pesquisa} <- LinhaPesquisa.changeset(lp, attrs) do
-      Repo.insert(linha_pesquisa)
-    end
+    lp
+    |> LinhaPesquisa.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_midia(midia \\ %Midia{}, attrs) do
     tags = attrs[:tags] || midia.tags
 
-    with {:ok, midia} <- Midia.changeset(midia, attrs, tags) do
-      Repo.insert(midia,
-        on_conflict: {:replace_all_except, [:id, :id_publico]},
-        conflict_target: [:link]
-      )
-    end
+    midia
+    |> Midia.changeset(attrs, tags)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_nucleo_pesquisa(np \\ %NucleoPesquisa{}, attrs) do
-    with {:ok, nucleo_pesquisa} <- NucleoPesquisa.changeset(np, attrs) do
-      Repo.insert(nucleo_pesquisa)
-    end
+    np
+    |> NucleoPesquisa.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_pesquisador(pesq \\ %Pesquisador{}, attrs) do
-    with {:ok, pesquisador} <- Pesquisador.changeset(pesq, attrs) do
-      Repo.insert(pesquisador)
-    end
+    pesq
+    |> Pesquisador.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_relatorio_anual(rap \\ %RelatorioAnual{}, attrs) do
-    with {:ok, relatorio_anual} <- RelatorioAnual.changeset(rap, attrs) do
-      Repo.insert(relatorio_anual)
-    end
+    rap
+    |> RelatorioAnual.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_relatorio_mensal(rmp \\ %RelatorioMensal{}, attrs) do
-    with {:ok, relatorio_mensal} <- RelatorioMensal.changeset(rmp, attrs) do
-      Repo.insert(relatorio_mensal)
-    end
+    rmp
+    |> RelatorioMensal.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_relatorio_trimestral(rtp \\ %RelatorioTrimestral{}, attrs) do
-    with {:ok, relatorio_trimestral} <- RelatorioTrimestral.changeset(rtp, attrs) do
-      Repo.insert(relatorio_trimestral)
-    end
+    rtp
+    |> RelatorioTrimestral.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_tag(tag \\ %Tag{}, attrs) do
-    with {:ok, tag} <- Tag.changeset(tag, attrs) do
-      Repo.insert(tag)
-    end
+    tag
+    |> Tag.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 end

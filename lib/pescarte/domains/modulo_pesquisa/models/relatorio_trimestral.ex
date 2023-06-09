@@ -42,7 +42,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral do
     field :ano, :integer
     field :mes, :integer
     field :link, :string
-    field :id_publico, Pescarte.Types.PublicId
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
     field :status, Ecto.Enum, values: @status, default: :pendente
 
     field :titulo, :string
@@ -59,12 +59,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioTrimestral do
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, RelatorioTrimestral.t()} | {:error, changeset}
-  def changeset(relatorio_trimestral \\ %__MODULE__{}, attrs) do
+  @spec changeset(RelatorioTrimestral.t(), map) :: changeset
+  def changeset(%RelatorioTrimestral{} = relatorio_trimestral, attrs) do
     relatorio_trimestral
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> foreign_key_constraint(:pesquisador_id)
-    |> apply_action(:parse)
   end
 end

@@ -9,20 +9,19 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
 
   schema "tag" do
     field :etiqueta, :string
-    field :id_publico, Pescarte.Types.PublicId
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
     belongs_to :categoria, Categoria
 
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, Tag.t()} | {:error, changeset}
-  def changeset(tag \\ %__MODULE__{}, attrs) do
+  @spec changeset(Tag.t(), map) :: changeset
+  def changeset(%Tag{} = tag, attrs) do
     tag
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:etiqueta)
     |> foreign_key_constraint(:categoria_id)
-    |> apply_action(:parse)
   end
 end
