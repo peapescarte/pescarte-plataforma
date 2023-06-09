@@ -54,7 +54,7 @@ defmodule Pescarte.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
       {:plug_cowboy, "~> 2.3"},
-      {:phoenix_storybook, "~> 0.5.0"},
+      {:phoenix_storybook, "~> 0.5.4"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
