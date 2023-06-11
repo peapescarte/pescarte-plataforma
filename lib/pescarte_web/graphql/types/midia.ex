@@ -4,7 +4,7 @@ defmodule PescarteWeb.GraphQL.Types.Midia do
   alias PescarteWeb.GraphQL.Resolvers
 
   @desc "Tipos possíveis de Midias"
-  enum :midia_type do
+  enum :tipo_midia_enum do
     value(:imagem)
     value(:documento)
     value(:video)
@@ -16,12 +16,12 @@ defmodule PescarteWeb.GraphQL.Types.Midia do
     field :data_arquivo, :date
     field :link, :string
     field :restrito?, :boolean, name: "restrito"
-    field :tipo, :midia_type
+    field :tipo, :tipo_midia_enum
     field :observacao, :string
     field :texto_alternativo, :string
     field :id_publico, :string, name: "id"
 
-    field :autor, :user do
+    field :autor, :usuario do
       resolve(&Resolvers.User.get_by_midia/3)
     end
 
