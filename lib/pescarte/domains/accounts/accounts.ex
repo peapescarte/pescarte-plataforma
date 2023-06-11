@@ -89,12 +89,12 @@ defmodule Pescarte.Domains.Accounts do
 
   @impl true
   def fetch_user(id) do
-    query =
-      from u in User,
-        where: u.id_publico == ^id,
-        select: u
+    Repo.fetch(User, id)
+  end
 
-    Repo.fetch_one(query)
+  @impl true
+  def fetch_user_by_id_publico(id) do
+    Repo.fetch_by(User, id_publico: id)
   end
 
   @doc """

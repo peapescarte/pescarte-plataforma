@@ -15,8 +15,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.IManageRepository do
   @callback create_midia_and_tags_multi(map, list(map)) :: {:ok, Midia.t()} | {:error, changeset}
 
   @callback fetch_categoria(Pescarte.Repo.id()) :: {:ok, Categoria.t()} | {:error, changeset}
-  @callback fetch_pesquisador(Pescarte.Repo.id()) :: {:ok, Pesquisador.t()} | {:error, changeset}
-  @callback fetch_midia(Pescarte.Repo.id()) :: {:ok, Midia.t()} | {:error, changeset}
+  @callback fetch_categoria_by_id_publico(Pescarte.Repo.id()) ::
+              {:ok, Categoria.t()} | {:error, changeset}
+  @callback fetch_midia_by_id_publico(Pescarte.Repo.id()) ::
+              {:ok, Midia.t()} | {:error, changeset}
   @callback fetch_tag(Pescarte.Repo.id()) :: {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tag_by_etiqueta(binary) :: {:ok, Tag.t()} | {:error, changeset}
 

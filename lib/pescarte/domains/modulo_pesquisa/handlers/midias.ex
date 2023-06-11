@@ -13,7 +13,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
 
   @impl true
   def create_midia_and_tags(attrs, tags_attrs) do
-    with {:ok, user} <- Accounts.fetch_user(attrs.autor_id),
+    with {:ok, user} <- Accounts.fetch_user_by_id_publico(attrs.autor_id),
          {:ok, raw_tags} <- put_categorias_ids(tags_attrs) do
       attrs
       |> Map.update!(:autor_id, fn _ -> user.id end)
@@ -26,7 +26,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
 
     tags
     |> Enum.reduce(state, fn %{categoria_id: id} = tag, state ->
-      case Repository.fetch_categoria(id) do
+      case Repository.fetch_categoria_by_id_publico(id) do
         {:ok, categoria} ->
           success = [%{tag | categoria_id: categoria.id} | state[:success]]
 
@@ -47,7 +47,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
 
   @impl true
   def create_tag(%{categoria_id: cat_id} = attrs) do
-    case Repository.fetch_categoria(cat_id) do
+    case Repository.fetch_categoria_by_id_publico(cat_id) do
       {:ok, categoria} ->
         case Repository.fetch_tag_by_etiqueta(attrs.etiqueta) do
           {:error, :not_found} ->
@@ -67,9 +67,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
     attrs_list
     |> Enum.with_index()
     |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
-      multi_id = String.to_existing_atom("tag-#{idx}")
-
-      Ecto.Multi.run(multi, multi_id, fn _, _ ->
+      Ecto.Multi.run(multi, :"tag-#{idx}", fn _, _ ->
         __MODULE__.create_tag(attrs)
       end)
     end)
@@ -84,7 +82,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
   defdelegate fetch_categoria(categoria_id), to: Repository
 
   @impl true
-  defdelegate fetch_midia(midia_id), to: Repository
+  defdelegate fetch_midia(midia_id), to: Repository, as: :fetch_midia_by_id_publico
 
   @impl true
   defdelegate list_categoria, to: Repository
@@ -105,22 +103,21 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
   defdelegate list_tags_from_midia(midia_id), to: Repository
 
   @impl true
-  def remove_tags_from_midia(midia_id, tags) do
-    with {:ok, midia} <- Repository.fetch_midia(midia_id) do
-      tags_ids = Enum.map(midia.tags, & &1.id_publico) -- Enum.map(tags, & &1.id)
-      new_tags = Enum.filter(midia.tags, &(&1.id_publico in tags_ids))
+  def remove_tags_from_midia(_, []), do: {:ok, []}
 
-      case Repository.upsert_midia(midia, %{tags: new_tags}) do
-        {:ok, midia} -> {:ok, midia.tags}
-        error -> error
-      end
+  def remove_tags_from_midia(midia_id, tags_ids) do
+    with {:ok, midia} <- Repository.fetch_midia_by_id_publico(midia_id),
+         tags_ids = Enum.map(midia.tags, & &1.id_publico) -- tags_ids,
+         new_tags = Enum.filter(midia.tags, &(&1.id_publico in tags_ids)),
+         {:ok, midia} <- Repository.upsert_midia(midia, %{tags: new_tags}) do
+      {:ok, midia.tags}
     end
   end
 
   @impl true
   def update_midia(attrs, tags) do
-    with {:ok, tags} <- put_tags_ids(tags),
-         {:ok, midia} <- Repository.fetch_midia(attrs.id) do
+    with {:ok, midia} <- Repository.fetch_midia_by_id_publico(attrs.id),
+         {:ok, tags} <- put_tags_ids(tags) do
       midia = Map.put(midia, :id, midia.id)
 
       attrs

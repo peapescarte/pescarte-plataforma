@@ -206,25 +206,14 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     end
   end
 
-  describe "fetch_pesquisador/1" do
+  describe "fetch_midia_by_id_publico/1" do
     test "quando o id é inválido" do
-      assert {:error, :not_found} = Repository.fetch_pesquisador("inválido")
-    end
-
-    test "quando o id é válido" do
-      pesquisador = insert(:pesquisador)
-      assert {:ok, _} = Repository.fetch_pesquisador(pesquisador.id_publico)
-    end
-  end
-
-  describe "fetch_midia/1" do
-    test "quando o id é inválido" do
-      assert {:error, :not_found} = Repository.fetch_midia("inválido")
+      assert {:error, :not_found} = Repository.fetch_midia_by_id_publico("inválido")
     end
 
     test "quando o id é válido" do
       midia = insert(:midia)
-      assert {:ok, _} = Repository.fetch_midia(midia.id_publico)
+      assert {:ok, _} = Repository.fetch_midia_by_id_publico(midia.id_publico)
     end
   end
 

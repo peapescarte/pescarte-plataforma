@@ -23,9 +23,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
     tags_attrs
     |> Enum.with_index()
     |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
-      multi_id = String.to_existing_atom("tag-#{idx}")
-
-      Ecto.Multi.run(multi, multi_id, fn _, _ ->
+      Ecto.Multi.run(multi, :"tag-#{idx}", fn _, _ ->
         upsert_tag(attrs)
       end)
     end)
@@ -45,16 +43,16 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_categoria(id) do
+    Repo.fetch(Categoria, id)
+  end
+
+  @impl true
+  def fetch_categoria_by_id_publico(id) do
     Repo.fetch_by(Categoria, id_publico: id)
   end
 
   @impl true
-  def fetch_pesquisador(id) do
-    Repo.fetch_by(Pesquisador, id_publico: id)
-  end
-
-  @impl true
-  def fetch_midia(id) do
+  def fetch_midia_by_id_publico(id) do
     case Repo.fetch_by(Midia, id_publico: id) do
       {:ok, midia} -> {:ok, Repo.preload(midia, :tags)}
       error -> error
@@ -63,7 +61,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_tag(id) do
-    Repo.fetch_by(Tag, id_publico: id)
+    Repo.fetch(Tag, id)
   end
 
   @impl true
@@ -83,11 +81,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
 
   @impl true
   def list_midias_from_tag(tag_id) do
-    query = from t in Tag, where: t.id == ^tag_id, preload: :midias
+    with {:ok, tag} <- Repo.fetch_by(Tag, id_publico: tag_id) do
+      query = from t in Tag, where: t.id == ^tag.id, preload: :midias
 
-    case Repo.fetch_one(query) do
-      {:error, :not_found} -> []
-      {:ok, tag} -> tag.midias
+      case Repo.fetch_one(query) do
+        {:error, :not_found} -> []
+        {:ok, tag} -> tag.midias
+      end
     end
   end
 
@@ -121,7 +121,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   def list_tags_from_categoria(categoria_id) do
     query =
       from c in Categoria,
-        where: c.id == ^categoria_id,
+        where: c.id_publico == ^categoria_id,
         preload: :tags
 
     case Repo.fetch_one(query) do
