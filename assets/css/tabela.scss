@@ -1,9 +1,15 @@
-.tabela {
-  text-align: center;
+.tabela, .th, .td {
+  border: 1px solid black;
   border-collapse: collapse;
-  padding: 12px;
+}
+// ==================
+.tabela {
+  @apply border-black-10;
+  padding: 40px;
+  border-collapse: collapse;
+  text-align: left;
 
-  width: 90%;
+  width: max-content;
 }
 .header-primary {
     @apply bg-blue-100;
@@ -19,7 +25,6 @@
     border: 1px solid #99C1E9;
     border-radius: 0px;
     height: 52px;
-
   }
 
 

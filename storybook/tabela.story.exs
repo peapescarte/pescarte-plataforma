@@ -5,10 +5,9 @@ defmodule Storybook.Tabela do
 
   def render(assigns) do
     ~H"""
-      <DesignSystem.table rows={[%{check: "1-", data: "4/5/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Maio", age: "Maio/2023", status: "Entregue", icone: "icon"},
-                                 %{check: "2-", data: "14/4/2023", tipo: "Trimestral", name: "Relatório Trimestral de Pesquisa de Abril", age: "Junho/2023", status: "Atrasado", icone: "icon"},
-
-                                 %{check: "3-", data: "14/5/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Maio", age: "Maio/2023", status: "Atrasado", icone: "icon"},
+      <DesignSystem.table rows={[%{check: "1-", data: "4/5/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Maio", age: "Maio/2023", status: "Entregue", icone: "download"},
+                                 %{check: "2-", data: "14/4/2023", tipo: "Trimestral", name: "Relatório Trimestral de Pesquisa de Abril", age: "Junho/2023", status: "Atrasado", icone: "download"},
+                                 %{check: "3-", data: "14/5/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Maio", age: "Maio/2023", status: "Atrasado", icone: "download"},
                                  %{check: "4-", data: "10/3/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Março", age: "Março/2023", status: "Entregue", icone: "download"}]}>
         <:column :let={user} label="Marcar!!">
           <%= user.check %>
