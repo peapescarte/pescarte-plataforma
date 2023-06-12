@@ -1,36 +1,42 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
   use Pescarte, :model
 
-  alias Pescarte.Domains.ModuloPesquisa.Models.Cidade
+  alias Pescarte.Domains.Accounts.Models.Endereco
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Types.TrimmedString
+  alias Pescarte.Types.PublicId
 
-  @required_fields ~w(initials cidade_id)a
-  @optional_fields ~w(name)a
+  @type t :: %Campus{
+          id: integer,
+          nome: binary,
+          acronimo: binary,
+          id_publico: binary,
+          endereco: Endereco.t(),
+          nome_universidade: binary,
+          pesquisadores: list(Pesquisador.t())
+        }
+
+  @required_fields ~w(acronimo endereco_id)a
+  @optional_fields ~w(nome nome_universidade)a
 
   schema "campus" do
-    field :name, TrimmedString
-    field :initials, TrimmedString
-    field :public_id, :string
+    field :nome, :string
+    field :nome_universidade, :string
+    field :acronimo, :string
+    field :id_publico, PublicId, autogenerate: true
 
-    has_many :pesquisadors, Pesquisador
-    belongs_to :cidade, Cidade, on_replace: :delete
+    has_many :pesquisadores, Pesquisador
+    belongs_to :endereco, Endereco, on_replace: :delete
 
     timestamps()
   end
 
-  def changeset(attrs) do
-    %__MODULE__{}
+  @spec changeset(Campus.t(), map) :: changeset
+  def changeset(%Campus{} = campus, attrs) do
+    campus
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint(:name)
-    |> unique_constraint(:initials)
-    |> foreign_key_constraint(:cidade_id)
-    |> put_change(:public_id, Nanoid.generate())
-    |> apply_action(:parse)
-  end
-
-  def list_campus_by_county_query(county) do
-    from c in __MODULE__, where: c.county == ^county
+    |> unique_constraint(:nome)
+    |> unique_constraint(:acronimo)
+    |> foreign_key_constraint(:endereco_id)
   end
 end

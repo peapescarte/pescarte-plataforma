@@ -1,6 +1,6 @@
-# Contribuindo com a API PEA Pescarte
+# Contribuindo com a Plataforma PEA Pescarte
 
-👍🎉 Primeiro de tudo, muito obrigado por despender tempo em contribuir com esse projeto! Espero que tenha uma experiência incível! 👍🎉
+🎉 Primeiro de tudo, agradecemos por despender tempo em contribuir com esse projeto! Espero que tenha uma experiência incível! 🎉
 
 ## Requisitos e Ambiente de Desenvolvimento
 
@@ -55,10 +55,9 @@ lib/pescarte
 ```sh dark
 lib/pescarte/domains
 └── modulo_pesquisa
-    ├── io
-    ├   └──repo
+    ├── repository.ex
     ├── models
-    ├── modulo_pesquisa.ex
+    ├── handlers
     └── services
 ```
 
@@ -70,27 +69,40 @@ Neste diretório se encontra os domínios de negócio da aplicação. Em outras 
 
 Cada domínio de negócio possui os seguintes componentes:
 
-- `io` - diretório onde se encontra execuções e soluções que causam efeitos colaterais, como comunicação com banco de dados ou envio de emails por exemplo
-  - `repo` - neste diretório é implementado as funções específicas de cada entidade para o CRUD (create, read, update e delete). Cada modelo de domínio possui seu próprio repositório com funções específicas
-- `models` - diretório que representa os modelos de negócio, as entidades do domínio! Por exemplo, no caso od domínio `modulo_pesquisa`, temos as entidades `Pesquisador` e `Relatorio`. Os modelos são os componentes mais importantes dentro de um domínio e não podem ser acessados diretamente por outros domínios nem mesmo por outros componentes do mesmo domínio
-- `modulo_pesquisa.ex` - esse é o ponto de entrada do domínio/contexto da aplicação! Aqui é exposta a API pública dos serviços internos desse domínio e é a única forma de se comunicar com outros domínios ou outros pontos da aplicação, como a camada web
-- `services` - neste diretório se encontra 2 (dois) tipos de caso de uso, ou chamados "serviços".
-  - `domain_services` - são serviços que modificam os modelos/entidades do domínio. É a única camada que pode modificar os modelo de forma direta e é importante ressaltar que os serviços de domínio podem apenas implementar [funções puras][pure-functions], sem efeitos colaterais. Um serviço de domínio pode modificar uma ou mais entidades
-  - `application_service` - este serviço funciona como uma "cola" para todos os outros componentes do domínio de negócio. Aqui será criado o fluxo de uma ação real do domínio. Por exemplo, na criação de uma entidade, é necessário fazer a validação de uma entidade (cargo do serviço de domínio) e inserí-la, caso válida, no banco de dados (cargo do componente io).
+  - `repository` - neste arquivo é implementado as funções específicas de cada entidade para o CRUD (create, read, update e delete). Cada domínio possui seu próprio repositório com funções específicas e construções de queries (consultas)
+- `models` - diretório que representa os modelos de negócio, as entidades do domínio! Por exemplo, no caso do domínio `modulo_pesquisa`, temos as entidades `Pesquisador` e `Relatorio`. Os modelos são os componentes mais importantes dentro de um domínio e não podem ser acessados diretamente por outros domínios nem mesmo por outros componentes do mesmo domínio
+- `handlers` - esse é o ponto de entrada do domínio/contexto da aplicação! Aqui é exposta a API pública dos serviços internos desse domínio e é a única forma de se comunicar com outros domínios ou outros pontos da aplicação, como a camada web. Cada `handler` deve atender à um sub-domínio do contexto e a um comportamento único. Para melhor entendimento, veja o `handler` do sub-domínio `mídias`, que expõe funções que resolvem as solicitações vindas da nossa API `GraphQL`
+- `services` - neste diretório se encontra os serviços que modificam os modelos/entidades do domínio. É a única camada que pode modificar os modelo de forma direta e é importante ressaltar que os serviços de domínio podem apenas implementar [funções puras][pure-functions], sem efeitos colaterais. Um serviço de domínio pode modificar uma ou mais entidades
 
 ### Diretório lib/pescarte_web
 
 ```sh dark
 lib/pescarte_web
+├── authentication.ex
+├── authorization.ex
+├── controllers
+├── design_system
+├── design_system.ex
 ├── endpoint.ex
 ├── graphql
+├── layouts
+├── live
 ├── plugs
+├── templates
 └── router.ex
 ```
 
-- `endpoint.ex` - este arquivo é o ponto de entrada da camada web da aplicação! Nele é configurado o reteador da aplciação, opções de sessão web, diferentes leitores de formatos como `JSON` ou `HTML`, dentre outras opções.
+- `authentication.ex` - este arquivo abriga funções relacionadas à autenticação de usuários na parte interna da plataforma, com exceção da API `GraphQL`. Serve tanto para `views` comuns quanto `live views`
+- `authorization.ex` - este arquivo abriga funções de autorização e permissionamento dentro da parte interna da plataforma, com exceção da API `GraphQL`. Permite ou não que usuários de tipos diferentes acessem determinadas páginas internas
+- `controllers` - neste diretório se encontram arquivos que mapeam as rotas da plataforma para as determinadas "dead views". Caso a `view` a ser desenvolvida não dependa tanto de interatividade e portanto não irá usar `live view`, deve-se usar os `controllers` e templates comuns
+- `design_system.ex` - arquivo onde se encontra as definições e implementações dos componentes especificados no Design System da plataforma que pode ser encontrato no [Figma do projeto](https://www.figma.com/file/PhkO37jz3ofCHwc1pHtPyz/PESCARTE?node-id=0%3A1). Caso o componente seja muito complexo ou seja um `live component`, crie um arquivo separado no diretório `design_system` e use `defdelegate/2` para redirecionar as chamadas, como foi feito com o componente de `navbar`
+- `endpoint.ex` - este arquivo é o ponto de entrada da camada web da aplicação! Nele é configurado o reteador da aplciação, opções de sessão web, diferentes leitores de formatos como `JSON` ou `HTML`, dentre outras opções
+- `layouts` - diretório onde se encontram layouts da aplicação, que são templates que vão encapsular todas as páginas da plataforma
+- `live` -  neste diretório são implementadas as telas que precisam de interatividade real-time ou possuem um estado inerente
+- `graphql` - neste diretório é implementado os esquemas, entidades e mutações possíveis da API `GraphQL` da aplicação. O mesmo será explicado em mais detalhes na próxima seção
 - `graphql` - neste diretório é implementado os esquemas, entidades e mutações possíveis da API `GraphQL` da aplicação. O mesmo será explicado em mais detalhes na próxima seção
 - `plugs` - neste diretório se encontra arquivos que modificam a componentes da conexão durante o fluxo da requisição na aplicação. Entenda como um [middleware][middleware]! Porém os `Plugs` dentro do framework `Phoenix` podem ser adicionados em qualquer ponto do ciclo de vida de uma requição, como no início, meio (middleware) ou no fim, antes de ser enviada uma resposta ao cliente. Para mais informações, leia a documentação de [Plugs](https://hexdocs.pm/plug/readme.html)
+- `templates` - diretório onde os templates comuns são implementados
 - `router.ex` - neste arquivo são definidas as rotas que podem ser acessadas na aplicação!
 
 #### Diretório lib/pescarte_web/graphql

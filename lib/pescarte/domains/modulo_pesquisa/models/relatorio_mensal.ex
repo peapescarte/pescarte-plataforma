@@ -1,65 +1,75 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
   use Pescarte, :model
 
-  import Pescarte.Domains.ModuloPesquisa.Services.ValidateRelatorioMensal
-
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Types.TrimmedString
 
-  @required_fields ~w(year month pesquisador_id)a
+  @type t :: %RelatorioMensal{
+          id: integer,
+          acao_planejamento: binary,
+          participacao_grupos_estudo: binary,
+          acoes_pesquisa: binary,
+          participacao_treinamentos: binary,
+          publicacao: binary,
+          previsao_acao_planejamento: binary,
+          previsao_participacao_grupos_estudo: binary,
+          previsao_participacao_treinamentos: binary,
+          previsao_acoes_pesquisa: binary,
+          status: atom,
+          link: binary,
+          ano: integer,
+          mes: integer,
+          pesquisador: Pesquisador.t(),
+          id_publico: binary
+        }
+
+  @status ~w(entregue atrasado pendente)a
+
+  @required_fields ~w(ano mes pesquisador_id)a
 
   @optional_fields ~w(
-    link planning_action
-    study_group guidance_metting
-    research_actions training_participation
-    publication next_planning_action
-    next_study_group next_guidance_metting
-    next_research_actions
+    acao_planejamento
+    participacao_grupos_estudo
+    acoes_pesquisa
+    participacao_treinamentos
+    publicacao
+    previsao_acao_planejamento
+    previsao_participacao_grupos_estudo
+    previsao_participacao_treinamentos
+    previsao_acoes_pesquisa
+    status
+    link
   )a
 
-  @update_fields @optional_fields ++ ~w(year month link)a
-
-  schema "relatorio_mensal" do
+  schema "relatorio_mensal_pesquisa" do
     # Primeira seção
-    field :planning_action, TrimmedString
-    field :study_group, TrimmedString
-    field :guidance_metting, TrimmedString
-    field :research_actions, TrimmedString
-    field :training_participation, TrimmedString
-    field :publication, TrimmedString
+    field :acao_planejamento, :string
+    field :participacao_grupos_estudo, :string
+    field :acoes_pesquisa, :string
+    field :participacao_treinamentos, :string
+    field :publicacao, :string
 
     # Segunda seção
-    field :next_planning_action, TrimmedString
-    field :next_study_group, TrimmedString
-    field :next_guidance_metting, TrimmedString
-    field :next_research_actions, TrimmedString
+    field :previsao_acao_planejamento, :string
+    field :previsao_participacao_grupos_estudo, :string
+    field :previsao_participacao_treinamentos, :string
+    field :previsao_acoes_pesquisa, :string
 
-    field :year, :integer
-    field :month, :integer
+    field :status, Ecto.Enum, values: @status, default: :pendente
+    field :ano, :integer
+    field :mes, :integer
     field :link, :string
-    field :public_id, :string
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
-    belongs_to(:pesquisador, Pesquisador, on_replace: :update)
+    belongs_to :pesquisador, Pesquisador, on_replace: :update
 
     timestamps()
   end
 
-  def changeset(report \\ %__MODULE__{}, attrs) do
-    report
+  @spec changeset(RelatorioMensal.t(), map) :: changeset
+  def changeset(%RelatorioMensal{} = relatorio_mensal, attrs) do
+    relatorio_mensal
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> validate_month(:month)
-    |> validate_year(:year, Date.utc_today())
     |> foreign_key_constraint(:pesquisador_id)
-    |> put_change(:public_id, Nanoid.generate())
-    |> apply_action(:parse)
-  end
-
-  def update_changeset(report, attrs) do
-    report
-    |> cast(attrs, @update_fields)
-    |> validate_month(:month)
-    |> validate_year(:year, Date.utc_today())
-    |> apply_action(:parse)
   end
 end

@@ -1,13 +1,14 @@
 defmodule PescarteWeb.GraphQL.Context do
   @behaviour Plug
 
-  @day_seconds 86_400
-  @endpoint PescarteWeb.Endpoint
-
   import Plug.Conn
 
-  alias Pescarte.Database
   alias Pescarte.Domains.Accounts
+  alias Pescarte.Repo
+
+  @token_salt "autenticação de usuário"
+  @day_seconds 86_400
+  @endpoint PescarteWeb.Endpoint
 
   def init(opts), do: opts
 
@@ -19,7 +20,7 @@ defmodule PescarteWeb.GraphQL.Context do
   defp build_context(conn) do
     with ["Bearer " <> token] <- get_req_header(conn, "authorization"),
          {:ok, current_user} <- authorize(token) do
-      %{current_user: Database.preload(current_user, [:pesquisador])}
+      %{current_user: Repo.preload(current_user, [:pesquisador])}
     else
       _ -> %{}
     end
@@ -27,11 +28,8 @@ defmodule PescarteWeb.GraphQL.Context do
 
   defp authorize(token) do
     with {:ok, user_id} <-
-           Phoenix.Token.verify(@endpoint, "user auth", token, max_age: @day_seconds) do
-      case Accounts.get_user_by_id(user_id) do
-        nil -> :error
-        user -> {:ok, user}
-      end
+           Phoenix.Token.verify(@endpoint, @token_salt, token, max_age: @day_seconds) do
+      Accounts.fetch_user(user_id)
     end
   end
 end
