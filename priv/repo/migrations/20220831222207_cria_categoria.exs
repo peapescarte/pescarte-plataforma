@@ -9,6 +9,6 @@ defmodule Pescarte.Repo.Migrations.CreateCategories do
       timestamps()
     end
 
-    create index(:categoria, [:nome])
+    create unique_index(:categoria, [:nome])
   end
 end

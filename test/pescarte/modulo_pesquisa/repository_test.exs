@@ -7,226 +7,213 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
 
   @moduletag :unit
 
-  describe "create_campus/1" do
+  describe "upsert_campus/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_campus(%{})
+      assert {:error, _changeset} = Repository.upsert_campus(%{})
     end
 
     test "quando os parâmetros são válidos" do
       attrs = fixture(:campus)
-      assert {:ok, _campus} = Repository.create_campus(attrs)
+      assert {:ok, _campus} = Repository.upsert_campus(attrs)
     end
   end
 
-  describe "create_categoria/1" do
+  describe "upsert_categoria/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_categoria(%{})
+      assert {:error, _changeset} = Repository.upsert_categoria(%{})
     end
 
     test "quando os parâmetros são válidos" do
       attrs = fixture(:categoria)
-      assert {:ok, _categoria} = Repository.create_categoria(attrs)
+      assert {:ok, _categoria} = Repository.upsert_categoria(attrs)
     end
   end
 
-  describe "create_linha_pesquisa/1" do
+  describe "upsert_linha_pesquisa/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_linha_pesquisa(%{})
+      assert {:error, _changeset} = Repository.upsert_linha_pesquisa(%{})
     end
 
     test "quando os parâmetros são válidos" do
       attrs = fixture(:linha_pesquisa)
-      assert {:ok, _lp} = Repository.create_linha_pesquisa(attrs)
+      assert {:ok, _lp} = Repository.upsert_linha_pesquisa(attrs)
     end
   end
 
-  describe "create_midia/1" do
-    test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_midia(%{})
+  describe "upsert_midia/1" do
+    test "não cria quando os parâmetros são inválidos" do
+      assert {:error, _changeset} = Repository.upsert_midia(%{})
     end
 
-    test "quando os parâmetros são válidos" do
+    test "cria quando os parâmetros são válidos" do
       attrs = fixture(:midia)
-      assert {:ok, _changeset} = Repository.create_midia(attrs)
-    end
-  end
-
-  describe "create_midia_with_tags/2" do
-    test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_midia_with_tags(%{}, [])
+      assert {:ok, _changeset} = Repository.upsert_midia(attrs)
     end
 
-    test "quando os parâmetros são válidos" do
+    test "não cria quando os parâmetros são inválidos, com tags" do
+      assert {:error, _changeset} = Repository.upsert_midia(%{tags: []})
+    end
+
+    test "cria quando os parâmetros são válidos, com tags" do
       attrs = fixture(:midia)
       tags = insert_list(2, :tag)
-      assert {:ok, midia} = Repository.create_midia_with_tags(attrs, tags)
+
+      assert {:ok, midia} =
+               attrs
+               |> Map.put(:tags, tags)
+               |> Repository.upsert_midia()
+
       assert length(midia.tags) == 2
+    end
+
+    test "não atualiza quando os parâmetros são inválidos" do
+      midia = insert(:midia)
+      assert {:error, _} = Repository.upsert_midia(midia, %{link: nil})
+    end
+
+    test "não modifica quando os parâmetros são iguais ao atual" do
+      midia = insert(:midia)
+      attrs = Map.from_struct(midia)
+      assert {:ok, _} = Repository.upsert_midia(midia, attrs)
+    end
+
+    test "atualiza quando os parâmetros são válidos" do
+      midia = insert(:midia)
+      attrs = fixture(:midia)
+      assert {:ok, _} = Repository.upsert_midia(midia, attrs)
+    end
+
+    test "não atualiza quando os parâmetros são inválidos, com tags" do
+      midia = insert(:midia)
+      assert {:error, _} = Repository.upsert_midia(midia, %{link: nil, tags: []})
+    end
+
+    test "não modifica quando os parâmetros são iguais ao atual, com tags" do
+      tags = insert_list(2, :tag)
+      midia = insert(:midia, tags: tags)
+      attrs = midia |> Map.from_struct() |> Map.put(:tags, tags)
+      assert {:ok, upserted} = Repository.upsert_midia(midia, attrs)
+      assert upserted.id == midia.id
+      assert length(upserted.tags) == 2
+      assert upserted.link == midia.link
+    end
+
+    test "atualiza quando os parâmetros são válidos, com tags" do
+      midia = insert(:midia)
+      attrs = fixture(:midia)
+      tags = insert_list(2, :tag)
+      assert {:ok, _} = Repository.upsert_midia(midia, Map.put(attrs, :tags, tags))
     end
   end
 
-  describe "create_nucleo_pesquisa/1" do
+  describe "upsert_nucleo_pesquisa/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_nucleo_pesquisa(%{})
+      assert {:error, _changeset} = Repository.upsert_nucleo_pesquisa(%{})
     end
 
     test "quando os parâmetros são válidos" do
       attrs = fixture(:nucleo_pesquisa)
-      assert {:ok, _} = Repository.create_nucleo_pesquisa(attrs)
+      assert {:ok, _} = Repository.upsert_nucleo_pesquisa(attrs)
     end
   end
 
-  describe "create_pesquisador/1" do
-    test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_pesquisador(%{})
+  describe "upsert_pesquisador/1" do
+    test "não cria quando os parâmetros são inválidos" do
+      assert {:error, _changeset} = Repository.upsert_pesquisador(%{})
     end
 
-    test "quando os parâmetros são válidos" do
+    test "cria quando os parâmetros são válidos" do
       attrs = fixture(:pesquisador)
-      assert {:ok, _} = Repository.create_pesquisador(attrs)
+      assert {:ok, _} = Repository.upsert_pesquisador(attrs)
+    end
+
+    test "não atualiza quando os parâmetros são inválidos" do
+      pesquisador = insert(:pesquisador)
+      assert {:error, _} = Repository.upsert_pesquisador(pesquisador, %{rg: nil})
+    end
+
+    test "não modifica quando os parâmetros são iguais ao atual" do
+      pesquisador = insert(:pesquisador)
+      attrs = Map.from_struct(pesquisador)
+      assert {:ok, _} = Repository.upsert_pesquisador(pesquisador, attrs)
+    end
+
+    test "atualiza quando os parâmetros são válidos" do
+      pesquisador = insert(:pesquisador)
+      attrs = fixture(:pesquisador)
+      assert {:ok, _} = Repository.upsert_pesquisador(pesquisador, attrs)
     end
   end
 
-  describe "create_relatorio_anual/1" do
+  describe "upsert_relatorio_anual/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_relatorio_anual(%{})
+      assert {:error, _changeset} = Repository.upsert_relatorio_anual(%{})
     end
 
     test "quando os parâmetros são válidos" do
       attrs = fixture(:relatorio_anual)
-      assert {:ok, _} = Repository.create_relatorio_anual(attrs)
+      assert {:ok, _} = Repository.upsert_relatorio_anual(attrs)
     end
   end
 
-  describe "create_relatorio_mensal/1" do
+  describe "upsert_relatorio_mensal/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_relatorio_mensal(%{})
+      assert {:error, _changeset} = Repository.upsert_relatorio_mensal(%{})
     end
 
     test "quando os parâmetros são válidos" do
       attrs = fixture(:relatorio_mensal)
-      assert {:ok, _} = Repository.create_relatorio_mensal(attrs)
+      assert {:ok, _} = Repository.upsert_relatorio_mensal(attrs)
     end
   end
 
-  describe "create_relatorio_trimestral/1" do
+  describe "upsert_relatorio_trimestral/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.create_relatorio_trimestral(%{})
+      assert {:error, _changeset} = Repository.upsert_relatorio_trimestral(%{})
     end
 
     test "quando os parâmetros são válidos" do
       attrs = fixture(:relatorio_trimestral)
-      assert {:ok, _} = Repository.create_relatorio_anual(attrs)
+      assert {:ok, _} = Repository.upsert_relatorio_anual(attrs)
     end
   end
 
-  describe "create_tag/1" do
-    test "quando os parâmetros são inválidos" do
-      assert {:error, _} = Repository.create_tag(%{})
+  describe "upsert_tag/1" do
+    test "não cria quando os parâmetros são inválidos" do
+      assert {:error, _} = Repository.upsert_tag(%{})
     end
 
-    test "quando os parâmetros são válidos" do
+    test "cria quando os parâmetros são válidos" do
       attrs = fixture(:tag)
-      assert {:ok, _} = Repository.create_tag(attrs)
-    end
-  end
-
-  describe "fetch_pesquisador/1" do
-    test "quando o id é inválido" do
-      assert {:error, :not_found} = Repository.fetch_pesquisador("inválido")
+      assert {:ok, _} = Repository.upsert_tag(attrs)
     end
 
-    test "quando o id é válido" do
-      pesquisador = insert(:pesquisador)
-      assert {:ok, _} = Repository.fetch_pesquisador(pesquisador.id_publico)
-    end
-  end
-
-  describe "fetch_midia/1" do
-    test "quando o id é inválido" do
-      assert {:error, :not_found} = Repository.fetch_midia("inválido")
-    end
-
-    test "quando o id é válido" do
-      midia = insert(:midia)
-      assert {:ok, _} = Repository.fetch_midia(midia.id_publico)
-    end
-  end
-
-  describe "update_midia/2" do
-    test "quando os parâmetros são inválidos" do
-      midia = insert(:midia)
-      assert {:error, _} = Repository.update_midia(midia, %{link: nil})
-    end
-
-    test "quando os parâmetros são iguais ao atual" do
-      midia = insert(:midia)
-      attrs = Map.from_struct(midia)
-      assert {:ok, _} = Repository.update_midia(midia, attrs)
-    end
-
-    test "quando os parâmetros são válidos" do
-      midia = insert(:midia)
-      attrs = fixture(:midia)
-      assert {:ok, _} = Repository.update_midia(midia, attrs)
-    end
-  end
-
-  describe "update_midia_with_tags/2" do
-    test "quando os parâmetros são inválidos" do
-      midia = insert(:midia)
-      assert {:error, _} = Repository.update_midia_with_tags(midia, %{link: nil}, [])
-    end
-
-    test "quando os parâmetros são iguais ao atual" do
-      tags = insert_list(2, :tag)
-      midia = insert(:midia, tags: tags)
-      attrs = Map.from_struct(midia)
-      assert {:error, _} = Repository.update_midia_with_tags(midia, attrs, tags)
-    end
-
-    test "quando os parâmetros são válidos" do
-      midia = insert(:midia)
-      attrs = fixture(:midia)
-      tags = insert_list(2, :tag)
-      assert {:ok, _} = Repository.update_midia_with_tags(midia, attrs, tags)
-    end
-  end
-
-  describe "update_pesquisador/2" do
-    test "quando os parâmetros são inválidos" do
-      pesquisador = insert(:pesquisador)
-      assert {:error, _} = Repository.update_pesquisador(pesquisador, %{rg: nil})
-    end
-
-    test "quando os parâmetros são iguais ao atual" do
-      pesquisador = insert(:pesquisador)
-      attrs = Map.from_struct(pesquisador)
-      assert {:ok, _} = Repository.update_pesquisador(pesquisador, attrs)
-    end
-
-    test "quando os parâmetros são válidos" do
-      pesquisador = insert(:pesquisador)
-      attrs = fixture(:pesquisador)
-      assert {:ok, _} = Repository.update_pesquisador(pesquisador, attrs)
-    end
-  end
-
-  describe "update_tag/2" do
-    test "quando os parâmetros são inválidos" do
+    test "não atualiza quando os parâmetros são inválidos" do
       tag = insert(:tag)
-      assert {:error, _} = Repository.update_tag(tag, %{etiqueta: nil})
+      assert {:error, _} = Repository.upsert_tag(tag, %{etiqueta: nil})
     end
 
-    test "quando os parâmetros são iguais ao atual" do
+    test "não modifica quando os parâmetros são iguais ao atual" do
       tag = insert(:tag)
       attrs = Map.from_struct(tag)
-      assert {:ok, _} = Repository.update_tag(tag, attrs)
+      assert {:ok, _} = Repository.upsert_tag(tag, attrs)
     end
 
-    test "quando os parâmetros são válidos" do
+    test "atualiza quando os parâmetros são válidos" do
       tag = insert(:tag)
       attrs = fixture(:tag)
-      assert {:ok, _} = Repository.update_tag(tag, attrs)
+      assert {:ok, _} = Repository.upsert_tag(tag, attrs)
+    end
+  end
+
+  describe "fetch_midia_by_id_publico/1" do
+    test "quando o id é inválido" do
+      assert {:error, :not_found} = Repository.fetch_midia_by_id_publico("inválido")
+    end
+
+    test "quando o id é válido" do
+      midia = insert(:midia)
+      assert {:ok, _} = Repository.fetch_midia_by_id_publico(midia.id_publico)
     end
   end
 
@@ -257,22 +244,6 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     end
   end
 
-  describe "list_relatorios_pesquisa/0" do
-    test "quando não há nenhum registro" do
-      relatorios = Repository.list_relatorios_pesquisa()
-      assert Enum.empty?(relatorios)
-    end
-
-    test "quando há registros" do
-      insert(:relatorio_anual)
-      insert_list(4, :relatorio_mensal)
-      insert_list(2, :relatorio_trimestral)
-
-      relatorios = Repository.list_relatorios_pesquisa()
-      assert length(relatorios) == 7
-    end
-  end
-
   describe "list_relatorios_pesquisa_from_pesquisador/1" do
     test "quando não há nenhum registro" do
       pesquisador = insert(:pesquisador)
@@ -293,7 +264,7 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
 
   describe "list_tags_from_midia/1" do
     test "quando não há nenhum registro" do
-      midia = insert(:midia)
+      midia = insert(:midia, tags: [])
       tags = Repository.list_tags_from_midia(midia.id_publico)
       assert Enum.empty?(tags)
     end
@@ -301,8 +272,8 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     test "quando há registros" do
       tags = insert_list(4, :tag)
       midia = insert(:midia, tags: tags)
-      tags = Repository.list_tags_from_midia(midia.id_publico)
-      assert length(tags) == 4
+      listed = Repository.list_tags_from_midia(midia.id_publico)
+      assert length(listed) == 4
     end
   end
 end

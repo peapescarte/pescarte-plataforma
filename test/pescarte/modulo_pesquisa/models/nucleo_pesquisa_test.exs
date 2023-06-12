@@ -12,10 +12,12 @@ defmodule Pescarte.ModuloPesquisa.Models.NucleoPesquisaTest do
       desc: "Descrição do Núcleo"
     }
 
-    assert {:ok, nucleo} = NucleoPesquisa.changeset(attrs)
-    assert nucleo.nome == "Nome do Núcleo"
-    assert nucleo.letra == "A"
-    assert nucleo.desc == "Descrição do Núcleo"
+    changeset = NucleoPesquisa.changeset(%NucleoPesquisa{}, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :nome) == "Nome do Núcleo"
+    assert get_change(changeset, :letra) == "A"
+    assert get_change(changeset, :desc) == "Descrição do Núcleo"
   end
 
   test "alterações inválidas no changeset sem campos obrigatórios" do
@@ -24,7 +26,9 @@ defmodule Pescarte.ModuloPesquisa.Models.NucleoPesquisaTest do
       letra: "A"
     }
 
-    assert {:error, changeset} = NucleoPesquisa.changeset(attrs)
+    changeset = NucleoPesquisa.changeset(%NucleoPesquisa{}, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :desc)
   end
 
@@ -35,7 +39,9 @@ defmodule Pescarte.ModuloPesquisa.Models.NucleoPesquisaTest do
       desc: String.duplicate("a", 401)
     }
 
-    assert {:error, changeset} = NucleoPesquisa.changeset(attrs)
+    changeset = NucleoPesquisa.changeset(%NucleoPesquisa{}, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :desc)
   end
 end

@@ -1,8 +1,9 @@
 name: test
 
 on:
-  repository_dispatch:
-    types: [trigger-testing]
+  push:
+    branches: ["main"]
+  pull_request:
 
 jobs:
   unit_tests:
@@ -45,13 +46,19 @@ jobs:
           otp-version: ${{ matrix.otp }}
 
       - name: Retrieve Cached Dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: mix-cache
+        env:
+          cache-name: mix-cache
         with:
           path: |
             deps
             _build
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}
+
+      - run: mix deps.get
 
       - name: Run Unit Tests
         run: mix test --only unit
@@ -96,13 +103,19 @@ jobs:
           otp-version: ${{ matrix.otp }}
 
       - name: Retrieve Cached Dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: mix-cache
+        env:
+          cache-name: mix-cache
         with:
           path: |
             deps
             _build
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}
+
+      - run: mix deps.get
 
       - name: Run Integration Tests
         run: mix test --only integration

@@ -44,7 +44,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
     field :ano, :integer
     field :mes, :integer
     field :link, :string
-    field :id_publico, :string
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
     field :status, Ecto.Enum, values: @status, default: :pendente
 
     field :plano_de_trabalho, :string
@@ -62,13 +62,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, RelatorioAnual.t()} | {:error, changeset}
-  def changeset(relatorio_anual \\ %__MODULE__{}, attrs) do
+  @spec changeset(RelatorioAnual.t(), map) :: changeset
+  def changeset(%RelatorioAnual{} = relatorio_anual, attrs) do
     relatorio_anual
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> foreign_key_constraint(:pesquisador_id)
-    |> put_change(:id_publico, Nanoid.generate())
-    |> apply_action(:parse)
   end
 end

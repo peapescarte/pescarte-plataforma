@@ -10,8 +10,8 @@ defmodule Pescarte do
   def model do
     quote do
       use Ecto.Schema
-      alias __MODULE__
       import Ecto.Changeset
+      alias __MODULE__
       @typep changeset :: Ecto.Changeset.t()
       @timestamps_opts [inserted_at: :inserted_at, type: :utc_datetime_usec]
     end

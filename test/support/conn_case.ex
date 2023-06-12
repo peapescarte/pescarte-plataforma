@@ -56,6 +56,22 @@ defmodule PescarteWeb.ConnCase do
     %{conn: log_in_user(conn, user), user: user}
   end
 
+  @token_salt "autenticação de usuário"
+
+  @doc """
+  Insere e cria um JWT para um usuário, para ser usado nos testes
+  de API.
+
+      setup :register_and_generate_jwt_token
+
+  Atente-se pois essa função adiciona um header na `conn`
+  """
+  def register_and_generate_jwt_token(%{conn: conn}) do
+    user = Factory.insert(:user)
+    token = Phoenix.Token.sign(PescarteWeb.Endpoint, @token_salt, user.id)
+    %{conn: Plug.Conn.put_req_header(conn, "authorization", "Bearer " <> token), user: user}
+  end
+
   @doc """
   Registra o `usuário` fornecido no `conn`.
 

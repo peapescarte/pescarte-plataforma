@@ -1,4 +1,4 @@
-defmodule PescarteWeb.GraphQL.Resolvers.Tag do
+defmodule PescarteWeb.GraphQL.Resolver.Tag do
   alias Pescarte.Domains.ModuloPesquisa.Handlers
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
@@ -16,11 +16,11 @@ defmodule PescarteWeb.GraphQL.Resolvers.Tag do
   end
 
   def list_categorias(%Categoria{} = categoria, _args, _resolution) do
-    {:ok, Handlers.Midias.list_tags_from_categoria(categoria.id)}
+    {:ok, Handlers.Midias.list_tags_from_categoria(categoria.id_publico)}
   end
 
   def list_midias(%Midia{} = midia, _args, _Resolution) do
-    {:ok, Handlers.Midias.list_tags_from_midia(midia.id)}
+    {:ok, Handlers.Midias.list_tags_from_midia(midia.id_publico)}
   end
 
   def update(%{input: args}, _resolution) do

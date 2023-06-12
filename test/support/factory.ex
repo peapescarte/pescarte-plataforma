@@ -76,7 +76,8 @@ defmodule Pescarte.Factory do
       link: sequence(:link, &"https://example#{&1}.com"),
       nome_arquivo: sequence(:arquivo, &"arquivo#{&1}.jpg"),
       data_arquivo: ~D[2023-05-29],
-      restrito?: false
+      restrito?: false,
+      tags: []
     }
   end
 
@@ -101,7 +102,7 @@ defmodule Pescarte.Factory do
       data_contratacao: ~D[2023-04-23],
       data_fim_bolsa: ~D[2024-05-30],
       formacao: "Advogado",
-      rg: "131213465",
+      rg: sequence(:rg, &"131213465#{&1}"),
       link_linkedin: "https://linkedin.com/in/zoedsoupe",
       orientador: orientador()
     }
@@ -122,7 +123,7 @@ defmodule Pescarte.Factory do
       },
       bolsa: "pesquisa",
       minibio: "hello",
-      rg: "141113465",
+      rg: sequence(:rg, &"14111#{&1}346"),
       link_lattes: "https://lattes.com.br",
       link_linkedin: "https://linkedin.com",
       campus: %Campus{

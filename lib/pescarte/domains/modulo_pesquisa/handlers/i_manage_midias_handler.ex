@@ -24,7 +24,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.IManageMidiasHandler do
   @callback remove_tags_from_midia(Pescarte.Repo.id(), list(Pescarte.Repo.id())) ::
               {:ok, Midia.t()} | {:error, Ecto.Changeset.t()}
 
-  @callback update_midia(Pescarte.Repo.id(), list(Tag.t())) ::
-              {:ok, Midia.t()} | {:error, Ecto.Changeset.t()}
+  @callback update_midia(map) :: {:ok, Midia.t()} | {:error, Ecto.Changeset.t()}
   @callback update_tag(map) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
 end

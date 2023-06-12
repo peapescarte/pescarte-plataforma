@@ -1,8 +1,9 @@
 name: lint
 
 on:
-  repository_dispatch:
-    types: [trigger-linting]
+  push:
+    branches: ["main"]
+  pull_request:
 
 jobs:
   format:
@@ -32,13 +33,19 @@ jobs:
           otp-version: ${{ matrix.otp }}
 
       - name: Retrieve Cached Dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: mix-cache
+        env:
+          cache-name: mix-cache
         with:
           path: |
             deps
             _build
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}
+
+      - run: mix deps.get
 
       - name: Run Formater
         run: mix format --check-formatted
@@ -70,22 +77,19 @@ jobs:
           otp-version: ${{ matrix.otp }}
 
       - name: Retrieve Cached Dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: mix-cache
+        env:
+          cache-name: mix-cache
         with:
           path: |
             deps
             _build
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}
+
+      - run: mix deps.get
 
       - name: Run Credo
         run: mix credo --strict
-
-      - name: Trigger automated tests
-        if: success()
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.REPO_GHA_PAT }}
-          repository: ${{ github.repository }}
-          event-type: trigger-testing
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
