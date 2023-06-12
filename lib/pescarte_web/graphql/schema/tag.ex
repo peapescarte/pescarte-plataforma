@@ -1,18 +1,13 @@
 defmodule PescarteWeb.GraphQL.Schema.Tag do
   use Absinthe.Schema.Notation
 
-  import AbsintheErrorPayload.Payload
-
-  alias PescarteWeb.GraphQL.Resolvers
+  alias PescarteWeb.GraphQL.Resolver
 
   # Queries
 
-  payload_object(:listagem_tags_payload, list_of(:tag))
-
   object :tag_queries do
-    field :listar_tags, type: :listagem_tags_payload do
-      resolve(&Resolvers.Tag.list/2)
-      middleware(&build_payload/2)
+    field :listar_tags, list_of(:tag) do
+      resolve(&Resolver.Tag.list/2)
     end
   end
 
@@ -28,29 +23,23 @@ defmodule PescarteWeb.GraphQL.Schema.Tag do
     field :etiqueta, non_null(:string)
   end
 
-  payload_object(:tag_payload, :tag)
-  payload_object(:tags_payload, list_of(:tag))
-
   object :tag_mutations do
-    field :criar_tag, type: :tag_payload do
+    field :criar_tag, :tag do
       arg(:input, non_null(:criar_tag_input))
 
-      resolve(&Resolvers.Tag.create/2)
-      middleware(&build_payload/2)
+      resolve(&Resolver.Tag.create/2)
     end
 
-    field :criar_tags, type: :tags_payload do
+    field :criar_tags, list_of(:tag) do
       arg(:input, list_of(:criar_tag_input))
 
-      resolve(&Resolvers.Tag.create_multiple/2)
-      middleware(&build_payload/2)
+      resolve(&Resolver.Tag.create_multiple/2)
     end
 
-    field :atualizar_tag, type: :tag_payload do
+    field :atualizar_tag, :tag do
       arg(:input, :atualizar_tag_input)
 
-      resolve(&Resolvers.Tag.update/2)
-      middleware(&build_payload/2)
+      resolve(&Resolver.Tag.update/2)
     end
   end
 end

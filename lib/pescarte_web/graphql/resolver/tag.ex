@@ -1,4 +1,4 @@
-defmodule PescarteWeb.GraphQL.Resolvers.Tag do
+defmodule PescarteWeb.GraphQL.Resolver.Tag do
   alias Pescarte.Domains.ModuloPesquisa.Handlers
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria

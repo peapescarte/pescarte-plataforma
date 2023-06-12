@@ -1,4 +1,4 @@
-defmodule PescarteWeb.GraphQL.Types.User do
+defmodule PescarteWeb.GraphQL.Type.User do
   use Absinthe.Schema.Notation
 
   @desc "Os possíveis tipo de um usuário"

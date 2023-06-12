@@ -1,7 +1,7 @@
-defmodule PescarteWeb.GraphQL.Types.Midia do
+defmodule PescarteWeb.GraphQL.Type.Midia do
   use Absinthe.Schema.Notation
 
-  alias PescarteWeb.GraphQL.Resolvers
+  alias PescarteWeb.GraphQL.Resolver
 
   @desc "Tipos possíveis de Midias"
   enum :tipo_midia_enum do
@@ -22,11 +22,11 @@ defmodule PescarteWeb.GraphQL.Types.Midia do
     field :id_publico, :string, name: "id"
 
     field :autor, :usuario do
-      resolve(&Resolvers.User.get_by_midia/3)
+      resolve(&Resolver.User.get_by_midia/3)
     end
 
     field :tags, list_of(:tag) do
-      resolve(&Resolvers.Tag.list_midias/3)
+      resolve(&Resolver.Tag.list_midias/3)
     end
   end
 end

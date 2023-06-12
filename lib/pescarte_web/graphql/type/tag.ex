@@ -1,7 +1,7 @@
-defmodule PescarteWeb.GraphQL.Types.Tag do
+defmodule PescarteWeb.GraphQL.Type.Tag do
   use Absinthe.Schema.Notation
 
-  alias PescarteWeb.GraphQL.Resolvers
+  alias PescarteWeb.GraphQL.Resolver
 
   @desc "Representa uma Tag pertencente a uma Categoria"
   object :tag do
@@ -9,11 +9,11 @@ defmodule PescarteWeb.GraphQL.Types.Tag do
     field :id_publico, :string, name: "id"
 
     field :midias, list_of(:midia) do
-      resolve(&Resolvers.Midia.list_tags/3)
+      resolve(&Resolver.Midia.list_tags/3)
     end
 
     field :categoria, :categoria do
-      resolve(&Resolvers.Categoria.get/3)
+      resolve(&Resolver.Categoria.get/3)
     end
   end
 end

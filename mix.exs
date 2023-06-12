@@ -51,7 +51,6 @@ defmodule Pescarte.MixProject do
       {:tesla, "~> 1.4"},
       {:finch, "~> 0.9.0"},
       {:absinthe, "~> 1.5"},
-      {:absinthe_error_payload, "~> 1.0"},
       {:lucide_icons, "~> 1.0"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},

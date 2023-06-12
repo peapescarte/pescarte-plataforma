@@ -103,7 +103,11 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
   defdelegate list_tags_from_midia(midia_id), to: Repository
 
   @impl true
-  def remove_tags_from_midia(_, []), do: {:ok, []}
+  def remove_tags_from_midia(midia_id, []) do
+    with {:ok, _} <- Repository.fetch_midia_by_id_publico(midia_id) do
+      {:ok, []}
+    end
+  end
 
   def remove_tags_from_midia(midia_id, tags_ids) do
     with {:ok, midia} <- Repository.fetch_midia_by_id_publico(midia_id),
@@ -115,44 +119,15 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
   end
 
   @impl true
-  def update_midia(attrs, tags) do
-    with {:ok, midia} <- Repository.fetch_midia_by_id_publico(attrs.id),
-         {:ok, tags} <- put_tags_ids(tags) do
-      midia = Map.put(midia, :id, midia.id)
-
-      attrs
-      |> Map.put(:tags, tags)
-      |> Repository.upsert_midia(midia)
-    end
-  end
-
-  defp put_tags_ids(tags) do
-    state = %{success: [], errors: []}
-
-    tags
-    |> Enum.reduce(state, fn id, state ->
-      case Repository.fetch_tag(id) do
-        {:ok, tag} ->
-          success = [%{tag | id: tag.id} | state[:success]]
-
-          %{state | success: success}
-
-        {:error, :not_found} ->
-          error = "Tag id #{id} é inválida"
-          errors = [error | state[:errors]]
-
-          %{state | errors: errors}
-      end
-    end)
-    |> case do
-      %{errors: [], success: tags} -> {:ok, tags}
-      %{errors: errors} -> {:error, errors}
+  def update_midia(attrs) do
+    with {:ok, midia} <- Repository.fetch_midia_by_id_publico(attrs.id) do
+      Repository.upsert_midia(midia, attrs)
     end
   end
 
   @impl true
   def update_tag(attrs) do
-    with {:ok, tag} <- Repository.fetch_tag(attrs.id) do
+    with {:ok, tag} <- Repository.fetch_tag_by_id_publico(attrs.id) do
       Repository.upsert_tag(tag, attrs)
     end
   end

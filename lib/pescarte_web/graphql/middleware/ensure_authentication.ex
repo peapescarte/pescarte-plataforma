@@ -1,9 +1,7 @@
-defmodule PescarteWeb.GraphQL.Middlewares.EnsureAuthentication do
+defmodule PescarteWeb.GraphQL.Middleware.EnsureAuthentication do
   @behaviour Absinthe.Middleware
 
   import Absinthe.Resolution, only: [path: 1, put_result: 2]
-
-  @error_message "Usuário não autenticado ou token expirado"
 
   def call(resolution, _) do
     path = Enum.filter(path(resolution), &(&1 == "login"))
@@ -17,7 +15,7 @@ defmodule PescarteWeb.GraphQL.Middlewares.EnsureAuthentication do
         resolution
 
       {_ctx, _path} ->
-        put_result(resolution, {:error, message: @error_message, code: 401})
+        put_result(resolution, {:error, :unauthenticated})
     end
   end
 end

@@ -19,7 +19,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.IManageRepository do
               {:ok, Categoria.t()} | {:error, changeset}
   @callback fetch_midia_by_id_publico(Pescarte.Repo.id()) ::
               {:ok, Midia.t()} | {:error, changeset}
-  @callback fetch_tag(Pescarte.Repo.id()) :: {:ok, Tag.t()} | {:error, changeset}
+  @callback fetch_tag_by_id_publico(Pescarte.Repo.id()) :: {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tag_by_etiqueta(binary) :: {:ok, Tag.t()} | {:error, changeset}
 
   @callback list_categoria :: list(Categoria.t())

@@ -1,26 +1,19 @@
 defmodule PescarteWeb.GraphQL.Schema.Midia do
   use Absinthe.Schema.Notation
 
-  import AbsintheErrorPayload.Payload
-
-  alias PescarteWeb.GraphQL.Resolvers
+  alias PescarteWeb.GraphQL.Resolver
 
   # Queries
 
-  payload_object(:listagem_midia_payload, list_of(:midia))
-  payload_object(:buscar_midia_payload, :midia)
-
   object :midia_queries do
-    field :listar_midias, type: :listagem_midia_payload do
-      resolve(&Resolvers.Midia.list/2)
-      middleware(&build_payload/2)
+    field :listar_midias, list_of(:midia) do
+      resolve(&Resolver.Midia.list/2)
     end
 
-    field :buscar_midia, type: :buscar_midia_payload do
+    field :buscar_midia, :midia do
       arg(:id, non_null(:string))
 
-      resolve(&Resolvers.Midia.get/2)
-      middleware(&build_payload/2)
+      resolve(&Resolver.Midia.get/2)
     end
   end
 
@@ -53,32 +46,25 @@ defmodule PescarteWeb.GraphQL.Schema.Midia do
     field :observacao, :string
     field :texto_alternativo, :string
     field :autor_id, :string
-    field :tags, list_of(:string)
   end
 
-  payload_object(:midia_payload, :midia)
-  payload_object(:remove_tag_payload, list_of(:tag))
-
   object :midia_mutations do
-    field :remove_midia_tags, type: :remove_tag_payload do
+    field :remove_midia_tags, list_of(:tag) do
       arg(:input, :remove_tag_input)
 
-      resolve(&Resolvers.Midia.remove_tags/2)
-      middleware(&build_payload/2)
+      resolve(&Resolver.Midia.remove_tags/2)
     end
 
-    field :criar_midia, type: :midia_payload do
+    field :criar_midia, :midia do
       arg(:input, :criar_midia_input)
 
-      resolve(&Resolvers.Midia.create/2)
-      middleware(&build_payload/2)
+      resolve(&Resolver.Midia.create/2)
     end
 
-    field :atualizar_midia, type: :midia_payload do
+    field :atualizar_midia, :midia do
       arg(:input, :atualizar_midia_input)
 
-      resolve(&Resolvers.Midia.update/2)
-      middleware(&build_payload/2)
+      resolve(&Resolver.Midia.update/2)
     end
   end
 end

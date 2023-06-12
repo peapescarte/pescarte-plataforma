@@ -1,7 +1,4 @@
-defmodule PescarteWeb.GraphQL.Resolvers.Login do
-  import AbsintheErrorPayload.Payload
-
-  alias AbsintheErrorPayload.ValidationMessage
+defmodule PescarteWeb.GraphQL.Resolver.Login do
   alias Pescarte.Domains.Accounts
 
   @token_salt "autenticação de usuário"
@@ -13,10 +10,10 @@ defmodule PescarteWeb.GraphQL.Resolvers.Login do
         token = Phoenix.Token.sign(PescarteWeb.Endpoint, @token_salt, user.id)
         payload = %{usuario: Map.drop(user, [:id]), token: token}
 
-        {:ok, success_payload(payload)}
+        {:ok, payload}
 
-      {:error, :not_found} ->
-        {:ok, error_payload(%ValidationMessage{code: 404, message: @error_message})}
+      error ->
+        error
     end
   end
 end

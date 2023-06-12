@@ -60,8 +60,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def fetch_tag(id) do
-    Repo.fetch(Tag, id)
+  def fetch_tag_by_id_publico(id) do
+    Repo.fetch_by(Tag, id_publico: id)
   end
 
   @impl true

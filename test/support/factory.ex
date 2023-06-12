@@ -77,7 +77,7 @@ defmodule Pescarte.Factory do
       nome_arquivo: sequence(:arquivo, &"arquivo#{&1}.jpg"),
       data_arquivo: ~D[2023-05-29],
       restrito?: false,
-      tags: insert_list(1, :tag)
+      tags: []
     }
   end
 

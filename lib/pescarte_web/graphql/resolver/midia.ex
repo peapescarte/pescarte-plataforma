@@ -1,4 +1,4 @@
-defmodule PescarteWeb.GraphQL.Resolvers.Midia do
+defmodule PescarteWeb.GraphQL.Resolver.Midia do
   alias Pescarte.Domains.ModuloPesquisa.Handlers
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
@@ -27,6 +27,6 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
   end
 
   def update(%{input: args}, _resolution) do
-    Handlers.Midias.update_midia(args.id, args.tags)
+    Handlers.Midias.update_midia(args)
   end
 end
