@@ -3,26 +3,55 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
 
   import Pescarte.Factory
 
-  alias Pescarte.ModuloPesquisa.Models.Midia
+  alias Pescarte.Domains.ModuloPesquisa.Models.Midia
 
   @moduletag :unit
 
-  describe "changeset/2" do
-    @invalid_params %{
-      tipo: nil,
-      tags: nil,
-      link: nil,
-      pesquisador_cpf: nil
+  test "alterações válidas no changeset com campos obrigatórios" do
+    autor = insert(:user)
+    tag = insert(:tag)
+
+    attrs = %{
+      tipo: :imagem,
+      nome_arquivo: "arquivo.jpg",
+      data_arquivo: ~D[2023-01-01],
+      link: "https://exemplo.com/imagem.jpg",
+      autor_id: autor.id
     }
 
-    test "when all params are valid, return a valid changeset" do
-      default_params = params_for(:midia)
+    changeset = Midia.changeset(%Midia{}, attrs, [tag])
 
-      assert %Ecto.Changeset{valid?: true} = Midia.changeset(%Midia{}, default_params)
-    end
+    assert changeset.valid?
+    assert get_change(changeset, :tipo) == :imagem
+    assert get_change(changeset, :nome_arquivo) == "arquivo.jpg"
+    assert get_change(changeset, :data_arquivo) == ~D[2023-01-01]
+    assert get_change(changeset, :link) == "https://exemplo.com/imagem.jpg"
+    assert get_change(changeset, :autor_id) == autor.id
+    assert length(get_change(changeset, :tags)) == 1
+  end
 
-    test "when params are invalid, return an error changeset" do
-      assert %Ecto.Changeset{valid?: false} = Midia.changeset(%Midia{}, @invalid_params)
-    end
+  test "alterações inválidas no changeset sem campos obrigatórios" do
+    attrs = %{
+      tipo: :imagem,
+      nome_arquivo: "arquivo.jpg",
+      data_arquivo: ~D[2023-01-01],
+      restrito?: false,
+      link: "https://exemplo.com/imagem.jpg"
+    }
+
+    changeset = Midia.changeset(%Midia{}, attrs, [])
+
+    refute changeset.valid?
+    assert Keyword.get(changeset.errors, :autor_id)
+  end
+
+  test "alterações válidas no changeset com novas tags" do
+    midia = Repo.preload(insert(:midia, tags: []), :tags)
+    tags = insert_list(2, :tag)
+
+    changeset = Midia.changeset(midia, %{}, tags)
+
+    assert changeset.valid?
+    assert length(get_change(changeset, :tags)) == 2
   end
 end

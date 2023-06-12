@@ -1,662 +1,238 @@
-defmodule Pescarte.AccountsTest do
+defmodule Pescarte.Accounts.AccountsTest do
   use Pescarte.DataCase, async: true
+
+  alias Pescarte.Domains.Accounts
+  alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.UserToken
 
   import Pescarte.Factory
 
-  alias Pescarte.Accounts
-  alias Pescarte.Accounts.Models.AuthLog
-  alias Pescarte.Accounts.Models.User, as: UserModel
-  alias Pescarte.Accounts.Models.UserToken
-  alias Pescarte.Accounts.Queries.User, as: UserQueries
-  alias Pescarte.Database
-  alias Pescarte.Repo
+  @moduletag :unit
 
-  @moduletag :integration
+  @now NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
 
-  @ip "127.0.0.1"
+  describe "confirm_user/1" do
+    test "quando o token de confirmação é inválido" do
+      assert {:error, :invalid_token} = Accounts.confirm_user("um token", @now)
+    end
 
-  describe "list_user/1" do
-    test "return all users in database" do
-      user = user_fixture()
+    test "quando o token de confirmação não existe para um usuário" do
+      token = :crypto.strong_rand_bytes(32)
+      insert(:email_token)
+      confirm_token = Base.url_encode64(token)
 
-      assert [user] == Accounts.list_user()
+      assert {:error, :not_found} = Accounts.confirm_user(confirm_token, @now)
+    end
+
+    test "quando o token de confirmação é válido" do
+      user = Repo.preload(insert(:user), :contato)
+      token = :crypto.strong_rand_bytes(32)
+      hashed = :crypto.hash(:sha256, token)
+
+      params = [
+        contexto: "confirm",
+        usuario_id: user.id,
+        token: hashed,
+        enviado_para: user.contato.email_principal
+      ]
+
+      insert(:email_token, params)
+      confirm_token = Base.url_encode64(token)
+
+      assert {:ok, confirmed} = Accounts.confirm_user(confirm_token, @now)
+      assert confirmed.id == user.id
+      assert confirmed.confirmado_em == @now
     end
   end
 
-  describe "get_user_by_email/1" do
-    test "does not return the user if the email does not exist" do
-      refute Accounts.get_user_by_email("unknown@example.com")
+  describe "create_user" do
+    test "quando os atributos são inválidos" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_user_admin(%{})
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_user_pesquisador(%{})
     end
 
-    test "returns the user if the email exists" do
-      %{cpf: cpf} = user = user_fixture()
-      assert %UserModel{cpf: ^cpf} = Accounts.get_user_by_email(user.contato.email)
-    end
-  end
+    test "quando os atributos são válidos" do
+      assert {:ok, %User{}} =
+               :user_creation
+               |> build()
+               |> Accounts.create_user_admin()
 
-  describe "get_user_by_email_and_password/2" do
-    test "does not return the user if the email does not exist" do
-      refute Accounts.get_user_by_email_and_password("unknown@example.com", "hello world!")
-    end
-
-    test "does not return the user if the password is not valid" do
-      user = user_fixture()
-      refute Accounts.get_user_by_email_and_password(user.contato.email, "invalid")
-    end
-
-    test "returns the user if the email and password are valid" do
-      %{cpf: cpf} = user = user_fixture()
-
-      assert %UserModel{cpf: ^cpf} =
-               Accounts.get_user_by_email_and_password(user.contato.email, valid_user_password())
+      assert {:ok, %User{}} =
+               :user_creation
+               |> build()
+               |> Accounts.create_user_pesquisador()
     end
   end
 
-  describe "user_exists?/1" do
-    test "when id is valid, returns true" do
+  describe "fetch_user_by_cpf_and_password/2" do
+    test "quando o cpf ou a senha sãos inválidos" do
       user = insert(:user)
-      assert Accounts.user_exists?(user.cpf)
+
+      assert {:error, :not_found} = Accounts.fetch_user_by_cpf_and_password("123", user.senha)
+
+      assert {:error, :invalid_password} =
+               Accounts.fetch_user_by_cpf_and_password(user.cpf, "123")
     end
 
-    test "when id is invalid, returns false" do
-      refute Accounts.user_exists?("")
-    end
-  end
+    test "quando o cpf e a senha são válidos" do
+      user = insert(:user)
 
-  describe "get_user/1" do
-    test "when id is valid, returns a user" do
-      user = user_fixture()
-      assert user == Accounts.get_user(user.cpf)
-    end
-
-    test "when id is invalid, returns nil" do
-      refute Accounts.get_user("")
+      assert {:ok, fetched} = Accounts.fetch_user_by_cpf_and_password(user.cpf, user.senha)
+      assert fetched.id == user.id
+      assert fetched.cpf == user.cpf
     end
   end
 
-  describe "get_user_by_id/1" do
-    test "when id is valid, returns a user" do
-      user = user_fixture()
-      assert user == Accounts.get_user_by_id(user.id)
+  describe "fetch_user_by_email_and_password/2" do
+    test "quando o email ou a senha sãos inválidos" do
+      user = Repo.preload(insert(:user), :contato)
+
+      assert {:error, :not_found} = Accounts.fetch_user_by_email_and_password("123", user.senha)
+
+      assert {:error, :invalid_password} =
+               Accounts.fetch_user_by_email_and_password(user.contato.email_principal, "123")
     end
 
-    test "when id is invalid, returns nil" do
-      refute Accounts.get_user_by_id("")
-    end
-  end
+    test "quando o email e a senha são válidos" do
+      user = Repo.preload(insert(:user), :contato)
 
-  describe "register_user/1" do
-    test "requires email and password to be set" do
-      {:error, changeset} = Accounts.register_user(%{})
+      assert {:ok, fetched} =
+               Accounts.fetch_user_by_email_and_password(user.contato.email_principal, user.senha)
 
-      assert %{
-               password: ["can't be blank"],
-               contato: ["can't be blank"]
-             } = errors_on(changeset)
-    end
-
-    test "validates email and password when given" do
-      {:error, changeset} =
-        Accounts.register_user(%{contato: %{email: "not valid"}, password: "not valid"})
-
-      assert %{
-               contato: %{email: ["must have the @ sign and no spaces"]},
-               password: [
-                 "at least one digit or punctuation character",
-                 "at least one upper case character",
-                 "should be at least 12 character(s)"
-               ]
-             } = errors_on(changeset)
-    end
-
-    test "validates maximum values for email and password for security" do
-      too_long = String.duplicate("db", 100)
-
-      {:error, changeset} =
-        Accounts.register_user(%{contato: %{email: too_long}, password: too_long})
-
-      assert "should be at most 160 character(s)" in errors_on(changeset).contato.email
-      assert "should be at most 72 character(s)" in errors_on(changeset).password
-    end
-
-    test "validates email uniqueness" do
-      %{contato: %{email: email}} = user_fixture()
-      {:error, changeset} = Accounts.register_user(%{contato: %{email: email}})
-      assert "has already been taken" in errors_on(changeset).contato.email
-
-      # Now try with the upper cased email too, to check that email case is ignored.
-      {:error, changeset} = Accounts.register_user(%{contato: %{email: String.upcase(email)}})
-      assert "has already been taken" in errors_on(changeset).contato.email
-    end
-
-    test "registers user with a hashed password" do
-      email = unique_user_email()
-      contato = params_for(:contato, email: email)
-      password = valid_user_password()
-
-      valid_user_attributes =
-        :user
-        |> params_for()
-        |> Map.put(:contato, contato)
-        |> Map.merge(%{password: password, password_confirmation: password})
-
-      {:ok, user} = Accounts.register_user(valid_user_attributes)
-      assert user.contato.email == email
-      assert is_binary(user.password_hash)
-      assert is_nil(user.confirmed_at)
-      assert is_nil(user.password)
+      assert fetched.id == user.id
+      assert fetched.cpf == user.cpf
     end
   end
 
-  describe "change_user_registration/2" do
-    test "returns a changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%UserModel{})
-      assert changeset.required == ~w(password contato nome_completo cpf data_nascimento)a
+  describe "fetch_user_by_reset_password_token/1" do
+    test "quando o token é inválido" do
+      assert {:error, :invalid_token} =
+               Accounts.fetch_user_by_reset_password_token("token inválido")
+
+      assert {:error, :not_found} =
+               Accounts.fetch_user_by_reset_password_token(Base.url_encode64("token inválido"))
     end
 
-    test "allows fields to be set" do
-      email = unique_user_email()
-      password = valid_user_password()
+    test "quando o token é valido para o usuário" do
+      user = Repo.preload(insert(:user), :contato)
+      token = :crypto.strong_rand_bytes(32)
 
-      contato = params_for(:contato, email: email)
+      insert(:email_token,
+        contexto: "reset_password",
+        usuario: user,
+        usuario_id: user.id,
+        enviado_para: user.contato.email_principal,
+        token: :crypto.hash(:sha256, token)
+      )
 
-      valid_user_attributes =
-        :user
-        |> params_for()
-        |> Map.put(:contato, contato)
-        |> Map.merge(%{password: password, password_confirmation: password})
-
-      changeset =
-        Accounts.change_user_registration(
-          %UserModel{},
-          valid_user_attributes
-        )
-
-      assert changeset.valid?
-      assert changeset |> get_change(:contato) |> get_change(:email) == email
-      assert get_change(changeset, :password) == password
-      refute get_change(changeset, :password_hash)
+      token_url_encoded = Base.url_encode64(token)
+      assert {:ok, fetched} = Accounts.fetch_user_by_reset_password_token(token_url_encoded)
+      assert user.id == fetched.id
     end
   end
 
-  describe "change_user_email/2" do
-    test "returns a user changeset" do
-      assert %Ecto.Changeset{} =
-               changeset =
-               %UserModel{}
-               |> Database.preload_all(UserQueries.relationships())
-               |> Accounts.change_user_email()
+  describe "fetch_user_by_session_token" do
+    test "quando o token é inválido" do
+      assert {:error, :not_found} = Accounts.fetch_user_by_session_token("token inválido")
+    end
 
-      assert :contato in changeset.required
+    test "quando o token é válido para o usuário" do
+      token = Repo.preload(insert(:session_token), :usuario)
+      user = Repo.preload(token.usuario, :contato)
+
+      assert {:ok, fetched} = Accounts.fetch_user_by_session_token(token.token)
+      assert fetched.id == user.id
     end
   end
 
-  describe "apply_user_email/3" do
-    setup do
-      %{user: user_fixture()}
-    end
+  describe "generate_email_token/2" do
+    test "quando o token gerado é válido, é possível recuperar o usuário" do
+      user = Repo.preload(insert(:user), :contato)
 
-    test "requires email to change", %{user: user} do
-      {:error, changeset} = Accounts.apply_user_email(user, valid_user_password(), %{})
-      assert %{email: ["didn't change"]} = errors_on(changeset)
-    end
-
-    test "validates email", %{user: user} do
-      {:error, changeset} =
-        Accounts.apply_user_email(user, valid_user_password(), %{email: "not valid"})
-
-      assert %{email: ["must have the @ sign and no spaces"]} = errors_on(changeset)
-    end
-
-    test "validates maximum value for email for security", %{user: user} do
-      too_long = String.duplicate("db", 100)
-
-      {:error, changeset} =
-        Accounts.apply_user_email(user, valid_user_password(), %{email: too_long})
-
-      assert "should be at most 160 character(s)" in errors_on(changeset).email
-    end
-
-    test "validates email uniqueness", %{user: user} do
-      %{contato: %{email: email}} = user_fixture()
-
-      {:error, changeset} =
-        Accounts.apply_user_email(user, valid_user_password(), %{email: email})
-
-      assert "has already been taken" in errors_on(changeset).email
-    end
-
-    test "validates current password", %{user: user} do
-      {:error, changeset} =
-        Accounts.apply_user_email(user, "invalid", %{email: unique_user_email()})
-
-      assert %{current_password: ["is not valid"]} = errors_on(changeset)
-    end
-
-    test "applies the email without persisting it", %{user: user} do
-      email = unique_user_email()
-      {:ok, user} = Accounts.apply_user_email(user, valid_user_password(), %{email: email})
-      assert user.contato.email == email
-      assert Accounts.get_user(user.cpf).contato.email != email
+      assert {:ok, token} = Accounts.generate_email_token(user, "reset_password")
+      assert {:ok, fetched} = Accounts.fetch_user_by_reset_password_token(token)
+      assert fetched.id == user.id
     end
   end
 
-  describe "deliver_update_email_instructions/3" do
-    setup do
-      %{user: user_fixture()}
-    end
+  describe "generate_session_token/1" do
+    test "quando o token gerado é válido, é possível recuperar o usuário" do
+      user = Repo.preload(insert(:user), :contato)
 
-    test "sends token through notification", %{user: user} do
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_update_email_instructions(user, "current@example.com", url)
-        end)
-
-      {:ok, token} = Base.url_decode64(token, padding: false)
-      assert user_token = Repo.get_by(UserToken, token: :crypto.hash(:sha256, token))
-      assert user_token.user_cpf == user.cpf
-      assert user_token.sent_to == user.contato.email
-      assert user_token.context == "change:current@example.com"
-    end
-  end
-
-  describe "update_user_email/2" do
-    setup do
-      user = user_fixture()
-      email = unique_user_email()
-
-      contato = user.contato |> Map.delete([:id, :__struct__]) |> Map.put(:email, email)
-
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_update_email_instructions(
-            %{user | contato: contato},
-            user.contato.email,
-            url
-          )
-        end)
-
-      %{user: user, token: token, email: email}
-    end
-
-    test "updates the email with a valid token", %{user: user, token: token, email: email} do
-      assert Accounts.update_user_email(user, token) == :ok
-      changed_user = Accounts.get_user(user.cpf)
-      assert changed_user.contato.email != user.contato.email
-      assert changed_user.contato.email == email
-      assert changed_user.confirmed_at
-      assert changed_user.confirmed_at != user.confirmed_at
-      refute Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-
-    test "does not update email with invalid token", %{user: user} do
-      assert Accounts.update_user_email(user, "oops") == :error
-      assert Accounts.get_user(user.cpf).contato.email == user.contato.email
-      assert Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-
-    test "does not update email if user email changed", %{user: user, token: token} do
-      contato = %{user.contato | email: "current@example.com"}
-      assert Accounts.update_user_email(%{user | contato: contato}, token) == :error
-      assert Accounts.get_user(user.cpf).contato.email == user.contato.email
-      assert Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-
-    test "does not update email if token expired", %{user: user, token: token} do
-      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
-      assert Accounts.update_user_email(user, token) == :error
-      assert Accounts.get_user(user.cpf).contato.email == user.contato.email
-      assert Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-  end
-
-  describe "change_user_password/2" do
-    test "returns a user changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_password(%UserModel{})
-      assert changeset.required == [:password]
-    end
-
-    test "allows fields to be set" do
-      changeset =
-        Accounts.change_user_password(%UserModel{}, %{
-          "password" => "New valid password!",
-          "password_confirmation" => "New valid password!"
-        })
-
-      assert changeset.valid?
-      assert get_change(changeset, :password) == "New valid password!"
-      refute get_change(changeset, :password_hash)
+      assert {:ok, token} = Accounts.generate_session_token(user)
+      assert {:ok, fetched} = Accounts.fetch_user_by_session_token(token)
+      assert fetched.id == user.id
     end
   end
 
   describe "update_user_password/3" do
     setup do
-      %{user: user_fixture()}
+      %{user: Repo.preload(insert(:user), :contato)}
     end
 
-    test "validates password", %{user: user} do
-      {:error, changeset} =
-        Accounts.update_user_password(user, valid_user_password(), %{
-          password: "not valid",
-          password_confirmation: "another"
-        })
-
-      assert %{
-               password: [
-                 "at least one digit or punctuation character",
-                 "at least one upper case character",
-                 "should be at least 12 character(s)"
-               ],
-               password_confirmation: ["does not match password"]
-             } = errors_on(changeset)
+    test "quando a senha atual for incorreta", ctx do
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:error, _} = Accounts.update_user_password(ctx.user, "incorreta", %{})
     end
 
-    test "validates maximum values for password for security", %{user: user} do
-      too_long = String.duplicate("db", 100)
+    test "quando as novas senhas forem inválidas", ctx do
+      senhas = %{senha: "123", senha_confirmation: "123"}
+      atual = senha_atual()
 
-      {:error, changeset} =
-        Accounts.update_user_password(user, valid_user_password(), %{password: too_long})
-
-      assert "should be at most 72 character(s)" in errors_on(changeset).password
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:error, _} = Accounts.update_user_password(ctx.user, atual, senhas)
     end
 
-    test "validates current password", %{user: user} do
-      {:error, changeset} =
-        Accounts.update_user_password(user, "invalid", %{password: valid_user_password()})
+    test "quando a atual é válida e as senhas novas são iguais a atual", ctx do
+      atual = senha_atual()
+      senhas = %{senha: atual, senha_confirmation: atual}
 
-      assert %{current_password: ["is not valid"]} = errors_on(changeset)
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.update_user_password(ctx.user, atual, senhas)
+      assert changed.hash_senha == ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
     end
 
-    test "updates the password", %{user: user} do
-      {:ok, user} =
-        Accounts.update_user_password(user, valid_user_password(), %{
-          password: "New valid password!",
-          password_confirmation: "New valid password!"
-        })
+    test "quando a senha atual e as senhas novas forem válidas", ctx do
+      atual = senha_atual()
+      senhas = %{senha: "pASSw0rd!234", senha_confirmation: "pASSw0rd!234"}
 
-      assert is_nil(user.password)
-      assert Accounts.get_user_by_email_and_password(user.contato.email, "New valid password!")
-    end
-
-    test "deletes all tokens for the given user", %{user: user} do
-      _ = Accounts.generate_user_session_token(user)
-
-      {:ok, _} =
-        Accounts.update_user_password(user, valid_user_password(), %{
-          password: "New valid password!",
-          password_confirmation: "New valid password!"
-        })
-
-      refute Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-  end
-
-  describe "generate_user_session_token/1" do
-    setup do
-      %{user: insert(:user)}
-    end
-
-    test "generates a token", %{user: user} do
-      token = Accounts.generate_user_session_token(user)
-      assert user_token = Repo.get_by(UserToken, token: token)
-      assert user_token.context == "session"
-
-      # Creating the same token for another user should fail
-      assert_raise Ecto.ConstraintError, fn ->
-        Repo.insert!(%UserToken{
-          token: user_token.token,
-          user_cpf: user_fixture().cpf,
-          context: "session"
-        })
-      end
-    end
-  end
-
-  describe "get_user_by_session_token/1" do
-    setup do
-      user = insert(:user)
-      token = Accounts.generate_user_session_token(user)
-      %{user: user, token: token}
-    end
-
-    test "returns user by token", %{user: user, token: token} do
-      assert session_user = Accounts.get_user_by_session_token(token)
-      assert session_user.cpf == user.cpf
-    end
-
-    test "does not return user for invalid token" do
-      refute Accounts.get_user_by_session_token("oops")
-    end
-
-    test "does not return user for expired token", %{token: token} do
-      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
-      refute Accounts.get_user_by_session_token(token)
-    end
-  end
-
-  describe "delete_session_token/1" do
-    test "deletes the token" do
-      user = insert(:user)
-      token = Accounts.generate_user_session_token(user)
-      assert Accounts.delete_session_token(token) == :ok
-      refute Accounts.get_user_by_session_token(token)
-    end
-  end
-
-  describe "deliver_user_confirmation_instructions/2" do
-    setup do
-      %{user: user_fixture()}
-    end
-
-    test "sends token through notification", %{user: user} do
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_user_confirmation_instructions(user, url)
-        end)
-
-      {:ok, token} = Base.url_decode64(token, padding: false)
-      assert user_token = Repo.get_by(UserToken, token: :crypto.hash(:sha256, token))
-      assert user_token.user_cpf == user.cpf
-      assert user_token.sent_to == user.contato.email
-      assert user_token.context == "confirm"
-    end
-  end
-
-  describe "confirm_user/1" do
-    setup do
-      user = user_fixture()
-
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_user_confirmation_instructions(user, url)
-        end)
-
-      %{user: user, token: token}
-    end
-
-    test "confirms the email with a valid token", %{user: user, token: token} do
-      assert {:ok, confirmed_user} = Accounts.confirm_user(token)
-      assert confirmed_user.confirmed_at
-      assert confirmed_user.confirmed_at != user.confirmed_at
-      assert Repo.get!(UserModel, user.cpf).confirmed_at
-      refute Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-
-    test "does not confirm with invalid token", %{user: user} do
-      assert Accounts.confirm_user("oops") == :error
-      refute Repo.get!(UserModel, user.cpf).confirmed_at
-      assert Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-
-    test "does not confirm email if token expired", %{user: user, token: token} do
-      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
-      assert Accounts.confirm_user(token) == :error
-      refute Repo.get!(UserModel, user.cpf).confirmed_at
-      assert Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-  end
-
-  describe "deliver_user_reset_password_instructions/2" do
-    setup do
-      %{user: user_fixture()}
-    end
-
-    test "sends token through notification", %{user: user} do
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_user_reset_password_instructions(user, url)
-        end)
-
-      {:ok, token} = Base.url_decode64(token, padding: false)
-      assert user_token = Repo.get_by(UserToken, token: :crypto.hash(:sha256, token))
-      assert user_token.user_cpf == user.cpf
-      assert user_token.sent_to == user.contato.email
-      assert user_token.context == "reset_password"
-    end
-  end
-
-  describe "get_user_by_reset_password_token/1" do
-    setup do
-      user = user_fixture()
-
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_user_reset_password_instructions(user, url)
-        end)
-
-      %{user: user, token: token}
-    end
-
-    test "returns the user with valid token", %{user: %{cpf: cpf}, token: token} do
-      assert %UserModel{cpf: ^cpf} = Accounts.get_user_by_reset_password_token(token)
-      assert Repo.get_by(UserToken, user_cpf: cpf)
-    end
-
-    test "does not return the user with invalid token", %{user: user} do
-      refute Accounts.get_user_by_reset_password_token("oops")
-      assert Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-
-    test "does not return the user if token expired", %{user: user, token: token} do
-      {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
-      refute Accounts.get_user_by_reset_password_token(token)
-      assert Repo.get_by(UserToken, user_cpf: user.cpf)
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.update_user_password(ctx.user, atual, senhas)
+      assert changed.hash_senha != ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
     end
   end
 
   describe "reset_user_password/2" do
     setup do
-      %{user: user_fixture()}
+      %{user: Repo.preload(insert(:user), :contato)}
     end
 
-    test "validates password", %{user: user} do
-      {:error, changeset} =
-        Accounts.reset_user_password(user, %{
-          password: "not valid",
-          password_confirmation: "another"
-        })
+    test "quando as novas senhas são inválidas", ctx do
+      senhas = %{senha: "123", senha_confirmation: "123"}
 
-      assert %{
-               password: [
-                 "at least one digit or punctuation character",
-                 "at least one upper case character",
-                 "should be at least 12 character(s)"
-               ],
-               password_confirmation: ["does not match password"]
-             } = errors_on(changeset)
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:error, _} = Accounts.reset_user_password(ctx.user, senhas)
     end
 
-    test "validates maximum values for password for security", %{user: user} do
-      too_long = String.duplicate("db", 100)
-      {:error, changeset} = Accounts.reset_user_password(user, %{password: too_long})
-      assert "should be at most 72 character(s)" in errors_on(changeset).password
+    test "quando as senhas novas são iguais a atual", ctx do
+      atual = senha_atual()
+      senhas = %{senha: atual, senha_confirmation: atual}
+
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.reset_user_password(ctx.user, senhas)
+      assert changed.hash_senha == ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
     end
 
-    test "updates the password", %{user: user} do
-      {:ok, updated_user} =
-        Accounts.reset_user_password(user, %{
-          password: "New valid password!",
-          password_confirmation: "New valid password!"
-        })
+    test "quando as senhas novas são válidas", ctx do
+      senhas = %{senha: "pASSw0rd!234", senha_confirmation: "pASSw0rd!234"}
 
-      assert is_nil(updated_user.password)
-      assert Accounts.get_user_by_email_and_password(user.contato.email, "New valid password!")
+      assert {:ok, _token} = Accounts.generate_email_token(ctx.user, "reset_password")
+      assert {:ok, changed} = Accounts.reset_user_password(ctx.user, senhas)
+      assert changed.hash_senha != ctx.user.hash_senha
+      assert Repo.aggregate(UserToken, :count) == 0
     end
-
-    test "deletes all tokens for the given user", %{user: user} do
-      _ = Accounts.generate_user_session_token(user)
-
-      {:ok, _} =
-        Accounts.reset_user_password(user, %{
-          password: "New valid password!",
-          password_confirmation: "New valid password!"
-        })
-
-      refute Repo.get_by(UserToken, user_cpf: user.cpf)
-    end
-  end
-
-  describe "inspect/2" do
-    test "does not include password" do
-      refute inspect(%UserModel{password: "123456"}) =~ "password: \"123456\""
-    end
-  end
-
-  describe "create_auth_log/1" do
-    test "success should return :ok" do
-      ua =
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
-
-      user = insert(:user)
-
-      result =
-        Accounts.create_auth_log(%{"ip" => @ip, "user_agent" => ua, "user_cpf" => user.cpf})
-
-      auth_log = get_log(@ip)
-
-      assert result == :ok
-      assert Map.get(auth_log, :ip) == @ip
-      assert Map.get(auth_log, :user_agent) == ua
-      assert Map.get(auth_log, :user_cpf) == user.cpf
-    end
-
-    test "with error should return :ok" do
-      user = build(:user)
-      result = Accounts.create_auth_log(%{"user_cpf" => user})
-      auth_log = get_log(@ip)
-
-      assert result == :ok
-      assert auth_log == nil
-    end
-  end
-
-  describe "create_auth_log/3" do
-    test "success should return :ok" do
-      ua =
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
-
-      user = insert(:user)
-
-      result = Accounts.create_auth_log(@ip, ua, user)
-      auth_log = get_log(@ip)
-
-      assert result == :ok
-      assert Map.get(auth_log, :ip) == @ip
-      assert Map.get(auth_log, :user_agent) == ua
-      assert Map.get(auth_log, :user_cpf) == user.cpf
-    end
-
-    test "with error should return :ok" do
-      user = build(:user)
-      result = Accounts.create_auth_log(nil, nil, user)
-      auth_log = get_log(@ip)
-
-      assert result == :ok
-      assert auth_log == nil
-    end
-  end
-
-  defp get_log(ip) do
-    Repo.get_by(AuthLog, ip: ip)
   end
 end

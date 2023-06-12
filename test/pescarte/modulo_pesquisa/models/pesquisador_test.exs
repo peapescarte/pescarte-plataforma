@@ -3,41 +3,70 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
 
   import Pescarte.Factory
 
-  alias Pescarte.ModuloPesquisa.Models.Pesquisador
+  alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
   @moduletag :unit
 
-  describe "changeset/2" do
-    @invalid_params %{
-      usuario_cpf: nil,
-      minibiografia: nil,
-      tipo_bolsa: nil,
-      link_lattes: nil,
-      orientador_cpf: nil,
-      campus_nome: nil
+  test "alterações válidas no changeset com campos obrigatórios" do
+    attrs = %{
+      minibio: "Minibio do Pesquisador",
+      bolsa: :pesquisa,
+      link_lattes: "https://linklattes.com",
+      campus_id: insert(:campus).id,
+      usuario_id: insert(:user).id,
+      rg: "12.123.456-7",
+      data_inicio_bolsa: ~D[2023-01-01],
+      data_fim_bolsa: ~D[2023-12-31],
+      data_contratacao: ~D[2023-01-01],
+      formacao: "Formação do Pesquisador"
     }
 
-    test "when all params are valid, return a valid changeset" do
-      valid_password = valid_user_password()
+    changeset = Pesquisador.changeset(%Pesquisador{}, attrs)
 
-      usuario_params =
-        :user
-        |> params_for()
-        |> Map.put(:password, valid_password)
-        |> Map.put(:password_confirmation, valid_password)
-        |> Map.put(:contato, params_for(:contato))
+    assert changeset.valid?
+    assert get_change(changeset, :minibio) == "Minibio do Pesquisador"
+    assert get_change(changeset, :bolsa) == :pesquisa
+    assert get_change(changeset, :link_lattes) == "https://linklattes.com"
+    assert get_change(changeset, :rg) == "12.123.456-7"
+    assert get_change(changeset, :formacao) == "Formação do Pesquisador"
+  end
 
-      default_params =
-        :pesquisador
-        |> params_for()
-        |> Map.put(:usuario, usuario_params)
+  test "alterações inválidas no changeset sem campos obrigatórios" do
+    attrs = %{
+      minibio: "Minibio do Pesquisador",
+      bolsa: :pesquisa,
+      link_lattes: "https://linklattes.com",
+      campus_id: insert(:campus).id,
+      usuario_id: insert(:user).id,
+      rg: "12.123.456-7",
+      data_inicio_bolsa: ~D[2023-01-01],
+      data_fim_bolsa: ~D[2023-12-31],
+      data_contratacao: ~D[2023-01-01]
+    }
 
-      assert %Ecto.Changeset{valid?: true} = Pesquisador.changeset(%Pesquisador{}, default_params)
-    end
+    changeset = Pesquisador.changeset(%Pesquisador{}, attrs)
 
-    test "when params are invalid, return an error changeset" do
-      assert %Ecto.Changeset{valid?: false} =
-               Pesquisador.changeset(%Pesquisador{}, @invalid_params)
-    end
+    refute changeset.valid?
+    assert Keyword.get(changeset.errors, :formacao)
+  end
+
+  test "alterações válidas no changeset de atualização" do
+    pesquisador = insert(:pesquisador)
+    attrs = %{minibio: "Nova Minibio"}
+
+    changeset = Pesquisador.changeset(pesquisador, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :minibio) == "Nova Minibio"
+  end
+
+  test "alterações inválidas no changeset de atualização com minibio muito longa" do
+    pesquisador = insert(:pesquisador)
+    attrs = %{minibio: String.duplicate("a", 281)}
+
+    changeset = Pesquisador.changeset(pesquisador, attrs)
+
+    refute changeset.valid?
+    assert Keyword.get(changeset.errors, :minibio)
   end
 end

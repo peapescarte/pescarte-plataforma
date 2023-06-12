@@ -11,7 +11,8 @@ defmodule Pescarte.MixProject do
       elixirc_options: [warnings_as_errors: false],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: ["test.reset": :test]
     ]
   end
 
@@ -35,13 +36,13 @@ defmodule Pescarte.MixProject do
       {:brcpfcnpj, "~> 1.0.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:bcrypt_elixir, "~> 2.0"},
+      {:bandit, "~> 0.6"},
       {:ecto_sql, "~> 3.4"},
       {:nanoid, "~> 2.0.5"},
       {:hackney, "~> 1.8"},
       {:timex, "~> 3.0"},
       {:ex_machina, "~> 2.7.0"},
       {:postgrex, ">= 0.0.0"},
-      {:carbonite, "~> 0.4.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:phoenix_live_view, "~> 0.18"},
@@ -53,12 +54,12 @@ defmodule Pescarte.MixProject do
       {:lucide_icons, "~> 1.0"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
-      {:plug_cowboy, "~> 2.3"},
       {:phoenix_storybook, "~> 0.5.0"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev}
+      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
+      {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -68,7 +69,7 @@ defmodule Pescarte.MixProject do
       setup: ["deps.get", "ecto.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "seeds", "test"],
+      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "test.reset": ["ecto.drop", "test"],
       "assets.build": [
         "esbuild default",
