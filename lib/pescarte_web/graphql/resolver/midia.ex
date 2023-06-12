@@ -1,6 +1,10 @@
-defmodule PescarteWeb.GraphQL.Resolvers.Midia do
+defmodule PescarteWeb.GraphQL.Resolver.Midia do
   alias Pescarte.Domains.ModuloPesquisa.Handlers
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
+
+  def create(%{input: %{tags: tags} = args}, _resolution) do
+    Handlers.Midias.create_midia_and_tags(args, tags)
+  end
 
   def create(%{input: args}, _resolution) do
     Handlers.Midias.create_midia(args)
@@ -18,11 +22,11 @@ defmodule PescarteWeb.GraphQL.Resolvers.Midia do
     {:ok, Handlers.Midias.list_midias_from_tag(tag.id)}
   end
 
-  def remove_tags(args, _resolution) do
-    Handlers.Midias.remove_tags_from_midia(args.midia_id, args.tags)
+  def remove_tags(%{input: args}, _resolution) do
+    Handlers.Midias.remove_tags_from_midia(args.midia_id, args.tags_id)
   end
 
   def update(%{input: args}, _resolution) do
-    Handlers.Midias.update_midia(args.id, args.tags)
+    Handlers.Midias.update_midia(args)
   end
 end

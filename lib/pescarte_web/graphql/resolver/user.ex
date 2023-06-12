@@ -1,4 +1,4 @@
-defmodule PescarteWeb.GraphQL.Resolvers.User do
+defmodule PescarteWeb.GraphQL.Resolver.User do
   alias Pescarte.Domains.Accounts
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
 

@@ -15,14 +15,18 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioTrimestralTest do
       status: :entregue
     }
 
-    assert {:ok, relatorio_trimestral} = RelatorioTrimestral.changeset(attrs)
-    assert relatorio_trimestral.ano == 2023
-    assert relatorio_trimestral.mes == 1
-    assert relatorio_trimestral.status == :entregue
+    changeset = RelatorioTrimestral.changeset(%RelatorioTrimestral{}, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :ano) == 2023
+    assert get_change(changeset, :mes) == 1
+    assert get_change(changeset, :status) == :entregue
   end
 
   test "alterações inválidas no changeset sem campos obrigatórios" do
-    assert {:error, changeset} = RelatorioTrimestral.changeset(%{})
+    changeset = RelatorioTrimestral.changeset(%RelatorioTrimestral{}, %{})
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :ano)
     assert Keyword.get(changeset.errors, :mes)
     assert Keyword.get(changeset.errors, :pesquisador_id)

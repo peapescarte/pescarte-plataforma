@@ -125,8 +125,8 @@ defmodule Pescarte.Accounts.AccountsTest do
         token: :crypto.hash(:sha256, token)
       )
 
-      token = Base.url_encode64(token)
-      assert {:ok, fetched} = Accounts.fetch_user_by_reset_password_token(token)
+      token_url_encoded = Base.url_encode64(token)
+      assert {:ok, fetched} = Accounts.fetch_user_by_reset_password_token(token_url_encoded)
       assert user.id == fetched.id
     end
   end

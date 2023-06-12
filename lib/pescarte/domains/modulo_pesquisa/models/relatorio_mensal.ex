@@ -58,20 +58,18 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     field :ano, :integer
     field :mes, :integer
     field :link, :string
-    field :id_publico, :string
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
     belongs_to :pesquisador, Pesquisador, on_replace: :update
 
     timestamps()
   end
 
-  @spec changeset(map) :: {:ok, RelatorioMensal.t()} | {:error, changeset}
-  def changeset(relatorio_mensal \\ %__MODULE__{}, attrs) do
+  @spec changeset(RelatorioMensal.t(), map) :: changeset
+  def changeset(%RelatorioMensal{} = relatorio_mensal, attrs) do
     relatorio_mensal
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> foreign_key_constraint(:pesquisador_id)
-    |> put_change(:id_publico, Nanoid.generate())
-    |> apply_action(:parse)
   end
 end

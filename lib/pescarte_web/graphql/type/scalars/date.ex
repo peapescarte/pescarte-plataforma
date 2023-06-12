@@ -1,4 +1,4 @@
-defmodule PescarteWeb.GraphQL.Types.Scalars.Date do
+defmodule PescarteWeb.GraphQL.Type.Scalars.Date do
   use Absinthe.Schema.Notation
 
   @desc "Tipo que representa uma data ISO8601"

@@ -3,12 +3,14 @@ defmodule Pescarte.Repo.Migrations.CriaNucleoPesquisa do
 
   def change do
     create table(:nucleo_pesquisa) do
-      add :nome, :string, null: false
-      add :desc, :string, size: 400
-      add :letra, :string, null: true
-      add :id_publico, :string, null: false
+      add(:nome, :string, null: false)
+      add(:desc, :string, size: 400)
+      add(:letra, :string, null: true)
+      add(:id_publico, :string, null: false)
 
       timestamps()
     end
+
+    create(unique_index(:nucleo_pesquisa, [:nome, :letra]))
   end
 end

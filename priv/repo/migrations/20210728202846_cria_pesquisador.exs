@@ -25,6 +25,7 @@ defmodule Pescarte.Repo.Migrations.CreatePesquisador do
       timestamps()
     end
 
+    create unique_index(:pesquisador, [:rg])
     create index(:pesquisador, [:usuario_id])
     create index(:pesquisador, [:campus_id])
     create index(:pesquisador, [:orientador_id])

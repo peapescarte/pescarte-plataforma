@@ -16,6 +16,7 @@ config :pescarte, Pescarte.Repo, migration_timestamps: [type: :utc_datetime_usec
 # Endpoint
 # ---------------------------#
 config :pescarte, PescarteWeb.Endpoint,
+  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   secret_key_base: "/tnqEz6BgkvSQoZdVePI7wI2tB6enxAPY66OSNNCGSeDy2VkzG0lIc/cguFxfA+0",
   render_errors: [formats: [html: PescarteWeb.ErrorHTML], layout: false],

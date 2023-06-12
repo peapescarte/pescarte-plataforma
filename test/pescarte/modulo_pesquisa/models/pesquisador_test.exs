@@ -21,12 +21,14 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
       formacao: "Formação do Pesquisador"
     }
 
-    assert {:ok, pesquisador} = Pesquisador.changeset(attrs)
-    assert pesquisador.minibio == "Minibio do Pesquisador"
-    assert pesquisador.bolsa == :pesquisa
-    assert pesquisador.link_lattes == "https://linklattes.com"
-    assert pesquisador.rg == "12.123.456-7"
-    assert pesquisador.formacao == "Formação do Pesquisador"
+    changeset = Pesquisador.changeset(%Pesquisador{}, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :minibio) == "Minibio do Pesquisador"
+    assert get_change(changeset, :bolsa) == :pesquisa
+    assert get_change(changeset, :link_lattes) == "https://linklattes.com"
+    assert get_change(changeset, :rg) == "12.123.456-7"
+    assert get_change(changeset, :formacao) == "Formação do Pesquisador"
   end
 
   test "alterações inválidas no changeset sem campos obrigatórios" do
@@ -42,7 +44,9 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
       data_contratacao: ~D[2023-01-01]
     }
 
-    assert {:error, changeset} = Pesquisador.changeset(attrs)
+    changeset = Pesquisador.changeset(%Pesquisador{}, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :formacao)
   end
 
@@ -50,15 +54,19 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
     pesquisador = insert(:pesquisador)
     attrs = %{minibio: "Nova Minibio"}
 
-    assert {:ok, pesquisador} = Pesquisador.changeset(pesquisador, attrs)
-    assert pesquisador.minibio == "Nova Minibio"
+    changeset = Pesquisador.changeset(pesquisador, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :minibio) == "Nova Minibio"
   end
 
   test "alterações inválidas no changeset de atualização com minibio muito longa" do
     pesquisador = insert(:pesquisador)
     attrs = %{minibio: String.duplicate("a", 281)}
 
-    assert {:error, changeset} = Pesquisador.changeset(pesquisador, attrs)
+    changeset = Pesquisador.changeset(pesquisador, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :minibio)
   end
 end

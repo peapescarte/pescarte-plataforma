@@ -15,10 +15,11 @@ defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
       endereco_id: endereco.id
     }
 
-    assert {:ok, campus} = Campus.changeset(attrs)
-    assert campus.acronimo == "ABC"
-    assert campus.endereco_id == endereco.id
-    assert campus.id_publico
+    changeset = Campus.changeset(%Campus{}, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :acronimo) == "ABC"
+    assert get_change(changeset, :endereco_id) == endereco.id
   end
 
   test "changeset válido com campos opcionais" do
@@ -29,16 +30,20 @@ defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
       nome_universidade: "Um Exemplo de Nome"
     }
 
-    assert {:ok, campus} = Campus.changeset(attrs)
-    assert campus.acronimo == "ABC"
-    assert campus.nome == "Campus ABC"
-    assert campus.nome_universidade == "Um Exemplo de Nome"
+    changeset = Campus.changeset(%Campus{}, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :acronimo) == "ABC"
+    assert get_change(changeset, :nome) == "Campus ABC"
+    assert get_change(changeset, :nome_universidade) == "Um Exemplo de Nome"
   end
 
   test "changeset inválido sem campos obrigatórios" do
     attrs = %{}
 
-    assert {:error, changeset} = Campus.changeset(attrs)
+    changeset = Campus.changeset(%Campus{}, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :acronimo)
     assert Keyword.get(changeset.errors, :endereco_id)
   end
@@ -49,7 +54,9 @@ defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
       endereco_id: "invalid_id"
     }
 
-    assert {:error, changeset} = Campus.changeset(attrs)
+    changeset = Campus.changeset(%Campus{}, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :endereco_id)
   end
 end
