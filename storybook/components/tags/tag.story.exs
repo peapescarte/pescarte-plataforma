@@ -18,7 +18,7 @@ defmodule Storybook.Components.Buttons.Button do
           label: "arte",
           style: "secondary"
         }
-      },
+      }
     ]
   end
 
