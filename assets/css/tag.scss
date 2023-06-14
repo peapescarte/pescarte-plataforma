@@ -1,14 +1,11 @@
 .tag {
-  @apply flex;
-  @apply items-center;
+  @apply flex items-center;
   @apply m-1;
 }
 
 .tag-primary {
   @apply cursor-pointer;
-  @apply flex;
-  @apply flex-wrap;
-  @apply items-center;
+  @apply flex flex-wrap items-center;
   @apply bg-blue-10;
   @apply text-blue-80;
 
@@ -26,9 +23,7 @@
 
 .tag-secondary {
   @apply cursor-pointer;
-  @apply flex;
-  @apply flex-wrap;
-  @apply items-center;
+  @apply flex flex-wrap items-center;
   @apply bg-orange-10;
   @apply text-orange-80;
 
