@@ -338,6 +338,10 @@ defmodule PescarteWeb.DesignSystem do
             <.text size="h4" color="text-blue-100">Pesca</.text>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
+          <li class="nav-item">
+            <.text size="h4" color="text-blue-100">Quem Somos</.text>
+            <Lucideicons.chevron_down class="text-blue-100" />
+          </li>
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">

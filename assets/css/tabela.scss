@@ -12,20 +12,17 @@
   width: max-content;
 }
 .header-primary {
-    @apply bg-blue-100;
-    @apply text-white-100;
+  @apply bg-blue-100;
+  @apply text-white-100;
 
-    border: 1px solid #0064C8;
-    border-radius: 4px 4px 0px 0px;
-    height: 55px;
-  }
+  border: 1px solid #0064C8;
+  border-radius: 4px 4px 0px 0px;
+  height: 55px;
+}
 
 .linhas{
-    @apply text-black-80
-    border: 1px solid #99C1E9;
-    border-radius: 0px;
-    height: 52px;
-  }
-
-
-
+  @apply text-black-80;
+  border: 1px solid #99C1E9;
+  border-radius: 0px;
+  height: 52px;
+}

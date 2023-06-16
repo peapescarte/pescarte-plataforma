@@ -14,7 +14,8 @@
 }
 
 /* ============ scss dos botões com icones ============
-display: flex;*/
+* display: flex;
+*/
 
 .navigation {
   display: flex;
@@ -65,8 +66,9 @@ display: flex;*/
   width: 14rem;
 
   button {
-    width: 10rem;
-    margin-top: 1rem;
+  width: 10rem;
+  margin-top: 1rem;
+  }
   }
 }
 
@@ -83,7 +85,7 @@ display: flex;*/
   padding: 10px;
   margin: 5px;
   background-color: #f1f1f1;
-  border: 1px solid blue;
+ /* border: 1px solid blue;  */
   border-radius: 5px;
   cursor: pointer;
 }
@@ -99,29 +101,29 @@ display: flex;*/
 }
 
 .container-row {
-    @apply border-black-10;
-    display: inline-block;
-    flex-direction: row; /* o eixo principal será uma linha */
-    border-radius: 4px;
-    width: 24px;
-    height: 24px;
-    padding: auto;
+  @apply border-black-10;
+  display: inline-block;
+  flex-direction: row; /* o eixo principal será uma linha */
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  padding: auto;
 
   /* grid-template-columns: 131px 196px 151px;
-     background: #0064C8;
-     display: grid;
-     box-sizing: border-box;
-     grid-auto-flow: column;
-     grid-template-columns: 1fr 2fr 1fr; */
-    width: 500px;
-    gap: 10px;
+  * background: #0064C8;
+  * display: grid;
+  * box-sizing: border-box;
+  * grid-auto-flow: column;
+  *  grid-template-columns: 1fr 2fr 1fr; */
+  width: 500px;
+  gap: 10px;
 }
 
 .landing-grid {
   display: grid;
   gap: 1rem;
   grid-template-areas:
-    "links";
+  "links";
 }
 
 
@@ -138,7 +140,6 @@ display: flex;*/
 }
 .btn {
   @apply py-6 px-4;
-  @apply flex-center;
   @apply bg-blue-100;
   @apply text-red-100;
 
@@ -149,7 +150,8 @@ display: flex;*/
 
 /* css da tabela ================*/
 .tabela, .th, .td {
-  border: 1px solid black;
+  @apply border-black-10;
+  /* border: 1px solid black; */
   border-collapse: collapse;
 }
 .tabela {
@@ -157,24 +159,21 @@ display: flex;*/
   padding: 40px;
   border-collapse: collapse;
   text-align: left;
-
   width: 90%;
 }
 .header-primary {
-    @apply bg-blue-100;
-    @apply text-white-100;
-
-    border: 1px solid #0064C8;
-    border-radius: 4px 4px 0px 0px;
-
-    height: 55px;
-  }
+  @apply bg-blue-100;
+  @apply text-white-100;
+  @apply border-black-10;
+  /*  border: 1px solid #0064C8; */
+  border-radius: 4px 4px 0px 0px;
+  height: 55px;
+}
 
 .linhas{
   @apply text-black-80;
-
-  border: 1px solid #99C1E9;
+  @apply border-black-10;
+  /*  border: 1px solid #99C1E9;  */
   border-radius: 0px;
   height: 52px;
-
-  }
+}
