@@ -39,7 +39,7 @@ defmodule PescarteWeb.Authentication do
   desconectado no logout.
   """
   def log_in_user(conn, user, params \\ %{}) do
-    token = Accounts.generate_user_session_token(user)
+    token = Accounts.generate_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
     conn
@@ -108,7 +108,14 @@ defmodule PescarteWeb.Authentication do
   """
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
-    user = user_token && Accounts.get_user_by_session_token(user_token)
+
+    maybe_user =
+      case Accounts.fetch_user_by_session_token(user_token) do
+        {:ok, user} -> user
+        {:error, :not_found} -> nil
+      end
+
+    user = user_token && maybe_user
     assign(conn, :current_user, user)
   end
 
@@ -224,12 +231,19 @@ defmodule PescarteWeb.Authentication do
       %{"user_token" => user_token} ->
         socket
         |> assign_new(:current_user, fn ->
-          Accounts.get_user_by_session_token(user_token)
+          maybe_user(user_token)
         end)
         |> assign_new(:user_token, fn -> user_token end)
 
       %{} ->
         assign_new(socket, :current_user, fn -> nil end)
+    end
+  end
+
+  defp maybe_user(token) do
+    case Accounts.fetch_user_by_session_token(token) do
+      {:ok, user} -> user
+      {:error, :not_found} -> nil
     end
   end
 
