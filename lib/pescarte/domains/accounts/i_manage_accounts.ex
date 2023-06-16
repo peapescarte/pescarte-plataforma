@@ -11,7 +11,8 @@ defmodule Pescarte.Domains.Accounts.IManageAccounts do
 
   @callback delete_session_token(UserToken.t()) :: {:ok, UserToken.t()} | {:error, changeset}
 
-  @callback fetch_user(Pescarte.Repo.id()) :: {:ok, User.t()} | {:error, :not_found}
+  @callback fetch_user_by_id(Pescarte.Repo.id()) :: {:ok, User.t()} | {:error, :not_found}
+  @callback fetch_user_by_id_publico(Pescarte.Repo.id()) :: {:ok, User.t()} | {:error, :not_found}
   @callback fetch_user_by_cpf_and_password(binary, binary) ::
               {:ok, User.t()} | {:error, :not_found}
   @callback fetch_user_by_email_and_password(binary, binary) ::

@@ -24,13 +24,7 @@ defmodule Pescarte.Release do
     for repo <- repos() do
       {:ok, _, _} =
         Ecto.Migrator.with_repo(repo, fn _repo ->
-          Seeds.Cidades.run()
-          Seeds.Campi.run()
-          Seeds.Users.run()
-          Seeds.Pesquisadores.run()
-          Seeds.Categorias.run()
-          Seeds.Tags.run()
-          Seeds.Midias.run()
+          :ok
         end)
     end
   end
