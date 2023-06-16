@@ -8,7 +8,13 @@ defmodule PescarteWeb.Authorization do
   def require_admin_role(conn, _opts) do
     token = get_session(conn, :user_token)
 
-    (token && Accounts.get_user_by_session_token(token))
+    maybe_user =
+      case Accounts.fetch_user_by_session_token(token) do
+        {:ok, user} -> user
+        {:error, :not_found} -> nil
+      end
+
+    (token && maybe_user)
     |> permit?(:admin)
     |> maybe_halt(conn)
   end
