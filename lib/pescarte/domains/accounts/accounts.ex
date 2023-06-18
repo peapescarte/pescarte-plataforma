@@ -1,7 +1,6 @@
 defmodule Pescarte.Domains.Accounts do
   @moduledoc false
 
-  import Ecto.Query, only: [from: 2]
   import Pescarte.Domains.Accounts.Services.ValidateUserPassword
 
   alias Pescarte.Domains.Accounts.IManageAccounts
@@ -19,7 +18,6 @@ defmodule Pescarte.Domains.Accounts do
   # já que alguém com acesso ao e-mail pode assumir a conta.
   @reset_password_validity_in_days 1
   @confirm_validity_in_days 7
-  @change_email_validity_in_days 7
   @session_validity_in_days 60
 
   @doc """
@@ -88,7 +86,7 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   @impl true
-  def fetch_user(id) do
+  def fetch_user_by_id(id) do
     Repo.fetch(User, id)
   end
 

@@ -8,11 +8,6 @@ defmodule Pescarte.Domains.Accounts.Repository do
   @behaviour IManageRepository
 
   @impl true
-  def fetch_user(id) do
-    Repo.fetch(User, id)
-  end
-
-  @impl true
   def fetch_user_by_cpf(cpf) do
     Repo.fetch_by(User, cpf: cpf)
   end
