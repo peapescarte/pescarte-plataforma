@@ -41,6 +41,7 @@ pescarte-*.tar
 /.direnv/
 /.nix-*/
 /.postgres/
+/.elixir-tools/
 
 # Ignore seeds
 /priv/repo/seed_prod.exs
