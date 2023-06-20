@@ -39,7 +39,7 @@ defmodule PescarteWeb.Authentication do
   desconectado no logout.
   """
   def log_in_user(conn, user, params \\ %{}) do
-    token = Accounts.generate_session_token(user)
+    {:ok, token} = Accounts.generate_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
     conn
