@@ -1,7 +1,7 @@
 defmodule PescarteWeb.AuthenticationTest do
   use PescarteWeb.ConnCase, async: true
 
-  import Pescarte.AccountsFixtures
+  import Pescarte.Factory
 
   alias Pescarte.Domains.Accounts
   alias PescarteWeb.Authentication
@@ -15,7 +15,7 @@ defmodule PescarteWeb.AuthenticationTest do
       |> Map.replace!(:secret_key_base, Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
-    %{user: user_fixture(), conn: conn}
+    %{user: insert(:user), conn: conn}
   end
 
   describe "log_in_user/3" do
