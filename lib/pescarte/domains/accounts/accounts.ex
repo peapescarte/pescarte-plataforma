@@ -81,8 +81,10 @@ defmodule Pescarte.Domains.Accounts do
   Delete um `UserToken`.
   """
   @impl true
-  def delete_session_token(%UserToken{} = user_token) do
-    Repo.delete(user_token)
+  def delete_session_token(user_token) do
+    user_token
+    |> UserToken.token_and_contexts_query("session")
+    |> Repo.delete_all()
   end
 
   @impl true
