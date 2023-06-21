@@ -59,12 +59,12 @@ defmodule PescarteWeb.AuthenticationTest do
 
   describe "log_out_user/1" do
     test "limpa sessão e cookies", %{conn: conn, user: user} do
-      {:ok, token} = Accounts.generate_session_token(user)
+      {:ok, user_token} = Accounts.generate_session_token(user)
 
       conn =
         conn
-        |> put_session(:user_token, token)
-        |> put_resp_cookie(@remember_me_cookie, token)
+        |> put_session(:user_token, user_token)
+        |> put_resp_cookie(@remember_me_cookie, user_token)
         |> fetch_cookies()
         |> Authentication.log_out_user()
 
@@ -72,7 +72,7 @@ defmodule PescarteWeb.AuthenticationTest do
       refute conn.cookies[@remember_me_cookie]
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
       assert redirected_to(conn) == ~p"/"
-      assert {:error, :not_found} = Accounts.fetch_user_by_session_token(token)
+      assert {:error, :not_found} = Accounts.fetch_user_by_session_token(user_token)
     end
 
     test "transmite para o live_socket_id fornecido", %{conn: conn} do
@@ -95,6 +95,40 @@ defmodule PescarteWeb.AuthenticationTest do
       refute get_session(conn, :user_token)
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
       assert redirected_to(conn) == ~p"/"
+    end
+  end
+
+  describe "fetch_current_user/2" do
+    test "autentica sessão atual", %{conn: conn, user: user} do
+      {:ok, user_token} = Accounts.generate_session_token(user)
+
+      conn =
+        conn
+        |> put_session(:user_token, user_token)
+        |> Authentication.fetch_current_user()
+
+      assert conn.assigns.current_user.id == user.id
+    end
+
+    test "autentica o usuário a partir dos cookies", %{conn: conn, user: user} do
+      logged_in_conn =
+        conn
+        |> fetch_cookies()
+        |> Authentication.log_in_user(user, %{"remember_me" => "true"})
+
+      user_token = logged_in_conn.cookies[@remember_me_cookie]
+      %{value: signed_token} = logged_in_conn.resp_cookies[@remember_me_cookie]
+
+      conn =
+        conn
+        |> put_req_cookie(@remember_me_cookie, signed_token)
+        |> Authentication.fetch_current_user()
+
+      assert conn.assigns.current_user.id == user.id
+      assert get_session(conn, :user_token) == user_token
+
+      assert get_session(conn, :live_socket_id) ==
+               "users_sessions:#{Base.url_encode64(user_token)}"
     end
   end
 end
