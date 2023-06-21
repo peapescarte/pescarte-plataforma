@@ -23,11 +23,11 @@ defmodule Pescarte.Domains.Accounts.Models.UserToken do
         }
 
   schema "user_token" do
-    field(:token, :binary)
-    field(:contexto, :string)
-    field(:enviado_para, :string)
+    field :token, :binary
+    field :contexto, :string
+    field :enviado_para, :string
 
-    belongs_to(:usuario, User)
+    belongs_to :usuario, User
 
     timestamps(updated_at: false)
   end
@@ -41,20 +41,13 @@ defmodule Pescarte.Domains.Accounts.Models.UserToken do
   end
 
   @doc """
-  Obtém o token do usuário para contextos especificos
-  """
-  def token_and_contexts_query(token, context) do
-    from(t in UserToken, where: t.token == ^token and t.contexto == ^context)
-  end
-
-  @doc """
   Obtém todos os tokens do usuário fornecido para os contextos fornecidos.
   """
   def user_and_contexts_query(user, :all) do
-    from(t in UserToken, where: t.usuario_id == ^user.id)
+    from t in UserToken, where: t.usuario_id == ^user.id
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from(t in UserToken, where: t.usuario_id == ^user.id and t.contexto in ^contexts)
+    from t in UserToken, where: t.usuario_id == ^user.id and t.contexto in ^contexts
   end
 end

@@ -82,9 +82,11 @@ defmodule Pescarte.Domains.Accounts do
   """
   @impl true
   def delete_session_token(user_token) do
-    user_token
-    |> UserToken.token_and_contexts_query("session")
-    |> Repo.delete_all()
+    with {:ok, user} <- fetch_user_by_session_token(user_token) do
+      user
+      |> UserToken.user_and_contexts_query(:all)
+      |> Repo.delete_all()
+    end
   end
 
   @impl true
