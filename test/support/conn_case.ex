@@ -88,8 +88,11 @@ defmodule PescarteWeb.ConnCase do
     |> Plug.Conn.put_session(:user_token, token)
   end
 
-  defp build_conn_with_secret_key_base do
-    Phoenix.ConnTest.build_conn()
-    |> Map.replace!(:secret_key_base, Endpoint.config(:secret_key_base))
-  end
+  defp build_conn_with_secret_key_base,
+    do:
+      Map.replace!(
+        Phoenix.ConnTest.build_conn(),
+        :secret_key_base,
+        Endpoint.config(:secret_key_base)
+      )
 end
