@@ -10,10 +10,7 @@ defmodule PescarteWeb.AuthenticationTest do
   @remember_me_cookie "_pescarte_web_user_remember_me"
 
   setup %{conn: conn} do
-    conn =
-      conn
-      |> Map.replace!(:secret_key_base, Endpoint.config(:secret_key_base))
-      |> init_test_session(%{})
+    conn = init_test_session(conn, %{})
 
     %{user: insert(:user), conn: conn}
   end

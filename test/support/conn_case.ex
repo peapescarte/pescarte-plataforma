@@ -19,6 +19,7 @@ defmodule PescarteWeb.ConnCase do
 
   alias Ecto.Adapters.SQL.Sandbox
   alias Pescarte.Factory
+  alias PescarteWeb.Endpoint
 
   using do
     quote do
@@ -40,7 +41,7 @@ defmodule PescarteWeb.ConnCase do
 
     on_exit(fn -> Sandbox.stop_owner(pid) end)
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: build_conn_with_secret_key_base()}
   end
 
   @doc """
@@ -85,5 +86,10 @@ defmodule PescarteWeb.ConnCase do
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
     |> Plug.Conn.put_session(:user_token, token)
+  end
+
+  defp build_conn_with_secret_key_base do
+    Phoenix.ConnTest.build_conn()
+    |> Map.replace!(:secret_key_base, Endpoint.config(:secret_key_base))
   end
 end
