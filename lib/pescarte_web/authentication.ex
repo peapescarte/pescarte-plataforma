@@ -106,16 +106,18 @@ defmodule PescarteWeb.Authentication do
   @doc """
   Autentica o usuário olhando para a sessão e lembre-se do token do usuário.
   """
-  def fetch_current_user(conn, _opts) do
+  def fetch_current_user(conn, _opts \\ []) do
     {user_token, conn} = ensure_user_token(conn)
 
     maybe_user =
-      case Accounts.fetch_user_by_session_token(user_token) do
-        {:ok, user} -> user
-        {:error, :not_found} -> nil
-      end
+      user_token &&
+        case Accounts.fetch_user_by_session_token(user_token) do
+          {:ok, user} -> user
+          {:error, :not_found} -> nil
+        end
 
     user = user_token && maybe_user
+
     assign(conn, :current_user, user)
   end
 
