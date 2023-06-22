@@ -28,20 +28,8 @@ config :pescarte, PescarteWeb.Endpoint,
 # ---------------------------#
 config :phoenix, :json_library, Jason
 
-if esbuild_path = System.get_env("ESBUILD_PATH") do
-  config :esbuild, path: esbuild_path
-end
-
-if tailwind_path = System.get_env("TAILWINDCSS_PATH") do
-  config :tailwind, path: esbuild_path
-end
-
-if sass_path = System.get_env("SASS_PATH") do
-  config :dart_sass, path: esbuild_path
-end
-
 config :esbuild,
-  version: "0.17.5",
+  version: "0.18.6",
   default: [
     args:
       ~w(js/app.js js/storybook.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
@@ -50,14 +38,14 @@ config :esbuild,
   ]
 
 config :dart_sass,
-  version: "1.58.0",
+  version: "1.63.6",
   default: [
     args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
     cd: Path.expand("../assets", __DIR__)
   ]
 
 config :tailwind,
-  version: "3.2.4",
+  version: "3.3.2",
   default: [
     args:
       ~w(--config=tailwind.config.js --input=../priv/static/assets/app.css.tailwind --output=../priv/static/assets/app.css),
