@@ -1,12 +1,11 @@
 .checkbox-container input[type="checkbox"] {
   @apply border-black-10;
-  border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   outline: none;
   padding: 0;
-  margin: 0;
+  margin: 0.5em;
   width: 1.2em;
   height: 1.2em;
   vertical-align: middle;

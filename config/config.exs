@@ -28,18 +28,6 @@ config :pescarte, PescarteWeb.Endpoint,
 # ---------------------------#
 config :phoenix, :json_library, Jason
 
-if esbuild_path = System.get_env("ESBUILD_PATH") do
-  config :esbuild, path: esbuild_path
-end
-
-if tailwind_path = System.get_env("TAILWINDCSS_PATH") do
-  config :tailwind, path: esbuild_path
-end
-
-if sass_path = System.get_env("SASS_PATH") do
-  config :dart_sass, path: esbuild_path
-end
-
 config :esbuild,
   version: "0.18.6",
   default: [
