@@ -6,6 +6,7 @@ defmodule PescarteWeb.AuthenticationTest do
   alias Pescarte.Domains.Accounts
   alias PescarteWeb.Authentication
   alias PescarteWeb.Endpoint
+  alias Phoenix.LiveView
 
   @remember_me_cookie "_pescarte_web_user_remember_me"
 
@@ -129,6 +130,29 @@ defmodule PescarteWeb.AuthenticationTest do
 
       assert get_session(conn, :live_socket_id) ==
                "users_sessions:#{Base.url_encode64(user_token)}"
+    end
+
+    test "não autentica se estiver faltando dados", %{conn: conn} do
+      conn = Authentication.fetch_current_user(conn, [])
+
+      refute get_session(conn, :user_token)
+      refute conn.assigns.current_user
+    end
+  end
+
+  describe "on_mount: :mount_current_user" do
+    test "atribui current_user com base em um user_token válido", %{conn: conn, user: user} do
+      user_token = Accounts.generate_session_token(user)
+
+      session =
+        conn
+        |> put_session(:user_token, user_token)
+        |> get_session()
+
+      {:cont, updated_socket} =
+        Authentication.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
+
+      assert updated_socket.assigns.current_user.id == user.id
     end
   end
 end
