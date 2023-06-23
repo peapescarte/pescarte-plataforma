@@ -9,7 +9,7 @@ defmodule Pescarte.Domains.Accounts.IManageAccounts do
   @callback create_user_admin(map) :: {:ok, Usuario.t()} | {:error, changeset}
   @callback create_user_pesquisador(map) :: {:ok, Usuario.t()} | {:error, changeset}
 
-  @callback delete_session_token(UserToken.t()) :: {:ok, UserToken.t()} | {:error, changeset}
+  @callback delete_session_token(UserToken.t()) :: {:ok, integer} | {:error, :not_found}
 
   @callback fetch_user_by_id_publico(Pescarte.Repo.id()) ::
               {:ok, Usuario.t()} | {:error, :not_found}
