@@ -7,11 +7,9 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
 FROM ${BUILDER_IMAGE} as builder
 
-RUN apt-get update -y
-RUN apt-get install -y build-essential git curl
-RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
-RUN apt-get update -y
-RUN apt-get install -y nodejs
+RUN apt-get update -y && apt-get install -y build-essential curl \
+    && curl -fsSL https://deb.nodesource.com/setup_17.x | bash - \
+    && apt-get install -y nodejs
 
 WORKDIR /app
 
@@ -33,7 +31,6 @@ COPY lib lib
 COPY assets assets
 
 # compile assets
-RUN npm i -g esbuild dart-sass tailwindcss
 RUN npm i --prefix ./assets
 RUN mix assets.deploy
 
@@ -49,8 +46,7 @@ RUN mix release
 FROM ${RUNNER_IMAGE}
 
 RUN apt-get update -y \
-  && apt-get install -y iputils-ping telnet libstdc++6 openssl libncurses5 locales \
-  && apt-get clean && rm -f /var/lib/apt/lists/*_*
+  && apt-get install -y libstdc++6 openssl libncurses5 locales
 
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
@@ -70,5 +66,4 @@ COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/pescarte ./
 
 USER nobody
 
-COPY start.sh ./
-CMD ["sh", "start.sh"]
+CMD ["bin/server"]

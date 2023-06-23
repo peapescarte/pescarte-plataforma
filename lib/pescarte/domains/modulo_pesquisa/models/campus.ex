@@ -6,26 +6,31 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
   alias Pescarte.Types.PublicId
 
   @type t :: %Campus{
-          id: integer,
           nome: binary,
           acronimo: binary,
           id_publico: binary,
           endereco: Endereco.t(),
           nome_universidade: binary,
-          pesquisadores: list(Pesquisador.t())
+          pesquisadores: list(Pesquisador.t()),
+          id_publico: binary
         }
 
-  @required_fields ~w(acronimo endereco_id)a
+  @required_fields ~w(acronimo endereco_cep)a
   @optional_fields ~w(nome nome_universidade)a
 
+  @primary_key {:acronimo, :string, autogenerate: false}
   schema "campus" do
     field :nome, :string
     field :nome_universidade, :string
-    field :acronimo, :string
     field :id_publico, PublicId, autogenerate: true
 
-    has_many :pesquisadores, Pesquisador
-    belongs_to :endereco, Endereco, on_replace: :delete
+    has_many :pesquisadores, Pesquisador, foreign_key: :campus_acronimo, references: :acronimo
+
+    belongs_to :endereco, Endereco,
+      on_replace: :delete,
+      foreign_key: :endereco_cep,
+      references: :cep,
+      type: :string
 
     timestamps()
   end
@@ -37,6 +42,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Campus do
     |> validate_required(@required_fields)
     |> unique_constraint(:nome)
     |> unique_constraint(:acronimo)
-    |> foreign_key_constraint(:endereco_id)
+    |> foreign_key_constraint(:endereco_cep)
   end
 end

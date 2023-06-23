@@ -3,7 +3,7 @@
     Plataforma PEA Pescarte
   '';
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
 
   outputs = { self, nixpkgs }:
     let
@@ -26,10 +26,9 @@
         libxml2
         curl
         libiconv
-        elixir_1_14
+        elixir
         glibcLocales
-        postgresql
-        #redpanda
+        postgresql_15
         nodejs
       ] ++ lib.optional stdenv.isLinux [
         inotify-tools

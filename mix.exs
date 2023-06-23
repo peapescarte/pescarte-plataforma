@@ -67,6 +67,7 @@ defmodule Pescarte.MixProject do
     [
       ci: ["format --check-formatted", "credo --strict", "test"],
       setup: ["deps.get", "ecto.setup", "assets.build"],
+      seeds: ["run priv/repo/seeds.exs"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "test"],

@@ -4,8 +4,8 @@ defmodule Pescarte.Factory do
   use ExMachina.Ecto, repo: Pescarte.Repo
 
   alias Pescarte.Domains.Accounts.Models.Contato
-  alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
+  alias Pescarte.Domains.Accounts.Models.Usuario
   alias Pescarte.Domains.ModuloPesquisa.Models.Campus
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia
@@ -21,7 +21,7 @@ defmodule Pescarte.Factory do
     %Campus{
       id_publico: Nanoid.generate_non_secure(),
       nome: sequence(:nome, &"Campus #{&1}"),
-      endereco_id: insert(:endereco).id,
+      endereco_cep: insert(:endereco).cep,
       acronimo: sequence(:sigla, &"C#{&1 + 1}")
     }
   end
@@ -39,7 +39,7 @@ defmodule Pescarte.Factory do
       celular_principal: sequence(:celular, &"221245167#{digit_rem(&1 + 1)}"),
       emails_adicionais: sequence_list(:emails, &"test-#{&1}@example.com", limit: 3),
       celulares_adicionais: sequence_list(:celulares, &"221234567#{digit_rem(&1)}", limit: 4),
-      endereco_id: insert(:endereco).id
+      endereco_cep: insert(:endereco).cep
     }
   end
 
@@ -47,11 +47,11 @@ defmodule Pescarte.Factory do
     alias Pescarte.Domains.Accounts.Models.Endereco
 
     %Endereco{
-      cep: "00000000",
+      cep: sequence("00000000"),
       cidade: sequence("Cidade"),
       complemento: "Um complemento",
       estado: "Rio de Janeiro",
-      numero: 100,
+      numero: "100",
       rua: "Rua Exemplo de Queiras"
     }
   end
@@ -62,8 +62,8 @@ defmodule Pescarte.Factory do
       numero: sequence(:numero, Enum.to_list(1..21)),
       desc_curta: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),
       desc: sequence(:descricao_longa, &"Descricao LinhaPesquisa Longa #{&1}"),
-      nucleo_pesquisa_id: insert(:nucleo_pesquisa).id,
-      responsavel_lp_id: insert(:pesquisador).id,
+      nucleo_pesquisa_letra: insert(:nucleo_pesquisa).letra,
+      responsavel_lp_id: insert(:pesquisador).id_publico,
       pesquisadores: insert_list(1, :pesquisador)
     }
   end
@@ -71,7 +71,7 @@ defmodule Pescarte.Factory do
   def midia_factory do
     %Midia{
       id_publico: Nanoid.generate_non_secure(),
-      autor_id: insert(:user).id,
+      autor_id: insert(:user).id_publico,
       tipo: sequence(:tipo, ["video", "documento", "imagem"]),
       link: sequence(:link, &"https://example#{&1}.com"),
       nome_arquivo: sequence(:arquivo, &"arquivo#{&1}.jpg"),
@@ -93,44 +93,16 @@ defmodule Pescarte.Factory do
   def pesquisador_factory do
     %Pesquisador{
       id_publico: Nanoid.generate_non_secure(),
-      usuario_id: insert(:user).id,
+      usuario_id: insert(:user).id_publico,
       minibio: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
       bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),
       link_lattes: sequence(:link_lattes, &"http://buscatextual.cnpq.br/buscatextual/:#{&1}"),
-      campus_id: insert(:campus).id,
+      campus_acronimo: insert(:campus).acronimo,
       data_inicio_bolsa: ~D[2023-05-26],
       data_contratacao: ~D[2023-04-23],
       data_fim_bolsa: ~D[2024-05-30],
       formacao: "Advogado",
-      rg: sequence(:rg, &"131213465#{&1}"),
-      link_linkedin: "https://linkedin.com/in/zoedsoupe",
-      orientador: orientador()
-    }
-  end
-
-  defp orientador do
-    %Pesquisador{
-      id_publico: Nanoid.generate_non_secure(),
-      usuario: %User{
-        id_publico: Nanoid.generate_non_secure(),
-        tipo: "pesquisador",
-        primeiro_nome: "José",
-        sobrenome: "Caldas",
-        cpf: Brcpfcnpj.cpf_generate(),
-        hash_senha: "$2b$12$VbolDic21AxNGu8W2jbTd.6pxqwv9d4m4UpR/2rP8s3Qd/UO.6mTO",
-        contato_id: insert(:contato).id,
-        data_nascimento: ~D[1990-03-27]
-      },
-      bolsa: "pesquisa",
-      minibio: "hello",
-      rg: sequence(:rg, &"14111#{&1}346"),
-      link_lattes: "https://lattes.com.br",
-      link_linkedin: "https://linkedin.com",
-      campus: %Campus{
-        acronimo: sequence("ABCD"),
-        id_publico: Nanoid.generate_non_secure(),
-        endereco_id: insert(:endereco).id
-      }
+      link_linkedin: "https://linkedin.com/in/zoedsoupe"
     }
   end
 
@@ -146,10 +118,10 @@ defmodule Pescarte.Factory do
       atividades_nao_academicas: "Atividades não Acadêmicas",
       conclusao: "Conclusão",
       referencias: "Referências",
-      ano: 2023,
+      ano: sequence(:ano, &Kernel.+(2020, &1)),
       mes: 4,
       link: "https//datalake.com/relatorio_anual",
-      pesquisador_id: insert(:pesquisador).id,
+      pesquisador_id: insert(:pesquisador).id_publico,
       status: :pendente
     }
   end
@@ -169,7 +141,7 @@ defmodule Pescarte.Factory do
       ano: 2023,
       mes: sequence(:mes, & &1),
       link: "https//datalake.com/relatorio_anual",
-      pesquisador_id: insert(:pesquisador).id,
+      pesquisador_id: insert(:pesquisador).id_publico,
       status: :pendente
     }
   end
@@ -188,7 +160,7 @@ defmodule Pescarte.Factory do
       ano: 2023,
       mes: sequence(:mes, & &1),
       link: "https//datalake.com/relatorio_anual",
-      pesquisador_id: insert(:pesquisador).id,
+      pesquisador_id: insert(:pesquisador).id_publico,
       status: :pendente
     }
   end
@@ -197,7 +169,7 @@ defmodule Pescarte.Factory do
     %Tag{
       id_publico: Nanoid.generate_non_secure(),
       etiqueta: sequence("etiqueta"),
-      categoria_id: insert(:categoria).id
+      categoria_nome: insert(:categoria).nome
     }
   end
 
@@ -205,15 +177,16 @@ defmodule Pescarte.Factory do
   def valid_user_password, do: "Hello World 42!"
 
   def user_factory do
-    %User{
+    %Usuario{
       id_publico: Nanoid.generate_non_secure(),
+      rg: sequence(:rg, &"131213465#{&1}"),
       tipo: sequence(:role, ["admin", "pesquisador"]),
       primeiro_nome: sequence(:first, &"User #{&1}"),
       sobrenome: sequence(:last, &"Last User #{&1}"),
       cpf: Brcpfcnpj.cpf_generate(),
       data_nascimento: Date.utc_today(),
       hash_senha: "$2b$12$6beq5zEplVZjji7Jm7itJuTXd3wH9rDN.V5VRcaS/A8YJ28mi1LBG",
-      contato_id: insert(:contato).id,
+      contato_email: insert(:contato).email_principal,
       senha: "Password!123"
     }
   end
@@ -228,11 +201,11 @@ defmodule Pescarte.Factory do
     token = :crypto.strong_rand_bytes(32)
     hashed = :crypto.hash(:sha256, token)
     contato = insert(:contato)
-    user = insert(:user, contato_id: contato.id)
+    user = insert(:user, contato_email: contato.email_principal)
 
     %UserToken{
       contexto: context,
-      usuario_id: user.id,
+      usuario_id: user.id_publico,
       enviado_para: contato.email_principal,
       token: hashed
     }
@@ -240,11 +213,11 @@ defmodule Pescarte.Factory do
 
   def session_token_factory do
     contato = insert(:contato)
-    user = insert(:user, contato_id: contato.id)
+    user = insert(:user, contato_email: contato.email_principal)
 
     %UserToken{
       contexto: "session",
-      usuario_id: user.id,
+      usuario_id: user.id_publico,
       enviado_para: contato.email_principal,
       token: :crypto.strong_rand_bytes(32)
     }

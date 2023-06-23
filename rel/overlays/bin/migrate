@@ -1,4 +1,0 @@
-#!/bin/sh
-cd -P -- "$(dirname -- "$0")"
-exec ./pescarte eval Pescarte.Release.migrate
-exec ./pescarte eval Pescarte.Release.seed

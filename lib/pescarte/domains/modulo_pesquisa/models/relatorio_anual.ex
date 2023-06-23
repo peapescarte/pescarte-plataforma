@@ -4,7 +4,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
   @type t :: %RelatorioAnual{
-          id: integer,
           plano_de_trabalho: binary,
           resumo: binary,
           introducao: binary,
@@ -40,9 +39,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
     link
   )a
 
+  @primary_key false
   schema "relatorio_anual_pesquisa" do
-    field :ano, :integer
-    field :mes, :integer
+    field :ano, :integer, primary_key: true
+    field :mes, :integer, primary_key: true
     field :link, :string
     field :id_publico, Pescarte.Types.PublicId, autogenerate: true
     field :status, Ecto.Enum, values: @status, default: :pendente
@@ -57,7 +57,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioAnual do
     field :conclusao, :string
     field :referencias, :string
 
-    belongs_to :pesquisador, Pesquisador, on_replace: :update
+    belongs_to :pesquisador, Pesquisador,
+      on_replace: :update,
+      references: :id_publico,
+      type: :string
 
     timestamps()
   end

@@ -93,9 +93,8 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
       midia = insert(:midia, tags: tags)
       attrs = midia |> Map.from_struct() |> Map.put(:tags, tags)
       assert {:ok, upserted} = Repository.upsert_midia(midia, attrs)
-      assert upserted.id == midia.id
-      assert length(upserted.tags) == 2
       assert upserted.link == midia.link
+      assert length(upserted.tags) == 2
     end
 
     test "atualiza quando os parâmetros são válidos, com tags" do
@@ -129,7 +128,7 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
 
     test "não atualiza quando os parâmetros são inválidos" do
       pesquisador = insert(:pesquisador)
-      assert {:error, _} = Repository.upsert_pesquisador(pesquisador, %{rg: nil})
+      assert {:error, _} = Repository.upsert_pesquisador(pesquisador, %{data_inicio_bolsa: nil})
     end
 
     test "não modifica quando os parâmetros são iguais ao atual" do
@@ -239,25 +238,24 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     test "quando há registros" do
       insert_list(2, :pesquisador)
       pesquisadores = Repository.list_pesquisador()
-      # orientadores tbm...
-      assert length(pesquisadores) == 4
+      assert length(pesquisadores) == 2
     end
   end
 
   describe "list_relatorios_pesquisa_from_pesquisador/1" do
     test "quando não há nenhum registro" do
       pesquisador = insert(:pesquisador)
-      relatorios = Repository.list_relatorios_pesquisa_from_pesquisador(pesquisador.id)
+      relatorios = Repository.list_relatorios_pesquisa_from_pesquisador(pesquisador.id_publico)
       assert Enum.empty?(relatorios)
     end
 
     test "quando há registros" do
       pesquisador = insert(:pesquisador)
-      insert(:relatorio_anual, pesquisador_id: pesquisador.id)
-      insert_list(4, :relatorio_mensal, pesquisador_id: pesquisador.id)
-      insert_list(2, :relatorio_trimestral, pesquisador_id: pesquisador.id)
+      insert(:relatorio_anual, pesquisador_id: pesquisador.id_publico)
+      insert_list(4, :relatorio_mensal, pesquisador_id: pesquisador.id_publico)
+      insert_list(2, :relatorio_trimestral, pesquisador_id: pesquisador.id_publico)
 
-      relatorios = Repository.list_relatorios_pesquisa_from_pesquisador(pesquisador.id)
+      relatorios = Repository.list_relatorios_pesquisa_from_pesquisador(pesquisador.id_publico)
       assert length(relatorios) == 7
     end
   end
@@ -265,14 +263,14 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
   describe "list_tags_from_midia/1" do
     test "quando não há nenhum registro" do
       midia = insert(:midia, tags: [])
-      tags = Repository.list_tags_from_midia(midia.id_publico)
+      tags = Repository.list_tags_from_midia(midia.link)
       assert Enum.empty?(tags)
     end
 
     test "quando há registros" do
       tags = insert_list(4, :tag)
       midia = insert(:midia, tags: tags)
-      listed = Repository.list_tags_from_midia(midia.id_publico)
+      listed = Repository.list_tags_from_midia(midia.link)
       assert length(listed) == 4
     end
   end
