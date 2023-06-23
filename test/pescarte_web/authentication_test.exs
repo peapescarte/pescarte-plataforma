@@ -106,7 +106,7 @@ defmodule PescarteWeb.AuthenticationTest do
       conn =
         conn
         |> put_session(:user_token, user_token)
-        |> Authentication.fetch_current_user()
+        |> Authentication.fetch_current_user([])
 
       assert conn.assigns.current_user.id == user.id
     end
@@ -123,7 +123,7 @@ defmodule PescarteWeb.AuthenticationTest do
       conn =
         conn
         |> put_req_cookie(@remember_me_cookie, signed_token)
-        |> Authentication.fetch_current_user()
+        |> Authentication.fetch_current_user([])
 
       assert conn.assigns.current_user.id == user.id
       assert get_session(conn, :user_token) == user_token
