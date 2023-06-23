@@ -11,7 +11,7 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioTrimestralTest do
     attrs = %{
       ano: 2023,
       mes: 1,
-      pesquisador_id: insert(:pesquisador).id,
+      pesquisador_id: insert(:pesquisador).id_publico,
       status: :entregue
     }
 

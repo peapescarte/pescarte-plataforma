@@ -1,3 +1,4 @@
 #!/bin/sh
 cd -P -- "$(dirname -- "$0")"
+./pescarte eval Pescarte.Release.migrate
 PHX_SERVER=true exec ./pescarte start

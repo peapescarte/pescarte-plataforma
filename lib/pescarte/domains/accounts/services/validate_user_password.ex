@@ -1,13 +1,13 @@
 defmodule Pescarte.Domains.Accounts.Services.ValidateUserPassword do
-  alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.Usuario
 
   @doc """
   Verifica a senha.
   Se não houver usuário ou o usuário não tiver uma senha, chamamos
   `Bcrypt.no_user_verify/0` para evitar ataques de tempo.
   """
-  @spec valid_password?(User.t(), binary) :: boolean
-  def valid_password?(%User{hash_senha: password_hash}, password)
+  @spec valid_password?(Usuario.t(), binary) :: boolean
+  def valid_password?(%Usuario{hash_senha: password_hash}, password)
       when is_binary(password_hash) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, password_hash)
   end

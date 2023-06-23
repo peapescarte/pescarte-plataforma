@@ -4,7 +4,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
   @type t :: %RelatorioMensal{
-          id: integer,
           acao_planejamento: binary,
           participacao_grupos_estudo: binary,
           acoes_pesquisa: binary,
@@ -40,6 +39,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     link
   )a
 
+  @primary_key false
   schema "relatorio_mensal_pesquisa" do
     # Primeira seção
     field :acao_planejamento, :string
@@ -55,12 +55,15 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.RelatorioMensal do
     field :previsao_acoes_pesquisa, :string
 
     field :status, Ecto.Enum, values: @status, default: :pendente
-    field :ano, :integer
-    field :mes, :integer
+    field :ano, :integer, primary_key: true
+    field :mes, :integer, primary_key: true
     field :link, :string
     field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
-    belongs_to :pesquisador, Pesquisador, on_replace: :update
+    belongs_to :pesquisador, Pesquisador,
+      on_replace: :update,
+      references: :id_publico,
+      type: :string
 
     timestamps()
   end

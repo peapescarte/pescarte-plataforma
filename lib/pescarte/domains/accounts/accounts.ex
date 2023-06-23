@@ -4,8 +4,8 @@ defmodule Pescarte.Domains.Accounts do
   import Pescarte.Domains.Accounts.Services.ValidateUserPassword
 
   alias Pescarte.Domains.Accounts.IManageAccounts
-  alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
+  alias Pescarte.Domains.Accounts.Models.Usuario
   alias Pescarte.Domains.Accounts.Repository
   alias Pescarte.Repo
 
@@ -30,7 +30,7 @@ defmodule Pescarte.Domains.Accounts do
          hashed_token = :crypto.hash(@hash_algorithm, decoded),
          {:ok, user} <-
            Repository.fetch_user_by_token(hashed_token, "confirm", @confirm_validity_in_days) do
-      changeset = User.confirm_changeset(user, now)
+      changeset = Usuario.confirm_changeset(user, now)
       token_query = UserToken.user_and_contexts_query(user, ["confirm"])
 
       Ecto.Multi.new()
@@ -64,17 +64,20 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   defp create_user(attrs, tipo) when tipo in ~w(pesquisador admin)a do
-    with {:ok, changeset} <- attrs |> Map.put(:tipo, tipo) |> User.changeset() do
-      changeset
-      |> User.password_changeset(attrs)
-      |> Repo.insert()
-    end
+    attrs = Map.put(attrs, :tipo, tipo)
+
+    %Usuario{}
+    |> Usuario.changeset(attrs)
+    |> Usuario.password_changeset(attrs)
+    |> Repo.insert()
   end
 
   defp create_user(attrs, tipo) do
-    with {:ok, changeset} <- attrs |> Map.put(:tipo, tipo) |> User.changeset() do
-      Repo.insert(changeset)
-    end
+    attrs = Map.put(attrs, :tipo, tipo)
+
+    %Usuario{}
+    |> Usuario.changeset(attrs)
+    |> Repo.insert()
   end
 
   @doc """
@@ -90,23 +93,18 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   @impl true
-  def fetch_user_by_id(id) do
-    Repo.fetch(User, id)
-  end
-
-  @impl true
   def fetch_user_by_id_publico(id) do
-    Repo.fetch_by(User, id_publico: id)
+    Repo.fetch_by(Usuario, id_publico: id)
   end
 
   @doc """
-  Busca um registro de `User.t()`, com base no `:cpf`
+  Busca um registro de `Usuario.t()`, com base no `:cpf`
   e na `:senha`, caso seja válida.
 
   ## Exemplos
 
       iex> fetch_user_by_cpf_and_password("12345678910", "123")
-      {:ok, %User{}}
+      {:ok, %Usuario{}}
 
       iex> fetch_user_by_cpf_and_password("12345678910", "invalid")
       {:error, :not_found}
@@ -127,13 +125,13 @@ defmodule Pescarte.Domains.Accounts do
   end
 
   @doc """
-  Busca um registro de `User.t()`, com base no `:email`
+  Busca um registro de `Usuario.t()`, com base no `:email`
   e na `:senha`, caso seja válida.
 
   ## Exemplos
 
       iex> fetch_user_by_email_and_password("foo@example.com", "correct_password")
-      {:ok, %User{}}
+      {:ok, %Usuario{}}
 
       iex> fetch_user_by_email_and_password("foo@example.com", "invalid_password")
       {:error, :not_found}
@@ -182,7 +180,7 @@ defmodule Pescarte.Domains.Accounts do
   Cria um token e seu hash para ser entregue no email do usuário.
   """
   @impl true
-  def generate_email_token(%User{} = user, context)
+  def generate_email_token(%Usuario{} = user, context)
       when context in ~w(confirm reset_password) do
     token = :crypto.strong_rand_bytes(@login_token_rand_size)
     hashed_token = :crypto.hash(@hash_algorithm, token)
@@ -190,28 +188,25 @@ defmodule Pescarte.Domains.Accounts do
     attrs = %{
       token: hashed_token,
       contexto: context,
-      usuario_id: user.id,
+      usuario_id: user.id_publico,
       enviado_para: user.contato.email_principal
     }
 
-    with {:ok, changeset} <- UserToken.changeset(attrs),
-         {:ok, _user_token} <- Repo.insert(changeset) do
-      {:ok, Base.url_encode64(token, padding: false)}
-    end
+    {:ok, _user_token} = Repo.insert(UserToken.changeset(attrs))
+
+    {:ok, Base.url_encode64(token, padding: false)}
   end
 
   @doc """
   Gera um novo token de login/sessão para um usuário.
   """
   @impl true
-  def generate_session_token(%User{id: user_id}) do
+  def generate_session_token(%Usuario{id_publico: user_id}) do
     token = :crypto.strong_rand_bytes(@login_token_rand_size)
     attrs = %{token: token, contexto: "session", usuario_id: user_id}
+    {:ok, _user_token} = Repo.insert(UserToken.changeset(attrs))
 
-    with {:ok, changeset} <- UserToken.changeset(attrs),
-         {:ok, _user_token} <- Repo.insert(changeset) do
-      {:ok, token}
-    end
+    {:ok, token}
   end
 
   @impl true
@@ -223,17 +218,17 @@ defmodule Pescarte.Domains.Accounts do
   ## Exemplos
 
       iex> update_user_password(user, "valid password", %{password: ...})
-      {:ok, %User{}}
+      {:ok, %Usuario{}}
 
       iex> update_user_password(user, "invalid password", %{password: ...})
       {:error, %Ecto.Changeset{}}
 
   """
   @impl true
-  def update_user_password(%User{} = user, password, attrs) do
+  def update_user_password(%Usuario{} = user, password, attrs) do
     changeset =
       user
-      |> User.password_changeset(attrs)
+      |> Usuario.password_changeset(attrs)
       |> validate_current_password(password)
 
     token_query = UserToken.user_and_contexts_query(user, :all)
@@ -254,16 +249,16 @@ defmodule Pescarte.Domains.Accounts do
   ## Exemplos
 
       iex> reset_user_password(user, %{password: "new long password", password_confirmation: "new long password"})
-      {:ok, %User{}}
+      {:ok, %Usuario{}}
 
       iex> reset_user_password(user, %{password: "valid", password_confirmation: "not the same"})
       {:error, %Ecto.Changeset{}}
 
   """
   @impl true
-  def reset_user_password(%User{} = user, attrs) do
+  def reset_user_password(%Usuario{} = user, attrs) do
     Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
+    |> Ecto.Multi.update(:user, Usuario.password_changeset(user, attrs))
     |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
     |> Repo.transaction()
     |> case do

@@ -58,7 +58,7 @@ defmodule PescarteWeb.Researcher.Relatorio.MensalLive do
   # Events
 
   @impl true
-  def handle_event("save", params, socket) do
+  def handle_event("save", _params, socket) do
     {:noreply, socket}
   end
 end

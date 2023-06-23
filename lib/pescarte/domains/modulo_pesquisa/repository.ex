@@ -80,8 +80,8 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def list_midias_from_tag(tag_id) do
-    with {:ok, tag} <- Repo.fetch_by(Tag, id_publico: tag_id) do
+  def list_midias_from_tag(tag_etiqueta) do
+    with {:ok, tag} <- Repo.fetch(Tag, tag_etiqueta) do
       query = from t in Tag, where: t.id == ^tag.id, preload: :midias
 
       case Repo.fetch_one(query) do
@@ -103,7 +103,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
         join: ra in assoc(p, :relatorio_anual),
         join: rm in assoc(p, :relatorios_mensais),
         join: rt in assoc(p, :relatorios_trimestrais),
-        where: p.id == ^id,
+        where: p.id_publico == ^id,
         select: [ra, rm, rt]
 
     query
@@ -118,10 +118,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def list_tags_from_categoria(categoria_id) do
+  def list_tags_from_categoria(categoria_nome) do
     query =
       from c in Categoria,
-        where: c.id_publico == ^categoria_id,
+        where: c.nome == ^categoria_nome,
         preload: :tags
 
     case Repo.fetch_one(query) do
@@ -131,10 +131,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def list_tags_from_midia(midia_id) do
+  def list_tags_from_midia(midia_link) do
     query =
       from m in Midia,
-        where: m.id_publico == ^midia_id,
+        where: m.link == ^midia_link,
         preload: :tags
 
     case Repo.fetch_one(query) do
