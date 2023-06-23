@@ -23,7 +23,7 @@ defmodule PescarteWeb.AuthenticationTest do
       assert token = get_session(conn, :user_token)
       assert get_session(conn, :live_socket_id) == "users_sessions:#{Base.url_encode64(token)}"
       assert redirected_to(conn) == ~p"/app/pesquisa/perfil"
-      assert Accounts.fetch_user_by_session_token(token)
+      assert {:ok, _user} = Accounts.fetch_user_by_session_token(token)
     end
 
     test "limpa tudo previamente armazenado na sessão", %{conn: conn, user: user} do
@@ -141,8 +141,8 @@ defmodule PescarteWeb.AuthenticationTest do
   end
 
   describe "on_mount: :mount_current_user" do
-    test "atribui current_user com base em um user_token válido", %{conn: conn, user: user} do
-      user_token = Accounts.generate_session_token(user)
+    test "se o token for valido, atribui o User a current_user", %{conn: conn, user: user} do
+      {:ok, user_token} = Accounts.generate_session_token(user)
 
       session =
         conn
@@ -153,6 +153,130 @@ defmodule PescarteWeb.AuthenticationTest do
         Authentication.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
 
       assert updated_socket.assigns.current_user.id == user.id
+    end
+
+    test "se o token for invalido, atribui nil a current_user", %{conn: conn} do
+      user_token = "invalid_token"
+
+      session =
+        conn
+        |> put_session(:user_token, user_token)
+        |> get_session()
+
+      {:cont, updated_socket} =
+        Authentication.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
+
+      refute updated_socket.assigns.current_user
+    end
+
+    test "se o token não existir, atribui nil a current_user", %{conn: conn} do
+      session = get_session(conn)
+
+      {:cont, updated_socket} =
+        Authentication.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
+
+      refute updated_socket.assigns.current_user
+    end
+  end
+
+  describe "on_mount: :redirect_if_user_is_authenticated" do
+    test "redireciona se existir um usuário autenticado", %{conn: conn, user: user} do
+      {:ok, user_token} = Accounts.generate_session_token(user)
+
+      session =
+        conn
+        |> put_session(:user_token, user_token)
+        |> get_session()
+
+      assert {:halt, _updated_socket} =
+               Authentication.on_mount(
+                 :redirect_if_user_is_authenticated,
+                 %{},
+                 session,
+                 %LiveView.Socket{}
+               )
+    end
+
+    test "não redireciona se o usuário não estiver autenticado", %{conn: conn} do
+      session = get_session(conn)
+
+      assert {:cont, _updated_socket} =
+               Authentication.on_mount(
+                 :redirect_if_user_is_authenticated,
+                 %{},
+                 session,
+                 %LiveView.Socket{}
+               )
+    end
+  end
+
+  describe "redirect_if_user_is_authenticated/2" do
+    test "redireciona se o usuário estiver autenticado", %{conn: conn, user: user} do
+      conn =
+        conn
+        |> assign(:current_user, user)
+        |> Authentication.redirect_if_user_is_authenticated([])
+
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/app/pesquisa/perfil"
+    end
+
+    test "não redireciona se o usuário não estiver autenticado", %{conn: conn} do
+      conn = Authentication.redirect_if_user_is_authenticated(conn, [])
+
+      refute conn.halted
+      refute conn.status
+    end
+  end
+
+  describe "require_authenticated_user/2" do
+    test "redireciona se o usuário não estiver autenticado", %{conn: conn} do
+      conn =
+        conn
+        |> fetch_flash()
+        |> Authentication.require_authenticated_user([])
+
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/acessar"
+
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) ==
+               "You must log in to access this page."
+    end
+
+    test "armazena o path para redirecionar com GET", %{conn: conn} do
+      halted_conn =
+        %{conn | path_info: ["test"], query_string: ""}
+        |> fetch_flash()
+        |> Authentication.require_authenticated_user([])
+
+      assert halted_conn.halted
+      assert get_session(halted_conn, :user_return_to) == "/test"
+
+      halted_conn =
+        %{conn | path_info: ["test"], query_string: "query=test"}
+        |> fetch_flash()
+        |> Authentication.require_authenticated_user([])
+
+      assert halted_conn.halted
+      assert get_session(halted_conn, :user_return_to) == "/test?query=test"
+
+      halted_conn =
+        %{conn | path_info: ["test"], query_string: "query", method: "POST"}
+        |> fetch_flash()
+        |> Authentication.require_authenticated_user([])
+
+      assert halted_conn.halted
+      refute get_session(halted_conn, :user_return_to)
+    end
+
+    test "não redireciona se o usuário está autenticado", %{conn: conn, user: user} do
+      conn =
+        conn
+        |> assign(:current_user, user)
+        |> Authentication.require_authenticated_user([])
+
+      refute conn.halted
+      refute conn.status
     end
   end
 end
