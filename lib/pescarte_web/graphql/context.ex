@@ -29,7 +29,7 @@ defmodule PescarteWeb.GraphQL.Context do
   defp authorize(token) do
     with {:ok, user_id} <-
            Phoenix.Token.verify(@endpoint, @token_salt, token, max_age: @day_seconds) do
-      Accounts.fetch_user_by_id(user_id)
+      Accounts.fetch_user_by_id_publico(user_id)
     end
   end
 end

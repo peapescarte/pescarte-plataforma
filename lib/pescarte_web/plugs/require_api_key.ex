@@ -7,7 +7,7 @@ defmodule PescarteWeb.RequireApiKeyPlug do
   import Plug.Conn
 
   alias Pescarte.Accounts.Models.ApiKey
-  alias Pescarte.Database
+  alias Pescarte.Repo
 
   @spec init(map) :: map
   def init(options), do: options
@@ -17,7 +17,7 @@ defmodule PescarteWeb.RequireApiKeyPlug do
     conn = fetch_query_params(conn)
     api_key = conn.query_params["api_key"] || conn |> get_req_header("x-api-key") |> List.first()
 
-    case api_key && Database.get_by(ApiKey, key: api_key) do
+    case api_key && Repo.get_by(ApiKey, key: api_key) do
       nil ->
         conn
         |> send_resp(

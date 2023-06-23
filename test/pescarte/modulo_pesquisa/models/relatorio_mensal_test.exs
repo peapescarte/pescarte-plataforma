@@ -13,7 +13,7 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioMensalTest do
     attrs = %{
       ano: 2023,
       mes: 1,
-      pesquisador_id: pesquisador.id,
+      pesquisador_id: pesquisador.id_publico,
       acao_planejamento: "Ação de Planejamento",
       participacao_grupos_estudo: "Participação em Grupos de Estudo",
       acoes_pesquisa: "Ações de Pesquisa",
@@ -41,7 +41,7 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioMensalTest do
 
     attrs = %{
       mes: 1,
-      pesquisador_id: pesquisador.id,
+      pesquisador_id: pesquisador.id_publico,
       acao_planejamento: "Ação de Planejamento",
       participacao_grupos_estudo: "Participação em Grupos de Estudo",
       acoes_pesquisa: "Ações de Pesquisa",

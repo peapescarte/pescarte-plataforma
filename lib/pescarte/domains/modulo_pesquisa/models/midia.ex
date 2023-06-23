@@ -1,12 +1,11 @@
 defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
   use Pescarte, :model
 
-  alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.Usuario
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
   alias Pescarte.Types.PublicId
 
   @type t :: %Midia{
-          id: integer,
           tipo: atom,
           nome_arquivo: binary,
           data_arquivo: Date.t(),
@@ -24,20 +23,25 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia do
 
   @tipos ~w(imagem video documento)a
 
+  @primary_key {:link, :string, autogenerate: false}
   schema "midia" do
     field :tipo, Ecto.Enum, values: @tipos
     field :nome_arquivo, :string
     field :data_arquivo, :date
     field :restrito?, :boolean, default: false
     field :observacao, :string
-    field :link, :string
     field :texto_alternativo, :string
     field :id_publico, PublicId, autogenerate: true
 
-    belongs_to :autor, User, on_replace: :update
+    belongs_to :autor, Usuario,
+      on_replace: :update,
+      foreign_key: :autor_id,
+      references: :id_publico,
+      type: :string
 
     many_to_many :tags, Tag,
       join_through: "midias_tags",
+      join_keys: [midia_link: :link, tag_etiqueta: :etiqueta],
       on_replace: :delete,
       unique: true
 

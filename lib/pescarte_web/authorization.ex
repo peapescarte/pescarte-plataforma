@@ -2,7 +2,7 @@ defmodule PescarteWeb.Authorization do
   import Plug.Conn
 
   alias Pescarte.Domains.Accounts
-  alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.Usuario
   alias PescarteWeb.Authentication
 
   def require_admin_role(conn, _opts) do
@@ -44,7 +44,7 @@ defmodule PescarteWeb.Authorization do
     end
   end
 
-  defp permit?(%User{tipo: role}, role), do: true
+  defp permit?(%Usuario{tipo: role}, role), do: true
 
   defp permit?(_user, _role), do: false
 end

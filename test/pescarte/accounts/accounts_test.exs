@@ -2,8 +2,8 @@ defmodule Pescarte.Accounts.AccountsTest do
   use Pescarte.DataCase, async: true
 
   alias Pescarte.Domains.Accounts
-  alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
+  alias Pescarte.Domains.Accounts.Models.Usuario
 
   import Pescarte.Factory
 
@@ -31,7 +31,7 @@ defmodule Pescarte.Accounts.AccountsTest do
 
       params = [
         contexto: "confirm",
-        usuario_id: user.id,
+        usuario_id: user.id_publico,
         token: hashed,
         enviado_para: user.contato.email_principal
       ]
@@ -40,7 +40,7 @@ defmodule Pescarte.Accounts.AccountsTest do
       confirm_token = Base.url_encode64(token)
 
       assert {:ok, confirmed} = Accounts.confirm_user(confirm_token, @now)
-      assert confirmed.id == user.id
+      assert confirmed.id_publico == user.id_publico
       assert confirmed.confirmado_em == @now
     end
   end
@@ -52,12 +52,12 @@ defmodule Pescarte.Accounts.AccountsTest do
     end
 
     test "quando os atributos são válidos" do
-      assert {:ok, %User{}} =
+      assert {:ok, %Usuario{}} =
                :user_creation
                |> build()
                |> Accounts.create_user_admin()
 
-      assert {:ok, %User{}} =
+      assert {:ok, %Usuario{}} =
                :user_creation
                |> build()
                |> Accounts.create_user_pesquisador()
@@ -78,7 +78,7 @@ defmodule Pescarte.Accounts.AccountsTest do
       user = insert(:user)
 
       assert {:ok, fetched} = Accounts.fetch_user_by_cpf_and_password(user.cpf, user.senha)
-      assert fetched.id == user.id
+      assert fetched.id_publico == user.id_publico
       assert fetched.cpf == user.cpf
     end
   end
@@ -99,7 +99,7 @@ defmodule Pescarte.Accounts.AccountsTest do
       assert {:ok, fetched} =
                Accounts.fetch_user_by_email_and_password(user.contato.email_principal, user.senha)
 
-      assert fetched.id == user.id
+      assert fetched.id_publico == user.id_publico
       assert fetched.cpf == user.cpf
     end
   end
@@ -120,14 +120,14 @@ defmodule Pescarte.Accounts.AccountsTest do
       insert(:email_token,
         contexto: "reset_password",
         usuario: user,
-        usuario_id: user.id,
+        usuario_id: user.id_publico,
         enviado_para: user.contato.email_principal,
         token: :crypto.hash(:sha256, token)
       )
 
       token_url_encoded = Base.url_encode64(token)
       assert {:ok, fetched} = Accounts.fetch_user_by_reset_password_token(token_url_encoded)
-      assert user.id == fetched.id
+      assert user.id_publico == fetched.id_publico
     end
   end
 
@@ -141,7 +141,7 @@ defmodule Pescarte.Accounts.AccountsTest do
       user = Repo.preload(token.usuario, :contato)
 
       assert {:ok, fetched} = Accounts.fetch_user_by_session_token(token.token)
-      assert fetched.id == user.id
+      assert fetched.id_publico == user.id_publico
     end
   end
 
@@ -151,7 +151,7 @@ defmodule Pescarte.Accounts.AccountsTest do
 
       assert {:ok, token} = Accounts.generate_email_token(user, "reset_password")
       assert {:ok, fetched} = Accounts.fetch_user_by_reset_password_token(token)
-      assert fetched.id == user.id
+      assert fetched.id_publico == user.id_publico
     end
   end
 
@@ -161,7 +161,7 @@ defmodule Pescarte.Accounts.AccountsTest do
 
       assert {:ok, token} = Accounts.generate_session_token(user)
       assert {:ok, fetched} = Accounts.fetch_user_by_session_token(token)
-      assert fetched.id == user.id
+      assert fetched.id_publico == user.id_publico
     end
   end
 

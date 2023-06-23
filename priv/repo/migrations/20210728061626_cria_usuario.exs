@@ -2,23 +2,26 @@ defmodule Pescarte.Repo.Migrations.CriaUsuario do
   use Ecto.Migration
 
   def change do
-    create table(:usuario) do
+    create table(:usuario, primary_key: false) do
       add :id_publico, :string, null: false
-      add :cpf, :citext, null: false
+      add :cpf, :citext, primary_key: true, null: false
+      add :rg, :citext, null: true
       add :primeiro_nome, :string, null: false
       add :sobrenome, :string, null: false
       add :data_nascimento, :date, null: false
-      add :tipo, :string, default: "avulso", null: false
+      add :tipo, :string, null: false
       add :hash_senha, :string
       add :confirmado_em, :naive_datetime
       add :ativo?, :boolean
 
-      add :contato_id, references(:contato, on_replace: :update), null: false
+      add :contato_email,
+          references(:contato, on_replace: :update, column: :email_principal, type: :citext),
+          null: false
 
       timestamps()
     end
 
-    create unique_index(:usuario, [:cpf])
+    create unique_index(:usuario, [:id_publico])
     create unique_index(:usuario, [:primeiro_nome, :sobrenome, :cpf])
 
     create table(:user_token) do
@@ -26,7 +29,7 @@ defmodule Pescarte.Repo.Migrations.CriaUsuario do
       add :contexto, :string, null: false
       add :enviado_para, :string
 
-      add :usuario_id, references(:usuario), null: false
+      add :usuario_id, references(:usuario, column: :id_publico, type: :string), null: false
 
       timestamps(updated_at: false)
     end
