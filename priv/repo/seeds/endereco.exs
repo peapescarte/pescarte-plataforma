@@ -8,13 +8,15 @@ defmodule EnderecoSeed do
         cidade: "Campos dos Goytacazes",
         estado: "Rio de Janeiro",
         numero: "2000",
-        rua: "Avenida Alberto Lamego"
+        rua: "Avenida Alberto Lamego",
+        id_publico: Nanoid.generate_non_secure()
       },
       %Endereco{
         cep: "13565905",
         cidade: "São Carlos",
         estado: "São Paulo",
-        rua: "Rod. Washington Luís"
+        rua: "Rod. Washington Luís",
+        id_publico: Nanoid.generate_non_secure()
       }
     ]
   end
