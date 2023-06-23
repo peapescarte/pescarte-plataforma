@@ -46,7 +46,7 @@ RUN mix release
 FROM ${RUNNER_IMAGE}
 
 RUN apt-get update -y \
-  && apt-get install -y libstdc++6 openssl libncurses5 locales
+  && apt-get install -y iputils-ping libstdc++6 openssl libncurses5 locales postgresql-client
 
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
