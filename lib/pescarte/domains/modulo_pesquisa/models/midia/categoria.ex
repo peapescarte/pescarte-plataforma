@@ -3,15 +3,15 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag
 
-  @type t :: %Categoria{id: integer, nome: binary, id_publico: binary, tags: list(Tag.t())}
+  @type t :: %Categoria{nome: binary, id_publico: binary, tags: list(Tag.t())}
 
   @required_fields ~w(nome)a
 
+  @primary_key {:nome, :string, autogenerate: false}
   schema "categoria" do
-    field :nome, :string
     field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
-    has_many :tags, Tag
+    has_many :tags, Tag, foreign_key: :categoria_nome, references: :nome
 
     timestamps()
   end

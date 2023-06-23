@@ -2,7 +2,6 @@ defmodule Pescarte.Domains.Accounts.Models.Endereco do
   use Pescarte, :model
 
   @type t :: %Endereco{
-          id: integer,
           rua: binary,
           numero: integer,
           complemento: binary,
@@ -11,24 +10,25 @@ defmodule Pescarte.Domains.Accounts.Models.Endereco do
           estado: binary
         }
 
-  @fields ~w(rua numero complemento cep cidade estado)a
+  @fields ~w(rua numero complemento cep cidade estado bairro)a
 
+  @primary_key {:cep, :string, autogenerate: false}
   schema "endereco" do
+    field :bairro, :string
     field :rua, :string
-    field :numero, :integer
+    field :numero, :string
     field :complemento, :string
-    field :cep, :string
     field :cidade, :string
     field :estado, :string
+    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
     timestamps()
   end
 
-  @spec changeset(map) :: Result.t(Endereco.t(), changeset)
-  def changeset(endereco \\ %__MODULE__{}, attrs) do
+  @spec changeset(Endereco.t(), map) :: changeset
+  def changeset(%Endereco{} = endereco, attrs) do
     endereco
     |> cast(attrs, @fields)
     |> validate_required([:cep])
-    |> apply_action(:parse)
   end
 end

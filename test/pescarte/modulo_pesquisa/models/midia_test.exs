@@ -16,7 +16,7 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
       nome_arquivo: "arquivo.jpg",
       data_arquivo: ~D[2023-01-01],
       link: "https://exemplo.com/imagem.jpg",
-      autor_id: autor.id
+      autor_id: autor.id_publico
     }
 
     changeset = Midia.changeset(%Midia{}, attrs, [tag])
@@ -26,7 +26,7 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
     assert get_change(changeset, :nome_arquivo) == "arquivo.jpg"
     assert get_change(changeset, :data_arquivo) == ~D[2023-01-01]
     assert get_change(changeset, :link) == "https://exemplo.com/imagem.jpg"
-    assert get_change(changeset, :autor_id) == autor.id
+    assert get_change(changeset, :autor_id) == autor.id_publico
     assert length(get_change(changeset, :tags)) == 1
   end
 

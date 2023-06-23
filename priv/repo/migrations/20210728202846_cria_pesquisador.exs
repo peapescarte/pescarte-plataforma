@@ -2,10 +2,8 @@ defmodule Pescarte.Repo.Migrations.CreatePesquisador do
   use Ecto.Migration
 
   def change do
-    create table(:pesquisador) do
-      add :id_publico, :string, null: false
-
-      add :rg, :citext, null: false
+    create table(:pesquisador, primary_key: false) do
+      add :id_publico, :string, null: false, primary_key: true
       add :bolsa, :string, default: "pesquisa", null: false
       add :minibio, :string, null: false, size: 280
       add :link_lattes, :string, null: false
@@ -18,16 +16,15 @@ defmodule Pescarte.Repo.Migrations.CreatePesquisador do
       add :data_contratacao, :date
       add :data_termino, :date
 
-      add :orientador_id, references(:pesquisador), null: true
-      add :usuario_id, references(:usuario), null: false
-      add :campus_id, references(:campus), null: false
+      add :orientador_id, references(:pesquisador, column: :id_publico, type: :string), null: true
+      add :usuario_id, references(:usuario, column: :id_publico, type: :string), null: false
+      add :campus_acronimo, references(:campus, column: :acronimo, type: :string), null: false
 
       timestamps()
     end
 
-    create unique_index(:pesquisador, [:rg])
     create index(:pesquisador, [:usuario_id])
-    create index(:pesquisador, [:campus_id])
+    create index(:pesquisador, [:campus_acronimo])
     create index(:pesquisador, [:orientador_id])
   end
 end

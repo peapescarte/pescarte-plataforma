@@ -16,7 +16,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
     with {:ok, user} <- Accounts.fetch_user_by_id_publico(attrs.autor_id),
          {:ok, raw_tags} <- put_categorias_ids(tags_attrs) do
       attrs
-      |> Map.update!(:autor_id, fn _ -> user.id end)
+      |> Map.update!(:autor_id, fn _ -> user.id_publico end)
       |> Repository.create_midia_and_tags_multi(raw_tags)
     end
   end
@@ -28,7 +28,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
     |> Enum.reduce(state, fn %{categoria_id: id} = tag, state ->
       case Repository.fetch_categoria_by_id_publico(id) do
         {:ok, categoria} ->
-          success = [%{tag | categoria_id: categoria.id} | state[:success]]
+          success = [Map.put(tag, :categoria_nome, categoria.nome) | state[:success]]
 
           %{state | success: success}
 
@@ -51,7 +51,9 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
       {:ok, categoria} ->
         case Repository.fetch_tag_by_etiqueta(attrs.etiqueta) do
           {:error, :not_found} ->
-            Repository.upsert_tag(%{attrs | categoria_id: categoria.id})
+            attrs
+            |> Map.put(:categoria_nome, categoria.nome)
+            |> Repository.upsert_tag()
 
           {:ok, tag} ->
             {:ok, tag}
@@ -79,10 +81,10 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
   end
 
   @impl true
-  defdelegate fetch_categoria(categoria_id), to: Repository
+  defdelegate fetch_categoria(categoria_nome), to: Repository
 
   @impl true
-  defdelegate fetch_midia(midia_id), to: Repository, as: :fetch_midia_by_id_publico
+  defdelegate fetch_midia(midia_link), to: Repository, as: :fetch_midia_by_id_publico
 
   @impl true
   defdelegate list_categoria, to: Repository
@@ -91,7 +93,7 @@ defmodule Pescarte.Domains.ModuloPesquisa.Handlers.Midias do
   defdelegate list_midia, to: Repository
 
   @impl true
-  defdelegate list_midias_from_tag(tag_id), to: Repository
+  defdelegate list_midias_from_tag(tag_etiqueta), to: Repository
 
   @impl true
   defdelegate list_tag, to: Repository
