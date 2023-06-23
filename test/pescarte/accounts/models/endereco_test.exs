@@ -8,7 +8,9 @@ defmodule Pescarte.Accounts.Models.EnderecoTest do
   test "cria um endereco sem cep obrigatório" do
     attrs = %{}
 
-    assert {:error, changeset} = Endereco.changeset(attrs)
+    changeset = Endereco.changeset(%Endereco{}, attrs)
+
+    refute changeset.valid?
     assert Keyword.get(changeset.errors, :cep)
   end
 
@@ -17,12 +19,14 @@ defmodule Pescarte.Accounts.Models.EnderecoTest do
       cep: "28030-001",
       cidade: "Campos dos Goytacazes",
       estado: "rio de janeiro",
-      numero: 123,
+      numero: "123",
       rua: "Teste",
       complemento: "um complemento"
     }
 
-    assert {:ok, contato} = Endereco.changeset(attrs)
-    assert contato.estado == "rio de janeiro"
+    changeset = Endereco.changeset(%Endereco{}, attrs)
+
+    assert changeset.valid?
+    assert get_change(changeset, :estado) == "rio de janeiro"
   end
 end

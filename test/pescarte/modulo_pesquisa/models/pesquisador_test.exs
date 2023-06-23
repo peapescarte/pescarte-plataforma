@@ -12,9 +12,8 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
       minibio: "Minibio do Pesquisador",
       bolsa: :pesquisa,
       link_lattes: "https://linklattes.com",
-      campus_id: insert(:campus).id,
-      usuario_id: insert(:user).id,
-      rg: "12.123.456-7",
+      campus_acronimo: insert(:campus).acronimo,
+      usuario_id: insert(:user).id_publico,
       data_inicio_bolsa: ~D[2023-01-01],
       data_fim_bolsa: ~D[2023-12-31],
       data_contratacao: ~D[2023-01-01],
@@ -27,7 +26,6 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
     assert get_change(changeset, :minibio) == "Minibio do Pesquisador"
     assert get_change(changeset, :bolsa) == :pesquisa
     assert get_change(changeset, :link_lattes) == "https://linklattes.com"
-    assert get_change(changeset, :rg) == "12.123.456-7"
     assert get_change(changeset, :formacao) == "Formação do Pesquisador"
   end
 
@@ -36,9 +34,8 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
       minibio: "Minibio do Pesquisador",
       bolsa: :pesquisa,
       link_lattes: "https://linklattes.com",
-      campus_id: insert(:campus).id,
-      usuario_id: insert(:user).id,
-      rg: "12.123.456-7",
+      campus_acronimo: insert(:campus).acronimo,
+      usuario_id: insert(:user).id_publico,
       data_inicio_bolsa: ~D[2023-01-01],
       data_fim_bolsa: ~D[2023-12-31],
       data_contratacao: ~D[2023-01-01]

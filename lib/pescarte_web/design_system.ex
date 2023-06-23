@@ -191,9 +191,9 @@ defmodule PescarteWeb.DesignSystem do
 
   def checkbox(assigns) do
     ~H"""
-    <div class="checkbox-container">
+    <div class="flex items-center checkbox-container">
       <input id={@name} name={@name} type="checkbox" checked={@checked} disabled={@disabled} />
-      <label for={@id}>
+      <label for={@name}>
         <.text size="base"><%= @label %></.text>
       </label>
     </div>

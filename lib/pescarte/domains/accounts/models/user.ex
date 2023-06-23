@@ -1,4 +1,4 @@
-defmodule Pescarte.Domains.Accounts.Models.User do
+defmodule Pescarte.Domains.Accounts.Models.Usuario do
   use Pescarte, :model
 
   import Brcpfcnpj.Changeset, only: [validate_cpf: 3]
@@ -6,9 +6,9 @@ defmodule Pescarte.Domains.Accounts.Models.User do
   alias Pescarte.Domains.Accounts.Models.Contato
   alias Pescarte.Domains.ModuloPesquisa.Models.Pesquisador
 
-  @type t :: %User{
-          id: integer,
+  @type t :: %Usuario{
           cpf: binary,
+          rg: binary,
           confirmado_em: NaiveDateTime.t(),
           hash_senha: binary,
           data_nascimento: Date.t(),
@@ -23,15 +23,17 @@ defmodule Pescarte.Domains.Accounts.Models.User do
 
   @valid_roles ~w(pesquisador pescador admin)a
 
-  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id tipo)a
-  @optional_fields ~w(confirmado_em)a
+  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_email tipo)a
+  @optional_fields ~w(confirmado_em rg)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
+  @primary_key {:id_publico, Pescarte.Types.PublicId, autogenerate: true}
   schema "usuario" do
     field :cpf, :string
+    field :rg, :string
     field :confirmado_em, :naive_datetime
     field :hash_senha, :string, redact: true
     field :senha, :string, virtual: true, redact: true
@@ -39,31 +41,34 @@ defmodule Pescarte.Domains.Accounts.Models.User do
     field :tipo, Ecto.Enum, values: @valid_roles
     field :primeiro_nome, :string
     field :sobrenome, :string
-    field :id_publico, Pescarte.Types.PublicId, autogenerate: true
     field :ativo?, :boolean, default: false
 
-    has_one :pesquisador, Pesquisador, foreign_key: :usuario_id
-    belongs_to :contato, Contato, on_replace: :update
+    has_one :pesquisador, Pesquisador, references: :id_publico, foreign_key: :usuario_id
+
+    belongs_to :contato, Contato,
+      foreign_key: :contato_email,
+      references: :email_principal,
+      on_replace: :update,
+      type: :string
 
     timestamps()
   end
 
-  @spec changeset(Usert.t(), map) :: Result.t(User.t(), changeset)
-  def changeset(user \\ %User{}, attrs) do
+  @spec changeset(Usuariot.t(), map) :: changeset
+  def changeset(%Usuario{} = user, attrs) do
     user
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_cpf(:cpf, message: "CPF inválido")
     |> unique_constraint(:cpf)
-    |> apply_action(:parse)
   end
 
-  @spec confirm_changeset(User.t(), NaiveDateTime.t()) :: changeset
+  @spec confirm_changeset(Usuario.t(), NaiveDateTime.t()) :: changeset
   def confirm_changeset(%__MODULE__{} = user, now) do
     change(user, confirmado_em: now)
   end
 
-  @spec password_changeset(User.t() | changeset, map, keyword) :: changeset
+  @spec password_changeset(Usuario.t() | changeset, map, keyword) :: changeset
   def password_changeset(source, attrs \\ %{}, opts \\ []) do
     source
     |> cast(attrs, [:senha])

@@ -11,7 +11,7 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioAnualTest do
     attrs = %{
       ano: 2023,
       mes: 1,
-      pesquisador_id: insert(:pesquisador).id
+      pesquisador_id: insert(:pesquisador).id_publico
     }
 
     changeset = RelatorioAnual.changeset(%RelatorioAnual{}, attrs)

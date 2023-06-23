@@ -19,7 +19,7 @@ defmodule PescarteWeb.GraphQL.Resolver.Midia do
   end
 
   def list_tags(%Tag{} = tag, _args, _resolution) do
-    {:ok, Handlers.Midias.list_midias_from_tag(tag.id)}
+    {:ok, Handlers.Midias.list_midias_from_tag(tag.etiqueta)}
   end
 
   def remove_tags(%{input: args}, _resolution) do

@@ -69,7 +69,7 @@ defmodule PescarteWeb.ConnCase do
   """
   def register_and_generate_jwt_token(%{conn: conn}) do
     user = Factory.insert(:user)
-    token = Phoenix.Token.sign(PescarteWeb.Endpoint, @token_salt, user.id)
+    token = Phoenix.Token.sign(PescarteWeb.Endpoint, @token_salt, user.id_publico)
     %{conn: Plug.Conn.put_req_header(conn, "authorization", "Bearer " <> token), user: user}
   end
 
