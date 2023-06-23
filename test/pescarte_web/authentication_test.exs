@@ -244,29 +244,29 @@ defmodule PescarteWeb.AuthenticationTest do
     end
 
     test "armazena o path para redirecionar com GET", %{conn: conn} do
-      halted_conn =
+      conn_without_query =
         %{conn | path_info: ["test"], query_string: ""}
         |> fetch_flash()
         |> Authentication.require_authenticated_user([])
 
-      assert halted_conn.halted
-      assert get_session(halted_conn, :user_return_to) == "/test"
+      assert conn_without_query.halted
+      assert get_session(conn_without_query, :user_return_to) == "/test"
 
-      halted_conn =
+      conn_with_query =
         %{conn | path_info: ["test"], query_string: "query=test"}
         |> fetch_flash()
         |> Authentication.require_authenticated_user([])
 
-      assert halted_conn.halted
-      assert get_session(halted_conn, :user_return_to) == "/test?query=test"
+      assert conn_with_query.halted
+      assert get_session(conn_with_query, :user_return_to) == "/test?query=test"
 
-      halted_conn =
+      conn_post =
         %{conn | path_info: ["test"], query_string: "query", method: "POST"}
         |> fetch_flash()
         |> Authentication.require_authenticated_user([])
 
-      assert halted_conn.halted
-      refute get_session(halted_conn, :user_return_to)
+      assert conn_post.halted
+      refute get_session(conn_post, :user_return_to)
     end
 
     test "não redireciona se o usuário está autenticado", %{conn: conn, user: user} do
