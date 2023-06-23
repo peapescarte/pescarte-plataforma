@@ -12,7 +12,7 @@ defmodule Pescarte.Domains.Accounts.Models.UserToken do
 
   import Ecto.Query
 
-  alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.Usuario
 
   @type t :: %UserToken{
           id: integer,
@@ -27,27 +27,29 @@ defmodule Pescarte.Domains.Accounts.Models.UserToken do
     field :contexto, :string
     field :enviado_para, :string
 
-    belongs_to :usuario, User
+    belongs_to :usuario, Usuario,
+      foreign_key: :usuario_id,
+      references: :id_publico,
+      type: :string
 
     timestamps(updated_at: false)
   end
 
-  @spec changeset(map) :: Result.t(UserToken.t(), changeset)
+  @spec changeset(map) :: changeset
   def changeset(attrs) do
     %UserToken{}
     |> cast(attrs, [:token, :contexto, :enviado_para, :usuario_id])
     |> validate_required([:token, :contexto, :usuario_id])
-    |> apply_action(:parse)
   end
 
   @doc """
   Obtém todos os tokens do usuário fornecido para os contextos fornecidos.
   """
   def user_and_contexts_query(user, :all) do
-    from t in UserToken, where: t.usuario_id == ^user.id
+    from t in UserToken, where: t.usuario_id == ^user.id_publico
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in UserToken, where: t.usuario_id == ^user.id and t.contexto in ^contexts
+    from t in UserToken, where: t.usuario_id == ^user.id_publico and t.contexto in ^contexts
   end
 end

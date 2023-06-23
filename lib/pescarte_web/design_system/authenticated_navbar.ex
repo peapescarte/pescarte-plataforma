@@ -1,9 +1,9 @@
 defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
   use PescarteWeb, :live_component
 
-  alias Pescarte.Domains.Accounts.Models.User
+  alias Pescarte.Domains.Accounts.Models.Usuario
 
-  attr :user, User, required: true
+  attr :user, Usuario, required: true
   attr :open, :boolean, default: nil
 
   @impl true

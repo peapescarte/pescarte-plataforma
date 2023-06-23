@@ -2,17 +2,16 @@ defmodule Pescarte.Repo.Migrations.CriaTag do
   use Ecto.Migration
 
   def up do
-    create table(:tag) do
-      add :etiqueta, :string, null: false
+    create table(:tag, primary_key: false) do
+      add :etiqueta, :string, null: false, primary_key: true
       add :id_publico, :string
 
-      add :categoria_id, references(:categoria), null: false
+      add :categoria_nome, references(:categoria, column: :nome, type: :string), null: false
 
       timestamps()
     end
 
-    create unique_index(:tag, [:etiqueta])
-    create index(:tag, [:categoria_id])
+    create index(:tag, [:categoria_nome])
 
     alter table(:midia) do
       remove :tags
@@ -21,8 +20,7 @@ defmodule Pescarte.Repo.Migrations.CriaTag do
 
   def down do
     drop_if_exists table(:tag)
-    drop_if_exists unique_index(:tag, [:etiqueta])
-    drop_if_exists index(:tag, [:categoria_id])
+    drop_if_exists index(:tag, [:categoria_nome])
 
     alter table(:midia) do
       add :tags, {:array, :string}, null: false

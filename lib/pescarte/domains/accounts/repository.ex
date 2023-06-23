@@ -2,14 +2,14 @@ defmodule Pescarte.Domains.Accounts.Repository do
   use Pescarte, :repository
 
   alias Pescarte.Domains.Accounts.IManageRepository
-  alias Pescarte.Domains.Accounts.Models.User
   alias Pescarte.Domains.Accounts.Models.UserToken
+  alias Pescarte.Domains.Accounts.Models.Usuario
 
   @behaviour IManageRepository
 
   @impl true
   def fetch_user_by_cpf(cpf) do
-    Repo.fetch_by(User, cpf: cpf)
+    Repo.fetch_by(Usuario, cpf: cpf)
   end
 
   @impl true
@@ -34,7 +34,7 @@ defmodule Pescarte.Domains.Accounts.Repository do
   end
 
   defp email_query(email) do
-    from(u in User,
+    from(u in Usuario,
       left_join: c in assoc(u, :contato),
       where: c.email_principal == ^email or ^email in c.emails_adicionais,
       order_by: [desc: u.inserted_at],
@@ -65,6 +65,6 @@ defmodule Pescarte.Domains.Accounts.Repository do
 
   @impl true
   def list_user do
-    Repo.all(User)
+    Repo.all(Usuario)
   end
 end

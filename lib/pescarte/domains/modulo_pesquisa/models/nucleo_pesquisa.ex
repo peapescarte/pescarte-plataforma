@@ -4,7 +4,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
   alias Pescarte.Domains.ModuloPesquisa.Models.LinhaPesquisa
 
   @type t :: %NucleoPesquisa{
-          id: integer,
           nome: binary,
           letra: binary,
           desc: binary,
@@ -12,13 +11,13 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.NucleoPesquisa do
           linha_pesquisas: list(LinhaPesquisa.t())
         }
 
+  @primary_key {:letra, :string, autogenerate: false}
   schema "nucleo_pesquisa" do
     field :nome, :string
-    field :letra, :string
     field :desc, :string
     field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
-    has_many :linha_pesquisas, LinhaPesquisa
+    has_many :linha_pesquisas, LinhaPesquisa, foreign_key: :nucleo_pesquisa_letra
 
     timestamps()
   end

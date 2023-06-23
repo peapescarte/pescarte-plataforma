@@ -3,15 +3,18 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
 
   alias Pescarte.Domains.ModuloPesquisa.Models.Midia.Categoria
 
-  @type t :: %Tag{id: integer, etiqueta: binary, id_publico: binary, categoria: Categoria.t()}
+  @type t :: %Tag{etiqueta: binary, id_publico: binary, categoria: Categoria.t()}
 
-  @required_fields ~w(etiqueta categoria_id)a
+  @required_fields ~w(etiqueta categoria_nome)a
 
+  @primary_key {:etiqueta, :string, autogenerate: false}
   schema "tag" do
-    field :etiqueta, :string
     field :id_publico, Pescarte.Types.PublicId, autogenerate: true
 
-    belongs_to :categoria, Categoria
+    belongs_to :categoria, Categoria,
+      foreign_key: :categoria_nome,
+      references: :nome,
+      type: :string
 
     timestamps()
   end
@@ -22,6 +25,6 @@ defmodule Pescarte.Domains.ModuloPesquisa.Models.Midia.Tag do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:etiqueta)
-    |> foreign_key_constraint(:categoria_id)
+    |> foreign_key_constraint(:categoria_nome)
   end
 end
