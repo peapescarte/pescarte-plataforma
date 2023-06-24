@@ -8,17 +8,23 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 FROM ${BUILDER_IMAGE} as builder
 
 RUN apt-get update -y && apt-get install -y build-essential curl \
-    && curl -fsSL https://deb.nodesource.com/setup_17.x | bash - \
-    && apt-get install -y nodejs
+  && curl -fsSL https://deb.nodesource.com/setup_17.x | bash - \
+  && apt-get install -y nodejs
 
 WORKDIR /app
 
 RUN mix local.hex --force && \
-    mix local.rebar --force
+  mix local.rebar --force
 
 ENV MIX_ENV="prod"
 
 COPY mix.exs mix.lock ./
+COPY apps/database/mix.exs ./apps/database/
+COPY apps/identidades/mix.exs ./apps/identidades/
+COPY apps/modulo_pesquisa/mix.exs ./apps/modulo_pesquisa/
+COPY apps/plataforma_digital/mix.exs ./apps/plataforma_digital/
+COPY apps/plataforma_digital_api/mix.exs ./apps/plataforma_digital_api/
+
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
 
@@ -26,12 +32,20 @@ RUN mkdir config
 COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN mix deps.compile
 
-COPY priv priv
-COPY lib lib
-COPY assets assets
+COPY apps/identidades/priv ./apps/identidades/priv
+COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
+COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
+
+COPY apps/database/lib ./apps/database/lib
+COPY apps/identidades/lib ./apps/identidades/lib
+COPY apps/modulo_pesquisa/lib ./apps/modulo_pesquisa/lib
+COPY apps/plataforma_digital/lib ./apps/plataforma_digital/lib
+COPY apps/plataforma_digital_api/lib ./apps/plataforma_digital_api/lib
+
+COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets/
 
 # compile assets
-RUN npm i --prefix ./assets
+RUN npm i --prefix ./apps/plataforma_digital/assets
 RUN mix assets.deploy
 
 # Compile the release

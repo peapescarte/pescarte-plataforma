@@ -1,35 +1,37 @@
 import Config
 
-# Only in tests, remove the complexity from the password hashing algorithm
-config :bcrypt_elixir, :log_rounds, 1
-
-# ignore audit log by default
-config :pescarte, carbonite_mode: :ignore
-
-config :pescarte, Pescarte.Repo,
-  username: System.get_env("PGUSER", "pescarte"),
-  password: System.get_env("PGPASSWORD", "pescarte"),
-  database: "pescarte_test#{System.get_env("MIX_TEST_PARTITION")}",
+database_opts = [
+  username: System.get_env("DATABASE_USER", "pescarte"),
+  password: System.get_env("DATABASE_PASSWORD", "pescarte"),
+  database: "peapescarte_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10,
-  show_sensitive_data_on_connection_error: true
+  pool_size: 10
+]
+
+config :database,
+  write_repo: Database.EscritaRepo,
+  read_repo: Database.EscritaRepo
+
+config :database, Database.EscritaRepo, database_opts
+config :database, Database.LeituraRepo, database_opts
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :pescarte, PescarteWeb.Endpoint,
+config :plataforma_digital, PlataformaDigital.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "UMvQe3k+eH28J6exxhadrvKm+mIvF3n73YdsY6x7EZV7FJDRezMjvf/2reDRqkPJ",
+  secret_key_base: "bCQ+FSLb9dhw6zg5bmUdKpINI8n7gjfzV84iFV9bLS9xd3rMIG20f5vXkkwbunnG",
   server: false
 
-# Initialize plugs at runtime for faster test compilation
-config :phoenix, :plug_init_mode, :runtime
+# We don't run a server during test. If one is required,
+# you can enable the server option below.
+config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
+  http: [ip: {127, 0, 0, 1}, port: 4003],
+  secret_key_base: "KGsxlyxraEpvmC3fdae4QTZ0qd0ahZSKK8I/9wVxo4r5N+wAU8Z6qgYTIErGKkpI",
+  server: false
 
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-try do
-  import_config "local.secret.exs"
-rescue
-  _ -> nil
-end
+# Only in tests, remove the complexity from the password hashing algorithm
+config :bcrypt_elixir, :log_rounds, 1
