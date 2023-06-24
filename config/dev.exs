@@ -1,20 +1,33 @@
 import Config
 
-# Configure your database
-config :pescarte, Pescarte.Repo,
-  username: System.get_env("PGUSER", "pescarte"),
-  password: System.get_env("PGPASSSWORD", "pescarte"),
-  database: "pescarte_dev",
+# -------- #
+# Database #
+# -------- #
+database = "peapescarte_dev"
+db_user = System.get_env("DATABASE_USER", "pescarte")
+db_pass = System.get_env("DATABASE_PASSWORD", "pescarte")
+
+database_opts = [
+  username: db_user,
+  password: db_pass,
   hostname: "localhost",
+  database: database,
+  stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
+]
 
-config :pescarte, PescarteWeb.Endpoint,
+config :database, Database.EscritaRepo, database_opts
+config :database, Database.LeituraRepo, database_opts
+
+# ------------------- #
+# Plataforma Digitial #
+# ------------------- #
+config :plataforma_digital, PlataformaDigital.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
@@ -22,15 +35,29 @@ config :pescarte, PescarteWeb.Endpoint,
     storybook_tailwind: {Tailwind, :install_and_run, [:storybook, ~w(--watch)]}
   ]
 
-config :pescarte, PescarteWeb.Endpoint,
+config :plataforma_digital, PlataformaDigital.Endpoint,
   reloadable_compilers: [:elixir],
   live_reload: [
     patterns: [
       ~r"storybook/.*(exs)$",
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"lib/pescarte_web/(|views|components)/.*(ex|js)$",
-      ~r"lib/pescarte_web/templates/.*(eex)$",
-      ~r"lib/pescarte_web/graphql/.*(ex)$"
+      ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"apps/plataforma_digital/lib/plataforma_digital/(|templates|components|controllers)/.*(ex|js)$",
+      ~r"apps/plataforma_digital/lib/plataforma_digital/templates/.*(eex)$"
+    ]
+  ]
+
+# ----------------------- #
+# Plataforma Digitial API #
+# ----------------------- #
+config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
+  http: [ip: {127, 0, 0, 1}, port: 4001],
+  debug_errors: true,
+  code_reloader: true,
+  check_origin: false,
+  reloadable_compilers: [:elixir],
+  live_reload: [
+    patterns: [
+      ~r"apps/plataforma_digital_api/lib/*.(ex)$"
     ]
   ]
 
@@ -43,9 +70,3 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
-
-try do
-  import_config "local.secret.exs"
-rescue
-  _ -> nil
-end
