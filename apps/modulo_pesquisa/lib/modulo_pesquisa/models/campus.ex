@@ -1,9 +1,9 @@
 defmodule ModuloPesquisa.Models.Campus do
   use Database, :model
 
+  alias Database.Types.PublicId
   alias Identidades.Models.Endereco
   alias ModuloPesquisa.Models.Pesquisador
-  alias Database.Types.PublicId
 
   @type t :: %Campus{
           nome: binary,

@@ -1,9 +1,9 @@
 defmodule ModuloPesquisa.Models.Midia do
   use Database, :model
 
+  alias Database.Types.PublicId
   alias Identidades.Models.Usuario
   alias ModuloPesquisa.Models.Midia.Tag
-  alias Database.Types.PublicId
 
   @type t :: %Midia{
           tipo: atom,

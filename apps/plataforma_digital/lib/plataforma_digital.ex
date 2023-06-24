@@ -100,8 +100,8 @@ defmodule PlataformaDigital do
       import PlataformaDigital.DesignSystem
 
       # Shortcut for generating JS commands
-      alias PlataformaDigital.DesignSystem
       alias Phoenix.LiveView.JS
+      alias PlataformaDigital.DesignSystem
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())

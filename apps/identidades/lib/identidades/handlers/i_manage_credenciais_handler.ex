@@ -1,6 +1,6 @@
 defmodule Identidades.Handlers.IManageCredenciaisHandler do
-  alias Identidades.Models.Usuario
   alias Identidades.Models.Token
+  alias Identidades.Models.Usuario
 
   @typep changeset :: Ecto.Changeset.t()
 
