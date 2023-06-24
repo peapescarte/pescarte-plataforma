@@ -20,32 +20,32 @@ defmodule PlataformaDigitalAPI.Schema.Midia do
   # Mutations
 
   input_object :remove_tag_input do
-    field :midia_id, non_null(:string)
-    field :tags_id, list_of(:string)
+    field(:midia_id, non_null(:string))
+    field(:tags_id, list_of(:string))
   end
 
   input_object :criar_midia_input do
-    field :nome_arquivo, non_null(:string)
-    field :data_arquivo, non_null(:date)
-    field :link, non_null(:string)
-    field :restrito?, :boolean, name: "restrito"
-    field :tipo, non_null(:tipo_midia_enum)
-    field :observacao, :string
-    field :texto_alternativo, :string
-    field :autor_id, non_null(:string)
-    field :tags, list_of(:criar_tag_input)
+    field(:nome_arquivo, non_null(:string))
+    field(:data_arquivo, non_null(:date))
+    field(:link, non_null(:string))
+    field(:restrito?, :boolean, name: "restrito")
+    field(:tipo, non_null(:tipo_midia_enum))
+    field(:observacao, :string)
+    field(:texto_alternativo, :string)
+    field(:autor_id, non_null(:string))
+    field(:tags, list_of(:criar_tag_input))
   end
 
   input_object :atualizar_midia_input do
-    field :id, non_null(:string)
-    field :nome_arquivo, :string
-    field :data_arquivo, :date
-    field :link, :string
-    field :restrito?, :boolean, name: "restrito"
-    field :tipo, :tipo_midia_enum
-    field :observacao, :string
-    field :texto_alternativo, :string
-    field :autor_id, :string
+    field(:id, non_null(:string))
+    field(:nome_arquivo, :string)
+    field(:data_arquivo, :date)
+    field(:link, :string)
+    field(:restrito?, :boolean, name: "restrito")
+    field(:tipo, :tipo_midia_enum)
+    field(:observacao, :string)
+    field(:texto_alternativo, :string)
+    field(:autor_id, :string)
   end
 
   object :midia_mutations do

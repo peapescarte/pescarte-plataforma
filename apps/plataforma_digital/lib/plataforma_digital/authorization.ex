@@ -1,7 +1,7 @@
 defmodule PlataformaDigital.Authorization do
   import Plug.Conn
 
-alias Identidades.Handlers.CredenciaisHandler
+  alias Identidades.Handlers.CredenciaisHandler
   alias Identidades.Models.Usuario
   alias PlataformaDigital.Authentication
 

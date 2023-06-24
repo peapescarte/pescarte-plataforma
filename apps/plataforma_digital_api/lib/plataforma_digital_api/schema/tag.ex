@@ -14,13 +14,13 @@ defmodule PlataformaDigitalAPI.Schema.Tag do
   # Mutations
 
   input_object :criar_tag_input do
-    field :etiqueta, non_null(:string)
-    field :categoria_id, non_null(:string)
+    field(:etiqueta, non_null(:string))
+    field(:categoria_id, non_null(:string))
   end
 
   input_object :atualizar_tag_input do
-    field :id, non_null(:string)
-    field :etiqueta, non_null(:string)
+    field(:id, non_null(:string))
+    field(:etiqueta, non_null(:string))
   end
 
   object :tag_mutations do

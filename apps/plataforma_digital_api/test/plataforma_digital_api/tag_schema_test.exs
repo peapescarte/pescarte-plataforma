@@ -38,8 +38,6 @@ defmodule PlataformaDigitalAPI.TagSchemaTest do
     end
   end
 
-
-
   describe "criar tag mutation" do
     setup :register_and_generate_jwt_token
 

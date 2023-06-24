@@ -5,7 +5,7 @@ defmodule PlataformaDigitalAPI.CategoriaSchemaTest do
 
   @moduletag :integration
 
-describe "listar categorias query" do
+  describe "listar categorias query" do
     setup :register_and_generate_jwt_token
 
     @list_categorias_query """

@@ -10,7 +10,7 @@ defmodule PlataformaDigital.Application do
       # Start the Endpoint (http/https)
       PlataformaDigital.Endpoint,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Pescarte.PubSub},
+      {Phoenix.PubSub, name: Pescarte.PubSub}
     ]
 
     opts = [strategy: :one_for_one, name: PlataformaDigital.Supervisor]

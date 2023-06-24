@@ -18,8 +18,8 @@ defmodule PlataformaDigitalAPI.Schema.User do
 
   @desc "Parâmetros para criar um acesso de usuário"
   input_object :login_input do
-    field :cpf, non_null(:string)
-    field :senha, non_null(:string)
+    field(:cpf, non_null(:string))
+    field(:senha, non_null(:string))
   end
 
   object :usuario_mutations do

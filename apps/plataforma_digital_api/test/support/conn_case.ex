@@ -37,7 +37,6 @@ defmodule PlataformaDigitalAPI.ConnCase do
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 
-
   @token_salt "autenticação de usuário"
 
   @doc """

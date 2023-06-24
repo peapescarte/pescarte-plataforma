@@ -12,14 +12,14 @@ defmodule PlataformaDigitalAPI.Type.Midia do
 
   @desc "Representa uma Mídia genérica da plataforma"
   object :midia do
-    field :nome_arquivo, :string
-    field :data_arquivo, :date
-    field :link, :string
-    field :restrito?, :boolean, name: "restrito"
-    field :tipo, :tipo_midia_enum
-    field :observacao, :string
-    field :texto_alternativo, :string
-    field :id_publico, :string, name: "id"
+    field(:nome_arquivo, :string)
+    field(:data_arquivo, :date)
+    field(:link, :string)
+    field(:restrito?, :boolean, name: "restrito")
+    field(:tipo, :tipo_midia_enum)
+    field(:observacao, :string)
+    field(:texto_alternativo, :string)
+    field(:id_publico, :string, name: "id")
 
     field :autor, :usuario do
       resolve(&Resolver.User.get_by_midia/3)

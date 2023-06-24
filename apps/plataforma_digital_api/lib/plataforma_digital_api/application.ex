@@ -6,7 +6,7 @@ defmodule PlataformaDigitalAPI.Application do
   def start(_type, _args) do
     children = [
       # Start the Endpoint (http/https)
-      PlataformaDigitalAPI.Endpoint,
+      PlataformaDigitalAPI.Endpoint
     ]
 
     opts = [strategy: :one_for_one, name: PlataformaDigitalAPI.Supervisor]

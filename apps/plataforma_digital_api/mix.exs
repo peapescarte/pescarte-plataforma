@@ -12,13 +12,12 @@ defmodule PlataformaDigitalAPI.MixProject do
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps(),
+      deps: deps()
     ]
   end
 
   def application do
-    [mod: {PlataformaDigitalAPI.Application, []},
-      extra_applications: [:logger, :runtime_tools]]
+    [mod: {PlataformaDigitalAPI.Application, []}, extra_applications: [:logger, :runtime_tools]]
   end
 
   # Specifies which paths to compile per environment.
@@ -33,7 +32,7 @@ defmodule PlataformaDigitalAPI.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
       {:identidades, in_umbrella: true},
-      {:modulo_pesquisa, in_umbrella: true},
+      {:modulo_pesquisa, in_umbrella: true}
     ]
   end
 end
