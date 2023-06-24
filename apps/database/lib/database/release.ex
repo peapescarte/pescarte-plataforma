@@ -19,7 +19,7 @@ defmodule Database.Release do
   end
 
   defp repos do
-    Application.fetch_env!(@app, :ecto_repos)
+    Application.fetch_env!(:database, :ecto_repos)
   end
 
   defp load_app do
