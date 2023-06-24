@@ -9,5 +9,7 @@ defmodule PlataformaDigitalAPI.Endpoint do
     pass: ["*/*"],
     json_decoder: Jason
 
+  plug PlataformaDigitalAPI.Context
+
   plug Absinthe.Plug, schema: PlataformaDigitalAPI.Schema
 end

@@ -1,8 +1,6 @@
 defmodule PlataformaDigitalAPI.UserSchemaTest do
   use PlataformaDigitalAPI.ConnCase, async: true
 
-  import ModuloPesquisa.Factory
-
   @moduletag :integration
 
   describe "listar usuários query" do
@@ -28,7 +26,7 @@ defmodule PlataformaDigitalAPI.UserSchemaTest do
     end
 
     test "quando há um usuário", %{conn: conn} do
-      user = insert(:usuario)
+      user = Identidades.Factory.insert(:usuario)
       conn = post(conn, "/", %{"query" => @list_user_query})
 
       assert %{"data" => %{"listarUsuarios" => [_, listed]}} = json_response(conn, 200)

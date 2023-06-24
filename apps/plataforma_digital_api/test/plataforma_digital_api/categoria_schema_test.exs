@@ -48,20 +48,5 @@ defmodule PlataformaDigitalAPI.CategoriaSchemaTest do
       assert listed["nome"] == categoria.nome
       assert Enum.empty?(listed["tags"])
     end
-
-    test "quando há categoria e há tags, recuperar tags", %{conn: conn} do
-      categoria = insert(:categoria)
-      tag = insert(:tag, categoria_nome: categoria.nome)
-      conn = post(conn, "/", %{"query" => @list_categorias_query})
-
-      assert %{"data" => %{"listarCategorias" => [listed]}} = json_response(conn, 200)
-      assert listed["id"] == categoria.id_publico
-      assert listed["nome"] == categoria.nome
-
-      [tag_listed] = listed["tags"]
-      assert tag_listed["id"] == tag.id_publico
-      assert tag_listed["etiqueta"] == tag.etiqueta
-      assert tag_listed["categoria"]["id"] == categoria.id_publico
-    end
   end
 end

@@ -4,7 +4,6 @@ defmodule PlataformaDigitalAPI.MidiaSchemaTest do
   import ModuloPesquisa.Factory
 
   alias ModuloPesquisa.Handlers.MidiasHandler
-  alias ModuloPesquisa.Models.Midia.Tag
 
   @moduletag :integration
 
@@ -42,7 +41,7 @@ defmodule PlataformaDigitalAPI.MidiaSchemaTest do
       autor = Identidades.Factory.insert(:usuario)
       categoria = insert(:categoria)
       tag = insert(:tag, categoria_nome: categoria.nome)
-      midia = insert(:midia, autor: autor, tags: [tag])
+      midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
 
       conn = post(conn, "/", %{"query" => @list_midias_query})
 
@@ -92,7 +91,7 @@ defmodule PlataformaDigitalAPI.MidiaSchemaTest do
       autor = Identidades.Factory.insert(:usuario)
       categoria = insert(:categoria)
       tag = insert(:tag, categoria_nome: categoria.nome)
-      midia = insert(:midia, autor: autor, tags: [tag])
+      midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
 
       conn =
         post(conn, "/", %{
