@@ -26,12 +26,7 @@ config :database, Database.LeituraRepo, database_opts
 config :proxy_web, ProxyWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   debug_errors: true,
-  check_origin: false
-
-# ------------------- #
-# Plataforma Digitial #
-# ------------------- #
-config :plataforma_digital, PlataformaDigital.Endpoint,
+  check_origin: false,
   reloadable_compilers: [:elixir],
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
@@ -42,20 +37,10 @@ config :plataforma_digital, PlataformaDigital.Endpoint,
   live_reload: [
     patterns: [
       ~r"storybook/.*(exs)$",
+      ~r"apps/plataforma_digital_api/lib/*.(ex)$",
       ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"apps/plataforma_digital/lib/plataforma_digital/(|templates|components|controllers)/.*(ex|js)$",
       ~r"apps/plataforma_digital/lib/plataforma_digital/templates/.*(eex)$"
-    ]
-  ]
-
-# ----------------------- #
-# Plataforma Digitial API #
-# ----------------------- #
-config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
-  reloadable_compilers: [:elixir],
-  live_reload: [
-    patterns: [
-      ~r"apps/plataforma_digital_api/lib/*.(ex)$"
     ]
   ]
 

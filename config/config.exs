@@ -18,19 +18,15 @@ config :proxy_web, ProxyWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   secret_key_base: "57RgSOwri8BGRx6ilgBZjAf3Cob5s8/2E4CFkr+/FWZGEP0J2f+AWFnUKn2QGlvf",
+  render_errors: [formats: [html: PlataformaDigital.ErrorHTML], layout: false],
+  pubsub_server: Pescarte.PubSub,
+  live_view: [signing_salt: "TxTzLCT/WGlob2+Vo0uZ1IQAfkgq53M"],
   server: true
 
 # ------------------- #
 # Plataforma Digitial #
 # ------------------- #
-config :plataforma_digital, PlataformaDigital.Endpoint,
-  adapter: Bandit.PhoenixAdapter,
-  url: [host: "localhost"],
-  secret_key_base: "/tnqEz6BgkvSQoZdVePI7wI2tB6enxAPY66OSNNCGSeDy2VkzG0lIc/cguFxfA+0",
-  render_errors: [formats: [html: PlataformaDigital.ErrorHTML], layout: false],
-  pubsub_server: Pescarte.PubSub,
-  live_view: [signing_salt: "TxTzLCT/WGlob2+Vo0uZ1IQAfkgq53M"],
-  server: false
+config :plataforma_digital, PlataformaDigital.Endpoint, server: false
 
 config :esbuild,
   version: "0.18.6",
@@ -67,11 +63,7 @@ config :tailwind,
 # ---------------------- #
 # Plataforma Digital API #
 # ---------------------- #
-config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
-  adapter: Bandit.PhoenixAdapter,
-  url: [host: "localhost"],
-  secret_key_base: "ua2ZJ2hKUOb5Xsn+bjMiAKf/TgTjsB7hxP/lq0iBVT5QW4j9MKXKJf9G6NoDOx/d",
-  server: false
+config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint, server: false
 
 # Configures Elixir's Logger
 config :logger, :console,
