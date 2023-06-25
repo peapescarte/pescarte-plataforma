@@ -3,7 +3,7 @@ import Config
 config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
 if System.get_env("PHX_SERVER") do
-  config :plataforma_digital, PlataformaDigital.Endpoint, server: true
+  config :proxy_web, ProxyWeb.Endpoint, server: true
 end
 
 if config_env() == :prod do
@@ -30,29 +30,14 @@ if config_env() == :prod do
     System.get_env("SECRET_KEY_BASE") ||
       raise "SECRET_KEY_BASE not available"
 
-  config :plataforma_digital, PlataformaDigital.Endpoint,
+  config :proxy_web, ProxyWeb.Endpoint,
     http: [
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
     ],
     secret_key_base: secret_key_base
 
-  secret_key_base_api =
-    System.get_env("SECRET_KEY_BASE_API") ||
-      raise "SECRET_KEY_BASE_API not available"
-
-  config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
-    http: [
-      ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: String.to_integer(System.get_env("PORT") || "4001")
-    ],
-    secret_key_base: secret_key_base_api
-
   if System.get_env("UENF_SERVER") do
-    config :plataforma_digital, PlataformaDigital.Endpoint,
-      url: [host: "pescarte.uenf.br", port: 8080]
-
-    config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
-      url: [host: "pescarte.uenf.br", port: 23450]
+    config :proxy_web, ProxyWeb.Endpoint, url: [host: "pescarte.uenf.br", port: 8080]
   end
 end

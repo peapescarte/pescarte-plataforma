@@ -12,6 +12,7 @@ defmodule Pescarte.MixProject do
         pescarte: [
           applications: [
             database: :permanent,
+            proxy_web: :permanent,
             identidades: :permanent,
             modulo_pesquisa: :permanent,
             plataforma_digital: :permanent,
@@ -24,6 +25,7 @@ defmodule Pescarte.MixProject do
 
   defp deps do
     [
+      {:bandit, "~> 0.6"},
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
     ]
