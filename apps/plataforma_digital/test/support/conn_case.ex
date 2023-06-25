@@ -21,6 +21,7 @@ defmodule PlataformaDigital.ConnCase do
 
   using do
     quote do
+      use PlataformaDigital, :verified_routes
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
@@ -34,7 +35,9 @@ defmodule PlataformaDigital.ConnCase do
   setup tags do
     pid = Sandbox.start_owner!(Database.EscritaRepo, shared: not tags[:async])
     on_exit(fn -> Sandbox.stop_owner(pid) end)
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    conn = Phoenix.ConnTest.build_conn()
+    secret_key_base = PlataformaDigital.Endpoint.config(:secret_key_base)
+    {:ok, conn: Map.replace!(conn, :secret_key_base, secret_key_base)}
   end
 
   @doc """
