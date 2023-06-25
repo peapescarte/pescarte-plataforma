@@ -3,7 +3,6 @@ module.exports = {
     "./js/**/*.js",
     "../lib/*_web.ex",
     "../lib/*_web/**/*.*ex",
-    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     colors: {
@@ -97,6 +96,5 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/forms"),
-    // require('flowbite/plugin'),
   ],
 };

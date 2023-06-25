@@ -20,6 +20,7 @@ ENV MIX_ENV="prod"
 
 COPY mix.exs mix.lock ./
 COPY apps/database/mix.exs ./apps/database/
+COPY apps/proxy_web/mix.exs ./apps/proxy_web/
 COPY apps/identidades/mix.exs ./apps/identidades/
 COPY apps/modulo_pesquisa/mix.exs ./apps/modulo_pesquisa/
 COPY apps/plataforma_digital/mix.exs ./apps/plataforma_digital/
@@ -37,6 +38,7 @@ COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
 COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
 
 COPY apps/database/lib ./apps/database/lib
+COPY apps/proxy_web/lib ./apps/proxy_web/lib
 COPY apps/identidades/lib ./apps/identidades/lib
 COPY apps/modulo_pesquisa/lib ./apps/modulo_pesquisa/lib
 COPY apps/plataforma_digital/lib ./apps/plataforma_digital/lib
@@ -61,9 +63,6 @@ FROM ${RUNNER_IMAGE}
 
 RUN apt-get update -y \
   && apt-get install -y iputils-ping libstdc++6 openssl libncurses5 locales postgresql-client
-
-# Set the locale
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en

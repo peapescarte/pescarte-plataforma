@@ -29,7 +29,6 @@ defmodule PlataformaDigital.MixProject do
       {:phoenix, "~> 1.7", override: true},
       {:phoenix_ecto, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:bandit, "~> 0.6"},
       {:timex, "~> 3.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},

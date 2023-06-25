@@ -20,44 +20,27 @@ database_opts = [
 config :database, Database.EscritaRepo, database_opts
 config :database, Database.LeituraRepo, database_opts
 
-# ------------------- #
-# Plataforma Digitial #
-# ------------------- #
-config :plataforma_digital, PlataformaDigital.Endpoint,
+# --------- #
+# Proxy Web #
+# --------- #
+config :proxy_web, ProxyWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   debug_errors: true,
-  code_reloader: true,
   check_origin: false,
+  reloadable_compilers: [:elixir],
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
     sass: {DartSass, :install_and_run, [:default, ~w(--watch)]},
     storybook_tailwind: {Tailwind, :install_and_run, [:storybook, ~w(--watch)]}
-  ]
-
-config :plataforma_digital, PlataformaDigital.Endpoint,
-  reloadable_compilers: [:elixir],
+  ],
   live_reload: [
     patterns: [
       ~r"storybook/.*(exs)$",
+      ~r"apps/plataforma_digital_api/lib/*.(ex)$",
       ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"apps/plataforma_digital/lib/plataforma_digital/(|templates|components|controllers)/.*(ex|js)$",
       ~r"apps/plataforma_digital/lib/plataforma_digital/templates/.*(eex)$"
-    ]
-  ]
-
-# ----------------------- #
-# Plataforma Digitial API #
-# ----------------------- #
-config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 4001],
-  debug_errors: true,
-  code_reloader: true,
-  check_origin: false,
-  reloadable_compilers: [:elixir],
-  live_reload: [
-    patterns: [
-      ~r"apps/plataforma_digital_api/lib/*.(ex)$"
     ]
   ]
 
