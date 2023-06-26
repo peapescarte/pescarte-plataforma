@@ -44,6 +44,9 @@ config :proxy_web, ProxyWeb.Endpoint,
     ]
   ]
 
+config :plataforma_digital, PlataformaDigital.Endpoint, debug_errors: true
+config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint, debug_errors: true
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
