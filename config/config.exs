@@ -65,7 +65,9 @@ config :tailwind,
 # ---------------------- #
 # Plataforma Digital API #
 # ---------------------- #
-config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint, server: false
+config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
+  secret_key_base: "p72JmdAzMY6LcSoQVEFDujKltZoaqCVTu5T5Fj/8PQzc079nuVa1kQfr4Z5lmJUE",
+  server: false
 
 # Configures Elixir's Logger
 config :logger, :console,
