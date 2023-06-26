@@ -73,4 +73,6 @@ config :logger, :console,
 
 config :phoenix, :json_library, Jason
 
+config :seeder, env: config_env()
+
 import_config "#{config_env()}.exs"
