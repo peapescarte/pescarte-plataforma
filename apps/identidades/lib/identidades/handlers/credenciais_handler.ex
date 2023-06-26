@@ -45,12 +45,15 @@ defmodule Identidades.Handlers.CredenciaisHandler do
     end
   end
 
-  @doc """
-  Delete um `UserToken`.
-  """
   @impl true
-  def delete_session_token(%Token{} = user_token) do
-    @repo.delete(user_token)
+  def delete_session_token(user_token) do
+    with {:ok, user} <- fetch_usuario_by_session_token(user_token),
+         %Ecto.Query{} = query <- Token.user_and_contexts_query(user, :all),
+         {integer, nil} <- @repo.delete_all(query) do
+      {:ok, integer}
+    else
+      _ -> {:error, :not_found}
+    end
   end
 
   @doc """

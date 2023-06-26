@@ -1,12 +1,11 @@
 defmodule Identidades.Handlers.IManageCredenciaisHandler do
-  alias Identidades.Models.Token
   alias Identidades.Models.Usuario
 
   @typep changeset :: Ecto.Changeset.t()
 
   @callback confirm_usuario(binary, NaiveDateTime.t()) :: {:ok, Usuario.t()} | {:error, changeset}
 
-  @callback delete_session_token(Token.t()) :: {:ok, Token.t()} | {:error, changeset}
+  @callback delete_session_token(binary) :: {:ok, integer} | {:error, :not_found}
 
   @callback fetch_usuario_by_reset_password_token(binary) ::
               {:ok, Usuario.t()} | {:error, :not_found}

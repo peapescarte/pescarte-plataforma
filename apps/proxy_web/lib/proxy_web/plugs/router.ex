@@ -5,7 +5,7 @@ defmodule ProxyWeb.Router do
 
   def call(conn, routes) do
     endpoint = forward_conn(conn.path_info, routes)
-    endpoint.call(conn, endpoint.init(nil))
+    endpoint.call(conn, [])
   end
 
   defp forward_conn(["api" | _], %{api: endpoint}), do: endpoint

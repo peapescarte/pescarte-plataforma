@@ -24,6 +24,7 @@ config :proxy_web, ProxyWeb.Endpoint,
 # Plataforma Digitial #
 # ------------------- #
 config :plataforma_digital, PlataformaDigital.Endpoint,
+  secret_key_base: "yFgelUyKSgiemxYRsbxwGxiQKROQTx0bokxUGNZOnOOqJExsqZSsUHmcq4Ue11Tx",
   render_errors: [formats: [html: PlataformaDigital.ErrorHTML], layout: false],
   pubsub_server: Pescarte.PubSub,
   live_view: [signing_salt: "TxTzLCT/WGlob2+Vo0uZ1IQAfkgq53M"],
