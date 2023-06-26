@@ -26,6 +26,7 @@ defmodule ProxyWeb.MixProject do
 
   defp deps do
     [
+      {:bandit, "~> 0.6"},
       {:phoenix, "~> 1.7", override: true},
       {:plataforma_digital, in_umbrella: true},
       {:plataforma_digital_api, in_umbrella: true}

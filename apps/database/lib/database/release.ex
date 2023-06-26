@@ -3,7 +3,7 @@ defmodule Database.Release do
   Used for executing DB release tasks when run in production without Mix
   installed.
   """
-  @apps ~w(database identidades modulo_pesquisa)
+  @apps ~w(database identidades modulo_pesquisa)a
 
   def migrate do
     load_app()
