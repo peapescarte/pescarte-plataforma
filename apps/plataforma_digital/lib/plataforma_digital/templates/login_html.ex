@@ -23,10 +23,10 @@ defmodule PlataformaDigital.LoginHTML do
 
         <:actions>
           <div class="flex justify-between items-center">
-            <.checkbox field={@form[:remember_me]} label="Mantanha-me conectado" id="remember" />
+            <.checkbox field={@form[:remember_me]} label="Lembre de mim" id="remember" />
 
             <DesignSystem.link href={~p"/usuarios/recuperar_senha"} class="text-sm font-semibold">
-              <.text size="sm">Esqueceu sua senha?</.text>
+              <.text size="sm">Esqueci minha senha</.text>
             </DesignSystem.link>
           </div>
         </:actions>
