@@ -39,8 +39,8 @@ config :proxy_web, ProxyWeb.Endpoint,
       ~r"storybook/.*(exs)$",
       ~r"apps/plataforma_digital_api/lib/*.(ex)$",
       ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"apps/plataforma_digital/lib/plataforma_digital/(|templates|components|controllers)/.*(ex|js)$",
-      ~r"apps/plataforma_digital/lib/plataforma_digital/templates/.*(eex)$"
+      ~r"apps/plataforma_digital/lib/plataforma_digital/(|components|controllers)/.*(ex)$",
+      ~r"apps/plataforma_digital/lib/plataforma_digital/(|live|templates)/.*(eex)$"
     ]
   ]
 
