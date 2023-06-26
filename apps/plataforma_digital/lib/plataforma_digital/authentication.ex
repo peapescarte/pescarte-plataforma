@@ -39,7 +39,7 @@ defmodule PlataformaDigital.Authentication do
   desconectado no logout.
   """
   def log_in_user(conn, user, params \\ %{}) do
-    token = CredenciaisHandler.generate_session_token(user)
+    {:ok, token} = CredenciaisHandler.generate_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
     conn
@@ -110,10 +110,11 @@ defmodule PlataformaDigital.Authentication do
     {user_token, conn} = ensure_user_token(conn)
 
     maybe_user =
-      case CredenciaisHandler.fetch_usuario_by_session_token(user_token) do
-        {:ok, user} -> user
-        {:error, :not_found} -> nil
-      end
+      user_token &&
+        case CredenciaisHandler.fetch_usuario_by_session_token(user_token) do
+          {:ok, user} -> user
+          {:error, :not_found} -> nil
+        end
 
     user = user_token && maybe_user
     assign(conn, :current_user, user)
