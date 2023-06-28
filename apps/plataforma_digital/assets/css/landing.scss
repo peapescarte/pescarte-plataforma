@@ -25,14 +25,13 @@
 }
 
 .links {
-  @apply relative w-full;
-  @apply flex justify-between;
-  padding: 3rem 10rem;
+  @apply flex flex-wrap justify-between md:mt-10;
+  padding: 0 3rem;
 
   .links-item {
-    @apply flex flex-col justify-end;
-    height: 15rem;
-    width: 14rem;
+    @apply flex flex-col justify-end mb-4;
+    height: 17rem;
+    width: 19rem;
 
     img {
       @apply absolute;
@@ -41,14 +40,44 @@
       width: inherit;
     }
 
+    h3 {
+      padding-left: 1rem;
+    }
+
     p {
       width: 85%;
+      padding: 0 1rem 0 1rem;
     }
 
     button {
       width: 10rem;
-      margin-top: 1rem;
+      background-color: transparent;
+
+      p:nth-child(1) {
+        width: 0;
+
+        padding: 0;
+      }
+
+      p:nth-child(2) {
+        width: 100%;
+
+        padding: 0;
+      }
     }
+    // button {
+    //   width: 10rem;
+    //   background-color: transparent;
+    //   margin-top: 1rem;
+    //
+    //   p {
+    //     width: 0;
+    //   }
+    //
+    //   &:hover {
+    //     text-decoration: underline;
+    //   }
+    // }
   }
 }
 
