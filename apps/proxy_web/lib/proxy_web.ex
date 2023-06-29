@@ -4,7 +4,7 @@ defmodule ProxyWeb do
   use Application
 
   def start(_type, _args) do
-    children = [ProxyWeb.Endpoint]
+    children = [ProxyWeb.Endpoint, {Phoenix.PubSub, name: Pescarte.PubSub}]
     opts = [strategy: :one_for_one, name: Proxy.Supervisor]
     Supervisor.start_link(children, opts)
   end
