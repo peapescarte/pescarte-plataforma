@@ -25,13 +25,14 @@
 }
 
 .links {
-  @apply flex flex-wrap justify-between md:mt-10;
-  padding: 0 3rem;
+  @apply flex flex-wrap justify-center md:mt-10;
 
   .links-item {
-    @apply flex flex-col justify-end mb-4;
-    height: 17rem;
-    width: 19rem;
+    @apply flex flex-col justify-end m-4;
+    height: 20.875rem;
+    width: 20.125rem;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
 
     img {
       @apply absolute;
@@ -46,24 +47,15 @@
 
     p {
       width: 85%;
-      padding: 0 1rem 0 1rem;
+      margin-top: 0.5rem;
+      padding: 0 1rem 1.5rem 1rem;
     }
 
     button {
       width: 10rem;
       background-color: transparent;
 
-      p:nth-child(1) {
-        width: 0;
-
-        padding: 0;
-      }
-
-      p:nth-child(2) {
-        width: 100%;
-
-        padding: 0;
-
+      p {
         &:hover {
           text-decoration: underline;
         }
