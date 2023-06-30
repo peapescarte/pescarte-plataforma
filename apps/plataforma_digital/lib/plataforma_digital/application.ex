@@ -8,9 +8,8 @@ defmodule PlataformaDigital.Application do
       # Start the Telemetry supervisor
       PlataformaDigital.Telemetry,
       # Start the Endpoint (http/https)
-      PlataformaDigital.Endpoint,
+      PlataformaDigital.Endpoint
       # Start the PubSub system
-      {Phoenix.PubSub, name: Pescarte.PubSub}
     ]
 
     opts = [strategy: :one_for_one, name: PlataformaDigital.Supervisor]
