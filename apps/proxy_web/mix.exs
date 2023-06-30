@@ -26,6 +26,7 @@ defmodule ProxyWeb.MixProject do
 
   defp deps do
     [
+      {:bandit, "~> 0.6"},
       {:phoenix, "~> 1.7", override: true},
       {:phoenix_ecto, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
