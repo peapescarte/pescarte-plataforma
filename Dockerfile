@@ -19,6 +19,7 @@ RUN mix local.hex --force && \
 ENV MIX_ENV="prod"
 
 COPY mix.exs mix.lock ./
+COPY apps/catalogo/mix.exs ./apps/catalogo/
 COPY apps/database/mix.exs ./apps/database/
 COPY apps/seeder/mix.exs ./apps/seeder/
 COPY apps/proxy_web/mix.exs ./apps/proxy_web/
@@ -26,6 +27,7 @@ COPY apps/identidades/mix.exs ./apps/identidades/
 COPY apps/modulo_pesquisa/mix.exs ./apps/modulo_pesquisa/
 COPY apps/plataforma_digital/mix.exs ./apps/plataforma_digital/
 COPY apps/plataforma_digital_api/mix.exs ./apps/plataforma_digital_api/
+
 
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
@@ -35,10 +37,12 @@ COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN mix deps.compile
 
 COPY apps/identidades/priv ./apps/identidades/priv
+COPY apps/catalogo/priv ./apps/catalogo/priv
 COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
 COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
 
 COPY apps/database/lib ./apps/database/lib
+COPY apps/catalogo/lib ./apps/catalogo/lib
 COPY apps/seeder/lib ./apps/seeder/lib
 COPY apps/proxy_web/lib ./apps/proxy_web/lib
 COPY apps/identidades/lib ./apps/identidades/lib
