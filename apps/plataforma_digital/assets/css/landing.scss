@@ -52,10 +52,15 @@
     }
 
     button {
-      width: 10rem;
+      width: 60%;
       background-color: transparent;
 
       p {
+        @apply w-full inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0 1rem 1rem 0;
+
         &:hover {
           text-decoration: underline;
         }
