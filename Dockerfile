@@ -20,6 +20,7 @@ ENV MIX_ENV="prod"
 
 COPY mix.exs mix.lock ./
 COPY apps/database/mix.exs ./apps/database/
+COPY apps/seeder/mix.exs ./apps/seeder/
 COPY apps/proxy_web/mix.exs ./apps/proxy_web/
 COPY apps/identidades/mix.exs ./apps/identidades/
 COPY apps/modulo_pesquisa/mix.exs ./apps/modulo_pesquisa/
@@ -38,6 +39,7 @@ COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
 COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
 
 COPY apps/database/lib ./apps/database/lib
+COPY apps/seeder/lib ./apps/seeder/lib
 COPY apps/proxy_web/lib ./apps/proxy_web/lib
 COPY apps/identidades/lib ./apps/identidades/lib
 COPY apps/modulo_pesquisa/lib ./apps/modulo_pesquisa/lib
