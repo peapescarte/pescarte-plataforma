@@ -69,6 +69,13 @@ defmodule ModuloPesquisa.Repository do
   end
 
   @impl true
+  def fetch_tags_from_ids(tags_ids) do
+    query = from t in Tag, where: t.id_publico in ^tags_ids, select: t
+
+    read_repo().all(query)
+  end
+
+  @impl true
   def list_categoria do
     read_repo().all(Categoria)
   end
