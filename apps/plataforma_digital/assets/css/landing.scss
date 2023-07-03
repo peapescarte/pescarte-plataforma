@@ -70,15 +70,16 @@
 }
 
 .about {
-  padding: 3rem 5rem;
+  @apply flex flex-wrap justify-between;
+  padding: 2.5rem;
 
   .about-text {
+    width: 40rem;
     height: 20rem;
     width: 26rem;
 
     h1 {
-      margin-bottom: 1rem;
-      margin-top: 0.25rem;
+      margin: 0.25rem 0 1rem 0;
     }
 
     button {
@@ -87,8 +88,8 @@
   }
 
   img {
-    height: 30rem;
     width: 40rem;
+    height: 30rem;
   }
 }
 
