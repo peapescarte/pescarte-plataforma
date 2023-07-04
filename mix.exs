@@ -38,6 +38,9 @@ defmodule Pescarte.MixProject do
         "ecto.migrate #{migrations_paths()}",
         "seed"
       ],
+      "ecto.migrate": [
+        "ecto.migrate #{migrations_paths()}"
+      ],
       test: [
         "ecto.create --quiet",
         "ecto.migrate --quiet #{migrations_paths()}",
