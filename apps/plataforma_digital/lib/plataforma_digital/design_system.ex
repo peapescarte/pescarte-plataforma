@@ -278,7 +278,7 @@ defmodule PlataformaDigital.DesignSystem do
   attr :field, Phoenix.HTML.FormField
   attr :class, :string, default: ""
 
-  slot :label, required: true
+  slot :label, required: false
 
   def text_area(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -289,7 +289,7 @@ defmodule PlataformaDigital.DesignSystem do
   def text_area(assigns) do
     ~H"""
     <fieldset class={@class}>
-      <%= render_slot(@label) %>
+      <p><%= render_slot(@label) %></p>
       <div class="textarea-grow-wrapper">
         <textarea
           id={@id}
