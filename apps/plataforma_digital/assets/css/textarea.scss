@@ -19,9 +19,15 @@
 }
 
 .textarea {
-  @apply font-normal text-black-80 leading-4;
+  @apply font-normal text-black-80 leading-6;
   @apply border-black-10;
+  width: 18.75rem;
+  height: 7.5rem;
 
-  border-width: 1px;
+  border-width: 1.5px;
   border-radius: 0.25rem;
+
+  &::placeholder {
+    @apply text-black-10;
+  }
 }

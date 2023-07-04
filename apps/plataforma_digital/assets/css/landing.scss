@@ -70,13 +70,13 @@
 }
 
 .about {
-  @apply flex flex-wrap justify-between;
+  @apply flex justify-center;
   padding: 2.5rem;
 
   .about-text {
     width: 40rem;
     height: 20rem;
-    width: 26rem;
+    padding-right: 1rem;
 
     h1 {
       margin: 0.25rem 0 1rem 0;
