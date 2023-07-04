@@ -6,7 +6,7 @@ defmodule Database.Repo.Migrations.CriaCotacoesPescados do
       add :id, :string
       add :cotacao_data, references(:cotacao, column: :data, type: :date), primary_key: true
       add :pescado_codigo, references(:pescado, column: :codigo, type: :string), primary_key: true
-      add :fonte_nome, references(:fonte, column: :nome, type: :string), primary_key: true
+      add :fonte_nome, references(:fonte_cotacao, column: :nome, type: :string), primary_key: true
       add :preco_minimo, :integer
       add :preco_maximo, :integer
       add :preco_mais_comum, :integer

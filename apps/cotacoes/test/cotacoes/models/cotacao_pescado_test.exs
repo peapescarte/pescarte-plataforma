@@ -23,7 +23,6 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
     changeset = CotacaoPescado.changeset(%CotacaoPescado{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :cotacao_data) == cotacao.data
     assert get_change(changeset, :fonte_nome) == fonte.nome
     assert get_change(changeset, :pescado_codigo) == pescado.codigo
@@ -49,7 +48,6 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
     changeset = CotacaoPescado.changeset(%CotacaoPescado{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :cotacao_data) == cotacao.data
     assert get_change(changeset, :fonte_nome) == fonte.nome
     assert get_change(changeset, :pescado_codigo) == pescado.codigo

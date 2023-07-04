@@ -34,7 +34,7 @@ defmodule Pescarte.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}"],
+      "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}", "seed"],
       test: [
         "ecto.create --quiet",
         "ecto.migrate --quiet #{migrations_paths()}",

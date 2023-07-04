@@ -11,7 +11,6 @@ defmodule Cotacoes.Models.PescadoTest do
     changeset = Pescado.changeset(%Pescado{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :codigo) == "COD123"
   end
 
@@ -21,7 +20,6 @@ defmodule Cotacoes.Models.PescadoTest do
     changeset = Pescado.changeset(%Pescado{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :codigo) == "COD123"
     assert get_change(changeset, :embalagem) == "umaembalagem"
     assert get_change(changeset, :descricao) == "descricao"

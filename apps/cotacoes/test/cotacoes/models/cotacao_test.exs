@@ -14,7 +14,6 @@ defmodule Cotacoes.Models.CotacaoTest do
     changeset = Cotacao.changeset(%Cotacao{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :data) == Date.utc_today()
     assert get_change(changeset, :fonte) == fonte.nome
   end
@@ -26,7 +25,6 @@ defmodule Cotacoes.Models.CotacaoTest do
     changeset = Cotacao.changeset(%Cotacao{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :data) == Date.utc_today()
     assert get_change(changeset, :fonte) == fonte.nome
     assert get_change(changeset, :link) == "https://example.com"

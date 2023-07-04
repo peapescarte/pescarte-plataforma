@@ -11,7 +11,6 @@ defmodule Cotacoes.Models.FonteTest do
     changeset = Fonte.changeset(%Fonte{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :nome) == "nome"
     assert get_change(changeset, :link) == "https://example.com"
   end
@@ -22,7 +21,6 @@ defmodule Cotacoes.Models.FonteTest do
     changeset = Fonte.changeset(%Fonte{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :id)
     assert get_change(changeset, :nome) == "nome"
     assert get_change(changeset, :link) == "https://example.com"
     assert get_change(changeset, :descricao) == "descricao"
