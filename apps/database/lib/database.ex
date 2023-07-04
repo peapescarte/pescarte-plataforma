@@ -2,12 +2,14 @@ defmodule Database do
   @type id :: binary | integer
   @type fetch_result :: {:ok, struct} | {:error, :not_found}
 
+  def config_env, do: Application.get_env(:database, :config_env)
+
   @doc """
   Busca um registro no banco de dados a partir de um id.
   """
-  @spec fetch(Ecto.Repo.t(), Ecto.Queryable.t(), Database.id()) :: Database.fetch_result()
-  def fetch(repo, queryable, id) do
-    if result = repo.get(queryable, id) do
+  @spec fetch(Ecto.Queryable.t(), Database.id()) :: Database.fetch_result()
+  def fetch(queryable, id) do
+    if result = Database.Repo.replica().get(queryable, id) do
       {:ok, result}
     else
       {:error, :not_found}
@@ -17,9 +19,9 @@ defmodule Database do
   @doc """
   Busca e retorna apenas a primeira entrada de um registro no banco de dados.
   """
-  @spec fetch_one(Ecto.Repo.t(), Ecto.Queryable.t()) :: Database.fetch_result()
-  def fetch_one(repo, queryable) do
-    if result = repo.one(queryable) do
+  @spec fetch_one(Ecto.Queryable.t()) :: Database.fetch_result()
+  def fetch_one(queryable) do
+    if result = Database.Repo.replica().one(queryable) do
       {:ok, result}
     else
       {:error, :not_found}
@@ -29,9 +31,9 @@ defmodule Database do
   @doc """
   Busca um registro no banco de dados a partir de um campos específico.
   """
-  @spec fetch_by(Ecto.Repo.t(), Ecto.Queryable.t(), keyword) :: Database.fetch_result()
-  def fetch_by(repo, queryable, params) do
-    if result = repo.get_by(queryable, params) do
+  @spec fetch_by(Ecto.Queryable.t(), keyword) :: Database.fetch_result()
+  def fetch_by(queryable, params) do
+    if result = Database.Repo.replica().get_by(queryable, params) do
       {:ok, result}
     else
       {:error, :not_found}
@@ -51,9 +53,7 @@ defmodule Database do
   def repository do
     quote do
       import Ecto.Query
-
-      def write_repo, do: Application.get_env(:database, :write_repo)
-      def read_repo, do: Application.get_env(:database, :read_repo)
+      alias Database.Repo
     end
   end
 

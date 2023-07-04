@@ -1,6 +1,6 @@
 defmodule Seeder do
   require Logger
-  alias Database.EscritaRepo
+  alias Database.Repo
 
   @spec append_multi(Ecto.Multi.t(), list(term), binary) :: Ecto.Multi.t()
   def append_multi(multi, entries, key) do
@@ -13,7 +13,7 @@ defmodule Seeder do
 
   @spec transact(Ecto.Multi.t()) :: :ok | :error
   def transact(multi) do
-    case EscritaRepo.transaction(multi) do
+    case Repo.transaction(multi) do
       {:ok, _changes} ->
         :ok
 
@@ -26,7 +26,7 @@ defmodule Seeder do
   @spec seed(list(struct), binary) :: :ok | :error
   def seed(entries, key) do
     Logger.info("==> Executando seeds de #{String.capitalize(key)}")
-    EscritaRepo.query!("TRUNCATE table #{key} CASCADE")
+    Repo.query!("TRUNCATE table #{key} CASCADE")
 
     Ecto.Multi.new()
     |> append_multi(entries, key)

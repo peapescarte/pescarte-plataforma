@@ -1,5 +1,5 @@
 defmodule Seeder.ModuloPesquisa.Midia do
-  alias Database.LeituraRepo, as: Repo
+  alias Database.Repo.Replica, as: Repo
   alias Identidades.Models.Usuario
   alias ModuloPesquisa.Models.Midia
   alias ModuloPesquisa.Models.Midia.Tag
