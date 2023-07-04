@@ -28,6 +28,8 @@ defmodule ProxyWeb.MixProject do
     [
       {:bandit, "~> 0.6"},
       {:phoenix, "~> 1.7", override: true},
+      {:phoenix_ecto, "~> 4.1"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:plataforma_digital, in_umbrella: true},
       {:plataforma_digital_api, in_umbrella: true}
     ]

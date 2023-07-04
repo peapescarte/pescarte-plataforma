@@ -252,4 +252,78 @@ defmodule PlataformaDigitalAPI.MidiaSchemaTest do
       assert length(MidiasHandler.list_tag()) == 2
     end
   end
+
+  describe "adiciona tags em midia mutation" do
+    setup :register_and_generate_jwt_token
+
+    @add_midia_tags_mutation """
+    mutation adicionaMidiaTags($input: AdicionaTagInput!) {
+      adicionaMidiaTags(input: $input) {
+        id
+        etiqueta
+      }
+    }
+    """
+
+    test "quando a mídia não existe", %{conn: conn} do
+      conn =
+        post(conn, "/", %{
+          "query" => @add_midia_tags_mutation,
+          "variables" => %{"input" => %{"midiaId" => "123", "tagsId" => []}}
+        })
+
+      assert %{"errors" => [error]} = json_response(conn, 200)
+      assert error["code"] == "not_found"
+      assert error["status_code"] == 404
+    end
+
+    test "quando nenhuma tag é adicionada", %{conn: conn} do
+      midia = insert(:midia)
+
+      assert Enum.empty?(midia.tags)
+
+      conn =
+        post(conn, "/", %{
+          "query" => @add_midia_tags_mutation,
+          "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => []}}
+        })
+
+      assert %{"data" => %{"adicionaMidiaTags" => []}} = json_response(conn, 200)
+    end
+
+    test "quando a tag não existe", %{conn: conn} do
+      midia = insert(:midia, tags: [])
+
+      conn =
+        post(conn, "/", %{
+          "query" => @add_midia_tags_mutation,
+          "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => ["123"]}}
+        })
+
+      assert %{"data" => %{"adicionaMidiaTags" => []}} = json_response(conn, 200)
+    end
+
+    test "quando as tags existem", %{conn: conn} do
+      tags = insert_list(2, :tag)
+      midia = insert(:midia, tags: [])
+
+      conn =
+        post(conn, "/", %{
+          "query" => @add_midia_tags_mutation,
+          "variables" => %{
+            "input" => %{
+              "midiaId" => midia.id_publico,
+              "tagsId" => Enum.map(tags, & &1.id_publico)
+            }
+          }
+        })
+
+      tags_result = Enum.map(tags, &%{"id" => &1.id_publico, "etiqueta" => &1.etiqueta})
+      assert %{"data" => %{"adicionaMidiaTags" => ^tags_result}} = json_response(conn, 200)
+
+      # Logo, as tags devem ser adicionadas à Midia
+      assert {:ok, fetched} = MidiasHandler.fetch_midia(midia.id_publico)
+      assert length(fetched.tags) == 2
+    end
+  end
 end

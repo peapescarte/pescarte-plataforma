@@ -16,6 +16,7 @@ config :database,
 # --------- #
 config :proxy_web, ProxyWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
+  pubsub_server: Pescarte.PubSub,
   url: [host: "localhost"],
   secret_key_base: "57RgSOwri8BGRx6ilgBZjAf3Cob5s8/2E4CFkr+/FWZGEP0J2f+AWFnUKn2QGlvf",
   server: true
@@ -26,7 +27,6 @@ config :proxy_web, ProxyWeb.Endpoint,
 config :plataforma_digital, PlataformaDigital.Endpoint,
   secret_key_base: "yFgelUyKSgiemxYRsbxwGxiQKROQTx0bokxUGNZOnOOqJExsqZSsUHmcq4Ue11Tx",
   render_errors: [formats: [html: PlataformaDigital.ErrorHTML], layout: false],
-  pubsub_server: Pescarte.PubSub,
   live_view: [signing_salt: "TxTzLCT/WGlob2+Vo0uZ1IQAfkgq53M"],
   server: false
 
