@@ -11,7 +11,8 @@ defmodule Cotacoes.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      elixirc_paths: elixirc_paths(Mix.env())
     ]
   end
 
@@ -20,6 +21,9 @@ defmodule Cotacoes.MixProject do
       extra_applications: [:logger]
     ]
   end
+
+  defp elixirc_paths(e) when e in ~w(dev test)a, do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
     [
