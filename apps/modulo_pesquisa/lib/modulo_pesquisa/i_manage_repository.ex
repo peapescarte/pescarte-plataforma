@@ -21,6 +21,7 @@ defmodule ModuloPesquisa.IManageRepository do
               {:ok, Midia.t()} | {:error, changeset}
   @callback fetch_tag_by_id_publico(Database.id()) :: {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tag_by_etiqueta(binary) :: {:ok, Tag.t()} | {:error, changeset}
+  @callback fetch_tags_from_ids(list(Database.id())) :: list(Tag.t())
 
   @callback list_categoria :: list(Categoria.t())
   @callback list_midia :: list(Midia.t())
