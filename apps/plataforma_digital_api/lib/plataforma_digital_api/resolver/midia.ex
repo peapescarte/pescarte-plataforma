@@ -2,6 +2,10 @@ defmodule PlataformaDigitalAPI.Resolver.Midia do
   alias ModuloPesquisa.Handlers.MidiasHandler
   alias ModuloPesquisa.Models.Midia.Tag
 
+  def adiciona_tags(%{input: args}, _resolution) do
+    MidiasHandler.add_tags_to_midia(args.midia_id, args.tags_id)
+  end
+
   def create(%{input: %{tags: tags} = args}, _resolution) do
     MidiasHandler.create_midia_and_tags(args, tags)
   end
