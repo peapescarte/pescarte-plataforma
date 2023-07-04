@@ -62,7 +62,8 @@ defmodule Pescarte.MixProject do
   defp migrations_paths do
     paths = [
       "apps/identidades/priv/repo/migrations",
-      "apps/modulo_pesquisa/priv/repo/migrations"
+      "apps/modulo_pesquisa/priv/repo/migrations",
+      "apps/cotacoes/priv/repo/migrations"
     ]
 
     for path <- paths, reduce: "" do
