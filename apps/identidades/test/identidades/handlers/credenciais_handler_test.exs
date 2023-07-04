@@ -24,7 +24,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
     end
 
     test "quando o token de confirmação é válido" do
-      user = repo().preload(insert(:usuario), :contato)
+      user = Repo.preload(insert(:usuario), :contato)
       token = :crypto.strong_rand_bytes(32)
       hashed = :crypto.hash(:sha256, token)
 
@@ -56,7 +56,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
     end
 
     test "quando o token é valido para o usuário" do
-      user = repo().preload(insert(:usuario), :contato)
+      user = Repo.preload(insert(:usuario), :contato)
       token = :crypto.strong_rand_bytes(32)
 
       insert(:email_token,
@@ -83,8 +83,8 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
     end
 
     test "quando o token é válido para o usuário" do
-      token = repo().preload(insert(:session_token), :usuario)
-      user = repo().preload(token.usuario, :contato)
+      token = Repo.preload(insert(:session_token), :usuario)
+      user = Repo.preload(token.usuario, :contato)
 
       assert {:ok, fetched} = CredenciaisHandler.fetch_usuario_by_session_token(token.token)
       assert fetched.id_publico == user.id_publico
@@ -93,7 +93,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
 
   describe "generate_email_token/2" do
     test "quando o token gerado é válido, é possível recuperar o usuário" do
-      user = repo().preload(insert(:usuario), :contato)
+      user = Repo.preload(insert(:usuario), :contato)
 
       assert {:ok, token} = CredenciaisHandler.generate_email_token(user, "reset_password")
       assert {:ok, fetched} = CredenciaisHandler.fetch_usuario_by_reset_password_token(token)
@@ -103,7 +103,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
 
   describe "generate_session_token/1" do
     test "quando o token gerado é válido, é possível recuperar o usuário" do
-      user = repo().preload(insert(:usuario), :contato)
+      user = Repo.preload(insert(:usuario), :contato)
 
       assert {:ok, token} = CredenciaisHandler.generate_session_token(user)
       assert {:ok, fetched} = CredenciaisHandler.fetch_usuario_by_session_token(token)
@@ -113,7 +113,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
 
   describe "update_usuario_password/3" do
     setup do
-      %{user: repo().preload(insert(:usuario), :contato)}
+      %{user: Repo.preload(insert(:usuario), :contato)}
     end
 
     test "quando a senha atual for incorreta", ctx do
@@ -136,7 +136,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       assert {:ok, _token} = CredenciaisHandler.generate_email_token(ctx.user, "reset_password")
       assert {:ok, changed} = CredenciaisHandler.update_usuario_password(ctx.user, atual, senhas)
       assert changed.hash_senha == ctx.user.hash_senha
-      assert repo().aggregate(Token, :count) == 0
+      assert Repo.aggregate(Token, :count) == 0
     end
 
     test "quando a senha atual e as senhas novas forem válidas", ctx do
@@ -146,13 +146,13 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       assert {:ok, _token} = CredenciaisHandler.generate_email_token(ctx.user, "reset_password")
       assert {:ok, changed} = CredenciaisHandler.update_usuario_password(ctx.user, atual, senhas)
       assert changed.hash_senha != ctx.user.hash_senha
-      assert repo().aggregate(Token, :count) == 0
+      assert Repo.aggregate(Token, :count) == 0
     end
   end
 
   describe "reset_usuario_password/2" do
     setup do
-      %{user: repo().preload(insert(:usuario), :contato)}
+      %{user: Repo.preload(insert(:usuario), :contato)}
     end
 
     test "quando as novas senhas são inválidas", ctx do
@@ -169,7 +169,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       assert {:ok, _token} = CredenciaisHandler.generate_email_token(ctx.user, "reset_password")
       assert {:ok, changed} = CredenciaisHandler.reset_usuario_password(ctx.user, senhas)
       assert changed.hash_senha == ctx.user.hash_senha
-      assert repo().aggregate(Token, :count) == 0
+      assert Repo.aggregate(Token, :count) == 0
     end
 
     test "quando as senhas novas são válidas", ctx do
@@ -178,7 +178,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       assert {:ok, _token} = CredenciaisHandler.generate_email_token(ctx.user, "reset_password")
       assert {:ok, changed} = CredenciaisHandler.reset_usuario_password(ctx.user, senhas)
       assert changed.hash_senha != ctx.user.hash_senha
-      assert repo().aggregate(Token, :count) == 0
+      assert Repo.aggregate(Token, :count) == 0
     end
   end
 end

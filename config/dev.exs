@@ -17,8 +17,8 @@ database_opts = [
   pool_size: 10
 ]
 
-config :database, Database.EscritaRepo, database_opts
-config :database, Database.LeituraRepo, database_opts
+config :database, Database.Repo, database_opts
+config :database, Database.Repo.Replica, database_opts
 
 # --------- #
 # Proxy Web #

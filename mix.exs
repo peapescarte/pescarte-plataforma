@@ -1,8 +1,6 @@
 defmodule Pescarte.MixProject do
   use Mix.Project
 
-  @read_repo Database.EscritaRepo
-
   def project do
     [
       apps_path: "apps",
@@ -36,20 +34,10 @@ defmodule Pescarte.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": [
-        "ecto.create -r #{@read_repo}",
-        "ecto.migrate -r #{@read_repo} #{migrations_paths()}",
-        "seed"
-      ],
-      "ecto.migrate": [
-        "ecto.migrate -r #{@read_repo} #{migrations_paths()}"
-      ],
-      "ecto.rollback": [
-        "ecto.rollback -r #{@read_repo} #{migrations_paths()}"
-      ],
+      "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}"],
       test: [
-        "ecto.create -r #{@read_repo} --quiet",
-        "ecto.migrate -r #{@read_repo} --quiet #{migrations_paths()}",
+        "ecto.create --quiet",
+        "ecto.migrate --quiet #{migrations_paths()}",
         "test"
       ],
       "assets.build": [

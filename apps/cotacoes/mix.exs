@@ -12,6 +12,7 @@ defmodule Cotacoes.MixProject do
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
       elixirc_paths: elixirc_paths(Mix.env())
     ]
   end
@@ -31,6 +32,14 @@ defmodule Cotacoes.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:ex_machina, "~> 2.7.0"},
       {:database, in_umbrella: true}
+    ]
+  end
+
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
 end

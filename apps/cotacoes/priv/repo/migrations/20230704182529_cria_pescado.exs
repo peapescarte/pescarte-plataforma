@@ -1,4 +1,4 @@
-defmodule Database.EscritaRepo.Migrations.CriaPescado do
+defmodule Database.Repo.Migrations.CriaPescado do
   use Ecto.Migration
 
   def change do

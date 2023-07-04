@@ -1,7 +1,7 @@
 defmodule Identidades.Factory do
   @moduledoc false
 
-  use ExMachina.Ecto, repo: Database.DataCase.repo()
+  use ExMachina.Ecto, repo: Database.Repo
 
   alias Identidades.Models.Contato
   alias Identidades.Models.Endereco

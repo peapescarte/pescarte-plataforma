@@ -1,5 +1,5 @@
 defmodule Cotacoes.Factory do
-  use ExMachina.Ecto, repo: Database.DataCase.repo()
+  use ExMachina.Ecto, repo: Database.Repo
 
   alias Cotacoes.Models.Cotacao
   alias Cotacoes.Models.CotacaoPescado

@@ -33,7 +33,7 @@ defmodule PlataformaDigital.ConnCase do
   end
 
   setup tags do
-    pid = Sandbox.start_owner!(Database.EscritaRepo, shared: not tags[:async])
+    pid = Sandbox.start_owner!(Database.Repo, shared: not tags[:async])
     on_exit(fn -> Sandbox.stop_owner(pid) end)
     conn = Phoenix.ConnTest.build_conn()
     secret_key_base = PlataformaDigital.Endpoint.config(:secret_key_base)

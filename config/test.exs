@@ -1,5 +1,7 @@
 import Config
 
+config :database, ecto_repos: [Database.Repo]
+
 database_opts = [
   username: System.get_env("DATABASE_USER", "pescarte"),
   password: System.get_env("DATABASE_PASSWORD", "pescarte"),
@@ -9,12 +11,7 @@ database_opts = [
   pool_size: 10
 ]
 
-config :database,
-  write_repo: Database.EscritaRepo,
-  read_repo: Database.EscritaRepo
-
-config :database, Database.EscritaRepo, database_opts
-config :database, Database.LeituraRepo, database_opts
+config :database, Database.Repo, database_opts
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

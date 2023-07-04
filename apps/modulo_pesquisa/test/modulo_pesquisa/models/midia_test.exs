@@ -46,7 +46,7 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
   end
 
   test "alterações válidas no changeset com novas tags" do
-    midia = repo().preload(insert(:midia, tags: []), :tags)
+    midia = Repo.preload(insert(:midia, tags: []), :tags)
     tags = insert_list(2, :tag)
 
     changeset = Midia.changeset(midia, %{}, tags)

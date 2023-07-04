@@ -1,4 +1,4 @@
-defmodule Database.EscritaRepo.Migrations.CriaFonte do
+defmodule Database.Repo.Migrations.CriaFonte do
   use Ecto.Migration
 
   def change do
