@@ -25,14 +25,14 @@
 }
 
 .links {
-  @apply relative w-full;
-  @apply flex justify-between;
-  padding: 3rem 10rem;
+  @apply flex flex-wrap justify-center md:mt-10;
 
   .links-item {
-    @apply flex flex-col justify-end;
-    height: 15rem;
-    width: 14rem;
+    @apply flex flex-col justify-end m-4;
+    height: 20.875rem;
+    width: 20.125rem;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
 
     img {
       @apply absolute;
@@ -41,29 +41,45 @@
       width: inherit;
     }
 
+    h3 {
+      padding-left: 1rem;
+    }
+
     p {
       width: 85%;
+      margin-top: 0.5rem;
+      padding: 0 1rem 1.5rem 1rem;
     }
 
     button {
-      width: 10rem;
-      margin-top: 1rem;
+      width: 60%;
+      background-color: transparent;
+
+      p {
+        @apply w-full inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0 1rem 1rem 0;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
 
 .about {
-  @apply flex justify-between;
-
-  padding: 3rem 5rem;
+  @apply flex flex-wrap justify-between;
+  padding: 2.5rem;
 
   .about-text {
+    width: 40rem;
     height: 20rem;
     width: 26rem;
 
     h1 {
-      margin-bottom: 1rem;
-      margin-top: 0.25rem;
+      margin: 0.25rem 0 1rem 0;
     }
 
     button {
@@ -72,7 +88,42 @@
   }
 
   img {
-    height: 30rem;
     width: 40rem;
+    height: 30rem;
+  }
+}
+
+.news {
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
+
+  .news-cards {
+    @apply flex flex-wrap justify-center md:mt-10;
+
+    .news-item {
+      @apply max-w-sm;
+      border-radius: 0.5rem;
+      border: 1px solid #66a2de;
+      margin: 0 2.5rem 2.5rem 2.5rem;
+      width: 20.125rem;
+
+      img {
+        border-radius: 0.5rem 0.5rem 0 0;
+        width: 100%;
+        height: auto;
+      }
+
+      h2 {
+        display: flex;
+        justify-content: center;
+      }
+
+      button {
+        margin-top: 1rem;
+      }
+    }
   }
 }
