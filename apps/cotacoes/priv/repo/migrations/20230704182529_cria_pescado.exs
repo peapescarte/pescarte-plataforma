@@ -3,6 +3,7 @@ defmodule Database.EscritaRepo.Migrations.CriaPescado do
 
   def change do
     create table(:pescado, primary_key: false) do
+      add :id, :string
       add :codigo, :string, primary_key: true, null: false
       add :descricao, :string
       add :embalagem, :string

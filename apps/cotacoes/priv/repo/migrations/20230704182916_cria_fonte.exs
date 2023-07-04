@@ -3,6 +3,7 @@ defmodule Database.EscritaRepo.Migrations.CriaFonte do
 
   def change do
     create table(:fonte, primary_key: false) do
+      add :id, :string
       add :nome, :string, primary_key: true, null: false
       add :descricao, :string
       add :link, :string, null: false
