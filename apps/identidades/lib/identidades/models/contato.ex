@@ -35,7 +35,6 @@ defmodule Identidades.Models.Contato do
     contato
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required([:email_principal, :celular_principal])
-    |> unsafe_validate_unique(:email_principal, Database.LeituraRepo)
     |> unique_constraint(:email_principal)
     |> validate_change(:emails_adicionais, &validate_duplicates/2)
     |> validate_change(:celulares_adicionais, &validate_duplicates/2)

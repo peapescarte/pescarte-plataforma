@@ -1,11 +1,11 @@
 defmodule Seeder.ModuloPesquisa.Pesquisador do
-  alias Database.LeituraRepo
+  alias Database.Repo.Replica
   alias Identidades.Models.Usuario
   alias ModuloPesquisa.Models.Pesquisador
   @behaviour Seeder.Entry
 
   defp usuario_id_by_cpf(cpf) do
-    usuario = LeituraRepo.get_by!(Usuario, cpf: cpf)
+    usuario = Replica.get_by!(Usuario, cpf: cpf)
     usuario.id_publico
   end
 
