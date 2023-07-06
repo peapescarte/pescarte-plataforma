@@ -9,7 +9,7 @@ defmodule Cotacoes.Repository do
 
   @impl true
   def find_all_cotacao_by_is_ingested do
-    query = from c in Cotacao, where: c.ingested?, select: c
+    query = from c in Cotacao, where: c.importada?, select: c
     Repo.Replica.all(query)
   end
 

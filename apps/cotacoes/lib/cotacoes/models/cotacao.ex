@@ -1,16 +1,23 @@
 defmodule Cotacoes.Models.Cotacao do
   use Database, :model
 
-  @type t :: %Cotacao{id: binary, data: Date.t(), link: binary, fonte: binary}
+  @type t :: %Cotacao{
+          id: binary,
+          data: Date.t(),
+          link: binary,
+          fonte: binary,
+          importada?: boolean
+        }
 
   @required_fields ~w(data fonte)a
-  @optional_fields ~w(link)a
+  @optional_fields ~w(link ingested?)a
 
   @primary_key false
   schema "cotacao" do
     field :data, :date, primary_key: true
     field :fonte, :string, primary_key: true
     field :link, :string
+    field :importada?, :boolean, default: false
     field :id, Database.Types.PublicId, autogenerate: true
   end
 
