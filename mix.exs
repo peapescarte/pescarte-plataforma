@@ -13,6 +13,7 @@ defmodule Pescarte.MixProject do
           applications: [
             database: :permanent,
             cotacoes: :permanent,
+            cotacoes_etl: :permanent,
             proxy_web: :permanent,
             identidades: :permanent,
             modulo_pesquisa: :permanent,
