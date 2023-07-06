@@ -304,6 +304,33 @@ defmodule PlataformaDigital.DesignSystem do
     """
   end
 
+  attr :id, :string, default: nil
+  attr :class, :string, default: ""
+  attr :name, :string
+  attr :value, :string, required: false
+  attr :content, :list, default: []
+  attr :placeholder, :string, required: false, default: ""
+  attr :field, Phoenix.HTML.FormField
+
+  def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> search_input()
+  end
+
+  def search_input(assigns) do
+    ~H"""
+    <fieldset class={@class}>
+      <div class="search-input">
+        <div class="search-icon">
+          <Lucideicons.search />
+        </div>
+        <input id={@id} name={@name} value={@value} placeholder={@placeholder} />
+      </div>
+    </fieldset>
+    """
+  end
+
   # função interna para criação de inputs dinâmicos
   # cada componente de input possui sua função própria
   # para melhor semântica, como `text_input` ou `checkbox`
