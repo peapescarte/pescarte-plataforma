@@ -4,12 +4,12 @@
   </.text>
 
   <.form :let={f} for={@form} phx-submit="save">
-    <.report_field :for={{name, id} <- @field_names} label={name} id={id} form={f} />
-
-    <.text size="h3" color="text-blue-100">Recursos</.text>
-
-    <.button style="primary" submit>
-      Salvar
-    </.button>
+    <.live_component
+      module={DesignSystem.SearchInput}
+      id="search-test"
+      name="search-test"
+      content={["hello", "teste"]}
+      field={@form[:planning_action]}
+    />
   </.form>
 </div>

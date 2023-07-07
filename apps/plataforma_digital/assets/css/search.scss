@@ -1,17 +1,44 @@
 .search-input {
-  @apply flex items-center border-2 border-black-40 text-black-80;
+  @apply flex justify-center items-center border-black-10 text-black-80;
+  @apply border-2;
+
+  &.typing {
+    @apply border-b-2;
+  }
+
+  &.empty {
+    @apply border-2;
+  }
 
   width: 18.75rem;
   height: 3rem;
   font-size: 1rem;
   padding: 12px;
   border-radius: 4px;
+  position: relative;
 
   .search-icon {
-    @apply flex items-center text-black-40;
+    @apply flex items-center text-black-80;
 
     width: 1.5rem;
     height: 1.5rem;
+  }
+
+  .search-menu {
+     @apply border-2 border-black-10;
+     width: 100%;
+     position: absolute;
+     top: 100%;
+     overflow: visible;
+  }
+
+  .search-menu-option {
+     margin-top: .75rem;
+     text-overflow: ellipsis;
+
+     &:last-child {
+       margin-bottom: .75rem;
+     }
   }
 
   input {
