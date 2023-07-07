@@ -9,9 +9,10 @@ defmodule Cotacoes.Factory do
   def cotacao_factory do
     %Cotacao{
       id: Nanoid.generate_non_secure(),
-      data: Date.utc_today(),
+      data: ~D[2023-05-07],
       fonte: insert(:fonte).nome,
-      link: sequence(:link, &"https://example#{&1}.com")
+      link: sequence(:link, &"https://example#{&1}.com"),
+      importada?: false
     }
   end
 
@@ -44,5 +45,15 @@ defmodule Cotacoes.Factory do
       embalagem: sequence("embalagem"),
       descricao: sequence("descricao")
     }
+  end
+
+  def fixture(name) do
+    %mod{} = struct = build(name)
+    fields = mod.__schema__(:fields)
+
+    struct
+    |> Map.from_struct()
+    |> Map.take(fields)
+    |> Map.drop([:id])
   end
 end

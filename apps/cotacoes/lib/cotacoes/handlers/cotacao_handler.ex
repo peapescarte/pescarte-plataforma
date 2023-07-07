@@ -10,7 +10,7 @@ defmodule Cotacoes.Handlers.CotacaoHandler do
 
   @impl true
   def ingest_cotacoes(cotacoes) do
-    {:ok, _} = Repository.update_all_cotacao(cotacoes)
+    {:ok, _} = Repository.update_all_cotacao(cotacoes, importada?: true)
     :ok
   end
 

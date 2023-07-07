@@ -10,7 +10,7 @@ defmodule Cotacoes.Models.Cotacao do
         }
 
   @required_fields ~w(data fonte)a
-  @optional_fields ~w(link ingested?)a
+  @optional_fields ~w(link importada?)a
 
   @primary_key false
   schema "cotacao" do
