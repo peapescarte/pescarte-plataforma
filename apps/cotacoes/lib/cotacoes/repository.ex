@@ -14,9 +14,9 @@ defmodule Cotacoes.Repository do
   end
 
   @impl true
-  def insert_all_cotacao(cotacoes) do
-    {_amount, inserted} = Repo.insert_all(Cotacao, cotacoes)
-    {:ok, inserted}
+  def insert_all_cotacao(cotacoes_attrs) do
+    {_amount, _} = Repo.insert_all(Cotacao, cotacoes_attrs)
+    :ok
   end
 
   @impl true
@@ -25,8 +25,10 @@ defmodule Cotacoes.Repository do
   end
 
   @impl true
-  def update_all_cotacao(cotacoes) do
-    {_amount, updated} = Repo.update_all(Cotacao, cotacoes)
+  def update_all_cotacao(cotacoes, fields) do
+    ids = Enum.map(cotacoes, & &1.id)
+    query = from c in Cotacao, where: c.id in ^ids, select: c
+    {_amount, updated} = Repo.update_all(query, set: fields)
     {:ok, updated}
   end
 
@@ -46,8 +48,8 @@ defmodule Cotacoes.Repository do
 
   @impl true
   def insert_all_pescado(pescados) do
-    {_amount, inserted} = Repo.insert_all(Pescado, pescados)
-    {:ok, inserted}
+    {_amount, _} = Repo.insert_all(Pescado, pescados)
+    :ok
   end
 
   @impl true
