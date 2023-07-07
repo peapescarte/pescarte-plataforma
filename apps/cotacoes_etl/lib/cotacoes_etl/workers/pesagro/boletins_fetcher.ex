@@ -10,7 +10,7 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
   alias Cotacoes.Handlers.CotacaoHandler
   alias CotacoesETL.Adapters.Pesagro.Boletim
   alias CotacoesETL.Integrations
-  alias CotacoesETL.Workers.Pesagro.CotacaoIngester
+  alias CotacoesETL.Integrations.PesagroAPI
 
   require Logger
 
@@ -20,6 +20,10 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
+  def get_current_boletins do
+    GenServer.call(__MODULE__, :get_current)
+  end
+
   @impl true
   def init(boletins) do
     GenServer.cast(__MODULE__, :fetch)
@@ -27,11 +31,16 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
   end
 
   @impl true
+  def handle_call(:get_current, _from, state) do
+    {:reply, state, state}
+  end
+
+  @impl true
   def handle_cast(:fetch, boletins) do
     Logger.info("[#{__MODULE__}] ==> Buscando boletins em Pesagro")
 
     document = Integrations.pesagro_api().fetch_document!()
-    boletins_links = Integrations.pesagro_api().fetch_all_boletim_links(document)
+    boletins_links = PesagroAPI.fetch_all_boletim_links(document)
 
     # Envia mensagem para si próprio para inserir os boletins
     GenServer.cast(__MODULE__, :insert)
@@ -52,8 +61,8 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
 
     # Agenda a ingestão dos dados das cotações
     # pelo worker `CotacaoIngester`
-    Logger.info("[#{__MODULE__}] ==> Agendando a ingestão das cotações Pesagro inseridas")
-    schedule_ingestion()
+    # Logger.info("[#{__MODULE__}] ==> Agendando a ingestão das cotações Pesagro inseridas")
+    # schedule_ingestion()
     {:noreply, []}
   end
 
@@ -63,9 +72,9 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     {:noreply, state}
   end
 
-  defp schedule_ingestion do
-    Process.send(CotacaoIngester, :ingest, [])
-  end
+  # defp schedule_ingestion do
+  #   Process.send(CotacaoIngester, :ingest, [])
+  # end
 
   defp schedule_next_fetch do
     Process.send_after(self(), :schedule_fetch, @one_day)

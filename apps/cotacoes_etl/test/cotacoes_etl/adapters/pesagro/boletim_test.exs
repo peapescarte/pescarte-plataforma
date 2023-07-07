@@ -1,7 +1,6 @@
 defmodule CotacoesETL.Adapters.Pesagro.BoletimTest do
   use ExUnit.Case, async: true
 
-  alias Cotacoes.Models.Cotacao
   alias CotacoesETL.Adapters.Pesagro.Boletim
   alias CotacoesETL.Schemas.Pesagro.BoletimEntry
 
@@ -14,7 +13,7 @@ defmodule CotacoesETL.Adapters.Pesagro.BoletimTest do
     boletim = %BoletimEntry{link: link, arquivo: arquivo}
 
     cotacao = Boletim.boletim_to_cotacao(boletim, today)
-    assert %Cotacao{fonte: "pesagro", importada?: false} = cotacao
+    assert %{fonte: "pesagro", importada?: false} = cotacao
     assert cotacao.link == link
     assert cotacao.data == today
   end
