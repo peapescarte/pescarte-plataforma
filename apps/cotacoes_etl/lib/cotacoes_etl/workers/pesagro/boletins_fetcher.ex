@@ -9,7 +9,7 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
 
   alias Cotacoes.Handlers.CotacaoHandler
   alias CotacoesETL.Adapters.Pesagro.Boletim
-  alias CotacoesETL.Integrations.PesagroAPI
+  alias CotacoesETL.Integrations
   alias CotacoesETL.Workers.Pesagro.CotacaoIngester
 
   require Logger
@@ -30,8 +30,8 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
   def handle_cast(:fetch, boletins) do
     Logger.info("[#{__MODULE__}] ==> Buscando boletins em Pesagro")
 
-    document = PesagroAPI.fetch_document!()
-    boletins_links = PesagroAPI.fetch_all_boletim_links(document)
+    document = Integrations.pesagro_api().fetch_document!()
+    boletins_links = Integrations.pesagro_api().fetch_all_boletim_links(document)
 
     # Envia mensagem para si próprio para inserir os boletins
     GenServer.cast(__MODULE__, :insert)
@@ -48,9 +48,7 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     cotacoes = Boletim.boletins_to_cotacoes(boletins, today)
     cotacoes_diff = CotacaoHandler.reject_inserted_cotacoes(cotacoes)
     Logger.info("[#{__MODULE__}] ==> #{length(cotacoes_diff)} novos boletins achados em Pesagro")
-
-    {:ok, inserted} = CotacaoHandler.insert_cotacoes!(cotacoes_diff)
-    Logger.info("[#{__MODULE__}] ==> #{length(inserted)} novas cotações inseridas")
+    :ok = CotacaoHandler.insert_cotacoes!(cotacoes_diff)
 
     # Agenda a ingestão dos dados das cotações
     # pelo worker `CotacaoIngester`

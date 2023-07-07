@@ -1,13 +1,17 @@
 defmodule CotacoesETL.Integrations.PesagroAPI do
+  alias CotacoesETL.Integrations.IManagePesagroIntegration
   alias CotacoesETL.Schemas.Pesagro.BoletimEntry
 
+  @behaviour IManagePesagroIntegration
+
   @filetypes ~w(application/pdf application/zip)
+  @path "/node/194"
 
-  def base_url, do: "https://www.pesagro.rj.gov.br/node/194"
+  def base_url, do: "https://www.pesagro.rj.gov.br"
 
-  @spec fetch_document! :: Floki.html_tree()
+  @impl true
   def fetch_document! do
-    raw_document = Req.get!(base_url()).body
+    raw_document = Req.get!(base_url() <> @path).body
 
     Floki.parse_document!(raw_document)
   end
@@ -23,7 +27,9 @@ defmodule CotacoesETL.Integrations.PesagroAPI do
   defp a_tag_to_boletim(tag) do
     arquivo = Floki.text(Floki.attribute(tag, "title"))
     link = base_url() <> Floki.text(Floki.attribute(tag, "href"))
-    attrs = %{arquivo: arquivo, link: link}
+    type = tag |> Floki.attribute("type") |> Floki.text()
+    tipo = if type == "application/pdf", do: :pdf, else: :zip
+    attrs = %{arquivo: arquivo, link: link, tipo: tipo}
 
     BoletimEntry.changeset(attrs)
   end

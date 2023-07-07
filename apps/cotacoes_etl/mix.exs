@@ -28,6 +28,7 @@ defmodule CotacoesETL.MixProject do
       {:gen_stage, "~> 1.0"},
       {:floki, "~> 0.34.0"},
       {:explorer, "~> 0.5.0"},
+      {:mox, "~> 1.0", only: :test},
       {:cotacoes, in_umbrella: true}
     ]
   end
