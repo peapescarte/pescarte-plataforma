@@ -77,10 +77,6 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     {:noreply, state}
   end
 
-  defp schedule_ingestion do
-    Process.send(CotacaoIngester, :schedule_ingestion, [])
-  end
-
   defp schedule_next_fetch do
     Process.send_after(self(), :schedule_fetch, @one_day)
   end
