@@ -16,6 +16,11 @@ defmodule CotacoesETL.Integrations.PesagroAPI do
     Floki.parse_document!(raw_document)
   end
 
+  @impl true
+  def download_file!(link) do
+    Tesla.get!(link).body
+  end
+
   @spec fetch_all_boletim_links(Floki.html_tree()) :: list(BoletimEntry.t())
   def fetch_all_boletim_links(document) do
     document

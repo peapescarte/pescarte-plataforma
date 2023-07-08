@@ -17,7 +17,7 @@ defmodule CotacoesETL.Schemas.Zamzar.Job do
         }
 
   @fields ~w(id sandbox key created_at finished_at target_format credit_cost status)a
-  @status ~w(initialising successful failed)a
+  @status ~w(initialising successful failed converting)a
 
   @primary_key false
   embedded_schema do
