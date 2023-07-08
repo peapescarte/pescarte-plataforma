@@ -12,7 +12,8 @@ defmodule Cotacoes.Factory do
       data: ~D[2023-05-07],
       fonte: insert(:fonte).nome,
       link: sequence(:link, &"https://example#{&1}.com"),
-      importada?: false
+      importada?: false,
+      baixada?: false
     }
   end
 

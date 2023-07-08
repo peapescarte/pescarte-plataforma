@@ -7,6 +7,7 @@ defmodule Database.Repo.Migrations.CriaCotacao do
       add :data, :date, null: false
       add :link, :string, primary_key: true
       add :importada?, :boolean, default: false
+      add :baixada?, :boolean, default: false
       add :fonte, references(:fonte_cotacao, column: :nome, type: :string), null: false
     end
 
