@@ -12,11 +12,10 @@ defmodule Cotacoes.Models.Cotacao do
   @required_fields ~w(data fonte)a
   @optional_fields ~w(link importada?)a
 
-  @primary_key false
+  @primary_key {:link, :string, autogenerate: false}
   schema "cotacao" do
-    field :data, :date, primary_key: true
-    field :fonte, :string, primary_key: true
-    field :link, :string
+    field :data, :date
+    field :fonte, :string
     field :importada?, :boolean, default: false
     field :id, Database.Types.PublicId, autogenerate: true
   end

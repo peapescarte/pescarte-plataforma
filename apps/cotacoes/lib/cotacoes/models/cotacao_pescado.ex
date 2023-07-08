@@ -3,7 +3,7 @@ defmodule Cotacoes.Models.CotacaoPescado do
 
   @type t :: %CotacaoPescado{
           id: binary,
-          cotacao_data: Date.t(),
+          cotacao_link: Date.t(),
           pescado_codigo: binary,
           fonte_nome: binary,
           preco_minimo: integer,
@@ -12,13 +12,13 @@ defmodule Cotacoes.Models.CotacaoPescado do
           preco_medio: integer
         }
 
-  @required_fields ~w(cotacao_data pescado_codigo fonte_nome preco_minimo preco_maximo)a
+  @required_fields ~w(cotacao_link pescado_codigo fonte_nome preco_minimo preco_maximo)a
   @optional_fields ~w(preco_mais_comum preco_medio)a
 
   @primary_key false
   schema "cotacoes_pescados" do
     field :id, Database.Types.PublicId, autogenerate: true
-    field :cotacao_data, :date, primary_key: true
+    field :cotacao_link, :string, primary_key: true
     field :pescado_codigo, :string, primary_key: true
     field :fonte_nome, :string, primary_key: true
     field :preco_minimo, :integer
@@ -32,7 +32,7 @@ defmodule Cotacoes.Models.CotacaoPescado do
     cot_pescado
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> foreign_key_constraint(:cotacao_data)
+    |> foreign_key_constraint(:cotacao_link)
     |> foreign_key_constraint(:pescado_codigo)
     |> foreign_key_constraint(:fonte_nome)
   end
