@@ -29,7 +29,8 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcherTest do
        ]}
     end)
 
-    assert {:ok, _pid} = BoletinsFetcher.start_link()
+    assert {:ok, _pid} = BoletinsFetcher.start_link([])
+    assert :ok = BoletinsFetcher.trigger_fetching()
     [boletim] = BoletinsFetcher.get_current_boletins()
 
     assert %BoletimEntry{} = boletim

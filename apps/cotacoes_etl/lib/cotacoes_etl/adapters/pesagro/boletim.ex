@@ -6,6 +6,6 @@ defmodule CotacoesETL.Adapters.Pesagro.Boletim do
   end
 
   def boletim_to_cotacao(%BoletimEntry{link: link}, today) do
-    %{fonte: "pesagro", link: link, data: today, importada?: false}
+    %{id: Nanoid.generate(), fonte: "pesagro", link: link, data: today, importada?: false}
   end
 end

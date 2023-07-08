@@ -8,8 +8,14 @@ defmodule Cotacoes.Repository do
   @behaviour Cotacoes.IManageRepository
 
   @impl true
-  def find_all_cotacao_by_is_ingested do
-    query = from c in Cotacao, where: c.importada?, select: c
+  def find_all_cotacao_by_not_ingested do
+    query = from c in Cotacao, where: not c.importada?, select: c
+    Repo.Replica.all(query)
+  end
+
+  @impl true
+  def find_all_cotacao_by_not_downloaded do
+    query = from c in Cotacao, where: not c.baixada?, select: c
     Repo.Replica.all(query)
   end
 

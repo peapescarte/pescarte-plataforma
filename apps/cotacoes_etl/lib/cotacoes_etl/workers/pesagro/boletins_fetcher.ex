@@ -15,8 +15,9 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
   require Logger
 
   @one_day 864 * 100 * 100 * 10
+  @half_minute 30 * 100 * 10
 
-  def start_link do
+  def start_link(_) do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
@@ -24,9 +25,13 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     GenServer.call(__MODULE__, :get_current)
   end
 
+  def trigger_fetching do
+    GenServer.cast(__MODULE__, :fetch)
+  end
+
   @impl true
   def init(boletins) do
-    GenServer.cast(__MODULE__, :fetch)
+    Process.send_after(__MODULE__, :schedule_fetch, @half_minute)
     {:ok, boletins}
   end
 
@@ -71,10 +76,6 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     GenServer.cast(__MODULE__, :fetch)
     {:noreply, state}
   end
-
-  # defp schedule_ingestion do
-  #   Process.send(CotacaoIngester, :ingest, [])
-  # end
 
   defp schedule_next_fetch do
     Process.send_after(self(), :schedule_fetch, @one_day)

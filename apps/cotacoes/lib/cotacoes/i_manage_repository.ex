@@ -5,7 +5,8 @@ defmodule Cotacoes.IManageRepository do
 
   @opaque changeset :: Ecto.Changeset.t()
 
-  @callback find_all_cotacao_by_is_ingested :: list(Cotacao.t())
+  @callback find_all_cotacao_by_not_ingested :: list(Cotacao.t())
+  @callback find_all_cotacao_by_not_downloaded :: list(Cotacao.t())
   @callback insert_all_cotacao(list(map)) :: :ok
   @callback list_cotacao :: list(Cotacao.t())
   @callback update_all_cotacao(list(Cotacao.t()), keyword) :: {:ok, list(Cotacao.t()) | nil}
