@@ -25,6 +25,10 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     GenServer.call(__MODULE__, :get_current)
   end
 
+  def trigger_fetching do
+    GenServer.cast(__MODULE__, :fetch)
+  end
+
   @impl true
   def init(boletins) do
     Process.send_after(__MODULE__, :schedule_fetch, @half_minute)

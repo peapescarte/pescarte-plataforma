@@ -1,6 +1,7 @@
 import Config
 
 config :database, config_env: config_env()
+config :cotacoes_etl, config_env: config_env()
 
 config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 
