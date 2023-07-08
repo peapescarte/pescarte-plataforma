@@ -8,13 +8,13 @@ defmodule Cotacoes.RepositoryTest do
 
   @moduletag :unit
 
-  test "find_all_cotacao_by_is_ingested/0 retorna todas as cotacoes onde importada? é true" do
-    insert(:cotacao, importada?: true)
+  test "find_all_cotacao_by_not_ingested/0 retorna todas as cotacoes onde importada? é false" do
+    insert(:cotacao, importada?: false)
     insert(:cotacao, importada?: true, data: ~D[2023-06-07])
-    found = Repository.find_all_cotacao_by_is_ingested()
+    found = Repository.find_all_cotacao_by_not_ingested()
 
-    assert length(found) == 2
-    assert Enum.all?(found, & &1.importada?)
+    assert length(found) == 1
+    assert Enum.all?(found, &(not &1.importada?))
   end
 
   test "insert_all_cotacao/1 insere todas as cotacoes fornecidas" do
