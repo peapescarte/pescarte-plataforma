@@ -20,11 +20,26 @@ Dentro do diretório do projeto, execute:
 asdf install
 ```
 
-Serão baixadas as versões exatas da `Erlang/OTP` e `Elixir` usadas no projeto.
+Serão baixadas as versões exatas da `Erlang/OTP`, `Elixir` e `Postgres` usadas no projeto.
+
+### Rodando o projeto pela primeira vez
+
+Instale as dependências do projeto:
+
+```sh
+mix deps.get
+```
+
+Configure seu banco local em `config/dev.exs` e crie seu banco de dados junto com as migrations:
+
+```sh
+mix ecto.setup
+```
 
 ### Sempre que for rodar o projeto
 
 Suba o servidor do `Phoenix` normalmente:
+
 ```sh
 iex -S mix phx.server
 ```
