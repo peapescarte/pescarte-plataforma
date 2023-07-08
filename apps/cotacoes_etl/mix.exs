@@ -17,13 +17,16 @@ defmodule CotacoesETL.MixProject do
 
   def application do
     [
+      mod: {CotacoesETL.Application, []},
       extra_applications: [:logger]
     ]
   end
 
   defp deps do
     [
-      {:req, "~> 0.3.0"},
+      {:tesla, "~> 1.4"},
+      {:finch, "~> 0.16"},
+      {:jason, ">= 1.0.0"},
       {:ecto, "~> 3.10"},
       {:gen_stage, "~> 1.0"},
       {:floki, "~> 0.34.0"},

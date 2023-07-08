@@ -2,6 +2,8 @@ import Config
 
 config :database, config_env: config_env()
 
+config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
+
 # -------- #
 # Database #
 # -------- #
