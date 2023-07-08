@@ -11,7 +11,7 @@ defmodule CotacoesETL.Integrations.PesagroAPI do
 
   @impl true
   def fetch_document! do
-    raw_document = Req.get!(base_url() <> @path).body
+    raw_document = Tesla.get!(base_url() <> @path).body
 
     Floki.parse_document!(raw_document)
   end
