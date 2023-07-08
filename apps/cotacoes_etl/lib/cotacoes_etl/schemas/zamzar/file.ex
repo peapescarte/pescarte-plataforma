@@ -13,7 +13,7 @@ defmodule CotacoesETL.Schemas.Zamzar.File do
           created_at: NaiveDateTime.t()
         }
 
-  @fields ~w(id key size name format created_at)a
+  @fields ~w(id key size name format created_at path)a
 
   @primary_key false
   embedded_schema do
@@ -27,8 +27,12 @@ defmodule CotacoesETL.Schemas.Zamzar.File do
   end
 
   def changeset(file \\ %File{}, attrs) do
+    cast(file, attrs, @fields)
+  end
+
+  def changeset!(file \\ %File{}, attrs) do
     file
-    |> cast(attrs, @fields)
+    |> changeset(attrs)
     |> apply_action!(:parse)
   end
 end

@@ -6,9 +6,13 @@ if System.get_env("PHX_SERVER") do
   config :proxy_web, ProxyWeb.Endpoint, server: true
 end
 
-config :cotacoes_etl, zamzar_api_key: System.fetch_env!("ZAMZAR_API_KEY")
+config :cotacoes_etl,
+  zamzar_api_key: System.fetch_env!("ZAMZAR_API_KEY"),
+  zamzar_endpoint: System.get_env("ZAMZAR_ENDPOINT", "https://sandbox.zamzar.com/v1")
 
 if config_env() == :prod do
+  config :cotacoes_etl, zamzar_endpoint: System.fetch_env!("ZAMZAR_ENDPOINT")
+
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """
