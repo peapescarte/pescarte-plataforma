@@ -16,7 +16,8 @@ end
 
 config :cotacoes_etl,
   zamzar_api_key: default_value_for_test_env.("ZAMZAR_API_KEY"),
-  zamzar_endpoint: System.get_env("ZAMZAR_ENDPOINT", "https://sandbox.zamzar.com/v1")
+  zamzar_endpoint: System.get_env("ZAMZAR_ENDPOINT", "https://sandbox.zamzar.com/v1"),
+  fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
 
 if config_env() == :prod do
   config :cotacoes_etl, zamzar_endpoint: System.fetch_env!("ZAMZAR_ENDPOINT")
