@@ -1,14 +1,22 @@
 defmodule CotacoesETL.Application do
   use Application
 
+  alias CotacoesETL.Workers.PDFConverter
+  alias CotacoesETL.Workers.Pesagro.BoletimDownloader
   alias CotacoesETL.Workers.Pesagro.BoletinsFetcher
-  alias CotacoesETL.Workers.Pesagro.CotacaoConverter
+  alias CotacoesETL.Workers.ZIPExtractor
 
   @impl true
   def start(_, _) do
     children =
       if config_env() != :test or should_fetch_pesagro_cotacoes?() do
-        [BoletinsFetcher, CotacaoConverter, {Finch, name: PescarteHTTPClient}]
+        [
+          PDFConverter,
+          ZIPExtractor,
+          BoletinsFetcher,
+          BoletimDownloader,
+          {Finch, name: PescarteHTTPClient}
+        ]
       else
         [{Finch, name: PescarteHTTPClient}]
       end

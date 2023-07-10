@@ -7,6 +7,9 @@ defmodule Cotacoes.Handlers.CotacaoHandler do
   defdelegate list_cotacao, to: Repository
 
   @impl true
+  defdelegate fetch_cotacao_by_link(link), to: Repository
+
+  @impl true
   def find_cotacoes_not_ingested do
     Repository.find_all_cotacao_by_not_ingested()
   end

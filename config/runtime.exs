@@ -6,22 +6,9 @@ if System.get_env("PHX_SERVER") do
   config :proxy_web, ProxyWeb.Endpoint, server: true
 end
 
-default_value_for_test_env = fn env_var ->
-  if config_env() == :test do
-    System.put_env(env_var, "não faz diferença")
-  else
-    System.fetch_env!(env_var)
-  end
-end
-
-config :cotacoes_etl,
-  zamzar_api_key: default_value_for_test_env.("ZAMZAR_API_KEY"),
-  zamzar_endpoint: System.get_env("ZAMZAR_ENDPOINT", "https://sandbox.zamzar.com/v1"),
-  fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
+config :cotacoes_etl, fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
 
 if config_env() == :prod do
-  config :cotacoes_etl, zamzar_endpoint: System.fetch_env!("ZAMZAR_ENDPOINT")
-
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """

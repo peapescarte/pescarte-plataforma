@@ -14,6 +14,11 @@ defmodule Cotacoes.Repository do
   end
 
   @impl true
+  def fetch_cotacao_by_link(link) do
+    Database.fetch_by(Cotacao, link: link)
+  end
+
+  @impl true
   def find_all_cotacao_by_not_downloaded do
     query = from c in Cotacao, where: not c.baixada?, select: c
     Repo.Replica.all(query)

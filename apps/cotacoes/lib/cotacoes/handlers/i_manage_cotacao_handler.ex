@@ -3,6 +3,7 @@ defmodule Cotacoes.Handlers.IManageCotacaoHandler do
 
   @callback find_cotacoes_not_ingested :: list(Cotacao.t())
   @callback find_cotacoes_not_downloaded :: list(Cotacao.t())
+  @callback fetch_cotacao_by_link(String.t()) :: {:ok, Cotacao.t()} | {:error, :not_found}
   @callback get_cotacao_file_base_name(Cotacao.t()) :: String.t()
   @callback ingest_cotacoes(list(Cotacao.t())) :: :ok
   @callback insert_cotacoes!(list(Cotacao.t())) :: :ok

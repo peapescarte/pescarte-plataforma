@@ -7,6 +7,7 @@ defmodule Cotacoes.IManageRepository do
 
   @callback find_all_cotacao_by_not_ingested :: list(Cotacao.t())
   @callback find_all_cotacao_by_not_downloaded :: list(Cotacao.t())
+  @callback fetch_cotacao_by_link(String.t()) :: {:ok, Cotacao.t()} | {:error, :not_found}
   @callback insert_all_cotacao(list(map)) :: :ok
   @callback list_cotacao :: list(Cotacao.t())
   @callback update_all_cotacao(list(Cotacao.t()), keyword) :: {:ok, list(Cotacao.t()) | nil}
