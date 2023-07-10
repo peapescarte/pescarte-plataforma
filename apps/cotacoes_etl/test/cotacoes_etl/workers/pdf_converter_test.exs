@@ -12,7 +12,7 @@ defmodule CotacoesETL.Workers.PDFConverterTest do
     test "converte com successo um arquivo PDF para TXT" do
       assert System.find_executable("gs")
 
-      assert {:ok, _pid} = PDFConverter.start_link(nil)
+      assert start_supervised!(PDFConverter)
       assert :ok = PDFConverter.convert_pdf_to_txt(@pdf_file_path, @txt_file_path, self())
 
       assert_receive {:pdf_converted, path}, 500
