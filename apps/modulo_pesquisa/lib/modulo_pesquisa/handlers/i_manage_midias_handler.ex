@@ -20,6 +20,8 @@ defmodule ModuloPesquisa.Handlers.IManageMidiasHandler do
   @callback list_tags_from_categoria(Database.id()) :: list(Tag.t())
   @callback list_tags_from_midia(Database.id()) :: list(Tag.t())
 
+  @callback add_tags_to_midia(Database.id(), list(Database.id())) ::
+              {:ok, Midia.t()} | {:error, Ecto.Changeset.t()}
   @callback remove_tags_from_midia(Database.id(), list(Database.id())) ::
               {:ok, Midia.t()} | {:error, Ecto.Changeset.t()}
 

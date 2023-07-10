@@ -4,7 +4,15 @@ defmodule ModuloPesquisa.Handlers.MidiasHandler do
   alias ModuloPesquisa.Repository
 
   @behaviour IManageMidiasHandler
-  @repo Application.compile_env(:database, :write_repo)
+
+  @impl true
+  def add_tags_to_midia(midia_id, tags_id) do
+    with {:ok, midia} <- Repository.fetch_midia_by_id_publico(midia_id),
+         tags <- Repository.fetch_tags_from_ids(tags_id),
+         {:ok, midia} <- Repository.upsert_midia(midia, %{tags: midia.tags ++ tags}) do
+      {:ok, midia.tags}
+    end
+  end
 
   @impl true
   defdelegate create_categoria(attrs), to: Repository, as: :upsert_categoria
@@ -74,7 +82,7 @@ defmodule ModuloPesquisa.Handlers.MidiasHandler do
         __MODULE__.create_tag(attrs)
       end)
     end)
-    |> @repo.transaction()
+    |> Database.Repo.transaction()
     |> case do
       {:ok, changes} -> {:ok, Map.values(changes)}
       {:error, _, changeset, _} -> {:error, changeset}

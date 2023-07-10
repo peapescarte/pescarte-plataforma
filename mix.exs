@@ -12,6 +12,8 @@ defmodule Pescarte.MixProject do
         pescarte: [
           applications: [
             database: :permanent,
+            cotacoes: :permanent,
+            cotacoes_etl: :permanent,
             proxy_web: :permanent,
             identidades: :permanent,
             modulo_pesquisa: :permanent,
@@ -33,11 +35,7 @@ defmodule Pescarte.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": [
-        "ecto.create",
-        "ecto.migrate #{migrations_paths()}",
-        "seed"
-      ],
+      "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}"],
       test: [
         "ecto.create --quiet",
         "ecto.migrate --quiet #{migrations_paths()}",
@@ -63,7 +61,8 @@ defmodule Pescarte.MixProject do
     paths = [
       "apps/identidades/priv/repo/migrations",
       "apps/modulo_pesquisa/priv/repo/migrations",
-      "apps/catalogo/priv/repo/migrations"
+      "apps/catalogo/priv/repo/migrations",
+      "apps/cotacoes/priv/repo/migrations"
     ]
 
     for path <- paths, reduce: "" do

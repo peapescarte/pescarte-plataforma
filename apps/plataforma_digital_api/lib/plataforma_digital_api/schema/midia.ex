@@ -19,6 +19,11 @@ defmodule PlataformaDigitalAPI.Schema.Midia do
 
   # Mutations
 
+  input_object :adiciona_tag_input do
+    field(:midia_id, non_null(:string))
+    field(:tags_id, list_of(:string))
+  end
+
   input_object :remove_tag_input do
     field(:midia_id, non_null(:string))
     field(:tags_id, list_of(:string))
@@ -49,6 +54,12 @@ defmodule PlataformaDigitalAPI.Schema.Midia do
   end
 
   object :midia_mutations do
+    field :adiciona_midia_tags, list_of(:tag) do
+      arg(:input, :adiciona_tag_input)
+
+      resolve(&Resolver.Midia.adiciona_tags/2)
+    end
+
     field :remove_midia_tags, list_of(:tag) do
       arg(:input, :remove_tag_input)
 

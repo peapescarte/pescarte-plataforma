@@ -7,7 +7,6 @@ defmodule Identidades.Handlers.CredenciaisHandler do
   alias Identidades.Repository
 
   @behaviour IManageCredenciaisHandler
-  @repo Application.compile_env(:database, :write_repo)
 
   @hash_algorithm :sha256
   @login_token_rand_size 32
@@ -34,7 +33,7 @@ defmodule Identidades.Handlers.CredenciaisHandler do
       Ecto.Multi.new()
       |> Ecto.Multi.update(:user, changeset)
       |> Ecto.Multi.delete_all(:tokens, token_query)
-      |> @repo.transaction()
+      |> Database.Repo.transaction()
       |> case do
         {:ok, %{user: user}} -> {:ok, user}
         {:error, :user, changeset, _} -> {:error, changeset}
@@ -49,7 +48,7 @@ defmodule Identidades.Handlers.CredenciaisHandler do
   def delete_session_token(user_token) do
     with {:ok, user} <- fetch_usuario_by_session_token(user_token),
          %Ecto.Query{} = query <- Token.user_and_contexts_query(user, :all),
-         {integer, nil} <- @repo.delete_all(query) do
+         {integer, nil} <- Database.Repo.delete_all(query) do
       {:ok, integer}
     else
       _ -> {:error, :not_found}
@@ -100,7 +99,7 @@ defmodule Identidades.Handlers.CredenciaisHandler do
       enviado_para: user.contato.email_principal
     }
 
-    {:ok, _user_token} = @repo.insert(Token.changeset(attrs))
+    {:ok, _user_token} = Database.Repo.insert(Token.changeset(attrs))
 
     {:ok, Base.url_encode64(token, padding: false)}
   end
@@ -112,7 +111,7 @@ defmodule Identidades.Handlers.CredenciaisHandler do
   def generate_session_token(%Usuario{id_publico: user_id}) do
     token = :crypto.strong_rand_bytes(@login_token_rand_size)
     attrs = %{token: token, contexto: "session", usuario_id: user_id}
-    {:ok, _user_token} = @repo.insert(Token.changeset(attrs))
+    {:ok, _user_token} = Database.Repo.insert(Token.changeset(attrs))
 
     {:ok, token}
   end
@@ -141,7 +140,7 @@ defmodule Identidades.Handlers.CredenciaisHandler do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, changeset)
     |> Ecto.Multi.delete_all(:tokens, token_query)
-    |> @repo.transaction()
+    |> Database.Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
@@ -165,7 +164,7 @@ defmodule Identidades.Handlers.CredenciaisHandler do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, Usuario.password_changeset(user, attrs))
     |> Ecto.Multi.delete_all(:tokens, Token.user_and_contexts_query(user, :all))
-    |> @repo.transaction()
+    |> Database.Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}

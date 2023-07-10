@@ -27,6 +27,7 @@ COPY apps/identidades/mix.exs ./apps/identidades/
 COPY apps/modulo_pesquisa/mix.exs ./apps/modulo_pesquisa/
 COPY apps/plataforma_digital/mix.exs ./apps/plataforma_digital/
 COPY apps/plataforma_digital_api/mix.exs ./apps/plataforma_digital_api/
+COPY apps/cotacoes/mix.exs ./apps/cotacoes/
 
 
 RUN mix deps.get --only $MIX_ENV
@@ -40,6 +41,7 @@ COPY apps/identidades/priv ./apps/identidades/priv
 COPY apps/catalogo/priv ./apps/catalogo/priv
 COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
 COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
+COPY apps/cotacoes/priv ./apps/cotacoes/priv
 
 COPY apps/database/lib ./apps/database/lib
 COPY apps/catalogo/lib ./apps/catalogo/lib
@@ -49,6 +51,7 @@ COPY apps/identidades/lib ./apps/identidades/lib
 COPY apps/modulo_pesquisa/lib ./apps/modulo_pesquisa/lib
 COPY apps/plataforma_digital/lib ./apps/plataforma_digital/lib
 COPY apps/plataforma_digital_api/lib ./apps/plataforma_digital_api/lib
+COPY apps/cotacoes/lib ./apps/cotacoes/lib
 
 COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets/
 

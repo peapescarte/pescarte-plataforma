@@ -17,16 +17,17 @@ database_opts = [
   pool_size: 10
 ]
 
-config :database, Database.EscritaRepo, database_opts
-config :database, Database.LeituraRepo, database_opts
+config :database, Database.Repo, database_opts
+config :database, Database.Repo.Replica, database_opts
 
 # --------- #
 # Proxy Web #
 # --------- #
 config :proxy_web, ProxyWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
-  debug_errors: true,
   check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
   reloadable_compilers: [:elixir],
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
@@ -39,8 +40,7 @@ config :proxy_web, ProxyWeb.Endpoint,
       ~r"storybook/.*(exs)$",
       ~r"apps/plataforma_digital_api/lib/*.(ex)$",
       ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"apps/plataforma_digital/lib/plataforma_digital/(|components|controllers)/.*(ex)$",
-      ~r"apps/plataforma_digital/lib/plataforma_digital/(|live|templates)/.*(eex)$"
+      ~r"apps/plataforma_digital/lib/plataforma_digital/(controllers|live|components|templates)/.*(ex|heex)$"
     ]
   ]
 

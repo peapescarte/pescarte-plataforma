@@ -33,7 +33,7 @@ defmodule ModuloPesquisa.Repository do
       |> Map.put(:tags, tags)
       |> upsert_midia()
     end)
-    |> write_repo().transaction()
+    |> Repo.transaction()
     |> case do
       {:ok, %{midia: midia}} -> {:ok, midia}
       {:error, _, changeset, _} -> {:error, changeset}
@@ -42,48 +42,55 @@ defmodule ModuloPesquisa.Repository do
 
   @impl true
   def fetch_categoria(id) do
-    Database.fetch(read_repo(), Categoria, id)
+    Database.fetch(Categoria, id)
   end
 
   @impl true
   def fetch_categoria_by_id_publico(id) do
-    Database.fetch_by(read_repo(), Categoria, id_publico: id)
+    Database.fetch_by(Categoria, id_publico: id)
   end
 
   @impl true
   def fetch_midia_by_id_publico(id) do
-    case Database.fetch_by(read_repo(), Midia, id_publico: id) do
-      {:ok, midia} -> {:ok, read_repo().preload(midia, :tags)}
+    case Database.fetch_by(Midia, id_publico: id) do
+      {:ok, midia} -> {:ok, Repo.replica().preload(midia, :tags)}
       error -> error
     end
   end
 
   @impl true
   def fetch_tag_by_id_publico(id) do
-    Database.fetch_by(read_repo(), Tag, id_publico: id)
+    Database.fetch_by(Tag, id_publico: id)
   end
 
   @impl true
   def fetch_tag_by_etiqueta(etiqueta) do
-    Database.fetch_by(read_repo(), Tag, etiqueta: etiqueta)
+    Database.fetch_by(Tag, etiqueta: etiqueta)
+  end
+
+  @impl true
+  def fetch_tags_from_ids(tags_ids) do
+    query = from t in Tag, where: t.id_publico in ^tags_ids, select: t
+
+    Repo.replica().all(query)
   end
 
   @impl true
   def list_categoria do
-    read_repo().all(Categoria)
+    Repo.replica().all(Categoria)
   end
 
   @impl true
   def list_midia do
-    read_repo().all(Midia)
+    Repo.replica().all(Midia)
   end
 
   @impl true
   def list_midias_from_tag(tag_etiqueta) do
-    with {:ok, tag} <- Database.fetch(read_repo(), Tag, tag_etiqueta) do
+    with {:ok, tag} <- Database.fetch(Tag, tag_etiqueta) do
       query = from t in Tag, where: t.id == ^tag.id, preload: :midias
 
-      case Database.fetch_one(read_repo(), query) do
+      case Database.fetch_one(query) do
         {:error, :not_found} -> []
         {:ok, tag} -> tag.midias
       end
@@ -92,7 +99,7 @@ defmodule ModuloPesquisa.Repository do
 
   @impl true
   def list_pesquisador do
-    read_repo().all(Pesquisador)
+    Repo.replica().all(Pesquisador)
   end
 
   @impl true
@@ -106,14 +113,14 @@ defmodule ModuloPesquisa.Repository do
         select: [ra, rm, rt]
 
     query
-    |> read_repo().all()
+    |> Repo.replica().all()
     |> List.flatten()
     |> Enum.uniq()
   end
 
   @impl true
   def list_tag do
-    read_repo().all(Tag)
+    Repo.replica().all(Tag)
   end
 
   @impl true
@@ -123,7 +130,7 @@ defmodule ModuloPesquisa.Repository do
         where: c.nome == ^categoria_nome,
         preload: :tags
 
-    case Database.fetch_one(read_repo(), query) do
+    case Database.fetch_one(query) do
       {:error, :not_found} -> []
       {:ok, categoria} -> categoria.tags
     end
@@ -136,7 +143,7 @@ defmodule ModuloPesquisa.Repository do
         where: m.link == ^midia_link,
         preload: :tags
 
-    case Database.fetch_one(read_repo(), query) do
+    case Database.fetch_one(query) do
       {:error, :not_found} -> []
       {:ok, midia} -> midia.tags
     end
@@ -146,21 +153,21 @@ defmodule ModuloPesquisa.Repository do
   def upsert_campus(campus \\ %Campus{}, attrs) do
     campus
     |> Campus.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_categoria(categoria \\ %Categoria{}, attrs) do
     categoria
     |> Categoria.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_linha_pesquisa(lp \\ %LinhaPesquisa{}, attrs) do
     lp
     |> LinhaPesquisa.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
@@ -169,48 +176,48 @@ defmodule ModuloPesquisa.Repository do
 
     midia
     |> Midia.changeset(attrs, tags)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_nucleo_pesquisa(np \\ %NucleoPesquisa{}, attrs) do
     np
     |> NucleoPesquisa.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_pesquisador(pesq \\ %Pesquisador{}, attrs) do
     pesq
     |> Pesquisador.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_relatorio_anual(rap \\ %RelatorioAnualPesquisa{}, attrs) do
     rap
     |> RelatorioAnualPesquisa.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_relatorio_mensal(rmp \\ %RelatorioMensalPesquisa{}, attrs) do
     rmp
     |> RelatorioMensalPesquisa.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_relatorio_trimestral(rtp \\ %RelatorioTrimestralPesquisa{}, attrs) do
     rtp
     |> RelatorioTrimestralPesquisa.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 
   @impl true
   def upsert_tag(tag \\ %Tag{}, attrs) do
     tag
     |> Tag.changeset(attrs)
-    |> write_repo().insert_or_update()
+    |> Repo.insert_or_update()
   end
 end

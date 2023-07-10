@@ -9,29 +9,29 @@ defmodule Identidades.Repository do
 
   @impl true
   def fetch_usuario_by_cpf(cpf) do
-    Database.fetch_by(read_repo(), Usuario, cpf: cpf)
+    Database.fetch_by(Usuario, cpf: cpf)
   end
 
   @impl true
   def fetch_usuario_by_email(email) do
-    Database.fetch_one(read_repo(), email_query(email))
+    Database.fetch_one(email_query(email))
   end
 
   @impl true
   def fetch_usuario_by_id_publico(id) do
-    Database.fetch_by(read_repo(), Usuario, id_publico: id)
+    Database.fetch_by(Usuario, id_publico: id)
   end
 
   @impl true
   def fetch_usuario_by_token(token, "session", validity_days) do
     query = session_token_query(token, validity_days)
-    Database.fetch_one(read_repo(), query)
+    Database.fetch_one(query)
   end
 
   def fetch_usuario_by_token(token, context, validity_days)
       when context in ~w(reset_password confirm) do
     query = account_token_query(token, context, validity_days)
-    Database.fetch_one(read_repo(), query)
+    Database.fetch_one(query)
   end
 
   defp email_query(email) do
@@ -66,11 +66,11 @@ defmodule Identidades.Repository do
 
   @impl true
   def insert_usuario(changeset) do
-    write_repo().insert(changeset)
+    Repo.insert(changeset)
   end
 
   @impl true
   def list_usuario do
-    read_repo().all(Usuario)
+    Repo.replica().all(Usuario)
   end
 end

@@ -6,12 +6,17 @@ defmodule Database.Application do
   @impl true
   def start(_type, _args) do
     # Listagem de repositorios do Pescarte
-    children = [
-      Database.EscritaRepo,
-      Database.LeituraRepo
-    ]
+    repos =
+      if Database.config_env() != :test do
+        [
+          Database.Repo,
+          Database.Repo.Replica
+        ]
+      else
+        [Database.Repo]
+      end
 
     opts = [strategy: :one_for_one, name: Database.Supervisor]
-    Supervisor.start_link(children, opts)
+    Supervisor.start_link(repos, opts)
   end
 end

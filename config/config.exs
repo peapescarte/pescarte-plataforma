@@ -1,21 +1,23 @@
 import Config
 
+config :database, config_env: config_env()
+config :cotacoes_etl, config_env: config_env()
+
+config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
+
 # -------- #
 # Database #
 # -------- #
 config :database,
-  ecto_repos: [Database.EscritaRepo, Database.LeituraRepo],
+  ecto_repos: [Database.Repo, Database.Repo.Replica],
   migration_timestamps: [type: :utc_datetime_usec]
-
-config :database,
-  write_repo: Database.EscritaRepo,
-  read_repo: Database.LeituraRepo
 
 # --------- #
 # Proxy Web #
 # --------- #
 config :proxy_web, ProxyWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
+  pubsub_server: Pescarte.PubSub,
   url: [host: "localhost"],
   secret_key_base: "57RgSOwri8BGRx6ilgBZjAf3Cob5s8/2E4CFkr+/FWZGEP0J2f+AWFnUKn2QGlvf",
   server: true
@@ -25,8 +27,8 @@ config :proxy_web, ProxyWeb.Endpoint,
 # ------------------- #
 config :plataforma_digital, PlataformaDigital.Endpoint,
   secret_key_base: "yFgelUyKSgiemxYRsbxwGxiQKROQTx0bokxUGNZOnOOqJExsqZSsUHmcq4Ue11Tx",
-  render_errors: [formats: [html: PlataformaDigital.ErrorHTML], layout: false],
   pubsub_server: Pescarte.PubSub,
+  render_errors: [formats: [html: PlataformaDigital.ErrorHTML], layout: false],
   live_view: [signing_salt: "TxTzLCT/WGlob2+Vo0uZ1IQAfkgq53M"],
   server: false
 
@@ -66,6 +68,7 @@ config :tailwind,
 # Plataforma Digital API #
 # ---------------------- #
 config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
+  pubsub_server: Pescarte.PubSub,
   secret_key_base: "p72JmdAzMY6LcSoQVEFDujKltZoaqCVTu5T5Fj/8PQzc079nuVa1kQfr4Z5lmJUE",
   server: false
 

@@ -7,6 +7,7 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  position: relative;
 }
 
 .login-form {
@@ -34,10 +35,26 @@
   button {
     width: 27.25rem;
     height: 3.5rem;
+
+    p {
+      color: white;
+    }
   }
 
   div {
     width: 27.25rem;
+
+    .checkbox-container {
+      max-width: 60%;
+
+      label p {
+        font-size: 14px;
+      }
+    }
+
+    a p {
+      font-size: 14px;
+    }
   }
 }
 
