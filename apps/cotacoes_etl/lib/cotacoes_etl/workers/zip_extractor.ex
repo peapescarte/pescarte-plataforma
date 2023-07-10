@@ -8,16 +8,12 @@ defmodule CotacoesETL.Workers.ZIPExtractor do
 
   use GenServer
 
-  import CotacoesETL.Handlers, only: [pesagro_handler: 0]
+  import CotacoesETL.Handlers, only: [zip_extractor_handler: 0]
 
   require Logger
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)
-  end
-
-  def extract_zip_to_path(file_path, dest_path, caller) do
-    GenServer.cast(__MODULE__, {:extract, file_path, dest_path, caller})
   end
 
   @impl true
@@ -27,7 +23,8 @@ defmodule CotacoesETL.Workers.ZIPExtractor do
 
   @impl true
   def handle_cast({:extract, zip_file, dest_path, caller}, state) do
-    entries = pesagro_handler().extract_boletins_zip!(zip_file, dest_path)
+    IO.inspect(zip_extractor_handler())
+    entries = zip_extractor_handler().extract_zip_to!(zip_file, dest_path)
     Logger.info("[#{__MODULE__}] ==> #{length(entries)} arquivos extraídos de ZIP #{zip_file}")
     Process.send(caller, {:zip_extracted, entries}, [])
     {:noreply, state}

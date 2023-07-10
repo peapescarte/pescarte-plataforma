@@ -10,4 +10,8 @@ alias CotacoesETL.Handlers.IManagePDFConverterHandler
 Mox.defmock(IManagePDFConverterHandlerMock, for: IManagePDFConverterHandler)
 Application.put_env(:cotacoes_etl, :pdf_converter_handler, IManagePDFConverterHandlerMock)
 
+alias CotacoesETL.Handlers.IManageZIPExtractorHandler
+Mox.defmock(IManageZIPExtractorHandlerMock, for: IManageZIPExtractorHandler)
+Application.put_env(:cotacoes_etl, :zip_extractor_handler, IManageZIPExtractorHandlerMock)
+
 ExUnit.start()

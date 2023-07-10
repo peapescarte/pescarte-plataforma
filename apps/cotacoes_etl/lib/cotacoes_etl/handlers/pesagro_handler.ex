@@ -4,8 +4,6 @@ defmodule CotacoesETL.Handlers.PesagroHandler do
   alias Cotacoes.Handlers.CotacaoHandler
   alias CotacoesETL.Handlers.IManagePesagroHandler
 
-  require Logger
-
   @behaviour IManagePesagroHandler
 
   @impl true
@@ -20,28 +18,5 @@ defmodule CotacoesETL.Handlers.PesagroHandler do
     {:ok, _cotacao} = CotacaoHandler.set_cotacao_downloaded(cotacao)
 
     file_path
-  end
-
-  @impl true
-  def extract_boletins_zip!(zip_path, storage_path) do
-    {:ok, unzip} =
-      zip_path
-      |> Unzip.LocalFile.open()
-      |> Unzip.new()
-
-    for entry <- Unzip.list_entries(unzip) do
-      path = storage_path <> entry.file_name
-      Logger.info("[#{__MODULE__}] => Extraindo arquivo #{path}")
-
-      file_binary =
-        unzip
-        |> Unzip.file_stream!(entry.file_name)
-        |> Enum.into([])
-        |> IO.iodata_to_binary()
-
-      :ok = File.write(path, file_binary)
-
-      path
-    end
   end
 end
