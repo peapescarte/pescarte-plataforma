@@ -9,7 +9,7 @@ defmodule CotacoesETL.Handlers.PesagroHandler do
   @behaviour IManagePesagroHandler
 
   @impl true
-  def is_zip_file?(boletim), do: String.ends_with?(boletim.link, "zip")
+  def is_zip_file?(boletim), do: boletim.tipo == :zip
 
   @impl true
   def download_boletim_from_pesagro!(storage_path, cotacao) do

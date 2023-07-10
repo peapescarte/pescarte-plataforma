@@ -9,28 +9,12 @@ defmodule CotacoesETL.Workers.PDFConverter do
 
   use GenServer
 
-  require Logger
+  import CotacoesETL.Handlers, only: [pdf_converter_handler: 0]
 
-  # requires ghostscript to be installed first - on mac, install with `brew install ghostscript`
-  # -sDEVICE=txtwrite   - text writer
-  # -sOutputFile=-      - use stdout instead of a file
-  # -q                  - quiet - prevent writing normal messages to output
-  # -dNOPAUSE           - disable prompt and pause at end of each page
-  # -dBATCH             - indicates batch operation so exits at end of processing
-  @ghostscript_args ~w(-sDEVICE=txtwrite -sOutputFile=- -q -dNOPAUSE -dBATCH)
-  defp mk_ghostscript_args(input_file) do
-    List.insert_at(@ghostscript_args, -1, input_file)
-  end
+  require Logger
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)
-  end
-
-  def convert_pdf_to_txt(file_path, dest_path, caller) do
-    GenServer.cast(
-      __MODULE__,
-      {:convert, caller: caller, from: file_path, to: dest_path, format: :txt}
-    )
   end
 
   @impl true
@@ -42,13 +26,13 @@ defmodule CotacoesETL.Workers.PDFConverter do
   def handle_cast({:convert, caller: caller, from: file_path, to: dest_path, format: :txt}, state) do
     Logger.info("[#{__MODULE__}] ==> Convertendo arquivo #{file_path} para TXT")
 
-    {txt_content, 0} = System.cmd("gs", mk_ghostscript_args(file_path))
+    txt_content = pdf_converter_handler().convert_to_txt!(file_path)
 
     unless File.exists?(dest_path) do
       File.mkdir_p!(dest_path)
     end
 
-    file_path = Path.join(dest_path, mk_file_name(file_path))
+    file_path = Path.join(dest_path, mk_file_name(file_path)) |> IO.inspect()
     File.write!(file_path, txt_content)
     Logger.info("[#{__MODULE__}] ==> Arquivo #{file_path} criado")
 
