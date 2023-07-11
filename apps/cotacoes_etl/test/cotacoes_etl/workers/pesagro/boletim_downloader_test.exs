@@ -5,6 +5,7 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloaderTest do
   import Mox
 
   alias Cotacoes.Models.Cotacao
+  alias CotacoesETL.Handlers.PDFConverterHandler
   alias CotacoesETL.Schemas.Pesagro.BoletimEntry
   alias CotacoesETL.Workers.PDFConverter
   alias CotacoesETL.Workers.Pesagro.BoletimDownloader
@@ -16,7 +17,8 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloaderTest do
   setup :set_mox_global
 
   describe "fluxo de download de um boletim e conversão do mesmo para TXT" do
-    @pdf_file_path Path.join(__DIR__, "mock_pdf.pdf")
+    @pdf_file_path Path.join(__DIR__, "mock.pdf")
+    @pdf_converted_path "/tmp/peapescarte/cotacoes/pesagro/mock.txt"
     @pdf_converted_content "Hello, world!"
     @boletim_pdf_entry %BoletimEntry{
       tipo: :pdf,
@@ -46,14 +48,16 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloaderTest do
         false
       end)
 
-      expect(IManagePDFConverterMock, :convert_pdf_to_txt, fn source, dest, _caller ->
-        GenServer.cast(
-          PDFConverter,
-          {:convert, caller: self(), from: source, to: dest, format: :txt}
-        )
+      expect(IManagePDFConverterHandlerMock, :trigger_pdf_conversion_to_txt, fn source,
+                                                                                dest,
+                                                                                caller ->
+        assert source == @pdf_file_path
+        assert dest == "/tmp/peapescarte/cotacoes/pesagro/"
+        assert caller == BoletimDownloader
+        PDFConverterHandler.trigger_pdf_conversion_to_txt(source, dest, self())
       end)
 
-      expect(IManagePDFConverterMock, :convert_to_txt!, fn file_path ->
+      expect(IManagePDFConverterHandlerMock, :convert_to_txt!, fn file_path ->
         assert file_path == @pdf_file_path
         @pdf_converted_content
       end)
@@ -61,14 +65,13 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloaderTest do
       assert start_supervised!(PDFConverter)
       assert start_supervised!(BoletimDownloader)
 
-      Process.send(BoletimDownloader, {:download, @boletim_pdf_entry}, [])
+      assert :ok = Process.send(BoletimDownloader, {:download, @boletim_pdf_entry}, [])
     end
 
     test "quando recebe uma mensagem que um novo boletim ZIP foi encontrado" do
       assert start_supervised!(PDFConverter)
       assert start_supervised!(ZIPExtractor)
       assert start_supervised!(BoletimDownloader)
-      assert System.find_executable("gs")
     end
   end
 end

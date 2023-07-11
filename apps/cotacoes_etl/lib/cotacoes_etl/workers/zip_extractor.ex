@@ -23,7 +23,6 @@ defmodule CotacoesETL.Workers.ZIPExtractor do
 
   @impl true
   def handle_cast({:extract, zip_file, dest_path, caller}, state) do
-    IO.inspect(zip_extractor_handler())
     entries = zip_extractor_handler().extract_zip_to!(zip_file, dest_path)
     Logger.info("[#{__MODULE__}] ==> #{length(entries)} arquivos extraídos de ZIP #{zip_file}")
     Process.send(caller, {:zip_extracted, entries}, [])

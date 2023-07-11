@@ -20,10 +20,10 @@ defmodule CotacoesETL.Workers.PDFConverterTest do
     test "converte com successo um arquivo PDF para TXT" do
       assert start_supervised!(PDFConverter)
 
-      expect(IManagePDFConverterHandlerMock, :trigger_pdf_convertion_to_txt, fn source,
+      expect(IManagePDFConverterHandlerMock, :trigger_pdf_conversion_to_txt, fn source,
                                                                                 dest,
                                                                                 caller ->
-        PDFConverterHandler.trigger_pdf_convertion_to_txt(source, dest, caller)
+        PDFConverterHandler.trigger_pdf_conversion_to_txt(source, dest, caller)
       end)
 
       expect(IManagePDFConverterHandlerMock, :convert_to_txt!, fn _file_path ->
@@ -31,7 +31,7 @@ defmodule CotacoesETL.Workers.PDFConverterTest do
       end)
 
       assert :ok =
-               pdf_converter_handler().trigger_pdf_convertion_to_txt(
+               pdf_converter_handler().trigger_pdf_conversion_to_txt(
                  @pdf_file_path,
                  @dest_file_path,
                  self()

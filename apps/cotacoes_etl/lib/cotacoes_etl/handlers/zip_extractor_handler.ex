@@ -2,8 +2,6 @@ defmodule CotacoesETL.Handlers.ZIPExtractorHandler do
   alias CotacoesETL.Handlers.IManageZIPExtractorHandler
   alias CotacoesETL.Workers.ZIPExtractor
 
-  require Logger
-
   @behaviour IManageZIPExtractorHandler
 
   @impl true
@@ -20,7 +18,6 @@ defmodule CotacoesETL.Handlers.ZIPExtractorHandler do
 
     for entry <- Unzip.list_entries(unzip) do
       path = storage_path <> entry.file_name
-      Logger.info("[#{__MODULE__}] => Extraindo arquivo #{path}")
 
       file_binary =
         unzip

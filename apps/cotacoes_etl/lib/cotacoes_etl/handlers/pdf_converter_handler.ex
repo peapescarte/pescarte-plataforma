@@ -16,7 +16,7 @@ defmodule CotacoesETL.Handlers.PDFConverterHandler do
   end
 
   @impl IManagePDFConverterHandler
-  def trigger_pdf_convertion_to_txt(file_path, dest_path, caller) do
+  def trigger_pdf_conversion_to_txt(file_path, dest_path, caller) do
     GenServer.cast(
       PDFConverter,
       {:convert, caller: caller, from: file_path, to: dest_path, format: :txt}

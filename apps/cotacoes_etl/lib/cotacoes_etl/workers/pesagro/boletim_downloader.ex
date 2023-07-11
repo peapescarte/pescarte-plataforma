@@ -11,28 +11,31 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloader do
 
   use GenServer
 
-  import CotacoesETL.Handlers, only: [pesagro_handler: 0]
+  import CotacoesETL.Handlers,
+    only: [pesagro_handler: 0, pdf_converter_handler: 0, zip_extractor_handler: 0]
 
   alias Cotacoes.Handlers.CotacaoHandler
-  alias CotacoesETL.Workers.PDFConverter
   # alias CotacoesETL.Workers.Pesagro.BoletimIngester
-  alias CotacoesETL.Workers.ZIPExtractor
 
   require Logger
 
   @storage_path "/tmp/peapescarte/cotacoes/pesagro/"
 
   def start_link(_) do
-    GenServer.start_link(__MODULE__, nil, name: __MODULE__)
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   @impl true
-  def init(_) do
-    {:ok, nil}
+  def init(state) do
+    unless File.exists?(@storage_path) do
+      File.mkdir_p!(@storage_path)
+    end
+
+    {:ok, state}
   end
 
   @impl true
-  def handle_cast({:download, boletim}, _state) do
+  def handle_cast({:download, boletim}, state) do
     Logger.info("[#{__MODULE__}] ==> Baixando boletim #{boletim.link} da Pesagro")
 
     {:ok, cotacao} = CotacaoHandler.fetch_cotacao_by_link(boletim.link)
@@ -41,12 +44,12 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloader do
     Logger.info("[#{__MODULE__}] ==> Boletim #{boletim.link} da Pesagro baixado")
 
     if pesagro_handler().is_zip_file?(boletim) do
-      ZIPExtractor.extract_zip_to_path(file_path, @storage_path, __MODULE__)
+      zip_extractor_handler().trigger_extract_zip_to_path(file_path, @storage_path, __MODULE__)
     else
-      PDFConverter.convert_pdf_to_txt(file_path, @storage_path, __MODULE__)
+      pdf_converter_handler().trigger_pdf_conversion_to_txt(file_path, @storage_path, __MODULE__)
     end
 
-    {:noreply, nil}
+    {:noreply, state}
   end
 
   @impl true
@@ -63,7 +66,11 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloader do
 
   @impl true
   def handle_info({:zip_extracted, entries_path}, state) do
-    Enum.each(entries_path, &PDFConverter.convert_pdf_to_txt(&1, @storage_path, __MODULE__))
+    Enum.each(
+      entries_path,
+      &pdf_converter_handler().trigger_pdf_conversion_to_txt(&1, @storage_path, __MODULE__)
+    )
+
     {:noreply, state}
   end
 end

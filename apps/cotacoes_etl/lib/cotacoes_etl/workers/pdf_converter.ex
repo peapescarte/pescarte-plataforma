@@ -14,12 +14,12 @@ defmodule CotacoesETL.Workers.PDFConverter do
   require Logger
 
   def start_link(_) do
-    GenServer.start_link(__MODULE__, nil, name: __MODULE__)
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   @impl true
-  def init(_) do
-    {:ok, nil}
+  def init(state) do
+    {:ok, state}
   end
 
   @impl true
@@ -32,7 +32,7 @@ defmodule CotacoesETL.Workers.PDFConverter do
       File.mkdir_p!(dest_path)
     end
 
-    file_path = Path.join(dest_path, mk_file_name(file_path)) |> IO.inspect()
+    file_path = Path.join(dest_path, mk_file_name(file_path))
     File.write!(file_path, txt_content)
     Logger.info("[#{__MODULE__}] ==> Arquivo #{file_path} criado")
 
