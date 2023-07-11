@@ -66,6 +66,8 @@ defmodule CotacoesETL.Workers.Pesagro.BoletimDownloaderTest do
       assert start_supervised!(BoletimDownloader)
 
       assert :ok = Process.send(BoletimDownloader, {:download, @boletim_pdf_entry}, [])
+      assert_receive {:pdf_converted, path}, 1_000
+      assert path == @pdf_converted_path
     end
 
     test "quando recebe uma mensagem que um novo boletim ZIP foi encontrado" do
