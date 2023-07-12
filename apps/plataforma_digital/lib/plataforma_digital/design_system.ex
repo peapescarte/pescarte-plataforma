@@ -201,6 +201,46 @@ defmodule PlataformaDigital.DesignSystem do
   end
 
   @doc """
+  Componente de radio, usado para representar valores que podem
+  ter um valor ambíguo.
+
+  O mesmo obrigatoriamente recebe o atributos `label`, que representa a etiqueta,
+  o texto nome do campo em questão que é um radio.
+
+  Também é possível controlar dinamicamente se o componente será desabilitado
+  ou se o valor do radio será "assinado" com atributos `disabled` e
+  `checked` respectivamente.
+
+  ## Exemplo
+
+      <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
+  """
+
+  attr :id, :string, required: true
+  attr :name, :string
+  attr :disabled, :boolean, default: false
+  attr :field, Phoenix.HTML.FormField
+
+  slot :label, required: true
+
+  def radio(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> radio()
+  end
+
+  def radio(assigns) do
+    ~H"""
+    <div class="radio-container">
+      <input id={@id} name={@name} type="radio" disabled={@disabled} />
+      <label for={@name}>
+        <.text size="base"><%= render_slot(@label) %></.text>
+      </label>
+    </div>
+    """
+  end
+
+  @doc """
   Um componente de input de texto, para receber entradas da pessoa
   usuária.
 
@@ -289,7 +329,7 @@ defmodule PlataformaDigital.DesignSystem do
   def text_area(assigns) do
     ~H"""
     <fieldset class={@class}>
-      <p><%= render_slot(@label) %></p>
+      <.text size="base"><%= render_slot(@label) %></.text>
       <div class="textarea-grow-wrapper">
         <textarea
           id={@id}
