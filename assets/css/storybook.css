@@ -12,20 +12,63 @@
     font-family: ui-sans-serif, system-ui;
   }
 }
+/* =========== scss do input com ícone =======
+esta definição do Douglas funcionou, embora a caixa de entrada é muito grande... 10/7/2023*/
+.search-input {
+  @apply flex justify-left items-left border-black-10 text-black-80;
+  @apply border-2;
 
+  width: 33.75rem;
+  height: 3rem;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 4px;
+  position: relative;
+
+  &.typing {
+    @apply border-b-2;
+  }
+
+  &.empty {
+    @apply border-2;
+  }
+
+  .search-icon {
+    @apply flex items-left text-black-80;
+
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  input {
+    padding-left: 180px;
+  }
+}
+
+
+
+
+
+/* =========================*/
+#divBusca{
+  background-color:transparent;
+  border:solid 1px;
+  border-radius:15px;
+  width:300px;
+}
+
+#txtBusca{
+  float:left;
+  background-color:transparent;
+  padding-left:5px;
+  font-style:italic;
+  font-size:18px;
+  border:none;
+  height:32px;
+  width:260px;
+}
 /* ============ scss dos botões com icones ============
 * display: flex;
 */
-
-.navigation {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px;
-  gap: 8px;
-  background-color: #d7e5f1;
-}
 
 .search {
   display: flex;
@@ -34,8 +77,6 @@
   padding: 5px;
   margin-right: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #d7e5f1;
 }
 
 .search input {
@@ -43,18 +84,8 @@
   margin-right: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  background-color: #d7e5f1;
 }
 
-.buttons button {
-  padding: 5px;
-  gap: 10px;
-  margin-right: 10px;
-  background-color: #80a9f6;
-  border: 1px solid #99C1E9;
-  border-radius: 5px;
-  cursor: pointer;
-}
 .links{
   @apply relative w-full;
   @apply flex justify-between;
@@ -71,73 +102,17 @@
   }
   }
 }
-
 /* ===================== */
-.button-row {
-  justify-content: space-between;
-  @apply flex justify-between items-center;
-  @apply border-blue-20;
-  padding: 40px;
-}
 .icon-button {
   display: flex;
   align-items: center;
   padding: 10px;
   margin: 5px;
   background-color: #f1f1f1;
- /* border: 1px solid blue;  */
   border-radius: 5px;
   cursor: pointer;
 }
 
-.icon-button i {
-  margin-right: 5px;
-}
-.button {
-  @apply w-full border-black-10 bg-blue-100 text-blue-80;
-  display: grid;
-  align-items: center;
-  padding: 10px;
-}
-
-.container-row {
-  @apply border-black-10;
-  display: inline-block;
-  flex-direction: row; /* o eixo principal será uma linha */
-  border-radius: 4px;
-  width: 24px;
-  height: 24px;
-  padding: auto;
-
-  /* grid-template-columns: 131px 196px 151px;
-  * background: #0064C8;
-  * display: grid;
-  * box-sizing: border-box;
-  * grid-auto-flow: column;
-  *  grid-template-columns: 1fr 2fr 1fr; */
-  width: 500px;
-  gap: 10px;
-}
-
-.landing-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-areas:
-  "links";
-}
-
-
-.button-icon {
-  @apply bg-blue-100;
-  @apply text-red-100;
-  display: flex;
-  align-items: flex-start;
-  height: 30rem;
-  width: 30px;
-  gap: 0.5rem;
-  border-radius: 0.25rem;
-  padding: 30px
-}
 .btn {
   @apply py-6 px-4;
   @apply bg-blue-100;

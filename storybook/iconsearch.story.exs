@@ -1,4 +1,4 @@
-defmodule Storybook.Botaofiltro do
+defmodule Storybook.Iconsearch do
   use PhoenixStorybook.Story, :page
 
   alias PescarteWeb.DesignSystem
@@ -6,10 +6,18 @@ defmodule Storybook.Botaofiltro do
   def render(assigns) do
     ~H"""
     <div class="search">
-      <Lucideicons.search class="text-blue-100" />
-      <DesignSystem.text_input type="text" name="search"
-          value=""  placeholder="Faça uma Pesquisa....." />
-
+    <fieldset class="search-input">
+      <div class="search-icon">
+        <Lucideicons.search />
+      </div>
+      <input
+        id="txtBusca"
+        placeholder="Faça uma pesquisa..."
+        phx-keyup="search"
+        phx-debounce={300}
+      />
+    </fieldset>
+      
       <div class="links-item">
        <DesignSystem.button class="icon-button" style="secondary">
        <Lucideicons.filter class="text-white-100" />

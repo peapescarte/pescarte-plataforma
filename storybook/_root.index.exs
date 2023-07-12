@@ -37,4 +37,18 @@ defmodule Storybook.Root do
     ]
   end
 
+  def entry("iconsearch") do
+    [
+      name: "Pesquisa com icone",
+      icon: {:fa, "duotone-group"}
+    ]
+  end
+
+  def entry("searchinput") do
+    [
+      name: "Pesquisa com icone 2",
+      icon: {:fa, "duotone-group"}
+    ]
+  end
+
 end

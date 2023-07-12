@@ -469,7 +469,6 @@ defmodule PescarteWeb.DesignSystem do
 
   attr :rows, :list, default: []
 
-
   def table(assigns) do
     ~H"""
     <div style="overflow-x: auto;">
@@ -491,4 +490,21 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
+  @doc """
+  Um componente de input de texto com ícone, para receber entradas da pessoa
+  usuária.
+
+  """
+
+  def text_input_icon(assigns) do
+    ~H"""
+    <div class="search">
+      <i class="icon icon-search text-blue-100"></i>
+      <i>  </i>
+      <input type={@type} name={@name} value={@value} placeholder={@placeholder} />
+    </div>
+    """
+  end
+
+  
 end
