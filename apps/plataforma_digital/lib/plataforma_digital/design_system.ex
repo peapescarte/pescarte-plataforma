@@ -219,6 +219,7 @@ defmodule PlataformaDigital.DesignSystem do
   attr :id, :string, required: true
   attr :name, :string
   attr :disabled, :boolean, default: false
+  attr :checked, :boolean, default: false
   attr :field, Phoenix.HTML.FormField
 
   slot :label, required: true
@@ -232,8 +233,15 @@ defmodule PlataformaDigital.DesignSystem do
   def radio(assigns) do
     ~H"""
     <div class="radio-container">
-      <input id={@id} name={@name} type="radio" disabled={@disabled} />
-      <label for={@name}>
+      <input
+        id={@id}
+        name={@name}
+        type="radio"
+        disabled={@disabled}
+        checked={@checked}
+        class="radio-input"
+      />
+      <label for={@id} class="radio-label">
         <.text size="base"><%= render_slot(@label) %></.text>
       </label>
     </div>
