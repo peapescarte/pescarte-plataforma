@@ -32,7 +32,7 @@ defmodule Storybook.Root do
 
   def entry("botaofiltro") do
     [
-      name: "Botões Relatórios",
+      name: "Listagem de Relatórios",
       icon: {:fa, "duotone-group"}
     ]
   end

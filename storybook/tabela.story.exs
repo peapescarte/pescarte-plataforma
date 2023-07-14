@@ -5,12 +5,12 @@ defmodule Storybook.Tabela do
 
   def render(assigns) do
     ~H"""
-      <DesignSystem.table rows={[%{check: "1-", data: "4/5/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Maio", age: "Maio/2023", status: "Entregue", icone: "download"},
-                                 %{check: "2-", data: "14/4/2023", tipo: "Trimestral", name: "Relatório Trimestral de Pesquisa de Abril", age: "Junho/2023", status: "Atrasado", icone: "download"},
-                                 %{check: "3-", data: "14/5/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Maio", age: "Maio/2023", status: "Atrasado", icone: "download"},
-                                 %{check: "4-", data: "10/3/2023", tipo: "Mensal", name: "Relatório Mensal de Pesquisa de Março", age: "Março/2023", status: "Entregue", icone: "download"}]}>
-        <:column :let={user} label="Marcar!!">
-          <%= user.check %>
+      <DesignSystem.table rows={[%{ data: "4/5/2023", tipo: "Mensal", name: "Relatório Mensal - Maio", age: "Maio/2023", status: "Entregue"},
+                                 %{ data: "14/4/2023", tipo: "Trimestral", name: "Relatório Trimestral - Abril", age: "Junho/2023", status: "Atrasado"},
+                                 %{ data: "14/5/2023", tipo: "Mensal", name: "Relatório Mensal - Maio", age: "Maio/2023", status: "Atrasado"},
+                                 %{ data: "10/3/2023", tipo: "Mensal", name: "Relatório Mensal - Março", age: "Março/2023", status: "Entregue"}]}>
+        <:column :let={user} label="  " >
+          <DesignSystem.checkbox name="check" id="usuario"/>
         </:column>
         <:column :let={user} label="Data">
           <%= user.data %>
@@ -28,7 +28,7 @@ defmodule Storybook.Tabela do
           <%= user.status %>
         </:column>
         <:column :let={user} label="Baixar">
-          <%= user.icone %>
+          <Lucideicons.download />
         </:column>
       </DesignSystem.table>
     """

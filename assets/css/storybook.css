@@ -12,80 +12,15 @@
     font-family: ui-sans-serif, system-ui;
   }
 }
-/* =========== scss do input com ícone =======
-esta definição do Douglas funcionou, embora a caixa de entrada é muito grande... 10/7/2023*/
-.search-input {
-  @apply flex justify-left items-left border-black-10 text-black-80;
-  @apply border-2;
-
-  width: 33.75rem;
-  height: 3rem;
-  font-size: 1rem;
-  padding: 12px;
-  border-radius: 4px;
-  position: relative;
-
-  &.typing {
-    @apply border-b-2;
-  }
-
-  &.empty {
-    @apply border-2;
-  }
-
-  .search-icon {
-    @apply flex items-left text-black-80;
-
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  input {
-    padding-left: 180px;
-  }
-}
-
-
-
-
-
-/* =========================*/
-#divBusca{
-  background-color:transparent;
-  border:solid 1px;
-  border-radius:15px;
-  width:300px;
-}
-
-#txtBusca{
-  float:left;
-  background-color:transparent;
-  padding-left:5px;
-  font-style:italic;
-  font-size:18px;
-  border:none;
-  height:32px;
-  width:260px;
-}
-/* ============ scss dos botões com icones ============
-* display: flex;
-*/
-
+/* ============ scss dos botões com icones ============ */
 .search {
   display: flex;
   align-items: center;
-
-  padding: 5px;
+  padding: 16px 24px 16px 24px;
   margin-right: 10px;
-  border-radius: 5px;
+  border-radius: 4px;
+  gap: 8px;
 }
-
-.search input {
-  padding: 5px;
-  margin-right: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
 .links{
   @apply relative w-full;
   @apply flex justify-between;
@@ -102,7 +37,7 @@ esta definição do Douglas funcionou, embora a caixa de entrada é muito grande
   }
   }
 }
-/* ===================== */
+/* ===================== desenha os botoes */
 .icon-button {
   display: flex;
   align-items: center;
@@ -123,32 +58,85 @@ esta definição do Douglas funcionou, embora a caixa de entrada é muito grande
   border-radius: 0.25rem;
 }
 
-/* css da tabela ================*/
-.tabela, .th, .td {
-  @apply border-black-10;
-  /* border: 1px solid black; */
-  border-collapse: collapse;
+/* =========== scss do input com ícone =======*/
+.search-input {
+  @apply flex ;  /*text-black-80 justify-center items-center border-black-10*/
+  @apply border-2;
+
+  width: 33.75rem;
+  height: 3rem;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 5px;    /* equivale a 0.313 rem */
+  position: relative;
+  text-align: left;
+  color: #E7E7E7;
+  gap: 12px;  /* define a separação entre o icnome e a pesquisa */
+
+  &.typing {
+    @apply border-b-2;
+  }
+
+  &.empty {
+    @apply border-2;
+  }
+
+  .search-icon {
+    @apply flex items-center;  /* text-black-80 */
+
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #E7E7E7;
+  }
+  input {
+    padding-left: 12px;
+    border: none;
+  }
 }
 .tabela {
   @apply border-black-10;
+
   padding: 40px;
   border-collapse: collapse;
-  text-align: left;
-  width: 90%;
+  width: 76.25rem;   /* equivale a 1220 px FIGMA */
+  border-radius: 0.313rem;
+  /*  border: 1px solid #99C1E9;  */
+  border-right-width: 1px;
 }
-.header-primary {
-  @apply bg-blue-100;
-  @apply text-white-100;
-  @apply border-black-10;
-  /*  border: 1px solid #0064C8; */
-  border-radius: 4px 4px 0px 0px;
-  height: 55px;
+  .header-primary {
+    @apply bg-blue-100 text-white-100; /* border-black-10 @apply justify-center items-center;*/
+
+    border-radius: 4px 4px 0px 0px;
+    text-align: left;
+    border: 1px solid #99C1E9;
+    height: 55px;
+  }
+  .linhas{
+  /* @apply border-black-10; border: 1px solid #99C1E9;  @apply text-blue-100;*/
+
+    border: 1px solid #99C1E9;
+    border-radius: 4px;
+    color:  #0064C8;
+    -webkit-text-fill-color: #99C1E9;
+    height: 52px;
+    padding: 12px;
+  }
+
+
+.tabela tr th{                    /* isto define os textos e borda do cabeçalho da tabela */
+  @apply text-white-100 bg-blue-100;
+  border: 1px solid #99C1E9;
+  border-radius: 4px;
+  text-align: center;
+}
+.tabela tr td{
+  @apply justify-center items-center;
+  text-align: center;
 }
 
-.linhas{
-  @apply text-black-80;
-  @apply border-black-10;
-  /*  border: 1px solid #99C1E9;  */
-  border-radius: 0px;
-  height: 52px;
+table, th,td {
+  border: 1px solid black; /* faz a borda nas colunas - ok  12/7/2023  #99C1E9, Zoey diz que deve ser black  */
+  color:#99C1E9;
+  @apply justify-center items-center;
+  text-align: center;
 }

@@ -6,18 +6,18 @@ defmodule Storybook.Iconsearch do
   def render(assigns) do
     ~H"""
     <div class="search">
-    <fieldset class="search-input">
-      <div class="search-icon">
-        <Lucideicons.search />
-      </div>
-      <input
+      <fieldset class="search-input">
+        <div class="search-icon">
+          <Lucideicons.search />
+        </div>
+        <input
         id="txtBusca"
         placeholder="Faça uma pesquisa..."
         phx-keyup="search"
         phx-debounce={300}
-      />
-    </fieldset>
-      
+        />
+      </fieldset>
+
       <div class="links-item">
        <DesignSystem.button class="icon-button" style="secondary">
        <Lucideicons.filter class="text-white-100" />
@@ -28,7 +28,7 @@ defmodule Storybook.Iconsearch do
       <div class="links-item">
        <DesignSystem.button class="icon-button" style="primary" submit>
         <Lucideicons.book class="text-white-100" />
-        <DesignSystem.text size="sm" color="text-white-100">Novo Relatório</DesignSystem.text>
+        <DesignSystem.text size="sm" color="text-white-100">Preencher Relatório</DesignSystem.text>
        </DesignSystem.button>
       </div>
 

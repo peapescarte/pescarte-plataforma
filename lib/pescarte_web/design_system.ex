@@ -174,7 +174,7 @@ defmodule PescarteWeb.DesignSystem do
   attr :id, :string, required: false
   attr :checked, :boolean, default: false
   attr :disabled, :boolean, default: false
-  attr :label, :string, required: true
+  attr :label, :string, required: false, default: ""
   attr :field, Phoenix.HTML.FormField
   attr :name, :string
 
@@ -471,7 +471,7 @@ defmodule PescarteWeb.DesignSystem do
 
   def table(assigns) do
     ~H"""
-    <div style="overflow-x: auto;">
+    <div style="overflow-x: auto" >
     <table class="tabela">
       <tr class="header-primary">
         <%= for col <- @column do %>
@@ -489,22 +489,4 @@ defmodule PescarteWeb.DesignSystem do
     </div>
     """
   end
-
-  @doc """
-  Um componente de input de texto com ícone, para receber entradas da pessoa
-  usuária.
-
-  """
-
-  def text_input_icon(assigns) do
-    ~H"""
-    <div class="search">
-      <i class="icon icon-search text-blue-100"></i>
-      <i>  </i>
-      <input type={@type} name={@name} value={@value} placeholder={@placeholder} />
-    </div>
-    """
-  end
-
-  
 end

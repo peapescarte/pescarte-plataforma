@@ -1,28 +1,28 @@
-.tabela, .th, .td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-// ==================
 .tabela {
-  @apply border-black-10;
-  padding: 40px;
-  border-collapse: collapse;
   text-align: left;
+  border-collapse: collapse;
+  padding: 40px;
+  border-radius: 0.25rem;
+  width: 90%;
 
-  width: max-content;
+ .header-primary {
+    @apply bg-blue-100;
+    @apply text-white-100;
+    border: 1px solid #0064C8;
+    border-radius: 4px 4px 0px 0px;
+    height: 55px;
+  }
+ .linhas{
+    @apply text-black-10;
+    border: 1px solid #99C1E9;
+    border-radius: 0px;
+    height: 52px;
+    padding: 12px;
+  }
 }
-.header-primary {
-  @apply bg-blue-100;
-  @apply text-white-100;
 
-  border: 1px solid #0064C8;
-  border-radius: 4px 4px 0px 0px;
-  height: 55px;
-}
 
-.linhas{
-  @apply text-black-80;
-  border: 1px solid #99C1E9;
-  border-radius: 0px;
-  height: 52px;
-}
+
+
+
+
