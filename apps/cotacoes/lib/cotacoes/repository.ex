@@ -3,6 +3,7 @@ defmodule Cotacoes.Repository do
 
   alias Cotacoes.Models.Cotacao
   alias Cotacoes.Models.CotacaoPescado
+  alias Cotacoes.Models.Fonte
   alias Cotacoes.Models.Pescado
 
   @behaviour Cotacoes.IManageRepository
@@ -19,28 +20,48 @@ defmodule Cotacoes.Repository do
   end
 
   @impl true
+  def fetch_cotacao_pescado_by(fields) do
+    Database.fetch_by(CotacaoPescado, fields)
+  end
+
+  @impl true
+  def fetch_cotacao_by_id(id) do
+    Database.fetch_by(Cotacao, id: id)
+  end
+
+  @impl true
+  def fetch_pescado_by_codigo(codigo) do
+    Database.fetch_by(Pescado, codigo: codigo)
+  end
+
+  @impl true
+  def fetch_fonte_by_nome(nome) do
+    Database.fetch_by(Fonte, nome: nome)
+  end
+
+  @impl true
   def find_all_cotacao_by_not_downloaded do
     query = from c in Cotacao, where: not c.baixada?, select: c
     Repo.Replica.all(query)
   end
 
   @impl true
-  def insert_all_cotacao(cotacoes_attrs) do
-    {_amount, _} = Repo.insert_all(Cotacao, cotacoes_attrs)
-    :ok
+  def insert_fonte_cotacao(attrs) do
+    %Fonte{}
+    |> Fonte.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @impl true
+  def insert_cotacao(attrs) do
+    %Cotacao{}
+    |> Cotacao.changeset(attrs)
+    |> Repo.insert()
   end
 
   @impl true
   def list_cotacao do
     Repo.Replica.all(Cotacao)
-  end
-
-  @impl true
-  def update_all_cotacao(cotacoes, fields) do
-    ids = Enum.map(cotacoes, & &1.id)
-    query = from c in Cotacao, where: c.id in ^ids, select: c
-    {_amount, updated} = Repo.update_all(query, set: fields)
-    {:ok, updated}
   end
 
   @impl true

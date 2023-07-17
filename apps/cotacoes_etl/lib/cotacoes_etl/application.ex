@@ -2,8 +2,9 @@ defmodule CotacoesETL.Application do
   use Application
 
   alias CotacoesETL.Workers.PDFConverter
-  alias CotacoesETL.Workers.Pesagro.BoletimDownloader
-  alias CotacoesETL.Workers.Pesagro.BoletinsFetcher
+  alias CotacoesETL.Workers.Pesagro.CotacaoDownloader
+  alias CotacoesETL.Workers.Pesagro.CotacaoIngester
+  alias CotacoesETL.Workers.Pesagro.CotacoesFetcher
   alias CotacoesETL.Workers.ZIPExtractor
 
   @impl true
@@ -13,8 +14,9 @@ defmodule CotacoesETL.Application do
         [
           PDFConverter,
           ZIPExtractor,
-          BoletinsFetcher,
-          BoletimDownloader,
+          CotacoesFetcher,
+          CotacaoDownloader,
+          CotacaoIngester,
           {Finch, name: PescarteHTTPClient}
         ]
       else

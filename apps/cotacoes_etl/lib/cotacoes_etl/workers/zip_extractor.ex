@@ -10,6 +10,8 @@ defmodule CotacoesETL.Workers.ZIPExtractor do
 
   import CotacoesETL.Handlers, only: [zip_extractor_handler: 0]
 
+  alias CotacoesETL.Events.ExtractZIPEvent
+
   require Logger
 
   def start_link(_) do
@@ -22,10 +24,25 @@ defmodule CotacoesETL.Workers.ZIPExtractor do
   end
 
   @impl true
-  def handle_cast({:extract, zip_file, dest_path, caller}, state) do
-    entries = zip_extractor_handler().extract_zip_to!(zip_file, dest_path)
-    Logger.info("[#{__MODULE__}] ==> #{length(entries)} arquivos extraídos de ZIP #{zip_file}")
-    Process.send(caller, {:zip_extracted, entries}, [])
+  def handle_cast({:extract, %ExtractZIPEvent{} = event}, state) do
+    unless File.exists?(event.destination_path) do
+      File.mkdir_p!(event.destination_path)
+    end
+
+    entries = zip_extractor_handler().extract_zip_to!(event.zip_path, event.destination_path)
+
+    Logger.info(
+      "[#{__MODULE__}] ==> #{length(entries)} arquivos extraídos de ZIP #{event.zip_path}"
+    )
+
+    Process.send(event.issuer, {:zip_extracted, entries}, [])
+
+    {:noreply, state}
+  end
+
+  @impl true
+  def handle_info(msg, state) do
+    GenServer.cast(__MODULE__, msg)
     {:noreply, state}
   end
 end
