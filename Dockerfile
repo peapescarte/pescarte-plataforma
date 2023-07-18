@@ -1,59 +1,57 @@
-ARG ELIXIR_VERSION=1.14.2
-ARG OTP_VERSION=25.1.2.1
-ARG DEBIAN_VERSION=buster-20230109-slim
+FROM hexpm/elixir:1.14.5-erlang-25.3.2.4-debian-buster-20230612-slim as builder
 
-ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
-ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
-
-FROM ${BUILDER_IMAGE} as builder
-
-RUN apt-get update -y && apt-get install -y build-essential curl \
+RUN apt-get update -y \
+  && apt-get install -y --no-install-recommends build-essential curl inotify-tools \
   && curl -fsSL https://deb.nodesource.com/setup_17.x | bash - \
-  && apt-get install -y nodejs
+  && apt-get install -y --no-install-recommends nodejs \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 RUN mix local.hex --force && \
   mix local.rebar --force
 
-ENV MIX_ENV="prod"
+ARG MIX_ENV=prod
 
 COPY mix.exs mix.lock ./
+
+# copy all mix.exs from umbrella apps
+# to corresponding folder
+COPY apps/cotacoes/mix.exs ./apps/cotacoes/
+COPY apps/cotacoes_etl/mix.exs ./apps/cotacoes_etl/
 COPY apps/database/mix.exs ./apps/database/
-COPY apps/seeder/mix.exs ./apps/seeder/
-COPY apps/proxy_web/mix.exs ./apps/proxy_web/
 COPY apps/identidades/mix.exs ./apps/identidades/
 COPY apps/modulo_pesquisa/mix.exs ./apps/modulo_pesquisa/
 COPY apps/plataforma_digital/mix.exs ./apps/plataforma_digital/
 COPY apps/plataforma_digital_api/mix.exs ./apps/plataforma_digital_api/
-COPY apps/cotacoes/mix.exs ./apps/cotacoes/
+COPY apps/proxy_web/mix.exs ./apps/proxy_web/
+COPY apps/seeder/mix.exs ./apps/seeder/
 
 RUN mix deps.get --only $MIX_ENV
-RUN mkdir config
+RUN mix deps.compile
 
 # to be re-compiled.
 COPY config/config.exs config/${MIX_ENV}.exs config/
-RUN mix deps.compile
 
-COPY apps/identidades/priv ./apps/identidades/priv
-COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
-COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
-COPY apps/cotacoes/priv ./apps/cotacoes/priv
+# compile assets
+COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets/
+RUN npm i --prefix ./apps/plataforma_digital/assets && mix assets.deploy
 
+# copy source code and static files
+COPY apps/cotacoes/lib ./apps/cotacoes/lib
+COPY apps/cotacoes_etl/lib ./apps/cotacoes_etl/lib
 COPY apps/database/lib ./apps/database/lib
-COPY apps/seeder/lib ./apps/seeder/lib
-COPY apps/proxy_web/lib ./apps/proxy_web/lib
 COPY apps/identidades/lib ./apps/identidades/lib
 COPY apps/modulo_pesquisa/lib ./apps/modulo_pesquisa/lib
 COPY apps/plataforma_digital/lib ./apps/plataforma_digital/lib
 COPY apps/plataforma_digital_api/lib ./apps/plataforma_digital_api/lib
-COPY apps/cotacoes/lib ./apps/cotacoes/lib
+COPY apps/proxy_web/lib ./apps/proxy_web/lib
+COPY apps/seeder/lib ./apps/seeder/lib
 
-COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets/
-
-# compile assets
-RUN npm i --prefix ./apps/plataforma_digital/assets
-RUN mix assets.deploy
+COPY apps/cotacoes/priv ./apps/cotacoes/priv
+COPY apps/identidades/priv ./apps/identidades/priv
+COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
+COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
 
 # Compile the release
 RUN mix compile
@@ -64,10 +62,14 @@ COPY config/runtime.exs config/
 COPY rel rel
 RUN mix release
 
-FROM ${RUNNER_IMAGE}
+FROM builder as runner
 
-RUN apt-get update -y \
-  && apt-get install -y iputils-ping libstdc++6 openssl libncurses5 locales postgresql-client
+RUN apt-get update -y
+RUN apt-get install -y iputils-ping libstdc++6 inotify-tools \
+    openssl libncurses5 locales postgresql-client \
+    && rm -rf /var/lib/apt/lists/* \
+    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+    && locale-gen
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
