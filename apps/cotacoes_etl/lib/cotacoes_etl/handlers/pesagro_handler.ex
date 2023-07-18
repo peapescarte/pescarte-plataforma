@@ -7,16 +7,13 @@ defmodule CotacoesETL.Handlers.PesagroHandler do
   @behaviour IManagePesagroHandler
 
   @impl true
-  def is_zip_file?(boletim), do: boletim.tipo == :zip
-
-  @impl true
-  def download_boletim_from_pesagro!(storage_path, cotacao) do
+  def download_cotacao_from_pesagro!(storage_path, cotacao) do
     content = pesagro_api().download_file!(cotacao.link)
     base_name = CotacaoHandler.get_cotacao_file_base_name(cotacao)
-    file_path = storage_path <> base_name
+    file_path = Path.join(storage_path, base_name)
     File.write!(file_path, content)
-    {:ok, _cotacao} = CotacaoHandler.set_cotacao_downloaded(cotacao)
+    {:ok, cotacao} = CotacaoHandler.set_cotacao_downloaded(cotacao)
 
-    file_path
+    {cotacao, file_path}
   end
 end

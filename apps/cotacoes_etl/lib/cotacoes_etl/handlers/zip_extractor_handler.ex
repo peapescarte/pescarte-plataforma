@@ -17,7 +17,7 @@ defmodule CotacoesETL.Handlers.ZIPExtractorHandler do
       |> Unzip.new()
 
     for entry <- Unzip.list_entries(unzip) do
-      path = storage_path <> entry.file_name
+      path = Path.join(storage_path, entry.file_name)
 
       file_binary =
         unzip

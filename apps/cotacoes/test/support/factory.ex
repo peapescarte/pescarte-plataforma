@@ -20,7 +20,7 @@ defmodule Cotacoes.Factory do
   def cotacao_pescado_factory do
     %CotacaoPescado{
       id: Nanoid.generate_non_secure(),
-      cotacao_link: insert(:cotacao).link,
+      cotacao_data: insert(:cotacao).data,
       fonte_nome: insert(:fonte).nome,
       pescado_codigo: insert(:pescado).codigo,
       preco_minimo: 1000,

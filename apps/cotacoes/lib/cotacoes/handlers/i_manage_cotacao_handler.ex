@@ -1,14 +1,15 @@
 defmodule Cotacoes.Handlers.IManageCotacaoHandler do
   alias Cotacoes.Models.Cotacao
 
+  @callback is_zip_file?(Cotacao.t()) :: boolean
+  @callback fetch_cotacao_by_id(String.t()) :: {:ok, Cotacao.t()} | {:error, :not_found}
   @callback find_cotacoes_not_ingested :: list(Cotacao.t())
   @callback find_cotacoes_not_downloaded :: list(Cotacao.t())
   @callback fetch_cotacao_by_link(String.t()) :: {:ok, Cotacao.t()} | {:error, :not_found}
   @callback get_cotacao_file_base_name(Cotacao.t()) :: String.t()
-  @callback ingest_cotacoes(list(Cotacao.t())) :: :ok
-  @callback insert_cotacoes!(list(Cotacao.t())) :: :ok
+  @callback insert_cotacao_pesagro(String.t(), Date.t()) ::
+              {:ok, Cotacao.t()} | {:error, Ecto.Changeset.t()}
   @callback list_cotacao :: list(Cotacao.t())
-  @callback reject_inserted_cotacoes(list(Cotacao.t())) :: list(Cotacao.t())
   @callback set_cotacao_downloaded(Cotacao.t()) ::
               {:ok, Cotacao.t()} | {:error, Ecto.Changeset.t()}
 end
