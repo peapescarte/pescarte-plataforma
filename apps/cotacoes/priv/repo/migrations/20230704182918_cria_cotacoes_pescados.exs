@@ -4,7 +4,12 @@ defmodule Database.Repo.Migrations.CriaCotacoesPescados do
   def change do
     create table(:cotacoes_pescados, primary_key: false) do
       add :id, :string
-      add :cotacao_link, references(:cotacao, column: :link, type: :string), primary_key: true
+
+      add :cotacao_data,
+          references(:cotacao, column: :data, type: :date, with: [cotacao_link: :link]),
+          primary_key: true
+
+      add :cotacao_link, references(:cotacao, column: :link, type: :string)
       add :pescado_codigo, references(:pescado, column: :codigo, type: :string), primary_key: true
       add :fonte_nome, references(:fonte_cotacao, column: :nome, type: :string), primary_key: true
       add :preco_minimo, :integer
@@ -13,9 +18,9 @@ defmodule Database.Repo.Migrations.CriaCotacoesPescados do
       add :preco_medio, :integer
     end
 
-    create index(:cotacoes_pescados, [:cotacao_link])
+    create index(:cotacoes_pescados, [:cotacao_data])
     create index(:cotacoes_pescados, [:pescado_codigo])
     create index(:cotacoes_pescados, [:fonte_nome])
-    create unique_index(:cotacoes_pescados, [:cotacao_link, :pescado_codigo, :fonte_nome])
+    create unique_index(:cotacoes_pescados, [:cotacao_data, :pescado_codigo, :fonte_nome])
   end
 end

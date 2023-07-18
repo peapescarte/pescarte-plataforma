@@ -6,13 +6,7 @@ if System.get_env("PHX_SERVER") do
   config :proxy_web, ProxyWeb.Endpoint, server: true
 end
 
-default_value_for_test_env = fn env_var ->
-  if config_env() == :test do
-    System.put_env(env_var, "não faz diferença")
-  else
-    System.fetch_env!(env_var)
-  end
-end
+config :cotacoes_etl, fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
 
 if config_env() == :prod do
   database_url =
