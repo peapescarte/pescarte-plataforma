@@ -33,7 +33,8 @@ defmodule CotacoesETL.MixProject do
       {:explorer, "~> 0.5.0"},
       {:unzip, "~> 0.8"},
       {:mox, "~> 1.0", only: :test},
-      {:cotacoes, in_umbrella: true}
+      {:cotacoes, in_umbrella: true},
+      {:database, in_umbrella: true}
     ]
   end
 end

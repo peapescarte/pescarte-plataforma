@@ -11,6 +11,8 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
   alias CotacoesETL.Adapters.Pesagro.Boletim
   alias CotacoesETL.Integrations
   alias CotacoesETL.Integrations.PesagroAPI
+  alias CotacoesETL.Schemas.Pesagro.BoletimEntry
+  alias CotacoesETL.Workers.Pesagro.BoletimDownloader
 
   require Logger
 
@@ -64,10 +66,10 @@ defmodule CotacoesETL.Workers.Pesagro.BoletinsFetcher do
     Logger.info("[#{__MODULE__}] ==> #{length(cotacoes_diff)} novos boletins achados em Pesagro")
     :ok = CotacaoHandler.insert_cotacoes!(cotacoes_diff)
 
-    # Agenda a ingestão dos dados das cotações
-    # pelo worker `CotacaoIngester`
-    # Logger.info("[#{__MODULE__}] ==> Agendando a ingestão das cotações Pesagro inseridas")
-    # schedule_ingestion()
+    for %BoletimEntry{} = boletim <- boletins do
+      GenServer.cast(BoletimDownloader, {:download, boletim})
+    end
+
     {:noreply, []}
   end
 
