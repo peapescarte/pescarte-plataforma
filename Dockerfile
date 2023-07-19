@@ -1,8 +1,10 @@
 FROM hexpm/elixir:1.14.5-erlang-25.3.2.4-debian-buster-20230612-slim as builder
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN apt-get update -y \
   && apt-get install -y --no-install-recommends build-essential curl inotify-tools \
-  && curl -fsSL https://deb.nodesource.com/setup_17.x | bash - \
+  && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install -y --no-install-recommends nodejs \
   && rm -rf /var/lib/apt/lists/*
 
@@ -34,8 +36,9 @@ RUN mix deps.compile
 COPY config/config.exs config/${MIX_ENV}.exs config/
 
 # compile assets
-COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets/
-RUN npm i --prefix ./apps/plataforma_digital/assets && mix assets.deploy
+COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets
+RUN ["npm", "ci", "--prefix", "./apps/plataforma_digital/assets/"]
+RUN mix assets.deploy
 
 # copy source code and static files
 COPY apps/cotacoes/lib ./apps/cotacoes/lib
