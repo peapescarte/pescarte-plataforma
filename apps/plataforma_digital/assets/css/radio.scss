@@ -3,11 +3,7 @@ input[type="radio"] {
 }
 
 .radio-container {
-  @apply flex justify-center;
-
-  margin-bottom: 0.125rem;
-  padding-left: 1.5rem;
-  min-height: 1.5rem;
+  @apply flex justify-start items-center;
 
   input {
     @apply relative border-2 border-solid border-black-10;
@@ -17,21 +13,19 @@ input[type="radio"] {
     appearance: none;
 
     float: left;
-    margin-left: -1.5rem;
-    margin-right: 1rem;
     margin-top: 0.5rem;
     height: 1.25rem;
     width: 1.25rem;
-    border-radius: 9999px;
+    border-radius: 50%;
 
     &::before {
       @apply absolute;
 
       pointer-events: none;
-      height: 0.75rem;
-      width: 0.75rem;
+      height: calc(100% / 2);
+      width: calc(100% / 2);
       transform: scale(0);
-      border-radius: 9999px;
+      border-radius: 50%;
       background-color: transparent;
       opacity: 0;
       box-shadow: 0 0 0 13px transparent;
@@ -42,9 +36,9 @@ input[type="radio"] {
       position: absolute;
       z-index: 1;
       display: block;
-      height: 0.75rem;
-      width: 0.75rem;
-      border-radius: 9999px;
+      height: calc(100% / 2);
+      width: calc(100% / 2);
+      border-radius: 50%;
       content: "";
     }
 
@@ -62,12 +56,14 @@ input[type="radio"] {
         top: 50%;
         height: 0.625rem;
         width: 0.625rem;
-        border-radius: 9999px;
+        border-radius: 50%;
         content: "";
         transform: translate(-50%, -50%);
       }
 
       &:focus {
+        @apply border-blue-100;
+
         &::before {
           box-shadow: 0 0 0 13px var(--color-blue-100);
         }
@@ -84,6 +80,8 @@ input[type="radio"] {
     }
 
     &:focus {
+      @apply ring-0 ring-offset-0;
+
       outline: none;
 
       &::before {
@@ -92,6 +90,17 @@ input[type="radio"] {
         box-shadow: 0 0 0 13px rgba(0, 0, 0, 0.6);
         transition: box-shadow 0.2s, transform 0.2s;
       }
+    }
+  }
+
+  .radio-label {
+    @apply inline-block;
+
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }
