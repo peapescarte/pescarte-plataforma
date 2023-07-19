@@ -14,6 +14,7 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
 
     attrs = %{
       cotacao_link: cotacao.link,
+      cotacao_data: cotacao.data,
       fonte_nome: fonte.nome,
       pescado_codigo: pescado.codigo,
       preco_minimo: 1000,
@@ -24,6 +25,7 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
 
     assert changeset.valid?
     assert get_change(changeset, :cotacao_link) == cotacao.link
+    assert get_change(changeset, :cotacao_data) == cotacao.data
     assert get_change(changeset, :fonte_nome) == fonte.nome
     assert get_change(changeset, :pescado_codigo) == pescado.codigo
     assert get_change(changeset, :preco_minimo) == 1000
@@ -37,6 +39,7 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
 
     attrs = %{
       cotacao_link: cotacao.link,
+      cotacao_data: cotacao.data,
       fonte_nome: fonte.nome,
       pescado_codigo: pescado.codigo,
       preco_minimo: 1000,
@@ -49,6 +52,7 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
 
     assert changeset.valid?
     assert get_change(changeset, :cotacao_link) == cotacao.link
+    assert get_change(changeset, :cotacao_data) == cotacao.data
     assert get_change(changeset, :fonte_nome) == fonte.nome
     assert get_change(changeset, :pescado_codigo) == pescado.codigo
     assert get_change(changeset, :preco_minimo) == 1000

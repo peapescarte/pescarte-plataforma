@@ -1,5 +1,3 @@
-.dockerignore
-
 # Ignore git, but keep git HEAD and refs to access current commit hash if needed
 .git
 !.git/HEAD
