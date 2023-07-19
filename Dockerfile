@@ -19,6 +19,7 @@ COPY mix.exs mix.lock ./
 
 # copy all mix.exs from umbrella apps
 # to corresponding folder
+COPY apps/catalogo/mix.exs ./apps/catalogo/
 COPY apps/cotacoes/mix.exs ./apps/cotacoes/
 COPY apps/cotacoes_etl/mix.exs ./apps/cotacoes_etl/
 COPY apps/database/mix.exs ./apps/database/
@@ -29,32 +30,34 @@ COPY apps/plataforma_digital_api/mix.exs ./apps/plataforma_digital_api/
 COPY apps/proxy_web/mix.exs ./apps/proxy_web/
 COPY apps/seeder/mix.exs ./apps/seeder/
 
+
 RUN mix deps.get --only $MIX_ENV
 RUN mix deps.compile
 
 # to be re-compiled.
 COPY config/config.exs config/${MIX_ENV}.exs config/
 
-# compile assets
+# compile static and dynamic assets
+COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
 COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets
 RUN ["npm", "ci", "--prefix", "./apps/plataforma_digital/assets/"]
 RUN mix assets.deploy
 
 # copy source code and static files
+COPY apps/catalogo/lib ./apps/catalogo/lib
 COPY apps/cotacoes/lib ./apps/cotacoes/lib
 COPY apps/cotacoes_etl/lib ./apps/cotacoes_etl/lib
 COPY apps/database/lib ./apps/database/lib
+COPY apps/seeder/lib ./apps/seeder/lib
+COPY apps/proxy_web/lib ./apps/proxy_web/lib
 COPY apps/identidades/lib ./apps/identidades/lib
 COPY apps/modulo_pesquisa/lib ./apps/modulo_pesquisa/lib
 COPY apps/plataforma_digital/lib ./apps/plataforma_digital/lib
 COPY apps/plataforma_digital_api/lib ./apps/plataforma_digital_api/lib
-COPY apps/proxy_web/lib ./apps/proxy_web/lib
-COPY apps/seeder/lib ./apps/seeder/lib
 
 COPY apps/cotacoes/priv ./apps/cotacoes/priv
 COPY apps/identidades/priv ./apps/identidades/priv
 COPY apps/modulo_pesquisa/priv ./apps/modulo_pesquisa/priv
-COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
 
 # Compile the release
 RUN mix compile

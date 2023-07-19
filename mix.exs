@@ -61,6 +61,7 @@ defmodule Pescarte.MixProject do
     paths = [
       "apps/identidades/priv/repo/migrations",
       "apps/modulo_pesquisa/priv/repo/migrations",
+      "apps/catalogo/priv/repo/migrations",
       "apps/cotacoes/priv/repo/migrations"
     ]
 
