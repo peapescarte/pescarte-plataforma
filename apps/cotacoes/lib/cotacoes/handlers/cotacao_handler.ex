@@ -5,7 +5,7 @@ defmodule Cotacoes.Handlers.CotacaoHandler do
 
   @impl true
   def is_zip_file?(cotacao) do
-    String.ends_with?(cotacao.link, "zip")
+    cotacao.tipo == :zip or String.ends_with?(cotacao.link, "zip")
   end
 
   @impl true
