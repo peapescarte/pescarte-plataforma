@@ -14,7 +14,6 @@ defmodule CotacoesETL.Workers.Pesagro.CotacoesFetcher do
   require Logger
 
   @one_day 864 * 100 * 100 * 10
-  @half_minute 30 * 100 * 10
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)

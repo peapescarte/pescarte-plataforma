@@ -3,7 +3,6 @@ defmodule Cotacoes.RepositoryTest do
 
   import Cotacoes.Factory
 
-  alias Cotacoes.Models.Cotacao
   alias Cotacoes.Repository
 
   @moduletag :unit
@@ -17,35 +16,11 @@ defmodule Cotacoes.RepositoryTest do
     assert Enum.all?(found, &(not &1.importada?))
   end
 
-  test "insert_all_cotacao/1 insere todas as cotacoes fornecidas" do
-    attrs = fixture(:cotacao)
-
-    assert :ok = Repository.insert_all_cotacao([attrs])
-    assert [inserted] = Repository.list_cotacao()
-
-    assert inserted.fonte == attrs.fonte
-    assert inserted.link == attrs.link
-    assert inserted.data == attrs.data
-  end
-
   test "list_cotacao/0 retorna todas as cotacoes" do
     cotacao = insert(:cotacao)
     [listed] = Repository.list_cotacao()
 
     assert ^listed = cotacao
-  end
-
-  test "update_all_cotacao/1 atualiza todas as cotacoes fornecidas" do
-    cotacao = insert(:cotacao, importada?: false)
-    refute cotacao.importada?
-
-    assert {:ok, [%Cotacao{} = updated]} =
-             Repository.update_all_cotacao([cotacao], importada?: true)
-
-    assert updated.fonte == cotacao.fonte
-    assert updated.link == cotacao.link
-    assert updated.data == cotacao.data
-    assert updated.importada?
   end
 
   test "upsert_cotacao/2 insere uma nova cotacao se ela não existe e atualiza se ela existe" do

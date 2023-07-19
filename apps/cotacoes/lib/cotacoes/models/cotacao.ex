@@ -13,8 +13,8 @@ defmodule Cotacoes.Models.Cotacao do
           tipo: tipo_cotacao
         }
 
-  @required_fields ~w(data fonte tipo)a
-  @optional_fields ~w(link importada? baixada?)a
+  @required_fields ~w(data fonte tipo link)a
+  @optional_fields ~w(importada? baixada?)a
 
   @primary_key false
   schema "cotacao" do
