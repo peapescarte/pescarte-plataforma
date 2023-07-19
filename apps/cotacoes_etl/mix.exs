@@ -32,8 +32,10 @@ defmodule CotacoesETL.MixProject do
       {:floki, "~> 0.34.0"},
       {:explorer, "~> 0.5.0"},
       {:unzip, "~> 0.8"},
+      {:nimble_parsec, "~> 1.3"},
       {:mox, "~> 1.0", only: :test},
-      {:cotacoes, in_umbrella: true}
+      {:cotacoes, in_umbrella: true},
+      {:database, in_umbrella: true}
     ]
   end
 end

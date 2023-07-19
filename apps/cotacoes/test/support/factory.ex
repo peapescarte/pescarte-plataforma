@@ -11,16 +11,20 @@ defmodule Cotacoes.Factory do
       id: Nanoid.generate_non_secure(),
       data: ~D[2023-05-07],
       fonte: insert(:fonte).nome,
-      link: sequence(:link, &"https://example#{&1}.com"),
+      link: sequence(:link, &"https://example#{&1}.com/file.pdf"),
       importada?: false,
-      baixada?: false
+      baixada?: false,
+      tipo: :pdf
     }
   end
 
   def cotacao_pescado_factory do
+    cotacao = insert(:cotacao)
+
     %CotacaoPescado{
       id: Nanoid.generate_non_secure(),
-      cotacao_link: insert(:cotacao).link,
+      cotacao_link: cotacao.link,
+      cotacao_data: cotacao.data,
       fonte_nome: insert(:fonte).nome,
       pescado_codigo: insert(:pescado).codigo,
       preco_minimo: 1000,

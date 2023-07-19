@@ -9,18 +9,32 @@ defmodule Cotacoes.Models.CotacaoTest do
 
   test "changeset valido com campos obrigatorios" do
     fonte = insert(:fonte)
-    attrs = %{data: Date.utc_today(), fonte: fonte.nome}
+
+    attrs = %{
+      data: Date.utc_today(),
+      fonte: fonte.nome,
+      link: "https://example.com",
+      tipo: :pdf
+    }
 
     changeset = Cotacao.changeset(%Cotacao{}, attrs)
 
     assert changeset.valid?
     assert get_change(changeset, :data) == Date.utc_today()
     assert get_change(changeset, :fonte) == fonte.nome
+    assert get_change(changeset, :link) == "https://example.com"
   end
 
   test "changeset valido com campos opcionais" do
     fonte = insert(:fonte)
-    attrs = %{data: Date.utc_today(), fonte: fonte.nome, link: "https://example.com"}
+
+    attrs = %{
+      data: Date.utc_today(),
+      fonte: fonte.nome,
+      link: "https://example.com",
+      tipo: :pdf,
+      importada?: true
+    }
 
     changeset = Cotacao.changeset(%Cotacao{}, attrs)
 
@@ -35,6 +49,7 @@ defmodule Cotacoes.Models.CotacaoTest do
 
     refute changeset.valid?
     assert Keyword.get(changeset.errors, :data)
+    assert Keyword.get(changeset.errors, :link)
     assert Keyword.get(changeset.errors, :fonte)
   end
 end
