@@ -34,6 +34,7 @@ defmodule Pescarte.MixProject do
 
   defp aliases do
     [
+      dev: ["setup", "phx.server"],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}"],
       test: [
@@ -61,6 +62,7 @@ defmodule Pescarte.MixProject do
     paths = [
       "apps/identidades/priv/repo/migrations",
       "apps/modulo_pesquisa/priv/repo/migrations",
+      "apps/catalogo/priv/repo/migrations",
       "apps/cotacoes/priv/repo/migrations"
     ]
 

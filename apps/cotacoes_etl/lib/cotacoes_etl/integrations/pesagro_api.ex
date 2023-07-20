@@ -1,6 +1,6 @@
 defmodule CotacoesETL.Integrations.PesagroAPI do
   alias CotacoesETL.Integrations.IManagePesagroIntegration
-  alias CotacoesETL.Schemas.Pesagro.BoletimEntry
+  alias CotacoesETL.Schemas.BoletimEntry
 
   @behaviour IManagePesagroIntegration
 
@@ -21,25 +21,18 @@ defmodule CotacoesETL.Integrations.PesagroAPI do
     Tesla.get!(link).body
   end
 
-  @spec fetch_all_boletim_links(Floki.html_tree()) :: list(BoletimEntry.t())
-  def fetch_all_boletim_links(document) do
+  @spec fetch_all_links(Floki.html_tree()) :: list(BoletimEntry.t())
+  def fetch_all_links(document) do
     document
     |> Floki.find("a")
-    |> Enum.filter(&is_pdf_or_zip?/1)
-    |> Enum.map(&a_tag_to_boletim/1)
+    |> Enum.filter(&is_pdf_or_zip_link?/1)
+    |> Enum.map(fn tag ->
+      href = tag |> Floki.attribute("href") |> Floki.text()
+      Path.join(base_url(), href)
+    end)
   end
 
-  defp a_tag_to_boletim(tag) do
-    arquivo = Floki.text(Floki.attribute(tag, "title"))
-    link = base_url() <> Floki.text(Floki.attribute(tag, "href"))
-    type = tag |> Floki.attribute("type") |> Floki.text()
-    tipo = if type == "application/pdf", do: :pdf, else: :zip
-    attrs = %{arquivo: arquivo, link: link, tipo: tipo}
-
-    BoletimEntry.changeset(attrs)
-  end
-
-  defp is_pdf_or_zip?(tag) do
+  defp is_pdf_or_zip_link?(tag) do
     type = tag |> Floki.attribute("type") |> Floki.text()
     type in @filetypes
   end
