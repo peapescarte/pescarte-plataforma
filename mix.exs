@@ -13,7 +13,6 @@ defmodule Pescarte.MixProject do
           applications: [
             database: :permanent,
             cotacoes: :permanent,
-            cotacoes_etl: :permanent,
             proxy_web: :permanent,
             identidades: :permanent,
             modulo_pesquisa: :permanent,
@@ -34,6 +33,7 @@ defmodule Pescarte.MixProject do
 
   defp aliases do
     [
+      dev: ["setup", "phx.server"],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}"],
       test: [

@@ -3,12 +3,12 @@ FROM hexpm/elixir:1.14.5-erlang-25.3.2.4-debian-buster-20230612-slim as builder
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends build-essential curl inotify-tools \
+  && apt-get install -y --no-install-recommends build-essential curl \
   && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install -y --no-install-recommends nodejs \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /pescarte
 
 RUN mix local.hex --force && \
   mix local.rebar --force
@@ -41,7 +41,6 @@ COPY config/config.exs config/${MIX_ENV}.exs config/
 COPY apps/plataforma_digital/priv ./apps/plataforma_digital/priv
 COPY apps/plataforma_digital/assets ./apps/plataforma_digital/assets
 RUN ["npm", "ci", "--prefix", "./apps/plataforma_digital/assets/"]
-RUN mix assets.deploy
 
 # copy source code and static files
 COPY apps/catalogo/lib ./apps/catalogo/lib
@@ -65,13 +64,33 @@ RUN mix compile
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
 
-COPY rel rel
-RUN mix release
+FROM builder as dev
 
-FROM builder as runner
+ARG MIX_ENV="dev"
+
+WORKDIR /pescarte
+
+RUN apt-get update -y && apt-get install -y --no-install-recommends inotify-tools glibc-source
+
+COPY config/test.exs ./config/
+COPY /apps/cotacoes/test ./apps/cotacoes/test
+COPY /apps/identidades/test ./apps/identidades/test
+COPY /apps/modulo_pesquisa/test ./apps/modulo_pesquisa/test
+COPY /apps/plataforma_digital/test ./apps/plataforma_digital/test
+COPY /apps/plataforma_digital_api/test ./apps/plataforma_digital_api/test
+
+RUN mix deps.get
+RUN mix do deps.compile, compile
+
+CMD ["mix", "phx.server"]
+
+FROM builder as production
+
+WORKDIR /pescarte
+RUN chown nobody /pescarte
 
 RUN apt-get update -y
-RUN apt-get install -y iputils-ping libstdc++6 inotify-tools \
+RUN apt-get install -y iputils-ping libstdc++6 glibc-source \
     openssl libncurses5 locales postgresql-client \
     && rm -rf /var/lib/apt/lists/* \
     && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
@@ -81,15 +100,13 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-WORKDIR /pescarte
-RUN chown nobody /pescarte
-
 # set runner ENV
 ENV MIX_ENV="prod"
 
-# Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/pescarte ./
+COPY rel rel
+RUN mix assets.deploy
+RUN mix release
 
 USER nobody
 
-CMD ["bin/server"]
+CMD ["/pescarte/_build/prod/rel/pescarte/bin/server"]
