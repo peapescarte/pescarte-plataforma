@@ -7,7 +7,7 @@ database = System.get_env("PG_DATABASE", "peapescarte")
 db_user = System.get_env("DATABASE_USER", "peapescarte")
 db_pass = System.get_env("DATABASE_PASSWORD", "peapescarte")
 # docker-compose service
-hostname = System.get_env("DATABASE_HOST", "database")
+hostname = System.get_env("DATABASE_HOST", "localhost")
 
 database_opts = [
   username: db_user,

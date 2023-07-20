@@ -4,15 +4,14 @@ services:
   pescarte:
     build:
       context: .
-      target: builder
+      target: dev
       args:
         - MIX_ENV=dev
     image: pescarte
-    command: [ "mix", "phx.server" ]
+    command: ["iex", "-S",  "mix", "dev"]
     container_name: plataforma_pescarte
     ports:
       - 4000:4000
-      - 4001:4001
     depends_on:
       - database
     env_file:
@@ -21,8 +20,8 @@ services:
       - .:/app
     environment:
       MIX_ENV: dev
-    networks:
-      - peapescarte
+    stdin_open: true
+    tty: true
 
   database:
     image: postgres:14.6
@@ -39,9 +38,3 @@ services:
       interval: 5s
       timeout: 2s
       retries: 1
-    networks:
-      - peapescarte
-
-networks:
-  peapescarte:
-    driver: bridge
