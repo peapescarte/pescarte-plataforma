@@ -2,11 +2,17 @@ import Config
 
 config :database, ecto_repos: [Database.Repo]
 
+database = System.get_env("PG_DATABASE", "peapescarte")
+db_user = System.get_env("DATABASE_USER", "peapescarte")
+db_pass = System.get_env("DATABASE_PASSWORD", "peapescarte")
+# docker-compose service
+hostname = System.get_env("DATABASE_HOST", "localhost")
+
 database_opts = [
-  username: System.get_env("DATABASE_USER", "pescarte"),
-  password: System.get_env("DATABASE_PASSWORD", "pescarte"),
+  username: db_user,
+  password: db_pass,
+  hostname: hostname,
   database: "peapescarte_test#{System.get_env("MIX_TEST_PARTITION")}",
-  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 ]

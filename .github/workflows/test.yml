@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MIX_ENV: test
+      DATABASE_USER: pescarte
+      DATABASE_PASSWORD: pescarte
     strategy:
       matrix:
         elixir: [1.14.2]
@@ -67,6 +69,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MIX_ENV: test
+      DATABASE_USER: pescarte
+      DATABASE_PASSWORD: pescarte
     strategy:
       matrix:
         elixir: [1.14.2]
