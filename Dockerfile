@@ -70,7 +70,7 @@ ARG MIX_ENV="dev"
 
 WORKDIR /pescarte
 
-RUN apt-get update -y && apt-get install -y --no-install-recommends inotify-tools
+RUN apt-get update -y && apt-get install -y --no-install-recommends inotify-tools glibc-source
 
 COPY config/test.exs ./config/
 COPY /apps/cotacoes/test ./apps/cotacoes/test
@@ -90,11 +90,11 @@ WORKDIR /pescarte
 RUN chown nobody /pescarte
 
 RUN apt-get update -y
-RUN apt-get install -y iputils-ping libstdc++6 \
-    openssl libncurses5 locales postgresql-client \
-    && rm -rf /var/lib/apt/lists/* \
-    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
-    && locale-gen
+RUN apt-get install -y iputils-ping libstdc++6 glibc-source \
+  openssl libncurses5 locales postgresql-client \
+  && rm -rf /var/lib/apt/lists/* \
+  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+  && locale-gen
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -105,8 +105,8 @@ ENV MIX_ENV="prod"
 
 COPY rel rel
 RUN mix assets.deploy
-RUN mix release && mv /pescarte/_build/${MIX_ENV}/rel/pescarte ./
+RUN mix release
 
 USER nobody
 
-CMD ["bin/server"]
+CMD ["/pescarte/_build/prod/rel/pescarte/bin/server"]
