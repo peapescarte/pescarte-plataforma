@@ -4,6 +4,24 @@ defmodule Database do
 
   def config_env, do: Application.get_env(:database, :config_env)
 
+  @migrations_apps ~w(cotacoes identidades modulo_pesquisa)a
+
+  @spec migrations_paths(atom) :: list(Path.t())
+  def migrations_paths(:dev) do
+    for app <- @migrations_apps do
+      Path.join(["apps", to_string(app), "priv/repo/migrations"])
+    end
+  end
+
+  def migrations_paths(:release) do
+    for app <- @migrations_apps do
+      priv_dir = List.to_string(:code.priv_dir(app))
+      Path.join(priv_dir, "repo/migrations")
+    end
+  end
+
+  def migrations_paths(_), do: []
+
   @doc """
   Busca um registro no banco de dados a partir de um id.
   """
