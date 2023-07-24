@@ -1,14 +1,6 @@
 .search-input {
-  @apply flex justify-center items-center border-black-10 text-black-80;
-  @apply border-2;
-
-  &.typing {
-    @apply border-b-2;
-  }
-
-  &.empty {
-    @apply border-2;
-  }
+  @apply flex justify-between items-center border-black-10 text-black-80;
+  @apply border-2 border-black-10;
 
   width: 18.75rem;
   height: 3rem;
@@ -16,6 +8,26 @@
   padding: 12px;
   border-radius: 4px;
   position: relative;
+
+  &.typing {
+    border-bottom: 0;
+
+    .search-menu {
+      display: block;
+    }
+  }
+
+  &.empty {
+    @apply border-2;
+
+    .search-menu {
+      display: none;
+    }
+  }
+
+  input {
+    width: calc(100% - 2rem);
+  }
 
   .search-icon {
     @apply flex items-center text-black-80;
@@ -25,23 +37,35 @@
   }
 
   .search-menu {
-     @apply border-2 border-black-10;
-     width: 100%;
-     position: absolute;
-     top: 100%;
-     overflow: visible;
+    @apply flex flex-col justify-between;
+    @apply border-t-black-10;
+
+    display: none;
+    padding: 0 .75rem;
+    width: inherit;
+    min-height: 6rem;
+    max-height: 6rem;
+    top: 3.75rem;
+    left: 0;
+    position: absolute;
+    overflow-y: auto;
+
+    &:before {
+      @apply bg-black-10;
+
+      width: 17.35rem;
+      height: 1.5px;
+      content: "";
+    }
   }
 
   .search-menu-option {
-     margin-top: .75rem;
-     text-overflow: ellipsis;
+    height: 1.5rem;
+    text-overflow: ellipsis;
+    margin-bottom: 0.75rem;
 
-     &:last-child {
-       margin-bottom: .75rem;
-     }
-  }
-
-  input {
-    padding-left: 12px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }

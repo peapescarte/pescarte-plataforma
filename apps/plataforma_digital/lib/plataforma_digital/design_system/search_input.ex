@@ -2,31 +2,24 @@ defmodule PlataformaDigital.DesignSystem.SearchInput do
   use Phoenix.LiveComponent
   alias PlataformaDigital.DesignSystem
 
+  @impl true
+  def mount(socket) do
+    {:ok, assign(socket, typing?: false)}
+  end
+
   attr :id, :string, required: true
   attr :name, :string, required: true
   attr :content, :list, default: []
-  attr :placeholder, :string, default: ""
+  attr :placeholder, :string, default: "Faça uma pesquisa..."
   attr :field, Phoenix.HTML.FormField
-
-  @placeholder "Faça uma pesquisa..."
-
-  # mount(socket) -> render(assigns)
-
-  @impl true
-  def mount(socket) do
-    {:ok,
-     socket
-     |> assign(show_list?: false)
-     |> assign(placeholder: @placeholder)}
-  end
 
   @impl true
   def render(assigns) do
     ~H"""
-    <fieldset class="search-input">
-      <div class="search-icon">
+    <fieldset class={["search-input", if(@typing?, do: "typing", else: "empty")]}>
+      <span class="search-icon">
         <Lucideicons.search />
-      </div>
+      </span>
       <input
         id={@id}
         name={@name}
@@ -36,7 +29,7 @@ defmodule PlataformaDigital.DesignSystem.SearchInput do
         phx-target={@myself}
         phx-debounce={300}
       />
-      <ul class={["search-menu", if(@show_list?, do: "block", else: "hidden")]}>
+      <ul class={["search-menu", if(@typing?, do: "block", else: "hidden")]}>
         <li :for={option <- @content} class="search-menu-option">
           <.link patch="/">
             <DesignSystem.text size="lg">
@@ -55,7 +48,7 @@ defmodule PlataformaDigital.DesignSystem.SearchInput do
 
     {:noreply,
      socket
-     |> assign(show_list?: true)
+     |> assign(typing?: true)
      |> assign(content: content)}
   end
 
