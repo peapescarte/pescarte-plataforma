@@ -1,38 +1,53 @@
 import Config
 
-# Configure your database
-config :pescarte, Pescarte.Repo,
-  username: System.get_env("PGUSER", "pescarte"),
-  password: System.get_env("PGPASSSWORD", "pescarte"),
-  database: "pescarte_dev",
-  hostname: "localhost",
+# -------- #
+# Database #
+# -------- #
+database = System.get_env("PG_DATABASE", "peapescarte")
+db_user = System.get_env("DATABASE_USER", "peapescarte")
+db_pass = System.get_env("DATABASE_PASSWORD", "peapescarte")
+# docker-compose service
+hostname = System.get_env("DATABASE_HOST", "localhost")
+
+database_opts = [
+  username: db_user,
+  password: db_pass,
+  hostname: hostname,
+  database: database,
+  stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
+]
 
-config :pescarte, PescarteWeb.Endpoint,
+config :database, Database.Repo, database_opts
+config :database, Database.Repo.Replica, database_opts
+
+# --------- #
+# Proxy Web #
+# --------- #
+config :proxy_web, ProxyWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
-  debug_errors: true,
-  code_reloader: true,
   check_origin: false,
-  secret_key_base: "vr3C1ik7ud2WY6W8zsvLj6vSSTQzy1aaazzt41vG/yEETXMPw0mKne/2KnJjeiSy",
+  code_reloader: true,
+  debug_errors: true,
+  reloadable_compilers: [:elixir],
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
     sass: {DartSass, :install_and_run, [:default, ~w(--watch)]},
     storybook_tailwind: {Tailwind, :install_and_run, [:storybook, ~w(--watch)]}
-  ]
-
-config :pescarte, PescarteWeb.Endpoint,
-  reloadable_compilers: [:elixir],
+  ],
   live_reload: [
     patterns: [
       ~r"storybook/.*(exs)$",
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"lib/pescarte_web/(|views|components)/.*(ex|js)$",
-      ~r"lib/pescarte_web/templates/.*(eex)$",
-      ~r"lib/pescarte_web/graphql/.*(ex)$"
+      ~r"apps/plataforma_digital_api/lib/*.(ex)$",
+      ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"apps/plataforma_digital/lib/plataforma_digital/(controllers|live|components|templates)/.*(ex|heex)$"
     ]
   ]
+
+config :plataforma_digital, PlataformaDigital.Endpoint, debug_errors: true
+config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint, debug_errors: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
@@ -43,9 +58,3 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
-
-try do
-  import_config "local.secret.exs"
-rescue
-  _ -> nil
-end

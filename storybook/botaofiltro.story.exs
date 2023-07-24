@@ -1,7 +1,7 @@
 defmodule Storybook.Botaofiltro do
   use PhoenixStorybook.Story, :page
 
-  alias PescarteWeb.DesignSystem
+  alias PlataformaDigital.DesignSystem
 
   def render(assigns) do
     ~H"""

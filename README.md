@@ -1,4 +1,4 @@
-# API PEA Pescarte
+# PEA Pescarte
 
 [![lint](https://github.com/peapescarte/pescarte-api/actions/workflows/lint.yml/badge.svg)](https://github.com/peapescarte/pescarte-api/actions/workflows/lint.yml)
 [![test](https://github.com/peapescarte/pescarte-api/actions/workflows/test.yml/badge.svg)](https://github.com/peapescarte/pescarte-api/actions/workflows/test.yml)
@@ -14,6 +14,19 @@ Este projeto possui três opções para ambientes de desenvolvimento:
 1.  [Docker](./guides/local/docker.md)
 2.  [Nix](./guides/local/nix.md)
 3.  [asdf](./guides/local/asdf.md)
+
+## Estrutura do projeto
+
+O projeto **PEA Pescarte** está implementado como uma aplicação [umbrella](https://elixirschool.com/pt/lessons/advanced/umbrella_projects). Isso significa que o projeto pode ser entendido como disposto no padrão [monorepo](https://pt.stackoverflow.com/questions/452607/o-que-%C3%A9-um-monorepo-quais-s%C3%A3o-as-suas-vantagens-e-desvantagens).
+
+Em suma, o projeto é dividido entre algumas aplicações internas, com responsabilidades diferentes e bem definidas. Siga a tabela abaixo para entender cada app interno e suas responsabilidades:
+
+- [Database](./apps/database)
+- [Proxy web](./apps/proxy_web)
+- [Identidades](./apps/identidades)
+- [Módulo Pesquisa](./apps/modulo_pesquisa)
+- [Plataforma Digital](./apps/plataforma_digital)
+- [API Plataforma Digital](./apps/plataforma_digital_api)
 
 ------------------------------------------------------------------------
 

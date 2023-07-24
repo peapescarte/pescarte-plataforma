@@ -1,7 +1,7 @@
 defmodule Storybook.Tabela do
   use PhoenixStorybook.Story, :page
 
-  alias PescarteWeb.DesignSystem
+  alias PlataformaDigital.DesignSystem
 
   def render(assigns) do
     ~H"""

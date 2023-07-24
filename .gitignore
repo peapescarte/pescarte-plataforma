@@ -19,14 +19,11 @@ erl_crash.dump
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
 
-# Ignore package tarball (built via "mix hex.build").
-pescarte-*.tar
-
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment
 # this depending on your deployment strategy.
-/priv/static/assets
-/priv/static/cache_manifest.json
+**/priv/static/assets
+**/priv/static/cache_manifest.json
 
 # Ignore all secrets
 **/*.secret.exs
@@ -35,18 +32,13 @@ pescarte-*.tar
 .env
 
 # Ignore node_modules
-/assets/node_modules/
+**/assets/node_modules/
 
 # Ignore local env files
 /.direnv/
 /.nix-*/
 /.postgres/
-
-# Ignore seeds
-/priv/repo/seed_prod.exs
-
-# Local scripts
-/.local_scripts/
+/.elixir-tools/
 
 # Temporary images
 **/*.tmp.*

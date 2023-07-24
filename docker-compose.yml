@@ -1,20 +1,31 @@
 version: "3.8"
 
 services:
-  web:
-    build: .
+  pescarte:
+    build:
+      context: .
+      target: dev
+      args:
+        - MIX_ENV=dev
+    image: pescarte
+    command: ["iex", "-S",  "mix", "dev"]
+    container_name: plataforma_pescarte
     ports:
       - 4000:4000
     depends_on:
-      db:
-        condition: service_healthy
-
+      - database
     env_file:
       - .env-sample
+    volumes:
+      - .:/app
+    environment:
+      MIX_ENV: dev
+    stdin_open: true
+    tty: true
 
-
-  db:
+  database:
     image: postgres:14.6
+    container_name: plataforma_pescarte_database
     environment:
       - POSTGRES_USER=peapescarte
       - POSTGRES_PASSWORD=peapescarte
@@ -23,7 +34,7 @@ services:
     volumes:
       - .postgres:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U peapescarte"]
+      test: [ "CMD-SHELL", "pg_isready -U peapescarte -d peapescarte" ]
       interval: 5s
       timeout: 2s
       retries: 1
