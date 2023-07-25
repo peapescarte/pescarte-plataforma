@@ -1,28 +1,45 @@
 .tabela {
-  text-align: left;
+  @apply border-black-10;
+  @apply justify-center items-center;
+
   border-collapse: collapse;
   padding: 40px;
-  border-radius: 0.25rem;
-  width: 90%;
-
+  border-radius: 0.313rem;
+  border-right-width: 1px;
+  width: 76.25rem;   /* equivale a 1220 px FIGMA */
+  text-align: center;
+}
  .header-primary {
     @apply bg-blue-100;
     @apply text-white-100;
-    border: 1px solid #0064C8;
+    border: 1px solid #99C1E9;
     border-radius: 4px 4px 0px 0px;
+    /*text-align: left; */
     height: 55px;
   }
  .linhas{
-    @apply text-black-10;
     border: 1px solid #99C1E9;
-    border-radius: 0px;
+    border-radius: 4px;
     height: 52px;
     padding: 12px;
   }
+
+.tabela tr th{                    /* isto define os textos e borda do cabeçalho da tabela */
+  @apply text-white-100 bg-blue-100;
+  border: 1px solid #99C1E9;
+  border-radius: 4px;
+  /* text-align: center; */
 }
 
+.tabela tr td{
+ /* @apply justify-center items-center;
+   text-align: center; */
+}
 
+.table, th,td {
+ /* @apply justify-center items-center; */
 
-
-
-
+  border: 1px solid #99C1E9,; /* faz a borda nas colunas - ok */
+  color:#99C1E9;
+  text-align: center;
+}
