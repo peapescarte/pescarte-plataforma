@@ -10,8 +10,5 @@ defmodule ProxyWeb.Endpoint do
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :database
   end
 
-  plug ProxyWeb.Router, %{
-    api: PlataformaDigitalAPI.Endpoint,
-    default: PlataformaDigital.Endpoint
-  }
+  plug ProxyWeb.Router
 end

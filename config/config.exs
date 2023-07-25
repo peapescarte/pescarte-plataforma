@@ -35,9 +35,13 @@ config :plataforma_digital, PlataformaDigital.Endpoint,
 config :esbuild,
   version: "0.18.6",
   default: [
-    args:
-      ~w(js/app.js js/storybook.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
+    args: ~w(js/app.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
     cd: Path.expand("../apps/plataforma_digital/assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ],
+  design_system: [
+    args: ~w(storybook.js --bundle --platform=node --target=es2017 --outdir=../priv/static),
+    cd: Path.expand("../apps/design_system/assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
@@ -46,6 +50,10 @@ config :dart_sass,
   default: [
     args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
     cd: Path.expand("../apps/plataforma_digital/assets", __DIR__)
+  ],
+  design_system: [
+    args: ~w(design_system.scss ../priv/static/pescarte.min.css --style compressed),
+    cd: Path.expand("../apps/design_system/assets", __DIR__)
   ]
 
 config :tailwind,
@@ -53,14 +61,6 @@ config :tailwind,
   default: [
     args:
       ~w(--config=tailwind.config.js --input=../priv/static/assets/app.css.tailwind --output=../priv/static/assets/app.css),
-    cd: Path.expand("../apps/plataforma_digital/assets", __DIR__)
-  ],
-  storybook: [
-    args: ~w(
-          --config=tailwind.config.js
-          --input=css/storybook.css
-          --output=../priv/static/assets/storybook.css
-        ),
     cd: Path.expand("../apps/plataforma_digital/assets", __DIR__)
   ]
 
@@ -70,6 +70,16 @@ config :tailwind,
 config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint,
   pubsub_server: Pescarte.PubSub,
   secret_key_base: "p72JmdAzMY6LcSoQVEFDujKltZoaqCVTu5T5Fj/8PQzc079nuVa1kQfr4Z5lmJUE",
+  server: false
+
+# ------------- #
+# Design System #
+# ------------- #
+config :design_system, DesignSystem.Endpoint,
+  pubsub_server: Pescarte.PubSub,
+  render_errors: [formats: [html: PlataformaDigital.ErrorHTML], layout: false],
+  secret_key_base: "PVZd1xnoUTmJ24FK13CQxsMpOuA+sMvE/XEuS9ETPJRg05/MSxxPVur5L5TfeiNz",
+  live_view: [signing_salt: "F3Urr6eW1TRN0AaB"],
   server: false
 
 # Configures Elixir's Logger

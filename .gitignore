@@ -24,6 +24,7 @@ erl_crash.dump
 # this depending on your deployment strategy.
 **/priv/static/assets
 **/priv/static/cache_manifest.json
+/apps/design_system/priv/static
 
 # Ignore all secrets
 **/*.secret.exs

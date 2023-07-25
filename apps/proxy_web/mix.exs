@@ -30,6 +30,7 @@ defmodule ProxyWeb.MixProject do
       {:phoenix, "~> 1.7", override: true},
       {:phoenix_ecto, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:design_system, in_umbrella: true},
       {:plataforma_digital, in_umbrella: true},
       {:plataforma_digital_api, in_umbrella: true}
     ]

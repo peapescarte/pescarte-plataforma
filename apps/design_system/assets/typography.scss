@@ -1,0 +1,81 @@
+@use "./palette.scss" as palette;
+
+:root {
+  font: 'Work Sans', sans-serif 400 16px;
+}
+
+.text-sm {
+  font-size: 0.75rem;
+  line-height: 18px;
+  font-weight: 400;
+}
+
+.text-md {
+  font-size: 0.875rem;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+.text-lg {
+  font-size: 1rem;
+  line-height: 18px;
+  font-weight: 500;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+.text-3xl {
+  font-size: 2rem;
+  line-height: 38px;
+  font-weight: 700;
+}
+
+.text-4xl {
+  font-size: 2.5rem;
+  line-height: 46px;
+  font-weight: 700;
+}
+
+.text-neutra-100 {
+  color: palette.$neutra-100;
+}
+
+.text-neutra-80 {
+  color: palette.$neutra-80;
+}
+
+.text-neutra-60 {
+  color: palette.$neutra-60;
+}
+
+.text-neutra-40 {
+  color: palette.$neutra-40;
+}
+
+.text-primario-100 {
+  color: palette.$primaria-100;
+}
+
+.text-primario-80 {
+  color: palette.$primaria-80;
+}
+
+.text-branco {
+  color: #fff;
+}

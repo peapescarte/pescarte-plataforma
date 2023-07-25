@@ -5,7 +5,7 @@ defmodule ProxyWeb do
 
   def start(_type, _args) do
     children = [ProxyWeb.Endpoint, {Phoenix.PubSub, name: Pescarte.PubSub}]
-    opts = [strategy: :one_for_one, name: Proxy.Supervisor]
+    opts = [strategy: :one_for_one, name: ProxyWeb.Supervisor]
     Supervisor.start_link(children, opts)
   end
 

@@ -1,7 +1,6 @@
 defmodule PlataformaDigital.Router do
   use PlataformaDigital, :router
 
-  import PhoenixStorybook.Router
   import PlataformaDigital.Authentication
 
   pipeline :browser do
@@ -14,16 +13,10 @@ defmodule PlataformaDigital.Router do
     plug :fetch_current_user
   end
 
-  scope "/" do
-    storybook_assets()
-  end
-
   scope "/", PlataformaDigital do
     pipe_through :browser
 
     get "/", LandingController, :show
-
-    live_storybook("/storybook", backend_module: PlataformaDigital.Storybook)
   end
 
   scope "/", PlataformaDigital do

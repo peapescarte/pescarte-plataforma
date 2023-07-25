@@ -16,7 +16,7 @@ defmodule Storybook.MyPage do
   end
 
   # This is a dummy fonction that you should replace with your own HEEx content.
-  def render(assigns = %{tab: :welcome}) do
+  def render(%{tab: :welcome} = assigns) do
     ~H"""
     <div class="lsb-welcome-page">
       <p>

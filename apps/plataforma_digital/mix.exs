@@ -36,7 +36,6 @@ defmodule PlataformaDigital.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:jason, "~> 1.0"},
       {:lucide_icons, "~> 1.0"},
-      {:phoenix_storybook, "~> 0.5"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},

@@ -12,6 +12,7 @@ defmodule Pescarte.MixProject do
         pescarte: [
           applications: [
             database: :permanent,
+            design_system: :permanent,
             cotacoes: :permanent,
             proxy_web: :permanent,
             identidades: :permanent,

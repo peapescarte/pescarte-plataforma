@@ -1,8 +1,6 @@
 defmodule Storybook.Typography do
   use PhoenixStorybook.Story, :page
 
-  alias PescarteWeb.DesignSystem
-
   def render(assigns) do
     ~H"""
     <.titles />
