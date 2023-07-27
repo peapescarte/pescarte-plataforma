@@ -1,4 +1,5 @@
 defmodule PlataformaDigital.Router do
+  alias PlataformaDigital.Researcher
   use PlataformaDigital, :router
 
   import PhoenixStorybook.Router
@@ -43,6 +44,7 @@ defmodule PlataformaDigital.Router do
 
       scope "/relatorios" do
         live "/mensal", Researcher.Relatorio.MensalLive
+        live "/anual", Researcher.Relatorio.AnualLive
       end
     end
   end
