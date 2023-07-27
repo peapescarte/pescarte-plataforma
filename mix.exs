@@ -35,12 +35,8 @@ defmodule Pescarte.MixProject do
     [
       dev: ["setup", "phx.server"],
       setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}"],
-      test: [
-        "ecto.create --quiet",
-        "ecto.migrate --quiet #{migrations_paths()}",
-        "test"
-      ],
+      "ecto.setup": ["ecto.create", "database.migrate"],
+      test: ["ecto.create --quiet", "database.migrate --quiet", "test"],
       "assets.build": [
         "esbuild default",
         "sass default",
@@ -55,18 +51,5 @@ defmodule Pescarte.MixProject do
         "phx.digest"
       ]
     ]
-  end
-
-  defp migrations_paths do
-    paths = [
-      "apps/identidades/priv/repo/migrations",
-      "apps/modulo_pesquisa/priv/repo/migrations",
-      "apps/catalogo/priv/repo/migrations",
-      "apps/cotacoes/priv/repo/migrations"
-    ]
-
-    for path <- paths, reduce: "" do
-      acc -> "--migrations-path #{path}" <> " " <> acc
-    end
   end
 end
