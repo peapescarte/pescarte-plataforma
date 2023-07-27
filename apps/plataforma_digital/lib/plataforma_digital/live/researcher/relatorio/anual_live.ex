@@ -9,7 +9,7 @@ defmodule PlataformaDigital.Researcher.Relatorio.AnualLive do
 
   # Título de cada campo completo e os respectivos ids
   @report_field_names [
-    {"Plano de Trablho", :plano_de_trabalho},
+    {"Plano de Trabalho", :plano_de_trabalho},
     {"Resumo", :resumo},
     {"Introdução", :introducao},
     {"Embasamento Teórico", :embasamento_teorico},
