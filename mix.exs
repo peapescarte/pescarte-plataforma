@@ -10,15 +10,13 @@ defmodule Pescarte.MixProject do
       aliases: aliases(),
       releases: [
         pescarte: [
-          applications: [
-            database: :permanent,
-            cotacoes: :permanent,
-            proxy_web: :permanent,
-            identidades: :permanent,
-            modulo_pesquisa: :permanent,
-            plataforma_digital: :permanent,
-            plataforma_digital_api: :permanent
-          ]
+          strip_beams: true,
+          cookie: Base.url_encode64(:crypto.strong_rand_bytes(40)),
+          validate_compile_env: true,
+          quiet: true,
+          include_erts: true,
+          include_executables_for: [:unix],
+          applications: [proxy_web: :permanent]
         ]
       ]
     ]
@@ -27,7 +25,8 @@ defmodule Pescarte.MixProject do
   defp deps do
     [
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:git_hooks, "~> 0.4.0", only: [:test, :dev], runtime: false}
     ]
   end
 

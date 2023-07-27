@@ -81,4 +81,19 @@ config :phoenix, :json_library, Jason
 
 config :seeder, env: config_env()
 
+config :git_hooks,
+  verbose: true,
+  hooks: [
+    pre_push: [
+      tasks: [
+        "mix clean",
+        "mix compile --warning-as-errors",
+        "mix format --check-formatted",
+        "mix credo --strict",
+        "mix test --only unit",
+        "mix test --only integration"
+      ]
+    ]
+  ]
+
 import_config "#{config_env()}.exs"
