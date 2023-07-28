@@ -4,6 +4,7 @@ defmodule Pescarte.MixProject do
   def project do
     [
       apps_path: "apps",
+      name: :pescarte,
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -32,6 +33,7 @@ defmodule Pescarte.MixProject do
     [
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
       {:git_hooks, "~> 0.4.0", only: [:test, :dev], runtime: false}
     ]
   end
