@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   pescarte:
-    image: ghcr.io/peapescarte/plataforma-pescarte:dev
+    image: ghcr.io/peapescarte/pescarte-plataforma:dev
     command: ["mix", "dev"]
     container_name: plataforma_pescarte
     ports:
