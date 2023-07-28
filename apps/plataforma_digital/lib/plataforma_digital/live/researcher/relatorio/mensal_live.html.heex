@@ -3,13 +3,5 @@
     Relatório Mensal de Pesquisa de <%= @today.month %> de <%= @today.year %>
   </.text>
 
-  <.form :let={f} for={@form} phx-submit="save">
-    <.live_component
-      module={DesignSystem.SearchInput}
-      id="search-test"
-      name="search-test"
-      content={["hello", "teste", "lorem", "ipsum", "lorem ipsum", "uau"]}
-      field={@form[:planning_action]}
-    />
-  </.form>
+  <.form :let={_f} for={@form} phx-submit="save"></.form>
 </div>
