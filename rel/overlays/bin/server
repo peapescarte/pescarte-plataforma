@@ -1,4 +1,0 @@
-#!/bin/sh
-cd -P -- "$(dirname -- "$0")"
-./pescarte eval Database.Release.migrate
-PHX_SERVER=true exec ./pescarte start
