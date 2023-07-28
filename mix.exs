@@ -16,7 +16,13 @@ defmodule Pescarte.MixProject do
           quiet: true,
           include_erts: true,
           include_executables_for: [:unix],
-          applications: [proxy_web: :permanent]
+          applications: [
+            proxy_web: :permanent,
+            modulo_pesquisa: :permanent,
+            identidades: :permanent,
+            cotacoes: :permanent,
+            seeder: :load
+          ]
         ]
       ]
     ]

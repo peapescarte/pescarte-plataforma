@@ -84,7 +84,7 @@ docker-prod:
   RUN chown nobody /app
   USER nobody
   COPY +release/app/_build/prod/rel/pescarte .
-  CMD ["./bin/pescarte", "eval", "Database.Release.migrate", "&&", "./bin/pescarte", "start"]
+  CMD ["./bin/pescarte", "eval", "Database.Release.migrate", "&&", "exec", "./bin/pescarte", "start"]
   ARG GITHUB_REPO
   SAVE IMAGE --push ghcr.io/$GITHUB_REPO:prod
 
