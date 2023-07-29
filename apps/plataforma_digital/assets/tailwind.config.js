@@ -66,13 +66,17 @@ module.exports = {
       },
     },
     lineHeight: {
+      15: "3.438rem",
+      12: "3.25rem",
       10: "2.25rem",
       9: "2.375rem",
+      85: "1.438rem",
       8: "1.75rem",
       7: "1.5rem",
       6: "1.375rem",
       5: "1.25rem",
       4: "1.125rem",
+      3: "1.188rem",
     },
     fontSize: {
       xs: "0.75rem",

@@ -43,6 +43,7 @@ defmodule PlataformaDigital.Router do
 
       scope "/relatorios" do
         live "/mensal", Researcher.Relatorio.MensalLive
+        live "/listagem", Researcher.Relatorio.ListReportLive
       end
     end
   end

@@ -110,13 +110,10 @@ defmodule PlataformaDigital.DesignSystem do
       <.button style="secondary"> Secundário </.button>
 
       <.button style="primary" submit> Submissão </.button>
-
-      <.button style="primary" icon={:log_in}> Primário com ícone </.button>
   """
 
   attr :style, :string, values: ~w(primary secondary link), required: true
   attr :submit, :boolean, default: false
-  attr :icon, :atom, required: false, default: nil
   attr :class, :string, default: ""
   attr :click, :string, default: "", doc: ~s(the click event to handle)
   attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
@@ -131,8 +128,6 @@ defmodule PlataformaDigital.DesignSystem do
       phx-click={@click}
       {@rest}
     >
-      <.icon :if={@icon} name={@icon} />
-
       <.text :if={@style == "primary"} size="base" color="text-white-100">
         <%= render_slot(@inner_block) %>
       </.text>
@@ -179,7 +174,7 @@ defmodule PlataformaDigital.DesignSystem do
   attr :id, :string, required: false
   attr :checked, :boolean, default: false
   attr :disabled, :boolean, default: false
-  attr :label, :string, required: true
+  attr :label, :string, required: false, default: ""
   attr :field, Phoenix.HTML.FormField
   attr :name, :string
 
@@ -431,6 +426,10 @@ defmodule PlataformaDigital.DesignSystem do
             <.text size="h4" color="text-blue-100">Pesca</.text>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
+          <li class="nav-item">
+            <.text size="h4" color="text-blue-100">Quem Somos</.text>
+            <Lucideicons.chevron_down class="text-blue-100" />
+          </li>
         </ul>
         <PlataformaDigital.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
@@ -546,5 +545,36 @@ defmodule PlataformaDigital.DesignSystem do
   defp icon(assigns) do
     assigns = Map.put(assigns, :size, 24)
     apply(Lucideicons, assigns.name, [assigns])
+  end
+
+  @doc """
+  Renderiza uma tabela com diferentes colunas - versão 4/6/2023:
+
+  """
+  slot :column, doc: "Columns with column labels" do
+    attr :label, :string, required: true, doc: "Column label"
+  end
+
+  attr :rows, :list, default: []
+
+  def table(assigns) do
+    ~H"""
+    <div style="overflow-x: auto">
+      <table class="tabela">
+        <tr class="header-primary">
+          <%= for col <- @column do %>
+            <th><%= col.label %></th>
+          <% end %>
+        </tr>
+        <%= for row <- @rows do %>
+          <tr class="linhas lineHeight-4">
+            <%= for col <- @column do %>
+              <td><%= render_slot(col, row) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    """
   end
 end

@@ -1,0 +1,46 @@
+.tabela {
+  @apply border-black-10;
+
+  border-collapse: collapse;
+  padding: 40px;
+  border-radius: 0.313rem;
+  border-right-width: 1px;
+  width: 76.25rem;   /* equivale a 1220 px FIGMA */
+  text-align: center;
+}
+ .header-primary {
+    @apply bg-blue-100;
+    @apply text-white-100;
+
+    line-height: 1.375rem; /*lineHeight-6; equivale a 23px */
+    border: 1px solid #99C1E9;
+    border-radius: 4px 4px 0px 0px;
+  }
+ .linhas{
+   @apply border-blue-40; /* corresponde à cor 99c1e9 */
+
+    line-height: 1.125rem; /* lineHeight-4;equivale a 19px 52px;  */
+    border: 1px solid; /* #99C1E9;*/
+    border-radius: 4px;
+    padding: 12px;
+  }
+
+.tabela tr th{                    /* isto define os textos e borda do cabeçalho da tabela */
+  @apply text-white-100 bg-blue-100 border-blue-40;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
+.tabela tr td{
+/*  @apply flex justify-center items-center;
+   text-align: center; */
+}
+
+.tabela >th, td {
+  @apply text-blue-100;
+  @apply border-blue-40; /* corresponde à cor 99c1e9 */
+
+  line-height: 1.125rem;
+  border: 1px solid; /* faz a borda nas colunas - ok   #99C1E9, */
+  text-align: center;
+}
