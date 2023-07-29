@@ -7,7 +7,7 @@ defmodule PlataformaDigital.DesignSystem.SearchInput do
   def mount(socket) do
     {:ok,
      socket
-     |> assign(typing?: true)
+     |> assign(typing?: false)
      |> assign(filtered: [])}
   end
 

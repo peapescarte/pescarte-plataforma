@@ -10,6 +10,8 @@ defmodule PlataformaDigital.DesignSystem do
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
+  alias PlataformaDigital.DesignSystem.SearchInput
+
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
 
   @doc """
@@ -73,7 +75,7 @@ defmodule PlataformaDigital.DesignSystem do
     do: get_text_style("text-lg leading-6 font-regular" <> " " <> color, custom_class)
 
   defp get_text_style("md", color, custom_class),
-    do: get_text_style("text-md leading-5 font-regular" <> " " <> color, custom_class)
+    do: get_text_style("text-base leading-5 font-regular" <> " " <> color, custom_class)
 
   defp get_text_style("sm", color, custom_class),
     do: get_text_style("text-xs leading-4 font-regular" <> " " <> color, custom_class)
@@ -382,8 +384,10 @@ defmodule PlataformaDigital.DesignSystem do
   end
 
   def search_input(assigns) do
+    assigns = assign(assigns, assigns: assigns)
+
     ~H"""
-    <.live_component module={DesignSystem.SearchInput} {@assigns} />
+    <.live_component module={SearchInput} {@assigns} />
     """
   end
 
@@ -542,17 +546,13 @@ defmodule PlataformaDigital.DesignSystem do
     """
   end
 
-  defp icon(assigns) do
-    assigns = Map.put(assigns, :size, 24)
-    apply(Lucideicons, assigns.name, [assigns])
-  end
-
   @doc """
   Renderiza uma tabela com diferentes colunas - versão 4/6/2023:
 
   """
   slot :column, doc: "Columns with column labels" do
-    attr :label, :string, required: true, doc: "Column label"
+    attr :label, :string, doc: "Column label"
+    attr :type, :string, values: ~w(text slot)
   end
 
   attr :rows, :list, default: []
@@ -561,18 +561,36 @@ defmodule PlataformaDigital.DesignSystem do
     ~H"""
     <div style="overflow-x: auto">
       <table class="tabela">
-        <tr class="header-primary">
-          <%= for col <- @column do %>
-            <th><%= col.label %></th>
-          <% end %>
-        </tr>
-        <%= for row <- @rows do %>
-          <tr class="linhas lineHeight-4">
+        <thead>
+          <tr class="header-primary">
             <%= for col <- @column do %>
-              <td><%= render_slot(col, row) %></td>
+              <th>
+                <.text size="lg" color="text-white-100">
+                  <%= Map.get(col, :label, "") %>
+                </.text>
+              </th>
             <% end %>
           </tr>
-        <% end %>
+        </thead>
+        <tbody>
+          <%= for row <- @rows do %>
+            <tr class="linhas">
+              <%= for col <- @column do %>
+                <td>
+                  <%= if Map.get(col, :type, "text") == "text" do %>
+                    <.text size="md" color="text-blue-100">
+                      <%= render_slot(col, row) %>
+                    </.text>
+                  <% else %>
+                    <span :if={col.type == "slot"}>
+                      <%= render_slot(col, row) %>
+                    </span>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
     </div>
     """

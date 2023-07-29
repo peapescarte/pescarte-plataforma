@@ -1,4 +1,4 @@
-defmodule PlataformaDigital.Researcher.ProfileLive do
+defmodule PlataformaDigital.Pesquisa.ProfileLive do
   use PlataformaDigital, :auth_live_view
 
   alias PlataformaDigital.Authentication
