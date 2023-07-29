@@ -18,7 +18,7 @@
     </.button>
   </div>
 
-  <div class="links-item" :if={@current_user == :admin}>
+  <div :if={@current_user == :admin} class="links-item">
     <.button class="icon-button" style="primary" submit>
       <Lucideicons.files class="text-white-100" />
       <.text size="sm" color="text-white-100">Compilar</.text>
@@ -26,12 +26,18 @@
   </div>
 </div>
 
-  <.table rows={@relatorios}>
-    <:column :let={relatorios} label="  " >  <div class="flex-center"><.checkbox name="check" id="usuario"/></div>  </:column>
-    <:column :let={relatorios} label="Data">  <%= relatorios.data %>  </:column>
-    <:column :let={relatorios} label="Tipo" class="linhas">  <%= relatorios.tipo %> </:column>
-    <:column :let={relatorios} label="Mês/Ano">  <%= relatorios.mes <> " / " <> relatorios.ano %>  </:column>
-    <:column :let={relatorios} label="Nome">  <%= relatorios.name %>  </:column>
-    <:column :let={relatorios} label="Status"> <%= relatorios.status %> </:column>
-    <:column :let={relatorios} label="Baixar" >  <div class="flex-center"><Lucideicons.download/></div>  </:column>
-  </.table>
+<.table rows={@relatorios}>
+  <:column :let={relatorios} label="  ">
+    <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
+  </:column>
+  <:column :let={relatorios} label="Data"><%= relatorios.data %></:column>
+  <:column :let={relatorios} label="Tipo" class="linhas"><%= relatorios.tipo %></:column>
+  <:column :let={relatorios} label="Mês/Ano">
+    <%= relatorios.mes <> " / " <> relatorios.ano %>
+  </:column>
+  <:column :let={relatorios} label="Nome"><%= relatorios.name %></:column>
+  <:column :let={relatorios} label="Status"><%= relatorios.status %></:column>
+  <:column :let={relatorios} label="Baixar">
+    <div class="flex-center"><Lucideicons.download /></div>
+  </:column>
+</.table>

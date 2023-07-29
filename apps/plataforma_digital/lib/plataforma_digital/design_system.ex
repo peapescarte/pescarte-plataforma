@@ -559,21 +559,21 @@ defmodule PlataformaDigital.DesignSystem do
 
   def table(assigns) do
     ~H"""
-    <div style="overflow-x: auto" >
-    <table class="tabela">
-      <tr class="header-primary">
-        <%= for col <- @column do %>
-          <th><%= col.label %></th>
-        <% end %>
-      </tr>
-      <%= for row <- @rows do %>
-        <tr class="linhas lineHeight-4">
+    <div style="overflow-x: auto">
+      <table class="tabela">
+        <tr class="header-primary">
           <%= for col <- @column do %>
-            <td><%= render_slot(col, row) %></td>
+            <th><%= col.label %></th>
           <% end %>
         </tr>
-      <% end %>
-    </table>
+        <%= for row <- @rows do %>
+          <tr class="linhas lineHeight-4">
+            <%= for col <- @column do %>
+              <td><%= render_slot(col, row) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
     </div>
     """
   end

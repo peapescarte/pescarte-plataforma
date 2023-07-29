@@ -31,12 +31,12 @@ defmodule PlataformaDigital.DesignSystem.AuthenticatedNavbar do
             </.text>
           </li>
           <PlataformaDigital.DesignSystem.link navigate={~p"/app/pesquisa/relatorios/listagem"}>
-          <li class="nav-item">
-            <Lucideicons.file_text />
-            <.text :if={@open} size="base" color="text-black-60">
-              Relatórios
-            </.text>
-          </li>
+            <li class="nav-item">
+              <Lucideicons.file_text />
+              <.text :if={@open} size="base" color="text-black-60">
+                Relatórios
+              </.text>
+            </li>
           </PlataformaDigital.DesignSystem.link>
           <li class="nav-item">
             <Lucideicons.calendar_days />
