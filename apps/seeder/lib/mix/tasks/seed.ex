@@ -18,6 +18,9 @@ defmodule Mix.Tasks.Seed do
     :ok = categoria_seeds()
     :ok = tag_seeds()
     :ok = midia_seeds()
+    :ok = relatorio_anual_pesquisa_seeds()
+    :ok = relatorio_mensal_pesquisa_seeds()
+    :ok = relatorio_trimestral_pesquisa_seeds()
   end
 
   @impl Seeder
@@ -58,5 +61,20 @@ defmodule Mix.Tasks.Seed do
   @impl Seeder
   def midia_seeds do
     Seeder.seed(ModuloPesquisa.Midia.entries(), "midia")
+  end
+
+  @impl Seeder
+  def relatorio_anual_pesquisa_seeds do
+    Seeder.seed(ModuloPesquisa.RelatorioAnualPesquisa.entries(), "relatorio_anual_pesquisa")
+  end
+
+  @impl Seeder
+  def relatorio_mensal_pesquisa_seeds do
+    Seeder.seed(ModuloPesquisa.RelatorioMensalPesquisa.entries(), "relatorio_mensal_pesquisa")
+  end
+
+  @impl Seeder
+  def relatorio_trimestral_pesquisa_seeds do
+    Seeder.seed(ModuloPesquisa.RelatorioTrimestralPesquisa.entries(), "relatorio_trimestral_pesquisa")
   end
 end

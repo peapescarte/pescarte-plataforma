@@ -30,12 +30,13 @@
   <:column :let={relatorios} label="  ">
     <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
   </:column>
-  <:column :let={relatorios} label="Data"><%= relatorios.data %></:column>
   <:column :let={relatorios} label="Tipo" class="linhas"><%= relatorios.tipo %></:column>
   <:column :let={relatorios} label="Mês/Ano">
     <%= relatorios.mes <> " / " <> relatorios.ano %>
   </:column>
-  <:column :let={relatorios} label="Nome"><%= relatorios.name %></:column>
+  <:column :let={relatorios} :if={@current_user.tipo == :admin} label="Nome">
+    <%= @current_user.primeiro_nome <> " " <> @current_user.sobrenome %>
+  </:column>
   <:column :let={relatorios} label="Status"><%= relatorios.status %></:column>
   <:column :let={relatorios} label="Baixar">
     <div class="flex-center"><Lucideicons.download /></div>

@@ -1,45 +1,14 @@
 defmodule PlataformaDigital.Researcher.Relatorio.ListReportLive do
   use PlataformaDigital, :auth_live_view
 
-  alias PlataformaDigital.Authentication
+  alias ModuloPesquisa.Repository
 
   @impl true
   def mount(_params, _session, socket) do
-    #  current_user = socket.assigns.current_user
-    list = [
-      %{
-        data: "4/5/2023",
-        tipo: "Mensal",
-        name: "Relatório Mensal - Maio",
-        ano: "2023",
-        mes: "Maio",
-        status: "Entregue"
-      },
-      %{
-        data: "4/5/2023",
-        tipo: :Anual,
-        name: "Relatório Mensal - Junho",
-        ano: "2023",
-        mes: "Maio",
-        status: "Atrasado"
-      },
-      %{
-        data: "4/5/2023",
-        tipo: :Mensal,
-        name: "Relatório Mensal - Agosto",
-        ano: "2023",
-        mes: "Maio",
-        status: "Atrasado"
-      },
-      %{
-        data: "4/5/2023",
-        tipo: :Anual,
-        name: "Relatório Mensal - Julho",
-        ano: "2023",
-        mes: "Maio",
-        status: "Entregue"
-      }
-    ]
+    current_user = socket.assigns.current_user
+
+    list =
+      Repository.list_relatorios_pesquisa_from_pesquisador(current_user.pesquisador.id_publico)
 
     {:ok, assign(socket, relatorios: list)}
   end
