@@ -347,6 +347,46 @@ defmodule PlataformaDigital.DesignSystem do
     """
   end
 
+  @doc """
+  Um componente de pesquisa. Esta função apenas renderiza um componente
+  com estado, definido em `PlataformaDigital.DesignSystem.SearchInput`.
+
+  Além dos atributos obrigatórios: `:id` e `:name`, também recebe as seguintes
+  propriedades:
+
+  - `:content`: controla o conteúdo, a lista de itens onde será aplicada a busca;
+  - `:placeholder`: controla a mensagem temporária, antes da pessoa usuária digitiar;
+  - `:field`: Recebe um campos de um formuário phoenix, dessa forma é possível submetê-lo;
+  - `:size`: controla o tamnho do componente, possui apenas duas variações:
+    - `base`: tamanho padrão
+    - `large`: tamanho grande
+
+  ## Exemplo
+
+      <.search_input id="teste" name="busca_cep" content=["cep1", "cep2"] />
+
+      <.search_input id="teste" name="busca_cep" content=["cep1", "cep2"] size="large" />
+  """
+
+  attr :id, :string, required: true
+  attr :name, :string, required: true
+  attr :content, :list, default: []
+  attr :placeholder, :string, default: "Faça uma pesquisa..."
+  attr :field, Phoenix.HTML.FormFieldcontent
+  attr :size, :string, values: ~w(base large), default: "base"
+
+  def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> search_input()
+  end
+
+  def search_input(assigns) do
+    ~H"""
+    <.live_component module={DesignSystem.SearchInput} {@assigns} />
+    """
+  end
+
   # função interna para criação de inputs dinâmicos
   # cada componente de input possui sua função própria
   # para melhor semântica, como `text_input` ou `checkbox`
@@ -519,21 +559,21 @@ defmodule PlataformaDigital.DesignSystem do
 
   def table(assigns) do
     ~H"""
-    <div style="overflow-x: auto" >
-    <table class="tabela">
-      <tr class="header-primary">
-        <%= for col <- @column do %>
-          <th><%= col.label %></th>
-        <% end %>
-      </tr>
-      <%= for row <- @rows do %>
-        <tr class="linhas lineHeight-4">
+    <div style="overflow-x: auto">
+      <table class="tabela">
+        <tr class="header-primary">
           <%= for col <- @column do %>
-            <td><%= render_slot(col, row) %></td>
+            <th><%= col.label %></th>
           <% end %>
         </tr>
-      <% end %>
-    </table>
+        <%= for row <- @rows do %>
+          <tr class="linhas lineHeight-4">
+            <%= for col <- @column do %>
+              <td><%= render_slot(col, row) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
     </div>
     """
   end

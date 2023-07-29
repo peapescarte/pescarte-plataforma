@@ -1,23 +1,19 @@
 defmodule CotacoesETL.Parsers.Pesagro do
   @behaviour CotacoesETL.Parser
 
-  import Explorer.Series, only: [multiply: 2, cast: 2]
-
-  alias Explorer.DataFrame
-
   @pescado_header "Pescados"
   @pescado_entry_regex ~r/(\s+)([A-Z]|(\s+)|[0-9]+)(\s+(\d+,\d+))+/
   @normalized_0_regex ~r/(?<=\s)(\b0\b)((?=\s)|$)/
   @csv_delimiter ";"
   @csv_headers ~w(pescado_codigo minima mais_comum maxima media min_max)
-  @dataframe_columns ~w(pescado_codigo minima mais_comum maxima media)
-  @dataframe_types %{
-    "pescado_codigo" => :string,
-    "minima" => :float,
-    "mais_comum" => :float,
-    "maxima" => :float,
-    "media" => :float
-  }
+
+  @impl true
+  def run(raw) do
+    raw
+    |> parse()
+    |> dump_csv()
+    |> to_csv_rows()
+  end
 
   @impl true
   def parse(raw) do
@@ -78,31 +74,33 @@ defmodule CotacoesETL.Parsers.Pesagro do
   end
 
   @impl true
-  def to_dataframe(raw) do
-    opts = [delimiter: @csv_delimiter, dtypes: @dataframe_types, columns: @dataframe_columns]
-
-    raw
-    |> parse()
-    |> dump_csv()
-    |> Explorer.DataFrame.load_csv(opts)
-    |> case do
-      {:ok, df} ->
-        require Explorer.DataFrame
-
-        {:ok,
-         df
-         |> DataFrame.mutate(minima: cast(multiply(minima, 100), :integer))
-         |> DataFrame.mutate(mais_comum: cast(multiply(mais_comum, 100), :integer))
-         |> DataFrame.mutate(maxima: cast(multiply(maxima, 100), :integer))
-         |> DataFrame.mutate(media: cast(multiply(media, 100), :integer))}
-
-      err ->
-        err
-    end
+  def to_csv_rows(csv_content) do
+    csv_content
+    |> String.split("\n", trim: true)
+    |> Enum.drop(1)
+    |> Enum.map(&parse_pescado_info/1)
   end
 
-  @spec get_pesagro_rows(DataFrame.t()) :: list(map)
-  def get_pesagro_rows(df) do
-    DataFrame.to_rows(df, atom_keys: true)
+  @spec parse_pescado_info(binary) :: map
+  defp parse_pescado_info(pescado_line) do
+    [pescado_codigo, minima, mais_comum, maxima, media, _min_max] =
+      String.split(pescado_line, ";", trim: true)
+
+    %{
+      pescado_codigo: pescado_codigo,
+      minima: float_str_to_integer(minima),
+      mais_comum: float_str_to_integer(mais_comum),
+      maxima: float_str_to_integer(maxima),
+      media: float_str_to_integer(media)
+    }
+  end
+
+  defp float_str_to_integer(str) do
+    str
+    |> maybe_parse_float()
+    |> Kernel.*(100)
+    |> ceil()
+  rescue
+    _ -> 0
   end
 end

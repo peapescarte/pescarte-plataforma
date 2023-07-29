@@ -3,13 +3,5 @@
     Relatório Mensal de Pesquisa de <%= @today.month %> de <%= @today.year %>
   </.text>
 
-  <.form :let={f} for={@form} phx-submit="save">
-    <.report_field :for={{name, id} <- @field_names} label={name} id={id} form={f} />
-
-    <.text size="h3" color="text-blue-100">Recursos</.text>
-
-    <.button style="primary" submit>
-      Salvar
-    </.button>
-  </.form>
+  <.form :let={_f} for={@form} phx-submit="save"></.form>
 </div>

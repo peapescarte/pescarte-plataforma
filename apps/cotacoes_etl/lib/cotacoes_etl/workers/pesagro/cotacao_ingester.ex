@@ -26,11 +26,10 @@ defmodule CotacoesETL.Workers.Pesagro.CotacaoIngester do
   @impl true
   def handle_cast({:ingest, %IngestCotacaoEvent{} = event}, state) do
     file_content = File.read!(event.file_path)
-    {:ok, df} = Parsers.Pesagro.to_dataframe(file_content)
 
     Logger.info("[#{__MODULE__}] ==> Importando cotação #{event.cotacao.link}")
 
-    for row <- Parsers.Pesagro.get_pesagro_rows(df) do
+    for row <- Parsers.Pesagro.run(file_content) do
       with {:ok, fonte} <- FonteHandler.fetch_fonte_pesagro(),
            {:ok, pescado} <- PescadoHandler.fetch_or_insert_pescado(row[:pescado_codigo]) do
         CotacaoPescadoHandler.insert_cotacao_pescado(event.cotacao, pescado, fonte, row)
