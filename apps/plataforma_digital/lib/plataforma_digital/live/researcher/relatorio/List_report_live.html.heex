@@ -18,9 +18,9 @@
     </.button>
   </div>
 
-  <div class="links-item" :if={@current_user == :admin}>
+  <div class="links-item" :if={@current_user.tipo == :admin}>
     <.button class="icon-button" style="primary" submit>
-      <Lucideicons.files class="text-white-100" />
+      <Lucideicons.files class="text-white-100"/>
       <.text size="sm" color="text-white-100">Compilar</.text>
     </.button>
   </div>
