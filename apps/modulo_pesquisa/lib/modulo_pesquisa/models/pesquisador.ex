@@ -85,6 +85,7 @@ defmodule ModuloPesquisa.Models.Pesquisador do
     belongs_to :usuario, Usuario,
       on_replace: :update,
       references: :id_publico,
+      foreign_key: :usuario_id,
       type: :string
 
     belongs_to :campus, Campus,

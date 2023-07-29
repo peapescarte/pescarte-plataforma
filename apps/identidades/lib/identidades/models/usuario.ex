@@ -17,7 +17,7 @@ defmodule Identidades.Models.Usuario do
           sobrenome: binary,
           id_publico: binary,
           ativo?: boolean,
-          # pesquisador: Pesquisador.t(),
+          pesquisador: Pesquisador.t(),
           contato: Contato.t()
         }
 
@@ -43,7 +43,9 @@ defmodule Identidades.Models.Usuario do
     field :sobrenome, :string
     field :ativo?, :boolean, default: false
 
-    # has_one :pesquisador, Pesquisador, references: :id_publico, foreign_key: :usuario_id
+    has_one :pesquisador, Pesquisador,
+      references: :id_publico,
+      foreign_key: :usuario_id
 
     belongs_to :contato, Contato,
       foreign_key: :contato_email,

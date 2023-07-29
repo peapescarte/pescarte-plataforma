@@ -1,4 +1,4 @@
-defmodule PlataformaDigital.Researcher.Relatorio.ListReportLive do
+defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   use PlataformaDigital, :auth_live_view
 
   alias ModuloPesquisa.Repository
