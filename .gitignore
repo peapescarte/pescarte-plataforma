@@ -39,6 +39,7 @@ erl_crash.dump
 /.nix-*/
 /.postgres/
 /.elixir-tools/
+result
 
 # Temporary images
 **/*.tmp.*

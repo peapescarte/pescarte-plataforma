@@ -26,7 +26,7 @@ config :database, Database.Repo.Replica, database_opts
 # Proxy Web #
 # --------- #
 config :proxy_web, ProxyWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

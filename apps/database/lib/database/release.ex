@@ -3,13 +3,16 @@ defmodule Database.Release do
   Used for executing DB release tasks when run in production without Mix
   installed.
   """
-  @apps ~w(database identidades modulo_pesquisa)a
+  @app :database
 
   def migrate do
     load_app()
 
+    migrations = Database.migrations_paths(:release)
+
     for repo <- repos() do
-      {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :up, all: true))
+      {:ok, _, _} =
+        Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, migrations, :up, all: true))
     end
   end
 
@@ -23,8 +26,6 @@ defmodule Database.Release do
   end
 
   defp load_app do
-    for app <- @apps do
-      Application.load(app)
-    end
+    Application.load(@app)
   end
 end

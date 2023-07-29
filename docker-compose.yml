@@ -2,13 +2,8 @@ version: "3.8"
 
 services:
   pescarte:
-    build:
-      context: .
-      target: dev
-      args:
-        - MIX_ENV=dev
-    image: pescarte
-    command: ["iex", "-S",  "mix", "dev"]
+    image: ghcr.io/peapescarte/pescarte-plataforma:dev
+    command: ["mix", "dev"]
     container_name: plataforma_pescarte
     ports:
       - 4000:4000
@@ -17,7 +12,7 @@ services:
     env_file:
       - .env-sample
     volumes:
-      - .:/app
+      - .:/src
     environment:
       MIX_ENV: dev
     stdin_open: true
