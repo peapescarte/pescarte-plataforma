@@ -57,6 +57,7 @@ defmodule ModuloPesquisa.Models.RelatorioTrimestralPesquisa do
     belongs_to :pesquisador, Pesquisador,
       on_replace: :update,
       references: :id_publico,
+      foreign_key: :pesquisador_id,
       type: :string
 
     timestamps()

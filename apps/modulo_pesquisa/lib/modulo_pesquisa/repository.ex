@@ -106,7 +106,7 @@ defmodule ModuloPesquisa.Repository do
   def list_relatorios_pesquisa_from_pesquisador(id) do
     query =
       from p in Pesquisador,
-        join: ra in assoc(p, :relatorio_anual),
+        join: ra in assoc(p, :relatorios_anuais),
         join: rm in assoc(p, :relatorios_mensais),
         join: rt in assoc(p, :relatorios_trimestrais),
         where: p.id_publico == ^id,

@@ -5,14 +5,17 @@ defmodule Mix.Tasks.Seed do
 
   @behaviour Seeder
 
+  # ordem das seeds importa :)
   @impl Mix.Task
   def run(_args) do
     Mix.Task.run("app.start", ["--preload-modules"])
 
+    # identidades
     :ok = endereco_seeds()
     :ok = contato_seeds()
     :ok = usuario_seeds()
 
+    # modulo_pesquisa
     :ok = campus_seeds()
     :ok = pesquisador_seeds()
     :ok = categoria_seeds()
@@ -75,6 +78,9 @@ defmodule Mix.Tasks.Seed do
 
   @impl Seeder
   def relatorio_trimestral_pesquisa_seeds do
-    Seeder.seed(ModuloPesquisa.RelatorioTrimestralPesquisa.entries(), "relatorio_trimestral_pesquisa")
+    Seeder.seed(
+      ModuloPesquisa.RelatorioTrimestralPesquisa.entries(),
+      "relatorio_trimestral_pesquisa"
+    )
   end
 end
