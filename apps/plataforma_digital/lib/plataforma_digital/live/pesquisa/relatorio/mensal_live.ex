@@ -1,4 +1,4 @@
-defmodule PlataformaDigital.Researcher.Relatorio.MensalLive do
+defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive do
   use PlataformaDigital, :auth_live_view
 
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]

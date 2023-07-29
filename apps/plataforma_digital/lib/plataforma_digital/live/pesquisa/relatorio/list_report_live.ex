@@ -1,11 +1,8 @@
-defmodule PlataformaDigital.Researcher.Relatorio.ListReportLive do
+defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   use PlataformaDigital, :auth_live_view
-
-  alias PlataformaDigital.Authentication
 
   @impl true
   def mount(_params, _session, socket) do
-    #  current_user = socket.assigns.current_user
     list = [
       %{
         data: "4/5/2023",
