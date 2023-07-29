@@ -10,12 +10,6 @@
       phx-debounce={300}
     />
   </fieldset>
-  <div class="links-item">
-    <.button class="icon-button" style="primary" submit>
-      <Lucideicons.filter class="text-white-100" />
-      <.text size="sm" color="text-white-100">Filtro</.text>
-    </.button>
-  </div>
 
   <div class="links-item">
     <.button class="icon-button" style="primary" submit>
@@ -24,7 +18,7 @@
     </.button>
   </div>
 
-  <div class="links-item">
+  <div class="links-item" :if={@current_user == :admin}>
     <.button class="icon-button" style="primary" submit>
       <Lucideicons.files class="text-white-100" />
       <.text size="sm" color="text-white-100">Compilar</.text>
@@ -32,14 +26,12 @@
   </div>
 </div>
 
-<div class="flex-center">
   <.table rows={@relatorios}>
-    <:column :let={user} label="  " >  <.checkbox name="check" id="usuario" class="flex-center"/>  </:column>
-    <:column :let={user} label="Data">  <%= user.data %>  </:column>
-    <:column :let={user} label="Tipo" class="linhas">  <%= user.tipo %> </:column>
-    <:column :let={user} label="Mês/Ano">  <%= user.mes <> " / " <> user.ano %>  </:column>
-    <:column :let={user} label="Nome">  <%= user.name %>  </:column>
-    <:column :let={user} label="Status"> <%= user.status %> </:column>
-    <:column :let={user} label="Baixar" >  <Lucideicons.download class="flex-center"/>  </:column>
+    <:column :let={relatorios} label="  " >  <div class="flex-center"><.checkbox name="check" id="usuario"/></div>  </:column>
+    <:column :let={relatorios} label="Data">  <%= relatorios.data %>  </:column>
+    <:column :let={relatorios} label="Tipo" class="linhas">  <%= relatorios.tipo %> </:column>
+    <:column :let={relatorios} label="Mês/Ano">  <%= relatorios.mes <> " / " <> relatorios.ano %>  </:column>
+    <:column :let={relatorios} label="Nome">  <%= relatorios.name %>  </:column>
+    <:column :let={relatorios} label="Status"> <%= relatorios.status %> </:column>
+    <:column :let={relatorios} label="Baixar" >  <div class="flex-center"><Lucideicons.download/></div>  </:column>
   </.table>
-</div>

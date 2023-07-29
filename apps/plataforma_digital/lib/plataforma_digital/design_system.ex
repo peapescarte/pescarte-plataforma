@@ -527,7 +527,7 @@ defmodule PlataformaDigital.DesignSystem do
         <% end %>
       </tr>
       <%= for row <- @rows do %>
-        <tr class="linhas">
+        <tr class="linhas lineHeight-4">
           <%= for col <- @column do %>
             <td><%= render_slot(col, row) %></td>
           <% end %>
