@@ -1,4 +1,5 @@
 defmodule ModuloPesquisa.Handlers.PesquisadorHandler do
+  alias ModuloPesquisa.Adapters.PesquisadorAdapter
   alias ModuloPesquisa.Handlers.IManagePesquisadorHandler
   alias ModuloPesquisa.Repository
 
@@ -6,18 +7,8 @@ defmodule ModuloPesquisa.Handlers.PesquisadorHandler do
 
   @impl true
   def list_pesquisadores do
-    Enum.sort_by(Repository.list_pesquisador(), & &1.usuario.primeiro_nome)
-  end
-
-  @impl true
-  def struct_to_wire_out_listagem(pesquisador) do
-    complete_name = pesquisador.usuario.primeiro_nome <> " " <> pesquisador.usuario.sobrenome
-
-    %{
-      bolsa: pesquisador.bolsa,
-      nome: complete_name,
-      email: pesquisador.usuario.contato.email_principal,
-      cpf: pesquisador.usuario.cpf
-    }
+    Repository.list_pesquisador()
+    |> Enum.sort_by(& &1.usuario.primeiro_nome)
+    |> Enum.map(&PesquisadorAdapter.internal_to_external/1)
   end
 end
