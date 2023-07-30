@@ -18,7 +18,8 @@ defmodule ModuloPesquisa.Models.RelatorioAnualPesquisa do
           ano: integer,
           mes: integer,
           pesquisador: Pesquisador.t(),
-          id_publico: binary
+          id_publico: binary,
+          data_entrega: Date.t()
         }
 
   @status ~w(entregue atrasado pendente)a
@@ -26,6 +27,7 @@ defmodule ModuloPesquisa.Models.RelatorioAnualPesquisa do
   @required_fields ~w(ano mes pesquisador_id)a
 
   @optional_fields ~w(
+    data_entrega
     plano_de_trabalho
     resumo
     introducao
@@ -46,6 +48,7 @@ defmodule ModuloPesquisa.Models.RelatorioAnualPesquisa do
     field :link, :string
     field :id_publico, Database.Types.PublicId, autogenerate: true
     field :status, Ecto.Enum, values: @status, default: :pendente
+    field :data_entrega, :date
 
     field :plano_de_trabalho, :string
     field :resumo, :string
