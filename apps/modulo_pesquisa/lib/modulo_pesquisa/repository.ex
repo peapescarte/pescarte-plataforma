@@ -105,17 +105,30 @@ defmodule ModuloPesquisa.Repository do
   end
 
   @impl true
+  def list_relatorios_pesquisa do
+    anuais = from ra in RelatorioAnualPesquisa, preload: [pesquisador: :usuario]
+    mensais = from rm in RelatorioMensalPesquisa, preload: [pesquisador: :usuario]
+    trimestrais = from rt in RelatorioTrimestralPesquisa, preload: [pesquisador: :usuario]
+
+    Repo.replica().all(anuais) ++
+      Repo.replica().all(mensais) ++
+      Repo.replica().all(trimestrais)
+  end
+
+  @impl true
   def list_relatorios_pesquisa_from_pesquisador(id) do
     query =
       from p in Pesquisador,
-        join: ra in assoc(p, :relatorio_anual),
-        join: rm in assoc(p, :relatorios_mensais),
-        join: rt in assoc(p, :relatorios_trimestrais),
         where: p.id_publico == ^id,
-        select: [ra, rm, rt]
+        preload: [
+          relatorios_anuais: [pesquisador: :usuario],
+          relatorios_mensais: [pesquisador: :usuario],
+          relatorios_trimestrais: [pesquisador: :usuario]
+        ]
 
     query
     |> Repo.replica().all()
+    |> Enum.map(&[&1.relatorios_anuais, &1.relatorios_mensais, &1.relatorios_trimestrais])
     |> List.flatten()
     |> Enum.uniq()
   end
