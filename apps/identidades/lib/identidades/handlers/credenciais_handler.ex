@@ -80,7 +80,10 @@ defmodule Identidades.Handlers.CredenciaisHandler do
   """
   @impl true
   def fetch_usuario_by_session_token(token) do
-    Repository.fetch_usuario_by_token(token, "session", @session_validity_in_days)
+    case Repository.fetch_usuario_by_token(token, "session", @session_validity_in_days) do
+      {:ok, user} -> {:ok, Database.Repo.replica().preload(user, [:pesquisador])}
+      err -> err
+    end
   end
 
   @doc """
