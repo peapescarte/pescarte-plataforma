@@ -8,6 +8,7 @@ defmodule ModuloPesquisa.Repo.Migrations.CriaRelatorioAnualPesquisa do
       add :link, :string
       add :id_publico, :string, null: false
       add :status, :string, null: false
+      add :data_entrega, :date
 
       add :plano_de_trabalho, :text
       add :resumo, :text

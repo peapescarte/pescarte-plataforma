@@ -17,7 +17,8 @@ defmodule ModuloPesquisa.Models.RelatorioTrimestralPesquisa do
           ano: integer,
           mes: integer,
           pesquisador: Pesquisador.t(),
-          id_publico: binary
+          id_publico: binary,
+          data_entrega: Date.t()
         }
 
   @status ~w(entregue atrasado pendente)a
@@ -25,6 +26,7 @@ defmodule ModuloPesquisa.Models.RelatorioTrimestralPesquisa do
   @required_fields ~w(ano mes pesquisador_id)a
 
   @optional_fields ~w(
+    data_entrega
     titulo
     resumo
     introducao
@@ -44,6 +46,7 @@ defmodule ModuloPesquisa.Models.RelatorioTrimestralPesquisa do
     field :link, :string
     field :id_publico, Database.Types.PublicId, autogenerate: true
     field :status, Ecto.Enum, values: @status, default: :pendente
+    field :data_entrega, :date
 
     field :titulo, :string
     field :resumo, :string

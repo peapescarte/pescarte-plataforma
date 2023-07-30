@@ -3,6 +3,7 @@ defmodule Identidades.Handlers.IManageUsuarioHandler do
 
   @typep changeset :: Ecto.Changeset.t()
 
+  @callback build_usuario_name(Usuario.t()) :: String.t()
   @callback create_usuario_admin(map) :: {:ok, Usuario.t()} | {:error, changeset}
   @callback create_usuario_pesquisador(map) :: {:ok, Usuario.t()} | {:error, changeset}
 

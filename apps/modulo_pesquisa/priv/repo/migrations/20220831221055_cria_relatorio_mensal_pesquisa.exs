@@ -16,6 +16,7 @@ defmodule ModuloPesquisa.Repo.Migrations.CreateRelatorioMensalPesquisa do
       add :previsao_participacao_treinamentos, :text
       add :previsao_acoes_pesquisa, :text
 
+      add :data_entrega, :date
       add :ano, :smallint, null: false, primary_key: true
       add :mes, :smallint, null: false, primary_key: true
       add :link, :string
