@@ -6,6 +6,7 @@ defmodule ModuloPesquisa.Schemas.RelatorioPesquisa do
   alias __MODULE__
 
   @type t :: %RelatorioPesquisa{
+          id: String.t(),
           data: Date.t(),
           periodo: String.t(),
           nome_pesquisador: String.t(),
@@ -13,10 +14,12 @@ defmodule ModuloPesquisa.Schemas.RelatorioPesquisa do
           status: atom
         }
 
-  @required_fields ~w(periodo tipo status)a
+  @required_fields ~w(periodo tipo status id)a
   @optional_fields ~w(data nome_pesquisador)a
 
+  @primary_key false
   embedded_schema do
+    field :id, Database.Types.PublicId, autogenerate: false
     field :data, :date
     field :periodo, :string
     field :nome_pesquisador, :string

@@ -20,6 +20,7 @@ defmodule Seeder.ModuloPesquisa.RelatorioTrimestralPesquisa do
         ano: 2023,
         mes: 5,
         status: :entregue,
+        data_entrega: ~D[2023-05-20],
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       },
       %RelatorioTrimestralPesquisa{
@@ -38,6 +39,7 @@ defmodule Seeder.ModuloPesquisa.RelatorioTrimestralPesquisa do
         ano: 2023,
         mes: 7,
         status: :entregue,
+        data_entrega: ~D[2023-07-20],
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       }
     ]

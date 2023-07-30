@@ -16,6 +16,7 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   @spec internal_to_external(relatorio) :: {:ok, RelatorioPesquisa.t()} | {:error, changeset}
   def internal_to_external(%{pesquisador: pesquisador} = relatorio) do
     attrs = %{
+      id: relatorio.id_publico,
       status: relatorio.status,
       data: relatorio.data_entrega,
       tipo: get_relatorio_tipo(relatorio),
