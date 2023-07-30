@@ -6,7 +6,7 @@
   }
 
   &.large {
-    width: 32.5rem;
+    width: 36rem;
   }
 }
 
@@ -54,6 +54,7 @@
 }
 
 .search-input-wrapper .search-menu {
+  @apply bg-white-100;
   @apply border-x-black-10 border-b-black-10 border-2;
 
   border-top: 0;

@@ -3,7 +3,8 @@
     <.search_input
       name="listagem-pesquisador"
       id="listagem-pesquisador"
-      content={["Zoey", "Annabell"]}
+      content={@pesquisadores}
+      patch={~p"/app/pesquisa/pesquisadores"}
     />
 
     <.button :if={@current_user.tipo == :admin} style="primary" click="register">
@@ -11,16 +12,16 @@
     </.button>
   </div>
 
-  <.table rows={@pesquisadores}>
+  <.table rows={@tabela}>
     <:column :let={pesquisador} label="Nome">
-      <%= pesquisador.usuario.primeiro_nome %>
+      <%= pesquisador.nome %>
     </:column>
     <:column :let={pesquisador} label="CPF">
-      <%= pesquisador.usuario.cpf %>
+      <%= pesquisador.cpf %>
     </:column>
     <:column :let={pesquisador} label="E-mail">
-      <DesignSystem.link href={"mailto:" <> pesquisador.usuario.contato.email}>
-        <%= pesquisador.usuario.contato.email %>
+      <DesignSystem.link href={"mailto:" <> pesquisador.email}>
+        <%= pesquisador.email %>
       </DesignSystem.link>
     </:column>
     <:column :let={pesquisador} label="Participação">
