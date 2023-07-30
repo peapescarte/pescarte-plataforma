@@ -556,6 +556,7 @@ defmodule PlataformaDigital.DesignSystem do
   end
 
   attr :rows, :list, default: []
+  attr :"text-color", :string, required: true
 
   def table(assigns) do
     ~H"""
@@ -578,7 +579,7 @@ defmodule PlataformaDigital.DesignSystem do
               <%= for col <- @column do %>
                 <td>
                   <%= if Map.get(col, :type, "text") == "text" do %>
-                    <.text size="md" color="text-blue-100">
+                    <.text size="md" color={Map.get(assigns, :"text-color")}>
                       <%= render_slot(col, row) %>
                     </.text>
                   <% else %>

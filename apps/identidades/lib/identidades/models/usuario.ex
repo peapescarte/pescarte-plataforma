@@ -4,7 +4,7 @@ defmodule Identidades.Models.Usuario do
   import Brcpfcnpj.Changeset, only: [validate_cpf: 3]
 
   alias Identidades.Models.Contato
-  # alias ModuloPesquisa.Models.Pesquisador
+  alias ModuloPesquisa.Models.Pesquisador
 
   @type t :: %Usuario{
           cpf: binary,

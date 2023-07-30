@@ -99,7 +99,9 @@ defmodule ModuloPesquisa.Repository do
 
   @impl true
   def list_pesquisador do
-    Repo.replica().all(Pesquisador)
+    query = from p in Pesquisador, preload: [usuario: [:contato]]
+
+    Repo.replica().all(query)
   end
 
   @impl true
