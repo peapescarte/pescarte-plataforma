@@ -14,4 +14,8 @@
       width: 10rem;
     }
   }
+
+  a {
+    @apply text-black-100;
+  }
 }

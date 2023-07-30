@@ -18,7 +18,6 @@ defmodule PlataformaDigital.DesignSystem.SearchInput do
   attr :field, Phoenix.HTML.FormFieldcontent
   attr :size, :string, values: ~w(base large), default: "base"
   attr :patch, :string, required: true
-  attr :"show-key", :atom, required: true
 
   @impl true
   def render(assigns) do

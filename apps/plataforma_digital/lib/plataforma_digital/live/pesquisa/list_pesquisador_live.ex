@@ -5,15 +5,9 @@ defmodule PlataformaDigital.Pesquisa.ListPesquisadorLive do
 
   alias ModuloPesquisa.Handlers.PesquisadorHandler
 
-  @show_keys ~w(usuario bolsa)a
-
   @impl true
   def mount(_params, _session, socket) do
-    pesquisadores =
-      Enum.map(
-        PesquisadorHandler.list_pesquisadores(),
-        &PesquisadorHandler.struct_to_wire_out_listagem/1
-      )
+    pesquisadores = PesquisadorHandler.list_pesquisadores()
 
     {:ok, assign(socket, pesquisadores: pesquisadores, tabela: pesquisadores)}
   end

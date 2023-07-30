@@ -12,7 +12,7 @@
     </.button>
   </div>
 
-  <.table rows={@tabela}>
+  <.table rows={@tabela} text-color="text-black-100">
     <:column :let={pesquisador} label="Nome">
       <%= pesquisador.nome %>
     </:column>
@@ -25,7 +25,7 @@
       </DesignSystem.link>
     </:column>
     <:column :let={pesquisador} label="Participação">
-      <%= humanize_bolsa(pesquisador.bolsa) %>
+      <%= humanize_bolsa(pesquisador.participacao) %>
     </:column>
   </.table>
 </div>
