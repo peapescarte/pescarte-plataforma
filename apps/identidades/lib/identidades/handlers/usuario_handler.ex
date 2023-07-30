@@ -7,6 +7,15 @@ defmodule Identidades.Handlers.UsuarioHandler do
 
   @behaviour IManageUsuarioHandler
 
+  @impl true
+  def build_usuario_name(usuario) do
+    if usuario.sobrenome do
+      usuario.primeiro_nome <> " " <> usuario.sobrenome
+    else
+      usuario.primeiro_nome
+    end
+  end
+
   @doc """
   Cria um usuário do tipo `:admin`.
   """

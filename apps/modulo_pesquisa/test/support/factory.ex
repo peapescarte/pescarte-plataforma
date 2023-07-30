@@ -80,6 +80,7 @@ defmodule ModuloPesquisa.Factory do
 
   def relatorio_anual_factory do
     %RelatorioAnualPesquisa{
+      data_entrega: ~D[2023-07-30],
       id_publico: Nanoid.generate_non_secure(),
       plano_de_trabalho: "Plano de Trabalho",
       resumo: "Resumo",
@@ -100,6 +101,7 @@ defmodule ModuloPesquisa.Factory do
 
   def relatorio_mensal_factory do
     %RelatorioMensalPesquisa{
+      data_entrega: ~D[2023-07-30],
       id_publico: Nanoid.generate_non_secure(),
       acao_planejamento: "Ação de planejamento",
       participacao_grupos_estudo: "Participação em grupos de estudo",
@@ -120,6 +122,7 @@ defmodule ModuloPesquisa.Factory do
 
   def relatorio_trimestral_factory do
     %RelatorioTrimestralPesquisa{
+      data_entrega: ~D[2023-07-30],
       id_publico: Nanoid.generate_non_secure(),
       titulo: "Titutlo",
       resumo: "Resumo",
