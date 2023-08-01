@@ -1,6 +1,6 @@
 .tabela {
   height: auto;
-  width: 66.5rem;
+  width: 100%; /* para poder aparecer o scroll dentro da tabela, tive que trocar 66.5rem por 100%*/;
   border-collapse: collapse;
   text-align: center;
 
