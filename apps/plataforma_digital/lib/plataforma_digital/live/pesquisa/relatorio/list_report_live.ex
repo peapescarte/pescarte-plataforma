@@ -1,7 +1,7 @@
 defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   use PlataformaDigital, :auth_live_view
 
-#  alias ModuloPesquisa.Repository
+  #  alias ModuloPesquisa.Repository
 
   alias ModuloPesquisa.Handlers.RelatoriosHandler
 
@@ -27,8 +27,9 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
 
   defp send_download_response(socket, file_path) do
     {:ok, file} = File.read(file_path)
+
     socket
-    |>put_flash(:info, "Arquivo baixado com sucesso!!!")
-    |>send(file: file, filename: File.basename(file_path))
+    |> put_flash(:info, "Arquivo baixado com sucesso!!!")
+    |> send(file: file, filename: File.basename(file_path))
   end
 end
