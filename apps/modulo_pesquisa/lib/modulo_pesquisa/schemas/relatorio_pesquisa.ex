@@ -11,7 +11,8 @@ defmodule ModuloPesquisa.Schemas.RelatorioPesquisa do
           periodo: String.t(),
           nome_pesquisador: String.t(),
           tipo: atom,
-          status: atom
+          status: atom,
+          link: binary
         }
 
   @required_fields ~w(periodo tipo status id)a
@@ -25,6 +26,7 @@ defmodule ModuloPesquisa.Schemas.RelatorioPesquisa do
     field :nome_pesquisador, :string
     field :tipo, Ecto.Enum, values: ~w(anual mensal trimestral)a
     field :status, Ecto.Enum, values: ~w(entregue pendente atrasado)a
+    field :link, :string
   end
 
   @spec parse!(map) :: RelatorioPesquisa.t()

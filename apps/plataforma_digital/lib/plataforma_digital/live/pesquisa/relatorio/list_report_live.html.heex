@@ -1,5 +1,9 @@
-<div class="search">
-  <.search_input name="busca-relatorio" id="busca-relatorio" />
+<div class="listagem-relatorios">
+  <div class="search">
+  <.search_input click="search"
+      name="busca-relatorio"
+      id="busca-relatorio"
+  />
 
   <div class="links-item">
     <.button class="icon-button" style="primary" submit>
@@ -14,21 +18,23 @@
       <.text size="sm" color="text-white-100">Compilar</.text>
     </.button>
   </div>
-</div>
+  </div>
 
 <.table rows={@relatorios}>
   <:column :let={relatorios} label="  ">
     <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
   </:column>
+  <:column :let={relatorios} label="Data" class="linhas"><%= relatorios.data %></:column>
   <:column :let={relatorios} label="Tipo" class="linhas"><%= relatorios.tipo %></:column>
   <:column :let={relatorios} label="Mês/Ano">
-    <%= relatorios.mes <> " / " <> relatorios.ano %>
+    <%= relatorios.periodo %>
   </:column>
   <:column :let={relatorios} :if={@current_user.tipo == :admin} label="Nome">
-    <%= @current_user.primeiro_nome <> " " <> @current_user.sobrenome %>
+    <%= relatorios.nome_pesquisador %>
   </:column>
   <:column :let={relatorios} label="Status"><%= relatorios.status %></:column>
   <:column :let={relatorios} label="Baixar">
-    <div class="flex-center"><Lucideicons.download /></div>
+      <div class="flex-center"><Lucideicons.download phx-click="download_file"/></div>
   </:column>
 </.table>
+</div>

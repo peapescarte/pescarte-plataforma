@@ -23,18 +23,21 @@ defmodule Seeder.ModuloPesquisa.RelatorioMensalPesquisa do
         mes: 5,
         status: :entregue,
         data_entrega: ~D[2023-05-30],
+        link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       },
       %RelatorioMensalPesquisa{
         ano: 2023,
         mes: 6,
         status: :entregue,
+        link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       },
       %RelatorioMensalPesquisa{
         ano: 2023,
         mes: 12,
         status: :atrasado,
+        link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       },
       %RelatorioMensalPesquisa{

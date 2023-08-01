@@ -19,6 +19,7 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
       id: relatorio.id_publico,
       status: relatorio.status,
       data: relatorio.data_entrega,
+      link: relatorio.link,
       tipo: get_relatorio_tipo(relatorio),
       periodo: get_relatorio_periodo!(relatorio),
       nome_pesquisador: UsuarioHandler.build_usuario_name(pesquisador.usuario)
