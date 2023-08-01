@@ -30,8 +30,8 @@
       <%= relatorios.nome_pesquisador %>
     </:column>
     <:column :let={relatorios} label="Status"><%= relatorios.status %></:column>
-    <:column :let={relatorios} label="Baixar" phx-click="download_file" >
-      <div class="flex-center"><Lucideicons.download/></div>
+    <:column :let={relatorios} label="Baixar" phx-click="download_file">
+      <div class="flex-center"><Lucideicons.download /></div>
     </:column>
   </.table>
 </div>
