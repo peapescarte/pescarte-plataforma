@@ -10,6 +10,8 @@ defmodule PlataformaDigital.DesignSystem do
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
+  alias PlataformaDigital.DesignSystem.SearchInput
+
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
 
   @doc """
@@ -73,7 +75,7 @@ defmodule PlataformaDigital.DesignSystem do
     do: get_text_style("text-lg leading-6 font-regular" <> " " <> color, custom_class)
 
   defp get_text_style("md", color, custom_class),
-    do: get_text_style("text-md leading-5 font-regular" <> " " <> color, custom_class)
+    do: get_text_style("text-base leading-5 font-regular" <> " " <> color, custom_class)
 
   defp get_text_style("sm", color, custom_class),
     do: get_text_style("text-xs leading-4 font-regular" <> " " <> color, custom_class)
@@ -110,13 +112,10 @@ defmodule PlataformaDigital.DesignSystem do
       <.button style="secondary"> Secundário </.button>
 
       <.button style="primary" submit> Submissão </.button>
-
-      <.button style="primary" icon={:log_in}> Primário com ícone </.button>
   """
 
   attr :style, :string, values: ~w(primary secondary link), required: true
   attr :submit, :boolean, default: false
-  attr :icon, :atom, required: false, default: nil
   attr :class, :string, default: ""
   attr :click, :string, default: "", doc: ~s(the click event to handle)
   attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
@@ -131,8 +130,6 @@ defmodule PlataformaDigital.DesignSystem do
       phx-click={@click}
       {@rest}
     >
-      <.icon :if={@icon} name={@icon} />
-
       <.text :if={@style == "primary"} size="base" color="text-white-100">
         <%= render_slot(@inner_block) %>
       </.text>
@@ -179,7 +176,7 @@ defmodule PlataformaDigital.DesignSystem do
   attr :id, :string, required: false
   attr :checked, :boolean, default: false
   attr :disabled, :boolean, default: false
-  attr :label, :string, required: true
+  attr :label, :string, required: false, default: ""
   attr :field, Phoenix.HTML.FormField
   attr :name, :string
 
@@ -195,6 +192,54 @@ defmodule PlataformaDigital.DesignSystem do
       <input id={@name} name={@name} type="checkbox" checked={@checked} disabled={@disabled} />
       <label for={@name}>
         <.text size="base"><%= @label %></.text>
+      </label>
+    </div>
+    """
+  end
+
+  @doc """
+  Componente de radio, usado para representar valores que podem
+  ter um valor ambíguo.
+
+  O mesmo obrigatoriamente recebe o atributos `label`, que representa a etiqueta,
+  o texto nome do campo em questão que é um radio.
+
+  Também é possível controlar dinamicamente se o componente será desabilitado
+  ou se o valor do radio será "assinado" com atributos `disabled` e
+  `checked` respectivamente.
+
+  ## Exemplo
+
+      <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
+  """
+
+  attr :id, :string, required: true
+  attr :name, :string
+  attr :disabled, :boolean, default: false
+  attr :checked, :boolean, default: false
+  attr :field, Phoenix.HTML.FormField
+
+  slot :label, required: true
+
+  def radio(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> radio()
+  end
+
+  def radio(assigns) do
+    ~H"""
+    <div class="radio-container">
+      <input
+        id={@id}
+        name={@name}
+        type="radio"
+        disabled={@disabled}
+        checked={@checked}
+        class="radio-input"
+      />
+      <label for={@id} class="radio-label">
+        <.text size="base"><%= render_slot(@label) %></.text>
       </label>
     </div>
     """
@@ -289,7 +334,7 @@ defmodule PlataformaDigital.DesignSystem do
   def text_area(assigns) do
     ~H"""
     <fieldset class={@class}>
-      <p><%= render_slot(@label) %></p>
+      <.text size="base"><%= render_slot(@label) %></.text>
       <div class="textarea-grow-wrapper">
         <textarea
           id={@id}
@@ -301,6 +346,48 @@ defmodule PlataformaDigital.DesignSystem do
         </textarea>
       </div>
     </fieldset>
+    """
+  end
+
+  @doc """
+  Um componente de pesquisa. Esta função apenas renderiza um componente
+  com estado, definido em `PlataformaDigital.DesignSystem.SearchInput`.
+
+  Além dos atributos obrigatórios: `:id` e `:name`, também recebe as seguintes
+  propriedades:
+
+  - `:content`: controla o conteúdo, a lista de itens onde será aplicada a busca;
+  - `:placeholder`: controla a mensagem temporária, antes da pessoa usuária digitiar;
+  - `:field`: Recebe um campos de um formuário phoenix, dessa forma é possível submetê-lo;
+  - `:size`: controla o tamnho do componente, possui apenas duas variações:
+    - `base`: tamanho padrão
+    - `large`: tamanho grande
+
+  ## Exemplo
+
+      <.search_input id="teste" name="busca_cep" content=["cep1", "cep2"] />
+
+      <.search_input id="teste" name="busca_cep" content=["cep1", "cep2"] size="large" />
+  """
+
+  attr :id, :string, required: true
+  attr :name, :string, required: true
+  attr :content, :list, default: []
+  attr :placeholder, :string, default: "Faça uma pesquisa..."
+  attr :field, Phoenix.HTML.FormFieldcontent
+  attr :size, :string, values: ~w(base large), default: "base"
+
+  def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> search_input()
+  end
+
+  def search_input(assigns) do
+    assigns = assign(assigns, assigns: assigns)
+
+    ~H"""
+    <.live_component module={SearchInput} {@assigns} />
     """
   end
 
@@ -341,6 +428,10 @@ defmodule PlataformaDigital.DesignSystem do
           </li>
           <li class="nav-item">
             <.text size="h4" color="text-blue-100">Pesca</.text>
+            <Lucideicons.chevron_down class="text-blue-100" />
+          </li>
+          <li class="nav-item">
+            <.text size="h4" color="text-blue-100">Quem Somos</.text>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
         </ul>
@@ -455,8 +546,54 @@ defmodule PlataformaDigital.DesignSystem do
     """
   end
 
-  defp icon(assigns) do
-    assigns = Map.put(assigns, :size, 24)
-    apply(Lucideicons, assigns.name, [assigns])
+  @doc """
+  Renderiza uma tabela com diferentes colunas - versão 4/6/2023:
+
+  """
+  slot :column, doc: "Columns with column labels" do
+    attr :label, :string, doc: "Column label"
+    attr :type, :string, values: ~w(text slot)
+  end
+
+  attr :rows, :list, default: []
+  attr :"text-color", :string, required: true
+
+  def table(assigns) do
+    ~H"""
+    <div style="overflow-x: auto">
+      <table class="tabela">
+        <thead>
+          <tr class="header-primary">
+            <%= for col <- @column do %>
+              <th>
+                <.text size="lg" color="text-white-100">
+                  <%= Map.get(col, :label, "") %>
+                </.text>
+              </th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for row <- @rows do %>
+            <tr class="linhas">
+              <%= for col <- @column do %>
+                <td>
+                  <%= if Map.get(col, :type, "text") == "text" do %>
+                    <.text size="md" color={Map.get(assigns, :"text-color")}>
+                      <%= render_slot(col, row) %>
+                    </.text>
+                  <% else %>
+                    <span :if={col.type == "slot"}>
+                      <%= render_slot(col, row) %>
+                    </span>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    """
   end
 end

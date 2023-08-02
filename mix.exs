@@ -4,21 +4,25 @@ defmodule Pescarte.MixProject do
   def project do
     [
       apps_path: "apps",
+      name: :pescarte,
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
       releases: [
         pescarte: [
+          strip_beams: true,
+          cookie: Base.url_encode64(:crypto.strong_rand_bytes(40)),
+          validate_compile_env: true,
+          quiet: true,
+          include_erts: true,
+          include_executables_for: [:unix],
           applications: [
-            database: :permanent,
-            cotacoes: :permanent,
-            cotacoes_etl: :permanent,
             proxy_web: :permanent,
-            identidades: :permanent,
             modulo_pesquisa: :permanent,
-            plataforma_digital: :permanent,
-            plataforma_digital_api: :permanent
+            identidades: :permanent,
+            cotacoes: :permanent,
+            seeder: :load
           ]
         ]
       ]
@@ -28,19 +32,18 @@ defmodule Pescarte.MixProject do
   defp deps do
     [
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
+      {:git_hooks, "~> 0.4.0", only: [:test, :dev], runtime: false}
     ]
   end
 
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate #{migrations_paths()}"],
-      test: [
-        "ecto.create --quiet",
-        "ecto.migrate --quiet #{migrations_paths()}",
-        "test"
-      ],
+      dev: ["setup", "phx.server"],
+      setup: ["deps.get", "ecto.setup", "seed"],
+      "ecto.setup": ["ecto.create", "database.migrate"],
+      test: ["ecto.create --quiet", "database.migrate --quiet", "test"],
       "assets.build": [
         "esbuild default",
         "sass default",
@@ -55,18 +58,5 @@ defmodule Pescarte.MixProject do
         "phx.digest"
       ]
     ]
-  end
-
-  defp migrations_paths do
-    paths = [
-      "apps/identidades/priv/repo/migrations",
-      "apps/modulo_pesquisa/priv/repo/migrations",
-      "apps/catalogo/priv/repo/migrations",
-      "apps/cotacoes/priv/repo/migrations"
-    ]
-
-    for path <- paths, reduce: "" do
-      acc -> "--migrations-path #{path}" <> " " <> acc
-    end
   end
 end

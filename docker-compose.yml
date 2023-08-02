@@ -2,19 +2,21 @@ version: "3.8"
 
 services:
   pescarte:
-    build:
-      context: .
-      target: builder
-    image: pescarte
-    command: [ "mix", "phx.server" ]
+    image: ghcr.io/peapescarte/pescarte-plataforma:dev
+    command: ["mix", "dev"]
     container_name: plataforma_pescarte
     ports:
       - 4000:4000
-      - 4001:4001
     depends_on:
       - database
     env_file:
       - .env-sample
+    volumes:
+      - .:/src
+    environment:
+      MIX_ENV: dev
+    stdin_open: true
+    tty: true
 
   database:
     image: postgres:14.6
@@ -27,7 +29,7 @@ services:
     volumes:
       - .postgres:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U peapescarte" ]
+      test: [ "CMD-SHELL", "pg_isready -U peapescarte -d peapescarte" ]
       interval: 5s
       timeout: 2s
       retries: 1

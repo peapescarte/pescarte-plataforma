@@ -1,0 +1,46 @@
+.tabela {
+  height: auto;
+  width: 66.5rem;
+  border-collapse: collapse;
+  text-align: center;
+
+  tbody {
+    @apply border-blue-40;
+
+    border-width: 1px;
+
+    tr, td {
+      border: inherit;
+    }
+  }
+}
+
+.header-primary {
+  @apply bg-blue-100;
+  @apply text-white-100;
+  @apply border-blue-100;
+
+  border-width: 1px;
+
+  th:nth-child(1) {
+    border-left: 0;
+  }
+
+  th:nth-last-child(1) {
+    border-right: 0;
+  }
+
+  th {
+    @apply text-white-100 bg-blue-100;
+    @apply border-blue-40 border-2;
+
+    border-top: 0;
+    border-bottom: 0;
+    border-radius: 0.25rem;
+    height: 3.4rem;
+  }
+}
+
+.linhas {
+  height: 3.25rem;
+}

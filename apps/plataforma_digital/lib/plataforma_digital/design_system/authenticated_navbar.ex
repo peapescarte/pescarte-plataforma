@@ -2,6 +2,7 @@ defmodule PlataformaDigital.DesignSystem.AuthenticatedNavbar do
   use PlataformaDigital, :live_component
 
   alias Identidades.Models.Usuario
+  alias PlataformaDigital.DesignSystem
 
   attr :user, Usuario, required: true
   attr :open, :boolean, default: nil
@@ -25,16 +26,20 @@ defmodule PlataformaDigital.DesignSystem.AuthenticatedNavbar do
             <.text :if={@open} size="base" color="text-black-60">Home</.text>
           </li>
           <li class="nav-item">
-            <Lucideicons.users />
-            <.text :if={@open} size="base" color="text-black-60">
-              Pesquisadores
-            </.text>
+            <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores"}>
+              <Lucideicons.users />
+              <.text :if={@open} size="base" color="text-black-60">
+                Pesquisadores
+              </.text>
+            </DesignSystem.link>
           </li>
           <li class="nav-item">
-            <Lucideicons.file_text />
-            <.text :if={@open} size="base" color="text-black-60">
-              Relatórios
-            </.text>
+            <DesignSystem.link navigate={~p"/app/pesquisa/relatorios"}>
+              <Lucideicons.file_text />
+              <.text :if={@open} size="base" color="text-black-60">
+                Relatórios
+              </.text>
+            </DesignSystem.link>
           </li>
           <li class="nav-item">
             <Lucideicons.calendar_days />

@@ -4,11 +4,139 @@
 @import "tailwindcss/utilities";
 
 /*
- * Put your component styling within the Tailwind utilities layer. 
+ * Put your component styling within the Tailwind utilities layer.
  * See the https://hexdocs.pm/phoenix_storybook/sandboxing.html guide for more info.
  */
 @layer utilities {
   * {
     font-family: ui-sans-serif, system-ui;
   }
+}
+/* ============ scss dos botões com icones ============ */
+.search {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px 16px 24px;
+  margin-right: 10px;
+  border-radius: 4px;
+  gap: 8px;
+}
+.links{
+  @apply relative w-full;
+  @apply flex justify-between;
+  padding: 3rem 10rem;
+
+  .links-item{
+  @apply flex flex-col justify-end;
+  height: 15rem;
+  width: 14rem;
+
+  button {
+  width: 10rem;
+  margin-top: 1rem;
+  }
+  }
+}
+/* ===================== desenha os botoes */
+.icon-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn {
+  @apply py-6 px-4;
+  @apply bg-blue-100;
+  @apply text-red-100;
+
+  height: 3rem;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* =========== scss do input com ícone =======*/
+.search-input {
+  @apply flex ;  /*text-black-80 justify-center items-center border-black-10*/
+  @apply border-2;
+
+  width: 33.75rem;
+  height: 3rem;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 5px;    /* equivale a 0.313 rem */
+  position: relative;
+  text-align: left;
+  color: #E7E7E7;
+  gap: 12px;  /* define a separação entre o icnome e a pesquisa */
+
+  &.typing {
+    @apply border-b-2;
+  }
+
+  &.empty {
+    @apply border-2;
+  }
+
+  .search-icon {
+    @apply flex items-center;  /* text-black-80 */
+
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #E7E7E7;
+  }
+  input {
+    padding-left: 12px;
+    border: none;
+  }
+}
+.tabela {
+  @apply border-black-10;
+
+  padding: 40px;
+  border-collapse: collapse;
+  width: 76.25rem;   /* equivale a 1220 px FIGMA */
+  border-radius: 0.313rem;
+  /*  border: 1px solid #99C1E9;  */
+  border-right-width: 1px;
+}
+  .header-primary {
+    @apply bg-blue-100 text-white-100; /* border-black-10 @apply justify-center items-center;*/
+
+    border-radius: 4px 4px 0px 0px;
+    text-align: left;
+    border: 1px solid #99C1E9;
+    height: 55px;
+  }
+  .linhas{
+  /* @apply border-black-10; border: 1px solid #99C1E9;  @apply text-blue-100;*/
+
+    border: 1px solid #99C1E9;
+    border-radius: 4px;
+    color:  #0064C8;
+    -webkit-text-fill-color: #99C1E9;
+    height: 52px;
+    padding: 12px;
+  }
+
+
+.tabela tr th{                    /* isto define os textos e borda do cabeçalho da tabela */
+  @apply text-white-100 bg-blue-100;
+  border: 1px solid #99C1E9;
+  border-radius: 4px;
+  text-align: center;
+}
+.tabela tr td{
+  @apply justify-center items-center;
+  text-align: center;
+}
+
+table, th,td {
+  border: 1px solid black; /* faz a borda nas colunas - ok  12/7/2023  #99C1E9, Zoey diz que deve ser black  */
+  color:#99C1E9;
+  @apply justify-center items-center;
+  text-align: center;
 }

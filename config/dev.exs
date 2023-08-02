@@ -3,14 +3,16 @@ import Config
 # -------- #
 # Database #
 # -------- #
-database = "peapescarte_dev"
-db_user = System.get_env("DATABASE_USER", "pescarte")
-db_pass = System.get_env("DATABASE_PASSWORD", "pescarte")
+database = System.get_env("PG_DATABASE", "peapescarte")
+db_user = System.get_env("DATABASE_USER", "peapescarte")
+db_pass = System.get_env("DATABASE_PASSWORD", "peapescarte")
+# docker-compose service
+hostname = System.get_env("DATABASE_HOST", "localhost")
 
 database_opts = [
   username: db_user,
   password: db_pass,
-  hostname: "localhost",
+  hostname: hostname,
   database: database,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
@@ -24,7 +26,7 @@ config :database, Database.Repo.Replica, database_opts
 # Proxy Web #
 # --------- #
 config :proxy_web, ProxyWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

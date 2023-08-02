@@ -4,7 +4,18 @@ defmodule Cotacoes.Handlers.CotacaoHandler do
   @behaviour Cotacoes.Handlers.IManageCotacaoHandler
 
   @impl true
+  def is_zip_file?(cotacao) do
+    cotacao.tipo == :zip or String.ends_with?(cotacao.link, "zip")
+  end
+
+  @impl true
   defdelegate list_cotacao, to: Repository
+
+  @impl true
+  defdelegate fetch_cotacao_by_link(link), to: Repository
+
+  @impl true
+  defdelegate fetch_cotacao_by_id(id), to: Repository
 
   @impl true
   def find_cotacoes_not_ingested do
@@ -24,20 +35,23 @@ defmodule Cotacoes.Handlers.CotacaoHandler do
   end
 
   @impl true
-  def ingest_cotacoes(cotacoes) do
-    {:ok, _} = Repository.update_all_cotacao(cotacoes, importada?: true)
-    :ok
-  end
+  def insert_cotacao_pesagro(link, today) do
+    tipo =
+      case Enum.reverse(String.split(link, ".")) do
+        ["zip" | _] -> :zip
+        ["pdf" | _] -> :pdf
+      end
 
-  @impl true
-  def insert_cotacoes!(cotacoes) do
-    Repository.insert_all_cotacao(cotacoes)
-  end
+    attrs = %{
+      fonte: "pesagro",
+      link: link,
+      data: today,
+      importada?: false,
+      baixada?: false,
+      tipo: tipo
+    }
 
-  @impl true
-  def reject_inserted_cotacoes(cotacoes) do
-    current = Enum.map(Repository.list_cotacao(), & &1.link)
-    Enum.reject(cotacoes, &(&1.link in current))
+    Repository.insert_cotacao(attrs)
   end
 
   @impl true

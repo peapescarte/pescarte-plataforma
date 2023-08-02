@@ -26,7 +26,7 @@ defmodule ModuloPesquisa.Models.Pesquisador do
           orientandos: list(Pesquisador.t()),
           orientador: Pesquisador.t() | nil,
           midias: list(Midia.t()),
-          relatorio_anual: RelatorioAnualPesquisa.t(),
+          relatorios_anuais: list(RelatorioAnualPesquisa.t()),
           relatorios_mensais: list(RelatorioMensalPesquisa.t()),
           relatorios_trimestrais: list(RelatorioTrimestralPesquisa.t()),
           campus: Campus.t(),
@@ -63,7 +63,7 @@ defmodule ModuloPesquisa.Models.Pesquisador do
       foreign_key: :responsavel_lp_id,
       references: :id_publico
 
-    has_one :relatorio_anual, RelatorioAnualPesquisa,
+    has_many :relatorios_anuais, RelatorioAnualPesquisa,
       references: :id_publico,
       foreign_key: :pesquisador_id
 
@@ -85,6 +85,7 @@ defmodule ModuloPesquisa.Models.Pesquisador do
     belongs_to :usuario, Usuario,
       on_replace: :update,
       references: :id_publico,
+      foreign_key: :usuario_id,
       type: :string
 
     belongs_to :campus, Campus,

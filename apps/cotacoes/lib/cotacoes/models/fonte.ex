@@ -18,5 +18,6 @@ defmodule Cotacoes.Models.Fonte do
     fonte
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:nome, name: :fonte_cotacao_pkey)
   end
 end
