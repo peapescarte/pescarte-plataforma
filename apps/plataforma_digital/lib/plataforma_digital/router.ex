@@ -40,10 +40,11 @@ defmodule PlataformaDigital.Router do
     live_session :require_authenticated_user,
       on_mount: [{PlataformaDigital.Authentication, :ensure_authenticated}] do
       live "/perfil", Pesquisa.ProfileLive
+      live "/pesquisadores", Pesquisa.ListPesquisadorLive
 
       scope "/relatorios" do
+        live "/", Pesquisa.Relatorio.ListReportLive
         live "/mensal", Pesquisa.Relatorio.MensalLive
-        live "/listagem", Pesquisa.Relatorio.ListReportLive
       end
     end
   end
