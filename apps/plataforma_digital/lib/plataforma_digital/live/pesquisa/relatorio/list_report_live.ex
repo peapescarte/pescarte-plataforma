@@ -16,6 +16,53 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
         RelatoriosHandler.list_relatorios_from_pesquisador(current_user.pesquisador.id_publico)
       end
 
-    {:ok, assign(socket, relatorios: list)}
+    {:ok, assign(socket, relatorios: list, tabela: list)}
+  end
+
+  def handle_params(%{"search" => "true"} = search, _uri, socket) do
+    tabela =
+        case search do
+          %{"data" => data} -> filter_by("data", socket.assigns.relatorios, data)
+          %{"tipo" => tipo} -> filter_by("tipo", socket.assigns.relatorios, tipo)
+          %{"periodo" => periodo} -> filter_by("periodo", socket.assigns.relatorios, periodo)
+          %{"nome_pesquisador" => nome_pesquisador} -> filter_by("nome_pesquisador", socket.assigns.relatorios, nome_pesquisador)
+          %{"status" => status} -> filter_by("status", socket.assigns.relatorios, status)
+        end
+
+    {:noreply, assign(socket, tabela: tabela)}
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
+  defp filter_by("data", relatorios, data) do
+      Enum.filter(relatorios, fn relatorio ->
+        to_string(relatorio.data) == data
+      end)
+  end
+
+  defp filter_by("tipo", relatorios, tipo) do
+      Enum.filter(relatorios, fn relatorio ->
+        to_string(relatorio.tipo) == tipo
+      end)
+  end
+
+  defp filter_by("periodo", relatorios, periodo) do
+    Enum.filter(relatorios, fn relatorio ->
+      to_string(relatorio.periodo) == periodo
+    end)
+  end
+
+  defp filter_by("nome_pesquisador", relatorios, nome_pesquisador) do
+    Enum.filter(relatorios, fn relatorio ->
+      to_string(relatorio.nome_pesquisador) == nome_pesquisador
+    end)
+  end
+
+  defp filter_by("status", relatorios, status) do
+    Enum.filter(relatorios, fn relatorio ->
+      to_string(relatorio.status) == status
+    end)
   end
 end

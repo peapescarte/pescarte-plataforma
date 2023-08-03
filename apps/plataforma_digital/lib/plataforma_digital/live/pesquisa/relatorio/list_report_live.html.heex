@@ -1,6 +1,9 @@
 <div class="listagem-relatorios">
   <div class="search">
-    <.search_input phx-click="search" name="busca-relatorio" id="busca-relatorio" />
+    <.search_input name="search_input" id="search_input"
+      content={@relatorios}
+      patch={~p"/app/pesquisa/relatorios/listagem"}
+    />
 
     <div class="links-item">
       <.button class="icon-button" style="primary" submit>

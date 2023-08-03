@@ -20,16 +20,17 @@ defmodule Seeder.ModuloPesquisa.RelatorioMensalPesquisa do
     [
       %RelatorioMensalPesquisa{
         ano: 2023,
-        mes: 5,
+        mes: 1,
         status: :entregue,
-        data_entrega: ~D[2023-05-30],
+        data_entrega: ~D[2023-01-13],
         link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       },
       %RelatorioMensalPesquisa{
         ano: 2023,
-        mes: 6,
+        mes: 2,
         status: :entregue,
+        data_entrega: ~D[2023-02-15],
         link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       },
@@ -37,13 +38,16 @@ defmodule Seeder.ModuloPesquisa.RelatorioMensalPesquisa do
         ano: 2023,
         mes: 12,
         status: :atrasado,
+        data_entrega: ~D[2023-12-23],
         link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       },
       %RelatorioMensalPesquisa{
         ano: 2023,
-        mes: 7,
+        mes: 9,
         status: :entregue,
+        data_entrega: ~D[2023-09-13],
+        link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
         data_entrega: ~D[2023-07-30],
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       }
