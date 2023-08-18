@@ -3,11 +3,7 @@
     Relatório Mensal de Pesquisa de <%= @today.month %> de <%= @today.year %>
   </.text>
 
-  <.form
-    for={@form}
-    phx-change="change"
-    phx-submit="save"
-  >
+  <.form for={@form} phx-change="change" phx-submit="save">
     <.report_field :for={{label, name} <- @field_names} field={@form[name]} label={label} />
 
     <div class="buttons-wrapper">
