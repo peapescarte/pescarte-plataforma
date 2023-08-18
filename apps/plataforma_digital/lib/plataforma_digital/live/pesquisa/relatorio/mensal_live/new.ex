@@ -68,7 +68,6 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
          |> redirect(to: ~p"/app/pesquisa/relatorios/mensal/#{relatorio_mensal.id_publico}")}
 
       {:error, changeset} ->
-        IO.inspect(changeset)
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
@@ -81,7 +80,6 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
   end
 
   defp merge_params(params, socket) do
-    IO.inspect(socket)
     id_publico = socket.assigns.current_user.pesquisador.id_publico
     %_{month: month, year: year} = Date.utc_today()
 
