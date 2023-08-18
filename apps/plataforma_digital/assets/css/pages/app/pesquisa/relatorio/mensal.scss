@@ -18,7 +18,15 @@
     }
 
     textarea {
+      @apply w-full;
       min-height: 12rem;
     }
+  }
+
+  .buttons-wrapper {
+    @apply flex justify-center;
+
+    gap: 2.5rem;
+    margin: 7.5rem 0 7.5rem 0;
   }
 }

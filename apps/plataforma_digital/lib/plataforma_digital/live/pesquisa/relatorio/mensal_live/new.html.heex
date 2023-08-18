@@ -1,0 +1,18 @@
+<div class="monthly-report-wrapper">
+  <.text size="h1" color="text-blue-100">
+    Relatório Mensal de Pesquisa de <%= @today.month %> de <%= @today.year %>
+  </.text>
+
+  <.form :let={f} for={@form} phx-submit="save">
+    <.report_field :for={{label, name} <- @field_names} field={f[name]} label={label} />
+
+    <div class="buttons-wrapper">
+      <.button style="primary" submit>
+        <Lucideicons.save /> Salvar respostas
+      </.button>
+      <.button style="primary" submit>
+        <Lucideicons.send /> Enviar relatório
+      </.button>
+    </div>
+  </.form>
+</div>
