@@ -18,8 +18,7 @@ defmodule ModuloPesquisa.Models.RelatorioMensalPesquisa do
           ano: integer,
           mes: integer,
           pesquisador: Pesquisador.t(),
-          id_publico: binary,
-          data_entrega: Date.t()
+          id_publico: binary
         }
 
   @status ~w(entregue atrasado pendente)a
@@ -27,7 +26,6 @@ defmodule ModuloPesquisa.Models.RelatorioMensalPesquisa do
   @required_fields ~w(ano mes pesquisador_id)a
 
   @optional_fields ~w(
-    data_entrega
     acao_planejamento
     participacao_grupos_estudo
     acoes_pesquisa
@@ -56,7 +54,6 @@ defmodule ModuloPesquisa.Models.RelatorioMensalPesquisa do
     field :previsao_participacao_treinamentos, :string
     field :previsao_acoes_pesquisa, :string
 
-    field :data_entrega, :date
     field :status, Ecto.Enum, values: @status, default: :pendente
     field :ano, :integer, primary_key: true
     field :mes, :integer, primary_key: true

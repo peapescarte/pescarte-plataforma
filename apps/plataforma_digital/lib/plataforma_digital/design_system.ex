@@ -317,11 +317,12 @@ defmodule PlataformaDigital.DesignSystem do
   defp text_input_state(true), do: "input-success"
 
   attr :id, :string, default: nil
-  attr :placeholder, :string, required: false, default: ""
+  attr :name, :string, default: ""
   attr :value, :string, default: ""
   attr :valid, :boolean, required: false, default: nil
   attr :field, Phoenix.HTML.FormField
   attr :class, :string, default: ""
+  attr :placeholder, :string, required: false, default: ""
 
   slot :label, required: false
 
@@ -338,6 +339,7 @@ defmodule PlataformaDigital.DesignSystem do
       <div class="textarea-grow-wrapper">
         <textarea
           id={@id}
+          name={@name}
           placeholder={@placeholder}
           class="textarea"
           onInput="this.parentNode.dataset.replicatedValue = this.value"

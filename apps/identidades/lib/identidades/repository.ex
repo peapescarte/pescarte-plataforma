@@ -25,7 +25,10 @@ defmodule Identidades.Repository do
   @impl true
   def fetch_usuario_by_token(token, "session", validity_days) do
     query = session_token_query(token, validity_days)
-    Database.fetch_one(query)
+
+    with {:ok, user} <- Database.fetch_one(query) do
+      {:ok, Database.Repo.replica().preload(user, [:pesquisador])}
+    end
   end
 
   def fetch_usuario_by_token(token, context, validity_days)

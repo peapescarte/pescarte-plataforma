@@ -101,7 +101,6 @@ defmodule ModuloPesquisa.Factory do
 
   def relatorio_mensal_factory do
     %RelatorioMensalPesquisa{
-      data_entrega: ~D[2023-07-30],
       id_publico: Nanoid.generate_non_secure(),
       acao_planejamento: "Ação de planejamento",
       participacao_grupos_estudo: "Participação em grupos de estudo",

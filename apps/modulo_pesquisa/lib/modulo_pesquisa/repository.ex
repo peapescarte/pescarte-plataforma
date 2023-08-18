@@ -134,6 +134,11 @@ defmodule ModuloPesquisa.Repository do
   end
 
   @impl true
+  def fetch_relatorio_pesquisa_mensal_by_id(id_publico) do
+    Repo.replica().get_by(RelatorioMensalPesquisa, id_publico: id_publico)
+  end
+
+  @impl true
   def list_tag do
     Repo.replica().all(Tag)
   end
