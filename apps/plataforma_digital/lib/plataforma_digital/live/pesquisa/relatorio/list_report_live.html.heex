@@ -1,31 +1,32 @@
 <div class="listagem-relatorios">
-  <div class="search">
-    <.search_input name="search_input" id="search_input"
+  <div class="listagem-actions">
+    <.search_input
+      name="busca-relatorio"
+      id="busca-relatorio"
       content={@relatorios}
-      patch={~p"/app/pesquisa/relatorios/listagem"}
+      patch={~p"/app/pesquisa/relatorios"}
     />
 
-    <div class="links-item">
-      <.button class="icon-button" style="primary" submit>
-        <Lucideicons.book class="text-white-100" />
-        <.text size="sm" color="text-white-100">Preencher Relatório</.text>
-      </.button>
-    </div>
+    <.button id="preencher-relatorio-button" style="primary" click="dropdown">
+      <Lucideicons.book class="text-white-100" />
+      <.text size="sm" color="text-white-100">Preencher Relatório</.text>
+      <Lucideicons.chevron_down class="text-blue-100" />
+    </.button>
 
-    <div :if={@current_user.tipo == :admin} class="links-item">
-      <.button class="icon-button" style="primary" submit>
-        <Lucideicons.files class="text-white-100" />
-        <.text size="sm" color="text-white-100">Compilar</.text>
-      </.button>
+    <div :if={@current_user.tipo == :admin}>
+        <.button id="compilar" style="primary">
+          <Lucideicons.files class="text-white-100" />
+          <.text size="sm" color="text-white-100">Compilar</.text>
+        </.button>
     </div>
   </div>
 
-  <.table rows={@relatorios}>
+  <.table text-color="text-blue-100" rows={@tabela}>
     <:column :let={relatorios} label="  ">
       <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
     </:column>
-    <:column :let={relatorios} label="Data" class="linhas"><%= relatorios.data %></:column>
-    <:column :let={relatorios} label="Tipo" class="linhas"><%= relatorios.tipo %></:column>
+    <:column :let={relatorios} label="Data" ><%= relatorios.data %></:column>
+    <:column :let={relatorios} label="Tipo" ><%= relatorios.tipo %></:column>
     <:column :let={relatorios} label="Mês/Ano">
       <%= relatorios.periodo %>
     </:column>

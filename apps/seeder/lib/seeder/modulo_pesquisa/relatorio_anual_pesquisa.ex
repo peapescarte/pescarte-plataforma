@@ -30,7 +30,7 @@ defmodule Seeder.ModuloPesquisa.RelatorioAnualPesquisa do
         mes: 5,
         status: :atrasado,
         link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
-        pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
+        pesquisador_id: pesquisador_id_by_cpf("133.590.177-90")
       },
       %RelatorioAnualPesquisa{
         ano: 2021,

@@ -2,7 +2,6 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
   alias Identidades.Handlers.UsuarioHandler
-
   alias ModuloPesquisa.Models.RelatorioAnualPesquisa, as: Anual
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa, as: Mensal
   alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa, as: Trimestral

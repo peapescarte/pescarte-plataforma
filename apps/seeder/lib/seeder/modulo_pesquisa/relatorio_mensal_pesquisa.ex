@@ -1,7 +1,6 @@
 defmodule Seeder.ModuloPesquisa.RelatorioMensalPesquisa do
   alias Database.Repo.Replica
   alias Identidades.Models.Usuario
-
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa
 
   @behaviour Seeder.Entry
@@ -48,7 +47,6 @@ defmodule Seeder.ModuloPesquisa.RelatorioMensalPesquisa do
         status: :entregue,
         data_entrega: ~D[2023-09-13],
         link: "https://drive.google.com/drive/folders/1KCHYlN_sbEatoWhUnOh024iSbdwTCpxP",
-        data_entrega: ~D[2023-07-30],
         pesquisador_id: pesquisador_id_by_cpf("214.047.038-96")
       }
     ]

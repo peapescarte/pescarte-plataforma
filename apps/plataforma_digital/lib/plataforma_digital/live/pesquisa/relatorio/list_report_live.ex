@@ -1,7 +1,7 @@
 defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
-  use PlataformaDigital, :auth_live_view
+  @moduledoc false
 
-  #  alias ModuloPesquisa.Repository
+  use PlataformaDigital, :auth_live_view
 
   alias ModuloPesquisa.Handlers.RelatoriosHandler
 
