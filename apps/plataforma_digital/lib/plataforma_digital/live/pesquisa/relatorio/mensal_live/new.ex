@@ -25,9 +25,11 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
 
   @impl true
   def mount(_params, _session, socket) do
-    relatorio_mensal =
+    schedule_save()
+
+    form =
       %RelatorioMensalPesquisa{}
-      |> Ecto.Changeset.change()
+      |> Repository.change_relatorio_mensal()
       |> to_form()
 
     {:ok,
@@ -35,11 +37,12 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
      |> assign(field_names: @report_field_names)
      |> assign(today: get_formatted_today(Date.utc_today()))
      |> assign(page_title: "Plataforma PEA Pescarte || Criar relatório mensal")
-     |> assign(form: relatorio_mensal)}
+     |> assign(form: form)
+     |> assign(success_message: nil)}
   end
 
-  attr :field, Phoenix.HTML.FormField
-  attr :label, :string, required: true
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:label, :string, required: true)
 
   defp report_field(assigns) do
     ~H"""
@@ -54,20 +57,51 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
   end
 
   @impl true
-  def handle_event("save", %{"relatorio_mensal_pesquisa" => params}, socket) do
-    params =
-      params
-      |> RelatorioAdapter.parse_params()
-      |> merge_params(socket)
+  def handle_event("change", %{"relatorio_mensal_pesquisa" => params}, socket) do
+    form =
+      socket.assigns.form.data
+      |> Repository.change_relatorio_mensal(params)
+      |> Map.put("action", :insert)
+      |> to_form()
 
-    case Repository.upsert_relatorio_mensal(%RelatorioMensalPesquisa{}, params) do
+    {:noreply, assign(socket, form: form)}
+  end
+
+  @impl true
+  def handle_event("save", %{"relatorio_mensal_pesquisa" => params}, socket) do
+    params = handle_params(params, socket)
+
+    case Repository.upsert_relatorio_mensal(socket.assigns.form.data, params) do
       {:ok, relatorio_mensal} ->
         {:noreply,
          socket
          |> put_flash(:info, "Relatório mensal criado com sucesso!")
          |> redirect(to: ~p"/app/pesquisa/relatorios/mensal/#{relatorio_mensal.id_publico}")}
 
-      {:error, changeset} ->
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, form: to_form(changeset))}
+    end
+  end
+
+  @impl true
+  def handle_info(:store, socket) do
+    schedule_save()
+
+    params = handle_params(socket.assigns.form.params, socket)
+
+    case Repository.upsert_relatorio_mensal(socket.assigns.form.data, params) do
+      {:ok, relatorio_mensal} ->
+        form =
+          relatorio_mensal
+          |> Repository.change_relatorio_mensal()
+          |> to_form()
+
+        {:noreply,
+         socket
+         |> assign(form: form)
+         |> assign(success_message: "Salvando relatório...")}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
@@ -79,13 +113,19 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
     %{year: year, month: month_in_words}
   end
 
-  defp merge_params(params, socket) do
+  defp handle_params(params, socket) do
     id_publico = socket.assigns.current_user.pesquisador.id_publico
     %_{month: month, year: year} = Date.utc_today()
 
     params
-    |> Map.put(:mes, month)
-    |> Map.put(:ano, year)
-    |> Map.put(:pesquisador_id, id_publico)
+    |> Enum.reduce(%{}, fn {k, v}, acc -> Map.put(acc, k, String.trim(v)) end)
+    |> Map.put("mes", month)
+    |> Map.put("ano", year)
+    |> Map.put("pesquisador_id", id_publico)
+  end
+
+  defp schedule_save do
+    # 2 minutes
+    Process.send_after(self(), :store, 2 * 60_000)
   end
 end

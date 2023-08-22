@@ -3,10 +3,8 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
 
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
-  alias ModuloPesquisa.Adapters.RelatorioAdapter
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa
   alias ModuloPesquisa.Repository
-  alias Phoenix.LiveView.Socket
 
   @locale "pt_BR"
 
@@ -28,21 +26,19 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
   def mount(%{"relatorio_mensal_id" => relatorio_mensal_id}, _session, socket) do
     schedule_save()
 
-    relatorio_mensal =
+    form =
       relatorio_mensal_id
       |> Repository.fetch_relatorio_pesquisa_mensal_by_id()
-      |> Ecto.Changeset.change()
+      |> Repository.change_relatorio_mensal()
       |> to_form()
 
-    socket =
-      socket
-      |> assign(field_names: @report_field_names)
-      |> assign(today: get_formatted_today(Date.utc_today()))
-      |> assign(page_title: "Plataforma PEA Pescarte || Atualizar relatório mensal")
-      |> assign(form: relatorio_mensal)
-      |> assign(params: %{})
-
-    {:ok, socket}
+    {:ok,
+     socket
+     |> assign(field_names: @report_field_names)
+     |> assign(today: get_formatted_today(Date.utc_today()))
+     |> assign(page_title: "Plataforma PEA Pescarte || Atualizar relatório mensal")
+     |> assign(form: form)
+     |> assign(success_message: nil)}
   end
 
   attr :field, Phoenix.HTML.FormField
@@ -62,37 +58,56 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
 
   @impl true
   def handle_event("change", %{"relatorio_mensal_pesquisa" => params}, socket) do
-    {:noreply, assign(socket, params: params)}
+    form =
+      socket.assigns.form.data
+      |> Repository.change_relatorio_mensal(params)
+      |> Map.put("action", :update)
+      |> to_form()
+
+    {:noreply, assign(socket, form: form)}
   end
 
   @impl true
   def handle_event("save", %{"relatorio_mensal_pesquisa" => params}, socket) do
-    form = handle_save(socket.assigns.form.data, socket.assigns.params)
+    params = handle_params(params)
 
-    {:noreply, assign(socket, form: form)}
+    case Repository.upsert_relatorio_mensal(socket.assigns.form.data, params) do
+      {:ok, %RelatorioMensalPesquisa{}} ->
+        {:noreply,
+         socket
+         |> assign(success_message: "Relatório mensal atualizado com sucesso!")
+         |> redirect(to: ~p"/app/pesquisa/relatorios")}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, form: to_form(changeset))}
+    end
   end
 
   @impl true
-  def handle_info(:update, socket) do
+  def handle_info(:store, socket) do
     schedule_save()
 
-    form = handle_save(socket.assigns.form.data, socket.assigns.params)
+    params = handle_params(socket.assigns.form.params)
 
-    {:noreply, assign(socket, form: form)}
+    case Repository.upsert_relatorio_mensal(socket.assigns.form.data, params) do
+      {:ok, %RelatorioMensalPesquisa{} = relatorio_mensal} ->
+        form =
+          relatorio_mensal
+          |> Repository.change_relatorio_mensal()
+          |> to_form()
+
+        {:noreply,
+         socket
+         |> assign(form: form)
+         |> assign(success_message: "Salvando relatório...")}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, form: to_form(changeset))}
+    end
   end
 
-  defp handle_save(form \\ %RelatorioMensalPesquisa{}, params) do
-    params = RelatorioAdapter.parse_params(params)
-
-    case Repository.upsert_relatorio_mensal(form, params) do
-      {:ok, relatorio_mensal} ->
-        relatorio_mensal
-        |> Ecto.Changeset.change(params)
-        |> to_form()
-
-      {:error, changeset} ->
-        changeset
-    end
+  defp handle_params(params) do
+    Enum.reduce(params, %{}, fn {k, v}, acc -> Map.put(acc, k, String.trim(v)) end)
   end
 
   defp get_formatted_today(%Date{} = today) do
@@ -104,6 +119,6 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
 
   defp schedule_save do
     # 2 minutes
-    Process.send_after(self(), :update, 2 * 60_000)
+    Process.send_after(self(), :store, 2 * 60_000)
   end
 end

@@ -1,4 +1,6 @@
 <div class="monthly-report-wrapper">
+  <.toast :if={@success_message} id="change-success" type="success" message={@success_message} />
+
   <.text size="h1" color="text-blue-100">
     Relatório Mensal de Pesquisa de <%= @today.month %> de <%= @today.year %>
   </.text>
