@@ -50,5 +50,4 @@ defmodule ModuloPesquisa.IManageRepository do
   @callback upsert_relatorio_trimestral(RelatorioTrimestralPesquisa.t(), map) ::
               {:ok, RelatorioTrimestralPesquisa.t()} | {:error, changeset}
   @callback upsert_tag(Tag.t(), map) :: {:ok, Tag.t()} | {:error, changeset}
-  @callback change_relatorio_mensal(RelatorioMensalPesquisa.t(), map) :: changeset
 end

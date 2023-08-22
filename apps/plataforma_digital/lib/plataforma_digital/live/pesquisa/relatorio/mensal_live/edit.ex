@@ -3,6 +3,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
 
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
+  alias ModuloPesquisa.Handlers.RelatoriosHandler
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa
   alias ModuloPesquisa.Repository
 
@@ -29,7 +30,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
     form =
       relatorio_mensal_id
       |> Repository.fetch_relatorio_pesquisa_mensal_by_id()
-      |> Repository.change_relatorio_mensal()
+      |> RelatoriosHandler.change_relatorio_mensal()
       |> to_form()
 
     {:ok,
@@ -60,7 +61,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
   def handle_event("change", %{"relatorio_mensal_pesquisa" => params}, socket) do
     form =
       socket.assigns.form.data
-      |> Repository.change_relatorio_mensal(params)
+      |> RelatoriosHandler.change_relatorio_mensal(params)
       |> Map.put("action", :update)
       |> to_form()
 
@@ -93,7 +94,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
       {:ok, %RelatorioMensalPesquisa{} = relatorio_mensal} ->
         form =
           relatorio_mensal
-          |> Repository.change_relatorio_mensal()
+          |> RelatoriosHandler.change_relatorio_mensal()
           |> to_form()
 
         {:noreply,

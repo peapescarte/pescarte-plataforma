@@ -240,9 +240,4 @@ defmodule ModuloPesquisa.Repository do
     |> Tag.changeset(attrs)
     |> Repo.insert_or_update()
   end
-
-  @impl true
-  def change_relatorio_mensal(%RelatorioMensalPesquisa{} = relatorio_mensal, attrs \\ %{}) do
-    RelatorioMensalPesquisa.changeset(relatorio_mensal, attrs)
-  end
 end
