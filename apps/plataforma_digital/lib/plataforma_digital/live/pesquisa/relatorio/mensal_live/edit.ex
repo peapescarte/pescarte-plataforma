@@ -39,7 +39,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
      |> assign(today: get_formatted_today(Date.utc_today()))
      |> assign(page_title: "Plataforma PEA Pescarte || Atualizar relatório mensal")
      |> assign(form: form)
-     |> assign(success_message: nil)}
+     |> assign(toast: nil)}
   end
 
   attr :field, Phoenix.HTML.FormField
@@ -74,13 +74,13 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
 
     case Repository.upsert_relatorio_mensal(socket.assigns.form.data, params) do
       {:ok, %RelatorioMensalPesquisa{}} ->
-        {:noreply,
-         socket
-         |> assign(success_message: "Relatório mensal atualizado com sucesso!")
-         |> redirect(to: ~p"/app/pesquisa/relatorios")}
+        {:noreply, redirect(socket, to: ~p"/app/pesquisa/relatorios")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, form: to_form(changeset))}
+        {:noreply,
+         socket
+         |> assign(form: to_form(changeset))
+         |> assign(toast: %{type: "error", message: "Erro ao salvar relatório..."})}
     end
   end
 
@@ -100,10 +100,13 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.Edit do
         {:noreply,
          socket
          |> assign(form: form)
-         |> assign(success_message: "Salvando relatório...")}
+         |> assign(toast: %{type: "success", message: "Salvando relatório..."})}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, form: to_form(changeset))}
+        {:noreply,
+         socket
+         |> assign(form: to_form(changeset))
+         |> assign(toast: %{type: "error", message: "Erro ao salvar relatório..."})}
     end
   end
 

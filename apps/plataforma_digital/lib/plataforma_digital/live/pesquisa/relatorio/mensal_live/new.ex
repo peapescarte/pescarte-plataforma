@@ -3,7 +3,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
 
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
-  alias ModuloPesquisa.Adapters.RelatorioAdapter
+  alias ModuloPesquisa.Handlers.RelatoriosHandler
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa
   alias ModuloPesquisa.Repository
 
@@ -29,7 +29,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
 
     form =
       %RelatorioMensalPesquisa{}
-      |> Repository.change_relatorio_mensal()
+      |> RelatoriosHandler.change_relatorio_mensal()
       |> to_form()
 
     {:ok,
@@ -38,7 +38,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
      |> assign(today: get_formatted_today(Date.utc_today()))
      |> assign(page_title: "Plataforma PEA Pescarte || Criar relatório mensal")
      |> assign(form: form)
-     |> assign(success_message: nil)}
+     |> assign(toast: nil)}
   end
 
   attr(:field, Phoenix.HTML.FormField)
@@ -60,7 +60,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
   def handle_event("change", %{"relatorio_mensal_pesquisa" => params}, socket) do
     form =
       socket.assigns.form.data
-      |> Repository.change_relatorio_mensal(params)
+      |> RelatoriosHandler.change_relatorio_mensal(params)
       |> Map.put("action", :insert)
       |> to_form()
 
@@ -74,12 +74,13 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
     case Repository.upsert_relatorio_mensal(socket.assigns.form.data, params) do
       {:ok, relatorio_mensal} ->
         {:noreply,
-         socket
-         |> put_flash(:info, "Relatório mensal criado com sucesso!")
-         |> redirect(to: ~p"/app/pesquisa/relatorios/mensal/#{relatorio_mensal.id_publico}")}
+         redirect(socket, to: ~p"/app/pesquisa/relatorios/mensal/#{relatorio_mensal.id_publico}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, form: to_form(changeset))}
+        {:noreply,
+         socket
+         |> assign(form: to_form(changeset))
+         |> assign(toast: %{type: "error", message: "Erro ao salvar relatório..."})}
     end
   end
 
@@ -93,16 +94,19 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
       {:ok, relatorio_mensal} ->
         form =
           relatorio_mensal
-          |> Repository.change_relatorio_mensal()
+          |> RelatoriosHandler.change_relatorio_mensal()
           |> to_form()
 
         {:noreply,
          socket
          |> assign(form: form)
-         |> assign(success_message: "Salvando relatório...")}
+         |> assign(toast: %{type: "success", message: "Salvando relatório..."})}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, form: to_form(changeset))}
+        {:noreply,
+         socket
+         |> assign(form: to_form(changeset))
+         |> assign(toast: %{type: "error", message: "Erro ao salvar relatório..."})}
     end
   end
 
@@ -126,6 +130,6 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
 
   defp schedule_save do
     # 2 minutes
-    Process.send_after(self(), :store, 2 * 60_000)
+    Process.send_after(self(), :store, 2 * 10_000)
   end
 end
