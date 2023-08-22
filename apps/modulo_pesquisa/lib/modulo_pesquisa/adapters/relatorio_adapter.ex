@@ -26,16 +26,6 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
     RelatorioPesquisa.parse!(attrs)
   end
 
-  @doc """
-  Parse params to map with atom keys and trimmed values
-  """
-  @spec parse_params(map) :: map
-  def parse_params(params) do
-    Enum.reduce(params, %{}, fn {k, v}, acc ->
-      Map.put(acc, String.to_atom(k), String.trim(v))
-    end)
-  end
-
   defp get_relatorio_tipo(%Anual{}), do: :anual
   defp get_relatorio_tipo(%Mensal{}), do: :mensal
   defp get_relatorio_tipo(%Trimestral{}), do: :trimestral
