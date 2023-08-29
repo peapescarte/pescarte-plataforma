@@ -8,7 +8,7 @@ defmodule Pescarte.Catalogo.Models.PeixeTest do
   test "alterações válidas no changeset" do
     attrs = %{
       nome_cientifico: "nome cientifico",
-      nativo?: true
+      nativo?: true,
       link_imagem: "https://link.com"
     }
 

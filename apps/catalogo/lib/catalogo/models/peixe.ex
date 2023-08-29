@@ -8,7 +8,7 @@ defmodule Catalogo.Models.Peixe do
 
   }
 
-  @required_fields ~w(nome_cientifico nativo? link_imagem)
+  @required_fields ~w(nome_cientifico nativo? link_imagem)a
 
   @primary_key {:nome_cientifico, :string, autogenerate: false}
   schema "peixe" do
