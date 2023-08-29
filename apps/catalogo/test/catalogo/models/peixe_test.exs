@@ -18,6 +18,5 @@ defmodule Pescarte.Catalogo.Models.PeixeTest do
     assert get_change(changeset, :nome_cientifico) == "nome cientifico"
     assert get_change(changeset, :nativo?)
     assert get_change(changeset, :link_imagem) == "https://link.com"
-
   end
 end

@@ -2,11 +2,10 @@ defmodule Catalogo.Models.Peixe do
   use Database, :model
 
   @type t :: %Peixe{
-    nome_cientifico: binary,
-    nativo?: boolean,
-    link_imagem: binary,
-
-  }
+          nome_cientifico: binary,
+          nativo?: boolean,
+          link_imagem: binary
+        }
 
   @required_fields ~w(nome_cientifico nativo? link_imagem)a
 
@@ -23,5 +22,4 @@ defmodule Catalogo.Models.Peixe do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
   end
-
 end
