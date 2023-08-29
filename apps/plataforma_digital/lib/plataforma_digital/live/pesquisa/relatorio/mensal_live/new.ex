@@ -110,11 +110,11 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.New do
     end
   end
 
-  defp get_formatted_today(%Date{} = today) do
-    month_in_words = lformat!(today, "{Mfull}", @locale)
+  defp get_formatted_today(%Date{month: month} = today) do
+    month_word = lformat!(today, "{Mfull}", @locale)
     year = lformat!(today, "{YYYY}", @locale)
 
-    %{year: year, month: month_in_words}
+    %{year: year, month_word: month_word, month: month}
   end
 
   defp handle_params(params, socket) do
