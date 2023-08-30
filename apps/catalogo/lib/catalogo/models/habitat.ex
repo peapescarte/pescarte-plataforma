@@ -1,0 +1,22 @@
+defmodule Catalogo.Models.Habitat do
+  use Database, :model
+
+  @type t :: %Habitat{
+          nome: binary
+        }
+
+  @required_fields ~w(nome)a
+
+  @primary_key {:nome, :string, autogenerate: false}
+  schema "habitat" do
+    timestamps()
+  end
+
+  @spec changeset(Habitat.t(), map) :: changeset
+  def changeset(%Habitat{} = habitat, attrs) do
+    habitat
+    |> cast(attrs, @required_fields)
+    |> validate_required(@required_fields)
+    |> unique_constraint(:nome)
+  end
+end
