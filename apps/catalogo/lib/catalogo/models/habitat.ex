@@ -1,6 +1,8 @@
 defmodule Catalogo.Models.Habitat do
   use Database, :model
 
+  alias Catalogo.Models.Peixe
+
   @type t :: %Habitat{
           nome: binary
         }
@@ -9,6 +11,12 @@ defmodule Catalogo.Models.Habitat do
 
   @primary_key {:nome, :string, autogenerate: false}
   schema "habitat" do
+    many_to_many :peixes, Peixe,
+      join_through: "peixes_habitats",
+      join_keys: [habitat_nome: :nome, peixe_nome_cientifico: :nome_cientifico],
+      on_replace: :delete,
+      unique: true
+
     timestamps()
   end
 

@@ -1,6 +1,8 @@
 defmodule Catalogo.Models.Peixe do
   use Database, :model
 
+  alias Catalogo.Models.Habitat
+
   @type t :: %Peixe{
           nome_cientifico: binary,
           nativo?: boolean,
@@ -13,6 +15,13 @@ defmodule Catalogo.Models.Peixe do
   schema "peixe" do
     field :link_imagem, :string
     field :nativo?, :boolean, default: false
+
+    many_to_many :habitats, Habitat,
+      join_through: "peixes_habitats",
+      join_keys: [peixe_nome_cientifico: :nome_cientifico, habitat_nome: :nome],
+      on_replace: :delete,
+      unique: true
+
     timestamps()
   end
 
