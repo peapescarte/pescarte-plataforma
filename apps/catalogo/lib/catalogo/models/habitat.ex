@@ -4,13 +4,17 @@ defmodule Catalogo.Models.Habitat do
   alias Catalogo.Models.Peixe
 
   @type t :: %Habitat{
-          nome: binary
+          nome: binary,
+          peixes: list(Peixe.t()),
+          id_publico: binary
         }
 
   @required_fields ~w(nome)a
 
   @primary_key {:nome, :string, autogenerate: false}
   schema "habitat" do
+    field :id_publico, Database.Types.PublicId, autogenerate: true
+
     many_to_many :peixes, Peixe,
       join_through: "peixes_habitats",
       join_keys: [habitat_nome: :nome, peixe_nome_cientifico: :nome_cientifico],

@@ -6,6 +6,7 @@ defmodule Catalogo.Repo.Migrations.CriaTabelaPeixe do
       add :nome_cientifico, :string, primary_key: true
       add :nativo?, :boolean, null: false
       add :link_imagem, :string, null: false
+      add :id_publico, :string, null: false
 
       timestamps()
     end

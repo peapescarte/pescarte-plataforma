@@ -6,7 +6,8 @@ defmodule Catalogo.Models.Peixe do
   @type t :: %Peixe{
           nome_cientifico: binary,
           nativo?: boolean,
-          link_imagem: binary
+          link_imagem: binary,
+          id_publico: binary
         }
 
   @required_fields ~w(nome_cientifico nativo? link_imagem)a
@@ -15,6 +16,7 @@ defmodule Catalogo.Models.Peixe do
   schema "peixe" do
     field :link_imagem, :string
     field :nativo?, :boolean, default: false
+    field :id_publico, Database.Types.PublicId, autogenerate: true
 
     many_to_many :habitats, Habitat,
       join_through: "peixes_habitats",
