@@ -1,0 +1,36 @@
+defmodule Catalogo.Models.Comunidade do
+  use Database, :model
+
+  alias Identidades.Models.Endereco
+
+  @type t :: %Comunidade{
+          nome: binary,
+          descricao: binary,
+          endereco_cep: binary,
+          endereco: Endereco.t(),
+          id_publico: binary
+        }
+
+  @required_fields ~w(nome descricao endereco_cep)a
+
+  @primary_key {:nome, :string, autogenerate: false}
+  schema "comunidade" do
+    field :descricao, :text
+    field :id_publico, Database.Types.PublicId, autogenerate: true
+
+    belongs_to :endereco, Endereco,
+      foreign_key: :endereco_cep,
+      references: :cep,
+      type: :string
+
+    timestamps()
+  end
+
+  @spec changeset(Comunidade.t(), map) :: changeset
+  def changeset(%Comunidade{} = comunidade, attrs) do
+    comunidade
+    |> cast(attrs, @required_fields)
+    |> validate_required(@required_fields)
+    |> assoc_constraint(:endereco)
+  end
+end
