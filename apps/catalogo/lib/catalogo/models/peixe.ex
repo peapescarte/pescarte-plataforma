@@ -7,6 +7,7 @@ defmodule Catalogo.Models.Peixe do
           nome_cientifico: binary,
           nativo?: boolean,
           link_imagem: binary,
+          habitats: list(Habitat.t()),
           id_publico: binary
         }
 
