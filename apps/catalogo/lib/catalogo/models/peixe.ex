@@ -2,11 +2,13 @@ defmodule Catalogo.Models.Peixe do
   use Database, :model
 
   alias Catalogo.Models.Habitat
+  alias Catalogo.Models.ApetrechoPesca
 
   @type t :: %Peixe{
           nome_cientifico: binary,
           nativo?: boolean,
           link_imagem: binary,
+          apetrechos_pesca: list(ApetrechoPesca.t()),
           id_publico: binary
         }
 
@@ -21,6 +23,12 @@ defmodule Catalogo.Models.Peixe do
     many_to_many :habitats, Habitat,
       join_through: "peixes_habitats",
       join_keys: [peixe_nome_cientifico: :nome_cientifico, habitat_nome: :nome],
+      on_replace: :delete,
+      unique: true
+
+    many_to_many :apetrechos_pesca, ApetrechoPesca,
+      join_through: "peixes_apetrechos_pesca",
+      join_keys: [peixe_nome_cientifico: :nome_cientifico, apetrecho_nome: :nome],
       on_replace: :delete,
       unique: true
 
