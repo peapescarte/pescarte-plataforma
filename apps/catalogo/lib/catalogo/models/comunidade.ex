@@ -1,13 +1,14 @@
 defmodule Catalogo.Models.Comunidade do
   use Database, :model
 
+  alias Catalogo.Models.Localidade
   alias Identidades.Models.Endereco
 
   @type t :: %Comunidade{
           nome: binary,
           descricao: binary,
-          endereco_cep: binary,
           endereco: Endereco.t(),
+          localidades: list(Localidade.t()),
           id_publico: binary
         }
 
@@ -15,13 +16,17 @@ defmodule Catalogo.Models.Comunidade do
 
   @primary_key {:nome, :string, autogenerate: false}
   schema "comunidade" do
-    field :descricao, :text
+    field :descricao, :string
     field :id_publico, Database.Types.PublicId, autogenerate: true
 
     belongs_to :endereco, Endereco,
       foreign_key: :endereco_cep,
       references: :cep,
       type: :string
+
+    has_many :localidades, Localidade,
+      foreign_key: :comunidade_nome,
+      references: :nome
 
     timestamps()
   end
@@ -31,6 +36,5 @@ defmodule Catalogo.Models.Comunidade do
     comunidade
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> assoc_constraint(:endereco)
   end
 end

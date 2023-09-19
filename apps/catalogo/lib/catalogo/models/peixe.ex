@@ -1,8 +1,8 @@
 defmodule Catalogo.Models.Peixe do
   use Database, :model
 
-  alias Catalogo.Models.Habitat
   alias Catalogo.Models.ApetrechoPesca
+  alias Catalogo.Models.Habitat
 
   @type t :: %Peixe{
           nome_cientifico: binary,
