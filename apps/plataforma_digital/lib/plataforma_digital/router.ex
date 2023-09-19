@@ -44,8 +44,8 @@ defmodule PlataformaDigital.Router do
 
       scope "/relatorios" do
         live "/", Pesquisa.Relatorio.ListReportLive
-        live "/mensal", Pesquisa.Relatorio.MensalLive.Index, :new
-        live "/mensal/:id", Pesquisa.Relatorio.MensalLive.Index, :edit
+        live "/new", Pesquisa.RelatorioLive.Index, :new
+        # live "/mensal/:id", Pesquisa.Relatorio.MensalLive.Index, :edit
       end
     end
   end

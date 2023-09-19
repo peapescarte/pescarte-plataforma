@@ -66,6 +66,8 @@ defmodule PlataformaDigital do
       use Phoenix.LiveView,
         layout: {PlataformaDigital.Layouts, :authenticated}
 
+      on_mount PlataformaDigital.Toast
+
       unquote(html_helpers())
     end
   end
@@ -73,6 +75,9 @@ defmodule PlataformaDigital do
   def live_component do
     quote do
       use Phoenix.LiveComponent
+
+      import PlataformaDigital.Toast, only: [put_toast: 3]
+
       unquote(html_helpers())
     end
   end

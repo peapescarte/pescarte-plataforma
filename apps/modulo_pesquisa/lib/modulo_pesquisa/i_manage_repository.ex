@@ -8,6 +8,7 @@ defmodule ModuloPesquisa.IManageRepository do
   alias ModuloPesquisa.Models.Pesquisador
   alias ModuloPesquisa.Models.RelatorioAnualPesquisa
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa
+  alias ModuloPesquisa.Models.RelatorioPesquisa
   alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa
 
   @opaque changeset :: Ecto.Changeset.t()
@@ -43,6 +44,8 @@ defmodule ModuloPesquisa.IManageRepository do
               {:ok, NucleoPesquisa.t()} | {:error, changeset}
   @callback upsert_pesquisador(Pesquisador.t(), map) ::
               {:ok, Pesquisador.t()} | {:error, changeset}
+  @callback upsert_relatorio_pesquisa(RelatorioPesquisa.t(), map()) ::
+              {:ok, RelatorioPesquisa.t()} | {:error, changeset}
   @callback upsert_relatorio_anual(RelatorioAnualPesquisa.t(), map) ::
               {:ok, RelatorioAnualPesquisa.t()} | {:error, changeset}
   @callback upsert_relatorio_mensal(RelatorioMensalPesquisa.t(), map) ::

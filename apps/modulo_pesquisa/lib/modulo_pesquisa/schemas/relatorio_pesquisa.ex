@@ -6,25 +6,30 @@ defmodule ModuloPesquisa.Schemas.RelatorioPesquisa do
   alias __MODULE__
 
   @type t :: %RelatorioPesquisa{
-          data: Date.t(),
-          periodo: String.t(),
-          nome_pesquisador: String.t(),
           tipo: atom,
+          conteudo: map,
+          inicio_periodo: Date.t(),
+          fim_periodo: Date.t(),
+          link: binary,
           status: atom
         }
 
-  @required_fields ~w(periodo tipo status)a
-  @optional_fields ~w(data nome_pesquisador)a
+  @tipo ~w(mensal bimestral trimestral anual)a
+  @status ~w(entregue atrasado pendente)a
 
+  @required_fields ~w(tipo conteudo inicio_periodo fim_periodo status)a
+  @optional_fields ~w(link)a
+
+  @primary_key false
   embedded_schema do
-    field :data, :date
-    field :periodo, :string
-    field :nome_pesquisador, :string
-    field :tipo, Ecto.Enum, values: ~w(anual mensal trimestral)a
-    field :status, Ecto.Enum, values: ~w(entregue pendente atrasado)a
+    field :tipo, Ecto.Enum, values: @tipo
+    field :conteudo, :map
+    field :inicio_periodo, :date
+    field :fim_periodo, :date
+    field :link, :string
+    field :status, Ecto.Enum, values: @status
   end
 
-  @spec parse!(map) :: RelatorioPesquisa.t()
   def parse!(attrs) do
     %RelatorioPesquisa{}
     |> cast(attrs, @required_fields ++ @optional_fields)

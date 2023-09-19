@@ -1,9 +1,8 @@
-defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.FormComponent do
+defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
   use PlataformaDigital, :live_component
 
   alias ModuloPesquisa.Handlers.RelatoriosHandler
   alias ModuloPesquisa.Repository
-  # alias PlataformaDigital.Components.Toast
 
   @impl true
   def render(assigns) do
@@ -35,56 +34,12 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.MensalLive.FormComponent do
 
   @impl true
   def update(%{relatorio: relatorio} = assigns, socket) do
-    changeset = RelatoriosHandler.change_relatorio_mensal(relatorio)
+    changeset = RelatoriosHandler.change_relatorio_pesquisa(relatorio)
 
     {:ok,
      socket
      |> assign(assigns)
      |> assign_form(changeset)}
-  end
-
-  @impl true
-  def handle_event("validate", %{"relatorio_mensal_pesquisa" => params}, socket) do
-    changeset =
-      socket.assigns.relatorio
-      |> RelatoriosHandler.change_relatorio_mensal(params)
-      |> Map.put(:action, :validate)
-
-    {:noreply,
-     socket
-     |> assign_form(changeset)
-     |> put_toast(:info, "Validação concluída.")}
-  end
-
-  def handle_event("save", %{"relatorio_mensal_pesquisa" => params}, socket) do
-    save_relatorio(socket, socket.assigns.action, params)
-  end
-
-  defp save_relatorio(socket, :edit, params) do
-    case Repository.upsert_relatorio_mensal(socket.assigns.relatorio, params) do
-      {:ok, relatorio} ->
-        notify_parent({:saved, relatorio})
-
-        {:noreply,
-         socket
-         |> assign_form(RelatoriosHandler.change_relatorio_mensal(relatorio))
-         |> push_patch(to: socket.assigns.patch)}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign_form(socket, changeset)}
-    end
-  end
-
-  defp save_relatorio(socket, :new, params) do
-    case Repository.upsert_relatorio_mensal(params) do
-      {:ok, relatorio} ->
-        notify_parent({:saved, relatorio})
-
-        {:noreply, push_patch(socket, to: socket.assigns.patch)}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign_form(socket, changeset)}
-    end
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
