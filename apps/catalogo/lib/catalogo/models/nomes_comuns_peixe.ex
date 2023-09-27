@@ -1,8 +1,8 @@
 defmodule Catalogo.Models.NomesComunsPeixe do
   use Database, :model
 
-  alias Catalogo.Models.Peixe
   alias Catalogo.Models.Comunidade
+  alias Catalogo.Models.Peixe
 
   @type t :: %NomesComunsPeixe{
           nome_comum: binary,
