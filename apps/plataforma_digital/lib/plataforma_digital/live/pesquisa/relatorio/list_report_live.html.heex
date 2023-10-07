@@ -1,10 +1,18 @@
 <div class="search">
   <.search_input name="busca-relatorio" id="busca-relatorio" />
 
-  <div class="links-item">
+  <div class="links-item" style="display: flex;">
     <.button class="icon-button" style="primary" click="preencher-relatorio" value="mensal">
       <Lucideicons.book class="text-white-100" />
-      <.text size="sm" color="text-white-100">Preencher Relatório</.text>
+      <.text size="sm" color="text-white-100">Relatório Mensal</.text>
+    </.button>
+    <.button class="icon-button" style="primary" click="preencher-relatorio" value="trimestral">
+      <Lucideicons.book class="text-white-100" />
+      <.text size="sm" color="text-white-100">Relatório Trimestral</.text>
+    </.button>
+    <.button class="icon-button" style="primary" click="preencher-relatorio" value="anual">
+      <Lucideicons.book class="text-white-100" />
+      <.text size="sm" color="text-white-100">Relatório Anual</.text>
     </.button>
   </div>
 

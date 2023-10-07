@@ -30,7 +30,7 @@ defmodule ModuloPesquisa.IManageRepository do
   @callback list_pesquisador :: list(Pesquisador.t())
   @callback list_relatorios_pesquisa :: list(struct)
   @callback list_relatorios_pesquisa_from_pesquisador(Database.id()) :: list(struct)
-  @callback fetch_relatorio_pesquisa_mensal_by_id(Database.id()) :: struct
+  @callback fetch_relatorio_pesquisa_by_id(Database.id()) :: struct
   @callback list_tag :: list(Tag.t())
   @callback list_tags_from_categoria(Database.id()) :: list(Tag.t())
   @callback list_tags_from_midia(Database.id()) :: list(Tag.t())

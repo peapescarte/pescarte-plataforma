@@ -10,7 +10,6 @@ defmodule PlataformaDigital.DesignSystem do
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
-  alias Phoenix.LiveView.JS
   alias PlataformaDigital.DesignSystem.SearchInput
 
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
@@ -272,7 +271,7 @@ defmodule PlataformaDigital.DesignSystem do
   """
 
   attr(:id, :string, default: nil)
-  attr(:type, :string, default: "text", values: ~w(text password hidden))
+  attr(:type, :string, default: "text", values: ~w(text date password hidden))
   attr(:placeholder, :string, required: false, default: "")
   attr(:value, :string, required: false)
   attr(:mask, :string, required: false, default: nil)
@@ -316,6 +315,26 @@ defmodule PlataformaDigital.DesignSystem do
   defp text_input_state(nil), do: "input-default"
   defp text_input_state(false), do: "input-error"
   defp text_input_state(true), do: "input-success"
+
+  attr :id, :string, default: nil
+  attr :name, :string, default: ""
+  attr :value, :string, default: ""
+  attr :class, :string, default: ""
+  attr :field, Phoenix.HTML.FormField
+
+  def date_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> date_input()
+  end
+
+  def date_input(assigns) do
+    ~H"""
+    <fieldset class={@class}>
+      <input type="date" id={@id} name={@name} class="date-input" />
+    </fieldset>
+    """
+  end
 
   attr(:id, :string, default: nil)
   attr(:name, :string, default: "")
