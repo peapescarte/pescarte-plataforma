@@ -14,11 +14,11 @@ defmodule ModuloPesquisa.Handlers.RelatoriosHandler do
   end
 
   @impl true
-   def list_relatorios(sorter \\ &sort_by_periodo/1) do
+  def list_relatorios(sorter \\ &sort_by_periodo/1) do
     Repository.list_relatorios_pesquisa()
     |> Enum.sort_by(sorter)
     |> Enum.map(&RelatorioAdapter.internal_to_external/1)
-   end
+  end
 
   defp sort_by_periodo(relatorio) do
     relatorio.mes + relatorio.ano

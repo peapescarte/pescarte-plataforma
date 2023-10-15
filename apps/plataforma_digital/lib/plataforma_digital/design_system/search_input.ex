@@ -102,11 +102,13 @@ defmodule PlataformaDigital.DesignSystem.SearchInput do
   end
 
   defp render_map(map) do
-    map = if is_struct(map) do
-      Map.from_struct(map)
-    else
-      map
-    end
+    map =
+      if is_struct(map) do
+        Map.from_struct(map)
+      else
+        map
+      end
+
     Enum.map(map, fn {key, value} ->
       if is_map(value) do
         render_map(value)

@@ -1,6 +1,7 @@
 defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   @moduledoc false
 
+  use Phoenix.LiveView
   use PlataformaDigital, :auth_live_view
 
   alias ModuloPesquisa.Handlers.RelatoriosHandler
@@ -21,13 +22,22 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
 
   def handle_params(%{"search" => "true"} = search, _uri, socket) do
     tabela =
-        case search do
-          %{"data" => data} -> filter_by("data", socket.assigns.relatorios, data)
-          %{"tipo" => tipo} -> filter_by("tipo", socket.assigns.relatorios, tipo)
-          %{"periodo" => periodo} -> filter_by("periodo", socket.assigns.relatorios, periodo)
-          %{"nome_pesquisador" => nome_pesquisador} -> filter_by("nome_pesquisador", socket.assigns.relatorios, nome_pesquisador)
-          %{"status" => status} -> filter_by("status", socket.assigns.relatorios, status)
-        end
+      case search do
+        %{"data" => data} ->
+          filter_by("data", socket.assigns.relatorios, data)
+
+        %{"tipo" => tipo} ->
+          filter_by("tipo", socket.assigns.relatorios, tipo)
+
+        %{"periodo" => periodo} ->
+          filter_by("periodo", socket.assigns.relatorios, periodo)
+
+        %{"nome_pesquisador" => nome_pesquisador} ->
+          filter_by("nome_pesquisador", socket.assigns.relatorios, nome_pesquisador)
+
+        %{"status" => status} ->
+          filter_by("status", socket.assigns.relatorios, status)
+      end
 
     {:noreply, assign(socket, tabela: tabela)}
   end
@@ -37,15 +47,15 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   end
 
   defp filter_by("data", relatorios, data) do
-      Enum.filter(relatorios, fn relatorio ->
-        to_string(relatorio.data) == data
-      end)
+    Enum.filter(relatorios, fn relatorio ->
+      to_string(relatorio.data) == data
+    end)
   end
 
   defp filter_by("tipo", relatorios, tipo) do
-      Enum.filter(relatorios, fn relatorio ->
-        to_string(relatorio.tipo) == tipo
-      end)
+    Enum.filter(relatorios, fn relatorio ->
+      to_string(relatorio.tipo) == tipo
+    end)
   end
 
   defp filter_by("periodo", relatorios, periodo) do
@@ -65,4 +75,20 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
       to_string(relatorio.status) == status
     end)
   end
+
+# Vamos trabalhar o dropdown do "Preencher Relatório" 09-14/10/2023
+  @impl true
+  def handle_event("mensal_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+  end
+  def handle_event("trimestral_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+  end
+  def handle_event("bienal_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+  end
+  def handle_event("anual_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+  end
+
 end

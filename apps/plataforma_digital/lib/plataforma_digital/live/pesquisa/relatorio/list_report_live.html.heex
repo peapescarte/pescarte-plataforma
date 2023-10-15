@@ -7,17 +7,25 @@
       patch={~p"/app/pesquisa/relatorios"}
     />
 
-    <.button id="preencher-relatorio-button" style="primary" click="dropdown">
-      <Lucideicons.book class="text-white-100" />
-      <.text size="sm" color="text-white-100">Preencher Relatório</.text>
-      <Lucideicons.chevron_down class="text-blue-100" />
-    </.button>
+    <div class="dropdown">
+      <.button id="preencher-relatorio-button" style="primary" phx-click="toggleDropdown">
+        <Lucideicons.book class="text-white-100" />
+        <.text size="sm" color="text-white-100">Preencher Relatório</.text>
+        <Lucideicons.chevron_down class="text-blue-100" />
+      </.button>
+      <div class="dropdown-options">
+        <.report_menu_link click="mensal_report" label="Mensal">    </.report_menu_link>
+        <.report_menu_link click="trimestral_report" label="Trimestral"> </.report_menu_link>
+        <.report_menu_link click="anual_report" label="Anual">        </.report_menu_link>
+      </div>
+    </div>
+
 
     <div :if={@current_user.tipo == :admin}>
-        <.button id="compilar" style="primary">
-          <Lucideicons.files class="text-white-100" />
-          <.text size="sm" color="text-white-100">Compilar</.text>
-        </.button>
+      <.button id="compilar" style="primary">
+        <Lucideicons.files class="text-white-100" />
+        <.text size="sm" color="text-white-100">Compilar</.text>
+      </.button>
     </div>
   </div>
 
@@ -25,8 +33,8 @@
     <:column :let={relatorios} label="  ">
       <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
     </:column>
-    <:column :let={relatorios} label="Data" ><%= relatorios.data %></:column>
-    <:column :let={relatorios} label="Tipo" ><%= relatorios.tipo %></:column>
+    <:column :let={relatorios} label="Data"><%= relatorios.data %></:column>
+    <:column :let={relatorios} label="Tipo"><%= relatorios.tipo %></:column>
     <:column :let={relatorios} label="Mês/Ano">
       <%= relatorios.periodo %>
     </:column>
