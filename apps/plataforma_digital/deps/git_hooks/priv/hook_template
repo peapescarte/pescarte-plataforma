@@ -1,6 +1,0 @@
-#!/bin/sh
-
-mix git_hooks.run $git_hook "$@"
-[ $? -ne 0 ] && exit 1
-exit 0
-fi

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo "Test script"
-
-echo "Print environment variables"
-env
-
-echo "$@"
