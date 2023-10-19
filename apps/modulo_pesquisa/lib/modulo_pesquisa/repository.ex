@@ -107,13 +107,7 @@ defmodule ModuloPesquisa.Repository do
 
   @impl true
   def list_relatorios_pesquisa do
-    anuais = from(ra in RelatorioAnualPesquisa, preload: [pesquisador: :usuario])
-    mensais = from(rm in RelatorioMensalPesquisa, preload: [pesquisador: :usuario])
-    trimestrais = from(rt in RelatorioTrimestralPesquisa, preload: [pesquisador: :usuario])
-
-    Repo.replica().all(anuais) ++
-      Repo.replica().all(mensais) ++
-      Repo.replica().all(trimestrais)
+    Repo.replica().all(RelatorioPesquisa)
   end
 
   @impl true

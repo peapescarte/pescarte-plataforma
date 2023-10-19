@@ -6,10 +6,11 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
 
   @impl true
   def render(assigns) do
+    # Relatório <%= String.capitalize(assigns.tipo_relatorio) %> Pesquisa de <%= @today.month_word %> de <%= @today.year %>
     ~H"""
     <div class="monthly-report-wrapper">
       <.text size="h1" color="text-blue-100">
-        Relatório Mensal de Pesquisa de <%= @today.month_word %> de <%= @today.year %>
+        <%= @form_title %>
       </.text>
 
       <.form for={@form} phx-target={@myself} phx-change="validate" phx-submit="save">
@@ -71,18 +72,6 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
     handle_store(socket, socket.assigns.action, params)
   end
 
-  defp handle_store(socket, :new, params) do
-    case Repository.upsert_relatorio_pesquisa(params) do
-      {:ok, relatorio} ->
-        notify_parent({:saved, relatorio})
-
-        {:noreply, push_redirect(socket, to: socket.assigns.patch)}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign_form(socket, changeset)}
-    end
-  end
-
   defp handle_store(socket, :edit, params) do
     case Repository.upsert_relatorio_pesquisa(socket.assigns.relatorio, params) do
       {:ok, relatorio} ->
@@ -98,12 +87,29 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
     end
   end
 
+  defp handle_store(socket, :new, params) do
+    case Repository.upsert_relatorio_pesquisa(params) do
+      {:ok, relatorio} ->
+        notify_parent({:saved, relatorio})
+
+        {:noreply, push_redirect(socket, to: socket.assigns.patch)}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign_form(socket, changeset)}
+    end
+  end
+
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
     assign(socket, :form, to_form(changeset))
   end
 
-  defp get_embedded_conteudo(%{tipo_relatorio: tipo_relatorio}),
-    do: String.to_existing_atom("conteudo_#{tipo_relatorio}")
+  defp get_embedded_conteudo(%{tipo_relatorio: tipo_relatorio}) do
+    case tipo_relatorio do
+      "mensal" -> :conteudo_mensal
+      "trimestral" -> :conteudo_trimestral
+      "anual" -> :conteudo_anual
+    end
+  end
 
   defp get_data_limite(%{tipo_relatorio: tipo_relatorio, today: today}) do
     case tipo_relatorio do

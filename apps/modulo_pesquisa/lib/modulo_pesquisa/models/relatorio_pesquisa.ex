@@ -25,26 +25,26 @@ defmodule ModuloPesquisa.Models.RelatorioPesquisa do
   @optional_fields ~w(data_entrega data_limite link)a
 
   @primary_key false
-
   schema "relatorio_pesquisa" do
-    field :link, :string
-    field :data_inicio, :date, primary_key: true
-    field :data_fim, :date, primary_key: true
-    field :data_entrega, :date
-    field :data_limite, :date
-    field :tipo, Ecto.Enum, values: @tipo
-    field :status, Ecto.Enum, values: @status
-    field :id_publico, Database.Types.PublicId, autogenerate: true
+    field(:link, :string)
+    field(:data_inicio, :date, primary_key: true)
+    field(:data_fim, :date, primary_key: true)
+    field(:data_entrega, :date)
+    field(:data_limite, :date)
+    field(:tipo, Ecto.Enum, values: @tipo)
+    field(:status, Ecto.Enum, values: @status)
+    field(:id_publico, Database.Types.PublicId, autogenerate: true)
 
-    embeds_one :conteudo_anual, ConteudoAnual, source: :conteudo, on_replace: :update
-    embeds_one :conteudo_mensal, ConteudoMensal, source: :conteudo, on_replace: :update
-    embeds_one :conteudo_trimestral, ConteudoTrimestral, source: :conteudo, on_replace: :update
+    embeds_one(:conteudo_anual, ConteudoAnual, source: :conteudo, on_replace: :update)
+    embeds_one(:conteudo_mensal, ConteudoMensal, source: :conteudo, on_replace: :update)
+    embeds_one(:conteudo_trimestral, ConteudoTrimestral, source: :conteudo, on_replace: :update)
 
-    belongs_to :pesquisador, Pesquisador,
+    belongs_to(:pesquisador, Pesquisador,
       on_replace: :update,
       references: :id_publico,
       type: :string,
       primary_key: true
+    )
 
     timestamps()
   end
@@ -60,10 +60,10 @@ defmodule ModuloPesquisa.Models.RelatorioPesquisa do
     |> validate_inclusion(:tipo, @tipo)
     |> validate_inclusion(:status, @status)
     |> foreign_key_constraint(:pesquisador_id)
-    |> validate_periodo()
+    |> validate_period()
   end
 
-  defp validate_periodo(changeset) do
+  defp validate_period(changeset) do
     start_date = get_field(changeset, :data_inicio)
     end_date = get_field(changeset, :data_fim)
 
