@@ -1,17 +1,17 @@
 defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
-  alias ModuloPesquisa.Models.RelatorioAnualPesquisa
+  alias ModuloPesquisa.Models.RelatorioPesquisa, as: RelatorioPesquisaModel
   alias Identidades.Handlers.UsuarioHandler
 
   alias ModuloPesquisa.Schemas.RelatorioPesquisa
 
   @locale Application.compile_env(:pescarte, :locale, "pt_BR")
 
-  @type relatorio :: Anual.t() | Mensal.t() | Trimestral.t()
   @typep changeset :: Ecto.Changeset.t()
 
-  @spec internal_to_external(relatorio) :: {:ok, RelatorioPesquisa.t()} | {:error, changeset}
+  @spec internal_to_external(RelatorioPesquisaModel.t()) ::
+          {:ok, RelatorioPesquisa.t()} | {:error, changeset}
   def internal_to_external(%{pesquisador: pesquisador} = relatorio) do
     attrs = %{
       status: relatorio.status,
