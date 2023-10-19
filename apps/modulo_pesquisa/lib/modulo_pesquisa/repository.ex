@@ -11,8 +11,6 @@ defmodule ModuloPesquisa.Repository do
   alias ModuloPesquisa.Models.Midia.Tag
   alias ModuloPesquisa.Models.NucleoPesquisa
   alias ModuloPesquisa.Models.Pesquisador
-  alias ModuloPesquisa.Models.RelatorioAnualPesquisa
-  alias ModuloPesquisa.Models.RelatorioMensalPesquisa
   alias ModuloPesquisa.Models.RelatorioPesquisa
   alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa
 
@@ -107,13 +105,9 @@ defmodule ModuloPesquisa.Repository do
 
   @impl true
   def list_relatorios_pesquisa do
-    anuais = from(ra in RelatorioAnualPesquisa, preload: [pesquisador: :usuario])
-    mensais = from(rm in RelatorioMensalPesquisa, preload: [pesquisador: :usuario])
-    trimestrais = from(rt in RelatorioTrimestralPesquisa, preload: [pesquisador: :usuario])
+    relatorios = from(rp in RelatorioPesquisa, preload: [pesquisador: :usuario])
 
-    Repo.replica().all(anuais) ++
-      Repo.replica().all(mensais) ++
-      Repo.replica().all(trimestrais)
+    Repo.replica().all(relatorios)
   end
 
   @impl true
@@ -122,9 +116,7 @@ defmodule ModuloPesquisa.Repository do
       from(p in Pesquisador,
         where: p.id_publico == ^id,
         preload: [
-          relatorios_anuais: [pesquisador: :usuario],
-          relatorios_mensais: [pesquisador: :usuario],
-          relatorios_trimestrais: [pesquisador: :usuario]
+          relatorios_pesquisa: [pesquisador: :usuario]
         ]
       )
 

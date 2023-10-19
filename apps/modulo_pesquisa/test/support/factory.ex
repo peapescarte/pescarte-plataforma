@@ -84,7 +84,7 @@ defmodule ModuloPesquisa.Factory do
       data_entrega: ~D[2023-07-30],
       data_limite: ~D[2023-02-15],
       id_publico: Nanoid.generate_non_secure(),
-      link: "https//datalake.com/relatorio_anual",
+      link: "https//datalake.com/relatorio",
       pesquisador_id: insert(:pesquisador).id_publico,
       status: :pendente
     }

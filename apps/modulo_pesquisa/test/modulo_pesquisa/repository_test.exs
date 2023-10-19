@@ -144,36 +144,14 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
     end
   end
 
-  describe "upsert_relatorio_anual/1" do
+  describe "upsert_relatorio/1" do
     test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.upsert_relatorio_anual(%{})
+      assert {:error, _changeset} = Repository.upsert_relatorio_pesquisa(%{})
     end
 
     test "quando os parâmetros são válidos" do
-      attrs = fixture(:relatorio_anual)
-      assert {:ok, _} = Repository.upsert_relatorio_anual(attrs)
-    end
-  end
-
-  describe "upsert_relatorio_mensal/1" do
-    test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.upsert_relatorio_mensal(%{})
-    end
-
-    test "quando os parâmetros são válidos" do
-      attrs = fixture(:relatorio_mensal)
-      assert {:ok, _} = Repository.upsert_relatorio_mensal(attrs)
-    end
-  end
-
-  describe "upsert_relatorio_trimestral/1" do
-    test "quando os parâmetros são inválidos" do
-      assert {:error, _changeset} = Repository.upsert_relatorio_trimestral(%{})
-    end
-
-    test "quando os parâmetros são válidos" do
-      attrs = fixture(:relatorio_trimestral)
-      assert {:ok, _} = Repository.upsert_relatorio_anual(attrs)
+      attrs = fixture(:relatorio)
+      assert {:ok, _} = Repository.upsert_relatorio_pesquisa(attrs)
     end
   end
 
