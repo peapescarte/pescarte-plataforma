@@ -1,9 +1,8 @@
 defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
-  alias ModuloPesquisa.Models.RelatorioPesquisa, as: RelatorioPesquisaModel
   alias Identidades.Handlers.UsuarioHandler
-
+  alias ModuloPesquisa.Models.RelatorioPesquisa, as: RelatorioPesquisaModel
   alias ModuloPesquisa.Schemas.RelatorioPesquisa
 
   @locale Application.compile_env(:pescarte, :locale, "pt_BR")
