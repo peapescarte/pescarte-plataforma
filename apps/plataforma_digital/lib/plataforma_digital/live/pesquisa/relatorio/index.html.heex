@@ -1,0 +1,14 @@
+<.live_component
+  module={PlataformaDigital.Pesquisa.Relatorio.FormComponent}
+  id={@relatorio.id_publico || :new}
+  tipo_relatorio={@tipo_relatorio}
+  title={@page_title}
+  action={@live_action}
+  relatorio={@relatorio}
+  form_title={@form_title}
+  today={@today}
+  pesquisador_id={@pesquisador_id}
+  field_names={@field_names}
+  patch={~p"/app/pesquisa/relatorios"}
+/>
+
