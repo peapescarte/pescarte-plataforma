@@ -1,11 +1,9 @@
 defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
+  alias ModuloPesquisa.Models.RelatorioAnualPesquisa
   alias Identidades.Handlers.UsuarioHandler
 
-  alias ModuloPesquisa.Models.RelatorioAnualPesquisa, as: Anual
-  alias ModuloPesquisa.Models.RelatorioMensalPesquisa, as: Mensal
-  alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa, as: Trimestral
   alias ModuloPesquisa.Schemas.RelatorioPesquisa
 
   @locale Application.compile_env(:pescarte, :locale, "pt_BR")
@@ -26,9 +24,9 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
     RelatorioPesquisa.parse!(attrs)
   end
 
-  defp get_relatorio_tipo(%Anual{}), do: :anual
-  defp get_relatorio_tipo(%Mensal{}), do: :mensal
-  defp get_relatorio_tipo(%Trimestral{}), do: :trimestral
+  defp get_relatorio_tipo(%RelatorioPesquisa{tipo: "anual"}), do: :anual
+  defp get_relatorio_tipo(%RelatorioPesquisa{tipo: "mensal"}), do: :mensal
+  defp get_relatorio_tipo(%RelatorioPesquisa{tipo: "trimestral"}), do: :trimestral
 
   defp get_relatorio_periodo!(relatorio) do
     relatorio.ano

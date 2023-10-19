@@ -6,9 +6,7 @@ defmodule ModuloPesquisa.IManageRepository do
   alias ModuloPesquisa.Models.Midia.Tag
   alias ModuloPesquisa.Models.NucleoPesquisa
   alias ModuloPesquisa.Models.Pesquisador
-  alias ModuloPesquisa.Models.RelatorioAnualPesquisa
-  alias ModuloPesquisa.Models.RelatorioMensalPesquisa
-  alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa
+  alias ModuloPesquisa.Models.RelatorioPesquisa
 
   @opaque changeset :: Ecto.Changeset.t()
 
@@ -29,6 +27,7 @@ defmodule ModuloPesquisa.IManageRepository do
   @callback list_pesquisador :: list(Pesquisador.t())
   @callback list_relatorios_pesquisa :: list(struct)
   @callback list_relatorios_pesquisa_from_pesquisador(Database.id()) :: list(struct)
+  @callback fetch_relatorio_pesquisa_by_id(Database.id()) :: struct
   @callback list_tag :: list(Tag.t())
   @callback list_tags_from_categoria(Database.id()) :: list(Tag.t())
   @callback list_tags_from_midia(Database.id()) :: list(Tag.t())
@@ -42,11 +41,7 @@ defmodule ModuloPesquisa.IManageRepository do
               {:ok, NucleoPesquisa.t()} | {:error, changeset}
   @callback upsert_pesquisador(Pesquisador.t(), map) ::
               {:ok, Pesquisador.t()} | {:error, changeset}
-  @callback upsert_relatorio_anual(RelatorioAnualPesquisa.t(), map) ::
-              {:ok, RelatorioAnualPesquisa.t()} | {:error, changeset}
-  @callback upsert_relatorio_mensal(RelatorioMensalPesquisa.t(), map) ::
-              {:ok, RelatorioMensalPesquisa.t()} | {:error, changeset}
-  @callback upsert_relatorio_trimestral(RelatorioTrimestralPesquisa.t(), map) ::
-              {:ok, RelatorioTrimestralPesquisa.t()} | {:error, changeset}
+  @callback upsert_relatorio_pesquisa(RelatorioPesquisa.t(), map) ::
+              {:ok, RelatorioPesquisa.t()} | {:error, changeset}
   @callback upsert_tag(Tag.t(), map) :: {:ok, Tag.t()} | {:error, changeset}
 end

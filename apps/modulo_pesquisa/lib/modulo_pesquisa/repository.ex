@@ -13,6 +13,7 @@ defmodule ModuloPesquisa.Repository do
   alias ModuloPesquisa.Models.Pesquisador
   alias ModuloPesquisa.Models.RelatorioAnualPesquisa
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa
+  alias ModuloPesquisa.Models.RelatorioPesquisa
   alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa
 
   @behaviour IManageRepository
@@ -70,7 +71,7 @@ defmodule ModuloPesquisa.Repository do
 
   @impl true
   def fetch_tags_from_ids(tags_ids) do
-    query = from t in Tag, where: t.id_publico in ^tags_ids, select: t
+    query = from(t in Tag, where: t.id_publico in ^tags_ids, select: t)
 
     Repo.replica().all(query)
   end
@@ -88,7 +89,7 @@ defmodule ModuloPesquisa.Repository do
   @impl true
   def list_midias_from_tag(tag_etiqueta) do
     with {:ok, tag} <- Database.fetch(Tag, tag_etiqueta) do
-      query = from t in Tag, where: t.id == ^tag.id, preload: :midias
+      query = from(t in Tag, where: t.id == ^tag.id, preload: :midias)
 
       case Database.fetch_one(query) do
         {:error, :not_found} -> []
@@ -99,16 +100,16 @@ defmodule ModuloPesquisa.Repository do
 
   @impl true
   def list_pesquisador do
-    query = from p in Pesquisador, preload: [usuario: [:contato]]
+    query = from(p in Pesquisador, preload: [usuario: [:contato]])
 
     Repo.replica().all(query)
   end
 
   @impl true
   def list_relatorios_pesquisa do
-    anuais = from ra in RelatorioAnualPesquisa, preload: [pesquisador: :usuario]
-    mensais = from rm in RelatorioMensalPesquisa, preload: [pesquisador: :usuario]
-    trimestrais = from rt in RelatorioTrimestralPesquisa, preload: [pesquisador: :usuario]
+    anuais = from(ra in RelatorioAnualPesquisa, preload: [pesquisador: :usuario])
+    mensais = from(rm in RelatorioMensalPesquisa, preload: [pesquisador: :usuario])
+    trimestrais = from(rt in RelatorioTrimestralPesquisa, preload: [pesquisador: :usuario])
 
     Repo.replica().all(anuais) ++
       Repo.replica().all(mensais) ++
@@ -118,19 +119,25 @@ defmodule ModuloPesquisa.Repository do
   @impl true
   def list_relatorios_pesquisa_from_pesquisador(id) do
     query =
-      from p in Pesquisador,
+      from(p in Pesquisador,
         where: p.id_publico == ^id,
         preload: [
           relatorios_anuais: [pesquisador: :usuario],
           relatorios_mensais: [pesquisador: :usuario],
           relatorios_trimestrais: [pesquisador: :usuario]
         ]
+      )
 
     query
     |> Repo.replica().all()
     |> Enum.map(&[&1.relatorios_anuais, &1.relatorios_mensais, &1.relatorios_trimestrais])
     |> List.flatten()
     |> Enum.uniq()
+  end
+
+  @impl true
+  def fetch_relatorio_pesquisa_by_id(id_publico) do
+    Repo.replica().get_by(RelatorioPesquisa, id_publico: id_publico)
   end
 
   @impl true
@@ -141,9 +148,10 @@ defmodule ModuloPesquisa.Repository do
   @impl true
   def list_tags_from_categoria(categoria_nome) do
     query =
-      from c in Categoria,
+      from(c in Categoria,
         where: c.nome == ^categoria_nome,
         preload: :tags
+      )
 
     case Database.fetch_one(query) do
       {:error, :not_found} -> []
@@ -154,9 +162,10 @@ defmodule ModuloPesquisa.Repository do
   @impl true
   def list_tags_from_midia(midia_link) do
     query =
-      from m in Midia,
+      from(m in Midia,
         where: m.link == ^midia_link,
         preload: :tags
+      )
 
     case Database.fetch_one(query) do
       {:error, :not_found} -> []
@@ -209,23 +218,9 @@ defmodule ModuloPesquisa.Repository do
   end
 
   @impl true
-  def upsert_relatorio_anual(rap \\ %RelatorioAnualPesquisa{}, attrs) do
-    rap
-    |> RelatorioAnualPesquisa.changeset(attrs)
-    |> Repo.insert_or_update()
-  end
-
-  @impl true
-  def upsert_relatorio_mensal(rmp \\ %RelatorioMensalPesquisa{}, attrs) do
-    rmp
-    |> RelatorioMensalPesquisa.changeset(attrs)
-    |> Repo.insert_or_update()
-  end
-
-  @impl true
-  def upsert_relatorio_trimestral(rtp \\ %RelatorioTrimestralPesquisa{}, attrs) do
-    rtp
-    |> RelatorioTrimestralPesquisa.changeset(attrs)
+  def upsert_relatorio_pesquisa(rp \\ %RelatorioPesquisa{}, attrs) do
+    rp
+    |> RelatorioPesquisa.changeset(attrs)
     |> Repo.insert_or_update()
   end
 
