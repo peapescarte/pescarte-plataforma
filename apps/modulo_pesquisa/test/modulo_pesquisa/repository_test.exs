@@ -229,12 +229,54 @@ defmodule Pescarte.ModuloPesquisa.RepositoryTest do
 
     test "quando há registros" do
       pesquisador = insert(:pesquisador)
-      insert(:relatorio_anual, pesquisador_id: pesquisador.id_publico)
-      insert_list(4, :relatorio_mensal, pesquisador_id: pesquisador.id_publico)
-      insert_list(2, :relatorio_trimestral, pesquisador_id: pesquisador.id_publico)
+
+      insert(:relatorio, %{
+        pesquisador_id: pesquisador.id_publico,
+        data_inicio: ~D[2023-01-01],
+        data_fim: ~D[2023-12-10],
+        data_limite: ~D[2023-12-10],
+        status: :pendente,
+        tipo: "anual"
+      })
+
+      insert(:relatorio, %{
+        pesquisador_id: pesquisador.id_publico,
+        data_inicio: ~D[2023-01-01],
+        data_fim: ~D[2023-02-15],
+        data_limite: ~D[2023-02-15],
+        status: :pendente,
+        tipo: "mensal"
+      })
+
+      insert(:relatorio, %{
+        pesquisador_id: pesquisador.id_publico,
+        data_inicio: ~D[2023-02-01],
+        data_fim: ~D[2023-03-15],
+        data_limite: ~D[2023-03-15],
+        status: :pendente,
+        tipo: "mensal"
+      })
+
+      insert(:relatorio, %{
+        pesquisador_id: pesquisador.id_publico,
+        data_inicio: ~D[2023-01-01],
+        data_fim: ~D[2023-03-15],
+        data_limite: ~D[2023-03-15],
+        status: :pendente,
+        tipo: "trimestral"
+      })
+
+      insert(:relatorio, %{
+        pesquisador_id: pesquisador.id_publico,
+        data_inicio: ~D[2023-03-01],
+        data_fim: ~D[2023-06-15],
+        data_limite: ~D[2023-06-15],
+        status: :pendente,
+        tipo: "trimestral"
+      })
 
       relatorios = Repository.list_relatorios_pesquisa_from_pesquisador(pesquisador.id_publico)
-      assert length(relatorios) == 7
+      assert length(relatorios) == 5
     end
   end
 

@@ -122,7 +122,7 @@ defmodule ModuloPesquisa.Repository do
 
     query
     |> Repo.replica().all()
-    |> Enum.map(&[&1.relatorios_anuais, &1.relatorios_mensais, &1.relatorios_trimestrais])
+    |> Enum.map(&[&1.relatorios_pesquisa])
     |> List.flatten()
     |> Enum.uniq()
   end
