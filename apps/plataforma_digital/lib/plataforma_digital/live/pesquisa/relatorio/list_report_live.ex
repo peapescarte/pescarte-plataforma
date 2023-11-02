@@ -28,6 +28,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
     report_ids =
       socket.assigns.relatorios
       |> Enum.map(& &1.id)
+
     {:noreply, assign(socket, toggle_ids: report_ids)}
   end
 
@@ -39,15 +40,17 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
     id = String.to_integer(id)
     toggle_ids = socket.assigns.toggle_ids
 
-    toggle_ids =
-      if id in toggle_ids do
-        Enum.reject(toggle_ids, &(&1 == id))
-      else
-        [id | toggle_ids]
-      end
+  #  toggle_ids =
+  #    if id in toggle_ids do
+  #      Enum.reject(toggle_ids, &(&1 == id))
+  #    else
+  #      [id | toggle_ids]
+  #    end
+
     {:noreply, assign(socket, toggle_ids: toggle_ids)}
   end
-#======================
+
+  # ======================
   def handle_params(%{"search" => "true"} = search, _uri, socket) do
     tabela =
       case search do
@@ -129,7 +132,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   def handle_event("compila_report", %{}, socket) do
     toggle_ids = socket.assigns.toggle_ids
     #    RelatoriosHandler.list_relatorios_from_pesquisador(current_user.pesquisador.id_publico)
-    #report_to_be_compiled =
+    # report_to_be_compiled =
     #  RelatoriosHandler.list_relatorios_from_pesquisador()
     #  |> Enum.filter(&(&1.id in toggle_ids))
 
