@@ -418,7 +418,6 @@ defmodule PlataformaDigital.DesignSystem do
             <.text size="h4" color="text-blue-100">Cooperativas</.text>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
-          
 
           <li class="nav-item">
             <.text size="h4" color="text-blue-100">Equipes</.text>

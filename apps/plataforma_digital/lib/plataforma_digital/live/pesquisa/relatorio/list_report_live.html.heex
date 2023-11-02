@@ -31,11 +31,17 @@
   <% check_all_html = ~s(<input type="checkbox" name="toggle_all" id="toggle_all"
       phx-click="toggle_all" phx-update="ignore" />) %>
   <.table text-color="text-blue-100" rows={@tabela}>
-
     <:column :let={relatorios} label={raw(check_all_html)}>
       <% checked = if relatorios.toggled, do: [checked: "checked"], else: [] %>
-      <div class="flex-center"><.checkbox name="toggle" id="toggle_report" phx-click="toggle"
-        phx-value-toggle-id={relatorios.id} {checked}  /></div>
+      <div class="flex-center">
+        <.checkbox
+          name="toggle"
+          id="toggle_report"
+          phx-click="toggle"
+          phx-value-toggle-id={relatorios.id}
+          {checked}
+        />
+      </div>
     </:column>
     <:column :let={relatorios} label="Data"><%= relatorios.data %></:column>
     <:column :let={relatorios} label="Tipo"><%= relatorios.tipo %></:column>

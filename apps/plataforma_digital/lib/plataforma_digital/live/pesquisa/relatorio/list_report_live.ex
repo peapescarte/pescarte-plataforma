@@ -19,12 +19,15 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
 
     {:ok, assign(socket, relatorios: list, tabela: list)}
   end
+
   # Tratando os checkbox para poder compilar os escolhidos/marcados:
   # socket
   #  |> assign(:toggle_ids, [])
 
   def handle_event("toggle-all", %{"value" => "on"}, socket) do
-    report_ids = socket.assigns.relatorios |> Enum.map(& &1.id)
+    report_ids =
+      socket.assigns.relatorios
+      |> Enum.map(& &1.id)
     {:noreply, assign(socket, toggle_ids: report_ids)}
   end
 
@@ -37,20 +40,14 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
     toggle_ids = socket.assigns.toggle_ids
 
     toggle_ids =
-      if (id in toggle_ids) do
-        Enum.reject(toggle_ids, & &1 == id)
+      if id in toggle_ids do
+        Enum.reject(toggle_ids, &(&1 == id))
       else
-        [id|toggle_ids]
+        [id | toggle_ids]
       end
-
     {:noreply, assign(socket, toggle_ids: toggle_ids)}
   end
-
-
-
-
-
-
+#======================
   def handle_params(%{"search" => "true"} = search, _uri, socket) do
     tabela =
       case search do
@@ -107,7 +104,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
     end)
   end
 
-  # Vamos trabalhar o dropdown do "Preencher Relatório" 09-14/10/2023
+  # ================= Vamos trabalhar o dropdown do "Preencher Relatório" 09-14/10/2023
   @impl true
   def handle_event("mensal_report", _, socket) do
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
@@ -126,32 +123,30 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
 
-  # Trabalhando com o botão "Compila" 23;27/10/2023
+  # =============Trabalhando com o botão "Compila" 23;27/10/2023 e 2/11/2023
   # compila_report não está funcionando!!!!
   @impl true
   def handle_event("compila_report", %{}, socket) do
     toggle_ids = socket.assigns.toggle_ids
-    report_to_be_compiled =
-  #    RelatoriosHandler.list_relatorios_from_pesquisador(current_user.pesquisador.id_publico)
-      RelatorioPesquisa.list_relatorios_from_pesquisador()
-    |> Enum.filter(& &1.id in toggle_ids)
+    #    RelatoriosHandler.list_relatorios_from_pesquisador(current_user.pesquisador.id_publico)
+    #report_to_be_compiled =
+    #  RelatoriosHandler.list_relatorios_from_pesquisador()
+    #  |> Enum.filter(&(&1.id in toggle_ids))
 
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
-
 
   @impl true
   def handle_event("download_file", _, socket) do
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
-#    {:ok, file_path} = "caminho/para/arquivo/arquivo_para_download.pdf"
-#    send_download_response(socket, file_path)
-
+    #    {:ok, file_path} = "caminho/para/arquivo/arquivo_para_download.pdf"
+    #    send_download_response(socket, file_path)
   end
-#  defp send_download_response(socket, file_path) do
-#    {:ok, file} = File.read(file_path)
-#    socket
-#    |> put_flash(:info, "Arquivo baixado com sucesso!")
-#    |> send_download(file: file, filename: File.basename(file_path))
-#  end
 
+  #  defp send_download_response(socket, file_path) do
+  #    {:ok, file} = File.read(file_path)
+  #    socket
+  #    |> put_flash(:info, "Arquivo baixado com sucesso!")
+  #    |> send_download(file: file, filename: File.basename(file_path))
+  #  end
 end

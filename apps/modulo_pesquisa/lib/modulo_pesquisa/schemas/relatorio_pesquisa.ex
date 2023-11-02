@@ -25,7 +25,8 @@ defmodule ModuloPesquisa.Schemas.RelatorioPesquisa do
     field :nome_pesquisador, :string
     field :tipo, Ecto.Enum, values: ~w(anual mensal trimestral)a
     field :status, Ecto.Enum, values: ~w(entregue pendente atrasado)a
-   field :toggled, :boolean, default: false, virtual: true #==> para tratar o checkbox
+    # ==> para tratar o checkbox
+    field :toggled, :boolean, default: false, virtual: true
   end
 
   @spec parse!(map) :: RelatorioPesquisa.t()
