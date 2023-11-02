@@ -25,9 +25,8 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   #  |> assign(:toggle_ids, [])
 
   def handle_event("toggle-all", %{"value" => "on"}, socket) do
-    report_ids =
-      socket.assigns.relatorios
-      |> Enum.map(& &1.id)
+    report_ids = socket.assigns.relatorios
+    #  |> Enum.map(& &1.id)
 
     {:noreply, assign(socket, toggle_ids: report_ids)}
   end
@@ -40,12 +39,12 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
     id = String.to_integer(id)
     toggle_ids = socket.assigns.toggle_ids
 
-  #  toggle_ids =
-  #    if id in toggle_ids do
-  #      Enum.reject(toggle_ids, &(&1 == id))
-  #    else
-  #      [id | toggle_ids]
-  #    end
+    #  toggle_ids =
+    #    if id in toggle_ids do
+    #      Enum.reject(toggle_ids, &(&1 == id))
+    #    else
+    #      [id | toggle_ids]
+    #    end
 
     {:noreply, assign(socket, toggle_ids: toggle_ids)}
   end
