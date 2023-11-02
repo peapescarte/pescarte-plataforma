@@ -4,7 +4,7 @@ defmodule Database do
 
   def config_env, do: Application.get_env(:database, :config_env)
 
-  @migrations_apps ~w(cotacoes identidades modulo_pesquisa)a
+  @migrations_apps ~w(cotacoes identidades modulo_pesquisa catalogo)a
 
   @spec migrations_paths(atom) :: list(Path.t())
   def migrations_paths(:dev) do

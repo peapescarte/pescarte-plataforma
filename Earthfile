@@ -97,7 +97,7 @@ docker-dev:
   COPY --dir apps ./
   RUN mix compile
   CMD ["mix", "dev"]
-  ARG GITHUB_REPO
+  ARG GITHUB_REPO=peapescarte/pescarte-plataforma
   SAVE IMAGE --push ghcr.io/$GITHUB_REPO:dev
 
 docker:
