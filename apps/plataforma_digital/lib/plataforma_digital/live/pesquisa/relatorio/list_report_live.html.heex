@@ -14,24 +14,28 @@
         <Lucideicons.chevron_down class="text-blue-100" />
       </.button>
       <div class="dropdown-options">
-        <.report_menu_link click="mensal_report" label="Mensal">    </.report_menu_link>
-        <.report_menu_link click="trimestral_report" label="Trimestral"> </.report_menu_link>
-        <.report_menu_link click="anual_report" label="Anual">        </.report_menu_link>
+        <.report_menu_link click="mensal_report" label="Mensal"></.report_menu_link>
+        <.report_menu_link click="trimestral_report" label="Trimestral"></.report_menu_link>
+        <.report_menu_link click="anual_report" label="Anual"></.report_menu_link>
       </div>
     </div>
 
-
     <div :if={@current_user.tipo == :admin}>
-      <.button id="compilar" style="primary">
+      <.button id="compilar_relatorios" style="primary" phx-click="compila_report">
         <Lucideicons.files class="text-white-100" />
         <.text size="sm" color="text-white-100">Compilar</.text>
       </.button>
     </div>
   </div>
 
+  <% check_all_html = ~s(<input type="checkbox" name="toggle_all" id="toggle_all"
+      phx-click="toggle_all" phx-update="ignore" />) %>
   <.table text-color="text-blue-100" rows={@tabela}>
-    <:column :let={relatorios} label="  ">
-      <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
+
+    <:column :let={relatorios} label={raw(check_all_html)}>
+      <% checked = if relatorios.toggled, do: [checked: "checked"], else: [] %>
+      <div class="flex-center"><.checkbox name="toggle" id="toggle_report" phx-click="toggle"
+        phx-value-toggle-id={relatorios.id} {checked}  /></div>
     </:column>
     <:column :let={relatorios} label="Data"><%= relatorios.data %></:column>
     <:column :let={relatorios} label="Tipo"><%= relatorios.tipo %></:column>
@@ -42,8 +46,8 @@
       <%= relatorios.nome_pesquisador %>
     </:column>
     <:column :let={relatorios} label="Status"><%= relatorios.status %></:column>
-    <:column :let={relatorios} label="Baixar" phx-click="download_file">
-      <div class="flex-center"><Lucideicons.download /></div>
+    <:column :let={relatorios} label="Baixar">
+      <div class="flex-center" phx-click="download_file"><Lucideicons.download /></div>
     </:column>
   </.table>
 </div>
