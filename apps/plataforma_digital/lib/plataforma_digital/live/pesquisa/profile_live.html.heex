@@ -4,7 +4,7 @@
     <Lucideicons.user :if={!@user.avatar} width="100" height="100" />
   </div>
   <div class="user-profile-banner">
-    <img :if={@user.profile_banner} src={@user.profile_banner} />
+    <img :if={@user.profile_banner} src={~p"/images/peixinhos.svg"} />
     <div :if={!@user.profile_banner} class="user-profile-banner-default" />
   </div>
   <div class="user-profile-menu">

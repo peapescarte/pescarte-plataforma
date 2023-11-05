@@ -5,19 +5,19 @@ defmodule PlataformaDigital.Pesquisa.ProfileLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    # current_user = socket.assigns.current_user
+  # current_user = socket.assigns.current_user
     mock_user = %{
-      avatar: nil,
-      profile_banner: nil,
-      first_name: "Zoey",
-      last_name: "Pessanha",
-      pesquisador: %{
-        minibio: "Olá sou eu mesma!",
-        link_lattes: "https://github.com/zoedsoupe",
-        link_linkedin: "https://linkedin.com/in/zoedsoupe",
-        bolsa: :pesquisa
-      }
+    avatar: nil,
+    profile_banner: "/images/peixinhos.svg",
+    first_name: "Zoey",
+    last_name: "Pessanha",
+    pesquisador: %{
+      minibio: "Olá sou eu mesma!",
+      link_lattes: "https://github.com/zoedsoupe",
+      link_linkedin: "https://linkedin.com/in/zoedsoupe",
+      bolsa: :pesquisa
     }
+  }
 
     {:ok, assign(socket, user: mock_user)}
   end

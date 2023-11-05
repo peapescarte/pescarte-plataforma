@@ -38,6 +38,14 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
       }
     ]
 
-    {:ok, assign(socket, relatorios: list)}
+    {:ok,
+     socket
+     |> assign(relatorios: list)
+     |> assign(tipo_relatorio: "")}
+  end
+
+  @impl true
+  def handle_event("preencher-relatorio", %{"value" => tipo_relatorio}, socket) do
+    {:noreply, push_redirect(socket, to: ~p"/app/pesquisa/relatorios/new?tipo=#{tipo_relatorio}")}
   end
 end

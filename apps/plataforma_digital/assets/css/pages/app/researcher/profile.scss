@@ -1,8 +1,8 @@
 $profile-banner-width: 12.5rem;
 
 .user-profile-wrapper {
-  @apply w-full h-full;
-
+  width: 100%;
+  height: 100%;
   display: grid;
 
   .user-profile-banner {
@@ -11,7 +11,7 @@ $profile-banner-width: 12.5rem;
     height: $profile-banner-width;
 
     .user-profile-banner-default {
-      @apply bg-orange-60;
+      background-color: transparent;
       height: inherit;
     }
   }
@@ -35,7 +35,7 @@ $profile-banner-width: 12.5rem;
   .user-profile-menu {
     @apply flex flex-col items-start justify-center;
     @apply bg-white-100;
-    @apply border-2 border-blue-80 text-blue-80;
+    @apply border-2 border-blue-80;
 
     padding-top: 2rem;
 
@@ -108,8 +108,10 @@ $profile-banner-width: 12.5rem;
   .user-profile-info {
     @apply flex flex-col items-start justify-center;
 
+    margin-top: 5.5rem;
     margin-left: 1.5rem;
     height: max-content;
+
 
     .basic-info {
       @apply flex flex-col items-start;
