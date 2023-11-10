@@ -3,19 +3,22 @@ defmodule PlataformaDigital.Pesquisa.RelatorioLive.Index do
 
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
+  alias Database.Repo.Replica, as: Repo
   alias ModuloPesquisa.Models.RelatorioPesquisa
   alias ModuloPesquisa.Repository
 
   @locale "pt_BR"
 
   @impl true
-  def mount(params, _session, socket) do
+  def mount(params, _session, %{assigns: assigns} = socket) do
+    current_user = Repo.preload(assigns.current_user, :pesquisador)
+
     {:ok,
      socket
      |> assign(:tipo_relatorio, params["tipo"])
      |> assign(:field_names, get_report_field_names(params))
      |> assign(:today, get_formatted_today(Date.utc_today()))
-     |> assign(:pesquisador_id, socket.assigns.current_user.pesquisador.id_publico)}
+     |> assign(:pesquisador_id, current_user.pesquisador.id_publico)}
   end
 
   defp parse_form_title_by_type(%{assigns: assigns}) do
@@ -82,7 +85,7 @@ defmodule PlataformaDigital.Pesquisa.RelatorioLive.Index do
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "Novo relatório")
+    |> assign(:title, "Novo relatório")
     |> assign(:form_title, parse_form_title_by_type(socket))
     |> assign(:relatorio, %RelatorioPesquisa{})
   end
@@ -91,7 +94,7 @@ defmodule PlataformaDigital.Pesquisa.RelatorioLive.Index do
     relatorio = Repository.fetch_relatorio_pesquisa_by_id(id)
 
     socket
-    |> assign(:page_title, "Editar relatório")
+    |> assign(:title, "Editar relatório")
     |> assign(:form_title, parse_form_title_by_type(socket))
     |> assign(:relatorio, relatorio)
   end

@@ -116,6 +116,7 @@ defmodule PlataformaDigital.DesignSystem do
 
   attr :style, :string, values: ~w(primary secondary link), required: true
   attr :submit, :boolean, default: false
+  attr :disabled, :boolean, default: false
   attr :class, :string, default: ""
   attr :click, :string, default: "", doc: ~s(the click event to handle)
   attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
@@ -128,6 +129,7 @@ defmodule PlataformaDigital.DesignSystem do
       type={if @submit, do: "submit", else: "button"}
       class={["btn", "btn-#{@style}", @class]}
       phx-click={@click}
+      disabled={@disabled}
       {@rest}
     >
       <.text :if={@style == "primary"} size="base" color="text-white-100">
@@ -271,7 +273,7 @@ defmodule PlataformaDigital.DesignSystem do
   """
 
   attr :id, :string, default: nil
-  attr :type, :string, default: "text", values: ~w(text password)
+  attr :type, :string, default: "text", values: ~w(date hidden text password)
   attr :placeholder, :string, required: false, default: ""
   attr :value, :string, required: false
   attr :mask, :string, required: false, default: nil
@@ -317,6 +319,7 @@ defmodule PlataformaDigital.DesignSystem do
   defp text_input_state(true), do: "input-success"
 
   attr :id, :string, default: nil
+  attr :name, :string, default: nil
   attr :placeholder, :string, required: false, default: ""
   attr :value, :string, default: ""
   attr :valid, :boolean, required: false, default: nil
@@ -338,6 +341,7 @@ defmodule PlataformaDigital.DesignSystem do
       <div class="textarea-grow-wrapper">
         <textarea
           id={@id}
+          name={@name}
           placeholder={@placeholder}
           class="textarea"
           onInput="this.parentNode.dataset.replicatedValue = this.value"

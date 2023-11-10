@@ -7,7 +7,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="monthly-report-wrapper">
+    <div class="report-wrapper">
       <.text size="h1" color="text-blue-100">
         <%= @form_title %>
       </.text>
@@ -28,16 +28,20 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
         <.text_input type="hidden" field={@form[:data_limite]} value={get_data_limite(assigns)} />
 
         <div class="buttons-wrapper">
-          <.button :if={@form.source.valid?} style="primary" phx-disable-with="Salvando..." submit>
+          <.button
+            style="primary"
+            phx-disable-with="Salvando..."
+            submit
+            disabled={not @form.source.valid?}
+          >
             <Lucideicons.save /> Salvar respostas
           </.button>
-          <.button :if={not @form.source.valid?} disabled style="primary">
-            <Lucideicons.save /> Salvar respostas
-          </.button>
-          <.button :if={@form.source.valid?} style="primary" phx-disable-with="Enviando..." submit>
-            <Lucideicons.send /> Enviar relatório
-          </.button>
-          <.button :if={not @form.source.valid?} disabled style="primary">
+          <.button
+            style="primary"
+            phx-disable-with="Enviando..."
+            submit
+            disabled={not @form.source.valid?}
+          >
             <Lucideicons.send /> Enviar relatório
           </.button>
         </div>
