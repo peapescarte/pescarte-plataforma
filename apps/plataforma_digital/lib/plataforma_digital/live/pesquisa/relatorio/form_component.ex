@@ -19,7 +19,12 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
         </div>
 
         <.inputs_for :let={f} field={@form[get_embedded_conteudo(assigns)]}>
-          <.report_field :for={{label, name} <- @field_names} field={f[name]} label={label} />
+          <.report_field
+            :for={{label, name} <- @field_names}
+            field={f[name]}
+            disabled={@form.data.status == :entregue}
+            label={label}
+          />
         </.inputs_for>
 
         <.text_input type="hidden" field={@form[:tipo]} value={@tipo_relatorio} />
@@ -32,7 +37,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
             style="primary"
             phx-disable-with="Salvando..."
             submit
-            disabled={not @form.source.valid?}
+            disabled={not @form.source.valid? or @form.data.status == :entregue}
           >
             <Lucideicons.save /> Salvar respostas
           </.button>
@@ -40,7 +45,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
             style="primary"
             phx-disable-with="Enviando..."
             submit
-            disabled={not @form.source.valid?}
+            disabled={not @form.source.valid? or @form.data.status == :entregue}
           >
             <Lucideicons.send /> Enviar relatório
           </.button>
@@ -131,7 +136,13 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
 
   defp report_field(assigns) do
     ~H"""
-    <.text_area id={@field.id} name={@field.name} value={@field.value} class="report-field">
+    <.text_area
+      id={@field.id}
+      name={@field.name}
+      value={@field.value}
+      disabled={@disabled}
+      class="report-field"
+    >
       <:label>
         <.text size="h3" color="text-blue-100">
           <%= @label %>

@@ -34,11 +34,11 @@ defmodule PlataformaDigital.DesignSystem do
       <.text size="h1"> Lorem ipsum dolor sit amet </.text>
   """
 
-  attr :size, :string, values: @text_sizes, required: true
-  attr :color, :string, default: "text-black-80"
-  attr :class, :string, required: false, default: ""
+  attr(:size, :string, values: @text_sizes, required: true)
+  attr(:color, :string, default: "text-black-80")
+  attr(:class, :string, required: false, default: "")
 
-  slot :inner_block
+  slot(:inner_block)
 
   def text(%{size: "h" <> _} = assigns) do
     ~H"""
@@ -114,14 +114,14 @@ defmodule PlataformaDigital.DesignSystem do
       <.button style="primary" submit> Submissão </.button>
   """
 
-  attr :style, :string, values: ~w(primary secondary link), required: true
-  attr :submit, :boolean, default: false
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: ""
-  attr :click, :string, default: "", doc: ~s(the click event to handle)
-  attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
+  attr(:style, :string, values: ~w(primary secondary link), required: true)
+  attr(:submit, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: "")
+  attr(:click, :string, default: "", doc: ~s(the click event to handle))
+  attr(:rest, :global, doc: ~s(used for phoenix events like "phx-target"))
 
-  slot :inner_block
+  slot(:inner_block)
 
   def button(assigns) do
     ~H"""
@@ -175,12 +175,12 @@ defmodule PlataformaDigital.DesignSystem do
       <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
   """
 
-  attr :id, :string, required: false
-  attr :checked, :boolean, default: false
-  attr :disabled, :boolean, default: false
-  attr :label, :string, required: false, default: ""
-  attr :field, Phoenix.HTML.FormField
-  attr :name, :string
+  attr(:id, :string, required: false)
+  attr(:checked, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:label, :string, required: false, default: "")
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:name, :string)
 
   def checkbox(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -215,13 +215,13 @@ defmodule PlataformaDigital.DesignSystem do
       <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
   """
 
-  attr :id, :string, required: true
-  attr :name, :string
-  attr :disabled, :boolean, default: false
-  attr :checked, :boolean, default: false
-  attr :field, Phoenix.HTML.FormField
+  attr(:id, :string, required: true)
+  attr(:name, :string)
+  attr(:disabled, :boolean, default: false)
+  attr(:checked, :boolean, default: false)
+  attr(:field, Phoenix.HTML.FormField)
 
-  slot :label, required: true
+  slot(:label, required: true)
 
   def radio(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -272,17 +272,17 @@ defmodule PlataformaDigital.DesignSystem do
       <.text_input name="password" label="Senha" type="password" />
   """
 
-  attr :id, :string, default: nil
-  attr :type, :string, default: "text", values: ~w(date hidden text password)
-  attr :placeholder, :string, required: false, default: ""
-  attr :value, :string, required: false
-  attr :mask, :string, required: false, default: nil
-  attr :valid, :boolean, required: false, default: nil
-  attr :label, :string, default: nil
-  attr :field, Phoenix.HTML.FormField
-  attr :name, :string
+  attr(:id, :string, default: nil)
+  attr(:type, :string, default: "text", values: ~w(date hidden text password))
+  attr(:placeholder, :string, required: false, default: "")
+  attr(:value, :string, required: false)
+  attr(:mask, :string, required: false, default: nil)
+  attr(:valid, :boolean, required: false, default: nil)
+  attr(:label, :string, default: nil)
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:name, :string)
 
-  attr :rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required)
+  attr(:rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required))
 
   def text_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -318,15 +318,16 @@ defmodule PlataformaDigital.DesignSystem do
   defp text_input_state(false), do: "input-error"
   defp text_input_state(true), do: "input-success"
 
-  attr :id, :string, default: nil
-  attr :name, :string, default: nil
-  attr :placeholder, :string, required: false, default: ""
-  attr :value, :string, default: ""
-  attr :valid, :boolean, required: false, default: nil
-  attr :field, Phoenix.HTML.FormField
-  attr :class, :string, default: ""
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: nil)
+  attr(:disabled, :boolean, default: false)
+  attr(:placeholder, :string, required: false, default: "")
+  attr(:value, :string, default: "")
+  attr(:valid, :boolean, required: false, default: nil)
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:class, :string, default: "")
 
-  slot :label, required: false
+  slot(:label, required: false)
 
   def text_area(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -343,6 +344,7 @@ defmodule PlataformaDigital.DesignSystem do
           id={@id}
           name={@name}
           placeholder={@placeholder}
+          disabled={@disabled}
           class="textarea"
           onInput="this.parentNode.dataset.replicatedValue = this.value"
         >
@@ -374,12 +376,12 @@ defmodule PlataformaDigital.DesignSystem do
       <.search_input id="teste" name="busca_cep" content=["cep1", "cep2"] size="large" />
   """
 
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :content, :list, default: []
-  attr :placeholder, :string, default: "Faça uma pesquisa..."
-  attr :field, Phoenix.HTML.FormFieldcontent
-  attr :size, :string, values: ~w(base large), default: "base"
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:content, :list, default: [])
+  attr(:placeholder, :string, default: "Faça uma pesquisa...")
+  attr(:field, Phoenix.HTML.FormFieldcontent)
+  attr(:size, :string, values: ~w(base large), default: "base")
 
   def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -475,14 +477,14 @@ defmodule PlataformaDigital.DesignSystem do
       <.link patch={~p"/app/relatorios"} text_size="lg">Recarregar lista de relatórios</.link>
   """
 
-  attr :navigate, :string, required: false, default: nil
-  attr :patch, :string, required: false, default: nil
-  attr :href, :string, required: false, default: nil
-  attr :method, :string, default: "get", values: ~w(get put post delete patch)
-  attr :styless, :boolean, default: false
-  attr :class, :string, default: ""
+  attr(:navigate, :string, required: false, default: nil)
+  attr(:patch, :string, required: false, default: nil)
+  attr(:href, :string, required: false, default: nil)
+  attr(:method, :string, default: "get", values: ~w(get put post delete patch))
+  attr(:styless, :boolean, default: false)
+  attr(:class, :string, default: "")
 
-  slot :inner_block
+  slot(:inner_block)
 
   def link(assigns) do
     ~H"""
@@ -511,15 +513,16 @@ defmodule PlataformaDigital.DesignSystem do
         </:actions>
       </.simple_form>
   """
-  attr :for, :any, required: true, doc: "a entidade de dados que será usada no formulário"
-  attr :as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados"
+  attr(:for, :any, required: true, doc: "a entidade de dados que será usada no formulário")
+  attr(:as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados")
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target),
     doc: "atributos HTML adicionais e opcionais a serem adicionados na tag do formulário"
+  )
 
-  slot :inner_block, required: true
-  slot :actions, doc: "slot para ações do formulário, como o botão de submissão"
+  slot(:inner_block, required: true)
+  slot(:actions, doc: "slot para ações do formulário, como o botão de submissão")
 
   def simple_form(assigns) do
     ~H"""
@@ -532,9 +535,9 @@ defmodule PlataformaDigital.DesignSystem do
     """
   end
 
-  attr :type, :string, values: ~w(success error warning), required: true
-  attr :message, :string, required: true
-  attr :id, :string, required: true
+  attr(:type, :string, values: ~w(success error warning), required: true)
+  attr(:message, :string, required: true)
+  attr(:id, :string, required: true)
 
   def toast(assigns) do
     ~H"""
@@ -555,12 +558,12 @@ defmodule PlataformaDigital.DesignSystem do
 
   """
   slot :column, doc: "Columns with column labels" do
-    attr :label, :string, doc: "Column label"
-    attr :type, :string, values: ~w(text slot)
+    attr(:label, :string, doc: "Column label")
+    attr(:type, :string, values: ~w(text slot))
   end
 
-  attr :rows, :list, default: []
-  attr :"text-color", :string, required: true
+  attr(:rows, :list, default: [])
+  attr(:"text-color", :string, required: true)
 
   def table(assigns) do
     ~H"""
