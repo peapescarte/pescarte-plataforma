@@ -1,9 +1,15 @@
 defmodule ModuloPesquisa.Handlers.RelatoriosHandler do
   alias ModuloPesquisa.Adapters.RelatorioAdapter
   alias ModuloPesquisa.Handlers.IManageRelatoriosHandler
+  alias ModuloPesquisa.Models.RelatorioPesquisa
   alias ModuloPesquisa.Repository
 
   @behaviour IManageRelatoriosHandler
+
+  @impl true
+  def change_relatorio_pesquisa(%RelatorioPesquisa{} = relatorio, attrs \\ %{}) do
+    RelatorioPesquisa.changeset(relatorio, attrs)
+  end
 
   @impl true
   def list_relatorios_from_pesquisador(id, sorter \\ &sort_by_periodo/1) do

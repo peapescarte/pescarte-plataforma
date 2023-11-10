@@ -5,9 +5,7 @@ defmodule ModuloPesquisa.Models.Pesquisador do
   alias ModuloPesquisa.Models.Campus
   alias ModuloPesquisa.Models.LinhaPesquisa
   alias ModuloPesquisa.Models.Midia
-  alias ModuloPesquisa.Models.RelatorioAnualPesquisa
-  alias ModuloPesquisa.Models.RelatorioMensalPesquisa
-  alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa
+  alias ModuloPesquisa.Models.RelatorioPesquisa
 
   @type t :: %Pesquisador{
           minibio: binary,
@@ -26,9 +24,7 @@ defmodule ModuloPesquisa.Models.Pesquisador do
           orientandos: list(Pesquisador.t()),
           orientador: Pesquisador.t() | nil,
           midias: list(Midia.t()),
-          relatorios_anuais: list(RelatorioAnualPesquisa.t()),
-          relatorios_mensais: list(RelatorioMensalPesquisa.t()),
-          relatorios_trimestrais: list(RelatorioTrimestralPesquisa.t()),
+          relatorios_pesquisa: list(RelatorioPesquisa.t()),
           campus: Campus.t(),
           usuario: User.t()
         }
@@ -63,7 +59,7 @@ defmodule ModuloPesquisa.Models.Pesquisador do
       foreign_key: :responsavel_lp_id,
       references: :id_publico
 
-    has_many :relatorios_anuais, RelatorioAnualPesquisa,
+    has_many :relatorios_pesquisa, RelatorioPesquisa,
       references: :id_publico,
       foreign_key: :pesquisador_id
 
@@ -71,14 +67,6 @@ defmodule ModuloPesquisa.Models.Pesquisador do
 
     has_many :midias, Midia,
       foreign_key: :autor_id,
-      references: :id_publico,
-      foreign_key: :pesquisador_id
-
-    has_many :relatorios_mensais, RelatorioMensalPesquisa,
-      references: :id_publico,
-      foreign_key: :pesquisador_id
-
-    has_many :relatorios_trimestrais, RelatorioTrimestralPesquisa,
       references: :id_publico,
       foreign_key: :pesquisador_id
 
