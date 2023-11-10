@@ -380,7 +380,7 @@ defmodule PlataformaDigital.DesignSystem do
   attr(:name, :string, required: true)
   attr(:content, :list, default: [])
   attr(:placeholder, :string, default: "Faça uma pesquisa...")
-  attr(:field, Phoenix.HTML.FormFieldcontent)
+  attr(:field, Phoenix.HTML.FormField)
   attr(:size, :string, values: ~w(base large), default: "base")
 
   def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
@@ -403,7 +403,7 @@ defmodule PlataformaDigital.DesignSystem do
   defp input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     assigns
     |> assign(field: nil, id: assigns.id || field.id)
-    |> assign_new(:name, fn -> field.name end)
+    |> assign(:name, field.name)
     |> assign_new(:value, fn -> field.value end)
   end
 

@@ -50,6 +50,12 @@ defmodule ModuloPesquisa.Models.RelatorioPesquisa do
   end
 
   @spec changeset(RelatorioPesquisa.t(), map) :: changeset
+  def changeset(%RelatorioPesquisa{status: :entregue} = relatorio, attrs) do
+    relatorio
+    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> add_error(:status, "O relatório já foi entregue")
+  end
+
   def changeset(%RelatorioPesquisa{} = relatorio, attrs) do
     relatorio
     |> cast(attrs, @required_fields ++ @optional_fields)

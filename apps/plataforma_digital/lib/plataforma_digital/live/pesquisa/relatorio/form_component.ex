@@ -121,14 +121,9 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
 
   defp get_data_limite(%{tipo_relatorio: tipo_relatorio, today: today}) do
     case tipo_relatorio do
-      "mensal" ->
-        Date.from_iso8601!("#{today.year}-#{today.month}-15")
-
-      "trimestral" ->
-        Date.from_iso8601!("#{today.year}-#{today.month}-10")
-
-      "anual" ->
-        Date.utc_today()
+      "mensal" -> Date.from_iso8601!("#{today.year}-#{today.month}-15")
+      "trimestral" -> Date.from_iso8601!("#{today.year}-#{today.month}-10")
+      "anual" -> Date.utc_today()
     end
   end
 
@@ -136,13 +131,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
 
   defp report_field(assigns) do
     ~H"""
-    <.text_area
-      id={@field.id}
-      name={@field.name}
-      value={@field.value}
-      disabled={@disabled}
-      class="report-field"
-    >
+    <.text_area field={@field} disabled={@disabled} class="report-field">
       <:label>
         <.text size="h3" color="text-blue-100">
           <%= @label %>
