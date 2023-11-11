@@ -4,8 +4,8 @@ defmodule PlataformaDigital.DesignSystem.AuthenticatedNavbar do
   alias Identidades.Models.Usuario
   alias PlataformaDigital.DesignSystem
 
-  attr :user, Usuario, required: true
-  attr :open, :boolean, default: nil
+  attr(:user, Usuario, required: true)
+  attr(:open, :boolean, default: nil)
 
   @impl true
   def render(assigns) do
@@ -22,8 +22,10 @@ defmodule PlataformaDigital.DesignSystem.AuthenticatedNavbar do
             <img :if={@open} src={~p"/images/pescarte_logo.svg"} class="logo" />
           </li>
           <li class="nav-item">
-            <Lucideicons.home />
-            <.text :if={@open} size="base" color="text-black-60">Home</.text>
+            <DesignSystem.link navigate={~p"/"}>
+              <Lucideicons.home />
+              <.text :if={@open} size="base" color="text-black-60">Home</.text>
+            </DesignSystem.link>
           </li>
           <li class="nav-item">
             <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores"}>
@@ -42,12 +44,16 @@ defmodule PlataformaDigital.DesignSystem.AuthenticatedNavbar do
             </DesignSystem.link>
           </li>
           <li class="nav-item">
-            <Lucideicons.calendar_days />
-            <.text :if={@open} size="base" color="text-black-60">Agenda</.text>
+            <DesignSystem.link navigate={~p"/"}>
+              <Lucideicons.calendar_days />
+              <.text :if={@open} size="base" color="text-black-60">Agenda</.text>
+            </DesignSystem.link>
           </li>
           <li class="nav-item">
-            <Lucideicons.mail />
-            <.text :if={@open} size="base" color="text-black-60">Mensagens</.text>
+            <DesignSystem.link navigate={~p"/"}>
+              <Lucideicons.mail />
+              <.text :if={@open} size="base" color="text-black-60">Mensagens</.text>
+            </DesignSystem.link>
           </li>
         </ul>
         <div class="user-info">

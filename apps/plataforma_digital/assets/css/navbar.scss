@@ -22,7 +22,7 @@
   @apply flex justify-between items-center;
   padding: 1rem 1.5rem;
 
-  > svg {
+  >svg {
     margin-left: 0.5rem;
   }
 }
@@ -38,7 +38,7 @@
   transform: translateZ(0) scale(1, 1);
   border-right-width: 1px;
 
-  > span {
+  >span {
     @apply border-black-10 rounded-full;
 
     border-width: 1.5px;
@@ -50,7 +50,7 @@
     left: calc($nav-width + 1rem);
     z-index: 1000;
 
-    > svg {
+    >svg {
       @apply text-blue-100;
 
       width: 1rem;
@@ -81,11 +81,12 @@
 }
 
 .navbar.authenticated.open {
-  @apply bg-white-100 items-center;
+  @apply relative bg-white-100 items-center;
+  z-index: 999;
 
   width: 20rem;
 
-  > span {
+  >span {
     left: 21rem;
   }
 
@@ -103,18 +104,29 @@
 
   .nav-menu {
     @apply items-start;
-    width: 80%;
+    width: 85%;
 
     .nav-item {
+      width: 100%;
       padding: 1rem 1.5rem;
-      width: max-content;
+      justify-content: left;
+
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+          padding: 0.5rem;
+        }
+      }
 
       .logo {
         margin: 0;
       }
     }
 
-    .nav-item > svg {
+    .nav-item>svg {
       margin-right: 0.5rem;
     }
   }
