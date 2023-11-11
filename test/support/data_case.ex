@@ -16,8 +16,6 @@ defmodule Pescarte.DataCase do
 
   use ExUnit.CaseTemplate
 
-  alias Pescarte.Database
-
   using do
     quote do
       import Ecto
@@ -38,7 +36,7 @@ defmodule Pescarte.DataCase do
   """
   def setup_sandbox(tags) do
     alias Ecto.Adapters.SQL.Sandbox
-    pid = Sandbox.start_owner!(Database.Repo, shared: not tags[:async])
+    pid = Sandbox.start_owner!(Pescarte.Database.Repo, shared: not tags[:async])
     on_exit(fn -> Sandbox.stop_owner(pid) end)
   end
 

@@ -1,5 +1,5 @@
 defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisaTest do
-  use Pescarte..DataCase, async: true
+  use Pescarte.DataCase, async: true
 
   import Pescarte.ModuloPesquisa.Factory
 

@@ -1,12 +1,13 @@
 defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
   use Pescarte.DataCase, async: true
 
+  alias Pescarte.Identidades.Factory
   alias Pescarte.ModuloPesquisa.Models.Campus
 
   @moduletag :unit
 
   test "changeset válido com campos obrigatórios" do
-    endereco = Identidades.Factory.insert(:endereco)
+    endereco = Factory.insert(:endereco)
 
     attrs = %{
       acronimo: "ABC",
@@ -23,7 +24,7 @@ defmodule Pescarte.ModuloPesquisa.Models.CampusTest do
   test "changeset válido com campos opcionais" do
     attrs = %{
       acronimo: "ABC",
-      endereco_cep: Identidades.Factory.insert(:endereco).cep,
+      endereco_cep: Factory.insert(:endereco).cep,
       nome: "Campus ABC",
       nome_universidade: "Um Exemplo de Nome"
     }

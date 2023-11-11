@@ -1,8 +1,9 @@
 defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
-  use Pescarte..DataCase, async: true
+  use Pescarte.DataCase, async: true
 
   import Pescarte.ModuloPesquisa.Factory
 
+  alias Pescarte.Identidades.Factory
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
 
   @moduletag :unit
@@ -13,7 +14,7 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
       bolsa: :pesquisa,
       link_lattes: "https://linklattes.com",
       campus_acronimo: insert(:campus).acronimo,
-      usuario_id: Identidades.Factory.insert(:usuario).id_publico,
+      usuario_id: Factory.insert(:usuario).id_publico,
       data_inicio_bolsa: ~D[2023-01-01],
       data_fim_bolsa: ~D[2023-12-31],
       data_contratacao: ~D[2023-01-01],
@@ -35,7 +36,7 @@ defmodule Pescarte.ModuloPesquisa.Models.PesquisadorTest do
       bolsa: :pesquisa,
       link_lattes: "https://linklattes.com",
       campus_acronimo: insert(:campus).acronimo,
-      usuario_id: Identidades.Factory.insert(:usuario).id_publico,
+      usuario_id: Factory.insert(:usuario).id_publico,
       data_inicio_bolsa: ~D[2023-01-01],
       data_fim_bolsa: ~D[2023-12-31],
       data_contratacao: ~D[2023-01-01]

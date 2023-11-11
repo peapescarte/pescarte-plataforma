@@ -17,8 +17,6 @@ defmodule PescarteWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
-  alias Ecto.Adapters.SQL.Sandbox
-
   using do
     quote do
       use PescarteWeb, :verified_routes
@@ -33,11 +31,15 @@ defmodule PescarteWeb.ConnCase do
   end
 
   setup tags do
-    pid = Sandbox.start_owner!(Database.Repo, shared: not tags[:async])
-    on_exit(fn -> Sandbox.stop_owner(pid) end)
+    Pescarte.DataCase.setup_sandbox(tags)
+    conn = setup_conn()
+    {:ok, conn: conn }
+  end
+
+  defp setup_conn do
     conn = Phoenix.ConnTest.build_conn()
     secret_key_base = PescarteWeb.Endpoint.config(:secret_key_base)
-    {:ok, conn: Map.replace!(conn, :secret_key_base, secret_key_base)}
+   Map.replace!(conn, :secret_key_base, secret_key_base)
   end
 
   @doc """

@@ -1,5 +1,5 @@
 defmodule Pescarte.Cotacoes.Models.CotacaoPescadoTest do
-  use Pescarte.Database.DataCase, async: true
+  use Pescarte.DataCase, async: true
 
   import Pescarte.Cotacoes.Factory
 

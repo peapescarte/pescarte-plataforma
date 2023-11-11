@@ -14,6 +14,10 @@ config :pescarte, PescarteWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
   pubsub_server: Pescarte.PubSub,
   url: [host: "localhost"],
+  render_errors: [
+    layout: false,
+    formats: [html: PescarteWeb.ErrorHTML, json: PescarteWeb.ErrorJSON]
+  ],
   secret_key_base: "57RgSOwri8BGRx6ilgBZjAf3Cob5s8/2E4CFkr+/FWZGEP0J2f+AWFnUKn2QGlvf",
   server: true,
   live_view: [signing_salt: "F5ab1yDTPHX_hQJm"]

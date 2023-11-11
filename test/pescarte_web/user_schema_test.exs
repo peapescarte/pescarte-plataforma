@@ -1,7 +1,9 @@
 defmodule PescarteWeb.GraphQL.UserSchemaTest do
-  use PescarteWeb.GraphQL.ConnCase, async: true
+  use PescarteWeb.ConnCase, async: true
 
   @moduletag :integration
+
+  alias Pescarte.Identidades.Factory
 
   describe "listar usuários query" do
     setup :register_and_generate_jwt_token
@@ -26,7 +28,7 @@ defmodule PescarteWeb.GraphQL.UserSchemaTest do
     end
 
     test "quando há um usuário", %{conn: conn} do
-      user = Identidades.Factory.insert(:usuario)
+      user = Factory.insert(:usuario)
       conn = post(conn, "/", %{"query" => @list_user_query})
 
       assert %{"data" => %{"listarUsuarios" => [_, listed]}} = json_response(conn, 200)

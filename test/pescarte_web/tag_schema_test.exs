@@ -1,5 +1,5 @@
 defmodule PescarteWeb.GraphQL.TagSchemaTest do
-  use PescarteWeb.GraphQL.ConnCase, async: true
+  use PescarteWeb.ConnCase, async: true
 
   import Pescarte.ModuloPesquisa.Factory
 

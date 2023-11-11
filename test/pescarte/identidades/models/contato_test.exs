@@ -1,12 +1,14 @@
 defmodule Pescarte.Identidades.Models.ContatoTest do
   use Pescarte.DataCase, async: true
 
+  import Pescarte.Identidades.Factory
+
   alias Pescarte.Identidades.Models.Contato
 
   @moduletag :unit
 
   test "changeset com emails e celulares adicionais" do
-    endereco = Identidades.Factory.insert(:endereco)
+    endereco = insert(:endereco)
 
     attrs = %{
       email_principal: "test@example.com",
@@ -27,7 +29,7 @@ defmodule Pescarte.Identidades.Models.ContatoTest do
   end
 
   test "changeset com emails e celulares adicionais vazios" do
-    endereco = Identidades.Factory.insert(:endereco)
+    endereco = insert(:endereco)
 
     attrs = %{
       email_principal: "test@example.com",
@@ -48,7 +50,7 @@ defmodule Pescarte.Identidades.Models.ContatoTest do
   end
 
   test "changeset com emails e celulares adicionais duplicados" do
-    endereco = Identidades.Factory.insert(:endereco)
+    endereco = insert(:endereco)
 
     attrs = %{
       email_principal: "test@example.com",
@@ -66,7 +68,7 @@ defmodule Pescarte.Identidades.Models.ContatoTest do
   end
 
   test "changeset sem campos adicionais" do
-    endereco = Identidades.Factory.insert(:endereco)
+    endereco = insert(:endereco)
 
     attrs = %{
       email_principal: "test@example.com",

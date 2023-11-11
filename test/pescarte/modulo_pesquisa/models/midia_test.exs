@@ -3,12 +3,13 @@ defmodule Pescarte.ModuloPesquisa.Models.MidiaTest do
 
   import Pescarte.ModuloPesquisa.Factory
 
+  alias Pescarte.Identidades.Factory
   alias Pescarte.ModuloPesquisa.Models.Midia
 
   @moduletag :unit
 
   test "alterações válidas no changeset com campos obrigatórios" do
-    autor = Identidades.Factory.insert(:usuario)
+    autor = Factory.insert(:usuario)
     tag = insert(:tag)
 
     attrs = %{

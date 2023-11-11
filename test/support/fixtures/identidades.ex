@@ -1,7 +1,7 @@
 defmodule Pescarte.Identidades.Factory do
   @moduledoc false
 
-  use ExMachina.Ecto, repo: Database.Repo
+  use ExMachina.Ecto, repo: Pescarte.Database.Repo
 
   alias Pescarte.Identidades.Models.Contato
   alias Pescarte.Identidades.Models.Endereco

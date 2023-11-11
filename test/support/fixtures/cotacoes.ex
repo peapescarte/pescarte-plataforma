@@ -1,5 +1,5 @@
 defmodule Pescarte.Cotacoes.Factory do
-  use ExMachina.Ecto, repo: Database.Repo
+  use ExMachina.Ecto, repo: Pescarte.Database.Repo
 
   alias Pescarte.Cotacoes.Models.Cotacao
   alias Pescarte.Cotacoes.Models.CotacaoPescado

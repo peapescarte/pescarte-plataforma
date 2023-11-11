@@ -1,5 +1,5 @@
 defmodule Pescarte.ModuloPesquisa.Factory do
-  use ExMachina.Ecto, repo: Database.Repo
+  use ExMachina.Ecto, repo: Pescarte.Database.Repo
 
   alias Pescarte.Identidades.Factory, as: Identidades
   alias Pescarte.ModuloPesquisa.Models.Campus

@@ -1,8 +1,9 @@
 defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
-  use PescarteWeb.GraphQL.ConnCase, async: true
+  use PescarteWeb.ConnCase, async: true
 
   import Pescarte.ModuloPesquisa.Factory
 
+  alias Pescarte.Identidades.Factory
   alias Pescarte.ModuloPesquisa.Handlers.MidiasHandler
 
   @moduletag :integration
@@ -38,7 +39,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     end
 
     test "quando há midias", %{conn: conn} do
-      autor = Identidades.Factory.insert(:usuario)
+      autor = Factory.insert(:usuario)
       categoria = insert(:categoria)
       tag = insert(:tag, categoria_nome: categoria.nome)
       midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
@@ -88,7 +89,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     end
 
     test "quando a mídia existe", %{conn: conn} do
-      autor = Identidades.Factory.insert(:usuario)
+      autor = Factory.insert(:usuario)
       categoria = insert(:categoria)
       tag = insert(:tag, categoria_nome: categoria.nome)
       midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
@@ -143,7 +144,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
 
     test "quando os parâmetros são válidos", %{conn: conn} do
       categoria = insert(:categoria)
-      autor = Identidades.Factory.insert(:usuario)
+      autor = Factory.insert(:usuario)
 
       params = %{
         "autorId" => autor.id_publico,
