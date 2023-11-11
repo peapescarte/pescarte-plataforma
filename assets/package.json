@@ -1,0 +1,12 @@
+{
+  "name": "@pescarte/plataforma-pescarte",
+  "version": "0.1.0",
+  "description": "Plataforma Digital PEA Pescarte",
+  "repository": "https://github.com/cciuenf/pescarte",
+  "author": "zoedsoupe",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "dependencies": {
+    "topbar": "^1.0.1"
+  }
+}

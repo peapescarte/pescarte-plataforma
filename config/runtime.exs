@@ -3,10 +3,8 @@ import Config
 config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
 if System.get_env("PHX_SERVER") do
-  config :proxy_web, ProxyWeb.Endpoint, server: true
+  config :pescarte, PescarteWeb.Endpoint, server: true
 end
-
-config :cotacoes_etl, fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
 
 if config_env() == :prod do
   database_url =
@@ -25,14 +23,14 @@ if config_env() == :prod do
     socket_options: maybe_ipv6
   ]
 
-  config :database, Database.Repo, database_opts
-  config :database, Database.Repo.Replica, database_opts
+  config :pescarte, Pescarte.Repo, database_opts
+  config :pescarte, Pescarte.Repo.Replica, database_opts
 
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
       raise "SECRET_KEY_BASE not available"
 
-  config :proxy_web, ProxyWeb.Endpoint,
+  config :pescarte, PescarteWeb.Endpoint,
     http: [
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
@@ -40,6 +38,6 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   if System.get_env("UENF_SERVER") do
-    config :proxy_web, ProxyWeb.Endpoint, url: [host: "pescarte.uenf.br", port: 8080]
+    config :pescarte, PescarteWeb.Endpoint, url: [host: "pescarte.uenf.br", port: 8080]
   end
 end

@@ -17,7 +17,7 @@
       "${systems.darwin}".default = let
         darwinPkgs = pkgs systems.darwin;
         erl = darwinPkgs.beam.packages.erlang;
-        nodeDependencies = (darwinPkgs.callPackage ./apps/plataforma_digital/assets/default.nix {}).shell.nodeDependencies;
+        nodeDependencies = (darwinPkgs.callPackage ./assets/default.nix {}).shell.nodeDependencies;
       in
         erl.callPackage ./nix/pescarte.nix {
           inherit nodeDependencies;

@@ -19,13 +19,13 @@ database_opts = [
   pool_size: 10
 ]
 
-config :database, Database.Repo, database_opts
-config :database, Database.Repo.Replica, database_opts
+config :pescarte, Pescarte.Database.Repo, database_opts
+config :pescarte, Pescarte.Database.Repo.Replica, database_opts
 
 # --------- #
 # Proxy Web #
 # --------- #
-config :proxy_web, ProxyWeb.Endpoint,
+config :pescarte, PescarteWeb.Endpoint,
   http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
@@ -40,14 +40,11 @@ config :proxy_web, ProxyWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"storybook/.*(exs)$",
-      ~r"apps/plataforma_digital_api/lib/*.(ex)$",
-      ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"apps/plataforma_digital/lib/plataforma_digital/(controllers|live|components|templates)/.*(ex|heex)$"
+      ~r"lib/*.(ex)$",
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"lib/pescarte_web/(controllers|live|components)/.*(ex|heex)$"
     ]
   ]
-
-config :plataforma_digital, PlataformaDigital.Endpoint, debug_errors: true
-config :plataforma_digital_api, PlataformaDigitalAPI.Endpoint, debug_errors: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
