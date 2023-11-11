@@ -70,7 +70,8 @@ defmodule Identidades.Handlers.UsuarioHandler do
   """
   @impl true
   def fetch_usuario_by_cpf_and_password(cpf, pass) do
-    with {:ok, user} <- Repository.fetch_usuario_by_cpf(cpf) do
+    with cpf <- handle_cpf(cpf),
+         {:ok, user} <- Repository.fetch_usuario_by_cpf(cpf) do
       if valid_password?(user, pass) do
         {:ok, user}
       else
@@ -101,6 +102,12 @@ defmodule Identidades.Handlers.UsuarioHandler do
         {:error, :invalid_password}
       end
     end
+  end
+
+  defp handle_cpf(cpf) do
+    cpf
+    |> String.replace(~r/[.-]/, "")
+    |> String.trim()
   end
 
   @impl true
