@@ -35,6 +35,70 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
         ano: "2023",
         mes: "Maio",
         status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: "Mensal",
+        name: "Relatório Mensal - Maio",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Junho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Mensal,
+        name: "Relatório Mensal - Agosto",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Julho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: "Mensal",
+        name: "Relatório Mensal - Maio",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Junho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Mensal,
+        name: "Relatório Mensal - Agosto",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Julho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
       }
     ]
 

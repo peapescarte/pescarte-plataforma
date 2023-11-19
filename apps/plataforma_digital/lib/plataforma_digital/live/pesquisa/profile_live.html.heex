@@ -1,11 +1,11 @@
 <div class="user-profile-wrapper">
   <div class="user-profile-avatar">
-    <img :if={@user.avatar} src={@user.avatar} />
-    <Lucideicons.user :if={!@user.avatar} width="100" height="100" />
+    <img :if={@pesquisador.link_avatar} src={@pesquisador.link_avatar} />
+    <Lucideicons.user :if={!@pesquisador.link_avatar} width="100" height="100" />
   </div>
   <div class="user-profile-banner">
-    <img :if={@user.profile_banner} src={~p"/images/peixinhos.svg"} />
-    <div :if={!@user.profile_banner} class="user-profile-banner-default" />
+    <img src={~p"/images/peixinhos.svg"} />
+    <div :if={!@pesquisador.link_banner_perfil} class="user-profile-banner-default" />
   </div>
   <div class="user-profile-menu">
     <div class="user-profile-menu-dots">
@@ -23,29 +23,29 @@
       <Lucideicons.log_out width="18" height="18" />
     </.profile_menu_link>
   </div>
-  <section class="user-profile-info">
+  <section class="user-profile-info" style="height: 300px; overflow-y: auto">
     <div class="basic-info">
       <.text size="h2" color="text-black-80">
-        <%= @user.first_name <> " " <> @user.last_name %>
+        <%= @user_name %>
       </.text>
       <.text size="h4" color="text-black-80">
-        <%= @user.pesquisador.bolsa %>
+        <%= @pesquisador.bolsa %>
       </.text>
     </div>
     <hr />
     <div class="profile-about">
       <.text size="h4" color="text-black-80">Sobre</.text>
       <.text size="base" color="text-black-80">
-        <%= @user.pesquisador.minibio %>
+        <%= @pesquisador.minibio %>
       </.text>
     </div>
     <hr />
     <div class="profile-links">
       <.text size="lg" color="text-black-80">Links</.text>
-      <.profile_link href={@user.pesquisador.link_lattes} label="Lattes">
+      <.profile_link href={@pesquisador.link_lattes} label="Lattes">
         <Lucideicons.file_text width="35" height="23" class="text-white-100" />
       </.profile_link>
-      <.profile_link href={@user.pesquisador.link_linkedin} label="LinkedIn">
+      <.profile_link href={@pesquisador.link_linkedin} label="LinkedIn">
         <Lucideicons.linkedin width="35" height="23" class="text-white-100" />
       </.profile_link>
     </div>

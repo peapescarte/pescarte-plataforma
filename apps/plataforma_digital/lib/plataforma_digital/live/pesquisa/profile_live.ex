@@ -5,21 +5,9 @@ defmodule PlataformaDigital.Pesquisa.ProfileLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    # current_user = socket.assigns.current_user
-    mock_user = %{
-      avatar: nil,
-      profile_banner: "/images/peixinhos.svg",
-      first_name: "Zoey",
-      last_name: "Pessanha",
-      pesquisador: %{
-        minibio: "Olá sou eu mesma!",
-        link_lattes: "https://github.com/zoedsoupe",
-        link_linkedin: "https://linkedin.com/in/zoedsoupe",
-        bolsa: :pesquisa
-      }
-    }
-
-    {:ok, assign(socket, user: mock_user)}
+  #  current_user = socket.assigns.current_user
+    current_user = Database.Repo.preload(socket.assigns.current_user, [:pesquisador])
+    {:ok, assign(socket, user_name: current_user.primeiro_nome, pesquisador: current_user.pesquisador)}
   end
 
   # Components
@@ -56,7 +44,7 @@ defmodule PlataformaDigital.Pesquisa.ProfileLive do
         <%= render_slot(@inner_block) %>
       </span>
       <.button style="link" class="whitespace-nowrap" click={@click} phx-target=".profile-menu-link">
-        <.text size="base" color="text-blue-80">
+        <.text size="base" color="text-blue-80" class="bg-white-100">
           <%= @label %>
         </.text>
       </.button>

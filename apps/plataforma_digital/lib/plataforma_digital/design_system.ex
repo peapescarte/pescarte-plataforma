@@ -423,14 +423,6 @@ defmodule PlataformaDigital.DesignSystem do
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Relatórios</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-          <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Pesca</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-          <li class="nav-item">
             <.text size="h4" color="text-blue-100">Quem Somos</.text>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
@@ -560,7 +552,7 @@ defmodule PlataformaDigital.DesignSystem do
 
   def table(assigns) do
     ~H"""
-    <div style="overflow-x: auto">
+    <div style="height: 600px; overflow-y: auto" > 
       <table class="tabela">
         <thead>
           <tr class="header-primary">
