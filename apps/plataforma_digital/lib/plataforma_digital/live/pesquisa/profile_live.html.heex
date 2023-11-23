@@ -14,16 +14,14 @@
     <.profile_menu_link click="edit_profile" label="Editar Perfil">
       <Lucideicons.edit width="18" height="18" />
     </.profile_menu_link>
-
     <.profile_menu_link click="change_pass" label="Alterar Senha">
       <Lucideicons.lock width="18" height="18" />
     </.profile_menu_link>
-
     <.profile_menu_link click="logout" label="Sair">
       <Lucideicons.log_out width="18" height="18" />
     </.profile_menu_link>
   </div>
-  <section class="user-profile-info" style="height: 300px; overflow-y: auto">
+  <section class="user-profile-info" style="overflow-y: auto">
     <div class="basic-info">
       <.text size="h2" color="text-black-80">
         <%= @user_name %>
@@ -43,10 +41,10 @@
     <div class="profile-links">
       <.text size="lg" color="text-black-80">Links</.text>
       <.profile_link href={@pesquisador.link_lattes} label="Lattes">
-        <Lucideicons.file_text width="35" height="23" class="text-white-100" />
+        <Lucideicons.file_text width="35" height="21" class="text-white-100" />
       </.profile_link>
       <.profile_link href={@pesquisador.link_linkedin} label="LinkedIn">
-        <Lucideicons.linkedin width="35" height="23" class="text-white-100" />
+        <Lucideicons.linkedin width="35" height="21" class="text-white-100" />
       </.profile_link>
     </div>
   </section>

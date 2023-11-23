@@ -5,9 +5,11 @@ defmodule PlataformaDigital.Pesquisa.ProfileLive do
 
   @impl true
   def mount(_params, _session, socket) do
-  #  current_user = socket.assigns.current_user
+    #  current_user = socket.assigns.current_user
     current_user = Database.Repo.preload(socket.assigns.current_user, [:pesquisador])
-    {:ok, assign(socket, user_name: current_user.primeiro_nome, pesquisador: current_user.pesquisador)}
+
+    {:ok,
+     assign(socket, user_name: current_user.primeiro_nome, pesquisador: current_user.pesquisador)}
   end
 
   # Components

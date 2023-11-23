@@ -552,7 +552,7 @@ defmodule PlataformaDigital.DesignSystem do
 
   def table(assigns) do
     ~H"""
-    <div style="height: 600px; overflow-y: auto" > 
+    <div style="overflow-y: auto; height: 600px">
       <table class="tabela">
         <thead>
           <tr class="header-primary">
