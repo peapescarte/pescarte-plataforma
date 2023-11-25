@@ -8,9 +8,7 @@ defmodule ModuloPesquisa.Factory do
   alias ModuloPesquisa.Models.Midia.Tag
   alias ModuloPesquisa.Models.NucleoPesquisa
   alias ModuloPesquisa.Models.Pesquisador
-  alias ModuloPesquisa.Models.RelatorioAnualPesquisa
-  alias ModuloPesquisa.Models.RelatorioMensalPesquisa
-  alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa
+  alias ModuloPesquisa.Models.RelatorioPesquisa
 
   def campus_factory do
     %Campus{
@@ -78,63 +76,16 @@ defmodule ModuloPesquisa.Factory do
     }
   end
 
-  def relatorio_anual_factory do
-    %RelatorioAnualPesquisa{
+  def relatorio_factory do
+    %RelatorioPesquisa{
+      tipo: Enum.random(~w(mensal bimestral trimestral anual)),
+      data_inicio: ~D[2023-01-01],
+      data_fim: ~D[2023-02-15],
       data_entrega: ~D[2023-07-30],
+      data_limite: ~D[2023-02-15],
       id_publico: Nanoid.generate_non_secure(),
-      plano_de_trabalho: "Plano de Trabalho",
-      resumo: "Resumo",
-      introducao: "Introdução",
-      embasamento_teorico: "Embasamento Teórico",
-      resultados: "Resultos",
-      atividades_academicas: "Atividades Acadêmicas",
-      atividades_nao_academicas: "Atividades não Acadêmicas",
-      conclusao: "Conclusão",
-      referencias: "Referências",
-      ano: sequence(:ano, &Kernel.+(2020, &1)),
-      mes: 4,
-      link: "https//datalake.com/relatorio_anual",
-      pesquisador_id: insert(:pesquisador).id_publico,
-      status: :pendente
-    }
-  end
-
-  def relatorio_mensal_factory do
-    %RelatorioMensalPesquisa{
-      data_entrega: ~D[2023-07-30],
-      id_publico: Nanoid.generate_non_secure(),
-      acao_planejamento: "Ação de planejamento",
-      participacao_grupos_estudo: "Participação em grupos de estudo",
-      acoes_pesquisa: "Ações de pesquisa",
-      participacao_treinamentos: "Participação em Treinamentos",
-      publicacao: "Publicação",
-      previsao_acoes_pesquisa: "Ações de Pesquisa futura",
-      previsao_acao_planejamento: "Ação de Planejamento futura",
-      previsao_participacao_grupos_estudo: "Participação em grupos de estudos futura",
-      previsao_participacao_treinamentos: "Participação em trinamentos futura",
-      ano: 2023,
-      mes: sequence(:mes, & &1),
-      link: "https//datalake.com/relatorio_anual",
-      pesquisador_id: insert(:pesquisador).id_publico,
-      status: :pendente
-    }
-  end
-
-  def relatorio_trimestral_factory do
-    %RelatorioTrimestralPesquisa{
-      data_entrega: ~D[2023-07-30],
-      id_publico: Nanoid.generate_non_secure(),
-      titulo: "Titutlo",
-      resumo: "Resumo",
-      introducao: "Introdução",
-      embasamento_teorico: "Embasamento Teórico",
-      resultados_preliminares: "Resultados preliminares",
-      atividades_academicas: "Atividades Acadêmicas",
-      atividades_nao_academicas: "Atividades não Acadêmicas",
-      referencias: "Referências",
-      ano: 2023,
-      mes: sequence(:mes, & &1),
-      link: "https//datalake.com/relatorio_anual",
+      link: "https//datalake.com/relatorio",
+      conteudo_mensal: %{},
       pesquisador_id: insert(:pesquisador).id_publico,
       status: :pendente
     }

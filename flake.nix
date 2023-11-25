@@ -1,8 +1,6 @@
 {
   description = "Plataforma Digital PEA Pescarte";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-
   outputs = {nixpkgs, ...}: let
     systems = {
       linux = "x86_64-linux";
@@ -14,31 +12,6 @@
         inherit system;
         config.allowUnfree = true;
       };
-
-    inputs = sys:
-      with pkgs sys;
-        [
-          gnumake
-          gcc
-          readline
-          openssl
-          zlib
-          libxml2
-          curl
-          libiconv
-          elixir
-          glibcLocales
-          postgresql_15
-          nodejs_18
-        ]
-        ++ lib.optional stdenv.isLinux [
-          inotify-tools
-          gtk-engine-murrine
-        ]
-        ++ lib.optional stdenv.isDarwin [
-          darwin.apple_sdk.frameworks.CoreServices
-          darwin.apple_sdk.frameworks.CoreFoundation
-        ];
   in {
     packages = {
       "${systems.darwin}".default = let
@@ -52,18 +25,36 @@
         };
     };
 
-    devShells = {
-      "${systems.linux}".default = with pkgs systems.linux;
-        mkShell {
+    devShells = let
+      mkShell = pkgs: let
+        inherit (pkgs.beam.packages) erlang_26;
+      in
+        pkgs.mkShell {
           name = "pescarte";
-          packages = inputs systems.linux;
+          packages = with pkgs;
+            [
+              gnumake
+              gcc
+              openssl
+              zlib
+              libxml2
+              libiconv
+              erlang_26.elixir
+              postgresql_15
+              nodejs_18
+            ]
+            ++ lib.optional stdenv.isLinux [
+              inotify-tools
+              gtk-engine-murrine
+            ]
+            ++ lib.optional stdenv.isDarwin [
+              darwin.apple_sdk.frameworks.CoreServices
+              darwin.apple_sdk.frameworks.CoreFoundation
+            ];
         };
-
-      "${systems.darwin}".default = with pkgs systems.darwin;
-        mkShell {
-          name = "pescarte";
-          packages = inputs systems.darwin;
-        };
+    in {
+      "${systems.linux}".default = mkShell (pkgs systems.linux);
+      "${systems.darwin}".default = mkShell (pkgs systems.darwin);
     };
   };
 }

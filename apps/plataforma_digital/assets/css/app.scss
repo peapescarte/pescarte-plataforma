@@ -170,6 +170,7 @@ footer {
 @import "./toast.scss";
 @import "./textarea.scss";
 @import "./tabela.scss";
+@import "./label.scss";
 
 // Páginas
 // Sem autenticação
@@ -178,8 +179,8 @@ footer {
 // Com autenticação
 @import "./pages/app/researcher/profile.scss";
 @import "./pages/app/researcher/listagem_pesquisador.scss";
-@import "./pages/app/researcher/relatorio/mensal.scss";
 @import "./pages/app/researcher/relatorio/list_report.scss";
+@import "./pages/app/researcher/relatorio/report.scss";
 
 // Páginas de Erros
 @import "./errors/404.scss";
