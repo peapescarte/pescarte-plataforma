@@ -606,4 +606,25 @@ defmodule PlataformaDigital.DesignSystem do
     </div>
     """
   end
+
+  @doc """
+  Componente de etiqueta, pode ser usado como marcador de imagens, de palavras chave
+  ou mesmo para visualização de dados diferentes dentro de um mesmo contexto.
+
+  Recebe os atributos:
+  - `message`: texto a ser exibido na label
+
+  """
+
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: nil)
+  attr(:message, :string, default: nil)
+
+  def label(assigns) do
+    ~H"""
+    <div class="label_component">
+      <.text size="base" color="text-white-100"><%= @message %></.text>
+    </div>
+    """
+  end
 end
