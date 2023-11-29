@@ -114,6 +114,8 @@ defmodule PlataformaDigital.DesignSystem do
       <.button style="primary" submit> Submissão </.button>
   """
 
+  attr(:name, :string, default: "")
+  attr(:value, :string, default: "")
   attr(:style, :string, values: ~w(primary secondary link), required: true)
   attr(:submit, :boolean, default: false)
   attr(:disabled, :boolean, default: false)
@@ -126,6 +128,8 @@ defmodule PlataformaDigital.DesignSystem do
   def button(assigns) do
     ~H"""
     <button
+      name={@name}
+      value={@value}
       type={if @submit, do: "submit", else: "button"}
       class={["btn", "btn-#{@style}", @class]}
       phx-click={@click}
@@ -324,7 +328,6 @@ defmodule PlataformaDigital.DesignSystem do
   attr(:placeholder, :string, required: false, default: "")
   attr(:value, :string, default: "")
   attr(:valid, :boolean, required: false, default: nil)
-  attr(:field, Phoenix.HTML.FormField)
   attr(:class, :string, default: "")
 
   slot(:label, required: false)

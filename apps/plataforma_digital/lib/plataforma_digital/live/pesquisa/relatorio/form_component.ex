@@ -12,7 +12,13 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
         <%= @form_title %>
       </.text>
 
-      <.form for={@form} phx-target={@myself} phx-change="validate" phx-submit="save">
+      <.form
+        for={@form}
+        id="relatorio-form"
+        phx-target={@myself}
+        phx-change="validate"
+        phx-submit="save"
+      >
         <div class="input-date-group" style="display: flex;">
           <.text_input type="date" label="Início período" field={@form[:data_inicio]} />
           <.text_input type="date" label="Fim periodo" field={@form[:data_fim]} />
@@ -86,7 +92,11 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
 
   @impl true
   def handle_event("save", %{"save" => "send-report", "relatorio_pesquisa" => params}, socket) do
-    params = put_in(params, ["status"], "entregue")
+    params =
+      params
+      |> put_in(["status"], "entregue")
+      |> put_in(["data_entrega"], Date.utc_today())
+
     handle_store(socket, socket.assigns.action, params)
   end
 
@@ -117,19 +127,17 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.FormComponent do
     end
   end
 
-  # defp get_data_limite(%{tipo_relatorio: tipo_relatorio, today: today}) do
-  #   case tipo_relatorio do
-  #     "mensal" -> Date.from_iso8601!("#{today.year}-#{today.month}-15")
-  #     "trimestral" -> Date.from_iso8601!("#{today.year}-#{today.month}-10")
-  #     "anual" -> Date.utc_today()
-  #   end
-  # end
-
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 
   defp report_field(assigns) do
     ~H"""
-    <.text_area field={@field} disabled={@disabled} class="report-field">
+    <.text_area
+      id={@field.id}
+      name={@field.name}
+      value={@field.value}
+      disabled={@disabled}
+      class="report-field"
+    >
       <:label>
         <.text size="h3" color="text-blue-100">
           <%= @label %>
