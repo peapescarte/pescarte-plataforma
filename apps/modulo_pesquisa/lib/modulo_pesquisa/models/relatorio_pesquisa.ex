@@ -60,7 +60,21 @@ defmodule ModuloPesquisa.Models.RelatorioPesquisa do
     |> validate_inclusion(:status, @status)
     |> foreign_key_constraint(:pesquisador_id)
     |> validate_period()
-    |> validate_status()
+    |> put_limit_date()
+  end
+
+  defp put_limit_date(changeset) do
+    report_type = get_field(changeset, :tipo)
+    today = Date.utc_today()
+
+    limit_date =
+      case report_type do
+        nil -> changeset
+        :mensal -> Date.from_iso8601!("#{today.year}-#{today.month}-15")
+        _ -> Date.from_iso8601!("#{today.year}-#{today.month}-10")
+      end
+
+    put_change(changeset, :data_limite, limit_date)
   end
 
   defp validate_period(changeset) do
