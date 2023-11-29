@@ -1,20 +1,19 @@
 $profile-banner-width: 12.5rem;
 
-.user-profile-wrapper {
-  @apply w-full h-full;
+  .user-profile-wrapper {
+    @apply w-full h-full;
+    display: grid;
 
-  display: grid;
+    .user-profile-banner {
+      @apply w-full;
 
-  .user-profile-banner {
-    @apply w-full;
+      height: $profile-banner-width;
 
-    height: $profile-banner-width;
-
-    .user-profile-banner-default {
-      @apply bg-orange-60;
-      height: inherit;
+      .user-profile-banner-default {
+        background-color: transparent;
+        height: inherit;
+      }
     }
-  }
 
   .user-profile-avatar {
     @apply bg-orange-100;
@@ -35,7 +34,7 @@ $profile-banner-width: 12.5rem;
   .user-profile-menu {
     @apply flex flex-col items-start justify-center;
     @apply bg-white-100;
-    @apply border-2 border-blue-80 text-blue-80;
+    @apply border-2 border-blue-80;
 
     padding-top: 2rem;
 
@@ -69,6 +68,13 @@ $profile-banner-width: 12.5rem;
         margin-right: 0.875rem;
         width: max-content;
         height: max-content;
+      }
+
+      .btn-link{
+        background-color: transparent;
+      }
+      .btn{
+        gap: 0.2rem;
       }
     }
 
@@ -107,9 +113,11 @@ $profile-banner-width: 12.5rem;
 
   .user-profile-info {
     @apply flex flex-col items-start justify-center;
+    @apply w-full;
 
+    margin-top: 5.5rem;
     margin-left: 1.5rem;
-    height: max-content;
+    height: 455px;
 
     .basic-info {
       @apply flex flex-col items-start;

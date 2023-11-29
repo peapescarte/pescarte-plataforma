@@ -49,13 +49,6 @@ defmodule ModuloPesquisa.Models.RelatorioPesquisa do
     timestamps()
   end
 
-  @spec changeset(RelatorioPesquisa.t(), map) :: changeset
-  def changeset(%RelatorioPesquisa{status: :entregue} = relatorio, attrs) do
-    relatorio
-    |> cast(attrs, @required_fields ++ @optional_fields)
-    |> add_error(:status, "O relatório já foi entregue")
-  end
-
   def changeset(%RelatorioPesquisa{} = relatorio, attrs) do
     relatorio
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -94,10 +87,26 @@ defmodule ModuloPesquisa.Models.RelatorioPesquisa do
 
       {_, _} ->
         if Date.compare(start_date, end_date) == :gt do
-          add_error(changeset, :data_inicio, "A data de início deve ser anterior à data de fim")
+          add_error(changeset, :data_inicio, "A data de início deve ser anterior a data de fim")
         else
           changeset
         end
+    end
+  end
+
+  defp validate_status(changeset) do
+    status = get_field(changeset, :status)
+
+    case status do
+      :entregue ->
+        add_error(
+          changeset,
+          :status,
+          "O relatório foi marcado como entregue e não é possível fazer novas alterações"
+        )
+
+      _ ->
+        changeset
     end
   end
 end
