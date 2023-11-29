@@ -32,26 +32,28 @@ defmodule Identidades.Models.Usuario do
 
   @primary_key {:id_publico, Database.Types.PublicId, autogenerate: true}
   schema "usuario" do
-    field :cpf, :string
-    field :rg, :string
-    field :confirmado_em, :naive_datetime
-    field :hash_senha, :string, redact: true
-    field :senha, :string, virtual: true, redact: true
-    field :data_nascimento, :date
-    field :tipo, Ecto.Enum, values: @valid_roles
-    field :primeiro_nome, :string
-    field :sobrenome, :string
-    field :ativo?, :boolean, default: false
+    field(:cpf, :string)
+    field(:rg, :string)
+    field(:confirmado_em, :naive_datetime)
+    field(:hash_senha, :string, redact: true)
+    field(:senha, :string, virtual: true, redact: true)
+    field(:data_nascimento, :date)
+    field(:tipo, Ecto.Enum, values: @valid_roles)
+    field(:primeiro_nome, :string)
+    field(:sobrenome, :string)
+    field(:ativo?, :boolean, default: false)
 
-    has_one :pesquisador, Pesquisador,
+    has_one(:pesquisador, Pesquisador,
       references: :id_publico,
       foreign_key: :usuario_id
+    )
 
-    belongs_to :contato, Contato,
+    belongs_to(:contato, Contato,
       foreign_key: :contato_email,
       references: :email_principal,
       on_replace: :update,
       type: :string
+    )
 
     timestamps()
   end
@@ -85,6 +87,8 @@ defmodule Identidades.Models.Usuario do
     |> maybe_hash_password(opts)
   end
 
+  def user_roles, do: @valid_roles
+
   defp maybe_hash_password(changeset, opts) do
     hash_password? = Keyword.get(opts, :hash, true)
     password = get_change(changeset, :senha)
@@ -98,6 +102,4 @@ defmodule Identidades.Models.Usuario do
       changeset
     end
   end
-
-  def user_roles, do: @valid_roles
 end

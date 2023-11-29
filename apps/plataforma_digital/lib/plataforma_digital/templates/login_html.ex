@@ -14,7 +14,7 @@ defmodule PlataformaDigital.LoginHTML do
         </.text>
 
         <fieldset class="login-fieldset">
-          <.text_input field={@form[:cpf]} type="text" mask="999.999.999-99" label="CPF" required />
+          <.text_input field={@form[:cpf]} type="text" label="CPF" required phx-hook="CpfNumberMask" />
         </fieldset>
 
         <fieldset class="login-fieldset">
