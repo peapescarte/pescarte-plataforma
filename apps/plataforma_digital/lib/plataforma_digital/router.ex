@@ -42,6 +42,10 @@ defmodule PlataformaDigital.Router do
       live "/perfil", Pesquisa.ProfileLive
       live "/pesquisadores", Pesquisa.ListPesquisadorLive
 
+      #    scope "/relatorios" do
+      #      live "/", Pesquisa.Relatorio.ListReportLive
+      #      live "/mensal", Pesquisa.Relatorio.MensalLive
+      #    end
       scope "/relatorios" do
         live "/", Pesquisa.Relatorio.ListReportLive
         live "/new", Pesquisa.RelatorioLive.Index, :new

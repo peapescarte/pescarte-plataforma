@@ -18,6 +18,7 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         link_lattes: "https://github.com/zoedsoupe",
         campus_acronimo: "UENF",
         usuario_id: usuario_id_by_cpf("133.590.177-90"),
+        link_banner_perfil: "/images/peixinhos.svg",
         id_publico: Nanoid.generate_non_secure()
       },
       %Pesquisador{
@@ -29,8 +30,10 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         """,
         bolsa: :pesquisa,
         link_lattes: "http://lattes.cnpq.br/7484786835288826",
+        link_linkedin: "www.linkedin.com/in/annabell-d-r-tamariz-89565629a",
         campus_acronimo: "UENF",
         usuario_id: usuario_id_by_cpf("214.047.038-96"),
+        link_banner_perfil: "/images/peixinhos.svg",
         id_publico: Nanoid.generate_non_secure()
       },
       %Pesquisador{

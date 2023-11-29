@@ -4,7 +4,7 @@
 
 $nav-width: 8.75rem;
 $navbar-height: 6.125rem;
-$footer-height: 6.438rem;
+$footer-height: 4.438rem;
 
 .link {
   @apply hover:underline decoration-from-font;
@@ -170,6 +170,7 @@ footer {
 @import "./toast.scss";
 @import "./textarea.scss";
 @import "./tabela.scss";
+@import "./label.scss";
 
 // Páginas
 // Sem autenticação

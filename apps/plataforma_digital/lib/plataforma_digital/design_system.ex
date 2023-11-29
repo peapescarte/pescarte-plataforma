@@ -429,14 +429,6 @@ defmodule PlataformaDigital.DesignSystem do
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Relatórios</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-          <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Pesca</.text>
-            <Lucideicons.chevron_down class="text-blue-100" />
-          </li>
-          <li class="nav-item">
             <.text size="h4" color="text-blue-100">Quem Somos</.text>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
@@ -567,7 +559,7 @@ defmodule PlataformaDigital.DesignSystem do
 
   def table(assigns) do
     ~H"""
-    <div style="overflow-x: auto">
+    <div style="overflow-y: auto; height: 600px">
       <table class="tabela">
         <thead>
           <tr class="header-primary">
@@ -600,6 +592,27 @@ defmodule PlataformaDigital.DesignSystem do
           <% end %>
         </tbody>
       </table>
+    </div>
+    """
+  end
+
+  @doc """
+  Componente de etiqueta, pode ser usado como marcador de imagens, de palavras chave
+  ou mesmo para visualização de dados diferentes dentro de um mesmo contexto.
+
+  Recebe os atributos:
+  - `message`: texto a ser exibido na label
+
+  """
+
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: nil)
+  attr(:message, :string, default: nil)
+
+  def label(assigns) do
+    ~H"""
+    <div class="label_component">
+      <.text size="base" color="text-white-100"><%= @message %></.text>
     </div>
     """
   end
