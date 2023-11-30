@@ -1,0 +1,11 @@
+<body class="auth-grid">
+  <.live_component
+    id="auth-navbar"
+    user={@current_user}
+    module={PescarteWeb.DesignSystem.AuthenticatedNavbar}
+  />
+  <main>
+    <%= @inner_content %>
+  </main>
+  <.footer />
+</body>
