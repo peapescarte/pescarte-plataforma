@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "editorconfig.editorconfig",
+    "jakebecker.elixir-ls",
+    "kisstkondoros.vscode-gutter-preview",
+    "byi8220.indented-block-highlighting",
+    "christian-kohler.path-intellisense",
+    "phoenixframework.phoenix"
+  ],
+}

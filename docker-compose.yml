@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  pescarte:
+    image: ghcr.io/peapescarte/pescarte-plataforma:dev
+    command: ["mix", "dev"]
+    container_name: plataforma_pescarte
+    ports:
+      - 4000:4000
+    depends_on:
+      - database
+    env_file:
+      - .env-sample
+    volumes:
+      - .:/src
+    environment:
+      MIX_ENV: dev
+    stdin_open: true
+    tty: true
+
+  database:
+    image: postgres:14.6
+    container_name: plataforma_pescarte_database
+    environment:
+      - POSTGRES_USER=peapescarte
+      - POSTGRES_PASSWORD=peapescarte
+    ports:
+      - 5432:5432
+    volumes:
+      - .postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U peapescarte -d peapescarte" ]
+      interval: 5s
+      timeout: 2s
+      retries: 1

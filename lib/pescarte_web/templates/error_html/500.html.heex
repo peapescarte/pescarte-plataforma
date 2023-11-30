@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="Portuguese" />
+    <meta name="description" content="Plataforma Digital PEA Pescarte" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title>
+      <%= assigns[:page_title] || "Plataforma PEA Pescarte" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+  </head>
+  <body class="grid">
+    <.navbar>
+      <:nav_btn>
+        <Lucideicons.log_in class="text-white-100" />
+        <.text size="base" color="text-white-100">Acessar</.text>
+      </:nav_btn>
+    </.navbar>
+    <main class="error-grid">
+      <span class="error-message flex flex-col mb-8">
+        <.text size="giant" color="text-orange-100" class="uppercase">oops!</.text>
+        <.text size="h2" color="text-orange-100" class="mt-8 text-center">
+          Houve um erro interno no servidor,<br />tente voltar de onde veio.
+        </.text>
+      </span>
+      <img src={~p"/images/500.svg"} alt="erro500" class="error-banner" />
+    </main>
+    <.footer />
+  </body>
+</html>
