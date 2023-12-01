@@ -1,6 +1,8 @@
 defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
   import Pescarte.Identidades.Services.ValidaSenhaUsuario
 
+  alias Ecto.Multi
+  alias Pescarte.Database.Repo
   alias Pescarte.Identidades.Handlers.IManageCredenciaisHandler
   alias Pescarte.Identidades.Models.Token
   alias Pescarte.Identidades.Models.Usuario
@@ -30,10 +32,10 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
       changeset = Usuario.confirm_changeset(user, now)
       token_query = Token.user_and_contexts_query(user, ["confirm"])
 
-      Ecto.Multi.new()
-      |> Ecto.Multi.update(:user, changeset)
-      |> Ecto.Multi.delete_all(:tokens, token_query)
-      |> Pescarte.Database.Repo.transaction()
+      Multi.new()
+      |> Multi.update(:user, changeset)
+      |> Multi.delete_all(:tokens, token_query)
+      |> Repo.transaction()
       |> case do
         {:ok, %{user: user}} -> {:ok, user}
         {:error, :user, changeset, _} -> {:error, changeset}
@@ -48,7 +50,7 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
   def delete_session_token(user_token) do
     with {:ok, user} <- fetch_usuario_by_session_token(user_token),
          %Ecto.Query{} = query <- Token.user_and_contexts_query(user, :all),
-         {integer, nil} <- Pescarte.Database.Repo.delete_all(query) do
+         {integer, nil} <- Repo.delete_all(query) do
       {:ok, integer}
     else
       _ -> {:error, :not_found}
@@ -99,7 +101,7 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
       enviado_para: user.contato.email_principal
     }
 
-    {:ok, _user_token} = Pescarte.Database.Repo.insert(Token.changeset(attrs))
+    {:ok, _user_token} = Repo.insert(Token.changeset(attrs))
 
     {:ok, Base.url_encode64(token, padding: false)}
   end
@@ -111,7 +113,7 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
   def generate_session_token(%Usuario{id_publico: user_id}) do
     token = :crypto.strong_rand_bytes(@login_token_rand_size)
     attrs = %{token: token, contexto: "session", usuario_id: user_id}
-    {:ok, _user_token} = Pescarte.Database.Repo.insert(Token.changeset(attrs))
+    {:ok, _user_token} = Repo.insert(Token.changeset(attrs))
 
     {:ok, token}
   end
@@ -137,10 +139,10 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
 
     token_query = Token.user_and_contexts_query(user, :all)
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, token_query)
-    |> Pescarte.Database.Repo.transaction()
+    Multi.new()
+    |> Multi.update(:user, changeset)
+    |> Multi.delete_all(:tokens, token_query)
+    |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
@@ -161,10 +163,10 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
   """
   @impl true
   def reset_usuario_password(%Usuario{} = user, attrs) do
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, Usuario.password_changeset(user, attrs))
-    |> Ecto.Multi.delete_all(:tokens, Token.user_and_contexts_query(user, :all))
-    |> Pescarte.Database.Repo.transaction()
+    Multi.new()
+    |> Multi.update(:user, Usuario.password_changeset(user, attrs))
+    |> Multi.delete_all(:tokens, Token.user_and_contexts_query(user, :all))
+    |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}

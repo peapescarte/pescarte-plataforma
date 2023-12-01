@@ -1,7 +1,8 @@
 defmodule Pescarte.Database.Supervisor do
   use Supervisor
 
-  alias Pescarte.Database.{Repo, Repo.Replica}
+  alias Pescarte.Database.Repo
+  alias Pescarte.Database.Repo.Replica
 
   def start_link(opts) do
     Supervisor.start_link(__MODULE__, opts, name: __MODULE__)
