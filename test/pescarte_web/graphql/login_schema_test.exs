@@ -32,7 +32,7 @@ defmodule PescarteWeb.GraphQL.LoginSchemaTest do
 
     test "quando o usuário não existe ou cpf/senha são inválidos", %{conn: conn} do
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @login_mutation,
           "variables" => %{"input" => %{"cpf" => "123", "senha" => "123"}}
         })
@@ -47,7 +47,7 @@ defmodule PescarteWeb.GraphQL.LoginSchemaTest do
       user = insert(:usuario)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @login_mutation,
           "variables" => %{"input" => %{"cpf" => user.cpf, "senha" => senha_atual()}}
         })
@@ -61,7 +61,7 @@ defmodule PescarteWeb.GraphQL.LoginSchemaTest do
     end
 
     test "quando não está autenticado, outras queries devem retornar erro", %{conn: conn} do
-      conn = post(conn, "/", %{"query" => @simple_list_query})
+      conn = post(conn, "/api", %{"query" => @simple_list_query})
 
       assert %{"errors" => [error]} = json_response(conn, 200)
 

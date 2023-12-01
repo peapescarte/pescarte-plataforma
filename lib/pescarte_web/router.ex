@@ -14,7 +14,15 @@ defmodule PescarteWeb.Router do
     plug(:fetch_current_user)
   end
 
-  forward("/api", Absinthe.Plug, schema: PescarteWeb.GraphQL.Schema)
+  pipeline :graphql do
+    plug(PescarteWeb.GraphQL.Context)
+  end
+
+  scope "/api" do
+    pipe_through(:graphql)
+
+    forward("/", Absinthe.Plug, schema: PescarteWeb.GraphQL.Schema)
+  end
 
   scope "/" do
     storybook_assets()

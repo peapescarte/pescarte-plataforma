@@ -25,14 +25,14 @@ defmodule PescarteWeb.GraphQL.CategoriaSchemaTest do
     """
 
     test "quando não há nenhuma categoria", %{conn: conn} do
-      conn = post(conn, "/", %{"query" => @list_categorias_query})
+      conn = post(conn, "/api", %{"query" => @list_categorias_query})
 
       assert %{"data" => %{"listarCategorias" => []}} = json_response(conn, 200)
     end
 
     test "quando há categoria", %{conn: conn} do
       categoria = insert(:categoria)
-      conn = post(conn, "/", %{"query" => @list_categorias_query})
+      conn = post(conn, "/api", %{"query" => @list_categorias_query})
 
       assert %{"data" => %{"listarCategorias" => [listed]}} = json_response(conn, 200)
       assert listed["id"] == categoria.id_publico
@@ -41,7 +41,7 @@ defmodule PescarteWeb.GraphQL.CategoriaSchemaTest do
 
     test "quando há categoria e nenhuma tag, recuperar tags vazia", %{conn: conn} do
       categoria = insert(:categoria)
-      conn = post(conn, "/", %{"query" => @list_categorias_query})
+      conn = post(conn, "/api", %{"query" => @list_categorias_query})
 
       assert %{"data" => %{"listarCategorias" => [listed]}} = json_response(conn, 200)
       assert listed["id"] == categoria.id_publico

@@ -21,7 +21,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
     """
 
     test "quando não há nenhuma tag", %{conn: conn} do
-      conn = post(conn, "/", %{"query" => @list_tags_query})
+      conn = post(conn, "/api", %{"query" => @list_tags_query})
 
       assert %{"data" => %{"listarTags" => []}} = json_response(conn, 200)
     end
@@ -29,7 +29,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
     test "quando há tag", %{conn: conn} do
       categoria = insert(:categoria)
       tag = insert(:tag, categoria_nome: categoria.nome)
-      conn = post(conn, "/", %{"query" => @list_tags_query})
+      conn = post(conn, "/api", %{"query" => @list_tags_query})
 
       assert %{"data" => %{"listarTags" => [listed]}} = json_response(conn, 200)
       assert listed["id"] == tag.id_publico
@@ -57,7 +57,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       categoria = insert(:categoria)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_tag_mutation,
           "variables" => %{"input" => %{"etiqueta" => "", "categoriaId" => categoria.id_publico}}
         })
@@ -73,7 +73,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       params = %{"etiqueta" => "peixe", "categoriaId" => categoria.id_publico}
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_tag_mutation,
           "variables" => %{
             "input" => params
@@ -102,7 +102,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       categoria = insert(:categoria)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_tags_mutation,
           "variables" => %{
             "input" => [%{"etiqueta" => "", "categoriaId" => categoria.id_publico}]
@@ -124,7 +124,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       ]
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_tags_mutation,
           "variables" => %{"input" => params}
         })
@@ -144,7 +144,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       ]
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_tags_mutation,
           "variables" => %{"input" => params}
         })
@@ -163,7 +163,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       ]
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_tags_mutation,
           "variables" => %{"input" => params}
         })
@@ -179,7 +179,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       ]
 
       another_conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_tags_mutation,
           "variables" => %{"input" => another_params}
         })
@@ -205,7 +205,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       tag = insert(:tag)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @update_tag_mutation,
           "variables" => %{"input" => %{"etiqueta" => "", "id" => tag.id_publico}}
         })
@@ -220,7 +220,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       tag = insert(:tag)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @update_tag_mutation,
           "variables" => %{
             "input" => %{"etiqueta" => "sol", "id" => tag.id_publico}
