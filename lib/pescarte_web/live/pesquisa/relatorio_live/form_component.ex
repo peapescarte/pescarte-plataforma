@@ -36,6 +36,10 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
           </.text_area>
         </.inputs_for>
 
+        <.text_input type="hidden" field={@form[:tipo]} value={@type} />
+        <.text_input type="hidden" field={@form[:pesquisador_id]} value={@pesquisador_id} />
+        <.text_input type="hidden" field={@form[:status]} value="pendente" />
+
         <div class="buttons-wrapper">
           <.button
             name="save"
@@ -84,8 +88,17 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
     {:noreply, assign_form(socket, changeset)}
   end
 
-  def handle_event("save", %{"relatorio" => relatorio_params}, socket) do
+  def handle_event("save", %{"save" => "save-report", "relatorio" => relatorio_params}, socket) do
     save_relatorio(socket, socket.assigns.action, relatorio_params)
+  end
+
+  def handle_event("save", %{"save" => "send-report", "relatorio" => relatorio_params}, socket) do
+    params =
+      relatorio_params
+      |> put_in(["status"], "entregue")
+      |> put_in(["data_entrega"], Date.utc_today())
+
+    save_relatorio(socket, socket.assigns.action, params)
   end
 
   defp save_relatorio(socket, :edit, relatorio_params) do
@@ -134,6 +147,27 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
     |> assign(:fields, get_report_fields(:mensal))
   end
 
+  defp assign_form_data(socket, %{type: "trimestral"}) do
+    today = get_formatted_today(Date.utc_today())
+
+    socket
+    |> assign(:conteudo, :conteudo_trimestral)
+    |> assign(
+      :title,
+      "Relatório Trimestral de Pesquisa do #{today.quarterly}º Trimestre de #{today.year}"
+    )
+    |> assign(:fields, get_report_fields(:trimestral))
+  end
+
+  defp assign_form_data(socket, %{type: "anual"}) do
+    today = get_formatted_today(Date.utc_today())
+
+    socket
+    |> assign(:conteudo, :conteudo_anual)
+    |> assign(:title, "Relatório Anual de Pesquisa de #{today.year}")
+    |> assign(:fields, get_report_fields(:anual))
+  end
+
   defp get_report_fields(:mensal) do
     [
       {"Ações de Planejamento", :acao_planejamento},
@@ -146,6 +180,33 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
       {"Previsão de Participação em Treinamentos e Cursos PEA Pescarte",
        :previsao_participacao_treinamentos},
       {"Previsão de Ações de Pesquisa", :previsao_acoes_pesquisa}
+    ]
+  end
+
+  defp get_report_fields(:trimestral) do
+    [
+      {"Título", :titulo},
+      {"Resumo", :resumo},
+      {"Introdução", :introducao},
+      {"Embasamento Teórico", :embasamento_teorico},
+      {"Resultados Preliminares", :resultados_preliminares},
+      {"Atividades Acadêmicas", :atividades_academicas},
+      {"Atividades Não Acadêmicas", :atividades_nao_academicas},
+      {"Referências", :referencias}
+    ]
+  end
+
+  defp get_report_fields(:anual) do
+    [
+      {"Plano de Trabalho", :plano_de_trabalho},
+      {"Resumo", :resumo},
+      {"Introdução", :introducao},
+      {"Embasamento Teórico", :embasamento_teorico},
+      {"Resultados", :resultados},
+      {"Atividades Acadêmicas", :atividades_academicas},
+      {"Atividades Não Acadêmicas", :atividades_nao_academicas},
+      {"Conclusão", :conclusao},
+      {"Referências", :referencias}
     ]
   end
 

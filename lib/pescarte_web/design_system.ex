@@ -400,7 +400,7 @@ defmodule PescarteWeb.DesignSystem do
   # para melhor semântica, como `text_input` ou `checkbox`
   defp input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     assigns
-    |> assign(field: nil, id: assigns.id || field.id)
+    |> assign(field: field, id: assigns.id || field.id)
     |> assign(:name, field.name)
     |> assign_new(:value, fn -> field.value end)
   end
