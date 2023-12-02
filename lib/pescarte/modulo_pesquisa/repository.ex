@@ -104,9 +104,9 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   @impl true
   def list_relatorios_pesquisa do
-    relatorios = from(rp in RelatorioPesquisa, preload: [pesquisador: :usuario])
-
-    Repo.replica().all(relatorios)
+    RelatorioPesquisa
+    |> Repo.replica().all()
+    |> Repo.replica().preload(pesquisador: :usuario)
   end
 
   @impl true

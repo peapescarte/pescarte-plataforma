@@ -43,23 +43,18 @@ defmodule PescarteWeb.Router do
     post("/acessar", LoginController, :create)
   end
 
-  scope "/app/pesquisa", PescarteWeb do
+  scope "/app/pesquisa", PescarteWeb.Pesquisa do
     pipe_through(:browser)
-    # pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
       on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
-      live("/perfil", Pesquisa.ProfileLive)
-      live("/pesquisadores", Pesquisa.ListPesquisadorLive)
+      live("/perfil", ProfileLive)
+      live("/pesquisadores", ListPesquisadorLive)
 
-      #    scope "/relatorios" do
-      #      live "/", Pesquisa.Relatorio.ListReportLive
-      #      live "/mensal", Pesquisa.Relatorio.MensalLive
-      #    end
       scope "/relatorios" do
-        live("/", Pesquisa.Relatorio.ListReportLive)
-        live("/new", Pesquisa.RelatorioLive.Index, :new)
-        live("/edit/:id", Pesquisa.RelatorioLive.Index, :edit)
+        live("/", RelatorioLive.Index, :index)
+        live("/new", RelatorioLive.Index, :new)
+        live("/:id/edit", RelatorioLive.Index, :edit)
       end
     end
   end

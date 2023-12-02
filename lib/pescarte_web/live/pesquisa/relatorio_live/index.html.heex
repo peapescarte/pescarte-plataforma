@@ -1,0 +1,24 @@
+<.table id="relatorios" rows={@streams.relatorios} text-color="blue">
+  <:column :let={{_id, relatorio}} label="Teste">
+    <%= relatorio.data_inicio %>
+  </:column>
+</.table>
+
+<button phx-click="report-type" phx-value-type="mensal" style="primary">
+Mensal
+</button>
+
+<button phx-click="report-type" phx-value-type="trimestral" style="primary">
+Trimestral
+</button>
+
+<.live_component
+  :if={@live_action in [:new, :edit]}
+  module={PescarteWeb.Pesquisa.RelatorioLive.FormComponent}
+  id={@relatorio.id_publico || :new}
+  title={@page_title}
+  action={@live_action}
+  relatorio={@relatorio}
+  type={@type}
+  patch={~p"/app/pesquisa/relatorios"}
+/>

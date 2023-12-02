@@ -322,13 +322,9 @@ defmodule PescarteWeb.DesignSystem do
   defp text_input_state(false), do: "input-error"
   defp text_input_state(true), do: "input-success"
 
-  attr(:id, :string, default: nil)
-  attr(:name, :string, default: nil)
-  attr(:disabled, :boolean, default: false)
-  attr(:placeholder, :string, required: false, default: "")
-  attr(:value, :string, default: "")
-  attr(:valid, :boolean, required: false, default: nil)
   attr(:class, :string, default: "")
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:rest, :global, include: ~w(disabled placeholder type))
 
   slot(:label, required: false)
 
@@ -344,14 +340,13 @@ defmodule PescarteWeb.DesignSystem do
       <.text size="base"><%= render_slot(@label) %></.text>
       <div class="textarea-grow-wrapper">
         <textarea
-          id={@id}
-          name={@name}
-          placeholder={@placeholder}
-          disabled={@disabled}
+          id={@field.id}
+          name={@field.name}
           class="textarea"
           onInput="this.parentNode.dataset.replicatedValue = this.value"
+          {@rest}
         >
-          <%= @value %>
+          <%= @field.value %>
         </textarea>
       </div>
     </fieldset>
