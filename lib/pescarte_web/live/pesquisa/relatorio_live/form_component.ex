@@ -1,4 +1,4 @@
-defmodule PescarteWeb.RelatorioLive.FormComponent do
+defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
   use PescarteWeb, :live_component
 
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
@@ -74,7 +74,7 @@ defmodule PescarteWeb.RelatorioLive.FormComponent do
   end
 
   @impl true
-  def handle_event("validate", %{"relatorio" => relatorio_params}, socket) do
+  def handle_event("validate", %{"relatorio_pesquisa" => relatorio_params}, socket) do
     changeset =
       socket.assigns.relatorio
       |> RelatoriosHandler.change_relatorio_pesquisa(relatorio_params)
@@ -83,11 +83,19 @@ defmodule PescarteWeb.RelatorioLive.FormComponent do
     {:noreply, assign_form(socket, changeset)}
   end
 
-  def handle_event("save", %{"save" => "save-report", "relatorio" => relatorio_params}, socket) do
+  def handle_event(
+        "save",
+        %{"save" => "save-report", "relatorio_pesquisa" => relatorio_params},
+        socket
+      ) do
     save_relatorio(socket, socket.assigns.action, relatorio_params)
   end
 
-  def handle_event("save", %{"save" => "send-report", "relatorio" => relatorio_params}, socket) do
+  def handle_event(
+        "save",
+        %{"save" => "send-report", "relatorio_pesquisa" => relatorio_params},
+        socket
+      ) do
     params =
       relatorio_params
       |> put_in(["status"], "entregue")

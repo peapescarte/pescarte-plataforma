@@ -1,4 +1,4 @@
-defmodule PescarteWeb.RelatorioLive.Index do
+defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   use PescarteWeb, :auth_live_view
 
   alias Pescarte.ModuloPesquisa.Models.RelatorioPesquisa
@@ -47,7 +47,7 @@ defmodule PescarteWeb.RelatorioLive.Index do
   end
 
   @impl true
-  def handle_info({PescarteWeb.RelatorioLive.FormComponent, {:saved, relatorio}}, socket) do
+  def handle_info({PescarteWeb.Pesquisa.RelatorioLive.FormComponent, {:saved, relatorio}}, socket) do
     {:noreply, stream_insert(socket, :relatorios, relatorio)}
   end
 end
