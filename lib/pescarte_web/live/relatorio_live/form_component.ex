@@ -23,17 +23,12 @@ defmodule PescarteWeb.RelatorioLive.FormComponent do
         </div>
 
         <.inputs_for :let={f} field={@form[@conteudo]}>
-          <.text_area
+          <.report_field
             :for={{label, name} <- @fields}
             field={f[name]}
             disabled={@form.data.status == :entregue}
-          >
-            <:label>
-              <.text size="h3" color="text-blue-100">
-                <%= label %>
-              </.text>
-            </:label>
-          </.text_area>
+            label={label}
+          />
         </.inputs_for>
 
         <.text_input type="hidden" field={@form[:tipo]} value={@type} />
@@ -219,4 +214,22 @@ defmodule PescarteWeb.RelatorioLive.FormComponent do
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
+
+  defp report_field(assigns) do
+    ~H"""
+    <.text_area
+      id={@field.id}
+      name={@field.name}
+      value={@field.value}
+      disabled={@disabled}
+      class="report-field"
+    >
+      <:label>
+        <.text size="h3" color="text-blue-100">
+          <%= @label %>
+        </.text>
+      </:label>
+    </.text_area>
+    """
+  end
 end
