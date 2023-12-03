@@ -1,16 +1,18 @@
-<.table id="relatorios" rows={@streams.relatorios} text-color="blue">
-  <:column :let={{_id, relatorio}} label="Teste">
-    <%= relatorio.data_inicio %>
-  </:column>
-</.table>
+<div :if={@live_action == :index}>
+  <.table id="relatorios" rows={@streams.relatorios} text-color="blue">
+    <:column :let={{_id, relatorio}} label="Teste">
+      <%= relatorio.data_inicio %>
+    </:column>
+  </.table>
 
-<button phx-click="report-type" phx-value-type="mensal" style="primary">
-Mensal
-</button>
+  <button phx-click="report-type" phx-value-type="mensal" style="primary">
+  Mensal
+  </button>
 
-<button phx-click="report-type" phx-value-type="trimestral" style="primary">
-Trimestral
-</button>
+  <button phx-click="report-type" phx-value-type="trimestral" style="primary">
+  Trimestral
+  </button>
+</div>
 
 <.live_component
   :if={@live_action in [:new, :edit]}
