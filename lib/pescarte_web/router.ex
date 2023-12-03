@@ -52,14 +52,10 @@ defmodule PescarteWeb.Router do
       live("/perfil", Pesquisa.ProfileLive)
       live("/pesquisadores", Pesquisa.ListPesquisadorLive)
 
-      #    scope "/relatorios" do
-      #      live "/", Pesquisa.Relatorio.ListReportLive
-      #      live "/mensal", Pesquisa.Relatorio.MensalLive
-      #    end
       scope "/relatorios" do
-        live("/", Pesquisa.Relatorio.ListReportLive)
-        live("/new", Pesquisa.RelatorioLive.Index, :new)
-        live("/edit/:id", Pesquisa.RelatorioLive.Index, :edit)
+        live("/", RelatorioLive.Index, :index)
+        live("/new", RelatorioLive.Index, :new)
+        live("/:id/edit", RelatorioLive.Index, :edit)
       end
     end
   end
