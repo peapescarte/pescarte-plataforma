@@ -1,7 +1,12 @@
 defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
+  @moduledoc false
+
+#  use Phoenix.LiveView
   use PlataformaDigital, :auth_live_view
 
-  @impl true
+#  alias ModuloPesquisa.Handlers.RelatoriosHandler
+
+#  @impl true
   def mount(_params, _session, socket) do
     list = [
       %{
@@ -37,7 +42,25 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
         status: "Entregue"
       }
     ]
+    {:ok, assign(socket, relatorios: list, tabela: list)}
+  end
 
-    {:ok, assign(socket, relatorios: list)}
+  # ================= Vamos trabalhar o dropdown do "Preencher Relatório" 09-14/10/2023
+  @impl true
+  def handle_event("mensal_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    # ~p"/app/pesquisa/relatorios"
+  end
+
+  def handle_event("trimestral_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+  end
+
+  def handle_event("bienal_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+  end
+
+  def handle_event("anual_report", _, socket) do
+    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
 end
