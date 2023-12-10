@@ -5,7 +5,7 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   alias ModuloPesquisa.Models.RelatorioAnualPesquisa, as: Anual
   alias ModuloPesquisa.Models.RelatorioMensalPesquisa, as: Mensal
   alias ModuloPesquisa.Models.RelatorioTrimestralPesquisa, as: Trimestral
-#  alias ModuloPesquisa.Models.RelatorioPesquisa, as: RelatorioPesquisaModel
+  #  alias ModuloPesquisa.Models.RelatorioPesquisa, as: RelatorioPesquisaModel
   alias ModuloPesquisa.Schemas.RelatorioPesquisa
 
   @locale Application.compile_env(:pescarte, :locale, "pt_BR")
@@ -13,7 +13,7 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   @type relatorio :: Anual.t() | Mensal.t() | Trimestral.t()
   @typep changeset :: Ecto.Changeset.t()
 
-  #@spec internal_to_external(RelatorioPesquisaModel.t()) ::
+  # @spec internal_to_external(RelatorioPesquisaModel.t()) ::
   #        {:ok, RelatorioPesquisa.t()} | {:error, changeset}
   @spec internal_to_external(relatorio) :: {:ok, RelatorioPesquisa.t()} | {:error, changeset}
 
@@ -34,7 +34,6 @@ defmodule ModuloPesquisa.Adapters.RelatorioAdapter do
   defp get_relatorio_tipo(%RelatorioPesquisa{tipo: "anual"}), do: :anual
   defp get_relatorio_tipo(%RelatorioPesquisa{tipo: "mensal"}), do: :mensal
   defp get_relatorio_tipo(%RelatorioPesquisa{tipo: "trimestral"}), do: :trimestral
-
 
   defp get_relatorio_periodo!(relatorio) do
     relatorio.ano

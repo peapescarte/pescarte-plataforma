@@ -1,12 +1,12 @@
 defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
   @moduledoc false
 
-#  use Phoenix.LiveView
+  #  use Phoenix.LiveView
   use PlataformaDigital, :auth_live_view
 
-#  alias ModuloPesquisa.Handlers.RelatoriosHandler
+  #  alias ModuloPesquisa.Handlers.RelatoriosHandler
 
-#  @impl true
+  #  @impl true
   def mount(_params, _session, socket) do
     list = [
       %{
@@ -42,6 +42,7 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
         status: "Entregue"
       }
     ]
+
     {:ok, assign(socket, relatorios: list, tabela: list)}
   end
 
