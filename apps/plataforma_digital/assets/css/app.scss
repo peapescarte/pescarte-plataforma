@@ -95,7 +95,7 @@ footer {
   }
 
   main {
-    @apply h-full w-full;
+    @apply w-full;
   }
 }
 
@@ -164,6 +164,7 @@ footer {
 @import "./checkbox.scss";
 @import "./input.scss";
 @import "./landing.scss";
+@import "./imagebank.scss";
 @import "./navbar.scss";
 @import "./radio.scss";
 @import "./search.scss";
@@ -171,6 +172,9 @@ footer {
 @import "./textarea.scss";
 @import "./tabela.scss";
 @import "./label.scss";
+@import "./searchLabel.scss";
+@import "./carousel.scss";
+
 
 // Páginas
 // Sem autenticação

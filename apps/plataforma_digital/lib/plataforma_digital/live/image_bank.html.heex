@@ -1,0 +1,57 @@
+<main class="imagebank-grid">
+  <div class="highlights">
+    <.text size="h2" color="text-blue-100">Destaques</.text>
+  </div>
+
+  <div class="carousel js-flickity"
+    data-flickity='{ "imagesLoaded": true, "percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
+    <div class="carousel-cell">
+      <img src={~p"/images/pescador_por_sol.svg"} />
+    </div>
+    <div class="carousel-cell">
+      <img src={~p"/images/pescador_por_sol.svg"} />
+    </div>
+    <div class="carousel-cell">
+      <img src={~p"/images/pescador_por_sol.svg"} />
+    </div>
+    <div class="carousel-cell">
+      <img src={~p"/images/pescador_por_sol.svg"} />
+    </div>
+    <div class="carousel-cell">
+      <img src={~p"/images/pescador_por_sol.svg"} />
+    </div>
+    <div class="carousel-cell">
+      <img src={~p"/images/pescador_por_sol.svg"} />
+    </div>
+  </div>
+
+  <div class="full-collection">
+    <.text size="h2" color="text-blue-100">Acervo Completo</.text>
+
+    <div class="image-bank-search">
+      <.search_input name="busca-acervo" id="busca-acervo" placeholder="Pesquise por palavras chave" />
+      <div class="image-bank-search-tags">
+        <.search_label message="aaaaa" active="ativo" />
+        <.search_label message="aaaaa" active="desativo" />
+        <.search_label message="aaaaa" active="true" />
+        <.search_label message="aaaaa" active="true" />
+        <.search_label message="aaaaa" active="true" />
+        <.search_label message="aaaaa" active="true" />
+        <.search_label message="aaaaa" active="desativo" />
+      </div>
+    </div>
+
+    <div class="image-bank-showcase">
+      <img src={~p"/images/landing/pescadores.png"} />
+      <img src={~p"/images/landing/pescadores.png"} />
+      <img src={~p"/images/landing/pescadores.png"} />
+      <img src={~p"/images/landing/pescadores.png"} />
+      <img src={~p"/images/landing/pescadores.png"} />
+      <img src={~p"/images/landing/pescadores.png"} />
+    </div>
+
+    <.button class="image-bank-load-button" style="primary" click="hello">
+      <.text size="base" color="text-white-100">Carregar Mais</.text>
+    </.button>
+  </div>
+</main>

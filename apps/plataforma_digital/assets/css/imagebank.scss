@@ -1,0 +1,54 @@
+.imagebank-grid {
+  overflow: scroll;
+  display: grid;
+  gap: 2rem;
+  grid-template-areas:
+    "full-collection"
+    "highlights";
+}
+
+.full-collection {
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
+}
+
+.highlights {
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
+}
+
+.image-bank-search{
+  margin-bottom: 5rem;
+}
+
+.image-bank-search > * {
+  margin: auto;
+  width: 65vw !important;
+  padding: 10px;
+}
+
+.image-bank-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 16px;
+  width: 90%;
+  margin: auto;
+}
+
+.image-bank-showcase img {
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-bank-load-button {
+  margin:auto
+}

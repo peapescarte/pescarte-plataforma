@@ -22,6 +22,7 @@ defmodule PlataformaDigital.Router do
     pipe_through :browser
 
     get "/", LandingController, :show
+    live "/bancoDeImagens", ImageBank
 
     live_storybook("/storybook", backend_module: PlataformaDigital.Storybook)
   end
