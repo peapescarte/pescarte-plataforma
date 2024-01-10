@@ -2,11 +2,9 @@ defmodule PlataformaDigital.Pesquisa.CadastroPesquisadorLive do
   use PlataformaDigital, :auth_live_view
 
   @impl true
-  def mount(_cadastro_params, _session, socket) do
+  def mount(_params, _session, socket) do
     #    cadastro_params = %{"form" => form, "field_names" => field_names}
-    #    cadastro_params = %{"primeiro_nome" => primeiro_nome, "sobrenome" => sobrenome, "data_nascimento" => data_nascimento}
-    #      "cpf" => cpf, "telefone" => telefone, "contato_email" => contato_email, "tipo" => tipo,
-    #      "rua" => rua, "numero" => numero, "cidade" => cidade, "cep" => cep, "bolsa" => bolsa} = cadastro_params
+
     {:ok,
      socket
      |> assign(:form_title, "Cadastrar Novo Pesquisador")
