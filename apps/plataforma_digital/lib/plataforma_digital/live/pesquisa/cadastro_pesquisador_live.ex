@@ -11,7 +11,7 @@ defmodule PlataformaDigital.Pesquisa.CadastroPesquisadorLive do
      socket
      |> assign(:form_title, "Cadastrar Novo Pesquisador")
      |> assign(:form, to_form(%{}, as: :user))
-#     |> assign(:form_dados, get_dados_cadastro)
+     #     |> assign(:form_dados, get_dados_cadastro)
      |> assign(:field_names, get_cadastro_field_names(:cadastro))}
   end
 
@@ -47,13 +47,13 @@ defmodule PlataformaDigital.Pesquisa.CadastroPesquisadorLive do
     #  %{dados: dados, endereco: endereco, vinculo: vinculo}
   end
 
-#  defp get_dados_cadastro do
-#    [
-#      {"primeiro_nome", :primeiro_nome},
-#      {"sobrenome", :sobrenome},
-#      {"data_nascimento", :data_nascimento}
-#    ]
-#  end
+  #  defp get_dados_cadastro do
+  #    [
+  #      {"primeiro_nome", :primeiro_nome},
+  #      {"sobrenome", :sobrenome},
+  #      {"data_nascimento", :data_nascimento}
+  #    ]
+  #  end
 
   #  @impl true    trecho para entender.....
   #  {:ok, assign(socket, note_text: "", draft_notes: [], published_notes: [], error: "")}
