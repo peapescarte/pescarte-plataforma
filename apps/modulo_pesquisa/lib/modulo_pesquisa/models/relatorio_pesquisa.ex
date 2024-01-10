@@ -67,12 +67,12 @@ defmodule ModuloPesquisa.Models.RelatorioPesquisa do
     report_type = get_field(changeset, :tipo)
     today = Date.utc_today()
 
-    limit_date =
-      case report_type do
-        nil -> changeset
-        :mensal -> Date.from_iso8601!("#{today.year}-#{today.month}-15")
-        _ -> Date.from_iso8601!("#{today.year}-#{today.month}-10")
-      end
+    limit_date = ~D[2030-12-10]
+#      case report_type do
+#        nil -> changeset
+#        :mensal -> Date.from_iso8601!("#{today.year}-#{today.month}-15")
+#        _ -> Date.from_iso8601!("#{today.year}-#{today.month}-10")
+#      end
 
     put_change(changeset, :data_limite, limit_date)
   end
