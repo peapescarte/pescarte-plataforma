@@ -1,19 +1,18 @@
 <div class="search">
   <.search_input name="busca-relatorio" id="busca-relatorio" />
 
-  <div class="links-item" style="display: flex;">
-    <.button class="icon-button" style="primary" click="preencher-relatorio" value="mensal">
-      <Lucideicons.book class="text-white-100" />
-      <.text size="sm" color="text-white-100">Relatório Mensal</.text>
-    </.button>
-  </div>
-
-  <div class="links-item">
-    <.button class="icon-button" style="primary" submit>
-      <Lucideicons.book class="text-white-100" />
-      <.text size="sm" color="text-white-100">Preencher Relatório</.text>
-    </.button>
-  </div>
+  <div class="dropdown links-item">
+     <.button class="icon-button" id="preencher-relatorio-button" style="primary" phx-click="toggleDropdown">
+       <Lucideicons.book class="text-white-100" />
+       <.text size="sm" color="text-white-100">Preencher Relatório</.text>
+       <Lucideicons.chevron_down class="text-blue-100" />
+     </.button>
+     <div class="dropdown-options">
+       <.report_menu_link click="mensal_report" label="Mensal"></.report_menu_link>
+       <.report_menu_link click="trimestral_report" label="Trimestral"></.report_menu_link>
+       <.report_menu_link click="anual_report" label="Anual"></.report_menu_link>
+     </div>
+   </div>
 
   <div :if={@current_user.tipo == :admin} class="links-item">
     <.button class="icon-button" style="primary" submit>

@@ -1,0 +1,105 @@
+<div class="report-wrapper">
+  <.text size="h1" color="text-blue-100">  <%= @form_title %>  </.text>
+  <.simple_form for={@form} action={~p"/app/pesquisa/cadastro"} class="report-wrapper">
+
+    <.text size="h3" color="text-blue-100">  <%= @field_names[:dados] %>  </.text>
+
+    <.text size="h3" color="text-blue-100">Dados Pessoais</.text>
+    <div class="nav-item">
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:primeiro_nome]} value="" type="text" label="Nome" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:sobrenome]} value="" type="text" label="SobreNome" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:data_nascimento]} value="" type="date" label="Data de Nascimento" required />
+      </fieldset>
+    </div>
+
+    <div class="nav-item">
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:cpf]} value="" type="text" label="CPF" required phx-hook="CpfNumberMask" />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:telefone]} value="" type="text" label="Telefone" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:contato_email]} value="" type="email" placeholder="nome@uenf.br" label="Email" required />
+      </fieldset>
+    </div>
+    <div class="item-secao flex-cols">
+      <div class="form-group">
+			  <label for="exampleSelect">Tipo de Usuário</label>
+			  <select id="exampleSelect" class="form-control">
+				  <option name="tipo" value="">Administrador</option>
+				  <option name="tipo" value="">Pesquisador</option>
+          <option name="tipo" value="">Pescador</option>
+			  </select>
+		  </div>
+    </div>
+
+    <.text size="h3" color="text-blue-100">Endereço</.text>
+    <div class="nav-item">
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:rua]} value="" type="text" label="Endereço" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:numero]} value="" type="text" label="Número" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:cidade]} value="" type="text" label="Cidade" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:cep]} value="" type="text" placeholder="00000-00" label="CEP" required />
+      </fieldset>
+    </div>
+
+    <div class="form-group flex-cols">
+			<label for="exampleSelect">UF</label>
+			<select id="exampleSelect" class="form-control">
+				<option name="estado" value="">RJ</option>
+				<option name="estado" value="">ES</option>
+        <option name="estado" value="">SP</option>
+			</select>
+		</div>
+
+    <.text size="h3" color="text-blue-100">Vínculo Institucional</.text>
+    <div class="nav-item">
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Pesquisador" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Professor" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Técnico" required />
+      </fieldset>
+      <fieldset class="login-fieldset">
+        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Aluno" required />
+      </fieldset>
+    </div>
+  </.simple_form>
+  <div class="buttons-wrapper flex-center">
+    <.button
+      name="save"
+      value="save-cadastro"
+      style="primary"
+      phx-disable-with="Salvando….."
+      submit
+    >
+      <Lucideicons.save /> Salvar respostas
+    </.button>
+
+    <.button
+      name="save"
+      value="send-cadastro"
+      style="primary"
+      phx-disable-with="Enviando..."
+      submit
+    >
+      <Lucideicons.send /> Enviar cadastro
+    </.button>
+  </div>
+
+</div>

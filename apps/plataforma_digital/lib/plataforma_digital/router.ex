@@ -41,6 +41,9 @@ defmodule PlataformaDigital.Router do
       on_mount: [{PlataformaDigital.Authentication, :ensure_authenticated}] do
       live("/perfil", Pesquisa.ProfileLive)
       live("/pesquisadores", Pesquisa.ListPesquisadorLive)
+      live("/cadastro", Pesquisa.CadastroPesquisadorLive)
+
+  #    get("/cadastro", CadastroController, :show)
 
       #    scope "/relatorios" do
       #      live "/", Pesquisa.Relatorio.ListReportLive
