@@ -8,119 +8,116 @@ defmodule PlataformaDigital.Pesquisa.Relatorio.ListReportLive do
 
   @impl true
   def mount(_params, _session, socket) do
+    list = [
+      %{
+        data: "4/5/2023",
+        tipo: "Mensal",
+        name: "Relatório Mensal - Maio",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Junho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Mensal,
+        name: "Relatório Mensal - Agosto",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Julho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: "Mensal",
+        name: "Relatório Mensal - Maio",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Junho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Mensal,
+        name: "Relatório Mensal - Agosto",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Julho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: "Mensal",
+        name: "Relatório Mensal - Maio",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Junho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Mensal,
+        name: "Relatório Mensal - Agosto",
+        ano: "2023",
+        mes: "Maio",
+        status: "Atrasado"
+      },
+      %{
+        data: "4/5/2023",
+        tipo: :Anual,
+        name: "Relatório Mensal - Julho",
+        ano: "2023",
+        mes: "Maio",
+        status: "Entregue"
+      }
+    ]
 
-list = [
-  %{
-    data: "4/5/2023",
-    tipo: "Mensal",
-    name: "Relatório Mensal - Maio",
-    ano: "2023",
-    mes: "Maio",
-    status: "Entregue"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Anual,
-    name: "Relatório Mensal - Junho",
-    ano: "2023",
-    mes: "Maio",
-    status: "Atrasado"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Mensal,
-    name: "Relatório Mensal - Agosto",
-    ano: "2023",
-    mes: "Maio",
-    status: "Atrasado"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Anual,
-    name: "Relatório Mensal - Julho",
-    ano: "2023",
-    mes: "Maio",
-    status: "Entregue"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: "Mensal",
-    name: "Relatório Mensal - Maio",
-    ano: "2023",
-    mes: "Maio",
-    status: "Entregue"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Anual,
-    name: "Relatório Mensal - Junho",
-    ano: "2023",
-    mes: "Maio",
-    status: "Atrasado"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Mensal,
-    name: "Relatório Mensal - Agosto",
-    ano: "2023",
-    mes: "Maio",
-    status: "Atrasado"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Anual,
-    name: "Relatório Mensal - Julho",
-    ano: "2023",
-    mes: "Maio",
-    status: "Entregue"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: "Mensal",
-    name: "Relatório Mensal - Maio",
-    ano: "2023",
-    mes: "Maio",
-    status: "Entregue"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Anual,
-    name: "Relatório Mensal - Junho",
-    ano: "2023",
-    mes: "Maio",
-    status: "Atrasado"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Mensal,
-    name: "Relatório Mensal - Agosto",
-    ano: "2023",
-    mes: "Maio",
-    status: "Atrasado"
-  },
-  %{
-    data: "4/5/2023",
-    tipo: :Anual,
-    name: "Relatório Mensal - Julho",
-    ano: "2023",
-    mes: "Maio",
-    status: "Entregue"
-  }
-]
-
-
-{:ok,
- socket
- |> assign(relatorios: list)
- |> assign(tipo_relatorio: "")}
-
+    {:ok,
+     socket
+     |> assign(relatorios: list)
+     |> assign(tipo_relatorio: "")}
   end
 
   @impl true
   # vou comentar para mostrar o dropdown, em 10/1/2024:
-#  def handle_event("preencher-relatorio", %{"value" => tipo_relatorio}, socket) do
-#    {:noreply, push_redirect(socket, to: ~p"/app/pesquisa/relatorios/new?tipo=#{tipo_relatorio}")}
-#  end
+  #  def handle_event("preencher-relatorio", %{"value" => tipo_relatorio}, socket) do
+  #    {:noreply, push_redirect(socket, to: ~p"/app/pesquisa/relatorios/new?tipo=#{tipo_relatorio}")}
+  #  end
 
   # inserido em 10/1/2024 para apresentação da Petrobras:
   def handle_event("toggleDropdown", _, socket) do
@@ -131,7 +128,7 @@ list = [
   attr :click, :string, required: true
 
   slot :inner_block
-  
+
   def report_menu_link(assigns) do
     ~H"""
     <div class="profile-menu-link">
@@ -151,14 +148,16 @@ list = [
   def handle_event("mensal_report", _, socket) do
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
+
   def handle_event("trimestral_report", _, socket) do
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
+
   def handle_event("bienal_report", _, socket) do
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
+
   def handle_event("anual_report", _, socket) do
     {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
-
 end

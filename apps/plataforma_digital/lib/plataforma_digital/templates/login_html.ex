@@ -3,6 +3,7 @@ defmodule PlataformaDigital.LoginHTML do
 
   def show(assigns) do
     assigns = Map.put(assigns, :form, to_form(%{}, as: :user))
+
     ~H"""
     <div class="fish-bg h-full" id="login-wrapper">
       <.toast :if={@error_message} id="login-error" type="error" message={@error_message} />

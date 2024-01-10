@@ -43,7 +43,7 @@ defmodule PlataformaDigital.Router do
       live("/pesquisadores", Pesquisa.ListPesquisadorLive)
       live("/cadastro", Pesquisa.CadastroPesquisadorLive)
 
-  #    get("/cadastro", CadastroController, :show)
+      #    get("/cadastro", CadastroController, :show)
 
       #    scope "/relatorios" do
       #      live "/", Pesquisa.Relatorio.ListReportLive
