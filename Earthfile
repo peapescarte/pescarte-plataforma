@@ -23,37 +23,17 @@ ci:
   RUN mix credo --strict
 
 test:
- BUILD +unit-test
- BUILD +integration-test
-
-unit-test:
   FROM +deps
   RUN apt install -y postgresql-client
   RUN MIX_ENV=test mix deps.compile
   COPY docker-compose.ci.yml ./docker-compose.yml
   COPY mix.exs mix.lock ./
   COPY .env-sample ./
-  COPY --dir config ./
-  COPY --dir lib ./
+  COPY --dir config lib priv test ./
 
   WITH DOCKER --compose docker-compose.yml
     RUN while ! pg_isready --host=localhost --port=5432 --quiet; do sleep 1; done; \
-        DATABASE_USER="peapescarte" DATABASE_PASSWORD="peapescarte" mix test --only unit
-  END
-
-integration-test:
-  FROM +deps
-  RUN apt install -y postgresql-client
-  RUN MIX_ENV=test mix deps.compile
-  COPY docker-compose.ci.yml ./docker-compose.yml
-  COPY mix.exs mix.lock ./
-  COPY .env-sample ./
-  COPY --dir config ./
-  COPY --dir lib ./
-
-  WITH DOCKER --compose docker-compose.yml
-    RUN while ! pg_isready --host=localhost --port=5432 --quiet; do sleep 1; done; \
-        DATABASE_USER="peapescarte" DATABASE_PASSWORD="peapescarte" mix test --only integration
+        DATABASE_USER="peapescarte" DATABASE_PASSWORD="peapescarte" mix test
   END
 
 frontend-deps:
@@ -61,17 +41,18 @@ frontend-deps:
   WORKDIR /frontend
   COPY --dir +deps/deps .
   COPY ./assets ./assets/
-  RUN npm ci --prefix ./assets
+  RUN rm ./assets/package-lock.json
+  RUN npm i --prefix ./assets
   SAVE ARTIFACT /frontend/assets AS LOCAL assets
 
 frontend-build:
-  FROM +unit-test
+  FROM +test
   COPY --dir +frontend-deps/assets ./
   RUN mix assets.deploy
   SAVE ARTIFACT ./priv AS LOCAL priv
 
 release:
-  FROM +unit-test
+  FROM +test
   COPY --dir +frontend-build/priv ./
   COPY rel rel
   RUN MIX_ENV=prod mix do compile, release

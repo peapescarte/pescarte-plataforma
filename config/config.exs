@@ -56,7 +56,11 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :git_hooks,
-  verbose: true,
+  verbose: false,
+  auto_install: true,
+  branches: [
+    whitelist: ["main"]
+  ],
   hooks: [
     pre_push: [
       tasks: [
