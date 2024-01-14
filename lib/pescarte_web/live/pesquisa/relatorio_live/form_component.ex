@@ -1,24 +1,22 @@
-defmodule PescarteWeb.Pesquisa.Relatorio.FormComponent do
+defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
   use PescarteWeb, :live_component
+
+  import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
   alias Pescarte.ModuloPesquisa.Handlers.RelatoriosHandler
   alias Pescarte.ModuloPesquisa.Repository
+
+  @locale "pt_BR"
 
   @impl true
   def render(assigns) do
     ~H"""
     <div class="report-wrapper">
       <.text size="h1" color="text-blue-100">
-        <%= @form_title %>
+        <%= @title %>
       </.text>
 
-      <.form
-        for={@form}
-        id="relatorio-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
+      <.form for={@form} id="report-form" phx-target={@myself} phx-change="validate" phx-submit="save">
         <div class="input-date-group" style="display: flex;">
           <.text_input type="date" label="Início período" field={@form[:data_inicio]} />
           <.text_input type="date" label="Fim periodo" field={@form[:data_fim]} />
@@ -26,14 +24,14 @@ defmodule PescarteWeb.Pesquisa.Relatorio.FormComponent do
 
         <.inputs_for :let={f} field={@form[@conteudo]}>
           <.report_field
-            :for={{label, name} <- @field_names}
+            :for={{label, name} <- @fields}
             field={f[name]}
             disabled={@form.data.status == :entregue}
             label={label}
           />
         </.inputs_for>
 
-        <.text_input type="hidden" field={@form[:tipo]} value={@report_type} />
+        <.text_input type="hidden" field={@form[:tipo]} value={@type} />
         <.text_input type="hidden" field={@form[:pesquisador_id]} value={@pesquisador_id} />
         <.text_input type="hidden" field={@form[:status]} value="pendente" />
 
@@ -76,55 +74,151 @@ defmodule PescarteWeb.Pesquisa.Relatorio.FormComponent do
   end
 
   @impl true
-  def handle_event("validate", %{"relatorio_pesquisa" => params}, socket) do
+  def handle_event("validate", %{"relatorio_pesquisa" => relatorio_params}, socket) do
     changeset =
       socket.assigns.relatorio
-      |> RelatoriosHandler.change_relatorio_pesquisa(params)
+      |> RelatoriosHandler.change_relatorio_pesquisa(relatorio_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign_form(socket, changeset)}
   end
 
-  @impl true
-  def handle_event("save", %{"save" => "save-report", "relatorio_pesquisa" => params}, socket) do
-    handle_store(socket, socket.assigns.action, params)
+  def handle_event(
+        "save",
+        %{"save" => "save-report", "relatorio_pesquisa" => relatorio_params},
+        socket
+      ) do
+    save_relatorio(socket, socket.assigns.action, relatorio_params)
   end
 
-  @impl true
-  def handle_event("save", %{"save" => "send-report", "relatorio_pesquisa" => params}, socket) do
+  def handle_event(
+        "save",
+        %{"save" => "send-report", "relatorio_pesquisa" => relatorio_params},
+        socket
+      ) do
     params =
-      params
+      relatorio_params
       |> put_in(["status"], "entregue")
       |> put_in(["data_entrega"], Date.utc_today())
 
-    handle_store(socket, socket.assigns.action, params)
+    save_relatorio(socket, socket.assigns.action, params)
   end
 
-  defp handle_store(socket, :edit, params) do
-    case Repository.upsert_relatorio_pesquisa(socket.assigns.relatorio, params) do
+  defp save_relatorio(socket, :edit, relatorio_params) do
+    case Repository.upsert_relatorio_pesquisa(socket.assigns.relatorio, relatorio_params) do
       {:ok, relatorio} ->
         notify_parent({:saved, relatorio})
 
         {:noreply,
          socket
-         |> assign_form(RelatoriosHandler.change_relatorio_pesquisa(relatorio))
-         |> push_redirect(to: socket.assigns.patch)}
+         |> put_flash(:info, "Relatório atualizado com sucesso!")
+         |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
     end
   end
 
-  defp handle_store(socket, :new, params) do
-    case Repository.upsert_relatorio_pesquisa(params) do
+  defp save_relatorio(socket, :new, relatorio_params) do
+    case Repository.upsert_relatorio_pesquisa(relatorio_params) do
       {:ok, relatorio} ->
         notify_parent({:saved, relatorio})
 
-        {:noreply, push_redirect(socket, to: socket.assigns.patch)}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Relatório criado com sucesso")
+         |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
     end
+  end
+
+  defp assign_form(socket, %Ecto.Changeset{} = changeset) do
+    assign(socket, :form, to_form(changeset))
+  end
+
+  defp assign_form_data(socket, %{type: "mensal"}) do
+    today = get_formatted_today(Date.utc_today())
+
+    socket
+    |> assign(:conteudo, :conteudo_mensal)
+    |> assign(
+      :title,
+      "Relatório Mensal de Pesquisa #{today.month} de #{today.month_word} de #{today.year}"
+    )
+    |> assign(:fields, get_report_fields(:mensal))
+  end
+
+  defp assign_form_data(socket, %{type: "trimestral"}) do
+    today = get_formatted_today(Date.utc_today())
+
+    socket
+    |> assign(:conteudo, :conteudo_trimestral)
+    |> assign(
+      :title,
+      "Relatório Trimestral de Pesquisa do #{today.quarterly}º Trimestre de #{today.year}"
+    )
+    |> assign(:fields, get_report_fields(:trimestral))
+  end
+
+  defp assign_form_data(socket, %{type: "anual"}) do
+    today = get_formatted_today(Date.utc_today())
+
+    socket
+    |> assign(:conteudo, :conteudo_anual)
+    |> assign(:title, "Relatório Anual de Pesquisa de #{today.year}")
+    |> assign(:fields, get_report_fields(:anual))
+  end
+
+  defp get_report_fields(:mensal) do
+    [
+      {"Ações de Planejamento", :acao_planejamento},
+      {"Participação em Grupos de Estudos", :participacao_grupos_estudo},
+      {"Ações de Pesquisas de Campo, Análise de Dados e Construção Audiovisual", :acoes_pesquisa},
+      {"Participação em Treinamentos e Crusos PEA Pescarte", :participacao_treinamentos},
+      {"Publicação", :publicacao},
+      {"Previsão de Ação de Planejamento", :previsao_acao_planejamento},
+      {"Previsão de Participação em Grupos de Estudo", :previsao_participacao_grupos_estudo},
+      {"Previsão de Participação em Treinamentos e Cursos PEA Pescarte",
+       :previsao_participacao_treinamentos},
+      {"Previsão de Ações de Pesquisa", :previsao_acoes_pesquisa}
+    ]
+  end
+
+  defp get_report_fields(:trimestral) do
+    [
+      {"Título", :titulo},
+      {"Resumo", :resumo},
+      {"Introdução", :introducao},
+      {"Embasamento Teórico", :embasamento_teorico},
+      {"Resultados Preliminares", :resultados_preliminares},
+      {"Atividades Acadêmicas", :atividades_academicas},
+      {"Atividades Não Acadêmicas", :atividades_nao_academicas},
+      {"Referências", :referencias}
+    ]
+  end
+
+  defp get_report_fields(:anual) do
+    [
+      {"Plano de Trabalho", :plano_de_trabalho},
+      {"Resumo", :resumo},
+      {"Introdução", :introducao},
+      {"Embasamento Teórico", :embasamento_teorico},
+      {"Resultados", :resultados},
+      {"Atividades Acadêmicas", :atividades_academicas},
+      {"Atividades Não Acadêmicas", :atividades_nao_academicas},
+      {"Conclusão", :conclusao},
+      {"Referências", :referencias}
+    ]
+  end
+
+  defp get_formatted_today(%Date{month: month} = today) do
+    quarterly = Timex.quarter(today)
+    month_word = lformat!(today, "{Mfull}", @locale)
+    year = lformat!(today, "{YYYY}", @locale)
+
+    %{year: year, month_word: month_word, month: month, quarterly: quarterly}
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
@@ -145,84 +239,5 @@ defmodule PescarteWeb.Pesquisa.Relatorio.FormComponent do
       </:label>
     </.text_area>
     """
-  end
-
-  defp assign_form(socket, %Ecto.Changeset{} = changeset) do
-    assign(socket, :form, to_form(changeset))
-  end
-
-  defp assign_form_data(socket, %{report_type: "mensal"} = assigns) do
-    socket
-    |> assign(:report_type, :mensal)
-    |> assign(:conteudo, :conteudo_mensal)
-    |> assign(
-      :form_title,
-      "Relatório Mensal de Pesquisa #{assigns.today.month} de #{assigns.today.month_word} de #{assigns.today.year}"
-    )
-    |> assign(:field_names, get_report_field_names(:mensal))
-  end
-
-  defp assign_form_data(socket, %{report_type: "trimestral"} = assigns) do
-    socket
-    |> assign(:report_type, :trimestral)
-    |> assign(:conteudo, :conteudo_trimestral)
-    |> assign(
-      :form_title,
-      "Relatório Trimestral de Pesquisa do #{assigns.today.quarterly}º Trimestre de #{assigns.today.year}"
-    )
-    |> assign(:field_names, get_report_field_names(:trimestral))
-  end
-
-  defp assign_form_data(socket, %{report_type: "anual"} = assigns) do
-    socket
-    |> assign(:report_type, :anual)
-    |> assign(:conteudo, :conteudo_anual)
-    |> assign(
-      :form_title,
-      "Relatório Mensal de Pesquisa #{assigns.today.month} de #{assigns.today.month_word} de #{assigns.today.year}"
-    )
-    |> assign(:field_names, get_report_field_names(:anual))
-  end
-
-  defp get_report_field_names(:mensal) do
-    [
-      {"Ações de Planejamento", :acao_planejamento},
-      {"Participação em Grupos de Estudos", :participacao_grupos_estudo},
-      {"Ações de Pesquisas de Campo, Análise de Dados e Construção Audiovisual", :acoes_pesquisa},
-      {"Participação em Treinamentos e Crusos PEA Pescarte", :participacao_treinamentos},
-      {"Publicação", :publicacao},
-      {"Previsão de Ação de Planejamento", :previsao_acao_planejamento},
-      {"Previsão de Participação em Grupos de Estudo", :previsao_participacao_grupos_estudo},
-      {"Previsão de Participação em Treinamentos e Cursos PEA Pescarte",
-       :previsao_participacao_treinamentos},
-      {"Previsão de Ações de Pesquisa", :previsao_acoes_pesquisa}
-    ]
-  end
-
-  defp get_report_field_names(:trimestral) do
-    [
-      {"Título", :titulo},
-      {"Resumo", :resumo},
-      {"Introdução", :introducao},
-      {"Embasamento Teórico", :embasamento_teorico},
-      {"Resultados Preliminares", :resultados_preliminares},
-      {"Atividades Acadêmicas", :atividades_academicas},
-      {"Atividades Não Acadêmicas", :atividades_nao_academicas},
-      {"Referências", :referencias}
-    ]
-  end
-
-  defp get_report_field_names(:anual) do
-    [
-      {"Plano de Trabalho", :plano_de_trabalho},
-      {"Resumo", :resumo},
-      {"Introdução", :introducao},
-      {"Embasamento Teórico", :embasamento_teorico},
-      {"Resultados", :resultados},
-      {"Atividades Acadêmicas", :atividades_academicas},
-      {"Atividades Não Acadêmicas", :atividades_nao_academicas},
-      {"Conclusão", :conclusao},
-      {"Referências", :referencias}
-    ]
   end
 end

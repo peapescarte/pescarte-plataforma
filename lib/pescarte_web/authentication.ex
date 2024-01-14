@@ -10,6 +10,7 @@ defmodule PescarteWeb.Authentication do
   import Phoenix.Controller
   import Phoenix.Component, only: [assign_new: 3]
 
+  alias Pescarte.Database.Repo
   alias Pescarte.Identidades.Handlers.CredenciaisHandler
   alias Phoenix.LiveView.Socket
 
@@ -234,6 +235,9 @@ defmodule PescarteWeb.Authentication do
         |> assign_new(:current_user, fn ->
           maybe_user(user_token)
         end)
+        |> assign_new(:current_researcher, fn updated_socket ->
+          maybe_researcher(updated_socket)
+        end)
         |> assign_new(:user_token, fn -> user_token end)
 
       %{} ->
@@ -246,6 +250,14 @@ defmodule PescarteWeb.Authentication do
       {:ok, user} -> user
       {:error, :not_found} -> nil
     end
+  end
+
+  defp maybe_researcher(%{current_user: nil}), do: nil
+
+  defp maybe_researcher(%{current_user: current_user}) do
+    current_user
+    |> Repo.preload([:pesquisador])
+    |> Map.get(:pesquisador)
   end
 
   defp put_token_in_session(conn, token) do

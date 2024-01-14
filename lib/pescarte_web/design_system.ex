@@ -348,7 +348,6 @@ defmodule PescarteWeb.DesignSystem do
           name={@name}
           placeholder={@placeholder}
           disabled={@disabled}
-          class="textarea"
           onInput="this.parentNode.dataset.replicatedValue = this.value"
         >
           <%= @value %>
