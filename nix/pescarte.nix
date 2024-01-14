@@ -18,7 +18,7 @@ in
       sha256 = "8yS5gtFzmgl8mV2nNJzYbdxxyqf/P30XougCMprGFa8=";
     };
     postBuild = ''
-      ln -sf ${nodeDependencies}/lib/node_modules apps/plataforma_digital/assets/node_modules
+      ln -sf ${nodeDependencies}/lib/node_modules assets/node_modules
       mix do deps.loadpaths --no-deps-check, phx.digest
     '';
     installPhase = ''

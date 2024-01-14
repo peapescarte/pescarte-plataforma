@@ -17,7 +17,7 @@
       "${systems.darwin}".default = let
         darwinPkgs = pkgs systems.darwin;
         erl = darwinPkgs.beam.packages.erlang;
-        nodeDependencies = (darwinPkgs.callPackage ./apps/plataforma_digital/assets/default.nix {}).shell.nodeDependencies;
+        nodeDependencies = (darwinPkgs.callPackage ./assets/default.nix {}).shell.nodeDependencies;
       in
         erl.callPackage ./nix/pescarte.nix {
           inherit nodeDependencies;
@@ -27,7 +27,7 @@
 
     devShells = let
       mkShell = pkgs: let
-        inherit (pkgs.beam.packages) erlang_26;
+        inherit (pkgs.beam.packages) erlang_25;
       in
         pkgs.mkShell {
           name = "pescarte";
@@ -39,9 +39,11 @@
               zlib
               libxml2
               libiconv
-              erlang_26.elixir
+              erlang_25.elixir_1_15
               postgresql_15
               nodejs_18
+              mix2nix
+              node2nix
             ]
             ++ lib.optional stdenv.isLinux [
               inotify-tools

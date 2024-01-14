@@ -30,7 +30,5 @@ jobs:
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Earthly version
         run: earthly --version
-      - name: Run unit tests
-        run: earthly -P --build-arg GITHUB_REPO=${{ github.repository }} +unit-test
-      - name: Run integration tests
-        run: earthly -P --build-arg GITHUB_REPO=${{ github.repository }} +integration-test
+      - name: Run tests
+        run: earthly -P --build-arg GITHUB_REPO=${{ github.repository }} +test

@@ -1,3 +1,0 @@
-# Cotações
-
-**TODO: Add description**
