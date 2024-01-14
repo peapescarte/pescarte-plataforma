@@ -618,4 +618,23 @@ defmodule PescarteWeb.DesignSystem do
     </div>
     """
   end
+
+  @doc """
+  Renderiza um dropdown - versão 4/10/2023:
+  """
+  def report_menu_link(assigns) do
+    ~H"""
+    <div class="profile-menu-link">
+      <span class="flex items-center justify-center bg-white-100">
+        <%= render_slot(@inner_block) %>
+      </span>
+      <.button style="link" class="whitespace-nowrap" click={@click} phx-target=".profile-menu-link">
+        <.text size="base" color="text-blue-80">
+          <Lucideicons.edit class="text-blue-100" />
+          <%= @label %>
+        </.text>
+      </.button>
+    </div>
+    """
+  end
 end
