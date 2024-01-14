@@ -1,12 +1,14 @@
 defmodule PescarteWeb.Pesquisa.ProfileLive do
   use PescarteWeb, :auth_live_view
 
+  alias Pescarte.Database.Repo
   alias PescarteWeb.Authentication
+  alias Phoenix.LiveView
 
   @impl true
   def mount(_params, _session, socket) do
     #  current_user = socket.assigns.current_user
-    current_user = Pescarte.Database.Repo.preload(socket.assigns.current_user, [:pesquisador])
+    current_user = Repo.preload(socket.assigns.current_user, [:pesquisador])
 
     {:ok,
      assign(socket, user_name: current_user.primeiro_nome, pesquisador: current_user.pesquisador)}
@@ -14,10 +16,10 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
 
   # Components
 
-  attr :href, :string, required: true
-  attr :label, :string, required: true
+  attr(:href, :string, required: true)
+  attr(:label, :string, required: true)
 
-  slot :inner_block
+  slot(:inner_block)
 
   def profile_link(assigns) do
     ~H"""
@@ -34,10 +36,10 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
     """
   end
 
-  attr :label, :string, required: true
-  attr :click, :string, required: true
+  attr(:label, :string, required: true)
+  attr(:click, :string, required: true)
 
-  slot :inner_block
+  slot(:inner_block)
 
   def profile_menu_link(assigns) do
     ~H"""
@@ -65,6 +67,6 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
 
   def handle_event("logout", _, socket) do
     Authentication.log_out_user(socket)
-    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/")}
+    {:noreply, LiveView.redirect(socket, to: ~p"/")}
   end
 end

@@ -100,8 +100,8 @@ defmodule PescarteWeb do
       import PescarteWeb.DesignSystem
 
       # Shortcut for generating JS commands
-      alias Phoenix.LiveView.JS
       alias PescarteWeb.DesignSystem
+      alias Phoenix.LiveView.JS
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())

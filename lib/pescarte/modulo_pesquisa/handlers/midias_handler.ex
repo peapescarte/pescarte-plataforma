@@ -1,4 +1,8 @@
 defmodule Pescarte.ModuloPesquisa.Handlers.MidiasHandler do
+  @moduledoc false
+
+  alias Ecto.Multi
+  alias Pescarte.Database.Repo
   alias Pescarte.Identidades.Handlers.UsuarioHandler
   alias Pescarte.ModuloPesquisa.Handlers.IManageMidiasHandler
   alias Pescarte.ModuloPesquisa.Repository
@@ -78,11 +82,11 @@ defmodule Pescarte.ModuloPesquisa.Handlers.MidiasHandler do
     attrs_list
     |> Enum.with_index()
     |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
-      Ecto.Multi.run(multi, :"tag-#{idx}", fn _, _ ->
+      Multi.run(multi, :"tag-#{idx}", fn _, _ ->
         __MODULE__.create_tag(attrs)
       end)
     end)
-    |> Pescarte.Database.Repo.transaction()
+    |> Repo.transaction()
     |> case do
       {:ok, changes} -> {:ok, Map.values(changes)}
       {:error, _, changeset, _} -> {:error, changeset}

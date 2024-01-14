@@ -32,7 +32,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     """
 
     test "quando não há midia", %{conn: conn} do
-      conn = post(conn, "/", %{"query" => @list_midias_query})
+      conn = post(conn, "/api", %{"query" => @list_midias_query})
 
       assert %{"data" => %{"listarMidias" => []}} = json_response(conn, 200)
     end
@@ -43,7 +43,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       tag = insert(:tag, categoria_nome: categoria.nome)
       midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
 
-      conn = post(conn, "/", %{"query" => @list_midias_query})
+      conn = post(conn, "/api", %{"query" => @list_midias_query})
 
       assert %{"data" => %{"listarMidias" => [listed]}} = json_response(conn, 200)
       assert listed["id"] == midia.id_publico
@@ -80,7 +80,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     """
 
     test "quando a midia não existe", %{conn: conn} do
-      conn = post(conn, "/", %{"query" => @get_midia_query, "variables" => %{"id" => "123"}})
+      conn = post(conn, "/api", %{"query" => @get_midia_query, "variables" => %{"id" => "123"}})
 
       assert %{"errors" => [error]} = json_response(conn, 200)
       assert error["code"] == "not_found"
@@ -94,7 +94,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @get_midia_query,
           "variables" => %{"id" => midia.id_publico}
         })
@@ -133,7 +133,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
 
     test "quando os parâmetros são inválidos", %{conn: conn} do
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_midia_mutation,
           "variables" => %{"input" => %{}}
         })
@@ -164,7 +164,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       }
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @create_midia_mutation,
           "variables" => %{"input" => params}
         })
@@ -191,7 +191,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
 
     test "quando a mídia não existe", %{conn: conn} do
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @remove_midia_tags_mutation,
           "variables" => %{"input" => %{"midiaId" => "123", "tagsId" => []}}
         })
@@ -207,7 +207,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       assert Enum.empty?(midia.tags)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @remove_midia_tags_mutation,
           "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => []}}
         })
@@ -219,7 +219,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       midia = insert(:midia, tags: [])
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @remove_midia_tags_mutation,
           "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => ["123"]}}
         })
@@ -232,7 +232,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       midia = insert(:midia, tags: tags)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @remove_midia_tags_mutation,
           "variables" => %{
             "input" => %{
@@ -267,7 +267,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
 
     test "quando a mídia não existe", %{conn: conn} do
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @add_midia_tags_mutation,
           "variables" => %{"input" => %{"midiaId" => "123", "tagsId" => []}}
         })
@@ -283,7 +283,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       assert Enum.empty?(midia.tags)
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @add_midia_tags_mutation,
           "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => []}}
         })
@@ -295,7 +295,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       midia = insert(:midia, tags: [])
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @add_midia_tags_mutation,
           "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => ["123"]}}
         })
@@ -308,7 +308,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       midia = insert(:midia, tags: [])
 
       conn =
-        post(conn, "/", %{
+        post(conn, "/api", %{
           "query" => @add_midia_tags_mutation,
           "variables" => %{
             "input" => %{

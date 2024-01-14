@@ -2,12 +2,14 @@ defmodule Pescarte.Database do
   @type id :: binary | integer
   @type fetch_result :: {:ok, struct} | {:error, :not_found}
 
+  alias Pescarte.Database.Repo
+
   @doc """
   Busca um registro no banco de dados a partir de um id.
   """
   @spec fetch(Ecto.Queryable.t(), Pescarte.Database.id()) :: Pescarte.Database.fetch_result()
   def fetch(queryable, id) do
-    if result = Pescarte.Database.Repo.replica().get(queryable, id) do
+    if result = Repo.replica().get(queryable, id) do
       {:ok, result}
     else
       {:error, :not_found}
@@ -19,7 +21,7 @@ defmodule Pescarte.Database do
   """
   @spec fetch_one(Ecto.Queryable.t()) :: Pescarte.Database.fetch_result()
   def fetch_one(queryable) do
-    if result = Pescarte.Database.Repo.replica().one(queryable) do
+    if result = Repo.replica().one(queryable) do
       {:ok, result}
     else
       {:error, :not_found}
@@ -31,7 +33,7 @@ defmodule Pescarte.Database do
   """
   @spec fetch_by(Ecto.Queryable.t(), keyword) :: Pescarte.Database.fetch_result()
   def fetch_by(queryable, params) do
-    if result = Pescarte.Database.Repo.replica().get_by(queryable, params) do
+    if result = Repo.replica().get_by(queryable, params) do
       {:ok, result}
     else
       {:error, :not_found}

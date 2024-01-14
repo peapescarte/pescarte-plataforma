@@ -7,7 +7,7 @@ defmodule PescarteWeb.GraphQL.Context do
 
   @token_salt "autenticação de usuário"
   @day_seconds 86_400
-  @endpoint PescarteWeb.GraphQL.Endpoint
+  @endpoint PescarteWeb.Endpoint
 
   def init(opts), do: opts
 
