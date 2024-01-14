@@ -8,9 +8,9 @@ defmodule Pescarte.Cotacoes.Models.Fonte do
 
   @primary_key {:nome, :string, autogenerate: false}
   schema "fonte_cotacao" do
-    field :link, :string
-    field :descricao, :string
-    field :id, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:link, :string)
+    field(:descricao, :string)
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
   end
 
   @spec changeset(Fonte.t(), map) :: changeset

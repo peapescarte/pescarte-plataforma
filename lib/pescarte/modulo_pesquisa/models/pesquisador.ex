@@ -43,49 +43,55 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
 
   @primary_key {:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true}
   schema "pesquisador" do
-    field :minibio, :string
-    field :bolsa, Ecto.Enum, values: @tipo_bolsas
-    field :link_lattes, :string
-    field :link_banner_perfil, :string
-    field :link_avatar, :string
-    field :link_linkedin, :string
-    field :formacao, :string
-    field :data_inicio_bolsa, :date
-    field :data_fim_bolsa, :date
-    field :data_contratacao, :date
-    field :data_termino, :date
+    field(:minibio, :string)
+    field(:bolsa, Ecto.Enum, values: @tipo_bolsas)
+    field(:link_lattes, :string)
+    field(:link_banner_perfil, :string)
+    field(:link_avatar, :string)
+    field(:link_linkedin, :string)
+    field(:formacao, :string)
+    field(:data_inicio_bolsa, :date)
+    field(:data_fim_bolsa, :date)
+    field(:data_contratacao, :date)
+    field(:data_termino, :date)
 
-    has_one :linha_pesquisa, LinhaPesquisa,
+    has_one(:linha_pesquisa, LinhaPesquisa,
       foreign_key: :responsavel_lp_id,
       references: :id_publico
+    )
 
-    has_many :relatorios_pesquisa, RelatorioPesquisa,
+    has_many(:relatorios_pesquisa, RelatorioPesquisa,
       references: :id_publico,
       foreign_key: :pesquisador_id
+    )
 
-    has_many :orientandos, Pesquisador, references: :id_publico
+    has_many(:orientandos, Pesquisador, references: :id_publico)
 
-    has_many :midias, Midia,
+    has_many(:midias, Midia,
       foreign_key: :autor_id,
       references: :id_publico,
       foreign_key: :pesquisador_id
+    )
 
-    belongs_to :usuario, Usuario,
+    belongs_to(:usuario, Usuario,
       on_replace: :update,
       references: :id_publico,
       foreign_key: :usuario_id,
       type: :string
+    )
 
-    belongs_to :campus, Campus,
+    belongs_to(:campus, Campus,
       foreign_key: :campus_acronimo,
       references: :acronimo,
       type: :string
+    )
 
-    belongs_to :orientador, Pesquisador,
+    belongs_to(:orientador, Pesquisador,
       on_replace: :update,
       references: :id_publico,
       foreign_key: :orientador_id,
       type: :string
+    )
 
     timestamps()
   end

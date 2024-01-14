@@ -18,15 +18,15 @@ defmodule Pescarte.Cotacoes.Models.CotacaoPescado do
 
   @primary_key false
   schema "cotacoes_pescados" do
-    field :id, Pescarte.Database.Types.PublicId, autogenerate: true
-    field :cotacao_data, :date, primary_key: true
-    field :cotacao_link, :string
-    field :pescado_codigo, :string, primary_key: true
-    field :fonte_nome, :string, primary_key: true
-    field :preco_minimo, :integer
-    field :preco_maximo, :integer
-    field :preco_mais_comum, :integer
-    field :preco_medio, :integer
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
+    field(:cotacao_data, :date, primary_key: true)
+    field(:cotacao_link, :string)
+    field(:pescado_codigo, :string, primary_key: true)
+    field(:fonte_nome, :string, primary_key: true)
+    field(:preco_minimo, :integer)
+    field(:preco_maximo, :integer)
+    field(:preco_mais_comum, :integer)
+    field(:preco_medio, :integer)
   end
 
   @spec changeset(CotacaoPescado.t(), map) :: changeset

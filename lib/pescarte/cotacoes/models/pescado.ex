@@ -8,9 +8,9 @@ defmodule Pescarte.Cotacoes.Models.Pescado do
 
   @primary_key {:codigo, :string, autogenerate: false}
   schema "pescado" do
-    field :descricao, :string
-    field :embalagem, :string
-    field :id, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:descricao, :string)
+    field(:embalagem, :string)
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
   end
 
   @spec changeset(Pescado.t(), map) :: changeset

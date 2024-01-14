@@ -13,11 +13,11 @@ defmodule Pescarte.ModuloPesquisa.Models.NucleoPesquisa do
 
   @primary_key {:letra, :string, autogenerate: false}
   schema "nucleo_pesquisa" do
-    field :nome, :string
-    field :desc, :string
-    field :id_publico, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:nome, :string)
+    field(:desc, :string)
+    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
 
-    has_many :linha_pesquisas, LinhaPesquisa, foreign_key: :nucleo_pesquisa_letra
+    has_many(:linha_pesquisas, LinhaPesquisa, foreign_key: :nucleo_pesquisa_letra)
 
     timestamps()
   end

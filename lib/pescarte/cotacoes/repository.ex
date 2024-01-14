@@ -10,7 +10,7 @@ defmodule Pescarte.Cotacoes.Repository do
 
   @impl true
   def find_all_cotacao_by_not_ingested do
-    query = from c in Cotacao, where: not c.importada?, select: c
+    query = from(c in Cotacao, where: not c.importada?, select: c)
     Repo.Replica.all(query)
   end
 
@@ -41,7 +41,7 @@ defmodule Pescarte.Cotacoes.Repository do
 
   @impl true
   def find_all_cotacao_by_not_downloaded do
-    query = from c in Cotacao, where: not c.baixada?, select: c
+    query = from(c in Cotacao, where: not c.baixada?, select: c)
     Repo.Replica.all(query)
   end
 

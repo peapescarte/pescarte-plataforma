@@ -17,15 +17,16 @@ defmodule Pescarte.Identidades.Models.Contato do
 
   @primary_key {:email_principal, :string, autogenerate: false}
   schema "contato" do
-    field :celular_principal, :string
-    field :emails_adicionais, {:array, :string}
-    field :celulares_adicionais, {:array, :string}
-    field :id_publico, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:celular_principal, :string)
+    field(:emails_adicionais, {:array, :string})
+    field(:celulares_adicionais, {:array, :string})
+    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
 
-    belongs_to :endereco, Endereco,
+    belongs_to(:endereco, Endereco,
       foreign_key: :endereco_cep,
       references: :cep,
       type: :string
+    )
 
     timestamps()
   end

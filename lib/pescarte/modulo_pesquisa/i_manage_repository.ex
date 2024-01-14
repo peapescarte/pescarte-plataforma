@@ -17,7 +17,8 @@ defmodule Pescarte.ModuloPesquisa.IManageRepository do
               {:ok, Categoria.t()} | {:error, changeset}
   @callback fetch_midia_by_id_publico(Pescarte.Database.id()) ::
               {:ok, Midia.t()} | {:error, changeset}
-  @callback fetch_tag_by_id_publico(Pescarte.Database.id()) :: {:ok, Tag.t()} | {:error, changeset}
+  @callback fetch_tag_by_id_publico(Pescarte.Database.id()) ::
+              {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tag_by_etiqueta(binary) :: {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tags_from_ids(list(Pescarte.Database.id())) :: list(Tag.t())
 

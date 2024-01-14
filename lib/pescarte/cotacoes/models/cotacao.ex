@@ -18,13 +18,13 @@ defmodule Pescarte.Cotacoes.Models.Cotacao do
 
   @primary_key false
   schema "cotacao" do
-    field :data, :date, primary_key: true
-    field :link, :string, primary_key: true
-    field :fonte, :string
-    field :importada?, :boolean, default: false
-    field :baixada?, :boolean, default: false
-    field :tipo, Ecto.Enum, values: ~w(pdf zip)a
-    field :id, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:data, :date, primary_key: true)
+    field(:link, :string, primary_key: true)
+    field(:fonte, :string)
+    field(:importada?, :boolean, default: false)
+    field(:baixada?, :boolean, default: false)
+    field(:tipo, Ecto.Enum, values: ~w(pdf zip)a)
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
   end
 
   @spec changeset(Cotacao.t(), map) :: changeset

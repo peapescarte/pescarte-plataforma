@@ -17,11 +17,11 @@ defmodule Pescarte.ModuloPesquisa.Schemas.RelatorioPesquisa do
   @optional_fields ~w(data nome_pesquisador)a
 
   embedded_schema do
-    field :data, :date
-    field :periodo, :string
-    field :nome_pesquisador, :string
-    field :tipo, Ecto.Enum, values: ~w(anual mensal trimestral)a
-    field :status, Ecto.Enum, values: ~w(entregue pendente atrasado)a
+    field(:data, :date)
+    field(:periodo, :string)
+    field(:nome_pesquisador, :string)
+    field(:tipo, Ecto.Enum, values: ~w(anual mensal trimestral)a)
+    field(:status, Ecto.Enum, values: ~w(entregue pendente atrasado)a)
   end
 
   @spec parse!(map) :: RelatorioPesquisa.t()

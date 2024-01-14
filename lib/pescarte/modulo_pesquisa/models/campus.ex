@@ -20,17 +20,18 @@ defmodule Pescarte.ModuloPesquisa.Models.Campus do
 
   @primary_key {:acronimo, :string, autogenerate: false}
   schema "campus" do
-    field :nome, :string
-    field :nome_universidade, :string
-    field :id_publico, PublicId, autogenerate: true
+    field(:nome, :string)
+    field(:nome_universidade, :string)
+    field(:id_publico, PublicId, autogenerate: true)
 
-    has_many :pesquisadores, Pesquisador, foreign_key: :campus_acronimo, references: :acronimo
+    has_many(:pesquisadores, Pesquisador, foreign_key: :campus_acronimo, references: :acronimo)
 
-    belongs_to :endereco, Endereco,
+    belongs_to(:endereco, Endereco,
       on_replace: :delete,
       foreign_key: :endereco_cep,
       references: :cep,
       type: :string
+    )
 
     timestamps()
   end

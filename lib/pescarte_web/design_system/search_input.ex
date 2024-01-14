@@ -11,13 +11,13 @@ defmodule PescarteWeb.DesignSystem.SearchInput do
      |> assign(filtered: [])}
   end
 
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :content, :list, default: []
-  attr :placeholder, :string, default: "Faça uma pesquisa..."
-  attr :field, Phoenix.HTML.FormFieldcontent
-  attr :size, :string, values: ~w(base large), default: "base"
-  attr :patch, :string, required: true
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:content, :list, default: [])
+  attr(:placeholder, :string, default: "Faça uma pesquisa...")
+  attr(:field, Phoenix.HTML.FormFieldcontent)
+  attr(:size, :string, values: ~w(base large), default: "base")
+  attr(:patch, :string, required: true)
 
   @impl true
   def render(assigns) do

@@ -14,13 +14,13 @@ defmodule Pescarte.Identidades.Models.Endereco do
 
   @primary_key {:cep, :string, autogenerate: false}
   schema "endereco" do
-    field :bairro, :string
-    field :rua, :string
-    field :numero, :string
-    field :complemento, :string
-    field :cidade, :string
-    field :estado, :string
-    field :id_publico, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:bairro, :string)
+    field(:rua, :string)
+    field(:numero, :string)
+    field(:complemento, :string)
+    field(:cidade, :string)
+    field(:estado, :string)
+    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
 
     timestamps()
   end

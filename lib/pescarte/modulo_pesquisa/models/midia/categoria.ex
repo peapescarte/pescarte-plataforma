@@ -9,9 +9,9 @@ defmodule Pescarte.ModuloPesquisa.Models.Midia.Categoria do
 
   @primary_key {:nome, :string, autogenerate: false}
   schema "categoria" do
-    field :id_publico, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
 
-    has_many :tags, Tag, foreign_key: :categoria_nome, references: :nome
+    has_many(:tags, Tag, foreign_key: :categoria_nome, references: :nome)
 
     timestamps()
   end

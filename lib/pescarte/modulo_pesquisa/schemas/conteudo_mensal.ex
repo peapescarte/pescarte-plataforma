@@ -19,7 +19,7 @@ defmodule Pescarte.ModuloPesquisa.Schemas.ConteudoMensal do
 
   embedded_schema do
     for field <- @fields do
-      field field, :string
+      field(field, :string)
     end
   end
 

@@ -19,25 +19,28 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisa do
 
   @primary_key {:numero, :integer, autogenerate: false}
   schema "linha_pesquisa" do
-    field :desc_curta, :string
-    field :desc, :string
-    field :id_publico, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:desc_curta, :string)
+    field(:desc, :string)
+    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
 
-    belongs_to :nucleo_pesquisa, NucleoPesquisa,
+    belongs_to(:nucleo_pesquisa, NucleoPesquisa,
       foreign_key: :nucleo_pesquisa_letra,
       references: :letra,
       type: :string
+    )
 
-    belongs_to :responsavel_lp, Pesquisador,
+    belongs_to(:responsavel_lp, Pesquisador,
       foreign_key: :responsavel_lp_id,
       references: :id_publico,
       type: :string
+    )
 
-    many_to_many :pesquisadores, Pesquisador,
+    many_to_many(:pesquisadores, Pesquisador,
       join_through: "linhas_pesquisas_pesquisadores",
       join_keys: [pesquisador_id: :id_publico, linha_pesquisa_numero: :numero],
       on_replace: :delete,
       unique: true
+    )
 
     timestamps()
   end

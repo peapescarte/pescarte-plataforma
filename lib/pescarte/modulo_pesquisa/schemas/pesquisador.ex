@@ -18,11 +18,11 @@ defmodule Pescarte.ModuloPesquisa.Schemas.Pesquisador do
 
   @primary_key false
   embedded_schema do
-    field :id, Pescarte.Database.Types.PublicId, autogenerate: false
-    field :nome, :string
-    field :cpf, :string
-    field :email, :string
-    field :participacao, Ecto.Enum, values: Model.tipo_bolsas()
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: false)
+    field(:nome, :string)
+    field(:cpf, :string)
+    field(:email, :string)
+    field(:participacao, Ecto.Enum, values: Model.tipo_bolsas())
   end
 
   def parse!(attrs) do

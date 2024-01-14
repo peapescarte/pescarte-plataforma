@@ -15,15 +15,16 @@ defmodule Pescarte.Catalogo.Models.Peixe do
 
   @primary_key {:nome_cientifico, :string, autogenerate: false}
   schema "peixe" do
-    field :link_imagem, :string
-    field :nativo?, :boolean, default: false
-    field :id_publico, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:link_imagem, :string)
+    field(:nativo?, :boolean, default: false)
+    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
 
-    many_to_many :habitats, Habitat,
+    many_to_many(:habitats, Habitat,
       join_through: "peixes_habitats",
       join_keys: [peixe_nome_cientifico: :nome_cientifico, habitat_nome: :nome],
       on_replace: :delete,
       unique: true
+    )
 
     timestamps()
   end

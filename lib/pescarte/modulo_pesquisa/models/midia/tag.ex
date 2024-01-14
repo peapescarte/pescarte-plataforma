@@ -9,12 +9,13 @@ defmodule Pescarte.ModuloPesquisa.Models.Midia.Tag do
 
   @primary_key {:etiqueta, :string, autogenerate: false}
   schema "tag" do
-    field :id_publico, Pescarte.Database.Types.PublicId, autogenerate: true
+    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
 
-    belongs_to :categoria, Categoria,
+    belongs_to(:categoria, Categoria,
       foreign_key: :categoria_nome,
       references: :nome,
       type: :string
+    )
 
     timestamps()
   end

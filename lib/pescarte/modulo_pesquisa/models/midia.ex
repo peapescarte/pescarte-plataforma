@@ -25,25 +25,27 @@ defmodule Pescarte.ModuloPesquisa.Models.Midia do
 
   @primary_key {:link, :string, autogenerate: false}
   schema "midia" do
-    field :tipo, Ecto.Enum, values: @tipos
-    field :nome_arquivo, :string
-    field :data_arquivo, :date
-    field :restrito?, :boolean, default: false
-    field :observacao, :string
-    field :texto_alternativo, :string
-    field :id_publico, PublicId, autogenerate: true
+    field(:tipo, Ecto.Enum, values: @tipos)
+    field(:nome_arquivo, :string)
+    field(:data_arquivo, :date)
+    field(:restrito?, :boolean, default: false)
+    field(:observacao, :string)
+    field(:texto_alternativo, :string)
+    field(:id_publico, PublicId, autogenerate: true)
 
-    belongs_to :autor, Usuario,
+    belongs_to(:autor, Usuario,
       on_replace: :update,
       foreign_key: :autor_id,
       references: :id_publico,
       type: :string
+    )
 
-    many_to_many :tags, Tag,
+    many_to_many(:tags, Tag,
       join_through: "midias_tags",
       join_keys: [midia_link: :link, tag_etiqueta: :etiqueta],
       on_replace: :delete,
       unique: true
+    )
 
     timestamps()
   end

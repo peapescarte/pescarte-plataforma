@@ -17,7 +17,7 @@ defmodule Pescarte.ModuloPesquisa.Schemas.ConteudoTrimestral do
 
   embedded_schema do
     for field <- @fields do
-      field field, :string
+      field(field, :string)
     end
   end
 
