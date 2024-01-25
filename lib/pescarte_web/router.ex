@@ -51,6 +51,7 @@ defmodule PescarteWeb.Router do
       on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
       live("/perfil", ProfileLive)
       live("/pesquisadores", ListPesquisadorLive)
+      live("/cadastro", CadastroPesquisadorLive)
 
       scope "/relatorios" do
         live("/", RelatorioLive.Index, :index)

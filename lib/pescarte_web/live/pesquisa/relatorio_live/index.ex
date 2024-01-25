@@ -31,20 +31,20 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   # ================= Vamos trabalhar o dropdown do "Preencher Relatório" 09-14/10/2023
   @impl true
   def handle_event("mensal_report", _, socket) do
-    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
     # ~p"/app/pesquisa/relatorios"
   end
 
   def handle_event("trimestral_report", _, socket) do
-    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
 
   def handle_event("bienal_report", _, socket) do
-    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
 
   def handle_event("anual_report", _, socket) do
-    {:noreply, Phoenix.LiveView.redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do

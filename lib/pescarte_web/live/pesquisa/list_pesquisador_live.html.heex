@@ -8,7 +8,9 @@
     />
 
     <.button :if={@current_user.tipo == :admin} style="primary" click="register">
-      <Lucideicons.user_plus /> Cadastrar
+      <DesignSystem.link navigate={~p"/app/pesquisa/cadastro"}>
+        <Lucideicons.user_plus /> Cadastrar
+      </DesignSystem.link>
     </.button>
   </div>
 
