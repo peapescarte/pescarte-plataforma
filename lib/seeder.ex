@@ -47,4 +47,5 @@ defmodule Seeder do
   @callback categoria_seeds :: :ok | :error
   @callback tag_seeds :: :ok | :error
   @callback midia_seeds :: :ok | :error
+  @callback relatorio_pesquisa_seeds :: :ok | :error
 end
