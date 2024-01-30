@@ -57,6 +57,7 @@ defmodule PescarteWeb.Router do
         live("/", RelatorioLive.Index, :index)
         live("/new", RelatorioLive.Index, :new)
         live("/:id/edit", RelatorioLive.Index, :edit)
+        get("/:id/download-pdf", RelatorioController, :download_pdf)
       end
     end
   end
