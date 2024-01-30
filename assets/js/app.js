@@ -50,6 +50,51 @@ Hooks.NavbarHover = {
   },
 };
 
+Hooks.CompileReports = {
+  mounted() {
+    this.el.addEventListener("click", async () => {
+      const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+
+      let selectedReports = document.querySelectorAll('input[type="checkbox"]:checked');
+      let selectedReportsIds = Array.from(selectedReports).map(report => report.id);
+
+      if(selectedReportsIds.length > 1) {
+        const requestData = {
+          selected_reports: selectedReportsIds,
+          "_csrf_token": csrfToken
+        };
+  
+        try {
+          const response = await fetch("/app/pesquisa/relatorios/compilar-relatorios", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData)
+          });
+  
+          if(response) {
+            const blob    = await response.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            const link    = document.createElement("a");
+            link.href     = blobUrl;
+            link.download = "relatorios_compilados.zip";
+            link.style.display = "none";
+  
+            document.body.appendChild(link);
+            link.click();
+            URL.revokeObjectURL(blobUrl);
+          } 
+        }catch(error) {
+          console.error("Erro ao enviar os dados: ", error);
+        }
+      }else {
+        window.alert("Selecione mais de 1 relatorio para ser compilado.");
+      }
+    });
+  },
+};
+
 // LIVE VIEW
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
