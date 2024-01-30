@@ -9,6 +9,12 @@ defmodule PescarteWeb.RelatorioHTML do
     |> IO.iodata_to_binary()
   end
 
+  def content(%{tipo: :trimestral} = assigns) do
+    relatorio_trimestral(assigns)
+    |> Phoenix.HTML.Safe.to_iodata()
+    |> IO.iodata_to_binary()
+  end
+
   defp get_image_path(filename) do
     priv_dir = :code.priv_dir(:pescarte)
     Path.join([priv_dir, "static/images/relatorio/#{filename}"])
