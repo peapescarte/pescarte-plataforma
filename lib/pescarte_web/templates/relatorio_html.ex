@@ -1,23 +1,31 @@
 defmodule PescarteWeb.RelatorioHTML do
   use PescarteWeb, :html
 
+  alias Phoenix.HTML.Safe
+
   embed_templates("relatorio_html/*")
 
   def content(%{tipo: :mensal} = assigns) do
-    relatorio_mensal(assigns)
-    |> Phoenix.HTML.Safe.to_iodata()
+    relatorio = relatorio_mensal(assigns)
+
+    relatorio
+    |> Safe.to_iodata()
     |> IO.iodata_to_binary()
   end
 
   def content(%{tipo: :trimestral} = assigns) do
-    relatorio_trimestral(assigns)
-    |> Phoenix.HTML.Safe.to_iodata()
+    relatorio = relatorio_trimestral(assigns)
+
+    relatorio
+    |> Safe.to_iodata()
     |> IO.iodata_to_binary()
   end
 
   def content(%{tipo: :anual} = assigns) do
-    relatorio_anual(assigns)
-    |> Phoenix.HTML.Safe.to_iodata()
+    relatorio = relatorio_anual(assigns)
+
+    relatorio
+    |> Safe.to_iodata()
     |> IO.iodata_to_binary()
   end
 
