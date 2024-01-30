@@ -18,7 +18,7 @@ defmodule PescarteWeb.RelatorioHTML do
   def content(%{tipo: :anual} = assigns) do
     relatorio_anual(assigns)
     |> Phoenix.HTML.Safe.to_iodata()
-    |> IO.iodata_to_binary();
+    |> IO.iodata_to_binary()
   end
 
   defp get_image_path(filename) do

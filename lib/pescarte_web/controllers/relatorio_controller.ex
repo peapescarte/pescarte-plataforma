@@ -28,6 +28,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
       [content: RelatorioHTML.content(relatorio), size: :a4]
       |> ChromicPDF.Template.source_and_options()
       |> ChromicPDF.print_to_pdf()
+
     Base.decode64!(pdf)
   end
 end
