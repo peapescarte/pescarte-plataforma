@@ -20,29 +20,32 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   @impl true
   def handle_event("mensal_report", _, socket) do
     pesquisador_id = socket.assigns.current_researcher.id_publico
+
     {:noreply,
-    socket
-    |> assign(:type, "mensal")
-    |> assign(:pesquisador_id, pesquisador_id)
-    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+     socket
+     |> assign(:type, "mensal")
+     |> assign(:pesquisador_id, pesquisador_id)
+     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   def handle_event("trimestral_report", _, socket) do
     pesquisador_id = socket.assigns.current_researcher.id_publico
+
     {:noreply,
-    socket
-    |> assign(:type, "trimestral")
-    |> assign(:pesquisador_id, pesquisador_id)
-    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+     socket
+     |> assign(:type, "trimestral")
+     |> assign(:pesquisador_id, pesquisador_id)
+     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   def handle_event("anual_report", _, socket) do
     pesquisador_id = socket.assigns.current_researcher.id_publico
+
     {:noreply,
-    socket
-    |> assign(:type, "anual")
-    |> assign(:pesquisador_id, pesquisador_id)
-    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+     socket
+     |> assign(:type, "anual")
+     |> assign(:pesquisador_id, pesquisador_id)
+     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do

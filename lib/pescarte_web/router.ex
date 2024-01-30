@@ -43,6 +43,12 @@ defmodule PescarteWeb.Router do
     post("/acessar", LoginController, :create)
   end
 
+  scope "/equipe", PescarteWeb do
+    pipe_through(:browser)
+    get("/", EquipeController, :show)
+  end
+
+
   scope "/app/pesquisa", PescarteWeb.Pesquisa do
     pipe_through(:browser)
     # pipe_through [:browser, :require_authenticated_user]
