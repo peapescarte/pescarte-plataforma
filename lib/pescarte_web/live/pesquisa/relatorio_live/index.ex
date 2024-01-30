@@ -18,33 +18,31 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   end
 
   @impl true
-  def handle_event("report-type", %{"type" => type}, socket) do
-    pesquisador_id = socket.assigns.current_researcher.id_publico
-
-    {:noreply,
-     socket
-     |> assign(:type, type)
-     |> assign(:pesquisador_id, pesquisador_id)
-     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
-  end
-
-  # ================= Vamos trabalhar o dropdown do "Preencher Relatório" 09-14/10/2023
-  @impl true
   def handle_event("mensal_report", _, socket) do
-    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
-    # ~p"/app/pesquisa/relatorios"
+    pesquisador_id = socket.assigns.current_researcher.id_publico
+    {:noreply,
+    socket
+    |> assign(:type, "mensal")
+    |> assign(:pesquisador_id, pesquisador_id)
+    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   def handle_event("trimestral_report", _, socket) do
-    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
-  end
-
-  def handle_event("bienal_report", _, socket) do
-    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    pesquisador_id = socket.assigns.current_researcher.id_publico
+    {:noreply,
+    socket
+    |> assign(:type, "trimestral")
+    |> assign(:pesquisador_id, pesquisador_id)
+    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   def handle_event("anual_report", _, socket) do
-    {:noreply, redirect(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    pesquisador_id = socket.assigns.current_researcher.id_publico
+    {:noreply,
+    socket
+    |> assign(:type, "anual")
+    |> assign(:pesquisador_id, pesquisador_id)
+    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
