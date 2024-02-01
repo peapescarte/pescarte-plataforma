@@ -1,0 +1,33 @@
+<div class="listagem-pesquisador">
+  <div class="listagem-actions">
+    <.search_input
+      name="listagem-pesquisador"
+      id="listagem-pesquisador"
+      content={@pesquisadores}
+      patch={~p"/app/pesquisa/pesquisadores"}
+    />
+
+    <.button :if={@current_user.tipo == :admin} style="primary" click="register">
+      <DesignSystem.link navigate={~p"/app/pesquisa/cadastro"}>
+        <Lucideicons.user_plus /> Cadastrar
+      </DesignSystem.link>
+    </.button>
+  </div>
+
+  <.table rows={@tabela} text-color="text-black-100">
+    <:column :let={pesquisador} label="Nome">
+      <%= pesquisador.nome %>
+    </:column>
+    <:column :let={pesquisador} label="CPF">
+      <%= pesquisador.cpf %>
+    </:column>
+    <:column :let={pesquisador} label="E-mail">
+      <DesignSystem.link href={"mailto:" <> pesquisador.email}>
+        <%= pesquisador.email %>
+      </DesignSystem.link>
+    </:column>
+    <:column :let={pesquisador} label="Participação">
+      <%= humanize_bolsa(pesquisador.participacao) %>
+    </:column>
+  </.table>
+</div>
