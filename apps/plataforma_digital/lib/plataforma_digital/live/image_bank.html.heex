@@ -4,25 +4,14 @@
   </div>
 
   <div class="carousel js-flickity"
-    data-flickity='{ "imagesLoaded": true, "percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
-    <div class="carousel-cell">
-      <img src={~p"/images/pescador_por_sol.svg"} />
-    </div>
-    <div class="carousel-cell">
-      <img src={~p"/images/pescador_por_sol.svg"} />
-    </div>
-    <div class="carousel-cell">
-      <img src={~p"/images/pescador_por_sol.svg"} />
-    </div>
-    <div class="carousel-cell">
-      <img src={~p"/images/pescador_por_sol.svg"} />
-    </div>
-    <div class="carousel-cell">
-      <img src={~p"/images/pescador_por_sol.svg"} />
-    </div>
-    <div class="carousel-cell">
-      <img src={~p"/images/pescador_por_sol.svg"} />
-    </div>
+    data-flickity='{"percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
+
+    <%= for midia <- @destaques do %>
+      <div class="carousel-cell">
+        <img src={midia.link} />
+      </div>
+    <% end %>
+
   </div>
 
   <div class="full-collection">
@@ -41,16 +30,13 @@
       </div>
     </div>
 
-    <div class="image-bank-showcase">
-      <img src={~p"/images/landing/pescadores.png"} />
-      <img src={~p"/images/landing/pescadores.png"} />
-      <img src={~p"/images/landing/pescadores.png"} />
-      <img src={~p"/images/landing/pescadores.png"} />
-      <img src={~p"/images/landing/pescadores.png"} />
-      <img src={~p"/images/landing/pescadores.png"} />
+    <div id="image-bank-showcase" phx-update="replace">
+      <%= for midia <- @midias do %>
+        <img src={midia.link} />
+      <% end %>
     </div>
 
-    <.button class="image-bank-load-button" style="primary" click="hello">
+    <.button class="image-bank-load-button" style="primary" click="load_more">
       <.text size="base" color="text-white-100">Carregar Mais</.text>
     </.button>
   </div>

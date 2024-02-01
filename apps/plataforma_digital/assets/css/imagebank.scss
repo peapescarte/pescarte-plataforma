@@ -1,5 +1,5 @@
 .imagebank-grid {
-  overflow: scroll;
+  margin-top: 2rem;
   display: grid;
   gap: 2rem;
   grid-template-areas:
@@ -8,6 +8,7 @@
 }
 
 .full-collection {
+  margin-top: 2rem;
   h2 {
     display: flex;
     justify-content: center;
@@ -33,7 +34,7 @@
   padding: 10px;
 }
 
-.image-bank-showcase {
+#image-bank-showcase {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -42,10 +43,11 @@
   margin: auto;
 }
 
-.image-bank-showcase img {
+#image-bank-showcase > img {
+  border-radius: 25px;
   overflow: hidden;
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
 }
 
