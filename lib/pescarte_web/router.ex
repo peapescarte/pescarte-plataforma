@@ -32,6 +32,7 @@ defmodule PescarteWeb.Router do
     pipe_through(:browser)
 
     get("/", LandingController, :show)
+    live "/bancoDeImagens", ImageBank
 
     live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
   end

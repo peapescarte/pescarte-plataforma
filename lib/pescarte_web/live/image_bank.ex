@@ -1,5 +1,5 @@
-defmodule PlataformaDigital.ImageBank do
-  use PlataformaDigital, :live_view
+defmodule PescarteWeb.ImageBank do
+  use PescarteWeb, :live_view
 
   alias ModuloPesquisa.Repository
   alias ModuloPesquisa.Handlers.MidiasHandler
