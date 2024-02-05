@@ -38,8 +38,15 @@
         <%= elem(relatorio, 1).pesquisador.usuario.primeiro_nome %>
       </:column>
       <:column :let={relatorio} label="Status"><%= elem(relatorio, 1).status %></:column>
-      <:column :let={_} label="Baixar">
-        <div class="flex-center"><Lucideicons.download /></div>
+      <:column :let={relatorio} label="Baixar">
+        <div class="flex-center">
+          <Phoenix.Component.link
+            href={"/app/pesquisa/relatorios/#{elem(relatorio, 0)}/download-pdf"}
+            target="_blank"
+          >
+            <Lucideicons.download />
+          </Phoenix.Component.link>
+        </div>
       </:column>
     </.table>
   </.form>
