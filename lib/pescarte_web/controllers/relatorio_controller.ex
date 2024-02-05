@@ -18,7 +18,9 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
     |> send_resp(200, pdf_file)
   end
 
-  def compilar_relatorios(conn, %{"selected_reports" => relatorios_selecionados}) do
+  def compilar_relatorios(conn, params) do
+    campos_formularios = Map.keys(params)
+    relatorios_selecionados = Enum.filter(campos_formularios, fn id -> id != "_csrf_token" end)
     relatorios = Enum.map(relatorios_selecionados, &fetch_and_preload_relatorio/1)
     htmls = Enum.map(relatorios, &RelatorioHTML.content/1)
     pdfs = Enum.reduce(htmls, [], fn html, acc -> [{:html, html} | acc] end)

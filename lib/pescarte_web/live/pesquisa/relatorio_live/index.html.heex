@@ -1,43 +1,48 @@
 <div :if={@live_action == :index}>
-  <div class="search">
-    <.search_input name="busca-relatorio" id="busca-relatorio" />
+  <.form :let={f} for={to_form(%{})} action="/app/pesquisa/relatorios/compilar-relatorios">
+    <div class="search">
+      <div class="dropdown">
+        <.button id="preencher-relatorio-button" style="primary" phx-click="toggleDropdown">
+          <Lucideicons.book class="text-white-100" />
+          <.text size="sm" color="text-white-100">Preencher Relatório</.text>
+          <Lucideicons.chevron_down class="text-blue-100" />
+        </.button>
+        <div class="dropdown-options">
+          <.report_menu_link click="mensal_report" label="Mensal"></.report_menu_link>
+          <.report_menu_link click="trimestral_report" label="Trimestral"></.report_menu_link>
+          <.report_menu_link click="anual_report" label="Anual"></.report_menu_link>
+        </div>
+      </div>
 
-    <div class="dropdown">
-      <.button id="preencher-relatorio-button" style="primary" phx-click="toggleDropdown">
-        <Lucideicons.book class="text-white-100" />
-        <.text size="sm" color="text-white-100">Preencher Relatório</.text>
-        <Lucideicons.chevron_down class="text-blue-100" />
-      </.button>
-      <div class="dropdown-options">
-        <.report_menu_link click="mensal_report" label="Mensal"></.report_menu_link>
-        <.report_menu_link click="trimestral_report" label="Trimestral"></.report_menu_link>
-        <.report_menu_link click="anual_report" label="Anual"></.report_menu_link>
+      <div :if={@current_user.tipo == :admin} class="links-item">
+        <.button class="icon-button" style="primary" submit>
+          <Lucideicons.files class="text-white-100" />
+          <.text size="sm" color="text-white-100">Compilar</.text>
+        </.button>
       </div>
     </div>
 
-    <div :if={@current_user.tipo == :admin} class="links-item">
-      <.button class="icon-button" style="primary" phx-hook="CompileReports" submit>
-        <Lucideicons.files class="text-white-100" />
-        <.text size="sm" color="text-white-100">Compilar</.text>
-      </.button>
-    </div>
-  </div>
-
-  <.table rows={@streams.relatorios} text-color="text-blue-100">
-    <:column :let={_} label="  ">
-      <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
-    </:column>
-    <:column :let={relatorio} label="Data"><%= relatorio.data %></:column>
-    <:column :let={relatorio} label="Tipo" class="linhas"><%= relatorio.tipo %></:column>
-    <:column :let={relatorio} label="Mês/Ano">
-      <%= relatorio.mes <> " / " <> relatorio.ano %>
-    </:column>
-    <:column :let={relatorio} label="Nome"><%= relatorio.name %></:column>
-    <:column :let={relatorio} label="Status"><%= relatorio.status %></:column>
-    <:column :let={_} label="Baixar">
-      <div class="flex-center"><Lucideicons.download /></div>
-    </:column>
-  </.table>
+    <.table rows={@streams.relatorios} text-color="text-blue-100">
+      <:column :let={relatorio} label=" ">
+        <div class="flex-center"><.checkbox name={elem(relatorio, 0)} id="usuario" /></div>
+      </:column>
+      <:column :let={relatorio} label="Data"><%= elem(relatorio, 1).data_entrega %></:column>
+      <:column :let={relatorio} label="Tipo" class="linhas">
+        <%= elem(relatorio, 1).tipo %>
+      </:column>
+      <:column :let={relatorio} label="Mês/Ano">
+        <%= to_string(elem(relatorio, 1).data_entrega.month) <>
+          " / " <> to_string(elem(relatorio, 1).data_entrega.year) %>
+      </:column>
+      <:column :let={relatorio} label="Nome">
+        <%= elem(relatorio, 1).pesquisador.usuario.primeiro_nome %>
+      </:column>
+      <:column :let={relatorio} label="Status"><%= elem(relatorio, 1).status %></:column>
+      <:column :let={_} label="Baixar">
+        <div class="flex-center"><Lucideicons.download /></div>
+      </:column>
+    </.table>
+  </.form>
 </div>
 
 <.live_component
