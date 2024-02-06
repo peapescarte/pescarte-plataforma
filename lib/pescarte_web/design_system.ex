@@ -10,6 +10,7 @@ defmodule PescarteWeb.DesignSystem do
 
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
+  alias PescarteWeb.DesignSystem
   alias PescarteWeb.DesignSystem.SearchInput
 
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
@@ -423,15 +424,21 @@ defmodule PescarteWeb.DesignSystem do
         <!-- TODO: Use named slots to render links -->
         <ul class="nav-menu">
           <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Cooperativas</.text>
+            <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+              <.text size="h4" color="text-blue-100">Cooperativas</.text>
+            </DesignSystem.link>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Equipes</.text>
+            <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+              <.text size="h4" color="text-blue-100">Equipes</.text>
+            </DesignSystem.link>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
-            <.text size="h4" color="text-blue-100">Quem Somos</.text>
+            <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+              <.text size="h4" color="text-blue-100">Quem Somos</.text>
+            </DesignSystem.link>
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
         </ul>

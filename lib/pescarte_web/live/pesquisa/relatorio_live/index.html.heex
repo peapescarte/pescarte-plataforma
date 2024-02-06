@@ -23,29 +23,23 @@
     </div>
 
     <.table rows={@streams.relatorios} text-color="text-blue-100">
-      <:column :let={relatorio} label=" ">
-        <div class="flex-center"><.checkbox name={elem(relatorio, 0)} id="usuario" /></div>
+      <:column :let={_} label="  ">
+        <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
       </:column>
-      <:column :let={relatorio} label="Data"><%= elem(relatorio, 1).data_entrega %></:column>
-      <:column :let={relatorio} label="Tipo" class="linhas">
-        <%= elem(relatorio, 1).tipo %>
+      <:column :let={{_, relatorio}} label="Data">
+        <%= "#{relatorio.data_inicio} - #{relatorio.data_fim}" %>
       </:column>
-      <:column :let={relatorio} label="Mês/Ano">
-        <%= to_string(elem(relatorio, 1).data_entrega.month) <>
-          " / " <> to_string(elem(relatorio, 1).data_entrega.year) %>
+      <:column :let={{_, relatorio}} label="Tipo" class="linhas"><%= relatorio.tipo %></:column>
+      <:column :let={{_, relatorio}} label="Mês/Ano">
+        <%= "#{relatorio.data_fim.month}/#{relatorio.data_fim.year}" %>
       </:column>
-      <:column :let={relatorio} label="Nome">
-        <%= elem(relatorio, 1).pesquisador.usuario.primeiro_nome %>
-      </:column>
-      <:column :let={relatorio} label="Status"><%= elem(relatorio, 1).status %></:column>
-      <:column :let={relatorio} label="Baixar">
+      <:column :let={{_, relatorio}} label="Nome"><%= relatorio.pesquisador_id %></:column>
+      <:column :let={{_, relatorio}} label="Status"><%= relatorio.status %></:column>
+      <:column :let={{id, _}} label="Baixar">
         <div class="flex-center">
-          <Phoenix.Component.link
-            href={"/app/pesquisa/relatorios/#{elem(relatorio, 0)}/download-pdf"}
-            target="_blank"
-          >
+          <DesignSystem.link href={~p"/app/pesquisa/relatorios/${id}/download-pdf"}>
             <Lucideicons.download />
-          </Phoenix.Component.link>
+          </DesignSystem.link>
         </div>
       </:column>
     </.table>

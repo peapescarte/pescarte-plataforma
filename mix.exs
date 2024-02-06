@@ -54,6 +54,7 @@ defmodule Pescarte.MixProject do
       {:floki, ">= 0.30.0"},
       {:lucide_icons, "~> 1.0"},
       {:phoenix_storybook, "~> 0.5"},
+      {:hackney, "~> 1.20"},
       {:absinthe, "~> 1.5"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
@@ -72,7 +73,7 @@ defmodule Pescarte.MixProject do
     [
       dev: ["setup", "phx.server"],
       setup: ["deps.get", "ecto.setup", "seed"],
-      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.build": [
         "esbuild default",

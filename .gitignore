@@ -38,7 +38,8 @@ erl_crash.dump
 /.direnv/
 /.nix-*/
 /.postgres/
-/.elixir-tools/
+.elixir-tools/
+.lexical/
 result
 
 # Temporary images
