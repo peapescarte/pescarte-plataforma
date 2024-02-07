@@ -3,6 +3,8 @@ defmodule PescarteWeb.RelatorioHTML do
 
   alias Phoenix.HTML.Safe
 
+  import Pescarte.Identidades.Handlers.UsuarioHandler
+
   embed_templates("relatorio_html/*")
 
   def content(%{tipo: :mensal} = assigns) do
@@ -34,22 +36,8 @@ defmodule PescarteWeb.RelatorioHTML do
     Path.join([priv_dir, "static/images/relatorio/#{filename}"])
   end
 
-  defp get_literal_mes(mes) do
-    meses = %{
-      1 => "Janeiro",
-      2 => "Fevereiro",
-      3 => "Março",
-      4 => "Abril",
-      5 => "Maio",
-      6 => "Junho",
-      7 => "Julho",
-      8 => "Agosto",
-      9 => "Setembro",
-      10 => "Outubro",
-      11 => "Novembro",
-      12 => "Dezembro"
-    }
-
-    meses[mes]
+  defp get_literal_mes(data) do
+    {:ok, mes} = Timex.lformat(data, "{Mfull}", "pt")
+    mes
   end
 end

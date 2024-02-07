@@ -80,15 +80,15 @@
       </div>
       <p style="margin-bottom: 3cm"><b>Relatório (ANUAL)<br />3° Fase</b></p>
       <p style="margin-bottom: 1.5cm;">
-        <b>LINHA DE PESQUISA:</b> <br />Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <b>LINHA DE PESQUISA:</b> <br /><%= @pesquisador.linha_pesquisa.desc_curta %>
       </p>
       <p>
-        <b><%= ~c"#{@pesquisador.usuario.primeiro_nome}  #{@pesquisador.usuario.sobrenome}" %></b>
+        <b><%= build_usuario_name(@pesquisador.usuario) %></b>
       </p>
       <p><b>Pesquisador (a)</b></p>
       <p style="position: absolute; bottom: 0; left: 6.25cm">
         <b>
-          Campos dos Goytacazes/RJ<br /><%= get_literal_mes(@data_fim.month) %>/<%= @data_entrega.year %>
+          <%= ~c"#{@pesquisador.usuario.contato.endereco.cidade}/#{@pesquisador.usuario.contato.endereco.estado}" %><br /><%= get_literal_mes(@data_fim) %>/<%= @data_entrega.year %>
         </b>
       </p>
     </section>
@@ -149,15 +149,11 @@
           <p><%= @conteudo_anual.resultados %></p>
         </li>
         <li class="conteudo__list__item">
-          <p class="conteudo__list__item__titulo">
-            Atividades Acadêmicas relacionadas ao PEA-Pescarte
-          </p>
+          <p class="conteudo__list__item__titulo">Atividades Acadêmicas relacionadas ao PEA-Pescarte</p>
           <p><%= @conteudo_anual.atividades_academicas %></p>
         </li>
         <li class="conteudo__list__item">
-          <p class="conteudo__list__item__titulo">
-            Atividades não acadêmicas relacionadas ao PEA-Pescarte
-          </p>
+          <p class="conteudo__list__item__titulo">Atividades não acadêmicas relacionadas ao PEA-Pescarte</p>
           <p><%= @conteudo_anual.atividades_nao_academicas %></p>
         </li>
         <li class="conteudo__list__item">

@@ -6,7 +6,8 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
   alias PescarteWeb.RelatorioHTML
 
   def download_pdf(conn, %{"id" => id}) do
-    relatorio = fetch_and_preload_relatorio(id)
+    relatorio = fetch_and_preload_relatorio("uMyARENdMJM9aD6m_oy2S")
+    IO.inspect(relatorio)
     pdf_binary = gerar_pdf(relatorio)
     enviar_pdf_response(conn, id, pdf_binary)
   end
@@ -48,7 +49,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
 
   defp fetch_and_preload_relatorio(relatorio_id) do
     relatorio = Repository.fetch_relatorio_pesquisa_by_id(relatorio_id)
-    Replica.preload(relatorio, pesquisador: [:usuario, :linha_pesquisa, :orientador])
+    Replica.preload(relatorio, pesquisador: [:linha_pesquisa, usuario: [contato: [:endereco]], orientador: [:usuario]])
   end
 
   defp gerar_pdf(relatorio) do

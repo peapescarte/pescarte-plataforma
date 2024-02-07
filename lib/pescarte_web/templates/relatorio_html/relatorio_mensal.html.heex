@@ -98,22 +98,22 @@
         <div class="record-top__row record-top__row--periodo">
           <p>
             Atividades Mensais Período <%= @data_inicio.day %> de
-            <span class="text--red"><%= get_literal_mes(@data_inicio.month) %></span>
+            <span class="text--red"><%= get_literal_mes(@data_inicio) %></span>
             a <%= @data_fim.day %> de
-            <span class="text--red"><%= get_literal_mes(@data_fim.month) %></span> <%= @data_fim.year %>
+            <span class="text--red"><%= get_literal_mes(@data_fim) %></span> <%= @data_fim.year %>
           </p>
         </div>
         <div class="record-top__row">
           <p style="margin-top: 0.5rem;">
             Linha de Pesquisa:
-            <span class="text--red"><%= @pesquisador.linha_pesquisa || ~c"XXXXXXXXXX" %></span>
+            <span class="text--red"><%= @pesquisador.linha_pesquisa.desc_curta %></span>
           </p>
         </div>
       </section>
       <section class="record-bottom">
         <div class="record-bottom__row record-bottom__row--pesquisador-info">
           <p style="margin-top: .20cm;">
-            Nome do(a) Pesquisador (a): <%= ~c"#{@pesquisador.usuario.primeiro_nome}  #{@pesquisador.usuario.sobrenome}" %>
+            Nome do(a) Pesquisador (a): <%= build_usuario_name(@pesquisador.usuario) %>
           </p>
           <p style="margin: .25cm 0;">
             <span style="color: #4472c4; font-weight: bolder">link lattes:</span>
@@ -128,9 +128,9 @@
         </div>
         <div class="record-bottom__row record-bottom__row--pesquisador-info-details-2">
           <p style="width: 25%; text-transform: capitalize"><%= @pesquisador.bolsa %></p>
-          <p style="width: 35%;">Geraldo Márcio Timóteo</p>
-          <p style="width: 17%;">XXXX</p>
-          <p style="width: 23%;">Campos dos Goytacazes</p>
+          <p style="width: 35%;"><%= build_usuario_name(@pesquisador.orientador.usuario) %></p>
+          <p style="width: 17%;"><%= get_literal_mes(@data_fim) %></p>
+          <p style="width: 23%;"><%= @pesquisador.usuario.contato.endereco.cidade %></p>
         </div>
         <div class="record-bottom__row">
           <p style="margin-top: 0.25cm;"><b>Relato das Atividades Desenvolvidas:</b></p>
@@ -149,7 +149,7 @@
             </li>
             <li class="record-bottom__row__atividades__atividade">
               <p>
-                <b>Reunião de orientação: </b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ea omnis quisquam laborum id fugiat ullam odio velit iste labore, molestias porro ad, voluptatibus, itaque suscipit maiores aliquam quam eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repellendus vel perspiciatis quos ipsa magnam distinctio ipsam fuga. Expedita ab neque veniam unde rem enim accusamus magnam, officia animi et? Lorem ipsum dolor sit amet consectetur adipisicing elit. A omnis nobis dolorum fugiat exercitationem vero temporibus, modi est suscipit voluptatibus officia iure optio numquam voluptas iste! Debitis laborum iste facilis? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit blanditiis, consectetur rerum perferendis sequi, nihil corporis facilis voluptatum debitis quisquam consequuntur. Corrupti sequi soluta illo corporis. Numquam veritatis accusantium doloremque! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus nulla ducimus aliquid facere, corrupti, maxime tenetur temporibus odit tempora ipsum rerum alias consequuntur libero. Quam dolorem sequi dolorum magnam minus.
+                <b>Reunião de orientação: </b>Nenhuma orientação no momento.
               </p>
             </li>
             <li class="record-bottom__row__atividades__atividade">
