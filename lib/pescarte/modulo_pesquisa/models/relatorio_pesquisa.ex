@@ -72,8 +72,8 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisa do
     limit_date =
       case report_type do
         nil -> changeset
-        :mensal -> Date.from_iso8601!("#{today.year}-#{today.month}-15")
-        _ -> Date.from_iso8601!("#{today.year}-#{today.month}-10")
+        :mensal -> Date.new!(today.year, today.month, 15)
+        _ -> Date.new!(today.year, today.month, 10)
       end
 
     put_change(changeset, :data_limite, limit_date)

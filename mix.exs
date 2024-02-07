@@ -72,7 +72,7 @@ defmodule Pescarte.MixProject do
     [
       dev: ["setup", "phx.server"],
       setup: ["deps.get", "ecto.setup", "seed"],
-      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.build": [
         "esbuild default",
