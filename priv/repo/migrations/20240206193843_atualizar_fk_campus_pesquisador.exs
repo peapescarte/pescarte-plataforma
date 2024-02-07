@@ -7,9 +7,11 @@ defmodule Pescarte.Database.Repo.Migrations.AtualizarFkCampusPesquisador do
     drop_if_exists index(:pesquisador, [:campus_acronimo])
     flush()
 
-    alter table(:pesquisador) do
-      modify :campus_acronimo, references(:campus, on_delete: :delete_all)
-    end
+    execute "ALTER TABLE pesquisador DROP CONSTRAINT pesquisador_campus_acronimo_fkey"
+
+    # alter table(:pesquisador) do
+    #   modify :campus_acronimo, references(:campus, :string, on_delete: :delete_all)
+    # end
     flush()
 
     alter table(:campus) do

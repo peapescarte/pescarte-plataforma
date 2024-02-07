@@ -19,7 +19,7 @@ defmodule Pescarte.Identidades.Repository do
 
   @impl true
   def fetch_usuario_by_id_publico(id) do
-    Pescarte.Database.fetch_by(Usuario, id_publico: id)
+    Pescarte.Database.fetch_by(Usuario, id: id)
   end
 
   @impl true

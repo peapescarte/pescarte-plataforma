@@ -8,7 +8,7 @@ defmodule Pescarte.Identidades.Models.Contato do
           celular_principal: binary,
           emails_adicionais: list(binary),
           celulares_adicionais: list(binary),
-          endereco_id: Endereco.t(),
+          endereco: Endereco.t(),
           id_publico: binary
         }
 

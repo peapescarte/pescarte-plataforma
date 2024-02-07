@@ -1,11 +1,11 @@
 defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
   use Pescarte, :model
 
+  alias Pescarte.Database.Types.PublicId
   alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Models.Campus
   alias Pescarte.ModuloPesquisa.Models.Midia
   alias Pescarte.ModuloPesquisa.Models.RelatorioPesquisa
-  alias Pescarte.Database.Types.PublicId
 
   @type t :: %Pesquisador{
           minibio: binary,

@@ -9,7 +9,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Campus do
           nome: binary,
           acronimo: binary,
           id: binary,
-          endereco_id: Endereco.t(),
+          endereco: Endereco.t(),
           nome_universidade: binary,
           pesquisadores: list(Pesquisador.t())
         }

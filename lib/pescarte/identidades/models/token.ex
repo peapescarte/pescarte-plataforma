@@ -29,7 +29,7 @@ defmodule Pescarte.Identidades.Models.Token do
 
     belongs_to(:usuario, Usuario,
       foreign_key: :usuario_id,
-      references: :id_publico,
+      references: :id,
       type: :string
     )
 
@@ -47,10 +47,10 @@ defmodule Pescarte.Identidades.Models.Token do
   Obtém todos os tokens do usuário fornecido para os contextos fornecidos.
   """
   def user_and_contexts_query(user, :all) do
-    from(t in Token, where: t.usuario_id == ^user.id_publico)
+    from(t in Token, where: t.usuario_id == ^user.id)
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from(t in Token, where: t.usuario_id == ^user.id_publico and t.contexto in ^contexts)
+    from(t in Token, where: t.usuario_id == ^user.id and t.contexto in ^contexts)
   end
 end
