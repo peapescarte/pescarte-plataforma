@@ -11,7 +11,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Campus do
           id: binary,
           endereco_id: Endereco.t(),
           nome_universidade: binary,
-          pesquisadores: list(Pesquisador.t()),
+          pesquisadores: list(Pesquisador.t())
         }
 
   @required_fields ~w(acronimo endereco_id nome nome_universidade)a

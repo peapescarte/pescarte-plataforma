@@ -67,7 +67,6 @@ defmodule Pescarte.Identidades.Models.Usuario do
     |> validate_cpf(:cpf, message: "CPF inválido")
     |> unique_constraint(:cpf)
     |> foreign_key_constraint(:contato_id)
-
   end
 
   @spec confirm_changeset(Usuario.t(), NaiveDateTime.t()) :: changeset

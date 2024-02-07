@@ -6,7 +6,7 @@ defmodule Pescarte.Identidades.Models.Endereco do
           rua: binary,
           cep: binary,
           cidade: binary,
-          estado: binary,
+          estado: binary
         }
 
   @fields ~w(rua cep cidade estado)a

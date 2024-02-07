@@ -37,6 +37,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
     pos_doutorado nsa
     coordenador_pedagogico
   )a
+
   #  esses aqui nao entram no sistema e nao tem no cadatro: voluntario  celetista
 
   @required_fields ~w(bolsa link_lattes campus_id usuario_id data_inicio_bolsa data_contratacao formacao)a
@@ -55,7 +56,6 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
     field(:data_contratacao, :date)
     field(:data_termino, :date)
     field(:anotacoes, :string)
-
 
     has_many(:relatorios_pesquisa, RelatorioPesquisa,
       references: :id,

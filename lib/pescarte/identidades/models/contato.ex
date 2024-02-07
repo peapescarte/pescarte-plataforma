@@ -12,7 +12,8 @@ defmodule Pescarte.Identidades.Models.Contato do
           id_publico: binary
         }
 
-  @optional_fields ~w(emails_adicionais celulares_adicionais)a # endereco_id)a
+  # endereco_id)a
+  @optional_fields ~w(emails_adicionais celulares_adicionais)a
   @required_fields ~w(email_principal celular_principal endereco_id)a
 
   @primary_key {:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true}
