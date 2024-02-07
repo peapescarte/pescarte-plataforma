@@ -7,7 +7,7 @@ defmodule Pescarte.ModuloPesquisa.Adapters.PesquisadorAdapter do
   @spec internal_to_external(Model.t()) :: Schema.t()
   def internal_to_external(pesquisador) do
     attrs = %{
-      id: pesquisador.id_publico,
+      id: pesquisador.id,
       nome: UsuarioHandler.build_usuario_name(pesquisador.usuario),
       cpf: pesquisador.usuario.cpf,
       email: pesquisador.usuario.contato.email_principal,

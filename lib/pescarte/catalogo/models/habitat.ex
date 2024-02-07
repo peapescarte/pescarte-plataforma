@@ -6,14 +6,14 @@ defmodule Pescarte.Catalogo.Models.Habitat do
   @type t :: %Habitat{
           nome: binary,
           peixes: list(Peixe.t()),
-          id_publico: binary
+          id: binary
         }
 
   @required_fields ~w(nome)a
 
   @primary_key {:nome, :string, autogenerate: false}
   schema "habitat" do
-    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
 
     many_to_many(:peixes, Peixe,
       join_through: "peixes_habitats",

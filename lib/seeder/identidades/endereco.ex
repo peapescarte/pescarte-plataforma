@@ -10,16 +10,15 @@ defmodule Seeder.Identidades.Endereco do
         cep: "28013602",
         cidade: "Campos dos Goytacazes",
         estado: "Rio de Janeiro",
-        numero: "2000",
         rua: "Avenida Alberto Lamego",
-        id_publico: Nanoid.generate_non_secure()
+        id: "zMz_9TlJ"
       },
       %Endereco{
         cep: "13565905",
         cidade: "São Carlos",
         estado: "São Paulo",
         rua: "Rod. Washington Luís",
-        id_publico: Nanoid.generate_non_secure()
+        id: "qbGuuaCv"
       }
     ]
   end

@@ -8,7 +8,7 @@ defmodule Pescarte.Catalogo.Models.Peixe do
           nativo?: boolean,
           link_imagem: binary,
           habitats: list(Habitat.t()),
-          id_publico: binary
+          id: binary
         }
 
   @required_fields ~w(nome_cientifico nativo? link_imagem)a
@@ -17,7 +17,7 @@ defmodule Pescarte.Catalogo.Models.Peixe do
   schema "peixe" do
     field(:link_imagem, :string)
     field(:nativo?, :boolean, default: false)
-    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
 
     many_to_many(:habitats, Habitat,
       join_through: "peixes_habitats",

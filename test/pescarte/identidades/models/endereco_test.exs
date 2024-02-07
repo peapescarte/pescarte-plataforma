@@ -16,12 +16,11 @@ defmodule Identidades.Models.EnderecoTest do
 
   test "cria um endereço com todos os campos" do
     attrs = %{
-      cep: "28030-001",
+      cep: "28013602",
       cidade: "Campos dos Goytacazes",
       estado: "rio de janeiro",
-      numero: "123",
       rua: "Teste",
-      complemento: "um complemento"
+      id: Nanoid.generate_non_secure()
     }
 
     changeset = Endereco.changeset(%Endereco{}, attrs)

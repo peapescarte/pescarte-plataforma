@@ -15,7 +15,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
           tipo: atom,
           primeiro_nome: binary,
           sobrenome: binary,
-          id_publico: binary,
+          id: binary,
           ativo?: boolean,
           pesquisador: Pesquisador.t(),
           contato: Contato.t()
@@ -23,14 +23,14 @@ defmodule Pescarte.Identidades.Models.Usuario do
 
   @valid_roles ~w(pesquisador pescador admin)a
 
-  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_email tipo)a
+  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id tipo)a
   @optional_fields ~w(confirmado_em rg)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
-  @primary_key {:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true}
+  @primary_key {:id, Pescarte.Database.Types.PublicId, autogenerate: true}
   schema "usuario" do
     field(:cpf, :string)
     field(:rg, :string)
@@ -42,15 +42,16 @@ defmodule Pescarte.Identidades.Models.Usuario do
     field(:primeiro_nome, :string)
     field(:sobrenome, :string)
     field(:ativo?, :boolean, default: false)
+    field(:link_avatar, :string)
 
     has_one(:pesquisador, Pesquisador,
-      references: :id_publico,
+      references: :id,
       foreign_key: :usuario_id
     )
 
     belongs_to(:contato, Contato,
-      foreign_key: :contato_email,
-      references: :email_principal,
+      foreign_key: :contato_id,
+      references: :id_publico,
       on_replace: :update,
       type: :string
     )
@@ -65,6 +66,8 @@ defmodule Pescarte.Identidades.Models.Usuario do
     |> validate_required(@required_fields)
     |> validate_cpf(:cpf, message: "CPF inválido")
     |> unique_constraint(:cpf)
+    |> foreign_key_constraint(:contato_id)
+
   end
 
   @spec confirm_changeset(Usuario.t(), NaiveDateTime.t()) :: changeset

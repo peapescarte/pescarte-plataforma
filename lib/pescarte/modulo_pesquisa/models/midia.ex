@@ -13,7 +13,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Midia do
           observacao: binary,
           link: binary,
           texto_alternativo: binary,
-          id_publico: binary,
+          id: binary,
           autor: User.t(),
           tags: list(Tag.t())
         }
@@ -31,12 +31,12 @@ defmodule Pescarte.ModuloPesquisa.Models.Midia do
     field(:restrito?, :boolean, default: false)
     field(:observacao, :string)
     field(:texto_alternativo, :string)
-    field(:id_publico, PublicId, autogenerate: true)
+    field(:id, PublicId, autogenerate: true)
 
     belongs_to(:autor, Usuario,
       on_replace: :update,
       foreign_key: :autor_id,
-      references: :id_publico,
+      references: :id,
       type: :string
     )
 

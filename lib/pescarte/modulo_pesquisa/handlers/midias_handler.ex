@@ -29,7 +29,7 @@ defmodule Pescarte.ModuloPesquisa.Handlers.MidiasHandler do
     with {:ok, user} <- UsuarioHandler.fetch_usuario_by_id_publico(attrs.autor_id),
          {:ok, raw_tags} <- put_categorias_ids(tags_attrs) do
       attrs
-      |> Map.update!(:autor_id, fn _ -> user.id_publico end)
+      |> Map.update!(:autor_id, fn _ -> user.id end)
       |> Repository.create_midia_and_tags_multi(raw_tags)
     end
   end

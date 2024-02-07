@@ -4,7 +4,7 @@ defmodule Pescarte.Database.Types.PublicId do
   para entidades que forem ser expostas via API ou plataforma web.
 
   Para usar, basta adicionar no schema:
-      field :id_publico, PublicId
+      field :id, PublicId
   """
 
   use Ecto.Type
@@ -22,5 +22,5 @@ defmodule Pescarte.Database.Types.PublicId do
   def load(nano_id), do: {:ok, nano_id}
 
   @impl true
-  def autogenerate, do: Nanoid.generate()
+  def autogenerate, do: Nanoid.generate(8)
 end
