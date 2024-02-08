@@ -15,7 +15,7 @@ defmodule Identidades.Models.ContatoTest do
       celular_principal: "22123456789",
       emails_adicionais: ["test2@example.com", "test3@example.com"],
       celulares_adicionais: ["22987654321", "22987654322"],
-      endereco_id: endereco.id
+      endereco_id: endereco.cep
     }
 
     changeset = Contato.changeset(%Contato{}, attrs)
