@@ -22,7 +22,7 @@ defmodule Pescarte.RelatorioCompiler do
   end
 
   def find_relatorio(relatorio_id) do
-    relatorio = Repository.fetch_relatorio_pesquisa_by_id(relatorio_id)
+    Repository.fetch_relatorio_pesquisa_by_id(relatorio_id)
   end
 
   defp criar_zip_file(pdf) do
