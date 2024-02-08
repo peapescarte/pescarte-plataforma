@@ -1,5 +1,4 @@
 defmodule Pescarte.RelatorioCompiler do
-
   alias Pescarte.ModuloPesquisa.Repository
   alias PescarteWeb.RelatorioHTML
 
@@ -35,5 +34,4 @@ defmodule Pescarte.RelatorioCompiler do
 
     zip_file
   end
-
 end
