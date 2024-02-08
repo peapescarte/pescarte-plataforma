@@ -4,7 +4,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
   alias Pescarte.RelatorioCompiler
 
   def download_pdf(conn, %{"id" => id}) do
-    relatorio = RelatorioCompiler.find_relatorio(id)
+    relatorio = RelatorioCompiler.find_relatorio("SIQ_aoduG5hhp5EAvF3bY")
     pdf_binary = RelatorioCompiler.gerar_pdf(relatorio)
     enviar_pdf_response(conn, id, pdf_binary)
   end
