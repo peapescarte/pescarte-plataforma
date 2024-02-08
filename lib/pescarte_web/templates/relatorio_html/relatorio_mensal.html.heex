@@ -149,7 +149,7 @@
             </li>
             <li class="record-bottom__row__atividades__atividade">
               <p>
-                <b>Reunião de orientação: </b>Nenhuma orientação no momento.
+                <b>Reunião de orientação: </b> <%= "Nenhuma orientação no momento." || @conteudo_mensal.reunioes_orientacao %>
               </p>
             </li>
             <li class="record-bottom__row__atividades__atividade">
@@ -170,15 +170,29 @@
         <div class="record-bottom__row record-bottom__row--planejamento">
           <p style="margin: 0.5cm;"><b>Planejamento de Estudos ou de Pesquisa</b></p>
         </div>
-        <div class="record-bottom__row"></div>
+        <div class="record-bottom__row">
+          <div style="margin: 0.25cm;">
+            <b>Ações de planejamento e construção da pesquisa: </b><br>
+            <p style="text-align: justify; text-indent: 0.5cm;"><%= @conteudo_mensal.previsao_acao_planejamento %></p> 
+          </div>
+          <div style="margin: 0.25cm;">
+            <b>Participação em grupo de estudos: </b><br>
+            <p style="text-align: justify; text-indent: 0.5cm;"><%= @conteudo_mensal.previsao_participacao_grupos_estudo %></p> 
+          </div>
+          <div style="margin: 0.25cm;">
+            <b>Participação em treinamentos e cursos PEA Pescarte: </b><br>
+            <p style="text-align: justify; text-indent: 0.5cm;"><%= @conteudo_mensal.previsao_participacao_treinamentos %></p> 
+          </div>
+          <div style="margin: 0.25cm;">
+            <b>Ações de pesquisa de campo, análise de dados e construção audiovisual: </b><br>
+            <p style="text-align: justify; text-indent: 0.5cm;"><%= @conteudo_mensal.previsao_acoes_pesquisa %></p> 
+          </div>
+        </div>
         <div class="record-bottom__row" style="break-inside: avoid-page;">
           <p style="margin: 0.25cm;"><b>Evidências (fotografias, print de tela...):</b></p>
           <p style="margin-bottom: 0.25cm;"></p>
         </div>
       </section>
-      <!--<footer>
-            <img src={get_image_path('footer-image1.png')} alt="" width="70%">
-        </footer>-->
     </main>
   </body>
 </html>

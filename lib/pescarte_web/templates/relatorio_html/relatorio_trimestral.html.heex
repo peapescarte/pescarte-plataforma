@@ -34,6 +34,14 @@
           margin-inline: auto;
       }
 
+      .capa__cidade_data {
+        width: 100%;
+        display: flex; 
+        justify-content: center;  
+        position: absolute; 
+        bottom: 0; 
+      }
+
       .sumario {
           width: 18cm;
           height: 25.2cm;
@@ -99,7 +107,7 @@
           <br /><%= build_usuario_name(@pesquisador.usuario) %>
         </b>
       </p>
-      <p style="position: absolute; bottom: 0; left: 6.25cm">
+      <p class="capa__cidade_data">
         <b>
           <%= ~c"#{@pesquisador.usuario.contato.endereco.cidade}/#{@pesquisador.usuario.contato.endereco.estado}" %>
           <%= ~c"#{get_literal_mes(@data_fim)}/#{@data_fim.year}" %>
@@ -139,7 +147,7 @@
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Resumo</p>
           <p>
-            <%= @conteudo_trimestral.titulo %>
+            <%= @conteudo_trimestral.resumo %>
           </p>
         </li>
         <li class="conteudo__list__item">
