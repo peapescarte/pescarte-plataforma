@@ -248,7 +248,7 @@ defmodule Pescarte.Fixtures do
 
   def tag_factory do
     %Tag{
-      id: Nanoid.generate_non_secure(),
+      id_publico: Nanoid.generate_non_secure(),
       etiqueta: sequence("etiqueta"),
       categoria_nome: insert(:categoria).nome
     }
