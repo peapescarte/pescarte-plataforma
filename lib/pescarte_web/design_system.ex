@@ -430,10 +430,9 @@ defmodule PescarteWeb.DesignSystem do
             <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
-            <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+            <DesignSystem.link href={~p"/equipe"} class="text-sm font-semibold">
               <.text size="h4" color="text-blue-100">Equipes</.text>
             </DesignSystem.link>
-            <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
             <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
