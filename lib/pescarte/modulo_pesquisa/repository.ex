@@ -50,7 +50,7 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_midia_by_id_publico(id) do
-    case Pescarte.Database.fetch_by(Midia, id_publico: id) do
+    case Pescarte.Database.fetch_by(Midia, id: id) do
       {:ok, midia} -> {:ok, Repo.replica().preload(midia, :tags)}
       error -> error
     end

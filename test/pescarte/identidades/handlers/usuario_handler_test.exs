@@ -58,7 +58,10 @@ defmodule Identidades.Handlers.UsuarioHandlerTest do
                UsuarioHandler.fetch_usuario_by_email_and_password("123", user.senha)
 
       assert {:error, :invalid_password} =
-               UsuarioHandler.fetch_usuario_by_email_and_password(user.contato.email_principal, "123")
+               UsuarioHandler.fetch_usuario_by_email_and_password(
+                 user.contato.email_principal,
+                 "123"
+               )
     end
 
     test "quando o email e a senha são válidos" do
@@ -66,7 +69,10 @@ defmodule Identidades.Handlers.UsuarioHandlerTest do
       user = Repo.preload(insert(:usuario), :contato)
 
       assert {:ok, fetched} =
-               UsuarioHandler.fetch_usuario_by_email_and_password(user.contato.email_principal, user.senha)
+               UsuarioHandler.fetch_usuario_by_email_and_password(
+                 user.contato.email_principal,
+                 user.senha
+               )
 
       assert fetched.id == user.id
       assert fetched.cpf == user.cpf
