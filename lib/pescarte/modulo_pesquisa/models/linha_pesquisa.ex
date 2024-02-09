@@ -28,10 +28,8 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisa do
     )
 
     many_to_many(:pesquisadores, Pesquisador,
-      join_through: "linhas_pesquisas_pesquisadores",
-      join_keys: [pesquisador_id: :id, linha_pesquisa_numero: :numero],
-      on_replace: :delete,
-      unique: true
+      join_through: "pesquisador_lp",
+      on_replace: :delete
     )
 
     timestamps()

@@ -25,7 +25,8 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
           relatorios_pesquisa: list(RelatorioPesquisa.t()),
           campus_id: Campus.t(),
           usuario: User.t(),
-          anotacoes: binary
+          anotacoes: binary,
+          linhas_pesquisa: list(LinhaPesquisa.t())
         }
 
   @tipo_bolsas ~w(
@@ -91,6 +92,13 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
       type: :string
     )
 
+    many_to_many(
+      :linhas_pesquisa,
+      LinhaPesquisa,
+      join_through: "pesquisador_lp",
+      on_replace: :delete
+    )
+
     timestamps()
   end
 
@@ -107,4 +115,11 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
   end
 
   def tipo_bolsas, do: @tipo_bolsas
+
+  # def changeset_update_lp(%Pesquisador{} = pesquisador, linha_pesquisa) do
+  #   pesquisador
+  #   |> cast(%{}, @required_fields)
+  #   # associate lps to pesquisador
+  #   |> put_assoc(:linha_pesquisa, linha_pesquisa)
+  # end
 end
