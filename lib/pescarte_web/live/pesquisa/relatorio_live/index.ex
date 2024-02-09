@@ -3,6 +3,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
 
   alias Pescarte.ModuloPesquisa.Models.RelatorioPesquisa
   alias Pescarte.ModuloPesquisa.Repository
+  alias PescarteWeb.Pesquisa.RelatorioLive.FormComponent
 
   @impl true
   def mount(_params, _session, socket) do
@@ -20,29 +21,32 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   @impl true
   def handle_event("mensal_report", _, socket) do
     pesquisador_id = socket.assigns.current_researcher.id_publico
+
     {:noreply,
-    socket
-    |> assign(:type, "mensal")
-    |> assign(:pesquisador_id, pesquisador_id)
-    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+     socket
+     |> assign(:type, "mensal")
+     |> assign(:pesquisador_id, pesquisador_id)
+     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   def handle_event("trimestral_report", _, socket) do
     pesquisador_id = socket.assigns.current_researcher.id_publico
+
     {:noreply,
-    socket
-    |> assign(:type, "trimestral")
-    |> assign(:pesquisador_id, pesquisador_id)
-    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+     socket
+     |> assign(:type, "trimestral")
+     |> assign(:pesquisador_id, pesquisador_id)
+     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   def handle_event("anual_report", _, socket) do
     pesquisador_id = socket.assigns.current_researcher.id_publico
+
     {:noreply,
-    socket
-    |> assign(:type, "anual")
-    |> assign(:pesquisador_id, pesquisador_id)
-    |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+     socket
+     |> assign(:type, "anual")
+     |> assign(:pesquisador_id, pesquisador_id)
+     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
@@ -64,7 +68,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   end
 
   @impl true
-  def handle_info({PescarteWeb.Pesquisa.RelatorioLive.FormComponent, {:saved, relatorio}}, socket) do
+  def handle_info({FormComponent, {:saved, relatorio}}, socket) do
     {:noreply, stream_insert(socket, :relatorios, relatorio)}
   end
 end

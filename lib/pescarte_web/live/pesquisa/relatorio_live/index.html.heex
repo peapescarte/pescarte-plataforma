@@ -27,13 +27,15 @@
     <:column :let={_} label="  ">
       <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
     </:column>
-    <:column :let={relatorio} label="Data"><%= relatorio.data %></:column>
-    <:column :let={relatorio} label="Tipo" class="linhas"><%= relatorio.tipo %></:column>
-    <:column :let={relatorio} label="Mês/Ano">
-      <%= relatorio.mes <> " / " <> relatorio.ano %>
+    <:column :let={{_, relatorio}} label="Data">
+      <%= "#{relatorio.data_inicio} - #{relatorio.data_fim}" %>
     </:column>
-    <:column :let={relatorio} label="Nome"><%= relatorio.name %></:column>
-    <:column :let={relatorio} label="Status"><%= relatorio.status %></:column>
+    <:column :let={{_, relatorio}} label="Tipo" class="linhas"><%= relatorio.tipo %></:column>
+    <:column :let={{_, relatorio}} label="Mês/Ano">
+      <%= "#{relatorio.data_fim.month}/#{relatorio.data_fim.year}" %>
+    </:column>
+    <:column :let={{_, relatorio}} label="Nome"><%= relatorio.pesquisador_id %></:column>
+    <:column :let={{_, relatorio}} label="Status"><%= relatorio.status %></:column>
     <:column :let={_} label="Baixar">
       <div class="flex-center"><Lucideicons.download /></div>
     </:column>
