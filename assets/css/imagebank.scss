@@ -1,10 +1,12 @@
 .imagebank-grid {
-  margin-top: 2rem;
+  @apply w-full h-full;
   display: grid;
-  gap: 2rem;
-  grid-template-areas:
-    "full-collection"
-    "highlights";
+
+  // margin-top: 2rem;
+  // gap: 2rem;
+  // grid-template-areas:
+  //   "full-collection"
+  //   "highlights";
 }
 
 .full-collection {
@@ -34,7 +36,11 @@
   padding: 10px;
 }
 
-#image-bank-showcase {
+.image-bank-search-tags {
+  display: flex;
+}
+
+.image-bank-showcase {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -43,7 +49,7 @@
   margin: auto;
 }
 
-#image-bank-showcase > img {
+.image-bank-showcase > div > img {
   border-radius: 25px;
   overflow: hidden;
   width: 100%;
@@ -54,3 +60,4 @@
 .image-bank-load-button {
   margin:auto
 }
+

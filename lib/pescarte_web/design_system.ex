@@ -617,14 +617,18 @@ defmodule PescarteWeb.DesignSystem do
   attr(:name, :string, default: nil)
   attr(:message, :string, default: nil)
   attr(:"active", :string, default: nil)
+  attr(:click, :string, default: "", doc: ~s(the click event to handle))
+  attr(:ref, :string, default: nil)
 
   def search_label(assigns) do
     ~H"""
-    <div
-      class={["search_label_component", @active]}
+    <button
+      class={["search_label_component", if !@active do "desativado" end]}
+      phx-click={@click}
+      phx-value-ref={@ref}
     >
       <.text size="base" color="text-white-100"><%= @message %></.text>
-    </div>
+    </button>
     """
   end
 

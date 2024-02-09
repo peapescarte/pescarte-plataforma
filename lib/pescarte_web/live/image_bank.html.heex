@@ -3,13 +3,12 @@
     <.text size="h2" color="text-blue-100">Destaques</.text>
   </div>
 
+
   <div class="carousel js-flickity"
-    data-flickity='{"percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
+    data-flickity='{"imagesLoaded":true, "percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
 
     <%= for midia <- @destaques do %>
-      <div class="carousel-cell">
-        <img src={midia.link} />
-      </div>
+      <img src={midia.link} />
     <% end %>
 
   </div>
@@ -20,20 +19,18 @@
     <div class="image-bank-search">
       <.search_input name="busca-acervo" id="busca-acervo" placeholder="Pesquise por palavras chave" />
       <div class="image-bank-search-tags">
-        <.search_label message="aaaaa" active="ativo" />
-        <.search_label message="aaaaa" active="desativo" />
-        <.search_label message="aaaaa" active="true" />
-        <.search_label message="aaaaa" active="true" />
-        <.search_label message="aaaaa" active="true" />
-        <.search_label message="aaaaa" active="true" />
-        <.search_label message="aaaaa" active="desativo" />
+        <%= for tag <- @tagList do %>
+          <.search_label message={tag.etiqueta} active={tag.is_selected} click="toggle_tag_filter" ref={tag.etiqueta}/>
+        <% end %>
       </div>
     </div>
 
-    <div id="image-bank-showcase" phx-update="replace">
-      <%= for midia <- @midias do %>
-        <img src={midia.link} />
-      <% end %>
+    <div class="image-bank-showcase">
+      <div :for={{dom_id, midia} <- @streams.midias}
+      id={dom_id}
+      >
+        <img src={midia.link} referrerpolicy="no-referrer"/>
+      </div>
     </div>
 
     <.button class="image-bank-load-button" style="primary" click="load_more">

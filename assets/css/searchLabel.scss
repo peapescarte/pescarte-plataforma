@@ -9,10 +9,10 @@
   margin: 0 0.5rem 0.5rem 0;
 }
 
-.desativo {
+.desativado {
     @apply bg-blue-10;
 }
 
-.desativo > p {
+.desativado > p {
     @apply text-blue-100;
 }

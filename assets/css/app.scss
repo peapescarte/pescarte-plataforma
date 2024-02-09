@@ -44,10 +44,10 @@ body,
   @apply wh-screen;
 }
 
-.phx-connected,
-.phx-loading {
-  @apply auth-grid wh-screen;
-}
+// .phx-connected,
+// .phx-loading {
+//   @apply auth-grid wh-screen;
+// }
 
 .phx-error {
   opacity: 0.25;
@@ -172,10 +172,12 @@ footer {
 @import "./tabela.scss";
 @import "./label.scss";
 @import "./dropdown.scss";
+@import "./searchLabel.scss";
 
 // Páginas
 // Sem autenticação
 @import "./pages/login.scss";
+@import "./imagebank.scss";
 
 // Com autenticação
 @import "./pages/app/researcher/profile.scss";
