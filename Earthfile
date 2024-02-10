@@ -2,8 +2,9 @@ VERSION 0.7
 
 deps:
   ARG ELIXIR=1.15.4
-  ARG OTP=26.0.2
-  FROM hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-buster-20230612-slim
+  ARG OTP=25.3.2.5
+  ARG DEBIAN_VERSION=buster-20230612
+  FROM hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN_VERSION}
   RUN apt update -y && apt install -y build-essential
   WORKDIR /src
   COPY mix.exs mix.lock ./
@@ -59,13 +60,7 @@ release:
   SAVE ARTIFACT /src/_build/prod/rel/pescarte /app/_build/prod/rel/pescarte AS LOCAL release
 
 docker-prod:
-  FROM debian:buster-20230612-slim
-  RUN apt update -y && apt install -y openssl libncurses5
-  WORKDIR /app
-  RUN chown nobody /app
-  USER nobody
-  COPY +release/app/_build/prod/rel/pescarte .
-  CMD ["./bin/pescarte", "eval", "Pescarte.Release.migrate", "&&", "exec", "./bin/pescarte", "start"]
+  FROM DOCKERFILE .
   ARG GITHUB_REPO
   SAVE IMAGE --push ghcr.io/$GITHUB_REPO:prod
 
