@@ -15,7 +15,7 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisa do
           link: binary,
           status: atom,
           pesquisador: Pesquisador.t(),
-          id_publico: binary
+          id: binary
         }
 
   @tipo ~w(mensal bimestral trimestral anual)a
@@ -33,7 +33,7 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisa do
     field(:data_limite, :date)
     field(:tipo, Ecto.Enum, values: @tipo)
     field(:status, Ecto.Enum, values: @status)
-    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
+    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
 
     embeds_one(:conteudo_anual, ConteudoAnual, source: :conteudo, on_replace: :update)
     embeds_one(:conteudo_mensal, ConteudoMensal, source: :conteudo, on_replace: :update)
@@ -41,7 +41,7 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisa do
 
     belongs_to(:pesquisador, Pesquisador,
       on_replace: :update,
-      references: :id_publico,
+      references: :id,
       type: :string,
       primary_key: true
     )

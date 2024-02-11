@@ -97,7 +97,7 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
     attrs = %{
       token: hashed_token,
       contexto: context,
-      usuario_id: user.id_publico,
+      usuario_id: user.id,
       enviado_para: user.contato.email_principal
     }
 
@@ -110,7 +110,7 @@ defmodule Pescarte.Identidades.Handlers.CredenciaisHandler do
   Gera um novo token de login/sessão para um usuário.
   """
   @impl true
-  def generate_session_token(%Usuario{id_publico: user_id}) do
+  def generate_session_token(%Usuario{id: user_id}) do
     token = :crypto.strong_rand_bytes(@login_token_rand_size)
     attrs = %{token: token, contexto: "session", usuario_id: user_id}
     {:ok, _user_token} = Repo.insert(Token.changeset(attrs))

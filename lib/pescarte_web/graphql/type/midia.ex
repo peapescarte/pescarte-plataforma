@@ -19,7 +19,7 @@ defmodule PescarteWeb.GraphQL.Type.Midia do
     field(:tipo, :tipo_midia_enum)
     field(:observacao, :string)
     field(:texto_alternativo, :string)
-    field(:id_publico, :string, name: "id")
+    field(:id, :string, name: "id")
 
     field :autor, :usuario do
       resolve(&Resolver.User.get_by_midia/3)
