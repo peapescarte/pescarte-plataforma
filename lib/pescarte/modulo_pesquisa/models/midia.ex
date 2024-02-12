@@ -23,12 +23,6 @@ defmodule Pescarte.ModuloPesquisa.Models.Midia do
 
   @tipos ~w(imagem video documento)a
 
-  @derive {
-    Flop.Schema,
-    filterable: [],
-    sortable: [:data_arquivo]
-  }
-
   @primary_key {:link, :string, autogenerate: false}
   schema "midia" do
     field(:tipo, Ecto.Enum, values: @tipos)

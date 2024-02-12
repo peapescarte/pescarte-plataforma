@@ -5,10 +5,12 @@
 
 
   <div class="carousel js-flickity"
-    data-flickity='{"imagesLoaded":true, "percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
+    data-flickity='{"percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
 
     <%= for midia <- @destaques do %>
-      <img src={midia.link} />
+      <div class="carousel-cell">
+        <img src={midia.link} />
+      </div>
     <% end %>
 
   </div>
@@ -17,7 +19,7 @@
     <.text size="h2" color="text-blue-100">Acervo Completo</.text>
 
     <div class="image-bank-search">
-      <.search_input name="busca-acervo" id="busca-acervo" placeholder="Pesquise por palavras chave" />
+      <.search_input name="busca-acervo" id="busca-acervo" placeholder="Pesquise por palavras chave" content={@content_mock}/>
       <div class="image-bank-search-tags">
         <%= for tag <- @tagList do %>
           <.search_label message={tag.etiqueta} active={tag.is_selected} click="toggle_tag_filter" ref={tag.etiqueta}/>
@@ -33,7 +35,7 @@
       </div>
     </div>
 
-    <.button class="image-bank-load-button" style="primary" click="load_more">
+    <.button class="image-bank-load-button" style="primary" click="load_more" disabled={@all_loaded}>
       <.text size="base" color="text-white-100">Carregar Mais</.text>
     </.button>
   </div>
