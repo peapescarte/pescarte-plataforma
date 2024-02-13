@@ -11,6 +11,7 @@ defmodule PescarteWeb.DesignSystem do
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
   alias PescarteWeb.DesignSystem.SearchInput
+  alias Phoenix.LiveView.JS
 
   @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
 
@@ -529,21 +530,60 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  attr(:type, :string, values: ~w(success error warning), required: true)
-  attr(:message, :string, required: true)
-  attr(:id, :string, required: true)
+  @doc """
+  Renders flash notices.
 
-  def toast(assigns) do
+  ## Examples
+
+      <.flash kind={:info} flash={@flash} />
+      <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
+  """
+  attr(:id, :string, default: "flash", doc: "the optional id of flash container")
+  attr(:flash, :map, default: %{}, doc: "the map of flash messages to display")
+
+  attr(:kind, :atom,
+    values: [:success, :warning, :error],
+    doc: "used for styling and flash lookup"
+  )
+
+  attr(:rest, :global, doc: "the arbitrary HTML attributes to add to the flash container")
+
+  slot(:inner_block, doc: "the optional inner block that renders the flash message")
+
+  def flash(assigns) do
     ~H"""
-    <div id={@id} class={["toast", @type, "show"]} role="alert">
-      <div class="toast-icon">
-        <Lucideicons.check_circle_2 :if={@type == "success"} />
-        <Lucideicons.info :if={@type == "warning"} />
-        <Lucideicons.x_circle :if={@type == "error"} />
-        <span class="sr-only"><%= @type %> icon</span>
+    <div
+      :if={msg = render_slot(@inner_block) || Phoenix.Flash.get(@flash, @kind)}
+      id={@id}
+      phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
+      role="alert"
+      class={["flash-component", Atom.to_string(@kind), "show"]}
+      {@rest}
+    >
+      <div class="flash">
+        <Lucideicons.check_circle_2 :if={@kind == :success} class="flash-icon" />
+        <Lucideicons.info :if={@kind == :warning} class="flash-icon" />
+        <Lucideicons.x_circle :if={@kind == :error} class="flash-icon" />
+        <.text size="lg"><%= msg %></.text>
       </div>
-      <.text size="lg"><%= @message %></.text>
     </div>
+    """
+  end
+
+  @doc """
+  Shows the flash group with standard titles and content.
+
+  ## Examples
+
+      <.flash_group flash={@flash} />
+  """
+  attr(:flash, :map, required: true, doc: "the map of flash messages")
+
+  def flash_group(assigns) do
+    ~H"""
+    <.flash kind={:success} flash={@flash} />
+    <.flash kind={:warning} flash={@flash} />
+    <.flash kind={:error} flash={@flash} />
     """
   end
 
@@ -617,5 +657,28 @@ defmodule PescarteWeb.DesignSystem do
       <.text size="base" color="text-white-100"><%= @message %></.text>
     </div>
     """
+  end
+
+  ## JS Commands
+
+  def show(js \\ %JS{}, selector) do
+    JS.show(js,
+      to: selector,
+      transition:
+        {"transition-all transform ease-out duration-300",
+         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+         "opacity-100 translate-y-0 sm:scale-100"}
+    )
+  end
+
+  def hide(js \\ %JS{}, selector) do
+    JS.hide(js,
+      to: selector,
+      time: 200,
+      transition:
+        {"transition-all transform ease-in duration-200",
+         "opacity-100 translate-y-0 sm:scale-100",
+         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
+    )
   end
 end

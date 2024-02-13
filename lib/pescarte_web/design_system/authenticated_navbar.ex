@@ -21,40 +21,40 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
             <img :if={!@open} src={~p"/images/icon_logo.svg"} class="logo" />
             <img :if={@open} src={~p"/images/pescarte_logo.svg"} class="logo" />
           </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/"}>
+          <DesignSystem.link navigate={~p"/"}>
+            <li class="nav-item">
               <Lucideicons.home />
               <.text :if={@open} size="base" color="text-black-60">Home</.text>
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores"}>
+            </li>
+          </DesignSystem.link>
+          <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores"}>
+            <li class="nav-item">
               <Lucideicons.users />
               <.text :if={@open} size="base" color="text-black-60">
                 Pesquisadores
               </.text>
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/app/pesquisa/relatorios"}>
+            </li>
+          </DesignSystem.link>
+          <DesignSystem.link navigate={~p"/app/pesquisa/relatorios"}>
+            <li class="nav-item">
               <Lucideicons.file_text />
               <.text :if={@open} size="base" color="text-black-60">
                 Relatórios
               </.text>
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/"}>
+            </li>
+          </DesignSystem.link>
+          <DesignSystem.link navigate={~p"/"}>
+            <li class="nav-item">
               <Lucideicons.calendar_days />
               <.text :if={@open} size="base" color="text-black-60">Agenda</.text>
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/"}>
+            </li>
+          </DesignSystem.link>
+          <DesignSystem.link navigate={~p"/"}>
+            <li class="nav-item">
               <Lucideicons.mail />
               <.text :if={@open} size="base" color="text-black-60">Mensagens</.text>
-            </DesignSystem.link>
-          </li>
+            </li>
+          </DesignSystem.link>
         </ul>
         <div class="user-info">
           <Lucideicons.user class="text-black-60" />

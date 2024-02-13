@@ -1,5 +1,5 @@
 defmodule PescarteWeb.GraphQL.UserSchemaTest do
-  use PescarteWeb.ConnCase, async: true
+  use PescarteWeb.ConnCase, async: false
 
   @moduletag :integration
 

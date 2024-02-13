@@ -23,7 +23,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
 
     {:noreply,
      socket
-     |> assign(:type, type)
+     |> assign(:tipo, type)
      |> assign(:pesquisador_id, pesquisador_id)
      |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
   end
@@ -44,6 +44,8 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     socket
     |> assign(:page_title, "Lista de Relatórios")
     |> assign(:relatorio, nil)
+
+    put_flash(socket, :success, "Mensagem de teste")
   end
 
   @impl true

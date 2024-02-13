@@ -48,7 +48,10 @@ defmodule PescarteWeb.Router do
     # pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
+      on_mount: [
+        {PescarteWeb.Authentication, :ensure_authenticated},
+        {PescarteWeb.Flash, :flash}
+      ] do
       live("/perfil", ProfileLive)
       live("/pesquisadores", ListPesquisadorLive)
 

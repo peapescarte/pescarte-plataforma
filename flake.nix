@@ -33,6 +33,7 @@
           name = "pescarte";
           packages = with pkgs;
             [
+              earthly
               gnumake
               gcc
               openssl

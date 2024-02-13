@@ -18,6 +18,14 @@
   width: 30rem;
 }
 
+.nav-menu a {
+  width: 100%;
+}
+
+.nav-menu a:hover {
+  text-decoration: underline;
+}
+
 .nav-item {
   @apply flex justify-between items-center;
   padding: 1rem 1.5rem;
@@ -98,7 +106,11 @@
     svg {
       width: 3.75rem;
       height: 3.75rem;
+      padding: 1rem;
       margin-right: 0.75rem;
+
+      border: 1px solid #dcdcdc;
+      border-radius: 50%;
     }
   }
 
