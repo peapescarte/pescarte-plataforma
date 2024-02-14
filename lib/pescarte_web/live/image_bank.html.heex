@@ -19,7 +19,25 @@
     <.text size="h2" color="text-blue-100">Acervo Completo</.text>
 
     <div class="image-bank-search">
-      <.search_input name="busca-acervo" id="busca-acervo" placeholder="Pesquise por palavras chave" content={@content_mock}/>
+      <!--
+      <.search_input name="busca-acervo" id="busca-acervo" placeholder="Pesquise por palavras chave"/>
+      -->
+      <fieldset class="search-input">
+        <span class="search-icon">
+          <Lucideicons.search />
+        </span>
+        <input
+          id="busca-acervo"
+          name="busca-acervo"
+          list="teste, tag, outra"
+          placeholder="Pesquise por palavras chave"
+          phx-keydown="search"
+          phx-key="Enter"
+          phx-debounce={100}
+        />
+      </fieldset>
+
+      -->
       <div class="image-bank-search-tags">
         <%= for tag <- @tagList do %>
           <.search_label message={tag.etiqueta} active={tag.is_selected} click="toggle_tag_filter" ref={tag.etiqueta}/>

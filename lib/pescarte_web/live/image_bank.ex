@@ -22,13 +22,14 @@ defmodule PescarteWeb.ImageBank do
 
     socket = assign(socket, :all_midia, list);
     socket = assign(socket, :page, 1);
-    socket = assign(socket, :content_mock, ["teste1", "teste2", "teste3"]);
+
 
     {:ok,
       socket
       |> assign(tagList: tagsCardData)
       |> assign(all_loaded: length(list) <= 6)
       |> assign(destaques: Enum.take(list, 3))
+      |> assign(:text_value, nil)
       |> stream_configure(:midias, dom_id: & &1.id_publico)
       |> stream(:midias, Enum.take(list, 6))}
   end
@@ -36,7 +37,7 @@ defmodule PescarteWeb.ImageBank do
   def handle_event("load_more", _, socket) do
 
     socket = assign(socket, :page, socket.assigns.page + 1);
-    loaded_midia = Enum.take(MidiasHandler.list_midia(), socket.assigns.page * 6)
+    loaded_midia = Enum.take(get_midias(socket.assigns.tagList), socket.assigns.page * 6)
 
     {:noreply,
       socket
@@ -46,6 +47,7 @@ defmodule PescarteWeb.ImageBank do
 
   def handle_event("toggle_tag_filter",  %{"ref" => ref}, socket) do
 
+    IO.puts(ref)
     tagList =  socket.assigns.tagList
 
     tagList = update_in(
@@ -54,8 +56,7 @@ defmodule PescarteWeb.ImageBank do
       &Map.merge(&1, %{is_selected: !&1.is_selected})
     )
 
-    #REPLACE QUERY BELOW FROM tagLIST FROM ACTIVE QUERYS
-    filtered_media = MidiasHandler.list_midia()
+    filtered_media = get_midias(tagList)
 
     {:noreply,
       socket
@@ -66,25 +67,24 @@ defmodule PescarteWeb.ImageBank do
 
   end
 
-  def handle_event("handle_submit", _, socket) do
+  def handle_event("search", %{"value" => message}, socket) do
 
     tag_to_add = %{
-      etiqueta: "nova_tag",
+      etiqueta: message,
       is_selected: true
     }
 
     tagList = socket.assigns.tagList;
 
-    if (!Enum.find(tagList, fn elem -> elem.etiqueta == "nova_tag" end)) do
+    if (!Enum.find(tagList, fn elem -> elem.etiqueta == message end)) do
       #add tag to tagList
       tagList = [tag_to_add | socket.assigns.tagList]
 
       #removing last tag from tagList
       tagList = List.delete_at(tagList, length(tagList)-1)
 
-
       #REPLACE QUERY BELOW FROM tagLIST FROM ACTIVE QUERYS
-      filtered_media = MidiasHandler.list_midia()
+      filtered_media = get_midias(tagList)
 
       {:noreply,
         socket
@@ -97,4 +97,26 @@ defmodule PescarteWeb.ImageBank do
     end
   end
 
+  # função limpa o tagList para apenas uma lista de strings com as tags selecionadas
+  def reduce_taglist(taglist) do
+    reduced = [];
+    reduced =
+      for tag <- taglist do
+        if (tag.is_selected) do
+        reduced = tag.etiqueta
+        end
+      end
+
+    Enum.filter(reduced, & !is_nil(&1))
+  end
+
+  # função recebe lista de tags e retorna lista de midias filtradas ou todas midias caso vazias
+  def get_midias(taglist \\ []) do
+    reduced_taglist = reduce_taglist(taglist)
+    if (length(reduced_taglist) > 0) do
+      filtered_media = Repository.list_midias_from_tags(reduced_taglist)
+    else
+      filtered_media = MidiasHandler.list_midia()
+    end
+  end
 end

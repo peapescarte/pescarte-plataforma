@@ -53,8 +53,8 @@
 .image-bank-showcase > div > img {
   border-radius: 25px;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: 30vw;
+  height: 30vw;
   display: block;
 }
 
@@ -69,5 +69,10 @@
 
 .image-bank-load-button {
   margin:auto
+}
+
+input#busca-acervo {
+  width: 100%;
+  color: black;
 }
 

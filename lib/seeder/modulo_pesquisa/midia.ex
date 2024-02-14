@@ -18,7 +18,7 @@ defmodule Seeder.ModuloPesquisa.Midia do
   def entries do
     [
       %Midia{
-        tags: tags(),
+        tags: Enum.take(tags(), 1),
         id_publico: Nanoid.generate(),
         nome_arquivo: "Barra do Furado_Quissamã (Adrya Pessanha de Paula).png",
         tipo: :imagem,
@@ -27,7 +27,7 @@ defmodule Seeder.ModuloPesquisa.Midia do
         link: "https://lh3.googleusercontent.com/drive-viewer/AEYmBYT_XHpza2oTr2ssZv0XHBWWubGEmLiPUcRikPheu5qXKn7ZmurEOxSEVkfnt3h_e6D532rXJ3_1H3blnj2fLU0UlnQ2aA=s1600"
       },
       %Midia{
-        tags: tags(),
+        tags: Enum.take(tags(), 2),
         id_publico: Nanoid.generate(),
         nome_arquivo: "Barra do Furado_Quissamã (Adrya Pessanha de Paula)(1).png",
         tipo: :imagem,
@@ -36,7 +36,7 @@ defmodule Seeder.ModuloPesquisa.Midia do
         link: "https://lh3.googleusercontent.com/drive-viewer/AEYmBYRXrA7b6v1Q7Xwv2Vl1E8nyOsLLo7rEiKxIpPcQmML0fMj1RIMJF1s-FfeNVIDqZadlPebueNzlCuKFCVJwx9-MhWbf=s1600"
       },
       %Midia{
-        tags: tags(),
+        tags: Enum.take(tags(), 3),
         id_publico: Nanoid.generate(),
         nome_arquivo: "Barra do Furado_Quissamã (Adrya Pessanha de Paula)(2).png",
         tipo: :imagem,
@@ -45,7 +45,7 @@ defmodule Seeder.ModuloPesquisa.Midia do
         link: "https://lh3.googleusercontent.com/drive-viewer/AEYmBYScjDfLvfoOvrECaXQ173rF6sCxjzc9x6Sa6KQQT-_K1vANatG0_2-D_Mp_OqyGER3NevhusKI0HkZXCij4QX7zdBtI9w=s1600"
       },
       %Midia{
-        tags: tags(),
+        tags: Enum.take(tags(), 4),
         id_publico: Nanoid.generate(),
         nome_arquivo: "01 Armação dos Búzio armadilha para capturar Siri. Praia da Rasa. Armadilha_ Pulsar (Bruno Siqueira) Bruno dos Santos Siqueira dossantossiqueirabruno@gmail.com .jpeg",
         tipo: :imagem,
