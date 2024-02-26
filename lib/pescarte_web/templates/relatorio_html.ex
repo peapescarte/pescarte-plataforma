@@ -37,7 +37,6 @@ defmodule PescarteWeb.RelatorioHTML do
   end
 
   defp get_literal_mes(data) do
-    {:ok, mes} = Timex.lformat(data, "{Mfull}", "pt")
-    mes
+    Timex.lformat!(data, "{Mfull}", "pt")
   end
 end
