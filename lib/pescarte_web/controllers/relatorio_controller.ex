@@ -4,32 +4,21 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
   alias Pescarte.RelatorioCompiler
 
   def download_pdf(conn, %{"id" => id}) do
-    pdf_binary = RelatorioCompiler.gerar_pdf(id)
-    enviar_pdf_response(conn, id, pdf_binary)
+    with {:ok, pdf_filename, pdf_binary} <- RelatorioCompiler.gerar_pdf(id) do
+      conn
+      |> put_status(:ok)
+      |> send_download({:binary, pdf_binary}, filename: pdf_filename)
+    end
   end
 
   def compilar_relatorios(conn, params) do
-    campos_formularios = Map.keys(params)
-    relatorios_selecionados = Enum.filter(campos_formularios, fn id -> id != "_csrf_token" end)
-    zip_file = RelatorioCompiler.compilar_relatorios(relatorios_selecionados)
-    enviar_zip_response(conn, zip_file)
-  end
+    campos_formularios = Map.delete(params, "_csrf_token")
+    relatorios_selecionados = Map.keys(campos_formularios)
 
-  defp enviar_pdf_response(conn, id, pdf_file) do
-    send_download(
-      conn,
-      {:binary, pdf_file},
-      content_type: "application/pdf",
-      filename: "relatorios-#{id}.pdf"
-    )
-  end
-
-  def enviar_zip_response(conn, zip_file) do
-    send_download(
-      conn,
-      {:binary, zip_file},
-      content_type: "application/zip",
-      filename: "relatorios-compilados.zip"
-    )
+    RelatorioCompiler.compilar_relatorios(relatorios_selecionados, fn zip_name, zip_content ->
+      conn
+      |> put_status(:ok)
+      |> send_download({:binary, zip_content}, filename: zip_name)
+    end)
   end
 end
