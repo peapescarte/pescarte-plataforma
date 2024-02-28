@@ -19,6 +19,7 @@ defmodule Mix.Tasks.Seed do
     :ok = categoria_seeds()
     :ok = tag_seeds()
     :ok = midia_seeds()
+    :ok = relatorio_pesquisa_seeds()
   end
 
   @impl Seeder
@@ -59,5 +60,10 @@ defmodule Mix.Tasks.Seed do
   @impl Seeder
   def midia_seeds do
     Seeder.seed(ModuloPesquisa.Midia.entries(), "midia")
+  end
+
+  @impl Seeder
+  def relatorio_pesquisa_seeds do
+    Seeder.seed(ModuloPesquisa.RelatorioPesquisa.entries(), "relatorio_pesquisa")
   end
 end

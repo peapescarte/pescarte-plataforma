@@ -21,7 +21,8 @@ defmodule Pescarte.Application do
       PescarteWeb.Telemetry,
       {Phoenix.PubSub, name: Pescarte.PubSub},
       PescarteWeb.Endpoint,
-      Pescarte.CotacoesETL.InjesterSupervisor
+      Pescarte.CotacoesETL.InjesterSupervisor,
+      ChromicPDF
     ]
   end
 end

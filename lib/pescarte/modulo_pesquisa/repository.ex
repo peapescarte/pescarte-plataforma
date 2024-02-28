@@ -128,7 +128,8 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_relatorio_pesquisa_by_id(id_publico) do
-    Repo.replica().get_by(RelatorioPesquisa, id_publico: id_publico)
+    relatorio = Repo.replica().get_by(RelatorioPesquisa, id_publico: id_publico)
+    Repo.replica().preload(relatorio, pesquisador: [:usuario, :linha_pesquisa, :orientador])
   end
 
   @impl true
