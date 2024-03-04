@@ -16,6 +16,14 @@
 .nav-menu {
   @apply flex justify-evenly;
   width: 30rem;
+
+  a {
+    width: 100%;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .nav-item {
@@ -23,7 +31,10 @@
   padding: 1rem 1.5rem;
 
   >svg {
+    padding: 1rem;
     margin-left: 0.5rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 50%;
   }
 }
 
