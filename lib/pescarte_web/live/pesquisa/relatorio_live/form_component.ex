@@ -111,7 +111,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Relatório atualizado com sucesso!")
+         |> put_flash(:success, "Relatório atualizado com sucesso!")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -126,7 +126,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Relatório criado com sucesso")
+         |> put_flash(:success, "Relatório criado com sucesso")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
