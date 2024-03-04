@@ -13,31 +13,6 @@
   margin-right: 2.5rem;
 }
 
-.nav-menu {
-  @apply flex justify-evenly;
-  width: 30rem;
-
-  a {
-    width: 100%;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.nav-item {
-  @apply flex justify-between items-center;
-  padding: 1rem 1.5rem;
-
-  >svg {
-    padding: 1rem;
-    margin-left: 0.5rem;
-    border: 1px solid #dcdcdc;
-    border-radius: 50%;
-  }
-}
-
 .navbar.authenticated {
   @apply border-black-10 flex flex-col items-center w-full;
 
@@ -130,6 +105,10 @@
         p {
           padding: 0.5rem;
         }
+      }
+
+      &:hover {
+        @apply text-blue-80;
       }
 
       .logo {
