@@ -9,9 +9,9 @@
         <Lucideicons.chevron_down class="text-blue-100" />
       </.button>
       <div class="dropdown-options">
-        <.report_menu_link click="mensal_report" label="Mensal"></.report_menu_link>
-        <.report_menu_link click="trimestral_report" label="Trimestral"></.report_menu_link>
-        <.report_menu_link click="anual_report" label="Anual"></.report_menu_link>
+        <.report_menu_link click="relatorio_mensal" label="Mensal"></.report_menu_link>
+        <.report_menu_link click="relatorio_trimestral" label="Trimestral"></.report_menu_link>
+        <.report_menu_link click="relatorio_anual" label="Anual"></.report_menu_link>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
   title={@page_title}
   action={@live_action}
   relatorio={@relatorio}
-  type={@type}
+  tipo={@tipo}
   pesquisador_id={@pesquisador_id}
   patch={~p"/app/pesquisa/relatorios"}
 />
