@@ -90,7 +90,13 @@ defmodule Pescarte.ModuloPesquisa.Repository do
       where: mt.etiqueta in ^tag_etiquetas,
     )
 
-    Enum.uniq(Repo.replica().all(query))
+    queryReturn = Repo.replica().all(query);
+
+    queryReturn = Enum.filter(queryReturn, fn elem ->
+      Enum.count(queryReturn, &(&1 == elem)) == length(tag_etiquetas)
+    end);
+
+    Enum.uniq(queryReturn);
   end
 
   @impl true

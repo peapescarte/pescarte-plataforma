@@ -29,15 +29,21 @@
         <input
           id="busca-acervo"
           name="busca-acervo"
-          list="teste, tag, outra"
+          list="browsers"
+          value={@text_value}
           placeholder="Pesquise por palavras chave"
           phx-keydown="search"
           phx-key="Enter"
           phx-debounce={100}
         />
+
+        <datalist id="browsers">
+          <%= for tag <- @allTagsList do %>
+          <option value={tag}></option>
+          <% end %>
+        </datalist>
       </fieldset>
 
-      -->
       <div class="image-bank-search-tags">
         <%= for tag <- @tagList do %>
           <.search_label message={tag.etiqueta} active={tag.is_selected} click="toggle_tag_filter" ref={tag.etiqueta}/>

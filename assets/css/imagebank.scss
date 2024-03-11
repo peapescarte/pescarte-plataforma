@@ -76,3 +76,7 @@ input#busca-acervo {
   color: black;
 }
 
+#busca-acervo::-webkit-calendar-picker-indicator {
+  display: none;
+}
+

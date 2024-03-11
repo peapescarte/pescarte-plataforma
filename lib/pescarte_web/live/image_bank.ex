@@ -6,9 +6,8 @@ defmodule PescarteWeb.ImageBank do
 
   @impl true
   def mount(_params, _session, socket) do
-    list = Enum.sort_by(MidiasHandler.list_midia(), &(&1.data_arquivo), :desc)
+    list = Enum.sort_by(MidiasHandler.list_midia(), &(&1.data_arquivo), :desc);
 
-    #REPLACE FOR QUERY THAT RETURNS ALL TAG_ETIQUETAS
     all_tags = MidiasHandler.list_tag();
 
     tagsCardData = [];
@@ -20,12 +19,17 @@ defmodule PescarteWeb.ImageBank do
         }
       end
 
-    socket = assign(socket, :all_midia, list);
-    socket = assign(socket, :page, 1);
+    allTagsList = [];
+    allTagsList =
+      for tag <- all_tags do
+        tag.etiqueta
+      end
 
+    socket = assign(socket, :page, 1);
 
     {:ok,
       socket
+      |> assign(allTagsList: allTagsList)
       |> assign(tagList: tagsCardData)
       |> assign(all_loaded: length(list) <= 6)
       |> assign(destaques: Enum.take(list, 3))
@@ -75,8 +79,9 @@ defmodule PescarteWeb.ImageBank do
     }
 
     tagList = socket.assigns.tagList;
+    allTagsList = socket.assigns.allTagsList;
 
-    if (!Enum.find(tagList, fn elem -> elem.etiqueta == message end)) do
+    if (!Enum.find(tagList, fn elem -> elem.etiqueta == message end) && Enum.find(allTagsList, fn elem -> elem == message end)) do
       #add tag to tagList
       tagList = [tag_to_add | socket.assigns.tagList]
 
@@ -93,7 +98,11 @@ defmodule PescarteWeb.ImageBank do
         |> assign(all_loaded: length(filtered_media) <= 6)
         |> stream(:midias, Enum.take(filtered_media, 6))}
     else
-      {:noreply, socket}
+      loaded_midia = Enum.take(get_midias(socket.assigns.tagList), socket.assigns.page * 6)
+
+      {:noreply,
+      socket
+      |> stream(:midias, loaded_midia)}
     end
   end
 
@@ -114,9 +123,9 @@ defmodule PescarteWeb.ImageBank do
   def get_midias(taglist \\ []) do
     reduced_taglist = reduce_taglist(taglist)
     if (length(reduced_taglist) > 0) do
-      filtered_media = Repository.list_midias_from_tags(reduced_taglist)
+      Repository.list_midias_from_tags(reduced_taglist)
     else
-      filtered_media = MidiasHandler.list_midia()
+      MidiasHandler.list_midia()
     end
   end
 end
