@@ -606,6 +606,33 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   @doc """
+  Componente de etiqueta
+
+  Recebe os atributos:
+  - `message`: texto a ser exibido na label
+  - `is-active`: booleano para indicar se opção está ou não selecionada
+  """
+
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: nil)
+  attr(:message, :string, default: nil)
+  attr(:"active", :string, default: nil)
+  attr(:click, :string, default: "", doc: ~s(the click event to handle))
+  attr(:ref, :string, default: nil)
+
+  def search_label(assigns) do
+    ~H"""
+    <button
+      class={["search_label_component", if !@active do "desativado" end]}
+      phx-click={@click}
+      phx-value-ref={@ref}
+    >
+      <.text size="base" color="text-white-100"><%= @message %></.text>
+    </button>
+    """
+  end
+
+  @doc """
   Componente de etiqueta, pode ser usado como marcador de imagens, de palavras chave
   ou mesmo para visualização de dados diferentes dentro de um mesmo contexto.
 

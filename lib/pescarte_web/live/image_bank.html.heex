@@ -1,0 +1,66 @@
+<main class="imagebank-grid">
+  <div class="highlights">
+    <.text size="h2" color="text-blue-100">Destaques</.text>
+  </div>
+
+
+  <div class="carousel js-flickity"
+    data-flickity='{"percentPosition": false, "prevNextButtons": false, "pageDots": false, "wrapAround": true, "autoPlay": 10000 }'>
+
+    <%= for midia <- @destaques do %>
+      <div class="carousel-cell">
+        <img src={midia.link} />
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="full-collection">
+    <.text size="h2" color="text-blue-100">Acervo Completo</.text>
+
+    <div class="image-bank-search">
+      <!--
+      <.search_input name="busca-acervo" id="busca-acervo" placeholder="Pesquise por palavras chave"/>
+      -->
+      <fieldset class="search-input">
+        <span class="search-icon">
+          <Lucideicons.search />
+        </span>
+        <input
+          id="busca-acervo"
+          name="busca-acervo"
+          list="browsers"
+          value={@text_value}
+          placeholder="Pesquise por palavras chave"
+          phx-keydown="search"
+          phx-key="Enter"
+          phx-debounce={100}
+        />
+
+        <datalist id="browsers">
+          <%= for tag <- @allTagsList do %>
+          <option value={tag}></option>
+          <% end %>
+        </datalist>
+      </fieldset>
+
+      <div class="image-bank-search-tags">
+        <%= for tag <- @tagList do %>
+          <.search_label message={tag.etiqueta} active={tag.is_selected} click="toggle_tag_filter" ref={tag.etiqueta}/>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="image-bank-showcase">
+      <div :for={{dom_id, midia} <- @streams.midias}
+      id={dom_id}
+      >
+        <img src={midia.link} referrerpolicy="no-referrer"/>
+      </div>
+    </div>
+
+    <.button class="image-bank-load-button" style="primary" click="load_more" disabled={@all_loaded}>
+      <.text size="base" color="text-white-100">Carregar Mais</.text>
+    </.button>
+  </div>
+</main>

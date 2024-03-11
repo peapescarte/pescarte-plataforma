@@ -84,9 +84,25 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
+  def list_midias_from_tags(tag_etiquetas) do
+    query = from( m in Midia,
+      join: mt in assoc(m, :tags),
+      where: mt.etiqueta in ^tag_etiquetas,
+    )
+
+    queryReturn = Repo.replica().all(query);
+
+    queryReturn = Enum.filter(queryReturn, fn elem ->
+      Enum.count(queryReturn, &(&1 == elem)) == length(tag_etiquetas)
+    end);
+
+    Enum.uniq(queryReturn);
+  end
+
+  @impl true
   def list_midias_from_tag(tag_etiqueta) do
     with {:ok, tag} <- Pescarte.Database.fetch(Tag, tag_etiqueta) do
-      query = from(t in Tag, where: t.id == ^tag.id, preload: :midias)
+      query = from(t in Tag, where: t.id_publico == ^tag.id_publico, preload: :midias)
 
       case Pescarte.Database.fetch_one(query) do
         {:error, :not_found} -> []

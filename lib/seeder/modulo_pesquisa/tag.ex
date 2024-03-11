@@ -29,6 +29,11 @@ defmodule Seeder.ModuloPesquisa.Tag do
         etiqueta: "barco",
         categoria_nome: "conteudo",
         id_publico: Nanoid.generate_non_secure()
+      },
+      %Tag{
+        etiqueta: "Tag_teste",
+        categoria_nome: "autoral",
+        id_publico: Nanoid.generate_non_secure()
       }
     ]
   end

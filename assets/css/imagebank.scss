@@ -1,0 +1,82 @@
+.imagebank-grid {
+  @apply w-full h-full;
+  display: grid;
+
+  // margin-top: 2rem;
+  // gap: 2rem;
+  // grid-template-areas:
+  //   "full-collection"
+  //   "highlights";
+}
+
+.full-collection {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
+}
+
+.highlights {
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
+}
+
+.image-bank-search{
+  margin-bottom: 5rem;
+}
+
+.image-bank-search > * {
+  margin: auto;
+  width: 65vw !important;
+  padding: 10px;
+}
+
+.image-bank-search-tags {
+  display: flex;
+}
+
+.image-bank-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  width: 90%;
+  margin: auto;
+}
+
+.image-bank-showcase > div > img {
+  border-radius: 25px;
+  overflow: hidden;
+  width: 30vw;
+  height: 30vw;
+  display: block;
+}
+
+.image-bank-showcase > div > img:before {
+  border-radius: 25px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+.image-bank-load-button {
+  margin:auto
+}
+
+input#busca-acervo {
+  width: 100%;
+  color: black;
+}
+
+#busca-acervo::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
