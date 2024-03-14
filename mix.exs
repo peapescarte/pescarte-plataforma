@@ -48,7 +48,7 @@ defmodule Pescarte.MixProject do
       {:phoenix_ecto, "~> 4.1"},
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.19.0"},
+      {:phoenix_live_view, "~> 0.20"},
       {:phoenix_storybook, "~> 0.5"},
       {:timex, "~> 3.0"},
       {:telemetry_metrics, "~> 0.4"},
