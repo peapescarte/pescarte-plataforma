@@ -55,8 +55,8 @@ defmodule PescarteWeb.Router do
 
       scope "/relatorios" do
         live("/", RelatorioLive.Index, :index)
-        live("/new", RelatorioLive.Index, :new)
-        live("/:id/edit", RelatorioLive.Index, :edit)
+        live("/novo/:tipo", RelatorioLive.Index, :new)
+        live("/:id/editar/:tipo", RelatorioLive.Index, :edit)
       end
     end
   end
