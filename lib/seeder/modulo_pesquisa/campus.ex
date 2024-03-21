@@ -7,15 +7,17 @@ defmodule Seeder.ModuloPesquisa.Campus do
     [
       %Campus{
         acronimo: "UENF",
-        nome: "Universidade Estadual do Norte Fluminense Darcy Ribeiro",
-        endereco_cep: "28013602",
-        id_publico: Nanoid.generate_non_secure()
+        nome: "Campos dos Goytacazes",
+        nome_universidade: "Universidade Estadual do Norte Fluminense Darcy Ribeiro",
+        endereco_id: "zMz_K9TlJ0Uk7Wk-E41bF",
+        id: Nanoid.generate_non_secure()
       },
       %Campus{
         acronimo: "UFSCar",
-        nome: "Universidade Federal de São Carlos",
-        endereco_cep: "13565905",
-        id_publico: Nanoid.generate_non_secure()
+        nome: "Sorocaba",
+        nome_universidade: "Universidade Federal de São Carlos",
+        endereco_id: "qbGuOuaCvD5JNBpexdIL4",
+        id: Nanoid.generate_non_secure()
       }
     ]
   end

@@ -15,7 +15,7 @@ defmodule PescarteWeb.GraphQL.Type.User do
     field(:tipo, :tipo_usuario_enum, description: "O tipo de um usuário")
     field(:primeiro_nome, :string, description: "O primeiro nome de um usuário")
     field(:sobrenome, :string, description: "O sobrenome de um usuário")
-    field(:id_publico, :string, name: "id", description: "O identificador de um usuário")
+    field(:id, :string, name: "id", description: "O identificador de um usuário")
   end
 
   @desc "Representa um acesso de um usuário"

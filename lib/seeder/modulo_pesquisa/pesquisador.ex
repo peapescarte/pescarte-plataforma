@@ -6,7 +6,7 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
 
   defp usuario_id_by_cpf(cpf) do
     usuario = Replica.get_by!(Usuario, cpf: cpf)
-    usuario.id_publico
+    usuario.id
   end
 
   @impl true
@@ -16,10 +16,10 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         minibio: "Olá",
         bolsa: :pesquisa,
         link_lattes: "https://github.com/zoedsoupe",
-        campus_acronimo: "UENF",
+        # campus_acronimo: "UENF",
         usuario_id: usuario_id_by_cpf("13359017790"),
         link_banner_perfil: "/images/peixinhos.svg",
-        id_publico: Nanoid.generate_non_secure()
+        id: Nanoid.generate_non_secure()
       },
       %Pesquisador{
         minibio: """
@@ -31,26 +31,26 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         bolsa: :pesquisa,
         link_lattes: "http://lattes.cnpq.br/7484786835288826",
         link_linkedin: "www.linkedin.com/in/annabell-d-r-tamariz-89565629a",
-        campus_acronimo: "UENF",
+        # campus_acronimo: "UENF",
         usuario_id: usuario_id_by_cpf("21404703896"),
         link_banner_perfil: "/images/peixinhos.svg",
-        id_publico: Nanoid.generate_non_secure()
+        id: Nanoid.generate_non_secure()
       },
       %Pesquisador{
         minibio: "Eu sou Gisele Braga....",
         bolsa: :celetista,
         link_lattes: "http://lattes.cnpq.br/1675744772217864",
-        campus_acronimo: "UENF",
+        # campus_acronimo: "UENF",
         usuario_id: usuario_id_by_cpf("01424681693"),
-        id_publico: Nanoid.generate_non_secure()
+        id: Nanoid.generate_non_secure()
       },
       %Pesquisador{
         minibio: "Eu sou Geraldo, atualmente o coordenador técnico do PEA Pescarte....",
         bolsa: :coordenador_tecnico,
         link_lattes: "http://lattes.cnpq.br/8720264659381887",
-        campus_acronimo: "UENF",
+        # campus_acronimo: "UENF",
         usuario_id: usuario_id_by_cpf("55390153634"),
-        id_publico: Nanoid.generate_non_secure()
+        id: Nanoid.generate_non_secure()
       },
       %Pesquisador{
         minibio: """
@@ -59,9 +59,9 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         """,
         bolsa: :consultoria,
         link_lattes: "http://lattes.cnpq.br/9826346918182685",
-        campus_acronimo: "UFSCar",
+        # campus_acronimo: "UFSCar",
         usuario_id: usuario_id_by_cpf("21452123888"),
-        id_publico: Nanoid.generate_non_secure()
+        id: Nanoid.generate_non_secure()
       }
     ]
   end
