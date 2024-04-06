@@ -345,15 +345,7 @@ defmodule PescarteWeb.DesignSystem do
     <fieldset class={@class}>
       <.text size="base"><%= render_slot(@label) %></.text>
       <div class="textarea-grow-wrapper">
-        <textarea
-          id={@id}
-          name={@name}
-          placeholder={@placeholder}
-          disabled={@disabled}
-          onInput="this.parentNode.dataset.replicatedValue = this.value"
-        >
-          <%= @value %>
-        </textarea>
+        <textarea id={@id} name={@name} placeholder={@placeholder} disabled={@disabled} default=""><%= @value%></textarea>
       </div>
     </fieldset>
     """
