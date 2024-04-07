@@ -6,7 +6,9 @@ defmodule PescarteWeb.LoginHTML do
 
     ~H"""
     <div class="fish-bg h-full" id="login-wrapper">
-      <.toast :if={@error_message} id="login-error" type="error" message={@error_message} />
+      <.flash :if={@error_message} id="login-error" kind={:error}>
+        <%= @error_message %>
+      </.flash>
 
       <.simple_form for={@form} action={~p"/acessar"} class="login-form">
         <.text size="h3" color="text-black-80">

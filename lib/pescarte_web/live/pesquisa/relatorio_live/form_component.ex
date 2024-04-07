@@ -18,8 +18,14 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
 
       <.form for={@form} id="report-form" phx-target={@myself} phx-change="validate" phx-submit="save">
         <div class="input-date-group" style="display: flex;">
-          <.text_input type="date" label="Início período" field={@form[:data_inicio]} />
-          <.text_input type="date" label="Fim periodo" field={@form[:data_fim]} />
+          <div class="input-date">
+            <.text size="h3" color="text-blue-100">Início período</.text>
+            <.text_input type="date" field={@form[:data_inicio]} />
+          </div>
+          <div class="input-date">
+            <.text size="h3" color="text-blue-100">Fim período</.text>
+            <.text_input type="date" field={@form[:data_fim]} />
+          </div>
         </div>
 
         <.inputs_for :let={f} field={@form[@conteudo]}>
@@ -31,7 +37,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
           />
         </.inputs_for>
 
-        <.text_input type="hidden" field={@form[:tipo]} value={@type} />
+        <.text_input type="hidden" field={@form[:tipo]} value={@tipo} />
         <.text_input type="hidden" field={@form[:pesquisador_id]} value={@pesquisador_id} />
         <.text_input type="hidden" field={@form[:status]} value="pendente" />
 
@@ -111,7 +117,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Relatório atualizado com sucesso!")
+         |> put_flash(:success, "Relatório atualizado com sucesso!")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -126,7 +132,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Relatório criado com sucesso")
+         |> put_flash(:success, "Relatório criado com sucesso")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -138,7 +144,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
     assign(socket, :form, to_form(changeset))
   end
 
-  defp assign_form_data(socket, %{type: "mensal"}) do
+  defp assign_form_data(socket, %{tipo: "mensal"}) do
     today = get_formatted_today(Date.utc_today())
 
     socket
@@ -150,7 +156,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
     |> assign(:fields, get_report_fields(:mensal))
   end
 
-  defp assign_form_data(socket, %{type: "trimestral"}) do
+  defp assign_form_data(socket, %{tipo: "trimestral"}) do
     today = get_formatted_today(Date.utc_today())
 
     socket
@@ -162,7 +168,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
     |> assign(:fields, get_report_fields(:trimestral))
   end
 
-  defp assign_form_data(socket, %{type: "anual"}) do
+  defp assign_form_data(socket, %{tipo: "anual"}) do
     today = get_formatted_today(Date.utc_today())
 
     socket
