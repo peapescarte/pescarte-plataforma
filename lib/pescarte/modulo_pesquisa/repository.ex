@@ -132,6 +132,11 @@ defmodule Pescarte.ModuloPesquisa.Repository do
     Repo.replica().preload(relatorio, pesquisador: [:usuario, :linha_pesquisa, :orientador])
   end
 
+  @implt true
+  def fetch_relatorio_pesquisa_by_id_and_kind(id_publico, kind) do
+    Repo.replica().get_by(RelatorioPesquisa, id_publico: id_publico, tipo: kind)
+  end
+
   @impl true
   def list_tag do
     Repo.replica().all(Tag)
