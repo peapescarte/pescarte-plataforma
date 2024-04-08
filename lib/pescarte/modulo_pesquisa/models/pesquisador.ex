@@ -4,6 +4,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
   alias Pescarte.Database.Types.PublicId
   alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Models.Campus
+  alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.ModuloPesquisa.Models.Midia
   alias Pescarte.ModuloPesquisa.Models.RelatorioPesquisa
 
@@ -59,6 +60,12 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
     has_many :orientandos, Pesquisador
     has_many :midias, Midia, foreign_key: :autor_id
 
+    many_to_many :linhas_pesquisa, LinhaPesquisa,
+      join_through: "pesquisador_lp",
+      on_replace: :delete,
+      unique: true
+
+    belongs_to :linha_pesquisa_principal, LinhaPesquisa, type: :string
     belongs_to :usuario, Usuario, type: :string
     belongs_to :campus, Campus, type: :string
     belongs_to :orientador, Pesquisador, foreign_key: :orientador_id, type: :string

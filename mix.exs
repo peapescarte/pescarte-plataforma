@@ -59,6 +59,7 @@ defmodule Pescarte.MixProject do
       {:absinthe, "~> 1.5"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
+      {:chromic_pdf, "~> 1.15"},
       {:gettext, "~> 0.24"},
       {:faker, "~> 0.18", only: [:dev, :test]},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},

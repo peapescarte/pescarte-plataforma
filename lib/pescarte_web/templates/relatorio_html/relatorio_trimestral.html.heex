@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 12pt;
+      }
+
+      body {
+          position: relative;
+      }
+
+      p {
+          text-align: center;
+          word-wrap: break-word;
+          word-break: keep-all;
+          white-space: pre-line;
+      }
+      .capa {
+          width: 18cm;
+          height: 25.2cm;
+          margin: 0 auto;
+          position: relative;
+          page-break-after: always;
+      }
+
+      .capa__logo {
+          width: 14cm;
+          margin-inline: auto;
+      }
+
+      .capa__cidade_data {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+      }
+
+      .sumario {
+          width: 18cm;
+          height: 25.2cm;
+          margin: 0 auto;
+          page-break-after: always;
+      }
+
+      .sumario__list, .conteudo__list {
+          margin-left: 1cm;
+      }
+
+      .sumari__list__item, .conteudo__list__item {
+          margin: 0.5cm 0;
+      }
+
+      .sumari__list__item p, .conteudo__list__item p {
+          text-align: justify;
+      }
+
+      .conteudo {
+          width: 18cm;
+          height: 25.2cm;
+          margin: 0 auto;
+          page-break-after: always;
+      }
+
+      .conteudo__list__item {
+          break-inside: avoid-page;
+      }
+
+      .conteudo__list__item__titulo {
+          font-weight: 700;
+      }
+
+      .relatorio-fundo {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      @page {
+          margin-top: 1.5cm;
+          margin-bottom: 1cm;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="capa">
+      <div class="capa__logo">
+        <img src={get_image_path(~c"capa-logo.png")} alt="capa logo" width="100%" />
+      </div>
+      <p style="margin-bottom: 3cm"><b>Relatório (TRIMESTRAL)<br />3° Fase</b></p>
+      <p style="margin-bottom: 1.5cm;">
+        <b>LINHA DE PESQUISA:<br /><%= @pesquisador.linha_pesquisa_principal.numero %></b>
+      </p>
+      <p>
+        <b>
+          Pesquisador (a): <br /><%= build_usuario_name(@pesquisador.usuario) %>
+        </b>
+      </p>
+      <p class="capa__cidade_data">
+        <b>
+          <%= @pesquisador.usuario.contato.endereco %>
+          <%= ~c"#{get_literal_mes(@data_fim)}/#{@data_fim.year}" %>
+        </b>
+      </p>
+    </section>
+    <section class="sumario">
+      <p style="margin-bottom: 1cm; background-color: rgba(128, 128, 128, 0.696); padding: .5rem">
+        <b>SUMÁRIO</b>
+      </p>
+      <ol class="sumario__list">
+        <li class="sumari__list__item">
+          <p>Resumo</p>
+        </li>
+        <li class="sumari__list__item">
+          <p>Introdução</p>
+        </li>
+        <li class="sumari__list__item">
+          <p>Fundamentação teórica</p>
+        </li>
+        <li class="sumari__list__item">
+          <p>Resultados Preliminares</p>
+        </li>
+        <li class="sumari__list__item">
+          <p>Atividades Acadêmicas relacionadas ao PEA-Pescarte</p>
+        </li>
+        <li class="sumari__list__item">
+          <p>Atividades não acadêmicas relacionadas ao PEA-Pescarte</p>
+        </li>
+        <li class="sumari__list__item">
+          <p>REFERÊNCIAS BIBLIOGRÁFICAS</p>
+        </li>
+      </ol>
+    </section>
+    <section class="conteudo">
+      <ol class="conteudo__list">
+        <li class="conteudo__list__item">
+          <p class="conteudo__list__item__titulo">Resumo</p>
+          <p>
+            <%= @conteudo_trimestral.resumo %>
+          </p>
+        </li>
+        <li class="conteudo__list__item">
+          <p class="conteudo__list__item__titulo">Introdução</p>
+          <p>
+            <%= @conteudo_trimestral.introducao %>
+          </p>
+        </li>
+        <li class="conteudo__list__item">
+          <p class="conteudo__list__item__titulo">Fundamentação teórica</p>
+          <p>
+            <%= @conteudo_trimestral.embasamento_teorico %>
+          </p>
+        </li>
+        <li class="conteudo__list__item">
+          <p class="conteudo__list__item__titulo">Resultados Preliminares</p>
+          <p>
+            <%= @conteudo_trimestral.resultados_preliminares %>
+          </p>
+        </li>
+        <li class="conteudo__list__item">
+          <p class="conteudo__list__item__titulo">
+            Atividades Acadêmicas relacionadas ao PEA-Pescarte
+          </p>
+          <p>
+            <%= @conteudo_trimestral.atividades_academicas %>
+          </p>
+        </li>
+        <li class="conteudo__list__item">
+          <p class="conteudo__list__item__titulo">
+            Atividades não acadêmicas relacionadas ao PEA-Pescarte
+          </p>
+          <p>
+            <%= @conteudo_trimestral.atividades_nao_academicas %>
+          </p>
+        </li>
+        <li class="conteudo__list__item">
+          <p class="conteudo__list__item__titulo">REFERÊNCIAS BIBLIOGRÁFICAS</p>
+          <p><%= @conteudo_trimestral.referencias %></p>
+        </li>
+      </ol>
+    </section>
+
+    <div class="relatorio-fundo">
+      <img src={get_image_path(~c"fundo.png")} alt="fundo-pescarte" width="70%" />
+    </div>
+  </body>
+</html>

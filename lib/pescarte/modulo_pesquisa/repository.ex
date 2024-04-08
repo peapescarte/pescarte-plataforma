@@ -3,6 +3,9 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   use Pescarte, :repository
 
+  import Ecto.Query
+
+  alias Pescarte.Database
   alias Pescarte.ModuloPesquisa.IManageRepository
   alias Pescarte.ModuloPesquisa.Models.Campus
   alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
@@ -123,11 +126,26 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_relatorio_pesquisa_by_id(id) do
-    Repo.replica().get_by(RelatorioPesquisa, id: id)
+    query =
+      from r in RelatorioPesquisa,
+        where: r.id == ^id,
+        preload: [
+          pesquisador: [:linha_pesquisa_principal, orientador: [:usuario], usuario: [:contato]]
+        ]
+
+    Database.fetch_one(query)
   end
 
   def fetch_relatorio_pesquisa_by_id_and_kind(id, kind) do
-    Repo.replica().get_by(RelatorioPesquisa, id: id, tipo: kind)
+    query =
+      from r in RelatorioPesquisa,
+        where: r.id == ^id,
+        where: r.tipo == ^kind,
+        preload: [
+          pesquisador: [:linha_pesquisa_principal, orientador: [:usuario], usuario: [:contato]]
+        ]
+
+    Database.fetch_one(query)
   end
 
   @impl true

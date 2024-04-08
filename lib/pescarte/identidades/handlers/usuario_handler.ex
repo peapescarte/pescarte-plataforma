@@ -8,6 +8,8 @@ defmodule Pescarte.Identidades.Handlers.UsuarioHandler do
   @behaviour IManageUsuarioHandler
 
   @impl true
+  def build_usuario_name(nil), do: ""
+
   def build_usuario_name(usuario) do
     if usuario.sobrenome do
       usuario.primeiro_nome <> " " <> usuario.sobrenome

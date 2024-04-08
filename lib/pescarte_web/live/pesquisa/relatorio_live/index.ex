@@ -10,7 +10,8 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     {:ok,
      socket
      |> stream_configure(:relatorios, dom_id: & &1.id)
-     |> stream(:relatorios, Repository.list_relatorios_pesquisa())}
+     |> stream(:relatorios, Repository.list_relatorios_pesquisa())
+     |> assign_new(:form, &make_compile_form/1)}
   end
 
   @impl true
@@ -70,5 +71,26 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     |> assign(:relatorio, relatorio)
     |> assign(:tipo, tipo_relatorio)
     |> assign(:pesquisador_id, socket.assigns.current_researcher.id)
+  end
+
+  defp make_compile_form(_assigns) do
+    import Ecto.Changeset
+    relatorios = Enum.with_index(Repository.list_relatorios_pesquisa())
+
+    types =
+      relatorios
+      |> Enum.map(fn {_, idx} -> {String.to_atom("relatorio_#{idx}"), :string} end)
+      |> Map.new()
+
+    data =
+      relatorios
+      |> Enum.map(fn {relatorio, idx} ->
+        {String.to_atom("relatorio_#{idx}"), relatorio.id}
+      end)
+      |> Map.new()
+
+    {%{}, types}
+    |> cast(data, Map.keys(types))
+    |> to_form(as: :relatorio_compile)
   end
 end
