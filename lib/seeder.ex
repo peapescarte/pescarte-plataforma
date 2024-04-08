@@ -38,7 +38,6 @@ defmodule Seeder do
   end
 
   # Seeds disponiveis
-  @callback endereco_seeds :: :ok | :error
   @callback contato_seeds :: :ok | :error
   @callback usuario_seeds :: :ok | :error
 

@@ -1,6 +1,8 @@
 <div :if={@live_action == :index}>
   <.form :let={f} for={to_form(%{})} action="/app/pesquisa/relatorios/compilar-relatorios">
     <div class="search">
+      <.search_input name="busca-relatorio" id="busca-relatorio" />
+
       <div class="dropdown">
         <.button id="preencher-relatorio-button" style="primary" phx-click="toggleDropdown">
           <Lucideicons.book class="text-white-100" />
@@ -14,12 +16,11 @@
         </div>
       </div>
 
-      <div :if={@current_user.tipo == :admin} class="links-item">
-        <.button class="icon-button" style="primary" submit>
-          <Lucideicons.files class="text-white-100" />
-          <.text size="sm" color="text-white-100">Compilar</.text>
-        </.button>
-      </div>
+    <div :if={@current_user.papel == :admin} class="links-item">
+      <.button class="icon-button" style="primary" submit>
+        <Lucideicons.files class="text-white-100" />
+        <.text size="sm" color="text-white-100">Compilar</.text>
+      </.button>
     </div>
 
     <.table rows={@streams.relatorios} text-color="text-blue-100">
@@ -49,11 +50,11 @@
 <.live_component
   :if={@live_action in [:new, :edit]}
   module={PescarteWeb.Pesquisa.RelatorioLive.FormComponent}
-  id={@relatorio.id_publico || :new}
+  id={@relatorio.id || :new}
   title={@page_title}
   action={@live_action}
   relatorio={@relatorio}
-  type={@type}
+  tipo={@tipo}
   pesquisador_id={@pesquisador_id}
   patch={~p"/app/pesquisa/relatorios"}
 />
