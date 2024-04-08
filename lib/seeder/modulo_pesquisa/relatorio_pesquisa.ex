@@ -133,7 +133,8 @@ defmodule Seeder.ModuloPesquisa.RelatorioPesquisa do
             "Realizamos workshops educativos sobre práticas de pesca sustentável.",
           atividades_nao_academicas:
             "Colaboramos com pescadores locais para promover a conscientização ambiental.",
-          referencias: "Smith, J. et al. (2023). Sustentabilidade na Pesca: Um Guia Abrangente."
+          referencias: "Smith, J. et al. (2023). Sustentabilidade na Pesca: Um Guia Abrangente.",
+          resumo: "Muito doido mano"
         },
         pesquisador_id: pesquisador_id_by(index: 1)
       }

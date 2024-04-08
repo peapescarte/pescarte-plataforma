@@ -2,7 +2,9 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
   alias Pescarte.Database.Repo.Replica
   alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Models.Campus
+  alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
+
   @behaviour Seeder.Entry
 
   defp usuario_id_by(index: index) do
@@ -15,6 +17,10 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
     Enum.at(campus, index).id
   end
 
+  defp linha_pesquisa_id_by(numero: numero) do
+    Replica.get_by!(LinhaPesquisa, numero: numero).id
+  end
+
   @impl true
   def entries do
     [
@@ -24,7 +30,8 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         link_lattes: "https://github.com/zoedsoupe",
         usuario_id: usuario_id_by(index: 0),
         link_banner_perfil: "/images/peixinhos.svg",
-        campus_id: campus_id_by(index: 0)
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 1)
       },
       %Pesquisador{
         minibio: """
@@ -38,21 +45,24 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         link_linkedin: "www.linkedin.com/in/annabell-d-r-tamariz-89565629a",
         usuario_id: usuario_id_by(index: 1),
         link_banner_perfil: "/images/peixinhos.svg",
-        campus_id: campus_id_by(index: 0)
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 2)
       },
       %Pesquisador{
         minibio: "Eu sou Gisele Braga....",
         bolsa: :celetista,
         link_lattes: "http://lattes.cnpq.br/1675744772217864",
         usuario_id: usuario_id_by(index: 2),
-        campus_id: campus_id_by(index: 0)
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 3)
       },
       %Pesquisador{
         minibio: "Eu sou Geraldo, atualmente o coordenador técnico do PEA Pescarte....",
         bolsa: :coordenador_tecnico,
         link_lattes: "http://lattes.cnpq.br/8720264659381887",
         usuario_id: usuario_id_by(index: 3),
-        campus_id: campus_id_by(index: 0)
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 4)
       },
       %Pesquisador{
         minibio: """
@@ -62,7 +72,8 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         bolsa: :consultoria,
         link_lattes: "http://lattes.cnpq.br/9826346918182685",
         usuario_id: usuario_id_by(index: 4),
-        campus_id: campus_id_by(index: 1)
+        campus_id: campus_id_by(index: 1),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 1)
       }
     ]
   end

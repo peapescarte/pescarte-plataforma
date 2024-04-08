@@ -41,8 +41,11 @@ defmodule Seeder do
   @callback contato_seeds :: :ok | :error
   @callback usuario_seeds :: :ok | :error
 
+  @callback nucleo_pesquisa_seeds :: :ok | :error
+  @callback linha_pesquisa_seeds :: :ok | :error
   @callback campus_seeds :: :ok | :error
   @callback pesquisador_seeds :: :ok | :error
+  @callback pesquisador_lp_seeds :: :ok | :error
   @callback categoria_seeds :: :ok | :error
   @callback tag_seeds :: :ok | :error
   @callback midia_seeds :: :ok | :error

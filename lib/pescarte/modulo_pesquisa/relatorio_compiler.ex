@@ -6,8 +6,8 @@ defmodule Pescarte.RelatorioCompiler do
     with {:ok, htmls} <- parse_relatorios_html(relatorios_selecionados) do
       ChromicPDF.print_to_pdf(htmls,
         output: fn tmp_path ->
-          with {:ok, zip_filename, zip_file} <- criar_zip_file(tmp_path) do
-            continuation.(zip_filename, zip_file)
+          with {:ok, zip_path} <- criar_zip_file(tmp_path) do
+            continuation.(zip_path)
           end
         end
       )
@@ -15,36 +15,43 @@ defmodule Pescarte.RelatorioCompiler do
   end
 
   defp parse_relatorios_html(relatorios_ids) do
-    Enum.reduce_while(relatorios_ids, [], fn relatorio_id, htmls ->
-      if relatorio = Repository.fetch_relatorio_pesquisa_by_id(relatorio_id) do
-        html = RelatorioHTML.content(relatorio)
-        {:cont, [{:html, html} | htmls]}
-      else
-        {:halt, {:error, :pdf_not_found}}
-      end
-    end)
+    result =
+      Enum.reduce_while(relatorios_ids, [], fn relatorio_id, htmls ->
+        case Repository.fetch_relatorio_pesquisa_by_id(relatorio_id) do
+          {:ok, relatorio} ->
+            html = RelatorioHTML.content(relatorio)
+            {:cont, [{:html, html} | htmls]}
+
+          {:error, :not_found} ->
+            {:halt, {:error, :relatorio_not_found}}
+        end
+      end)
+
+    if err = Enum.find(result, &match?({:error, _}, &1)) do
+      {:error, err}
+    else
+      {:ok, result}
+    end
   end
 
   def gerar_pdf(relatorio_id) do
-    if relatorio = Repository.fetch_relatorio_pesquisa_by_id(relatorio_id) do
-      with {:ok, pdf} <-
-             [content: RelatorioHTML.content(relatorio), size: :a4]
-             |> ChromicPDF.Template.source_and_options()
-             |> ChromicPDF.print_to_pdf() do
-        Base.decode64(pdf)
-      end
-    else
-      {:error, :pdf_not_found}
+    with {:ok, relatorio} <- Repository.fetch_relatorio_pesquisa_by_id(relatorio_id),
+         {:ok, pdf} <-
+           [content: RelatorioHTML.content(relatorio), size: :a4]
+           |> ChromicPDF.Template.source_and_options()
+           |> ChromicPDF.print_to_pdf(),
+         {:ok, binary} <- Base.decode64(pdf) do
+      {:ok, "relatorio_#{relatorio.tipo}_#{to_string(relatorio.inserted_at)}.pdf", binary}
     end
   end
 
   @zip_filename "relatorio_final.zip"
+  @zip_filepath ~c"/tmp/#{@zip_filename}"
 
   defp criar_zip_file(pdf_path) do
-    files = [{String.to_charlist(pdf_path)}]
-
-    with {:ok, {_, binary}} <- :zip.create(@zip_filename, files, [:memory]) do
-      {:ok, @zip_filename, binary}
-    end
+    base_name = Path.basename(pdf_path)
+    root_path = String.to_charlist(Path.dirname(pdf_path))
+    files = [String.to_charlist(base_name)]
+    :zip.create(@zip_filepath, files, cwd: root_path)
   end
 end

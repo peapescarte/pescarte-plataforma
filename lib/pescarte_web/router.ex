@@ -16,6 +16,7 @@ defmodule PescarteWeb.Router do
 
   pipeline :graphql do
     plug :accepts, ["json"]
+    plug :fetch_session
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug PescarteWeb.GraphQL.Context

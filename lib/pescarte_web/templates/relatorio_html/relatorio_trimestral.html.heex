@@ -36,10 +36,10 @@
 
       .capa__cidade_data {
         width: 100%;
-        display: flex; 
-        justify-content: center;  
-        position: absolute; 
-        bottom: 0; 
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
       }
 
       .sumario {
@@ -99,7 +99,7 @@
       </div>
       <p style="margin-bottom: 3cm"><b>Relatório (TRIMESTRAL)<br />3° Fase</b></p>
       <p style="margin-bottom: 1.5cm;">
-        <b>LINHA DE PESQUISA:<br /><%= @pesquisador.linha_pesquisa.desc_curta %></b>
+        <b>LINHA DE PESQUISA:<br /><%= @pesquisador.linha_pesquisa_principal.numero %></b>
       </p>
       <p>
         <b>
@@ -108,7 +108,7 @@
       </p>
       <p class="capa__cidade_data">
         <b>
-          <%= ~c"#{@pesquisador.usuario.contato.endereco.cidade}/#{@pesquisador.usuario.contato.endereco.estado}" %>
+          <%= @pesquisador.usuario.contato.endereco %>
           <%= ~c"#{get_literal_mes(@data_fim)}/#{@data_fim.year}" %>
         </b>
       </p>

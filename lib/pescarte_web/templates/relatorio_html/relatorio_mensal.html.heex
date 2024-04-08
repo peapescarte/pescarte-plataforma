@@ -28,7 +28,7 @@
           margin-inline: auto;
       }
 
-      .record-top__row, 
+      .record-top__row,
       .record-bottom__row {
           min-height: 1cm;
           border: 1px solid #000;
@@ -46,7 +46,7 @@
           min-height: 2cm;
       }
 
-      .record-bottom__row--pesquisador-info-details-1, 
+      .record-bottom__row--pesquisador-info-details-1,
       .record-bottom__row--pesquisador-info-details-2 {
           width: 100%;
           display: flex;
@@ -106,7 +106,7 @@
         <div class="record-top__row">
           <p style="margin-top: 0.5rem;">
             Linha de Pesquisa:
-            <span class="text--red"><%= @pesquisador.linha_pesquisa.desc_curta %></span>
+            <span class="text--red"><%= @pesquisador.linha_pesquisa_principal.numero %></span>
           </p>
         </div>
       </section>
@@ -128,9 +128,13 @@
         </div>
         <div class="record-bottom__row record-bottom__row--pesquisador-info-details-2">
           <p style="width: 25%; text-transform: capitalize"><%= @pesquisador.bolsa %></p>
-          <p style="width: 35%;"><%= build_usuario_name(@pesquisador.orientador.usuario) %></p>
+          <p style="width: 35%;">
+            <%= build_usuario_name(
+              get_in(@pesquisador, [Access.key(:orientador), Access.key(:usuario)])
+            ) %>
+          </p>
           <p style="width: 17%;"><%= get_literal_mes(@data_fim) %></p>
-          <p style="width: 23%;"><%= @pesquisador.usuario.contato.endereco.cidade %></p>
+          <p style="width: 23%;"><%= @pesquisador.usuario.contato.endereco %></p>
         </div>
         <div class="record-bottom__row">
           <p style="margin-top: 0.25cm;"><b>Relato das Atividades Desenvolvidas:</b></p>

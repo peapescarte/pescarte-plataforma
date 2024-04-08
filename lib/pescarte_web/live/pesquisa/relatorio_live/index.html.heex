@@ -1,5 +1,5 @@
 <div :if={@live_action == :index}>
-  <.form :let={f} for={to_form(%{})} action="/app/pesquisa/relatorios/compilar-relatorios">
+  <.form :let={f} for={@form} action="/app/pesquisa/relatorios/compilar-relatorios">
     <div class="search">
       <.search_input name="busca-relatorio" id="busca-relatorio" />
 
@@ -10,9 +10,9 @@
           <Lucideicons.chevron_down class="text-blue-100" />
         </.button>
         <div class="dropdown-options">
-          <.report_menu_link click="mensal_report" label="Mensal"></.report_menu_link>
-          <.report_menu_link click="trimestral_report" label="Trimestral"></.report_menu_link>
-          <.report_menu_link click="anual_report" label="Anual"></.report_menu_link>
+          <.report_menu_link click="relatorio_mensal" label="Mensal"></.report_menu_link>
+          <.report_menu_link click="relatorio_trimestral" label="Trimestral"></.report_menu_link>
+          <.report_menu_link click="relatorio_anual" label="Anual"></.report_menu_link>
         </div>
       </div>
     </div>
@@ -25,8 +25,14 @@
     </div>
 
     <.table rows={@streams.relatorios} text-color="text-blue-100">
-      <:column :let={_} label="  ">
-        <div class="flex-center"><.checkbox name="check" id="usuario" /></div>
+      <:column :let={{idx, _}} label="  ">
+        <div class="flex-center">
+          <.checkbox
+            field={f[String.to_atom("relatorio_#{idx}")]}
+            id={"relatorio_#{idx}"}
+            name="check"
+          />
+        </div>
       </:column>
       <:column :let={{_, relatorio}} label="Data">
         <%= "#{relatorio.data_inicio} - #{relatorio.data_fim}" %>

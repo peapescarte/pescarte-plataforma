@@ -197,7 +197,14 @@ defmodule PescarteWeb.DesignSystem do
   def checkbox(assigns) do
     ~H"""
     <div class="flex items-center checkbox-container">
-      <input id={@name} name={@name} type="checkbox" checked={@checked} disabled={@disabled} />
+      <input
+        id={@name}
+        name={@name}
+        type="checkbox"
+        checked={@checked}
+        disabled={@disabled}
+        value={@value}
+      />
       <label for={@name}>
         <.text size="base"><%= @label %></.text>
       </label>
@@ -313,7 +320,7 @@ defmodule PescarteWeb.DesignSystem do
         {@rest}
       />
       <span :if={!is_nil(@valid)} class="dot">
-        <Lucideicons.check_circle_2 :if={@valid} />
+        <Lucideicons.circle_check :if={@valid} />
         <Lucideicons.circle_x :if={!@valid} />
       </span>
     </fieldset>
@@ -558,7 +565,7 @@ defmodule PescarteWeb.DesignSystem do
       {@rest}
     >
       <div class="flash">
-        <Lucideicons.check_circle_2 :if={@kind == :success} class="flash-icon" />
+        <Lucideicons.circle_check :if={@kind == :success} class="flash-icon" />
         <Lucideicons.info :if={@kind == :warning} class="flash-icon" />
         <Lucideicons.circle_x :if={@kind == :error} class="flash-icon" />
         <.text size="lg"><%= msg %></.text>

@@ -129,7 +129,9 @@ defmodule Pescarte.ModuloPesquisa.Repository do
     query =
       from r in RelatorioPesquisa,
         where: r.id == ^id,
-        preload: [pesquisador: [:usuario, :linha_pesquisa, :orientador]]
+        preload: [
+          pesquisador: [:linha_pesquisa_principal, orientador: [:usuario], usuario: [:contato]]
+        ]
 
     Database.fetch_one(query)
   end
@@ -139,7 +141,9 @@ defmodule Pescarte.ModuloPesquisa.Repository do
       from r in RelatorioPesquisa,
         where: r.id == ^id,
         where: r.tipo == ^kind,
-        preload: [pesquisador: [:usuario, :linha_pesquisa, :orientador]]
+        preload: [
+          pesquisador: [:linha_pesquisa_principal, orientador: [:usuario], usuario: [:contato]]
+        ]
 
     Database.fetch_one(query)
   end
