@@ -60,6 +60,7 @@ defmodule Pescarte.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.0"},
       {:gettext, "~> 0.24"},
+      {:faker, "~> 0.18", only: [:dev, :test]},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
@@ -75,6 +76,7 @@ defmodule Pescarte.MixProject do
       dev: ["setup", "phx.server"],
       setup: ["deps.get", "ecto.setup", "seed"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
+      "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.build": [
         "esbuild default",

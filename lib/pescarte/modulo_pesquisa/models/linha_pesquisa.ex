@@ -1,6 +1,7 @@
 defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisa do
   use Pescarte, :model
 
+  alias Pescarte.Database.Types.PublicId
   alias Pescarte.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
 
@@ -13,26 +14,21 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisa do
           pesquisadores: list(Pesquisador.t())
         }
 
+  @optinal_fields ~w(desc nucleo_pesquisa_id)a
   @required_fields ~w(desc_curta numero)a
 
-  @primary_key {:numero, :integer, autogenerate: false}
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "linha_pesquisa" do
-    field(:desc_curta, :string)
-    field(:desc, :string)
-    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
+    field :numero, :integer
+    field :desc_curta, :string
+    field :desc, :string
 
-    belongs_to(:nucleo_pesquisa, NucleoPesquisa,
-      foreign_key: :nucleo_pesquisa_letra,
-      references: :letra,
-      type: :string
-    )
+    belongs_to :nucleo_pesquisa, NucleoPesquisa, type: :string
 
-    many_to_many(:pesquisadores, Pesquisador,
-      join_through: "linhas_pesquisas_pesquisadores",
-      join_keys: [pesquisador_id: :id, linha_pesquisa_numero: :numero],
+    many_to_many :pesquisadores, Pesquisador,
+      join_through: "pesquisador_lp",
       on_replace: :delete,
       unique: true
-    )
 
     timestamps()
   end
@@ -40,10 +36,9 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisa do
   @spec changeset(LinhaPesquisa.t(), map) :: changeset
   def changeset(%LinhaPesquisa{} = linha_pesquisa, attrs) do
     linha_pesquisa
-    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> cast(attrs, @optinal_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> validate_length(:desc_curta, max: 200)
-    # |> validate_length(:desc, max: 280)
-    |> foreign_key_constraint(:nucleo_pesquisa_letra)
+    |> foreign_key_constraint(:nucleo_pesquisa_id)
   end
 end

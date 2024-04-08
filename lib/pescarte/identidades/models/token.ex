@@ -22,16 +22,12 @@ defmodule Pescarte.Identidades.Models.Token do
           usuario: User.t()
         }
 
-  schema "user_token" do
-    field(:token, :binary)
-    field(:contexto, :string)
-    field(:enviado_para, :string)
+  schema "token_usuario" do
+    field :token, :binary
+    field :contexto, :string
+    field :enviado_para, :string
 
-    belongs_to(:usuario, Usuario,
-      foreign_key: :usuario_id,
-      references: :id,
-      type: :string
-    )
+    belongs_to :usuario, Usuario, type: :string
 
     timestamps(updated_at: false)
   end

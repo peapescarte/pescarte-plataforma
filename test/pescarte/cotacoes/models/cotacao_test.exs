@@ -12,7 +12,7 @@ defmodule Cotacoes.Models.CotacaoTest do
 
     attrs = %{
       data: Date.utc_today(),
-      fonte: fonte.nome,
+      fonte_id: fonte.id,
       link: "https://example.com",
       tipo: :pdf
     }
@@ -21,7 +21,7 @@ defmodule Cotacoes.Models.CotacaoTest do
 
     assert changeset.valid?
     assert get_change(changeset, :data) == Date.utc_today()
-    assert get_change(changeset, :fonte) == fonte.nome
+    assert get_change(changeset, :fonte_id) == fonte.id
     assert get_change(changeset, :link) == "https://example.com"
   end
 
@@ -30,7 +30,7 @@ defmodule Cotacoes.Models.CotacaoTest do
 
     attrs = %{
       data: Date.utc_today(),
-      fonte: fonte.nome,
+      fonte_id: fonte.id,
       link: "https://example.com",
       tipo: :pdf,
       importada?: true
@@ -40,7 +40,7 @@ defmodule Cotacoes.Models.CotacaoTest do
 
     assert changeset.valid?
     assert get_change(changeset, :data) == Date.utc_today()
-    assert get_change(changeset, :fonte) == fonte.nome
+    assert get_change(changeset, :fonte_id) == fonte.id
     assert get_change(changeset, :link) == "https://example.com"
   end
 
@@ -50,6 +50,6 @@ defmodule Cotacoes.Models.CotacaoTest do
     refute changeset.valid?
     assert Keyword.get(changeset.errors, :data)
     assert Keyword.get(changeset.errors, :link)
-    assert Keyword.get(changeset.errors, :fonte)
+    assert Keyword.get(changeset.errors, :fonte_id)
   end
 end

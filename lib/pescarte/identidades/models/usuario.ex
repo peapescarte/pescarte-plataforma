@@ -3,6 +3,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
 
   import Brcpfcnpj.Changeset, only: [validate_cpf: 3]
 
+  alias Pescarte.Database.Types.PublicId
   alias Pescarte.Identidades.Models.Contato
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
 
@@ -12,7 +13,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
           confirmado_em: NaiveDateTime.t(),
           hash_senha: binary,
           data_nascimento: Date.t(),
-          tipo: atom,
+          papel: atom,
           primeiro_nome: binary,
           sobrenome: binary,
           id: binary,
@@ -23,38 +24,30 @@ defmodule Pescarte.Identidades.Models.Usuario do
 
   @valid_roles ~w(pesquisador pescador admin)a
 
-  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id tipo)a
+  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id papel)a
   @optional_fields ~w(confirmado_em rg)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
   @special_pass_format ~r/[!?@#$%^&*_0-9]/
 
-  @primary_key {:id, Pescarte.Database.Types.PublicId, autogenerate: true}
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "usuario" do
-    field(:cpf, :string)
-    field(:rg, :string)
-    field(:confirmado_em, :naive_datetime)
-    field(:hash_senha, :string, redact: true)
-    field(:senha, :string, virtual: true, redact: true)
-    field(:data_nascimento, :date)
-    field(:tipo, Ecto.Enum, values: @valid_roles)
-    field(:primeiro_nome, :string)
-    field(:sobrenome, :string)
-    field(:ativo?, :boolean, default: false)
-    field(:link_avatar, :string)
+    field :cpf, :string
+    field :rg, :string
+    field :confirmado_em, :naive_datetime
+    field :hash_senha, :string, redact: true
+    field :senha, :string, virtual: true, redact: true
+    field :data_nascimento, :date
+    field :papel, Ecto.Enum, values: @valid_roles
+    field :primeiro_nome, :string
+    field :sobrenome, :string
+    field :ativo?, :boolean, default: false
+    field :link_avatar, :string
 
-    has_one(:pesquisador, Pesquisador,
-      references: :id,
-      foreign_key: :usuario_id
-    )
+    has_one :pesquisador, Pesquisador
 
-    belongs_to(:contato, Contato,
-      foreign_key: :contato_id,
-      references: :id_publico,
-      on_replace: :update,
-      type: :string
-    )
+    belongs_to :contato, Contato, type: :string
 
     timestamps()
   end

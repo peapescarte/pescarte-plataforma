@@ -4,7 +4,7 @@ defmodule Pescarte.Cotacoes.Handlers.CotacaoHandler do
   @behaviour Pescarte.Cotacoes.Handlers.IManageCotacaoHandler
 
   @impl true
-  def is_zip_file?(cotacao) do
+  def zip_file?(cotacao) do
     cotacao.tipo == :zip or String.ends_with?(cotacao.link, "zip")
   end
 
@@ -36,6 +36,11 @@ defmodule Pescarte.Cotacoes.Handlers.CotacaoHandler do
 
   @impl true
   def insert_cotacao_pesagro(link, today) do
+    alias Pescarte.Cotacoes.Models.Fonte
+    alias Pescarte.Database.Repo
+
+    fonte = Repo.replica().get_by(Fonte, nome: "pesagro")
+
     tipo =
       case Enum.reverse(String.split(link, ".")) do
         ["zip" | _] -> :zip
@@ -43,7 +48,7 @@ defmodule Pescarte.Cotacoes.Handlers.CotacaoHandler do
       end
 
     attrs = %{
-      fonte: "pesagro",
+      fonte_id: fonte.id,
       link: link,
       data: today,
       importada?: false,

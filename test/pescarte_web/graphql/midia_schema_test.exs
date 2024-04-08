@@ -40,7 +40,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     test "quando há midias", %{conn: conn} do
       autor = insert(:usuario)
       categoria = insert(:categoria)
-      tag = insert(:tag, categoria_nome: categoria.nome)
+      tag = insert(:tag, categoria_id: categoria.id)
       midia = insert(:midia, autor_id: autor.id, tags: [tag])
 
       conn = post(conn, "/api", %{"query" => @list_midias_query})
@@ -51,8 +51,8 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       assert listed["autor"]["id"] == autor.id
 
       [tag_listed] = listed["tags"]
-      assert tag_listed["id"] == tag.id_publico
-      assert tag_listed["categoria"]["id"] == categoria.id_publico
+      assert tag_listed["id"] == tag.id
+      assert tag_listed["categoria"]["id"] == categoria.id
     end
   end
 
@@ -90,7 +90,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     test "quando a mídia existe", %{conn: conn} do
       autor = insert(:usuario)
       categoria = insert(:categoria)
-      tag = insert(:tag, categoria_nome: categoria.nome)
+      tag = insert(:tag, categoria_id: categoria.id)
       midia = insert(:midia, autor_id: autor.id, tags: [tag])
 
       conn =
@@ -105,8 +105,8 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       assert fetched["autor"]["id"] == autor.id
 
       [tag_listed] = fetched["tags"]
-      assert tag_listed["id"] == tag.id_publico
-      assert tag_listed["categoria"]["id"] == categoria.id_publico
+      assert tag_listed["id"] == tag.id
+      assert tag_listed["categoria"]["id"] == categoria.id
     end
   end
 
@@ -154,11 +154,11 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
         "tags" => [
           %{
             "etiqueta" => "um_teste",
-            "categoriaId" => categoria.id_publico
+            "categoriaId" => categoria.id
           },
           %{
             "etiqueta" => "outro_teste",
-            "categoriaId" => categoria.id_publico
+            "categoriaId" => categoria.id
           }
         ]
       }
@@ -237,7 +237,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
           "variables" => %{
             "input" => %{
               "midiaId" => midia.id,
-              "tagsId" => Enum.map(tags, & &1.id_publico)
+              "tagsId" => Enum.map(tags, & &1.id)
             }
           }
         })
@@ -313,12 +313,12 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
           "variables" => %{
             "input" => %{
               "midiaId" => midia.id,
-              "tagsId" => Enum.map(tags, & &1.id_publico)
+              "tagsId" => Enum.map(tags, & &1.id)
             }
           }
         })
 
-      tags_result = Enum.map(tags, &%{"id" => &1.id_publico, "etiqueta" => &1.etiqueta})
+      tags_result = Enum.map(tags, &%{"id" => &1.id, "etiqueta" => &1.etiqueta})
       assert %{"data" => %{"adicionaMidiaTags" => ^tags_result}} = json_response(conn, 200)
 
       # Logo, as tags devem ser adicionadas à Midia

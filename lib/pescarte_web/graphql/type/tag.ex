@@ -6,7 +6,7 @@ defmodule PescarteWeb.GraphQL.Type.Tag do
   @desc "Representa uma Tag pertencente a uma Categoria"
   object :tag do
     field(:etiqueta, :string)
-    field(:id_publico, :string, name: "id")
+    field(:id, :string, name: "id")
 
     field :midias, list_of(:midia) do
       resolve(&Resolver.Midia.list_tags/3)

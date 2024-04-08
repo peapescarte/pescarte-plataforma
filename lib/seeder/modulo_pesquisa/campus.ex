@@ -9,15 +9,13 @@ defmodule Seeder.ModuloPesquisa.Campus do
         acronimo: "UENF",
         nome: "Campos dos Goytacazes",
         nome_universidade: "Universidade Estadual do Norte Fluminense Darcy Ribeiro",
-        endereco_id: "zMz_K9TlJ0Uk7Wk-E41bF",
-        id: Nanoid.generate_non_secure()
+        endereco: Faker.Address.street_address(true)
       },
       %Campus{
         acronimo: "UFSCar",
         nome: "Sorocaba",
         nome_universidade: "Universidade Federal de São Carlos",
-        endereco_id: "qbGuOuaCvD5JNBpexdIL4",
-        id: Nanoid.generate_non_secure()
+        endereco: Faker.Address.street_address(true)
       }
     ]
   end

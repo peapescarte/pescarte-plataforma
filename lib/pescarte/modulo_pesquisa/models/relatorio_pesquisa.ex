@@ -1,6 +1,7 @@
 defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisa do
   use Pescarte, :model
 
+  alias Pescarte.Database.Types.PublicId
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.ModuloPesquisa.Schemas.ConteudoAnual
   alias Pescarte.ModuloPesquisa.Schemas.ConteudoMensal
@@ -24,27 +25,21 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisa do
   @required_fields ~w(tipo data_inicio data_fim status pesquisador_id)a
   @optional_fields ~w(data_entrega data_limite link)a
 
-  @primary_key false
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "relatorio_pesquisa" do
-    field(:link, :string)
-    field(:data_inicio, :date, primary_key: true)
-    field(:data_fim, :date, primary_key: true)
-    field(:data_entrega, :date)
-    field(:data_limite, :date)
-    field(:tipo, Ecto.Enum, values: @tipo)
-    field(:status, Ecto.Enum, values: @status)
-    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
+    field :link, :string
+    field :data_inicio, :date
+    field :data_fim, :date
+    field :data_entrega, :date
+    field :data_limite, :date
+    field :tipo, Ecto.Enum, values: @tipo
+    field :status, Ecto.Enum, values: @status
 
-    embeds_one(:conteudo_anual, ConteudoAnual, source: :conteudo, on_replace: :update)
-    embeds_one(:conteudo_mensal, ConteudoMensal, source: :conteudo, on_replace: :update)
-    embeds_one(:conteudo_trimestral, ConteudoTrimestral, source: :conteudo, on_replace: :update)
+    embeds_one :conteudo_anual, ConteudoAnual, source: :conteudo, on_replace: :update
+    embeds_one :conteudo_mensal, ConteudoMensal, source: :conteudo, on_replace: :update
+    embeds_one :conteudo_trimestral, ConteudoTrimestral, source: :conteudo, on_replace: :update
 
-    belongs_to(:pesquisador, Pesquisador,
-      on_replace: :update,
-      references: :id,
-      type: :string,
-      primary_key: true
-    )
+    belongs_to :pesquisador, Pesquisador, type: :string
 
     timestamps()
   end

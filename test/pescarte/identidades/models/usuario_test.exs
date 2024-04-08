@@ -15,7 +15,7 @@ defmodule Identidades.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "82879666040",
       data_nascimento: ~D[1990-01-01],
-      contato_id: contato.id_publico,
+      contato_id: contato.id,
       tipo: :pesquisador
     }
 
@@ -48,7 +48,7 @@ defmodule Identidades.Models.UsuarioTest do
       cpf: "12345678900",
       data_nascimento: ~D[1990-01-01],
       tipo: :pesquisador,
-      contato_id: contato.id_publico
+      contato_id: contato.id
     }
 
     changeset = Usuario.changeset(%Usuario{}, attrs)
@@ -123,14 +123,14 @@ defmodule Identidades.Models.UsuarioTest do
       sobrenome: "Doe",
       cpf: "828.796.660-40",
       data_nascimento: ~D[1990-01-01],
-      contato_id: contato.id_publico,
-      tipo: :admin
+      contato_id: contato.id,
+      papel: :admin
     }
 
     changeset = Usuario.changeset(%Usuario{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :tipo) == :admin
+    assert get_change(changeset, :papel) == :admin
   end
 
   test "changeset válido com confirmado_em" do

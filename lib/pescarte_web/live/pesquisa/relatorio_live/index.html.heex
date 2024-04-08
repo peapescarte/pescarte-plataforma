@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div :if={@current_user.tipo == :admin} class="links-item">
+    <div :if={@current_user.papel == :admin} class="links-item">
       <.button class="icon-button" style="primary" submit>
         <Lucideicons.files class="text-white-100" />
         <.text size="sm" color="text-white-100">Compilar</.text>
@@ -30,7 +30,7 @@
     <:column :let={{_, relatorio}} label="Data">
       <%= "#{relatorio.data_inicio} - #{relatorio.data_fim}" %>
     </:column>
-    <:column :let={{_, relatorio}} label="Tipo" class="linhas"><%= relatorio.tipo %></:column>
+    <:column :let={{_, relatorio}} label="Tipo"><%= relatorio.tipo %></:column>
     <:column :let={{_, relatorio}} label="Mês/Ano">
       <%= "#{relatorio.data_fim.month}/#{relatorio.data_fim.year}" %>
     </:column>
@@ -45,7 +45,7 @@
 <.live_component
   :if={@live_action in [:new, :edit]}
   module={PescarteWeb.Pesquisa.RelatorioLive.FormComponent}
-  id={@relatorio.id_publico || :new}
+  id={@relatorio.id || :new}
   title={@page_title}
   action={@live_action}
   relatorio={@relatorio}

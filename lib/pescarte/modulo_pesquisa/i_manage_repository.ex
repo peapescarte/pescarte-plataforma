@@ -13,11 +13,11 @@ defmodule Pescarte.ModuloPesquisa.IManageRepository do
   @callback create_midia_and_tags_multi(map, list(map)) :: {:ok, Midia.t()} | {:error, changeset}
 
   @callback fetch_categoria(Pescarte.Database.id()) :: {:ok, Categoria.t()} | {:error, changeset}
-  @callback fetch_categoria_by_id_publico(Pescarte.Database.id()) ::
+  @callback fetch_categoria(Pescarte.Database.id()) ::
               {:ok, Categoria.t()} | {:error, changeset}
-  @callback fetch_midia_by_id_publico(Pescarte.Database.id()) ::
+  @callback fetch_midia(Pescarte.Database.id()) ::
               {:ok, Midia.t()} | {:error, changeset}
-  @callback fetch_tag_by_id_publico(Pescarte.Database.id()) ::
+  @callback fetch_tag(Pescarte.Database.id()) ::
               {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tag_by_etiqueta(binary) :: {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tags_from_ids(list(Pescarte.Database.id())) :: list(Tag.t())

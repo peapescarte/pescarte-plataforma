@@ -23,29 +23,22 @@ defmodule Pescarte.ModuloPesquisa.Models.Midia do
 
   @tipos ~w(imagem video documento)a
 
-  @primary_key {:link, :string, autogenerate: false}
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "midia" do
-    field(:tipo, Ecto.Enum, values: @tipos)
-    field(:nome_arquivo, :string)
-    field(:data_arquivo, :date)
-    field(:restrito?, :boolean, default: false)
-    field(:observacao, :string)
-    field(:texto_alternativo, :string)
-    field(:id, PublicId, autogenerate: true)
+    field :link, :string
+    field :tipo, Ecto.Enum, values: @tipos
+    field :nome_arquivo, :string
+    field :data_arquivo, :date
+    field :restrito?, :boolean, default: false
+    field :observacao, :string
+    field :texto_alternativo, :string
 
-    belongs_to(:autor, Usuario,
-      on_replace: :update,
-      foreign_key: :autor_id,
-      references: :id,
-      type: :string
-    )
+    belongs_to :autor, Usuario, type: :string
 
-    many_to_many(:tags, Tag,
+    many_to_many :tags, Tag,
       join_through: "midias_tags",
-      join_keys: [midia_link: :link, tag_etiqueta: :etiqueta],
       on_replace: :delete,
       unique: true
-    )
 
     timestamps()
   end
