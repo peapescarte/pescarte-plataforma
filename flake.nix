@@ -40,7 +40,7 @@
               libxml2
               libiconv
               erlang_25.elixir_1_15
-              postgresql_15
+              postgresql_16
               nodejs_18
               mix2nix
               node2nix

@@ -132,6 +132,11 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
+  def fetch_pesquisador_by_id(id_publico) do
+    Repo.replica().get_by(Pesquisador, id_publico: id_publico)
+  end
+
+  @impl true
   def list_tag do
     Repo.replica().all(Tag)
   end

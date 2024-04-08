@@ -50,8 +50,13 @@ defmodule PescarteWeb.Router do
     live_session :require_authenticated_user,
       on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
       live("/perfil", ProfileLive)
-      live("/pesquisadores", ListPesquisadorLive)
       live("/cadastro", CadastroPesquisadorLive)
+
+      scope "/pesquisadores" do
+        live("/", PesquisadorLive.Index, :index)
+        live("/novo", PesquisadorLive.Index, :new)
+        live("/:id/editar", PesquisadorLive.Index, :edit)
+      end
 
       scope "/relatorios" do
         live("/", RelatorioLive.Index, :index)

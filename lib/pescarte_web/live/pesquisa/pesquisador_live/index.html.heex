@@ -1,0 +1,9 @@
+<.live_component 
+  :if={@live_action in [:new, :edit]}
+  module={PescarteWeb.Pesquisa.PesquisadorLive.FormComponent}
+  id={@pesquisador.id_publico || :new}
+  title={@page_title}
+  action={@live_action}
+  pesquisador={@pesquisador}
+  patch={~p"/app/pesquisa/pesquisadores"}
+/>
