@@ -314,7 +314,7 @@ defmodule PescarteWeb.DesignSystem do
       />
       <span :if={!is_nil(@valid)} class="dot">
         <Lucideicons.check_circle_2 :if={@valid} />
-        <Lucideicons.x_circle :if={!@valid} />
+        <Lucideicons.circle_x :if={!@valid} />
       </span>
     </fieldset>
     """
@@ -560,7 +560,7 @@ defmodule PescarteWeb.DesignSystem do
       <div class="flash">
         <Lucideicons.check_circle_2 :if={@kind == :success} class="flash-icon" />
         <Lucideicons.info :if={@kind == :warning} class="flash-icon" />
-        <Lucideicons.x_circle :if={@kind == :error} class="flash-icon" />
+        <Lucideicons.circle_x :if={@kind == :error} class="flash-icon" />
         <.text size="lg"><%= msg %></.text>
       </div>
     </div>
@@ -665,7 +665,7 @@ defmodule PescarteWeb.DesignSystem do
       </span>
       <.button style="link" class="whitespace-nowrap" click={@click} phx-target=".profile-menu-link">
         <.text size="base" color="text-blue-80">
-          <Lucideicons.edit class="text-blue-100" />
+          <Lucideicons.credit_card class="text-blue-100" />
           <%= @label %>
         </.text>
       </.button>

@@ -9,8 +9,8 @@ defmodule Mix.Tasks.Seed do
   @impl Mix.Task
   def run(_args) do
     Mix.Task.run("app.start", ["--preload-modules"])
+    Faker.start()
 
-    :ok = endereco_seeds()
     :ok = contato_seeds()
     :ok = usuario_seeds()
 
@@ -19,11 +19,6 @@ defmodule Mix.Tasks.Seed do
     :ok = categoria_seeds()
     :ok = tag_seeds()
     :ok = midia_seeds()
-  end
-
-  @impl Seeder
-  def endereco_seeds do
-    Seeder.seed(Identidades.Endereco.entries(), "endereco")
   end
 
   @impl Seeder
