@@ -5,6 +5,7 @@
     module={PescarteWeb.DesignSystem.AuthenticatedNavbar}
   />
   <main>
+    <.flash_group flash={@flash} />
     <%= @inner_content %>
   </main>
   <.footer />

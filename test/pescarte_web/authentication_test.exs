@@ -106,7 +106,7 @@ defmodule PescarteWeb.AuthenticationTest do
         |> put_session(:user_token, user_token)
         |> Authentication.fetch_current_user([])
 
-      assert conn.assigns.current_user.id_publico == user.id_publico
+      assert conn.assigns.current_user.id == user.id
     end
 
     test "autentica o usuário a partir dos cookies", %{conn: conn, user: user} do
@@ -123,7 +123,7 @@ defmodule PescarteWeb.AuthenticationTest do
         |> put_req_cookie(@remember_me_cookie, signed_token)
         |> Authentication.fetch_current_user([])
 
-      assert conn.assigns.current_user.id_publico == user.id_publico
+      assert conn.assigns.current_user.id == user.id
       assert get_session(conn, :user_token) == user_token
 
       assert get_session(conn, :live_socket_id) ==
@@ -150,7 +150,7 @@ defmodule PescarteWeb.AuthenticationTest do
       {:cont, updated_socket} =
         Authentication.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
 
-      assert updated_socket.assigns.current_user.id_publico == user.id_publico
+      assert updated_socket.assigns.current_user.id == user.id
     end
 
     test "se o token for invalido, atribui nil a current_user", %{conn: conn} do

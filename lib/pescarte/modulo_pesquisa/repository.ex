@@ -44,21 +44,16 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def fetch_categoria_by_id_publico(id) do
-    Pescarte.Database.fetch_by(Categoria, id_publico: id)
-  end
-
-  @impl true
-  def fetch_midia_by_id_publico(id) do
-    case Pescarte.Database.fetch_by(Midia, id_publico: id) do
+  def fetch_midia(id) do
+    case Pescarte.Database.fetch_by(Midia, id: id) do
       {:ok, midia} -> {:ok, Repo.replica().preload(midia, :tags)}
       error -> error
     end
   end
 
   @impl true
-  def fetch_tag_by_id_publico(id) do
-    Pescarte.Database.fetch_by(Tag, id_publico: id)
+  def fetch_tag(id) do
+    Pescarte.Database.fetch_by(Tag, id: id)
   end
 
   @impl true
@@ -68,7 +63,7 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_tags_from_ids(tags_ids) do
-    query = from(t in Tag, where: t.id_publico in ^tags_ids, select: t)
+    query = from(t in Tag, where: t.id in ^tags_ids, select: t)
 
     Repo.replica().all(query)
   end
@@ -113,7 +108,7 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   def list_relatorios_pesquisa_from_pesquisador(id) do
     query =
       from(p in Pesquisador,
-        where: p.id_publico == ^id,
+        where: p.id == ^id,
         preload: [
           relatorios_pesquisa: [pesquisador: :usuario]
         ]
@@ -127,8 +122,12 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def fetch_relatorio_pesquisa_by_id(id_publico) do
-    Repo.replica().get_by(RelatorioPesquisa, id_publico: id_publico)
+  def fetch_relatorio_pesquisa_by_id(id) do
+    Repo.replica().get_by(RelatorioPesquisa, id: id)
+  end
+
+  def fetch_relatorio_pesquisa_by_id_and_kind(id, kind) do
+    Repo.replica().get_by(RelatorioPesquisa, id: id, tipo: kind)
   end
 
   @impl true

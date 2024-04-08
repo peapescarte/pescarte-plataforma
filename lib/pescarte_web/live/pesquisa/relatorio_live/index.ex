@@ -9,7 +9,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> stream_configure(:relatorios, dom_id: & &1.id_publico)
+     |> stream_configure(:relatorios, dom_id: & &1.id)
      |> stream(:relatorios, Repository.list_relatorios_pesquisa())}
   end
 
@@ -19,46 +19,39 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   end
 
   @impl true
-  def handle_event("mensal_report", _, socket) do
-    pesquisador_id = socket.assigns.current_researcher.id_publico
-
-    {:noreply,
-     socket
-     |> assign(:type, "mensal")
-     |> assign(:pesquisador_id, pesquisador_id)
-     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+  def handle_event("relatorio_mensal", _, socket) do
+    {:noreply, push_patch(socket, to: ~p"/app/pesquisa/relatorios/novo/mensal")}
   end
 
-  def handle_event("trimestral_report", _, socket) do
-    pesquisador_id = socket.assigns.current_researcher.id_publico
-
-    {:noreply,
-     socket
-     |> assign(:type, "trimestral")
-     |> assign(:pesquisador_id, pesquisador_id)
-     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+  def handle_event("relatorio_trimestral", _, socket) do
+    {:noreply, push_patch(socket, to: ~p"/app/pesquisa/relatorios/novo/trimestral")}
   end
 
-  def handle_event("anual_report", _, socket) do
-    pesquisador_id = socket.assigns.current_researcher.id_publico
-
-    {:noreply,
-     socket
-     |> assign(:type, "anual")
-     |> assign(:pesquisador_id, pesquisador_id)
-     |> push_patch(to: ~p"/app/pesquisa/relatorios/new")}
+  def handle_event("relatorio_anual", _, socket) do
+    {:noreply, push_patch(socket, to: ~p"/app/pesquisa/relatorios/novo/anual")}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Editar Relatório")
-    |> assign(:relatorio, Repository.fetch_relatorio_pesquisa_by_id(id))
+  @impl true
+  def handle_info({FormComponent, {:saved, relatorio}}, socket) do
+    {:noreply, stream_insert(socket, :relatorios, relatorio)}
   end
 
-  defp apply_action(socket, :new, _params) do
+  defp apply_action(socket, :edit, %{"id" => id, "tipo" => tipo_relatorio}) do
+    case Repository.fetch_relatorio_pesquisa_by_id_and_kind(id, tipo_relatorio) do
+      nil ->
+        redirect_to_report_listing(socket)
+
+      relatorio ->
+        assign_report_to_form(socket, relatorio, tipo_relatorio)
+    end
+  end
+
+  defp apply_action(socket, :new, %{"tipo" => tipo_relatorio}) do
     socket
     |> assign(:page_title, "Novo Relatório")
     |> assign(:relatorio, %RelatorioPesquisa{})
+    |> assign(:tipo, tipo_relatorio)
+    |> assign(:pesquisador_id, socket.assigns.current_researcher.id)
   end
 
   defp apply_action(socket, :index, _params) do
@@ -67,8 +60,15 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     |> assign(:relatorio, nil)
   end
 
-  @impl true
-  def handle_info({FormComponent, {:saved, relatorio}}, socket) do
-    {:noreply, stream_insert(socket, :relatorios, relatorio)}
+  defp redirect_to_report_listing(socket) do
+    push_patch(socket, to: ~p"/app/pesquisa/relatorios")
+  end
+
+  defp assign_report_to_form(socket, relatorio, tipo_relatorio) do
+    socket
+    |> assign(:page_title, "Editar Relatório")
+    |> assign(:relatorio, relatorio)
+    |> assign(:tipo, tipo_relatorio)
+    |> assign(:pesquisador_id, socket.assigns.current_researcher.id)
   end
 end

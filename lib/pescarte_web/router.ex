@@ -48,7 +48,10 @@ defmodule PescarteWeb.Router do
     # pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{PescarteWeb.Authentication, :ensure_authenticated}] do
+      on_mount: [
+        {PescarteWeb.Authentication, :ensure_authenticated},
+        {PescarteWeb.Flash, :flash}
+      ] do
       live("/perfil", ProfileLive)
       live("/cadastro", CadastroPesquisadorLive)
 
@@ -60,8 +63,8 @@ defmodule PescarteWeb.Router do
 
       scope "/relatorios" do
         live("/", RelatorioLive.Index, :index)
-        live("/new", RelatorioLive.Index, :new)
-        live("/:id/edit", RelatorioLive.Index, :edit)
+        live("/novo/:tipo", RelatorioLive.Index, :new)
+        live("/:id/editar/:tipo", RelatorioLive.Index, :edit)
       end
     end
   end

@@ -1,7 +1,7 @@
 defmodule Pescarte.Cotacoes.Handlers.IManageCotacaoHandler do
   alias Pescarte.Cotacoes.Models.Cotacao
 
-  @callback is_zip_file?(Cotacao.t()) :: boolean
+  @callback zip_file?(Cotacao.t()) :: boolean
   @callback fetch_cotacao_by_id(String.t()) :: {:ok, Cotacao.t()} | {:error, :not_found}
   @callback find_cotacoes_not_ingested :: list(Cotacao.t())
   @callback find_cotacoes_not_downloaded :: list(Cotacao.t())
