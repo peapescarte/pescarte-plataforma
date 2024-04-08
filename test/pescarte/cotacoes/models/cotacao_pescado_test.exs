@@ -13,10 +13,9 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
     pescado = insert(:pescado)
 
     attrs = %{
-      cotacao_link: cotacao.link,
-      cotacao_data: cotacao.data,
-      fonte_nome: fonte.nome,
-      pescado_codigo: pescado.codigo,
+      cotacao_id: cotacao.id,
+      fonte_id: fonte.id,
+      pescado_id: pescado.id,
       preco_minimo: 1000,
       preco_maximo: 2000
     }
@@ -24,10 +23,9 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
     changeset = CotacaoPescado.changeset(%CotacaoPescado{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :cotacao_link) == cotacao.link
-    assert get_change(changeset, :cotacao_data) == cotacao.data
-    assert get_change(changeset, :fonte_nome) == fonte.nome
-    assert get_change(changeset, :pescado_codigo) == pescado.codigo
+    assert get_change(changeset, :cotacao_id) == cotacao.id
+    assert get_change(changeset, :fonte_id) == fonte.id
+    assert get_change(changeset, :pescado_id) == pescado.id
     assert get_change(changeset, :preco_minimo) == 1000
     assert get_change(changeset, :preco_maximo) == 2000
   end
@@ -38,10 +36,9 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
     pescado = insert(:pescado)
 
     attrs = %{
-      cotacao_link: cotacao.link,
-      cotacao_data: cotacao.data,
-      fonte_nome: fonte.nome,
-      pescado_codigo: pescado.codigo,
+      cotacao_id: cotacao.id,
+      fonte_id: fonte.id,
+      pescado_id: pescado.id,
       preco_minimo: 1000,
       preco_maximo: 2000,
       preco_medio: 1500,
@@ -51,10 +48,9 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
     changeset = CotacaoPescado.changeset(%CotacaoPescado{}, attrs)
 
     assert changeset.valid?
-    assert get_change(changeset, :cotacao_link) == cotacao.link
-    assert get_change(changeset, :cotacao_data) == cotacao.data
-    assert get_change(changeset, :fonte_nome) == fonte.nome
-    assert get_change(changeset, :pescado_codigo) == pescado.codigo
+    assert get_change(changeset, :cotacao_id) == cotacao.id
+    assert get_change(changeset, :fonte_id) == fonte.id
+    assert get_change(changeset, :pescado_id) == pescado.id
     assert get_change(changeset, :preco_minimo) == 1000
     assert get_change(changeset, :preco_maximo) == 2000
     assert get_change(changeset, :preco_medio) == 1500
@@ -65,9 +61,9 @@ defmodule Cotacoes.Models.CotacaoPescadoTest do
     changeset = CotacaoPescado.changeset(%CotacaoPescado{}, %{})
 
     refute changeset.valid?
-    assert Keyword.get(changeset.errors, :cotacao_link)
-    assert Keyword.get(changeset.errors, :fonte_nome)
-    assert Keyword.get(changeset.errors, :pescado_codigo)
+    assert Keyword.get(changeset.errors, :cotacao_id)
+    assert Keyword.get(changeset.errors, :fonte_id)
+    assert Keyword.get(changeset.errors, :pescado_id)
     assert Keyword.get(changeset.errors, :preco_maximo)
     assert Keyword.get(changeset.errors, :preco_minimo)
   end

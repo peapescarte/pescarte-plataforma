@@ -28,13 +28,13 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
 
     test "quando há tag", %{conn: conn} do
       categoria = insert(:categoria)
-      tag = insert(:tag, categoria_nome: categoria.nome)
+      tag = insert(:tag, categoria_id: categoria.id)
       conn = post(conn, "/api", %{"query" => @list_tags_query})
 
       assert %{"data" => %{"listarTags" => [listed]}} = json_response(conn, 200)
-      assert listed["id"] == tag.id_publico
+      assert listed["id"] == tag.id
       assert listed["etiqueta"] == tag.etiqueta
-      assert listed["categoria"]["id"] == categoria.id_publico
+      assert listed["categoria"]["id"] == categoria.id
     end
   end
 
@@ -59,7 +59,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       conn =
         post(conn, "/api", %{
           "query" => @create_tag_mutation,
-          "variables" => %{"input" => %{"etiqueta" => "", "categoriaId" => categoria.id_publico}}
+          "variables" => %{"input" => %{"etiqueta" => "", "categoriaId" => categoria.id}}
         })
 
       assert %{"errors" => [error]} = json_response(conn, 200)
@@ -70,7 +70,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
 
     test "quando os parâmetros são válidos", %{conn: conn} do
       categoria = insert(:categoria)
-      params = %{"etiqueta" => "peixe", "categoriaId" => categoria.id_publico}
+      params = %{"etiqueta" => "peixe", "categoriaId" => categoria.id}
 
       conn =
         post(conn, "/api", %{
@@ -105,7 +105,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
         post(conn, "/api", %{
           "query" => @create_tags_mutation,
           "variables" => %{
-            "input" => [%{"etiqueta" => "", "categoriaId" => categoria.id_publico}]
+            "input" => [%{"etiqueta" => "", "categoriaId" => categoria.id}]
           }
         })
 
@@ -119,8 +119,8 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       categoria = insert(:categoria)
 
       params = [
-        %{"etiqueta" => "sol", "categoriaId" => categoria.id_publico},
-        %{"etiqueta" => "", "categoriaId" => categoria.id_publico}
+        %{"etiqueta" => "sol", "categoriaId" => categoria.id},
+        %{"etiqueta" => "", "categoriaId" => categoria.id}
       ]
 
       conn =
@@ -139,8 +139,8 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       categoria = insert(:categoria)
 
       params = [
-        %{"etiqueta" => "sol", "categoriaId" => categoria.id_publico},
-        %{"etiqueta" => "peixe", "categoriaId" => categoria.id_publico}
+        %{"etiqueta" => "sol", "categoriaId" => categoria.id},
+        %{"etiqueta" => "peixe", "categoriaId" => categoria.id}
       ]
 
       conn =
@@ -158,8 +158,8 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       categoria = insert(:categoria)
 
       params = [
-        %{"etiqueta" => "sol", "categoriaId" => categoria.id_publico},
-        %{"etiqueta" => "", "categoriaId" => categoria.id_publico}
+        %{"etiqueta" => "sol", "categoriaId" => categoria.id},
+        %{"etiqueta" => "", "categoriaId" => categoria.id}
       ]
 
       conn =
@@ -174,8 +174,8 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       assert error["key"] == "etiqueta"
 
       another_params = [
-        %{"etiqueta" => "sol", "categoriaId" => categoria.id_publico},
-        %{"etiqueta" => "peixe", "categoriaId" => categoria.id_publico}
+        %{"etiqueta" => "sol", "categoriaId" => categoria.id},
+        %{"etiqueta" => "peixe", "categoriaId" => categoria.id}
       ]
 
       another_conn =
@@ -207,7 +207,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
       conn =
         post(conn, "/api", %{
           "query" => @update_tag_mutation,
-          "variables" => %{"input" => %{"etiqueta" => "", "id" => tag.id_publico}}
+          "variables" => %{"input" => %{"etiqueta" => "", "id" => tag.id}}
         })
 
       assert %{"errors" => [error]} = json_response(conn, 200)
@@ -223,7 +223,7 @@ defmodule PescarteWeb.GraphQL.TagSchemaTest do
         post(conn, "/api", %{
           "query" => @update_tag_mutation,
           "variables" => %{
-            "input" => %{"etiqueta" => "sol", "id" => tag.id_publico}
+            "input" => %{"etiqueta" => "sol", "id" => tag.id}
           }
         })
 

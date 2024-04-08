@@ -40,19 +40,19 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     test "quando há midias", %{conn: conn} do
       autor = insert(:usuario)
       categoria = insert(:categoria)
-      tag = insert(:tag, categoria_nome: categoria.nome)
-      midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
+      tag = insert(:tag, categoria_id: categoria.id)
+      midia = insert(:midia, autor_id: autor.id, tags: [tag])
 
       conn = post(conn, "/api", %{"query" => @list_midias_query})
 
       assert %{"data" => %{"listarMidias" => [listed]}} = json_response(conn, 200)
-      assert listed["id"] == midia.id_publico
+      assert listed["id"] == midia.id
       assert listed["nomeArquivo"] == midia.nome_arquivo
-      assert listed["autor"]["id"] == autor.id_publico
+      assert listed["autor"]["id"] == autor.id
 
       [tag_listed] = listed["tags"]
-      assert tag_listed["id"] == tag.id_publico
-      assert tag_listed["categoria"]["id"] == categoria.id_publico
+      assert tag_listed["id"] == tag.id
+      assert tag_listed["categoria"]["id"] == categoria.id
     end
   end
 
@@ -90,23 +90,23 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
     test "quando a mídia existe", %{conn: conn} do
       autor = insert(:usuario)
       categoria = insert(:categoria)
-      tag = insert(:tag, categoria_nome: categoria.nome)
-      midia = insert(:midia, autor_id: autor.id_publico, tags: [tag])
+      tag = insert(:tag, categoria_id: categoria.id)
+      midia = insert(:midia, autor_id: autor.id, tags: [tag])
 
       conn =
         post(conn, "/api", %{
           "query" => @get_midia_query,
-          "variables" => %{"id" => midia.id_publico}
+          "variables" => %{"id" => midia.id}
         })
 
       assert %{"data" => %{"buscarMidia" => fetched}} = json_response(conn, 200)
-      assert fetched["id"] == midia.id_publico
+      assert fetched["id"] == midia.id
       assert fetched["nomeArquivo"] == midia.nome_arquivo
-      assert fetched["autor"]["id"] == autor.id_publico
+      assert fetched["autor"]["id"] == autor.id
 
       [tag_listed] = fetched["tags"]
-      assert tag_listed["id"] == tag.id_publico
-      assert tag_listed["categoria"]["id"] == categoria.id_publico
+      assert tag_listed["id"] == tag.id
+      assert tag_listed["categoria"]["id"] == categoria.id
     end
   end
 
@@ -146,7 +146,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       autor = insert(:usuario)
 
       params = %{
-        "autorId" => autor.id_publico,
+        "autorId" => autor.id,
         "nomeArquivo" => "imagem.png",
         "link" => "http://localhost:4000/imagem.png",
         "tipo" => "IMAGEM",
@@ -154,11 +154,11 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
         "tags" => [
           %{
             "etiqueta" => "um_teste",
-            "categoriaId" => categoria.id_publico
+            "categoriaId" => categoria.id
           },
           %{
             "etiqueta" => "outro_teste",
-            "categoriaId" => categoria.id_publico
+            "categoriaId" => categoria.id
           }
         ]
       }
@@ -172,7 +172,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       assert %{"data" => %{"criarMidia" => created}} = json_response(conn, 200)
       assert created["id"]
       assert created["nomeArquivo"] == params["nomeArquivo"]
-      assert created["autor"]["id"] == autor.id_publico
+      assert created["autor"]["id"] == autor.id
       assert length(created["tags"]) == 2
     end
   end
@@ -209,7 +209,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       conn =
         post(conn, "/api", %{
           "query" => @remove_midia_tags_mutation,
-          "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => []}}
+          "variables" => %{"input" => %{"midiaId" => midia.id, "tagsId" => []}}
         })
 
       assert %{"data" => %{"removeMidiaTags" => []}} = json_response(conn, 200)
@@ -221,7 +221,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       conn =
         post(conn, "/api", %{
           "query" => @remove_midia_tags_mutation,
-          "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => ["123"]}}
+          "variables" => %{"input" => %{"midiaId" => midia.id, "tagsId" => ["123"]}}
         })
 
       assert %{"data" => %{"removeMidiaTags" => []}} = json_response(conn, 200)
@@ -236,8 +236,8 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
           "query" => @remove_midia_tags_mutation,
           "variables" => %{
             "input" => %{
-              "midiaId" => midia.id_publico,
-              "tagsId" => Enum.map(tags, & &1.id_publico)
+              "midiaId" => midia.id,
+              "tagsId" => Enum.map(tags, & &1.id)
             }
           }
         })
@@ -245,7 +245,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       assert %{"data" => %{"removeMidiaTags" => []}} = json_response(conn, 200)
 
       # Logo, as tags não pertencem mais a Midia
-      assert {:ok, fetched} = MidiasHandler.fetch_midia(midia.id_publico)
+      assert {:ok, fetched} = MidiasHandler.fetch_midia(midia.id)
       assert Enum.empty?(fetched.tags)
 
       # Porém elas ainda existem
@@ -285,7 +285,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       conn =
         post(conn, "/api", %{
           "query" => @add_midia_tags_mutation,
-          "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => []}}
+          "variables" => %{"input" => %{"midiaId" => midia.id, "tagsId" => []}}
         })
 
       assert %{"data" => %{"adicionaMidiaTags" => []}} = json_response(conn, 200)
@@ -297,7 +297,7 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
       conn =
         post(conn, "/api", %{
           "query" => @add_midia_tags_mutation,
-          "variables" => %{"input" => %{"midiaId" => midia.id_publico, "tagsId" => ["123"]}}
+          "variables" => %{"input" => %{"midiaId" => midia.id, "tagsId" => ["123"]}}
         })
 
       assert %{"data" => %{"adicionaMidiaTags" => []}} = json_response(conn, 200)
@@ -312,17 +312,17 @@ defmodule PescarteWeb.GraphQL.MidiaSchemaTest do
           "query" => @add_midia_tags_mutation,
           "variables" => %{
             "input" => %{
-              "midiaId" => midia.id_publico,
-              "tagsId" => Enum.map(tags, & &1.id_publico)
+              "midiaId" => midia.id,
+              "tagsId" => Enum.map(tags, & &1.id)
             }
           }
         })
 
-      tags_result = Enum.map(tags, &%{"id" => &1.id_publico, "etiqueta" => &1.etiqueta})
+      tags_result = Enum.map(tags, &%{"id" => &1.id, "etiqueta" => &1.etiqueta})
       assert %{"data" => %{"adicionaMidiaTags" => ^tags_result}} = json_response(conn, 200)
 
       # Logo, as tags devem ser adicionadas à Midia
-      assert {:ok, fetched} = MidiasHandler.fetch_midia(midia.id_publico)
+      assert {:ok, fetched} = MidiasHandler.fetch_midia(midia.id)
       assert length(fetched.tags) == 2
     end
   end

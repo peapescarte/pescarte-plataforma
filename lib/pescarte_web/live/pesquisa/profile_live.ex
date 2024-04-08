@@ -11,7 +11,11 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
     current_user = Repo.preload(socket.assigns.current_user, [:pesquisador])
 
     {:ok,
-     assign(socket, user_name: current_user.primeiro_nome, pesquisador: current_user.pesquisador)}
+     assign(socket,
+       user_name: current_user.primeiro_nome,
+       pesquisador: current_user.pesquisador,
+       link_avatar: current_user.link_avatar
+     )}
   end
 
   # Components

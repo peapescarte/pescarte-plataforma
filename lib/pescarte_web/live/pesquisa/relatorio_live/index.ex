@@ -9,7 +9,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> stream_configure(:relatorios, dom_id: & &1.id_publico)
+     |> stream_configure(:relatorios, dom_id: & &1.id)
      |> stream(:relatorios, Repository.list_relatorios_pesquisa())}
   end
 
@@ -51,7 +51,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     |> assign(:page_title, "Novo Relatório")
     |> assign(:relatorio, %RelatorioPesquisa{})
     |> assign(:tipo, tipo_relatorio)
-    |> assign(:pesquisador_id, socket.assigns.current_researcher.id_publico)
+    |> assign(:pesquisador_id, socket.assigns.current_researcher.id)
   end
 
   defp apply_action(socket, :index, _params) do
@@ -69,6 +69,6 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     |> assign(:page_title, "Editar Relatório")
     |> assign(:relatorio, relatorio)
     |> assign(:tipo, tipo_relatorio)
-    |> assign(:pesquisador_id, socket.assigns.current_researcher.id_publico)
+    |> assign(:pesquisador_id, socket.assigns.current_researcher.id)
   end
 end

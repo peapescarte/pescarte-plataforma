@@ -30,7 +30,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
 
       params = [
         contexto: "confirm",
-        usuario_id: user.id_publico,
+        usuario_id: user.id,
         token: hashed,
         enviado_para: user.contato.email_principal
       ]
@@ -39,7 +39,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       confirm_token = Base.url_encode64(token)
 
       assert {:ok, confirmed} = CredenciaisHandler.confirm_usuario(confirm_token, @now)
-      assert confirmed.id_publico == user.id_publico
+      assert confirmed.id == user.id
       assert confirmed.confirmado_em == @now
     end
   end
@@ -62,7 +62,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       insert(:email_token,
         contexto: "reset_password",
         usuario: user,
-        usuario_id: user.id_publico,
+        usuario_id: user.id,
         enviado_para: user.contato.email_principal,
         token: :crypto.hash(:sha256, token)
       )
@@ -72,7 +72,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       assert {:ok, fetched} =
                CredenciaisHandler.fetch_usuario_by_reset_password_token(token_url_encoded)
 
-      assert user.id_publico == fetched.id_publico
+      assert user.id == fetched.id
     end
   end
 
@@ -87,7 +87,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
       user = Repo.preload(token.usuario, :contato)
 
       assert {:ok, fetched} = CredenciaisHandler.fetch_usuario_by_session_token(token.token)
-      assert fetched.id_publico == user.id_publico
+      assert fetched.id == user.id
     end
   end
 
@@ -97,7 +97,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
 
       assert {:ok, token} = CredenciaisHandler.generate_email_token(user, "reset_password")
       assert {:ok, fetched} = CredenciaisHandler.fetch_usuario_by_reset_password_token(token)
-      assert fetched.id_publico == user.id_publico
+      assert fetched.id == user.id
     end
   end
 
@@ -107,7 +107,7 @@ defmodule Identidades.Handlers.CredenciaisHandlerTest do
 
       assert {:ok, token} = CredenciaisHandler.generate_session_token(user)
       assert {:ok, fetched} = CredenciaisHandler.fetch_usuario_by_session_token(token)
-      assert fetched.id_publico == user.id_publico
+      assert fetched.id == user.id
     end
   end
 

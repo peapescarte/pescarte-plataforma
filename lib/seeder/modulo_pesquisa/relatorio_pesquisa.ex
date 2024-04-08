@@ -1,14 +1,12 @@
 defmodule Seeder.ModuloPesquisa.RelatorioPesquisa do
   alias Pescarte.Database.Repo.Replica
-  alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.ModuloPesquisa.Models.RelatorioPesquisa
   @behaviour Seeder.Entry
 
-  defp pesquisador_id_by_cpf(cpf) do
-    usuario = Replica.get_by!(Usuario, cpf: cpf)
-    pesquisador = Replica.get_by!(Pesquisador, usuario_id: usuario.id_publico)
-    pesquisador.id_publico
+  defp pesquisador_id_by(index: index) do
+    pesquisadores = Replica.all(Pesquisador)
+    Enum.at(pesquisadores, index).id
   end
 
   @impl true
@@ -41,8 +39,7 @@ defmodule Seeder.ModuloPesquisa.RelatorioPesquisa do
           previsao_acoes_pesquisa:
             "Início de uma nova pesquisa para avaliar o impacto das mudanças climáticas nas atividades de pesca"
         },
-        pesquisador_id: pesquisador_id_by_cpf("13359017790"),
-        id_publico: Nanoid.generate_non_secure()
+        pesquisador_id: pesquisador_id_by(index: 0)
       },
       %RelatorioPesquisa{
         tipo: :mensal,
@@ -64,8 +61,7 @@ defmodule Seeder.ModuloPesquisa.RelatorioPesquisa do
             "Planejamento para participar de treinamentos futuros",
           previsao_acoes_pesquisa: "Planejamento para iniciar nova pesquisa"
         },
-        pesquisador_id: pesquisador_id_by_cpf("13359017790"),
-        id_publico: Nanoid.generate_non_secure()
+        pesquisador_id: pesquisador_id_by(index: 1)
       },
       %RelatorioPesquisa{
         tipo: :anual,
@@ -116,8 +112,7 @@ defmodule Seeder.ModuloPesquisa.RelatorioPesquisa do
             garantindo a transparência e credibilidade do nosso trabalho.
           """
         },
-        pesquisador_id: pesquisador_id_by_cpf("13359017790"),
-        id_publico: Nanoid.generate_non_secure()
+        pesquisador_id: pesquisador_id_by(index: 0)
       },
       %RelatorioPesquisa{
         tipo: :trimestral,
@@ -140,8 +135,7 @@ defmodule Seeder.ModuloPesquisa.RelatorioPesquisa do
             "Colaboramos com pescadores locais para promover a conscientização ambiental.",
           referencias: "Smith, J. et al. (2023). Sustentabilidade na Pesca: Um Guia Abrangente."
         },
-        pesquisador_id: pesquisador_id_by_cpf("13359017790"),
-        id_publico: Nanoid.generate_non_secure()
+        pesquisador_id: pesquisador_id_by(index: 1)
       }
     ]
   end

@@ -20,18 +20,18 @@ defmodule Cotacoes.RepositoryTest do
     cotacao = insert(:cotacao)
     [listed] = Repository.list_cotacao()
 
-    assert ^listed = cotacao
+    assert listed.id == cotacao.id
   end
 
   test "upsert_cotacao/2 insere uma nova cotacao se ela não existe e atualiza se ela existe" do
     attrs = fixture(:cotacao)
 
     assert {:ok, inserted} = Repository.upsert_cotacao(attrs)
-    assert inserted.fonte == attrs.fonte
+    assert inserted.fonte_id == attrs.fonte_id
     refute inserted.importada?
 
     assert {:ok, updated} = Repository.upsert_cotacao(inserted, %{importada?: true})
-    assert updated.fonte == attrs.fonte
+    assert updated.fonte_id == attrs.fonte_id
     assert updated.importada?
   end
 
