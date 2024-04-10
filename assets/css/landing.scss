@@ -12,8 +12,9 @@
 
 .top-banner {
   @apply w-full;
+  width: 100%;
+  min-height: 25rem;
 
-  height: 25rem;
   grid-area: top-banner;
 }
 
@@ -46,25 +47,22 @@
     }
 
     p {
-      width: 85%;
+      width: 100%;
       margin-top: 0.5rem;
       padding: 0 1rem 1.5rem 1rem;
     }
 
     button {
-      width: 60%;
+      display: inline-flex;
+      width: 100%;
       background-color: transparent;
 
       p {
-        @apply w-full inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0 1rem 1rem 0;
-
         &:hover {
           text-decoration: underline;
         }
       }
+
     }
   }
 }
