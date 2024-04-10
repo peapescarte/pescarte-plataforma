@@ -2,25 +2,24 @@ defmodule Pescarte.Catalogo.Models.Habitat do
   use Pescarte, :model
 
   alias Pescarte.Catalogo.Models.Peixe
+  alias Pescarte.Database.Types.PublicId
 
   @type t :: %Habitat{
           nome: binary,
           peixes: list(Peixe.t()),
-          id_publico: binary
+          id: binary
         }
 
   @required_fields ~w(nome)a
 
-  @primary_key {:nome, :string, autogenerate: false}
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "habitat" do
-    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
+    field :nome, :string
 
-    many_to_many(:peixes, Peixe,
+    many_to_many :peixes, Peixe,
       join_through: "peixes_habitats",
-      join_keys: [habitat_nome: :nome, peixe_nome_cientifico: :nome_cientifico],
       on_replace: :delete,
       unique: true
-    )
 
     timestamps()
   end

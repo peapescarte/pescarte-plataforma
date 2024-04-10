@@ -7,7 +7,6 @@ defmodule Pescarte.Fixtures do
   alias Pescarte.Cotacoes.Models.Pescado
 
   alias Pescarte.Identidades.Models.Contato
-  alias Pescarte.Identidades.Models.Endereco
   alias Pescarte.Identidades.Models.Token
   alias Pescarte.Identidades.Models.Usuario
 
@@ -22,9 +21,9 @@ defmodule Pescarte.Fixtures do
 
   def cotacao_factory do
     %Cotacao{
-      id: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       data: ~D[2023-05-07],
-      fonte: insert(:fonte).nome,
+      fonte_id: insert(:fonte).id,
       link: sequence(:link, &"https://example#{&1}.com/file.pdf"),
       importada?: false,
       baixada?: false,
@@ -36,11 +35,10 @@ defmodule Pescarte.Fixtures do
     cotacao = insert(:cotacao)
 
     %CotacaoPescado{
-      id: Nanoid.generate_non_secure(),
-      cotacao_link: cotacao.link,
-      cotacao_data: cotacao.data,
-      fonte_nome: insert(:fonte).nome,
-      pescado_codigo: insert(:pescado).codigo,
+      id: Nanoid.generate_non_secure(8),
+      cotacao_id: cotacao.id,
+      fonte_id: insert(:fonte).id,
+      pescado_id: insert(:pescado).id,
       preco_minimo: 1000,
       preco_maximo: 2000,
       preco_medio: 1500,
@@ -50,7 +48,7 @@ defmodule Pescarte.Fixtures do
 
   def fonte_factory do
     %Fonte{
-      id: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       nome: sequence("fonte"),
       link: sequence(:link, &"https://example#{&1}.com"),
       descricao: sequence("descricao")
@@ -59,10 +57,12 @@ defmodule Pescarte.Fixtures do
 
   def pescado_factory do
     %Pescado{
-      id: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       codigo: sequence("codigo_pescado"),
       embalagem: sequence("embalagem"),
-      descricao: sequence("descricao")
+      descricao: sequence("descricao"),
+      inserted_at: DateTime.utc_now(),
+      updated_at: DateTime.utc_now()
     }
   end
 
@@ -73,7 +73,6 @@ defmodule Pescarte.Fixtures do
     struct
     |> Map.from_struct()
     |> Map.take(fields)
-    |> Map.drop([:id])
   end
 
   def contato_factory do
@@ -82,18 +81,7 @@ defmodule Pescarte.Fixtures do
       celular_principal: sequence(:celular, &"221245167#{digit_rem(&1 + 1)}"),
       emails_adicionais: sequence_list(:emails, &"test-#{&1}@example.com", limit: 3),
       celulares_adicionais: sequence_list(:celulares, &"221234567#{digit_rem(&1)}", limit: 4),
-      endereco_cep: insert(:endereco).cep
-    }
-  end
-
-  def endereco_factory do
-    %Endereco{
-      cep: sequence("00000000"),
-      cidade: sequence("Cidade"),
-      complemento: "Um complemento",
-      estado: "Rio de Janeiro",
-      numero: "100",
-      rua: "Rua Exemplo de Queiras"
+      endereco: Faker.Address.street_address(true)
     }
   end
 
@@ -102,15 +90,15 @@ defmodule Pescarte.Fixtures do
 
   def usuario_factory do
     %Usuario{
-      id_publico: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       rg: sequence(:rg, &"131213465#{&1}"),
-      tipo: sequence(:role, ["admin", "pesquisador"]),
+      papel: sequence(:role, ["admin", "pesquisador"]),
       primeiro_nome: sequence(:first, &"User #{&1}"),
       sobrenome: sequence(:last, &"Last User #{&1}"),
-      cpf: Brcpfcnpj.cpf_generate(),
+      cpf: Brcpfcnpj.cpf_generate(true),
       data_nascimento: Date.utc_today(),
       hash_senha: "$2b$12$6beq5zEplVZjji7Jm7itJuTXd3wH9rDN.V5VRcaS/A8YJ28mi1LBG",
-      contato_email: insert(:contato).email_principal,
+      contato_id: insert(:contato).id,
       senha: senha_atual()
     }
   end
@@ -125,11 +113,11 @@ defmodule Pescarte.Fixtures do
     token = :crypto.strong_rand_bytes(32)
     hashed = :crypto.hash(:sha256, token)
     contato = insert(:contato)
-    user = insert(:usuario, contato_email: contato.email_principal)
+    user = insert(:usuario, contato_id: contato.id)
 
     %Token{
       contexto: context,
-      usuario_id: user.id_publico,
+      usuario_id: user.id,
       enviado_para: contato.email_principal,
       token: hashed
     }
@@ -137,11 +125,11 @@ defmodule Pescarte.Fixtures do
 
   def session_token_factory do
     contato = insert(:contato)
-    user = insert(:usuario, contato_email: contato.email_principal)
+    user = insert(:usuario, contato_id: contato.id)
 
     %Token{
       contexto: "session",
-      usuario_id: user.id_publico,
+      usuario_id: user.id,
       enviado_para: contato.email_principal,
       token: :crypto.strong_rand_bytes(32)
     }
@@ -168,36 +156,36 @@ defmodule Pescarte.Fixtures do
 
   def campus_factory do
     %Campus{
-      id_publico: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       nome: sequence(:nome, &"Campus #{&1}"),
-      endereco_cep: insert(:endereco).cep,
-      acronimo: sequence(:sigla, &"C#{&1 + 1}")
+      endereco: Faker.Address.street_address(true),
+      acronimo: sequence(:sigla, &"C#{&1 + 1}"),
+      nome_universidade: sequence(:nome, &"U#{&1 + 1}")
     }
   end
 
   def categoria_factory do
     %Categoria{
-      id_publico: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       nome: sequence("nome")
     }
   end
 
   def linha_pesquisa_factory do
     %LinhaPesquisa{
-      id_publico: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       numero: sequence(:numero, Enum.to_list(1..21)),
       desc_curta: sequence(:descricao_curta, &"Descricao LinhaPesquisa Curta #{&1}"),
       desc: sequence(:descricao_longa, &"Descricao LinhaPesquisa Longa #{&1}"),
-      nucleo_pesquisa_letra: insert(:nucleo_pesquisa).letra,
-      responsavel_lp_id: insert(:pesquisador).id_publico,
+      nucleo_pesquisa_id: insert(:nucleo_pesquisa).id,
       pesquisadores: insert_list(1, :pesquisador)
     }
   end
 
   def midia_factory do
     %Midia{
-      id_publico: Nanoid.generate_non_secure(),
-      autor_id: insert(:usuario).id_publico,
+      id: Nanoid.generate_non_secure(8),
+      autor_id: insert(:usuario).id,
       tipo: sequence(:tipo, ["video", "documento", "imagem"]),
       link: sequence(:link, &"https://example#{&1}.com"),
       nome_arquivo: sequence(:arquivo, &"arquivo#{&1}.jpg"),
@@ -209,7 +197,7 @@ defmodule Pescarte.Fixtures do
 
   def nucleo_pesquisa_factory do
     %NucleoPesquisa{
-      id_publico: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       nome: sequence(:name, &"Nucleo #{&1}"),
       desc: sequence(:desc, &"Descricao Nucleo #{&1}"),
       letra: sequence(:letra, &String.upcase("A#{&1}"))
@@ -218,12 +206,12 @@ defmodule Pescarte.Fixtures do
 
   def pesquisador_factory do
     %Pesquisador{
-      id_publico: Nanoid.generate_non_secure(),
-      usuario_id: insert(:usuario).id_publico,
+      id: Nanoid.generate_non_secure(8),
+      usuario_id: insert(:usuario).id,
       minibio: sequence(:minibiografia, &"Esta e minha minibiografia gerada: #{&1}"),
       bolsa: sequence(:tipo_bolsa, ["ic", "pesquisa", "voluntario"]),
       link_lattes: sequence(:link_lattes, &"http://buscatextual.cnpq.br/buscatextual/:#{&1}"),
-      campus_acronimo: insert(:campus).acronimo,
+      campus_id: insert(:campus).id,
       data_inicio_bolsa: ~D[2023-05-26],
       data_contratacao: ~D[2023-04-23],
       data_fim_bolsa: ~D[2024-05-30],
@@ -234,24 +222,24 @@ defmodule Pescarte.Fixtures do
 
   def relatorio_factory do
     %RelatorioPesquisa{
+      id: Nanoid.generate_non_secure(8),
       tipo: Enum.random(~w(mensal bimestral trimestral anual)),
       data_inicio: ~D[2023-01-01],
       data_fim: ~D[2023-02-15],
       data_entrega: ~D[2023-07-30],
       data_limite: ~D[2023-02-15],
-      id_publico: Nanoid.generate_non_secure(),
       link: "https//datalake.com/relatorio",
       conteudo_mensal: %{},
-      pesquisador_id: insert(:pesquisador).id_publico,
+      pesquisador_id: insert(:pesquisador).id,
       status: :pendente
     }
   end
 
   def tag_factory do
     %Tag{
-      id_publico: Nanoid.generate_non_secure(),
+      id: Nanoid.generate_non_secure(8),
       etiqueta: sequence("etiqueta"),
-      categoria_nome: insert(:categoria).nome
+      categoria_id: insert(:categoria).id
     }
   end
 end

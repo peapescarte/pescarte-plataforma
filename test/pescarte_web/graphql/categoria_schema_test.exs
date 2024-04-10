@@ -35,7 +35,7 @@ defmodule PescarteWeb.GraphQL.CategoriaSchemaTest do
       conn = post(conn, "/api", %{"query" => @list_categorias_query})
 
       assert %{"data" => %{"listarCategorias" => [listed]}} = json_response(conn, 200)
-      assert listed["id"] == categoria.id_publico
+      assert listed["id"] == categoria.id
       assert listed["nome"] == categoria.nome
     end
 
@@ -44,7 +44,7 @@ defmodule PescarteWeb.GraphQL.CategoriaSchemaTest do
       conn = post(conn, "/api", %{"query" => @list_categorias_query})
 
       assert %{"data" => %{"listarCategorias" => [listed]}} = json_response(conn, 200)
-      assert listed["id"] == categoria.id_publico
+      assert listed["id"] == categoria.id
       assert listed["nome"] == categoria.nome
       assert Enum.empty?(listed["tags"])
     end
