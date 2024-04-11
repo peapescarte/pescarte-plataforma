@@ -37,10 +37,11 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
     doutorado mestrado
     pos_doutorado nsa
     coordenador_pedagogico
+    desconhecido
   )a
 
-  @required_fields ~w(bolsa link_lattes campus_id usuario_id data_inicio_bolsa data_contratacao formacao)a
-  @optional_fields ~w(orientador_id link_banner_perfil link_linkedin data_fim_bolsa data_termino)a
+  @required_fields ~w(bolsa campus_id usuario_id data_inicio_bolsa data_contratacao formacao)a
+  @optional_fields ~w(orientador_id link_banner_perfil link_linkedin data_fim_bolsa data_termino link_lattes )a
 
   @primary_key {:id, PublicId, autogenerate: true}
   schema "pesquisador" do
@@ -74,7 +75,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
   end
 
   @spec changeset(Pesquisador.t(), map) :: changeset
-  def changeset(%Pesquisador{} = pesquisador, attrs) do
+  def changeset(pesquisador \\ %Pesquisador{}, attrs) do
     pesquisador
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)

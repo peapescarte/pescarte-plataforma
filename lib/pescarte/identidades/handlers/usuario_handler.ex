@@ -35,7 +35,7 @@ defmodule Pescarte.Identidades.Handlers.UsuarioHandler do
   end
 
   defp create_usuario(attrs, tipo) when tipo in ~w(pesquisador admin)a do
-    attrs = Map.put(attrs, :tipo, tipo)
+    attrs = Map.put(attrs, :papel, tipo)
 
     %Usuario{}
     |> Usuario.changeset(attrs)

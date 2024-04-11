@@ -28,7 +28,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Campus do
   end
 
   @spec changeset(Campus.t(), map) :: changeset
-  def changeset(%Campus{} = campus, attrs) do
+  def changeset(campus \\ %Campus{}, attrs) do
     campus
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)

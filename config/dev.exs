@@ -22,6 +22,8 @@ database_opts = [
 config :pescarte, Pescarte.Database.Repo, database_opts
 config :pescarte, Pescarte.Database.Repo.Replica, database_opts
 
+config :pescarte, :pesquisa_ingestion, sheet_url: System.get_env("SHEET_URL")
+
 config :pescarte, PescarteWeb.Endpoint,
   http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,

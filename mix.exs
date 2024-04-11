@@ -61,13 +61,16 @@ defmodule Pescarte.MixProject do
       {:absinthe_phoenix, "~> 2.0.0"},
       {:chromic_pdf, "~> 1.15"},
       {:gettext, "~> 0.24"},
+      {:explorer, "~> 0.8.1"},
+      {:swiss_schema, "~> 0.5"},
+      {:supabase_potion, "~> 0.3.0"},
       {:faker, "~> 0.18", only: [:dev, :test]},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
+      # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
       {:git_hooks, "~> 0.4.0", only: [:test, :dev], runtime: false}
     ]
   end

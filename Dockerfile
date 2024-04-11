@@ -58,7 +58,7 @@ RUN mix release
 FROM ${RUNNER_IMAGE}
 
 RUN apt-get update -y
-RUN apt-get install -y libstdc++6 openssl libncurses5 locales
+RUN apt-get install -y libstdc++6 openssl libncurses5 locales google-chrome-stable
 RUN apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # Set the locale

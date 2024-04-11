@@ -6,8 +6,6 @@ if System.get_env("PHX_SERVER") do
   config :pescarte, PescarteWeb.Endpoint, server: true
 end
 
-config :pescarte, fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
-
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

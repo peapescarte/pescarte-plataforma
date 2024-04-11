@@ -28,7 +28,7 @@ defmodule Pescarte.Identidades.Models.Contato do
   end
 
   @spec changeset(Contato.t(), map) :: changeset
-  def changeset(%Contato{} = contato, attrs) do
+  def changeset(contato \\ %Contato{}, attrs) do
     contato
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required([:email_principal, :celular_principal, :endereco])

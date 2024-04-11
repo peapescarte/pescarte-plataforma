@@ -25,7 +25,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
   @valid_roles ~w(pesquisador pescador admin)a
 
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id papel)a
-  @optional_fields ~w(confirmado_em rg)a
+  @optional_fields ~w(confirmado_em rg ativo? link_avatar)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/

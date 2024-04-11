@@ -34,7 +34,7 @@ defmodule Pescarte.ModuloPesquisa.Models.LinhaPesquisa do
   end
 
   @spec changeset(LinhaPesquisa.t(), map) :: changeset
-  def changeset(%LinhaPesquisa{} = linha_pesquisa, attrs) do
+  def changeset(linha_pesquisa \\ %LinhaPesquisa{}, attrs) do
     linha_pesquisa
     |> cast(attrs, @optinal_fields ++ @required_fields)
     |> validate_required(@required_fields)

@@ -1,5 +1,6 @@
 defmodule Pescarte.ModuloPesquisa.Models.NucleoPesquisa do
   use Pescarte, :model
+  use SwissSchema, repo: Pescarte.Database.Repo
 
   alias Pescarte.Database.Types.PublicId
   alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
@@ -24,7 +25,7 @@ defmodule Pescarte.ModuloPesquisa.Models.NucleoPesquisa do
   end
 
   @spec changeset(NucleoPesquisa.t(), map) :: changeset
-  def changeset(%NucleoPesquisa{} = nucleo_pesquisa, attrs) do
+  def changeset(nucleo_pesquisa \\ %NucleoPesquisa{}, attrs) do
     nucleo_pesquisa
     |> cast(attrs, [:nome, :desc, :letra])
     |> validate_required([:nome, :desc, :letra])

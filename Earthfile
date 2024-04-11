@@ -25,6 +25,7 @@ ci:
 
 test:
   FROM +deps
+  RUN apt update -y
   RUN apt install -y google-chrome-stable
   RUN apt install -y postgresql-client
   RUN MIX_ENV=test mix deps.compile
