@@ -43,18 +43,6 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
               </.text>
             </DesignSystem.link>
           </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/xxxx"}>
-              <Lucideicons.calendar_days />
-              <.text :if={@open} size="base" color="text-black-60">Agenda</.text>
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/xxx"}>
-              <Lucideicons.mail />
-              <.text :if={@open} size="base" color="text-black-60">Mensagens</.text>
-            </DesignSystem.link>
-          </li>
         </ul>
         <div class="user-info">
           <Lucideicons.user class="text-black-60" />

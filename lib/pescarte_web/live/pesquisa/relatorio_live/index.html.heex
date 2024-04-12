@@ -37,7 +37,7 @@
       <:column :let={{_, relatorio}} label="Data">
         <%= "#{relatorio.data_inicio} - #{relatorio.data_fim}" %>
       </:column>
-      <:column :let={{_, relatorio}} label="Tipo" class="linhas"><%= relatorio.tipo %></:column>
+      <:column :let={{_, relatorio}} label="Tipo"><%= relatorio.tipo %></:column>
       <:column :let={{_, relatorio}} label="Mês/Ano">
         <%= "#{relatorio.data_fim.month}/#{relatorio.data_fim.year}" %>
       </:column>

@@ -6,15 +6,14 @@
     <.text size="h3" color="text-blue-100">Dados Pessoais</.text>
     <div class="nav-item">
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:primeiro_nome]} value="" type="text" label="Nome" required />
+        <.text_input field={@form[:primeiro_nome]} label="Nome" required />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:sobrenome]} value="" type="text" label="SobreNome" required />
+        <.text_input field={@form[:sobrenome]} label="SobreNome" required />
       </fieldset>
       <fieldset class="login-fieldset">
         <.text_input
           field={@form[:data_nascimento]}
-          value=""
           type="date"
           label="Data de Nascimento"
           required
@@ -24,22 +23,14 @@
 
     <div class="nav-item">
       <fieldset class="login-fieldset">
-        <.text_input
-          field={@form[:cpf]}
-          value=""
-          type="text"
-          label="CPF"
-          required
-          phx-hook="CpfNumberMask"
-        />
+        <.text_input field={@form[:cpf]} label="CPF" required phx-hook="CpfNumberMask" />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:telefone]} value="" type="text" label="Telefone" required />
+        <.text_input field={@form[:telefone]} type="phone" label="Telefone" required />
       </fieldset>
       <fieldset class="login-fieldset">
         <.text_input
           field={@form[:contato_email]}
-          value=""
           type="email"
           placeholder="nome@uenf.br"
           label="Email"
@@ -61,48 +52,41 @@
     <.text size="h3" color="text-blue-100">Endereço</.text>
     <div class="nav-item">
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:rua]} value="" type="text" label="Endereço" required />
+        <.text_input field={@form[:rua]} label="Endereço" required />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:numero]} value="" type="text" label="Número" required />
+        <.text_input field={@form[:numero]} label="Número" required />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:cidade]} value="" type="text" label="Cidade" required />
+        <.text_input field={@form[:cidade]} label="Cidade" required />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input
-          field={@form[:cep]}
-          value=""
-          type="text"
-          placeholder="00000-00"
-          label="CEP"
-          required
-        />
+        <.text_input field={@form[:cep]} placeholder="00000-00" label="CEP" required />
       </fieldset>
     </div>
 
     <div class="form-group flex-cols">
       <label for="exampleSelect">UF</label>
       <select id="exampleSelect" class="form-control">
-        <option name="estado" value="">RJ</option>
-        <option name="estado" value="">ES</option>
-        <option name="estado" value="">SP</option>
+        <option name="estado">RJ</option>
+        <option name="estado">ES</option>
+        <option name="estado">SP</option>
       </select>
     </div>
 
     <.text size="h3" color="text-blue-100">Vínculo Institucional</.text>
     <div class="nav-item">
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Pesquisador" required />
+        <.checkbox field={@form[:bolsa]} label="Pesquisador" required />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Professor" required />
+        <.checkbox field={@form[:bolsa]} label="Professor" required />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Técnico" required />
+        <.text_input field={@form[:bolsa]} label="Técnico" required />
       </fieldset>
       <fieldset class="login-fieldset">
-        <.text_input field={@form[:bolsa]} value="" type="checkbox" label="Aluno" required />
+        <.checkbox field={@form[:bolsa]} label="Aluno" required />
       </fieldset>
     </div>
   </.simple_form>
