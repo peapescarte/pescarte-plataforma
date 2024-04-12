@@ -8,7 +8,7 @@ defmodule PescarteWeb.DesignSystem do
   use Phoenix.Component
   use PescarteWeb, :verified_routes
 
-  import Phoenix.HTML.Tag, only: [content_tag: 3]
+  import PhoenixHTMLHelpers.Tag, only: [content_tag: 3]
 
   alias PescarteWeb.DesignSystem
   alias PescarteWeb.DesignSystem.SearchInput

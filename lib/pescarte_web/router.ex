@@ -1,7 +1,6 @@
 defmodule PescarteWeb.Router do
   use PescarteWeb, :router
 
-  import PhoenixStorybook.Router
   import PescarteWeb.Authentication
 
   pipeline :browser do
@@ -28,15 +27,10 @@ defmodule PescarteWeb.Router do
     forward "/", Absinthe.Plug, schema: PescarteWeb.GraphQL.Schema
   end
 
-  scope "/" do
-    storybook_assets()
-  end
-
   scope "/", PescarteWeb do
     pipe_through :browser
 
     get "/", LandingController, :show
-    live_storybook("/storybook", backend_module: PescarteWeb.Storybook)
   end
 
   scope "/", PescarteWeb do
