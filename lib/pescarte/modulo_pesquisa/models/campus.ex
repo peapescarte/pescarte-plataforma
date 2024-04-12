@@ -2,47 +2,36 @@ defmodule Pescarte.ModuloPesquisa.Models.Campus do
   use Pescarte, :model
 
   alias Pescarte.Database.Types.PublicId
-  alias Pescarte.Identidades.Models.Endereco
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
 
   @type t :: %Campus{
           nome: binary,
           acronimo: binary,
-          id_publico: binary,
-          endereco: Endereco.t(),
+          id: binary,
+          endereco: String.t(),
           nome_universidade: binary,
-          pesquisadores: list(Pesquisador.t()),
-          id_publico: binary
+          pesquisadores: list(Pesquisador.t())
         }
 
-  @required_fields ~w(acronimo endereco_cep)a
-  @optional_fields ~w(nome nome_universidade)a
+  @required_fields ~w(acronimo endereco nome nome_universidade)a
 
-  @primary_key {:acronimo, :string, autogenerate: false}
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "campus" do
-    field(:nome, :string)
-    field(:nome_universidade, :string)
-    field(:id_publico, PublicId, autogenerate: true)
+    field :acronimo, :string
+    field :nome, :string
+    field :nome_universidade, :string
+    field :endereco, :string
 
-    has_many(:pesquisadores, Pesquisador, foreign_key: :campus_acronimo, references: :acronimo)
-
-    belongs_to(:endereco, Endereco,
-      on_replace: :delete,
-      foreign_key: :endereco_cep,
-      references: :cep,
-      type: :string
-    )
+    has_many :pesquisadores, Pesquisador
 
     timestamps()
   end
 
   @spec changeset(Campus.t(), map) :: changeset
-  def changeset(%Campus{} = campus, attrs) do
+  def changeset(campus \\ %Campus{}, attrs) do
     campus
-    |> cast(attrs, @optional_fields ++ @required_fields)
+    |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint(:nome)
-    |> unique_constraint(:acronimo)
-    |> foreign_key_constraint(:endereco_cep)
+    |> validate_length(:acronimo, max: 20)
   end
 end

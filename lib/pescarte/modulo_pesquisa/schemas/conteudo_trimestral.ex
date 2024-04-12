@@ -12,7 +12,8 @@ defmodule Pescarte.ModuloPesquisa.Schemas.ConteudoTrimestral do
     :resultados_preliminares,
     :atividades_academicas,
     :atividades_nao_academicas,
-    :referencias
+    :referencias,
+    :resumo
   ]
 
   embedded_schema do

@@ -115,10 +115,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
       {:ok, relatorio} ->
         notify_parent({:saved, relatorio})
 
-        {:noreply,
-         socket
-         |> put_flash(:info, "Relatório atualizado com sucesso!")
-         |> push_patch(to: socket.assigns.patch)}
+        {:noreply, push_patch(socket, to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
@@ -130,10 +127,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
       {:ok, relatorio} ->
         notify_parent({:saved, relatorio})
 
-        {:noreply,
-         socket
-         |> put_flash(:info, "Relatório criado com sucesso")
-         |> push_patch(to: socket.assigns.patch)}
+        {:noreply, push_patch(socket, to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}

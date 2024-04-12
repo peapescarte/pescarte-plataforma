@@ -7,7 +7,7 @@
       patch={~p"/app/pesquisa/pesquisadores"}
     />
 
-    <.button :if={@current_user.tipo == :admin} style="primary" click="register">
+    <.button :if={@current_user.papel == :admin} style="primary" click="register">
       <DesignSystem.link navigate={~p"/app/pesquisa/cadastro"}>
         <Lucideicons.user_plus /> Cadastrar
       </DesignSystem.link>

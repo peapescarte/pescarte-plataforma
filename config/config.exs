@@ -4,8 +4,10 @@ config :pescarte, env: config_env()
 
 config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 
+config :pescarte, fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
+
 config :pescarte,
-  ecto_repos: [Pescarte.Database.Repo, Pescarte.Database.Repo.Replica],
+  ecto_repos: [Pescarte.Database.Repo],
   migration_timestamps: [type: :utc_datetime_usec]
 
 config :pescarte, PescarteWeb.Endpoint,

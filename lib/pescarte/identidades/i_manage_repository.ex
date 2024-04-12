@@ -3,7 +3,7 @@ defmodule Pescarte.Identidades.IManageRepository do
 
   @callback fetch_usuario_by_cpf(binary) :: {:ok, Usuario.t()} | {:error, :not_found}
   @callback fetch_usuario_by_email(binary) :: {:ok, Usuario.t()} | {:error, :not_found}
-  @callback fetch_usuario_by_id_publico(binary) :: {:ok, Usuario.t()} | {:error, :not_found}
+  @callback fetch_usuario(binary) :: {:ok, Usuario.t()} | {:error, :not_found}
   @callback fetch_usuario_by_token(binary, binary, integer) ::
               {:ok, Usuario.t()} | {:error, :not_found}
 
