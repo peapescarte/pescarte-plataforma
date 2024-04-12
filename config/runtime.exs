@@ -31,13 +31,10 @@ if config_env() == :prod do
       raise "SECRET_KEY_BASE not available"
 
   config :pescarte, PescarteWeb.Endpoint,
+    secret_key_base: secret_key_base,
+    url: [host: "pescarte.org.br"],
     http: [
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
-    ],
-    secret_key_base: secret_key_base
-
-  if System.get_env("UENF_SERVER") do
-    config :pescarte, PescarteWeb.Endpoint, url: [host: "pescarte.uenf.br", port: 8080]
-  end
+    ]
 end
