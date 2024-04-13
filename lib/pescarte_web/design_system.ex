@@ -379,11 +379,11 @@ defmodule PescarteWeb.DesignSystem do
   """
 
   attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :content, :list, default: []
+  attr :meta, Flop.Meta, required: true
   attr :placeholder, :string, default: "Faça uma pesquisa..."
-  attr :field, Phoenix.HTML.FormField
   attr :size, :string, values: ~w(base large), default: "base"
+  attr :patch, :string, required: true
+  attr :fields, :list, required: true
 
   def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -520,7 +520,6 @@ defmodule PescarteWeb.DesignSystem do
     include: ~w(autocomplete name rel action enctype method novalidate target),
     doc: "atributos HTML adicionais e opcionais a serem adicionados na tag do formulário"
 
-
   slot :inner_block, required: true
   slot :actions, doc: "slot para ações do formulário, como o botão de submissão"
 
@@ -588,53 +587,27 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   @doc """
-  Renderiza uma tabela com diferentes colunas - versão 4/6/2023:
-
+  Renderiza uma tabela com diferentes colunas
   """
-  slot :column, doc: "Columns with column labels" do
-    attr(:label, :string, doc: "Column label")
-    attr(:type, :string, values: ~w(text slot))
-  end
+  attr :items, :list, required: true, doc: "a lista de itens a serem exibidos na tabela"
+  attr :meta, :map, required: true, doc: "metadados da tabela"
 
-  attr :rows, :list, default: []
-  attr :"text-color", :string, required: true
+  attr :path, :string,
+    required: true,
+    doc: "a uri para qual a tabela deve enviar eventos de filtro e ordenação"
+
+  slot :column, doc: "Columns with column labels" do
+    attr :label, :string, required: true, doc: "O rótulo da coluna"
+    attr :field, :atom, doc: "O campo da entidade de dados a ser exibido na coluna"
+  end
 
   def table(assigns) do
     ~H"""
-    <div style="overflow-y: auto; height: 600px">
-      <table class="tabela">
-        <thead>
-          <tr class="header-primary">
-            <%= for col <- @column do %>
-              <th>
-                <.text size="lg" color="text-white-100">
-                  <%= Map.get(col, :label, "") %>
-                </.text>
-              </th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <%= for row <- @rows do %>
-            <tr class="linhas">
-              <%= for col <- @column do %>
-                <td>
-                  <%= if Map.get(col, :type, "text") == "text" do %>
-                    <.text size="base" color={Map.get(assigns, :"text-color")}>
-                      <%= render_slot(col, row) %>
-                    </.text>
-                  <% else %>
-                    <span :if={col.type == "slot"}>
-                      <%= render_slot(col, row) %>
-                    </span>
-                  <% end %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+    <Flop.Phoenix.table items={@items} meta={@meta} path={@path}>
+      <:col :let={data} :for={col <- @column} label={col.label} field={col.field}>
+        <%= render_slot(col, data) %>
+      </:col>
+    </Flop.Phoenix.table>
     """
   end
 

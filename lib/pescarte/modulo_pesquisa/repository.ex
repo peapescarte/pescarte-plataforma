@@ -94,17 +94,31 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def list_pesquisador do
-    query = from(p in Pesquisador, preload: [usuario: [:contato]])
+  def list_pesquisador(flop) do
+    query =
+      from(p in Pesquisador,
+        join: u in assoc(p, :usuario),
+        as: :usuario,
+        join: c in assoc(u, :contato),
+        as: :contato,
+        preload: [usuario: {u, contato: c}]
+      )
 
-    Repo.replica().all(query)
+    Flop.run(query, flop, for: Pesquisador)
   end
 
   @impl true
-  def list_relatorios_pesquisa do
-    relatorios = from(rp in RelatorioPesquisa, preload: [pesquisador: :usuario])
+  def list_relatorios_pesquisa(flop) do
+    query =
+      from(rp in RelatorioPesquisa,
+        join: p in assoc(rp, :pesquisador),
+        as: :pesquisador,
+        join: u in assoc(p, :usuario),
+        as: :usuario,
+        preload: [pesquisador: {p, usuario: u}]
+      )
 
-    Repo.replica().all(relatorios)
+    Flop.run(query, flop, for: RelatorioPesquisa)
   end
 
   @impl true

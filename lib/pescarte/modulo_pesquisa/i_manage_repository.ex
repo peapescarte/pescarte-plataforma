@@ -25,8 +25,8 @@ defmodule Pescarte.ModuloPesquisa.IManageRepository do
   @callback list_categoria :: list(Categoria.t())
   @callback list_midia :: list(Midia.t())
   @callback list_midias_from_tag(Pescarte.Database.id()) :: list(Midia.t())
-  @callback list_pesquisador :: list(Pesquisador.t())
-  @callback list_relatorios_pesquisa :: list(struct)
+  @callback list_pesquisador(params :: map) :: list(Pesquisador.t())
+  @callback list_relatorios_pesquisa(params :: map) :: list(struct)
   @callback list_relatorios_pesquisa_from_pesquisador(Pescarte.Database.id()) :: list(struct)
   @callback fetch_relatorio_pesquisa_by_id(Pescarte.Database.id()) :: struct
   @callback list_tag :: list(Tag.t())

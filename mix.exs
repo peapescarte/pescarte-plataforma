@@ -87,14 +87,12 @@ defmodule Pescarte.MixProject do
       "assets.build": [
         "esbuild default",
         "sass default",
-        "tailwind default",
-        "tailwind storybook"
+        "tailwind default"
       ],
       "assets.deploy": [
         "esbuild default --minify",
         "sass default",
         "tailwind default --minify",
-        "tailwind storybook --minify",
         "phx.digest"
       ]
     ]

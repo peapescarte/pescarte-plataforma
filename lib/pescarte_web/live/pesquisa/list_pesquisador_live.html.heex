@@ -1,32 +1,33 @@
 <div class="listagem-pesquisador">
   <div class="listagem-actions">
     <.search_input
-      name="listagem-pesquisador"
       id="listagem-pesquisador"
-      content={@pesquisadores}
+      fields={@filter_fields}
+      meta={@meta}
       patch={~p"/app/pesquisa/pesquisadores"}
     />
 
     <.button :if={@current_user.papel == :admin} style="primary" click="register">
       <DesignSystem.link navigate={~p"/app/pesquisa/cadastro"}>
-        <Lucideicons.user_plus /> Cadastrar
+        <Lucideicons.user_plus />
+        <.text size="h5" color="text-white-100">Cadastrar</.text>
       </DesignSystem.link>
     </.button>
   </div>
 
-  <.table rows={@tabela} text-color="text-black-100">
-    <:column :let={pesquisador} label="Nome">
+  <.table items={@pesquisadores} meta={@meta} path={~p"/app/pesquisa/pesquisadores"}>
+    <:column :let={pesquisador} label="Nome" field={:nome}>
       <%= pesquisador.nome %>
     </:column>
-    <:column :let={pesquisador} label="CPF">
+    <:column :let={pesquisador} label="CPF" field={:cpf}>
       <%= pesquisador.cpf %>
     </:column>
-    <:column :let={pesquisador} label="E-mail">
+    <:column :let={pesquisador} label="E-mail" field={:email}>
       <DesignSystem.link href={"mailto:" <> pesquisador.email}>
         <%= pesquisador.email %>
       </DesignSystem.link>
     </:column>
-    <:column :let={pesquisador} label="Participação">
+    <:column :let={pesquisador} label="Participação" field={:participacao}>
       <%= humanize_bolsa(pesquisador.participacao) %>
     </:column>
   </.table>
