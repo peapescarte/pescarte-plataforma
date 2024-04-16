@@ -1,22 +1,41 @@
 defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
   use PescarteWeb, :auth_live_view
 
+  alias Pescarte.ModuloPesquisa.Handlers.PesquisadorHandler
   alias Pescarte.ModuloPesquisa.Models.RelatorioPesquisa
   alias Pescarte.ModuloPesquisa.Repository
   alias PescarteWeb.Pesquisa.RelatorioLive.FormComponent
 
+  @filter_fields [{:tipo, op: :ilike}]
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok,
-     socket
-     |> stream_configure(:relatorios, dom_id: & &1.id)
-     |> stream(:relatorios, Repository.list_relatorios_pesquisa())
-     |> assign_new(:form, &make_compile_form/1)}
+    case PesquisadorHandler.list_relatorios_pesquisa() do
+      {:ok, {relatorios, meta}} ->
+        {:ok,
+         socket
+         |> stream(:relatorios, relatorios)
+         |> assign_new(:form, &make_compile_form/1)
+         |> assign(meta: meta, filter_fields: @filter_fields)}
+
+      {:error, _meta} ->
+        {:ok, push_navigate(socket, to: ~p"/app/pesquisa/relatorios")}
+    end
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  def handle_params(params, _uri, socket) do
+    case PesquisadorHandler.list_relatorios_pesquisa(params) do
+      {:ok, {relatorios, meta}} ->
+        {:noreply,
+         socket
+         |> apply_action(socket.assigns.live_action, params)
+         |> stream(:relatorios, relatorios, reset: true)
+         |> assign(meta: meta)}
+
+      {:error, _meta} ->
+        {:noreply, push_navigate(socket, to: ~p"/app/pesquisa/relatorios")}
+    end
   end
 
   @impl true
@@ -75,15 +94,16 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
 
   defp make_compile_form(_assigns) do
     import Ecto.Changeset
-    relatorios = Enum.with_index(Repository.list_relatorios_pesquisa())
+    {relatorios, _} = Repository.list_relatorios_pesquisa(%Flop{})
+    indexed_relatorios = Enum.with_index(relatorios)
 
     types =
-      relatorios
+      indexed_relatorios
       |> Enum.map(fn {_, idx} -> {String.to_atom("relatorio_#{idx}"), :string} end)
       |> Map.new()
 
     data =
-      relatorios
+      indexed_relatorios
       |> Enum.map(fn {relatorio, idx} ->
         {String.to_atom("relatorio_#{idx}"), relatorio.id}
       end)

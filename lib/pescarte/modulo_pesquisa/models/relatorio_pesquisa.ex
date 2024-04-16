@@ -25,6 +25,22 @@ defmodule Pescarte.ModuloPesquisa.Models.RelatorioPesquisa do
   @required_fields ~w(tipo data_inicio data_fim status pesquisador_id)a
   @optional_fields ~w(data_entrega data_limite link)a
 
+  @derive {
+    Flop.Schema,
+    filterable: ~w(tipo status nome_pesquisador)a,
+    sortable: ~w(tipo status nome_pesquisador)a,
+    adapter_opts: [
+      join_fields: [
+        nome_pesquisador: [
+          binding: :usuario,
+          field: :primeiro_nome,
+          ecto_type: :string,
+          path: [:pesquisador, :usuario]
+        ]
+      ]
+    ]
+  }
+
   @primary_key {:id, PublicId, autogenerate: true}
   schema "relatorio_pesquisa" do
     field :link, :string

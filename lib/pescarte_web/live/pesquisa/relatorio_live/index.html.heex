@@ -1,7 +1,12 @@
 <div :if={@live_action == :index}>
   <.form :let={f} for={@form} action="/app/pesquisa/relatorios/compilar-relatorios">
     <div class="search">
-      <.search_input name="busca-relatorio" id="busca-relatorio" />
+      <.search_input
+        id="busca-relatorio"
+        fields={@filter_fields}
+        meta={@meta}
+        patch={~p"/app/pesquisa/relatorios"}
+      />
 
       <div class="dropdown">
         <.button id="preencher-relatorio-button" style="primary" phx-click="toggleDropdown">
@@ -24,8 +29,8 @@
       </.button>
     </div>
 
-    <.table rows={@streams.relatorios} text-color="text-blue-100">
-      <:column :let={{idx, _}} label="  ">
+    <.table items={@streams.relatorios} meta={@meta} path={~p"/app/pesquisa/relatorios"}>
+      <:column :let={{idx, _}} label="  " field={nil}>
         <div class="flex-center">
           <.checkbox
             field={f[String.to_atom("relatorio_#{idx}")]}
@@ -34,16 +39,20 @@
           />
         </div>
       </:column>
-      <:column :let={{_, relatorio}} label="Data">
+      <:column :let={{_, relatorio}} label="Data" field={:data_inicio}>
         <%= "#{relatorio.data_inicio} - #{relatorio.data_fim}" %>
       </:column>
-      <:column :let={{_, relatorio}} label="Tipo" class="linhas"><%= relatorio.tipo %></:column>
-      <:column :let={{_, relatorio}} label="Mês/Ano">
+      <:column :let={{_, relatorio}} label="Tipo" field={:tipo}><%= relatorio.tipo %></:column>
+      <:column :let={{_, relatorio}} label="Mês/Ano" field={:data_fim}>
         <%= "#{relatorio.data_fim.month}/#{relatorio.data_fim.year}" %>
       </:column>
-      <:column :let={{_, relatorio}} label="Nome"><%= relatorio.pesquisador_id %></:column>
-      <:column :let={{_, relatorio}} label="Status"><%= relatorio.status %></:column>
-      <:column :let={{id, _}} label="Baixar">
+      <:column :let={{_, relatorio}} label="Nome Pesquisador" field={:nome}>
+        <%= relatorio.pesquisador.usuario.primeiro_nome %>
+      </:column>
+      <:column :let={{_, relatorio}} label="Status" field={:status}>
+        <%= relatorio.status %>
+      </:column>
+      <:column :let={{id, _}} label="Baixar" field={:baixa}>
         <div class="flex-center">
           <DesignSystem.link href={~p"/app/pesquisa/relatorios/#{id}/download-pdf"}>
             <Lucideicons.download />

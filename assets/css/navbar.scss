@@ -57,6 +57,10 @@
     .nav-item {
       @apply text-black-60 flex items-center justify-center;
     }
+
+    .active svg {
+      @apply text-blue-80;
+    }
   }
 
   .logo {
@@ -92,13 +96,19 @@
     @apply items-start;
     width: 85%;
 
-    .nav-item {
+    >.nav-tem.logo {
+      margin: 0;
+    }
+
+    a {
+      @apply flex;
       width: 100%;
       padding: 1rem 1.5rem;
       justify-content: left;
+      text-decoration: none;
 
-      a {
-        display: flex;
+      .nav-item {
+        @apply flex;
         justify-content: center;
         align-items: center;
 
@@ -108,17 +118,17 @@
       }
 
       &:hover {
-        @apply text-blue-80;
-      }
 
-      .logo {
-        margin: 0;
+        svg,
+        p {
+          @apply text-blue-80;
+        }
       }
     }
+  }
 
-    .nav-item>svg {
-      margin-right: 0.5rem;
-    }
+  .active svg {
+    @apply text-black-60;
   }
 
   .logo {

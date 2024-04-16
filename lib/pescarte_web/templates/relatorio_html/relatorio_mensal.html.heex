@@ -153,8 +153,8 @@
             </li>
             <li class="record-bottom__row__atividades__atividade">
               <p>
-                <b>Reunião de orientação: </b> <%= "Nenhuma orientação no momento." ||
-                  @conteudo_mensal.reunioes_orientacao %>
+                <b>Reunião de orientação: </b> <%= Map.get(@conteudo_mensal, :reunioes_orientacao) ||
+                  "Nenhuma orientação no momento." %>
               </p>
             </li>
             <li class="record-bottom__row__atividades__atividade">

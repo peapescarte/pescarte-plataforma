@@ -8,13 +8,13 @@ defmodule PescarteWeb.DesignSystem do
   use Phoenix.Component
   use PescarteWeb, :verified_routes
 
-  import Phoenix.HTML.Tag, only: [content_tag: 3]
+  import PhoenixHTMLHelpers.Tag, only: [content_tag: 3]
 
   alias PescarteWeb.DesignSystem
   alias PescarteWeb.DesignSystem.SearchInput
   alias Phoenix.LiveView.JS
 
-  @text_sizes ~w(h1 h2 h3 h4 h5 base lg md sm giant)
+  @text_sizes ~w(h1 h2 h3 h4 h5 base lg sm)
 
   @doc """
   Este componente renderiza um texto, porém com os estilos
@@ -36,11 +36,11 @@ defmodule PescarteWeb.DesignSystem do
       <.text size="h1"> Lorem ipsum dolor sit amet </.text>
   """
 
-  attr(:size, :string, values: @text_sizes, required: true)
-  attr(:color, :string, default: "text-black-80")
-  attr(:class, :string, required: false, default: "")
+  attr :size, :string, values: @text_sizes, required: true
+  attr :color, :string, default: "text-black-80"
+  attr :class, :string, required: false, default: ""
 
-  slot(:inner_block)
+  slot :inner_block
 
   def text(%{size: "h" <> _} = assigns) do
     ~H"""
@@ -59,31 +59,28 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   defp get_text_style("h1", color, custom_class),
-    do: get_text_style("text-3xl leading-10 font-bold" <> " " <> color, custom_class)
+    do: get_text_style("text-4xl leading-10 font-bold" <> " " <> color, custom_class)
 
   defp get_text_style("h2", color, custom_class),
-    do: get_text_style("text-2xl leading-9 font-bold" <> " " <> color, custom_class)
+    do: get_text_style("text-3xl leading-8 font-bold" <> " " <> color, custom_class)
 
   defp get_text_style("h3", color, custom_class),
-    do: get_text_style("text-xl leading-8 font-bold" <> " " <> color, custom_class)
+    do: get_text_style("text-2xl leading-7 font-bold" <> " " <> color, custom_class)
 
   defp get_text_style("h4", color, custom_class),
-    do: get_text_style("text-lg leading-7 font-medium" <> " " <> color, custom_class)
+    do: get_text_style("text-xl leading-6 font-medium" <> " " <> color, custom_class)
 
-  defp get_text_style(size, color, custom_class) when size in ~w(h5 base),
+  defp get_text_style("h5", color, custom_class),
+    do: get_text_style("text-lg leading-3 font-medium" <> " " <> color, custom_class)
+
+  defp get_text_style("base", color, custom_class),
     do: get_text_style("text-base leading-4 font-medium" <> " " <> color, custom_class)
 
   defp get_text_style("lg", color, custom_class),
-    do: get_text_style("text-lg leading-6 font-regular" <> " " <> color, custom_class)
-
-  defp get_text_style("md", color, custom_class),
-    do: get_text_style("text-base leading-5 font-regular" <> " " <> color, custom_class)
+    do: get_text_style("text-lg leading-5 font-regular" <> " " <> color, custom_class)
 
   defp get_text_style("sm", color, custom_class),
-    do: get_text_style("text-xs leading-4 font-regular" <> " " <> color, custom_class)
-
-  defp get_text_style("giant", color, custom_class),
-    do: get_text_style("text-4xl leading-10 font-bold" <> " " <> color, custom_class)
+    do: get_text_style("text-sm leading-3 font-regular" <> " " <> color, custom_class)
 
   defp get_text_style(final_class, custom_class) do
     final_class <> " " <> custom_class
@@ -116,16 +113,16 @@ defmodule PescarteWeb.DesignSystem do
       <.button style="primary" submit> Submissão </.button>
   """
 
-  attr(:name, :string, default: "")
-  attr(:value, :string, default: "")
-  attr(:style, :string, values: ~w(primary secondary link), required: true)
-  attr(:submit, :boolean, default: false)
-  attr(:disabled, :boolean, default: false)
-  attr(:class, :string, default: "")
-  attr(:click, :string, default: "", doc: ~s(the click event to handle))
-  attr(:rest, :global, doc: ~s(used for phoenix events like "phx-target"))
+  attr :name, :string, default: ""
+  attr :value, :string, default: ""
+  attr :style, :string, values: ~w(primary secondary link), required: true
+  attr :submit, :boolean, default: false
+  attr :disabled, :boolean, default: false
+  attr :class, :string, default: ""
+  attr :click, :string, default: "", doc: ~s(the click event to handle)
+  attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
 
-  slot(:inner_block)
+  slot :inner_block
 
   def button(assigns) do
     ~H"""
@@ -181,12 +178,13 @@ defmodule PescarteWeb.DesignSystem do
       <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
   """
 
-  attr(:id, :string, required: false)
-  attr(:checked, :boolean, default: false)
-  attr(:disabled, :boolean, default: false)
-  attr(:label, :string, required: false, default: "")
-  attr(:field, Phoenix.HTML.FormField)
-  attr(:name, :string)
+  attr :id, :string, required: false
+  attr :checked, :boolean, default: false
+  attr :disabled, :boolean, default: false
+  attr :label, :string, required: false, default: ""
+  attr :field, Phoenix.HTML.FormField
+  attr :name, :string
+  attr :required, :boolean, default: false
 
   def checkbox(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -204,6 +202,7 @@ defmodule PescarteWeb.DesignSystem do
         checked={@checked}
         disabled={@disabled}
         value={@value}
+        required={@required}
       />
       <label for={@name}>
         <.text size="base"><%= @label %></.text>
@@ -228,13 +227,13 @@ defmodule PescarteWeb.DesignSystem do
       <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
   """
 
-  attr(:id, :string, required: true)
-  attr(:name, :string)
-  attr(:disabled, :boolean, default: false)
-  attr(:checked, :boolean, default: false)
-  attr(:field, Phoenix.HTML.FormField)
+  attr :id, :string, required: true
+  attr :name, :string
+  attr :disabled, :boolean, default: false
+  attr :checked, :boolean, default: false
+  attr :field, Phoenix.HTML.FormField
 
-  slot(:label, required: true)
+  slot :label, required: true
 
   def radio(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -285,17 +284,17 @@ defmodule PescarteWeb.DesignSystem do
       <.text_input name="password" label="Senha" type="password" />
   """
 
-  attr(:id, :string, default: nil)
-  attr(:type, :string, default: "text", values: ~w(date hidden text password))
-  attr(:placeholder, :string, required: false, default: "")
-  attr(:value, :string, required: false)
-  attr(:mask, :string, required: false, default: nil)
-  attr(:valid, :boolean, required: false, default: nil)
-  attr(:label, :string, default: nil)
-  attr(:field, Phoenix.HTML.FormField)
-  attr(:name, :string)
+  attr :id, :string, default: nil
+  attr :type, :string, default: "text", values: ~w(date hidden text password email phone)
+  attr :placeholder, :string, required: false, default: ""
+  attr :value, :string, required: false
+  attr :mask, :string, required: false, default: nil
+  attr :valid, :boolean, required: false, default: nil
+  attr :label, :string, default: nil
+  attr :field, Phoenix.HTML.FormField
+  attr :name, :string
 
-  attr(:rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required))
+  attr :rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required)
 
   def text_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -331,15 +330,15 @@ defmodule PescarteWeb.DesignSystem do
   defp text_input_state(false), do: "input-error"
   defp text_input_state(true), do: "input-success"
 
-  attr(:id, :string, default: nil)
-  attr(:name, :string, default: nil)
-  attr(:disabled, :boolean, default: false)
-  attr(:placeholder, :string, required: false, default: "")
-  attr(:value, :string, default: "")
-  attr(:valid, :boolean, required: false, default: nil)
-  attr(:class, :string, default: "")
+  attr :id, :string, default: nil
+  attr :name, :string, default: nil
+  attr :disabled, :boolean, default: false
+  attr :placeholder, :string, required: false, default: ""
+  attr :value, :string, default: ""
+  attr :valid, :boolean, required: false, default: nil
+  attr :class, :string, default: ""
 
-  slot(:label, required: false)
+  slot :label, required: false
 
   def text_area(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -379,12 +378,12 @@ defmodule PescarteWeb.DesignSystem do
       <.search_input id="teste" name="busca_cep" content=["cep1", "cep2"] size="large" />
   """
 
-  attr(:id, :string, required: true)
-  attr(:name, :string, required: true)
-  attr(:content, :list, default: [])
-  attr(:placeholder, :string, default: "Faça uma pesquisa...")
-  attr(:field, Phoenix.HTML.FormField)
-  attr(:size, :string, values: ~w(base large), default: "base")
+  attr :id, :string, required: true
+  attr :meta, Flop.Meta, required: true
+  attr :placeholder, :string, default: "Faça uma pesquisa..."
+  attr :size, :string, values: ~w(base large), default: "base"
+  attr :patch, :string, required: true
+  attr :fields, :list, required: true
 
   def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -424,22 +423,22 @@ defmodule PescarteWeb.DesignSystem do
         <!-- TODO: Use named slots to render links -->
         <ul class="nav-menu">
           <li class="nav-item">
-            <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+            <DesignSystem.link href="/not-found" class="flex font-semibold">
               <.text size="h4" color="text-blue-100">Cooperativas</.text>
+              <Lucideicons.chevron_down class="text-blue-100" />
             </DesignSystem.link>
-            <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
-            <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+            <DesignSystem.link href="/not-found" class="flex font-semibold">
               <.text size="h4" color="text-blue-100">Equipes</.text>
+              <Lucideicons.chevron_down class="text-blue-100" />
             </DesignSystem.link>
-            <Lucideicons.chevron_down class="text-blue-100" />
           </li>
           <li class="nav-item">
-            <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+            <DesignSystem.link href="/not-found" class="flex font-semibold">
               <.text size="h4" color="text-blue-100">Quem Somos</.text>
+              <Lucideicons.chevron_down class="text-blue-100" />
             </DesignSystem.link>
-            <Lucideicons.chevron_down class="text-blue-100" />
           </li>
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
@@ -478,14 +477,14 @@ defmodule PescarteWeb.DesignSystem do
       <.link patch={~p"/app/relatorios"} text_size="lg">Recarregar lista de relatórios</.link>
   """
 
-  attr(:navigate, :string, required: false, default: nil)
-  attr(:patch, :string, required: false, default: nil)
-  attr(:href, :string, required: false, default: nil)
-  attr(:method, :string, default: "get", values: ~w(get put post delete patch))
-  attr(:styless, :boolean, default: false)
-  attr(:class, :string, default: "")
+  attr :navigate, :string, required: false, default: nil
+  attr :patch, :string, required: false, default: nil
+  attr :href, :string, required: false, default: nil
+  attr :method, :string, default: "get", values: ~w(get put post delete patch)
+  attr :styless, :boolean, default: false
+  attr :class, :string, default: ""
 
-  slot(:inner_block)
+  slot :inner_block
 
   def link(assigns) do
     ~H"""
@@ -514,16 +513,15 @@ defmodule PescarteWeb.DesignSystem do
         </:actions>
       </.simple_form>
   """
-  attr(:for, :any, required: true, doc: "a entidade de dados que será usada no formulário")
-  attr(:as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados")
+  attr :for, :any, required: true, doc: "a entidade de dados que será usada no formulário"
+  attr :as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados"
 
-  attr(:rest, :global,
+  attr :rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target),
     doc: "atributos HTML adicionais e opcionais a serem adicionados na tag do formulário"
-  )
 
-  slot(:inner_block, required: true)
-  slot(:actions, doc: "slot para ações do formulário, como o botão de submissão")
+  slot :inner_block, required: true
+  slot :actions, doc: "slot para ações do formulário, como o botão de submissão"
 
   def simple_form(assigns) do
     ~H"""
@@ -542,17 +540,16 @@ defmodule PescarteWeb.DesignSystem do
       <.flash kind={:info} flash={@flash} />
       <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
   """
-  attr(:id, :string, default: "flash", doc: "the optional id of flash container")
-  attr(:flash, :map, default: %{}, doc: "the map of flash messages to display")
+  attr :id, :string, default: "flash", doc: "the optional id of flash container"
+  attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
 
-  attr(:kind, :atom,
+  attr :kind, :atom,
     values: [:success, :warning, :error],
     doc: "used for styling and flash lookup"
-  )
 
-  attr(:rest, :global, doc: "the arbitrary HTML attributes to add to the flash container")
+  attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
 
-  slot(:inner_block, doc: "the optional inner block that renders the flash message")
+  slot :inner_block, doc: "the optional inner block that renders the flash message"
 
   def flash(assigns) do
     ~H"""
@@ -579,7 +576,7 @@ defmodule PescarteWeb.DesignSystem do
   ## Examples
       <.flash_group flash={@flash} />
   """
-  attr(:flash, :map, required: true, doc: "the map of flash messages")
+  attr :flash, :map, required: true, doc: "the map of flash messages"
 
   def flash_group(assigns) do
     ~H"""
@@ -590,53 +587,27 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   @doc """
-  Renderiza uma tabela com diferentes colunas - versão 4/6/2023:
-
+  Renderiza uma tabela com diferentes colunas
   """
-  slot :column, doc: "Columns with column labels" do
-    attr(:label, :string, doc: "Column label")
-    attr(:type, :string, values: ~w(text slot))
-  end
+  attr :items, :list, required: true, doc: "a lista de itens a serem exibidos na tabela"
+  attr :meta, :map, required: true, doc: "metadados da tabela"
 
-  attr(:rows, :list, default: [])
-  attr(:"text-color", :string, required: true)
+  attr :path, :string,
+    required: true,
+    doc: "a uri para qual a tabela deve enviar eventos de filtro e ordenação"
+
+  slot :column, doc: "Columns with column labels" do
+    attr :label, :string, required: true, doc: "O rótulo da coluna"
+    attr :field, :atom, doc: "O campo da entidade de dados a ser exibido na coluna"
+  end
 
   def table(assigns) do
     ~H"""
-    <div style="overflow-y: auto; height: 600px">
-      <table class="tabela">
-        <thead>
-          <tr class="header-primary">
-            <%= for col <- @column do %>
-              <th>
-                <.text size="lg" color="text-white-100">
-                  <%= Map.get(col, :label, "") %>
-                </.text>
-              </th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <%= for row <- @rows do %>
-            <tr class="linhas">
-              <%= for col <- @column do %>
-                <td>
-                  <%= if Map.get(col, :type, "text") == "text" do %>
-                    <.text size="md" color={Map.get(assigns, :"text-color")}>
-                      <%= render_slot(col, row) %>
-                    </.text>
-                  <% else %>
-                    <span :if={col.type == "slot"}>
-                      <%= render_slot(col, row) %>
-                    </span>
-                  <% end %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+    <Flop.Phoenix.table items={@items} meta={@meta} path={@path}>
+      <:col :let={data} :for={col <- @column} label={col.label} field={col.field}>
+        <%= render_slot(col, data) %>
+      </:col>
+    </Flop.Phoenix.table>
     """
   end
 
@@ -649,9 +620,9 @@ defmodule PescarteWeb.DesignSystem do
 
   """
 
-  attr(:id, :string, default: nil)
-  attr(:name, :string, default: nil)
-  attr(:message, :string, default: nil)
+  attr :id, :string, default: nil
+  attr :name, :string, default: nil
+  attr :message, :string, default: nil
 
   def label(assigns) do
     ~H"""

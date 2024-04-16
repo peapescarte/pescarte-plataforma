@@ -43,6 +43,32 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
   @required_fields ~w(bolsa campus_id usuario_id data_inicio_bolsa data_contratacao formacao)a
   @optional_fields ~w(orientador_id link_banner_perfil link_linkedin data_fim_bolsa data_termino link_lattes )a
 
+  @derive {
+    Flop.Schema,
+    filterable: ~w(nome cpf email bolsa)a,
+    sortable: ~w(nome email bolsa)a,
+    adapter_opts: [
+      join_fields: [
+        nome: [
+          binding: :usuario,
+          field: :primeiro_nome,
+          ecto_type: :string
+        ],
+        cpf: [
+          binding: :usuario,
+          field: :cpf,
+          ecto_type: :string
+        ],
+        email: [
+          binding: :contato,
+          field: :email_principal,
+          ecto_type: :string,
+          path: [:usuario, :contato]
+        ]
+      ]
+    ]
+  }
+
   @primary_key {:id, PublicId, autogenerate: true}
   schema "pesquisador" do
     field :minibio, :string

@@ -27,7 +27,7 @@ defmodule PescarteWeb.LoginHTML do
           <div class="flex justify-between items-center">
             <.checkbox field={@form[:remember_me]} label="Lembre de mim" id="remember" />
 
-            <DesignSystem.link href={~p"/usuarios/recuperar_senha"} class="text-sm font-semibold">
+            <DesignSystem.link href="/usuarios/recuperar_senha" class="text-sm font-semibold">
               <.text size="sm">Esqueci minha senha</.text>
             </DesignSystem.link>
           </div>
