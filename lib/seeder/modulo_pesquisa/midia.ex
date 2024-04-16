@@ -6,8 +6,8 @@ defmodule Seeder.ModuloPesquisa.Midia do
   @behaviour Seeder.Entry
 
   defp autor_id do
-    usuario = Repo.get_by!(Usuario, cpf: "13359017790")
-    usuario.id_publico
+    usuario = Repo.get_by!(Usuario, primeiro_nome: "Zoey")
+    usuario.id
   end
 
   defp tags do
@@ -82,8 +82,7 @@ defmodule Seeder.ModuloPesquisa.Midia do
       },
       %Midia{
         tags: tags(),
-        id_publico: Nanoid.generate(),
-        nome_arquivo: "Pescado em Armação dos Búzios_RJ (Patrícia Silva).jpeg",
+        nome_arquivo: "Pescado em Armação dos Búzios_RJ (Patrícia Silva).jpeg",
         tipo: :imagem,
         data_arquivo: Date.utc_today(),
         autor_id: autor_id(),
@@ -91,8 +90,7 @@ defmodule Seeder.ModuloPesquisa.Midia do
       },
       %Midia{
         tags: tags(),
-        id_publico: Nanoid.generate(),
-        nome_arquivo: "Mangue de Pedras, Armação dos Búzios (Marcos Vinícius).jpeg",
+        nome_arquivo: "Mangue de Pedras, Armação dos Búzios (Marcos Vinícius).jpeg",
         tipo: :imagem,
         data_arquivo: Date.utc_today(),
         autor_id: autor_id(),

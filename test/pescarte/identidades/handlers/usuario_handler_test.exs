@@ -44,29 +44,37 @@ defmodule Identidades.Handlers.UsuarioHandlerTest do
       assert {:ok, fetched} =
                UsuarioHandler.fetch_usuario_by_cpf_and_password(user.cpf, user.senha)
 
-      assert fetched.id_publico == user.id_publico
+      assert fetched.id == user.id
       assert fetched.cpf == user.cpf
     end
   end
 
   describe "fetch_usuario_by_email_and_password/2" do
     test "quando o email ou a senha sãos inválidos" do
-      user = insert(:usuario)
+      # user = insert(:usuario)
+      user = Repo.preload(insert(:usuario), :contato)
 
       assert {:error, :not_found} =
                UsuarioHandler.fetch_usuario_by_email_and_password("123", user.senha)
 
       assert {:error, :invalid_password} =
-               UsuarioHandler.fetch_usuario_by_email_and_password(user.contato_email, "123")
+               UsuarioHandler.fetch_usuario_by_email_and_password(
+                 user.contato.email_principal,
+                 "123"
+               )
     end
 
     test "quando o email e a senha são válidos" do
-      user = insert(:usuario)
+      # user = insert(:usuario)
+      user = Repo.preload(insert(:usuario), :contato)
 
       assert {:ok, fetched} =
-               UsuarioHandler.fetch_usuario_by_email_and_password(user.contato_email, user.senha)
+               UsuarioHandler.fetch_usuario_by_email_and_password(
+                 user.contato.email_principal,
+                 user.senha
+               )
 
-      assert fetched.id_publico == user.id_publico
+      assert fetched.id == user.id
       assert fetched.cpf == user.cpf
     end
   end

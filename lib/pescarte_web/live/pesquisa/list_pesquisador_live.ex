@@ -5,52 +5,23 @@ defmodule PescarteWeb.Pesquisa.ListPesquisadorLive do
 
   alias Pescarte.ModuloPesquisa.Handlers.PesquisadorHandler
 
+  # @filter_fields [{:name, op: :ilike}, {:email, op: :ilike}, {:cpf, op: :ilike}, {:bolsa, op: :ilike}]
+  @filter_fields [{:nome, op: :ilike}]
+
   @impl true
   def mount(_params, _session, socket) do
-    pesquisadores = PesquisadorHandler.list_pesquisadores()
-
-    {:ok, assign(socket, pesquisadores: pesquisadores, tabela: pesquisadores)}
+    {:ok, assign(socket, filter_fields: @filter_fields)}
   end
 
   @impl true
-  def handle_params(%{"search" => "true"} = search, _uri, socket) do
-    tabela =
-      case search do
-        %{"cpf" => cpf} -> filter_by("cpf", socket.assigns.pesquisadores, cpf)
-        %{"bolsa" => bolsa} -> filter_by("bolsa", socket.assigns.pesquisadores, bolsa)
-        %{"nome" => nome} -> filter_by("nome", socket.assigns.pesquisadores, nome)
-        %{"email" => email} -> filter_by("email", socket.assigns.pesquisadores, email)
-      end
+  def handle_params(params, _uri, socket) do
+    case PesquisadorHandler.list_pesquisadores(params) do
+      {:ok, {pesquisadores, meta}} ->
+        {:noreply, assign(socket, pesquisadores: pesquisadores, meta: meta)}
 
-    {:noreply, assign(socket, tabela: tabela)}
-  end
-
-  def handle_params(_params, _uri, socket) do
-    {:noreply, socket}
-  end
-
-  defp filter_by("bolsa", pesquisadores, bolsa) do
-    Enum.filter(pesquisadores, fn pesquisador ->
-      to_string(pesquisador.bolsa) == bolsa
-    end)
-  end
-
-  defp filter_by("cpf", pesquisadores, cpf) do
-    Enum.filter(pesquisadores, fn pesquisador ->
-      pesquisador.cpf == cpf
-    end)
-  end
-
-  defp filter_by("nome", pesquisadores, nome) do
-    Enum.filter(pesquisadores, fn pesquisador ->
-      pesquisador.nome == nome
-    end)
-  end
-
-  defp filter_by("email", pesquisadores, email) do
-    Enum.filter(pesquisadores, fn pesquisador ->
-      pesquisador.email == email
-    end)
+      {:error, _meta} ->
+        {:noreply, push_navigate(socket, to: ~p"/app/pesquisa/pesquisadores")}
+    end
   end
 
   @impl true

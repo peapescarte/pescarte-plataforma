@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @page {
+          margin: 1.5cm;
+      }
+
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 12pt;
+      }
+
+      p {
+          text-align: center;
+      }
+
+      .container {
+          min-height: 100vh;
+      }
+
+      .record-top {
+          width: 90%;
+          margin-inline: auto;
+      }
+
+      .record-top__row,
+      .record-bottom__row {
+          min-height: 1cm;
+          border: 1px solid #000;
+      }
+
+      .record-top__row--periodo {
+          min-height: 1.5cm;
+      }
+
+      .text--red {
+          color: #f00;
+      }
+
+      .record-bottom__row--pesquisador-info {
+          min-height: 2cm;
+      }
+
+      .record-bottom__row--pesquisador-info-details-1,
+      .record-bottom__row--pesquisador-info-details-2 {
+          width: 100%;
+          display: flex;
+      }
+
+      .record-bottom__row--pesquisador-info-details-1 p,
+      .record-bottom__row--pesquisador-info-details-2 p {
+          border-inline: 1px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .record-bottom__row--pesquisador-info-details-2 {
+          min-height: 2cm;
+      }
+
+      .record-bottom__row__atividades {
+          margin: 0 0.5cm 0 1cm;
+      }
+
+      .record-bottom__row__atividades__atividade {
+          margin: 0.25cm 0;
+      }
+
+      .record-bottom__row__atividades__atividade p {
+          text-align: justify;
+      }
+
+      .record-bottom__row--planejamento {
+          min-height: 1.5cm;
+      }
+
+      /*footer {
+          width: 100%;
+          position: absolute;
+          bottom: 0cm;
+          left: 0;
+          text-align: center;
+      }*/
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="record-top">
+        <div class="record-top__row">
+          <p style="padding: .5rem 0;"><b>PESCARTE</b></p>
+        </div>
+        <div class="record-top__row record-top__row--periodo">
+          <p>
+            Atividades Mensais Período <%= @data_inicio.day %> de
+            <span class="text--red"><%= get_literal_mes(@data_inicio) %></span>
+            a <%= @data_fim.day %> de
+            <span class="text--red"><%= get_literal_mes(@data_fim) %></span> <%= @data_fim.year %>
+          </p>
+        </div>
+        <div class="record-top__row">
+          <p style="margin-top: 0.5rem;">
+            Linha de Pesquisa:
+            <span class="text--red"><%= @pesquisador.linha_pesquisa_principal.numero %></span>
+          </p>
+        </div>
+      </section>
+      <section class="record-bottom">
+        <div class="record-bottom__row record-bottom__row--pesquisador-info">
+          <p style="margin-top: .20cm;">
+            Nome do(a) Pesquisador (a): <%= build_usuario_name(@pesquisador.usuario) %>
+          </p>
+          <p style="margin: .25cm 0;">
+            <span style="color: #4472c4; font-weight: bolder">link lattes:</span>
+            <a href={@pesquisador.link_lattes}><%= @pesquisador.link_lattes %></a>
+          </p>
+        </div>
+        <div class="record-bottom__row record-bottom__row--pesquisador-info-details-1">
+          <p style="width: 25%;">Tipo de Bolsa</p>
+          <p style="width: 35%;">Coordenação de Pesquisa</p>
+          <p style="width: 17%;">Mês</p>
+          <p style="width: 23%;">Município</p>
+        </div>
+        <div class="record-bottom__row record-bottom__row--pesquisador-info-details-2">
+          <p style="width: 25%; text-transform: capitalize"><%= @pesquisador.bolsa %></p>
+          <p style="width: 35%;">
+            <%= build_usuario_name(
+              get_in(@pesquisador, [Access.key(:orientador), Access.key(:usuario)])
+            ) %>
+          </p>
+          <p style="width: 17%;"><%= get_literal_mes(@data_fim) %></p>
+          <p style="width: 23%;"><%= @pesquisador.usuario.contato.endereco %></p>
+        </div>
+        <div class="record-bottom__row">
+          <p style="margin-top: 0.25cm;"><b>Relato das Atividades Desenvolvidas:</b></p>
+        </div>
+        <div class="record-bottom__row record-bottom__row--lista-atividades">
+          <ol class="record-bottom__row__atividades">
+            <li class="record-bottom__row__atividades__atividade">
+              <p>
+                <b>Ações de planejamento e construção da pesquisa: </b><%= @conteudo_mensal.acao_planejamento %>
+              </p>
+            </li>
+            <li class="record-bottom__row__atividades__atividade">
+              <p>
+                <b>Participação em grupo de estudos e de trabalho: </b><%= @conteudo_mensal.participacao_grupos_estudo %>
+              </p>
+            </li>
+            <li class="record-bottom__row__atividades__atividade">
+              <p>
+                <b>Reunião de orientação: </b> <%= Map.get(@conteudo_mensal, :reunioes_orientacao) ||
+                  "Nenhuma orientação no momento." %>
+              </p>
+            </li>
+            <li class="record-bottom__row__atividades__atividade">
+              <p>
+                <b>Ações de pesquisa de campo, análise de dados e construção audiovisual: </b><%= @conteudo_mensal.acoes_pesquisa %>
+              </p>
+            </li>
+            <li class="record-bottom__row__atividades__atividade">
+              <p>
+                <b>Participação em treinamentos e cursos PEA Pescarte: </b><%= @conteudo_mensal.participacao_treinamentos %>
+              </p>
+            </li>
+            <li class="record-bottom__row__atividades__atividade">
+              <p><b>Publicação: </b><%= @conteudo_mensal.publicacao %></p>
+            </li>
+          </ol>
+        </div>
+        <div class="record-bottom__row record-bottom__row--planejamento">
+          <p style="margin: 0.5cm;"><b>Planejamento de Estudos ou de Pesquisa</b></p>
+        </div>
+        <div class="record-bottom__row">
+          <div style="margin: 0.25cm;">
+            <b>Ações de planejamento e construção da pesquisa: </b>
+            <br />
+            <p style="text-align: justify; text-indent: 0.5cm;">
+              <%= @conteudo_mensal.previsao_acao_planejamento %>
+            </p>
+          </div>
+          <div style="margin: 0.25cm;">
+            <b>Participação em grupo de estudos: </b>
+            <br />
+            <p style="text-align: justify; text-indent: 0.5cm;">
+              <%= @conteudo_mensal.previsao_participacao_grupos_estudo %>
+            </p>
+          </div>
+          <div style="margin: 0.25cm;">
+            <b>Participação em treinamentos e cursos PEA Pescarte: </b>
+            <br />
+            <p style="text-align: justify; text-indent: 0.5cm;">
+              <%= @conteudo_mensal.previsao_participacao_treinamentos %>
+            </p>
+          </div>
+          <div style="margin: 0.25cm;">
+            <b>Ações de pesquisa de campo, análise de dados e construção audiovisual: </b>
+            <br />
+            <p style="text-align: justify; text-indent: 0.5cm;">
+              <%= @conteudo_mensal.previsao_acoes_pesquisa %>
+            </p>
+          </div>
+        </div>
+        <div class="record-bottom__row" style="break-inside: avoid-page;">
+          <p style="margin: 0.25cm;"><b>Evidências (fotografias, print de tela...):</b></p>
+          <p style="margin-bottom: 0.25cm;"></p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

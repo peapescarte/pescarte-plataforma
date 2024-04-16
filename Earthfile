@@ -1,9 +1,9 @@
 VERSION 0.7
 
 deps:
-  ARG ELIXIR=1.15.4
-  ARG OTP=25.3.2.5
-  ARG DEBIAN_VERSION=buster-20230612
+  ARG ELIXIR=1.16.0
+  ARG OTP=26.1.2
+  ARG DEBIAN_VERSION=bullseye-20231009
   FROM hexpm/elixir:${ELIXIR}-erlang-${OTP}-debian-${DEBIAN_VERSION}
   RUN apt update -y && apt install -y build-essential
   WORKDIR /src
@@ -25,6 +25,12 @@ ci:
 
 test:
   FROM +deps
+  ENV DEBIAN_FRONTEND=noninteractive
+  RUN apt update -y
+  RUN apt install -y wget
+  RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  RUN apt install -y ./google-chrome-stable_current_amd64.deb || apt install -fy
+  RUN apt  clean && rm -f /var/lib/apt/lists/*_* && rm google-chrome-stable_current_amd64.deb
   RUN apt install -y postgresql-client
   RUN MIX_ENV=test mix deps.compile
   COPY docker-compose.ci.yml ./docker-compose.yml

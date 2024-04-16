@@ -25,14 +25,14 @@ defmodule Pescarte.CotacoesETL.Integrations.PesagroAPI do
   def fetch_all_links(document) do
     document
     |> Floki.find("a")
-    |> Enum.filter(&is_pdf_or_zip_link?/1)
+    |> Enum.filter(&pdf_or_zip_link?/1)
     |> Enum.map(fn tag ->
       href = tag |> Floki.attribute("href") |> Floki.text()
       Path.join(base_url(), href)
     end)
   end
 
-  defp is_pdf_or_zip_link?(tag) do
+  defp pdf_or_zip_link?(tag) do
     type = tag |> Floki.attribute("type") |> Floki.text()
     type in @filetypes
   end
