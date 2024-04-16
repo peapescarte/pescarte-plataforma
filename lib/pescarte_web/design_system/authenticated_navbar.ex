@@ -6,6 +6,8 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
 
   attr(:user, Usuario, required: true)
   attr(:open, :boolean, default: nil)
+  attr(:menus, :any, default: [])
+  attr(:current_path, :string)
 
   @impl true
   def render(assigns) do
@@ -21,40 +23,13 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
             <img :if={!@open} src={~p"/images/icon_logo.svg"} class="logo" />
             <img :if={@open} src={~p"/images/pescarte_logo.svg"} class="logo" />
           </li>
-          <DesignSystem.link navigate={~p"/app/pesquisa/perfil"}>
-            <li class="nav-item">
-              <Lucideicons.home />
-              <.text :if={@open} size="base" color="text-black-60">Home</.text>
+
+          <DesignSystem.link :for={{menu_name, path, icon} <- @menus} navigate={path}>
+            <li class={"nav-item #{if should_activate_menu_item(path, @current_path), do: "active"}"}>
+              <.lucide_icon name={icon} />
+              <.text :if={@open} size="base" color="text-black-60"><%= menu_name %></.text>
             </li>
-          </DesignSystem.link>
-          <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores"}>
-            <li class="nav-item">
-              <Lucideicons.users />
-              <.text :if={@open} size="base" color="text-black-60">
-                Pesquisadores
-              </.text>
-            </li>
-          </DesignSystem.link>
-          <DesignSystem.link navigate={~p"/app/pesquisa/relatorios"}>
-            <li class="nav-item">
-              <Lucideicons.file_text />
-              <.text :if={@open} size="base" color="text-black-60">
-                Relatórios
-              </.text>
-            </li>
-          </DesignSystem.link>
-          <DesignSystem.link navigate={~p"/"}>
-            <li class="nav-item">
-              <Lucideicons.calendar_days />
-              <.text :if={@open} size="base" color="text-black-60">Agenda</.text>
-            </li>
-          </DesignSystem.link>
-          <DesignSystem.link navigate={~p"/"}>
-            <li class="nav-item">
-              <Lucideicons.mail />
-              <.text :if={@open} size="base" color="text-black-60">Mensagens</.text>
-            </li>
-          </DesignSystem.link>
+          </DesignSystem.link>          
         </ul>
         <div class="user-info">
           <Lucideicons.user class="text-black-60" />
@@ -74,5 +49,19 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
 
   def handle_event("mouseleave", _, socket) do
     {:noreply, assign(socket, open: false)}
+  end
+
+  attr(:name, :atom, required: true)
+
+  def lucide_icon(assigns) do
+    assigns = Map.delete(assigns, :__given__)
+    apply(Lucideicons, assigns.name, [assigns])
+  end
+
+  defp should_activate_menu_item(path, current_path) do
+    case Regex.match?(~r/^#{path}(\/|$)/, current_path) do
+      true -> true
+      false -> false
+    end
   end
 end

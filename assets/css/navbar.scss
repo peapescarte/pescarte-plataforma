@@ -57,6 +57,10 @@
     .nav-item {
       @apply text-black-60 flex items-center justify-center;
     }
+
+    .active svg {
+      @apply text-blue-80;
+    }
   }
 
   .logo {
@@ -121,6 +125,10 @@
         }
       }
     }
+  }
+
+  .active svg {
+    @apply text-black-60;
   }
 
   .logo {
