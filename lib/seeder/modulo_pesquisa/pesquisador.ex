@@ -1,12 +1,24 @@
 defmodule Seeder.ModuloPesquisa.Pesquisador do
   alias Pescarte.Database.Repo.Replica
   alias Pescarte.Identidades.Models.Usuario
+  alias Pescarte.ModuloPesquisa.Models.Campus
+  alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
+
   @behaviour Seeder.Entry
 
-  defp usuario_id_by_cpf(cpf) do
-    usuario = Replica.get_by!(Usuario, cpf: cpf)
-    usuario.id_publico
+  defp usuario_id_by(index: index) do
+    usuarios = Replica.all(Usuario)
+    Enum.at(usuarios, index).id
+  end
+
+  defp campus_id_by(index: index) do
+    campus = Replica.all(Campus)
+    Enum.at(campus, index).id
+  end
+
+  defp linha_pesquisa_id_by(numero: numero) do
+    Replica.get_by!(LinhaPesquisa, numero: numero).id
   end
 
   @impl true
@@ -16,10 +28,10 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         minibio: "Olá",
         bolsa: :pesquisa,
         link_lattes: "https://github.com/zoedsoupe",
-        campus_acronimo: "UENF",
-        usuario_id: usuario_id_by_cpf("13359017790"),
+        usuario_id: usuario_id_by(index: 0),
         link_banner_perfil: "/images/peixinhos.svg",
-        id_publico: Nanoid.generate_non_secure()
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 1)
       },
       %Pesquisador{
         minibio: """
@@ -31,26 +43,26 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         bolsa: :pesquisa,
         link_lattes: "http://lattes.cnpq.br/7484786835288826",
         link_linkedin: "www.linkedin.com/in/annabell-d-r-tamariz-89565629a",
-        campus_acronimo: "UENF",
-        usuario_id: usuario_id_by_cpf("21404703896"),
+        usuario_id: usuario_id_by(index: 1),
         link_banner_perfil: "/images/peixinhos.svg",
-        id_publico: Nanoid.generate_non_secure()
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 2)
       },
       %Pesquisador{
         minibio: "Eu sou Gisele Braga....",
         bolsa: :celetista,
         link_lattes: "http://lattes.cnpq.br/1675744772217864",
-        campus_acronimo: "UENF",
-        usuario_id: usuario_id_by_cpf("01424681693"),
-        id_publico: Nanoid.generate_non_secure()
+        usuario_id: usuario_id_by(index: 2),
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 3)
       },
       %Pesquisador{
         minibio: "Eu sou Geraldo, atualmente o coordenador técnico do PEA Pescarte....",
         bolsa: :coordenador_tecnico,
         link_lattes: "http://lattes.cnpq.br/8720264659381887",
-        campus_acronimo: "UENF",
-        usuario_id: usuario_id_by_cpf("55390153634"),
-        id_publico: Nanoid.generate_non_secure()
+        usuario_id: usuario_id_by(index: 3),
+        campus_id: campus_id_by(index: 0),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 4)
       },
       %Pesquisador{
         minibio: """
@@ -59,9 +71,9 @@ defmodule Seeder.ModuloPesquisa.Pesquisador do
         """,
         bolsa: :consultoria,
         link_lattes: "http://lattes.cnpq.br/9826346918182685",
-        campus_acronimo: "UFSCar",
-        usuario_id: usuario_id_by_cpf("21452123888"),
-        id_publico: Nanoid.generate_non_secure()
+        usuario_id: usuario_id_by(index: 4),
+        campus_id: campus_id_by(index: 1),
+        linha_pesquisa_principal_id: linha_pesquisa_id_by(numero: 1)
       }
     ]
   end

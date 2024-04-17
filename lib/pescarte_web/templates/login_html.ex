@@ -6,7 +6,9 @@ defmodule PescarteWeb.LoginHTML do
 
     ~H"""
     <div class="fish-bg h-full" id="login-wrapper">
-      <.toast :if={@error_message} id="login-error" type="error" message={@error_message} />
+      <.flash :if={@error_message} id="login-error" kind={:error}>
+        <%= @error_message %>
+      </.flash>
 
       <.simple_form for={@form} action={~p"/acessar"} class="login-form">
         <.text size="h3" color="text-black-80">
@@ -25,7 +27,7 @@ defmodule PescarteWeb.LoginHTML do
           <div class="flex justify-between items-center">
             <.checkbox field={@form[:remember_me]} label="Lembre de mim" id="remember" />
 
-            <DesignSystem.link href={~p"/usuarios/recuperar_senha"} class="text-sm font-semibold">
+            <DesignSystem.link href="/usuarios/recuperar_senha" class="text-sm font-semibold">
               <.text size="sm">Esqueci minha senha</.text>
             </DesignSystem.link>
           </div>

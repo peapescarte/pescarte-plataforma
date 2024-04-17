@@ -3,6 +3,9 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   use Pescarte, :repository
 
+  import Ecto.Query
+
+  alias Pescarte.Database
   alias Pescarte.ModuloPesquisa.IManageRepository
   alias Pescarte.ModuloPesquisa.Models.Campus
   alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
@@ -44,21 +47,16 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def fetch_categoria_by_id_publico(id) do
-    Pescarte.Database.fetch_by(Categoria, id_publico: id)
-  end
-
-  @impl true
-  def fetch_midia_by_id_publico(id) do
-    case Pescarte.Database.fetch_by(Midia, id_publico: id) do
+  def fetch_midia(id) do
+    case Pescarte.Database.fetch_by(Midia, id: id) do
       {:ok, midia} -> {:ok, Repo.replica().preload(midia, :tags)}
       error -> error
     end
   end
 
   @impl true
-  def fetch_tag_by_id_publico(id) do
-    Pescarte.Database.fetch_by(Tag, id_publico: id)
+  def fetch_tag(id) do
+    Pescarte.Database.fetch_by(Tag, id: id)
   end
 
   @impl true
@@ -68,7 +66,7 @@ defmodule Pescarte.ModuloPesquisa.Repository do
 
   @impl true
   def fetch_tags_from_ids(tags_ids) do
-    query = from(t in Tag, where: t.id_publico in ^tags_ids, select: t)
+    query = from(t in Tag, where: t.id in ^tags_ids, select: t)
 
     Repo.replica().all(query)
   end
@@ -96,24 +94,38 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def list_pesquisador do
-    query = from(p in Pesquisador, preload: [usuario: [:contato]])
+  def list_pesquisador(flop) do
+    query =
+      from(p in Pesquisador,
+        join: u in assoc(p, :usuario),
+        as: :usuario,
+        join: c in assoc(u, :contato),
+        as: :contato,
+        preload: [usuario: {u, contato: c}]
+      )
 
-    Repo.replica().all(query)
+    Flop.run(query, flop, for: Pesquisador)
   end
 
   @impl true
-  def list_relatorios_pesquisa do
-    relatorios = from(rp in RelatorioPesquisa, preload: [pesquisador: :usuario])
+  def list_relatorios_pesquisa(flop) do
+    query =
+      from(rp in RelatorioPesquisa,
+        join: p in assoc(rp, :pesquisador),
+        as: :pesquisador,
+        join: u in assoc(p, :usuario),
+        as: :usuario,
+        preload: [pesquisador: {p, usuario: u}]
+      )
 
-    Repo.replica().all(relatorios)
+    Flop.run(query, flop, for: RelatorioPesquisa)
   end
 
   @impl true
   def list_relatorios_pesquisa_from_pesquisador(id) do
     query =
       from(p in Pesquisador,
-        where: p.id_publico == ^id,
+        where: p.id == ^id,
         preload: [
           relatorios_pesquisa: [pesquisador: :usuario]
         ]
@@ -127,8 +139,27 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   end
 
   @impl true
-  def fetch_relatorio_pesquisa_by_id(id_publico) do
-    Repo.replica().get_by(RelatorioPesquisa, id_publico: id_publico)
+  def fetch_relatorio_pesquisa_by_id(id) do
+    query =
+      from r in RelatorioPesquisa,
+        where: r.id == ^id,
+        preload: [
+          pesquisador: [:linha_pesquisa_principal, orientador: [:usuario], usuario: [:contato]]
+        ]
+
+    Database.fetch_one(query)
+  end
+
+  def fetch_relatorio_pesquisa_by_id_and_kind(id, kind) do
+    query =
+      from r in RelatorioPesquisa,
+        where: r.id == ^id,
+        where: r.tipo == ^kind,
+        preload: [
+          pesquisador: [:linha_pesquisa_principal, orientador: [:usuario], usuario: [:contato]]
+        ]
+
+    Database.fetch_one(query)
   end
 
   @impl true

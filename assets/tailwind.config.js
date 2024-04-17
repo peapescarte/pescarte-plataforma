@@ -1,9 +1,5 @@
 module.exports = {
-  content: [
-    "./js/**/*.js",
-    "../lib/*.ex",
-    "../lib/**/*.*ex",
-  ],
+  content: ["./js/**/*.js", "../lib/*.ex", "../lib/**/*.*ex"],
   theme: {
     colors: {
       white: {
@@ -66,27 +62,22 @@ module.exports = {
       },
     },
     lineHeight: {
-      15: "3.438rem",
-      12: "3.25rem",
-      10: "2.25rem",
-      9: "2.375rem",
-      85: "1.438rem",
-      8: "1.75rem",
-      7: "1.5rem",
-      6: "1.375rem",
-      5: "1.25rem",
-      4: "1.125rem",
-      3: "1.188rem",
+      10: "46px",
+      8: "38px",
+      7: "28px",
+      6: "24px",
+      5: "22px",
+      4: "20px",
+      3: "18px",
     },
     fontSize: {
-      xs: "0.75rem",
-      sm: "0.875rem",
-      base: "1rem",
-      lg: "1.25rem",
-      xl: "1.5rem",
-      "2xl": "2rem",
-      "3xl": "2.5rem",
-      "4xl": "6rem",
+      sm: "12px",
+      base: "14px",
+      lg: "16px",
+      xl: "20px",
+      "2xl": "24px",
+      "3xl": "32px",
+      "4xl": "40px",
     },
     fontFamily: {
       sans: ["Work Sans", "sans-serif"],
@@ -98,7 +89,5 @@ module.exports = {
       borderWith: { 1: "1.5px" },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms"),
-  ],
+  plugins: [require("@tailwindcss/forms")],
 };

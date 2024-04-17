@@ -1,41 +1,37 @@
 defmodule Pescarte.Identidades.Models.Contato do
   use Pescarte, :model
 
-  alias Pescarte.Identidades.Models.Endereco
+  alias Pescarte.Database.Types.PublicId
 
   @type t :: %Contato{
           email_principal: binary,
           celular_principal: binary,
           emails_adicionais: list(binary),
           celulares_adicionais: list(binary),
-          endereco: Endereco.t(),
-          id_publico: binary
+          endereco: String.t(),
+          id: binary
         }
 
-  @optional_fields ~w(emails_adicionais celulares_adicionais endereco_cep)a
-  @required_fields ~w(email_principal celular_principal)a
+  # endereco_id)a
+  @optional_fields ~w(emails_adicionais celulares_adicionais)a
+  @required_fields ~w(email_principal celular_principal endereco)a
 
-  @primary_key {:email_principal, :string, autogenerate: false}
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "contato" do
-    field(:celular_principal, :string)
-    field(:emails_adicionais, {:array, :string})
-    field(:celulares_adicionais, {:array, :string})
-    field(:id_publico, Pescarte.Database.Types.PublicId, autogenerate: true)
-
-    belongs_to(:endereco, Endereco,
-      foreign_key: :endereco_cep,
-      references: :cep,
-      type: :string
-    )
+    field :celular_principal, :string
+    field :emails_adicionais, {:array, :string}
+    field :celulares_adicionais, {:array, :string}
+    field :email_principal, :string
+    field :endereco, :string
 
     timestamps()
   end
 
   @spec changeset(Contato.t(), map) :: changeset
-  def changeset(%Contato{} = contato, attrs) do
+  def changeset(contato \\ %Contato{}, attrs) do
     contato
     |> cast(attrs, @optional_fields ++ @required_fields)
-    |> validate_required([:email_principal, :celular_principal])
+    |> validate_required([:email_principal, :celular_principal, :endereco])
     |> unique_constraint(:email_principal)
     |> validate_change(:emails_adicionais, &validate_duplicates/2)
     |> validate_change(:celulares_adicionais, &validate_duplicates/2)

@@ -6,8 +6,8 @@ defmodule Seeder.ModuloPesquisa.Midia do
   @behaviour Seeder.Entry
 
   defp autor_id do
-    usuario = Repo.get_by!(Usuario, cpf: "13359017790")
-    usuario.id_publico
+    usuario = Repo.get_by!(Usuario, primeiro_nome: "Zoey")
+    usuario.id
   end
 
   defp tags do
@@ -19,7 +19,6 @@ defmodule Seeder.ModuloPesquisa.Midia do
     [
       %Midia{
         tags: tags(),
-        id_publico: Nanoid.generate(),
         nome_arquivo: "IMG20230126.png",
         tipo: :imagem,
         data_arquivo: Date.utc_today(),
@@ -28,7 +27,6 @@ defmodule Seeder.ModuloPesquisa.Midia do
       },
       %Midia{
         tags: tags(),
-        id_publico: Nanoid.generate(),
         nome_arquivo: "IMG2023014.png",
         tipo: :imagem,
         data_arquivo: Date.utc_today(),

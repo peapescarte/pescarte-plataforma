@@ -44,3 +44,6 @@ result
 
 # Temporary images
 **/*.tmp.*
+
+# macOS
+.DS_Store

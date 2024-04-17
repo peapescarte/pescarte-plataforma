@@ -1,32 +1,35 @@
 defmodule Pescarte.Cotacoes.Models.CotacaoPescado do
   use Pescarte, :model
 
+  alias Pescarte.Cotacoes.Models.Cotacao
+  alias Pescarte.Cotacoes.Models.Fonte
+  alias Pescarte.Cotacoes.Models.Pescado
+  alias Pescarte.Database.Types.PublicId
+
   @type t :: %CotacaoPescado{
           id: binary,
-          cotacao_data: Date.t(),
-          cotacao_link: String.t(),
-          pescado_codigo: binary,
-          fonte_nome: binary,
+          cotacao: Cotacao.t(),
+          pescado: Pescado.t(),
+          fonte: Fonte.t(),
           preco_minimo: integer,
           preco_maximo: integer,
           preco_mais_comum: integer,
           preco_medio: integer
         }
 
-  @required_fields ~w(cotacao_data cotacao_link pescado_codigo fonte_nome preco_minimo preco_maximo)a
+  @required_fields ~w(cotacao_id pescado_id fonte_id preco_minimo preco_maximo)a
   @optional_fields ~w(preco_mais_comum preco_medio)a
 
-  @primary_key false
+  @primary_key {:id, PublicId, autogenerate: true}
   schema "cotacoes_pescados" do
-    field(:id, Pescarte.Database.Types.PublicId, autogenerate: true)
-    field(:cotacao_data, :date, primary_key: true)
-    field(:cotacao_link, :string)
-    field(:pescado_codigo, :string, primary_key: true)
-    field(:fonte_nome, :string, primary_key: true)
-    field(:preco_minimo, :integer)
-    field(:preco_maximo, :integer)
-    field(:preco_mais_comum, :integer)
-    field(:preco_medio, :integer)
+    field :preco_minimo, :integer
+    field :preco_maximo, :integer
+    field :preco_mais_comum, :integer
+    field :preco_medio, :integer
+
+    belongs_to :fonte, Fonte, type: :string
+    belongs_to :cotacao, Cotacao, type: :string
+    belongs_to :pescado, Pescado, type: :string
   end
 
   @spec changeset(CotacaoPescado.t(), map) :: changeset
@@ -34,9 +37,8 @@ defmodule Pescarte.Cotacoes.Models.CotacaoPescado do
     cot_pescado
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> foreign_key_constraint(:cotacao_data)
-    |> foreign_key_constraint(:cotacao_link)
-    |> foreign_key_constraint(:pescado_codigo)
-    |> foreign_key_constraint(:fonte_nome)
+    |> foreign_key_constraint(:cotacao_id)
+    |> foreign_key_constraint(:pescado_id)
+    |> foreign_key_constraint(:fonte_id)
   end
 end

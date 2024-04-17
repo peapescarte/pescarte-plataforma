@@ -21,7 +21,8 @@ defmodule Pescarte.ModuloPesquisa.Handlers.RelatoriosHandler do
 
   @impl true
   def list_relatorios(sorter \\ &sort_by_periodo/1) do
-    Repository.list_relatorios_pesquisa()
+    %{}
+    |> Repository.list_relatorios_pesquisa()
     |> Enum.sort_by(sorter)
     |> Enum.map(&RelatorioAdapter.internal_to_external/1)
   end

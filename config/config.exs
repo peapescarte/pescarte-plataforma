@@ -4,8 +4,12 @@ config :pescarte, env: config_env()
 
 config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 
+config :flop, repo: Pescarte.Database.Repo.Replica
+
+config :pescarte, fetch_pesagro_cotacoes: System.get_env("FETCH_PESAGRO_COTACOES")
+
 config :pescarte,
-  ecto_repos: [Pescarte.Database.Repo, Pescarte.Database.Repo.Replica],
+  ecto_repos: [Pescarte.Database.Repo],
   migration_timestamps: [type: :utc_datetime_usec]
 
 config :pescarte, PescarteWeb.Endpoint,
@@ -20,7 +24,7 @@ config :esbuild,
   version: "0.18.6",
   default: [
     args:
-      ~w(js/app.js js/storybook.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
+      ~w(js/app.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
@@ -37,14 +41,6 @@ config :tailwind,
   default: [
     args:
       ~w(--config=tailwind.config.js --input=../priv/static/assets/app.css.tailwind --output=../priv/static/assets/app.css),
-    cd: Path.expand("../assets", __DIR__)
-  ],
-  storybook: [
-    args: ~w(
-          --config=tailwind.config.js
-          --input=css/storybook.css
-          --output=../priv/static/assets/storybook.css
-        ),
     cd: Path.expand("../assets", __DIR__)
   ]
 

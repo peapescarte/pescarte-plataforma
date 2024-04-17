@@ -44,7 +44,7 @@ defmodule PescarteWeb.Authorization do
     end
   end
 
-  defp permit?(%Usuario{tipo: role}, role), do: true
+  defp permit?(%Usuario{papel: role}, role), do: true
 
   defp permit?(_user, _role), do: false
 end

@@ -13,11 +13,11 @@ defmodule Pescarte.ModuloPesquisa.IManageRepository do
   @callback create_midia_and_tags_multi(map, list(map)) :: {:ok, Midia.t()} | {:error, changeset}
 
   @callback fetch_categoria(Pescarte.Database.id()) :: {:ok, Categoria.t()} | {:error, changeset}
-  @callback fetch_categoria_by_id_publico(Pescarte.Database.id()) ::
+  @callback fetch_categoria(Pescarte.Database.id()) ::
               {:ok, Categoria.t()} | {:error, changeset}
-  @callback fetch_midia_by_id_publico(Pescarte.Database.id()) ::
+  @callback fetch_midia(Pescarte.Database.id()) ::
               {:ok, Midia.t()} | {:error, changeset}
-  @callback fetch_tag_by_id_publico(Pescarte.Database.id()) ::
+  @callback fetch_tag(Pescarte.Database.id()) ::
               {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tag_by_etiqueta(binary) :: {:ok, Tag.t()} | {:error, changeset}
   @callback fetch_tags_from_ids(list(Pescarte.Database.id())) :: list(Tag.t())
@@ -25,8 +25,8 @@ defmodule Pescarte.ModuloPesquisa.IManageRepository do
   @callback list_categoria :: list(Categoria.t())
   @callback list_midia :: list(Midia.t())
   @callback list_midias_from_tag(Pescarte.Database.id()) :: list(Midia.t())
-  @callback list_pesquisador :: list(Pesquisador.t())
-  @callback list_relatorios_pesquisa :: list(struct)
+  @callback list_pesquisador(params :: map) :: list(Pesquisador.t())
+  @callback list_relatorios_pesquisa(params :: map) :: list(struct)
   @callback list_relatorios_pesquisa_from_pesquisador(Pescarte.Database.id()) :: list(struct)
   @callback fetch_relatorio_pesquisa_by_id(Pescarte.Database.id()) :: struct
   @callback list_tag :: list(Tag.t())

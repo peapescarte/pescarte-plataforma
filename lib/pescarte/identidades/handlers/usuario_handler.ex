@@ -8,6 +8,8 @@ defmodule Pescarte.Identidades.Handlers.UsuarioHandler do
   @behaviour IManageUsuarioHandler
 
   @impl true
+  def build_usuario_name(nil), do: ""
+
   def build_usuario_name(usuario) do
     if usuario.sobrenome do
       usuario.primeiro_nome <> " " <> usuario.sobrenome
@@ -33,7 +35,7 @@ defmodule Pescarte.Identidades.Handlers.UsuarioHandler do
   end
 
   defp create_usuario(attrs, tipo) when tipo in ~w(pesquisador admin)a do
-    attrs = Map.put(attrs, :tipo, tipo)
+    attrs = Map.put(attrs, :papel, tipo)
 
     %Usuario{}
     |> Usuario.changeset(attrs)
@@ -50,7 +52,7 @@ defmodule Pescarte.Identidades.Handlers.UsuarioHandler do
   end
 
   @impl true
-  defdelegate fetch_usuario_by_id_publico(id), to: Repository
+  defdelegate fetch_usuario(id), to: Repository
 
   @doc """
   Busca um registro de `Usuario.t()`, com base no `:cpf`
@@ -70,8 +72,7 @@ defmodule Pescarte.Identidades.Handlers.UsuarioHandler do
   """
   @impl true
   def fetch_usuario_by_cpf_and_password(cpf, pass) do
-    with cpf <- handle_cpf(cpf),
-         {:ok, user} <- Repository.fetch_usuario_by_cpf(cpf) do
+    with {:ok, user} <- Repository.fetch_usuario_by_cpf(cpf) do
       if valid_password?(user, pass) do
         {:ok, user}
       else
@@ -102,12 +103,6 @@ defmodule Pescarte.Identidades.Handlers.UsuarioHandler do
         {:error, :invalid_password}
       end
     end
-  end
-
-  defp handle_cpf(cpf) do
-    cpf
-    |> String.replace(~r/[.-]/, "")
-    |> String.trim()
   end
 
   @impl true
