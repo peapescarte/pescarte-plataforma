@@ -29,9 +29,9 @@
   @apply flex flex-wrap justify-center md:mt-10;
 
   .links-item {
-    @apply flex flex-col justify-end m-4;
-    height: 20.875rem;
-    width: 20.125rem;
+    @apply flex flex-col justify-end md:mb-4;
+    height: 22.875rem;
+    width: 22.125rem;
     border-radius: 8px;
     background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
 
@@ -47,17 +47,18 @@
     }
 
     p {
-      width: 100%;
       margin-top: 0.5rem;
       padding: 0 1rem 1.5rem 1rem;
     }
 
     button {
-      display: inline-flex;
       width: 100%;
       background-color: transparent;
 
       p {
+        display: inline-flex;
+        height: inherit;
+
         &:hover {
           text-decoration: underline;
         }
@@ -68,8 +69,8 @@
 }
 
 .about {
-  @apply flex justify-center;
-  padding: 2.5rem;
+  @apply flex flex-wrap justify-center;
+  padding: 2rem;
 
   .about-text {
     width: 40rem;
@@ -88,10 +89,12 @@
   img {
     width: 40rem;
     height: 30rem;
+    margin-top: 15px;
   }
 }
 
 .news {
+
   h2 {
     display: flex;
     justify-content: center;
@@ -111,7 +114,8 @@
       img {
         border-radius: 0.5rem 0.5rem 0 0;
         width: 100%;
-        height: auto;
+        min-height: 242px;
+        max-height: 242px;
       }
 
       h2 {
@@ -123,5 +127,35 @@
         margin-top: 1rem;
       }
     }
+  }
+}
+
+.find-us {
+  background-color: #FF6E00;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h2 {
+    margin: 15px;
+  }
+
+  .find-us-links {
+    display: inline-flex;
+    margin: 20px;
+    a {
+      margin: 10px;
+    }
+  }
+
+  .find-us-bttn {
+    background-color: white;
+    width: 185px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 39%;
+    padding: 16px 24px 16px 24px;
+    border-radius: 4px;
   }
 }
