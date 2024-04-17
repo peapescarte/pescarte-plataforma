@@ -105,34 +105,19 @@
   .nav-menu {
     @apply flex;
 
-<<<<<<< HEAD
     a {
       @apply flex;
       width: 85%;
       justify-content: flex-start;
       align-items: center;
-=======
-    >.nav-tem.logo {
-      margin: 0;
-    }
-
-    a {
-      @apply flex;
-      width: 100%;
-      padding: 1rem 1.5rem;
-      justify-content: left;
->>>>>>> 00c13a40158795f4fdcd34f3749b7def1a989c26
       text-decoration: none;
 
       .nav-item {
         @apply flex;
-<<<<<<< HEAD
 
         padding: 1rem 1.5rem 1rem 1.5rem;
-=======
         justify-content: center;
         align-items: center;
->>>>>>> 00c13a40158795f4fdcd34f3749b7def1a989c26
 
         p {
           padding: 0.5rem;
