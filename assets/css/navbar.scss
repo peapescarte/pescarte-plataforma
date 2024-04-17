@@ -3,20 +3,15 @@
   @apply w-full border-black-10 bg-white-100;
 }
 
-.logo {
-  margin-left: 2.5rem;
-  width: 9.75rem;
-  height: 3.125rem;
-}
-
 .login-button {
+  @apply flex;
   margin-right: 2.5rem;
 }
 
 .navbar.authenticated {
   @apply border-black-10 flex flex-col items-center w-full;
 
-  padding: 2.5rem;
+  padding-top: 2.5rem;
   width: $nav-width;
   overflow: hidden;
   -webkit-transition: width 0.05s linear;
@@ -47,15 +42,26 @@
   .user-info {
     @apply flex justify-center;
     margin-top: 12rem;
+
+    svg {
+      width: 3.75rem;
+      height: 3.75rem;
+    }
   }
 
   .nav-menu {
-    @apply flex flex-col items-center justify-between;
+    @apply flex flex-col items-center justify-start;
 
     height: 26.875rem;
 
-    .nav-item {
-      @apply text-black-60 flex items-center justify-center;
+    a {
+      @apply flex justify-center;
+
+      .nav-item {
+        @apply flex text-black-60 items-center justify-center;
+
+        padding: 1rem 0.813rem 1rem 0.813rem;
+      }
     }
 
     .active svg {
@@ -64,7 +70,7 @@
   }
 
   .logo {
-    margin-right: 1.5rem;
+    margin-bottom: 5rem;
     width: 3.75rem;
     height: 3.875rem;
   }
@@ -81,9 +87,9 @@
   }
 
   .user-info {
-    @apply items-center;
+    @apply flex justify-center items-center;
 
-    width: max-content;
+    margin-top: auto;
 
     svg {
       width: 3.75rem;
@@ -93,24 +99,19 @@
   }
 
   .nav-menu {
-    @apply items-start;
-    width: 85%;
-
-    >.nav-tem.logo {
-      margin: 0;
-    }
+    @apply flex;
 
     a {
       @apply flex;
-      width: 100%;
-      padding: 1rem 1.5rem;
-      justify-content: left;
+      width: 85%;
+      justify-content: flex-start;
+      align-items: center;
       text-decoration: none;
 
       .nav-item {
         @apply flex;
-        justify-content: center;
-        align-items: center;
+
+        padding: 1rem 1.5rem 1rem 1.5rem;
 
         p {
           padding: 0.5rem;
@@ -132,6 +133,7 @@
   }
 
   .logo {
+    margin-bottom: 5rem;
     width: 12.25rem;
     height: 3.8rem;
   }

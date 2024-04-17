@@ -7,9 +7,7 @@ defmodule PescarteWeb.NavbarLive do
         menus: [
           {"Home", ~p"/app/pesquisa/perfil", :home},
           {"Pesquisadores", ~p"/app/pesquisa/pesquisadores", :users},
-          {"Relatórios", ~p"/app/pesquisa/relatorios", :file_text},
-          {"Agenda", ~p"/", :calendar_days},
-          {"Mensagens", ~p"/", :mail}
+          {"Relatórios", ~p"/app/pesquisa/relatorios", :file_text}
         ]
       )
 

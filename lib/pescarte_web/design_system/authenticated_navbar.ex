@@ -29,7 +29,7 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
               <.lucide_icon name={icon} />
               <.text :if={@open} size="base" color="text-black-60"><%= menu_name %></.text>
             </li>
-          </DesignSystem.link>          
+          </DesignSystem.link>
         </ul>
         <div class="user-info">
           <Lucideicons.user class="text-black-60" />
