@@ -2,6 +2,17 @@ import Config
 
 config :pescarte, env: config_env()
 
+config :supabase_potion,
+  manage_clients: true,
+  supabase_base_url: System.get_env("SUPABASE_URL"),
+  supabase_api_key: System.get_env("SUPABASE_KEY")
+
+config :supabase_gotrue,
+  endpoint: PescarteWeb.Endpoint,
+  signed_in_path: "/app/pesquisa/perfil",
+  not_authenticated_path: "/",
+  authentication_client: Pescarte.Supabase.Client
+
 config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 
 config :flop, repo: Pescarte.Database.Repo.Replica

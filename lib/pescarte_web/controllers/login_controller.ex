@@ -14,15 +14,21 @@ defmodule PescarteWeb.LoginController do
   def create(conn, %{"user" => user_params}) do
     %{"cpf" => cpf, "password" => password} = user_params
 
-    case UsuarioHandler.fetch_usuario_by_cpf_and_password(cpf, password) do
-      {:error, :not_found} -> render(conn, :show, error_message: @err_msg)
-      {:ok, user} -> Authentication.log_in_user(conn, user, user_params)
+    with {:ok, user} <- UsuarioHandler.fetch_usuario_by_cpf_and_password(cpf, password) do
+      IO.inspect(user, label: "USUARIO")
+      email = user.contato.email_principal
+      params = %{email: email, password: password}
+      Supabase.GoTrue.Plug.log_in_with_password(conn, params) |> IO.inspect(label: "CONN")
+    else
+      err -> 
+        IO.inspect(err, label: "ERRO")
+        render(conn, :show, error_message: @err_msg)
     end
   end
 
   def delete(conn, _params) do
     conn
     |> put_flash(:info, "Desconectado com sucesso")
-    |> Authentication.log_out_user()
+    |> Supabase.GoTrue.Plug.log_out_user(:local)
   end
 end

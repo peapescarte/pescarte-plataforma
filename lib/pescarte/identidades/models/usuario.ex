@@ -19,7 +19,8 @@ defmodule Pescarte.Identidades.Models.Usuario do
           id: binary,
           ativo?: boolean,
           pesquisador: Pesquisador.t(),
-          contato: Contato.t()
+          contato: Contato.t(),
+          external_customer_id: String.t
         }
 
   @valid_roles ~w(pesquisador pescador admin)a
@@ -44,6 +45,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
     field :sobrenome, :string
     field :ativo?, :boolean, default: false
     field :link_avatar, :string
+    field :external_customer_id, :string
 
     has_one :pesquisador, Pesquisador
 
@@ -96,5 +98,10 @@ defmodule Pescarte.Identidades.Models.Usuario do
     else
       changeset
     end
+  end
+
+  def get_external_id(%__MODULE__{} = user) do
+    "supabase|" <> external_id = user.external_customer_id
+    external_id
   end
 end

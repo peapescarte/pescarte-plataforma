@@ -2,6 +2,8 @@ import Config
 
 config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
+config :pescarte, :pesquisa_ingestion, sheet_url: System.get_env("SHEET_URL")
+
 if System.get_env("PHX_SERVER") do
   config :pescarte, PescarteWeb.Endpoint, server: true
 end

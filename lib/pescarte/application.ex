@@ -1,6 +1,10 @@
 defmodule Pescarte.Application do
   use Application
 
+  @supabase_client Pescarte.Supabase.Client
+
+  def supabase_client, do: @supabase_client
+
   @impl true
   def start(_, _) do
     opts = [strategy: :one_for_one, name: Pescarte.Supervisor]
@@ -16,13 +20,16 @@ defmodule Pescarte.Application do
   end
 
   defp children do
+    if Pescarte.env() == :dev, do: Faker.start()
+
     [
       Pescarte.Database.Supervisor,
       PescarteWeb.Telemetry,
       {Phoenix.PubSub, name: Pescarte.PubSub},
       PescarteWeb.Endpoint,
       Pescarte.CotacoesETL.InjesterSupervisor,
-      ChromicPDF
+      # ChromicPDF,
+      {Task, fn -> Supabase.init_client!(%{name: @supabase_client}) end}
     ]
   end
 end

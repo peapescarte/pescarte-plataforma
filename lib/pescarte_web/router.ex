@@ -1,8 +1,9 @@
 defmodule PescarteWeb.Router do
   use PescarteWeb, :router
 
-  import PescarteWeb.Authentication
-
+  import Supabase.GoTrue.Plug
+  alias Supabase.GoTrue
+  
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -41,12 +42,11 @@ defmodule PescarteWeb.Router do
   end
 
   scope "/app/pesquisa", PescarteWeb.Pesquisa do
-    pipe_through(:browser)
-    # pipe_through [:browser, :require_authenticated_user]
+    pipe_through :browser
 
     live_session :require_authenticated_user,
       on_mount: [
-        {PescarteWeb.Authentication, :ensure_authenticated},
+        {GoTrue.LiveView, :ensure_authenticated},
         {PescarteWeb.Flash, :flash}
       ] do
       live "/perfil", ProfileLive

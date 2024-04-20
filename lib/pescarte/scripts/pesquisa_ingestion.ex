@@ -1,6 +1,7 @@
 defmodule Pescarte.Scripts.PesquisaIngestion do
   import Ecto.Changeset
   import Explorer.Series
+  import Pescarte.Application, only: [supabase_client: 0]
 
   alias Ecto.Multi, as: TRX
   alias Pescarte.Database.Repo
@@ -13,6 +14,8 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
   alias Pescarte.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.ModuloPesquisa.Models.PesquisadorLP
+
+  alias Supabase.GoTrue
 
   require Explorer.DataFrame, as: DF
 
@@ -178,15 +181,33 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
         key = String.to_atom("usuario_#{cpf}")
         contato = usuario["contato"]
         contato_key = String.to_atom("contato_#{primeiro_nome}_#{cpf}}")
+        supabase_key = String.to_atom("supabase_user_#{cpf}")
 
         trx
         |> TRX.insert(contato_key, fn _ -> Contato.changeset(contato) end)
+        |> TRX.run(supabase_key, fn _repo, state ->
+          contato = state[contato_key]
+
+          app_metadata = Map.drop(usuario, ~w(endereco ativo? telefone email))
+
+          Map.new()
+          |> Map.put("email", contato.email_principal)
+          |> Map.put("phone", contato.celular_principal)
+          |> Map.update!("phone", &String.replace(&1, ~r/\D/, ""))
+          |> Map.put("password", @senha_default)
+          |> Map.put("phone_confirm", true)
+          |> Map.put("role", "pesquisador")
+          |> Map.put("app_metadata", app_metadata)
+          |> then(&GoTrue.Admin.create_user(supabase_client(), &1))
+        end)
         |> TRX.run(key, fn _repo, state ->
           contato = state[contato_key]
+          supabase_user = state[supabase_key]
 
           usuario
           |> Map.put("contato_id", contato.id)
           |> Map.put("link_avatar", usuario["link_foto"])
+          |> Map.put("external_customer_id", "supabase|" <> supabase_user.id)
           |> Map.merge(%{"senha" => @senha_default, "senha_confirmation" => @senha_default})
           |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
           |> UsuarioHandler.create_usuario_pesquisador()
@@ -194,7 +215,7 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
     end
   end
 
-  @usuario_columns ~w(primeiro_nome sobrenome data_nascimento endereco ativo? cpf rg email telefone link_foto)
+  @usuario_columns ~w(primeiro_nome sobrenome data_nascimento endereco ativo? cpf rg email telefone link_foto nome_completo)
 
   def parse_usuario(df) do
     df
@@ -202,6 +223,12 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
     |> DF.put(:ativo?, transform(df["ativo?"], &(&1 == "S")))
     |> DF.put(:data_nascimento, transform(df["data_nascimento"], &parse_date/1))
     |> DF.to_rows()
+    |> Enum.map(fn usuario ->
+      Map.update!(usuario, "endereco", &String.trim(&1))
+    end)
+    |> Enum.map(fn usuario ->
+      Map.update!(usuario, "cpf", &String.replace(&1, ~r/\D/, ""))
+    end)
     |> Enum.uniq_by(& &1["cpf"])
     |> Enum.reject(&(!Brcpfcnpj.cpf_valid?(&1["cpf"])))
     |> Enum.map(&maybe_explode_emails/1)
@@ -220,29 +247,30 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
   end
 
   defp maybe_explode_emails(params) do
-    if String.contains?(params["email"], ";") do
-      emails = String.split(params["email"], ";", trim: true)
-      principal = hd(emails)
-
+    params["email"]
+    |> String.replace(~r/[\s,;]+/, ";")
+    |> String.split(";", trim: true)
+    |> then(fn
+      [principal | emails] ->
       params
       |> Map.put("email_principal", principal)
-      |> Map.put("emails_adicionais", tl(emails))
-    else
-      Map.put(params, "email_principal", params["email"])
-    end
+      |> Map.put("emails_adicionais", emails)
+      [] -> Map.put(params, "email_principal", params["email"])
+    end)
   end
 
   defp maybe_explode_telefones(params) do
-    if String.contains?(params["telefone"], ";") do
-      telefones = String.split(params["telefone"], " ", trim: true)
-      principal = hd(telefones)
-
+    ~r/\(?(\d{2})\)?\s*(\d{4,5}\-?\d{4})/
+    |> Regex.scan(params["telefone"], capture: :all_but_first)
+    |> Enum.map(&Enum.join(&1, ""))
+    |> Enum.map(&String.replace(&1, ~r/\D/, ""))
+    |> then(fn
+      [principal | telefones] ->
       params
       |> Map.put("celular_principal", principal)
-      |> Map.put("celulares_adicionais", tl(telefones))
-    else
-      Map.put(params, "celular_principal", params["telefone"])
-    end
+      |> Map.put("celulares_adicionais", telefones)
+      [] -> Map.put(params, "celular_principal", params["telefone"])
+    end)
   end
 
   @contato_fields ~w(email_principal emails_adicionais celular_principal celulares_adicionais endereco)
@@ -262,7 +290,7 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
         usuario_key = String.to_atom("usuario_#{cpf}")
         usuario = state[usuario_key]
 
-        unless usuario, do: raise(inspect(pesquisador))
+        unless usuario, do: inspect(pesquisador)
 
         acronimo = get_change(pesquisador, :campus_id)
         campus_key = String.to_atom("campus_#{acronimo}")
@@ -288,6 +316,9 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
     |> DF.put(:data_fim_bolsa, transform(df["data_nascimento"], &parse_date/1))
     |> DF.put(:data_contratacao, transform(df["data_nascimento"], &parse_date/1))
     |> DF.to_rows()
+    |> Enum.map(fn usuario ->
+      Map.update!(usuario, "usuario_id", &String.replace(&1, ~r/\D/, ""))
+    end)
     |> Enum.uniq_by(& &1["usuario_id"])
     |> Enum.map(&Pesquisador.changeset/1)
   end
@@ -344,5 +375,8 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
     df
     |> DF.select(~w(cpf linha_pesquisa_numero responsavel?))
     |> DF.to_rows()
+    |> Enum.map(fn usuario ->
+      Map.update!(usuario, "cpf", &String.replace(&1, ~r/\D/, ""))
+    end)
   end
 end

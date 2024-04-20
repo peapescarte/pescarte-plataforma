@@ -9,7 +9,10 @@ defmodule Pescarte.Identidades.Repository do
 
   @impl true
   def fetch_usuario_by_cpf(cpf) do
-    Pescarte.Database.fetch_by(Usuario, cpf: cpf)
+    cpf = String.replace(cpf, ~r/\D/, "")
+    q = from u in Usuario, where: u.cpf == ^cpf, preload: [:pesquisador, :contato]
+
+    Pescarte.Database.fetch_one(q)
   end
 
   @impl true

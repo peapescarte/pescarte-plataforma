@@ -6,6 +6,7 @@ import Config
 database = System.get_env("PG_DATABASE", "peapescarte")
 db_user = System.get_env("DATABASE_USER", "peapescarte")
 db_pass = System.get_env("DATABASE_PASSWORD", "peapescarte")
+db_port = System.get_env("DATABASE_PORT", "5432")
 # docker-compose service
 hostname = System.get_env("DATABASE_HOST", "localhost")
 
@@ -14,6 +15,7 @@ database_opts = [
   password: db_pass,
   hostname: hostname,
   database: database,
+  port: String.to_integer(db_port),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -21,8 +23,6 @@ database_opts = [
 
 config :pescarte, Pescarte.Database.Repo, database_opts
 config :pescarte, Pescarte.Database.Repo.Replica, database_opts
-
-config :pescarte, :pesquisa_ingestion, sheet_url: System.get_env("SHEET_URL")
 
 config :pescarte, PescarteWeb.Endpoint,
   http: [ip: {0, 0, 0, 0}, port: 4000],
