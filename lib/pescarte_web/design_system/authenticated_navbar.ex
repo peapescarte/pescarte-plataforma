@@ -6,6 +6,8 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
 
   attr(:user, Usuario, required: true)
   attr(:open, :boolean, default: nil)
+  attr(:menus, :any, default: [])
+  attr(:current_path, :string)
 
   @impl true
   def render(assigns) do
@@ -21,28 +23,13 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
             <img :if={!@open} src={~p"/images/icon_logo.svg"} class="logo" />
             <img :if={@open} src={~p"/images/pescarte_logo.svg"} class="logo" />
           </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/"}>
-              <Lucideicons.home />
-              <.text :if={@open} size="base" color="text-black-60">Home</.text>
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores"}>
-              <Lucideicons.users />
-              <.text :if={@open} size="base" color="text-black-60">
-                Pesquisadores
-              </.text>
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link navigate={~p"/app/pesquisa/relatorios"}>
-              <Lucideicons.file_text />
-              <.text :if={@open} size="base" color="text-black-60">
-                Relatórios
-              </.text>
-            </DesignSystem.link>
-          </li>
+
+          <DesignSystem.link :for={{menu_name, path, icon} <- @menus} navigate={path}>
+            <li class={"nav-item #{if should_activate_menu_item(path, @current_path), do: "active"}"}>
+              <.lucide_icon name={icon} />
+              <.text :if={@open} size="base" color="text-black-60"><%= menu_name %></.text>
+            </li>
+          </DesignSystem.link>
         </ul>
         <div class="user-info">
           <Lucideicons.user class="text-black-60" />
@@ -62,5 +49,19 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
 
   def handle_event("mouseleave", _, socket) do
     {:noreply, assign(socket, open: false)}
+  end
+
+  attr(:name, :atom, required: true)
+
+  def lucide_icon(assigns) do
+    assigns = Map.delete(assigns, :__given__)
+    apply(Lucideicons, assigns.name, [assigns])
+  end
+
+  defp should_activate_menu_item(path, current_path) do
+    case Regex.match?(~r/^#{path}(\/|$)/, current_path) do
+      true -> true
+      false -> false
+    end
   end
 end

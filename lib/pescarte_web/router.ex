@@ -42,13 +42,9 @@ defmodule PescarteWeb.Router do
 
   scope "/app/pesquisa", PescarteWeb.Pesquisa do
     pipe_through(:browser)
-    # pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [
-        {PescarteWeb.Authentication, :ensure_authenticated},
-        {PescarteWeb.Flash, :flash}
-      ] do
+      on_mount: [PescarteWeb.NavbarLive, {PescarteWeb.Authentication, :ensure_authenticated}] do
       live "/perfil", ProfileLive
       live "/pesquisadores", ListPesquisadorLive
       live "/cadastro", CadastroPesquisadorLive
