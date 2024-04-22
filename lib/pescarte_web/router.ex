@@ -3,7 +3,7 @@ defmodule PescarteWeb.Router do
 
   import Supabase.GoTrue.Plug
   alias Supabase.GoTrue
-  
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -47,6 +47,7 @@ defmodule PescarteWeb.Router do
     live_session :require_authenticated_user,
       on_mount: [
         {GoTrue.LiveView, :ensure_authenticated},
+        {PescarteWeb.SessionContext, :mount_pescarte_context},
         {PescarteWeb.Flash, :flash}
       ] do
       live "/perfil", ProfileLive

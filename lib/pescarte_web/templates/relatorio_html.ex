@@ -3,7 +3,7 @@ defmodule PescarteWeb.RelatorioHTML do
 
   alias Phoenix.HTML.Safe
 
-  import Pescarte.Identidades.Handlers.UsuarioHandler
+  import Pescarte.Identidades.Models.Usuario, only: [build_usuario_name: 1]
 
   embed_templates("relatorio_html/*")
 

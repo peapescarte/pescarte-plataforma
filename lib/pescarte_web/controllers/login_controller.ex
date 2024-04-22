@@ -1,8 +1,10 @@
 defmodule PescarteWeb.LoginController do
   use PescarteWeb, :controller
 
-  alias Pescarte.Identidades.Handlers.UsuarioHandler
-  alias PescarteWeb.Authentication
+  alias Pescarte.Identidades.Models.Usuario
+  alias Supabase.GoTrue
+
+  require Logger
 
   # Para evitar ataques de enumeração de usuários, não divulgue se o email está registrado.
   @err_msg "Email ou senha inválidos"
@@ -14,14 +16,14 @@ defmodule PescarteWeb.LoginController do
   def create(conn, %{"user" => user_params}) do
     %{"cpf" => cpf, "password" => password} = user_params
 
-    with {:ok, user} <- UsuarioHandler.fetch_usuario_by_cpf_and_password(cpf, password) do
-      IO.inspect(user, label: "USUARIO")
-      email = user.contato.email_principal
-      params = %{email: email, password: password}
-      Supabase.GoTrue.Plug.log_in_with_password(conn, params) |> IO.inspect(label: "CONN")
+    with {:ok, user} <- Usuario.fetch_by(cpf: cpf),
+        email = user.contato.email_principal,
+        params = %{email: email, password: password},
+        %Plug.Conn{} = conn <- GoTrue.Plug.log_in_with_password(conn, params) do
+      conn
     else
-      err -> 
-        IO.inspect(err, label: "ERRO")
+      err ->
+        Logger.error("[#{__MODULE__}] ==> Cannot log in user:\nERROR: #{inspect(err, pretty: true)}")
         render(conn, :show, error_message: @err_msg)
     end
   end
@@ -29,6 +31,6 @@ defmodule PescarteWeb.LoginController do
   def delete(conn, _params) do
     conn
     |> put_flash(:info, "Desconectado com sucesso")
-    |> Supabase.GoTrue.Plug.log_out_user(:local)
+    |> GoTrue.Plug.log_out_user(:local)
   end
 end

@@ -97,9 +97,7 @@ defmodule Pescarte.Fixtures do
       sobrenome: sequence(:last, &"Last User #{&1}"),
       cpf: Brcpfcnpj.cpf_generate(true),
       data_nascimento: Date.utc_today(),
-      hash_senha: "$2b$12$6beq5zEplVZjji7Jm7itJuTXd3wH9rDN.V5VRcaS/A8YJ28mi1LBG",
       contato_id: insert(:contato).id,
-      senha: senha_atual()
     }
   end
 
@@ -133,10 +131,6 @@ defmodule Pescarte.Fixtures do
       enviado_para: contato.email_principal,
       token: :crypto.strong_rand_bytes(32)
     }
-  end
-
-  def senha_atual do
-    "Password!123"
   end
 
   defp sequence_list(label, custom, opts) do

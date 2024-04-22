@@ -1,7 +1,7 @@
 defmodule Pescarte.ModuloPesquisa.Adapters.RelatorioAdapter do
   import Timex.Format.DateTime.Formatter, only: [lformat!: 3]
 
-  alias Pescarte.Identidades.Handlers.UsuarioHandler
+  alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Models.RelatorioAnualPesquisa, as: Anual
   alias Pescarte.ModuloPesquisa.Models.RelatorioMensalPesquisa, as: Mensal
   alias Pescarte.ModuloPesquisa.Models.RelatorioTrimestralPesquisa, as: Trimestral
@@ -21,7 +21,7 @@ defmodule Pescarte.ModuloPesquisa.Adapters.RelatorioAdapter do
       link: relatorio.link,
       tipo: get_relatorio_tipo(relatorio),
       periodo: get_relatorio_periodo!(relatorio),
-      nome_pesquisador: UsuarioHandler.build_usuario_name(pesquisador.usuario)
+      nome_pesquisador: Usuario.build_usuario_name(pesquisador.usuario)
     }
 
     RelatorioPesquisa.parse!(attrs)

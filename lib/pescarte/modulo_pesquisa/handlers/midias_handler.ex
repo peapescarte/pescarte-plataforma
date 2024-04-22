@@ -3,7 +3,7 @@ defmodule Pescarte.ModuloPesquisa.Handlers.MidiasHandler do
 
   alias Ecto.Multi
   alias Pescarte.Database.Repo
-  alias Pescarte.Identidades.Handlers.UsuarioHandler
+  alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Handlers.IManageMidiasHandler
   alias Pescarte.ModuloPesquisa.Repository
 
@@ -26,7 +26,7 @@ defmodule Pescarte.ModuloPesquisa.Handlers.MidiasHandler do
 
   @impl true
   def create_midia_and_tags(attrs, tags_attrs) do
-    with {:ok, user} <- UsuarioHandler.fetch_usuario(attrs.autor_id),
+    with {:ok, user} <- Usuario.fetch_by(id: attrs.autor_id),
          {:ok, raw_tags} <- put_categorias_ids(tags_attrs) do
       attrs
       |> Map.update!(:autor_id, fn _ -> user.id end)

@@ -10,14 +10,11 @@ defmodule Pescarte.Identidades.Models.Usuario do
   @type t :: %Usuario{
           cpf: binary,
           rg: binary,
-          confirmado_em: NaiveDateTime.t(),
-          hash_senha: binary,
           data_nascimento: Date.t(),
           papel: atom,
           primeiro_nome: binary,
           sobrenome: binary,
           id: binary,
-          ativo?: boolean,
           pesquisador: Pesquisador.t(),
           contato: Contato.t(),
           external_customer_id: String.t
@@ -26,7 +23,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
   @valid_roles ~w(pesquisador pescador admin)a
 
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id papel)a
-  @optional_fields ~w(confirmado_em rg ativo? link_avatar)a
+  @optional_fields ~w(rg link_avatar)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
@@ -36,14 +33,10 @@ defmodule Pescarte.Identidades.Models.Usuario do
   schema "usuario" do
     field :cpf, :string
     field :rg, :string
-    field :confirmado_em, :naive_datetime
-    field :hash_senha, :string, redact: true
-    field :senha, :string, virtual: true, redact: true
     field :data_nascimento, :date
     field :papel, Ecto.Enum, values: @valid_roles
     field :primeiro_nome, :string
     field :sobrenome, :string
-    field :ativo?, :boolean, default: false
     field :link_avatar, :string
     field :external_customer_id, :string
 
@@ -54,7 +47,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
     timestamps()
   end
 
-  @spec changeset(Usuariot.t(), map) :: changeset
+  @spec changeset(Usuario.t(), map) :: changeset
   def changeset(%Usuario{} = user, attrs) do
     user
     |> cast(attrs, @required_fields ++ @optional_fields)
@@ -64,13 +57,8 @@ defmodule Pescarte.Identidades.Models.Usuario do
     |> foreign_key_constraint(:contato_id)
   end
 
-  @spec confirm_changeset(Usuario.t(), NaiveDateTime.t()) :: changeset
-  def confirm_changeset(%__MODULE__{} = user, now) do
-    change(user, confirmado_em: now)
-  end
-
-  @spec password_changeset(Usuario.t() | changeset, map, keyword) :: changeset
-  def password_changeset(source, attrs \\ %{}, opts \\ []) do
+  @spec password_changeset(Usuario.t() | changeset, map) :: changeset
+  def password_changeset(source, attrs \\ %{}) do
     source
     |> cast(attrs, [:senha])
     |> validate_required([:senha])
@@ -81,27 +69,61 @@ defmodule Pescarte.Identidades.Models.Usuario do
     |> validate_format(:senha, @special_pass_format,
       message: "pelo menos um digito ou caractere digital"
     )
-    |> maybe_hash_password(opts)
   end
 
   def user_roles, do: @valid_roles
 
-  defp maybe_hash_password(changeset, opts) do
-    hash_password? = Keyword.get(opts, :hash, true)
-    password = get_change(changeset, :senha)
-
-    if hash_password? && password && changeset.valid? do
-      changeset
-      |> validate_length(:senha, max: 72, count: :bytes)
-      |> put_change(:hash_senha, Bcrypt.hash_pwd_salt(password))
-      |> delete_change(:senha)
-    else
-      changeset
-    end
-  end
-
   def get_external_id(%__MODULE__{} = user) do
     "supabase|" <> external_id = user.external_customer_id
     external_id
+  end
+
+  def fetch_by(cpf: cpf) do
+    Database.fetch_one(
+      from u in __MODULE__,
+        where: u.cpf == ^(String.replace(cpf, ~r/\D/, "")),
+        preload: [:pesquisador, :contato]
+    )
+  end
+
+  def fetch_by(external_customer_id: external_customer_id) do
+    id = "supabase|" <> external_customer_id
+
+    Database.fetch_one(
+      from u in __MODULE__,
+        where: u.external_customer_id == ^id,
+        preload: [:pesquisador, :contato]
+    )
+  end
+
+  def all do
+    alias Pescarte.Database.Repo
+    query = from u in __MODULE__, preload: [:pesquisador, :contato]
+    Repo.Replica.all(query)
+  end
+
+  def create(params) do
+    %__MODULE__{}
+    |> changeset(params)
+    |> Repo.insert()
+  end
+
+  def email_query(email) do
+    from(u in Usuario,
+      left_join: c in assoc(u, :contato),
+      where: c.email_principal == ^email or ^email in c.emails_adicionais,
+      order_by: [desc: u.inserted_at],
+      limit: 1
+    )
+  end
+
+  def build_usuario_name(nil), do: ""
+
+  def build_usuario_name(usuario) do
+    if usuario.sobrenome do
+      usuario.primeiro_nome <> " " <> usuario.sobrenome
+    else
+      usuario.primeiro_nome
+    end
   end
 end

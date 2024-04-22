@@ -3,7 +3,7 @@ defmodule PescarteWeb.GraphQL.Context do
 
   import Plug.Conn
 
-  alias Pescarte.Identidades.Handlers.UsuarioHandler
+  alias Pescarte.Identidades.Models.Usuario
 
   @token_salt "autenticação de usuário"
   @day_seconds 86_400
@@ -28,7 +28,7 @@ defmodule PescarteWeb.GraphQL.Context do
   defp authorize(token) do
     with {:ok, user_id} <-
            Phoenix.Token.verify(@endpoint, @token_salt, token, max_age: @day_seconds) do
-      UsuarioHandler.fetch_usuario(user_id)
+      Usuario.fetch_by(id: user_id)
     end
   end
 end

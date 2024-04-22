@@ -6,8 +6,8 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
   alias Ecto.Multi, as: TRX
   alias Pescarte.Database.Repo
 
-  alias Pescarte.Identidades.Handlers.UsuarioHandler
   alias Pescarte.Identidades.Models.Contato
+  alias Pescarte.Identidades.RegisterUsuario
 
   alias Pescarte.ModuloPesquisa.Models.Campus
   alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
@@ -210,7 +210,7 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
           |> Map.put("external_customer_id", "supabase|" <> supabase_user.id)
           |> Map.merge(%{"senha" => @senha_default, "senha_confirmation" => @senha_default})
           |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
-          |> UsuarioHandler.create_usuario_pesquisador()
+          |> RegisterUsuario.run(:pesquisador)
         end)
     end
   end

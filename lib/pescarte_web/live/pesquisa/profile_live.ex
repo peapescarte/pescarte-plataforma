@@ -1,20 +1,24 @@
 defmodule PescarteWeb.Pesquisa.ProfileLive do
   use PescarteWeb, :auth_live_view
 
-  alias Pescarte.Database.Repo
-  alias PescarteWeb.Authentication
+  import Phoenix.Naming, only: [humanize: 1]
+
+  alias Pescarte.Identidades.Models.Usuario
   alias Phoenix.LiveView
 
   @impl true
   def mount(_params, _session, socket) do
-    #  current_user = socket.assigns.current_user
-    current_user = Repo.preload(socket.assigns.current_user, [:pesquisador])
+    %Usuario{} = current_usuario = socket.assigns.current_usuario
 
     {:ok,
      assign(socket,
-       user_name: current_user.primeiro_nome,
-       pesquisador: current_user.pesquisador,
-       link_avatar: current_user.link_avatar
+       user_name: Usuario.build_usuario_name(current_usuario),
+       bolsa: humanize(current_usuario.pesquisador.bolsa),
+       minibio: current_usuario.pesquisador.minibio,
+       link_lattes: current_usuario.pesquisador.link_lattes,
+       link_linkedin: current_usuario.pesquisador.link_linkedin,
+       link_banner: current_usuario.pesquisador.link_banner_perfil,
+       link_avatar: current_usuario.link_avatar
      )}
   end
 
@@ -70,7 +74,7 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
   end
 
   def handle_event("logout", _, socket) do
-    Authentication.log_out_user(socket)
+    Supabase.GoTrue.LiveView.log_out_user(socket, :local)
     {:noreply, LiveView.redirect(socket, to: ~p"/")}
   end
 end

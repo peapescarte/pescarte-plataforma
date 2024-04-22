@@ -7,6 +7,8 @@ defmodule Pescarte.Application do
 
   @impl true
   def start(_, _) do
+    session_opts = [:named_table, :public, read_concurrency: true]
+    :ets.new(:pescarte_session, session_opts)
     opts = [strategy: :one_for_one, name: Pescarte.Supervisor]
     Supervisor.start_link(children(), opts)
   end
@@ -29,7 +31,7 @@ defmodule Pescarte.Application do
       PescarteWeb.Endpoint,
       Pescarte.CotacoesETL.InjesterSupervisor,
       # ChromicPDF,
-      {Task, fn -> Supabase.init_client!(%{name: @supabase_client}) end}
+      Pescarte.Supabase,
     ]
   end
 end

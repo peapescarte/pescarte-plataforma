@@ -75,9 +75,7 @@ defmodule PescarteWeb.ConnCase do
   Ele retorna um `conn` atualizado.
   """
   def log_in_user(conn, user) do
-    alias Pescarte.Identidades.Handlers.CredenciaisHandler
-
-    token = CredenciaisHandler.generate_session_token(user)
+    token = Phoenix.Token.sign(conn, "user auth", user.id)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})

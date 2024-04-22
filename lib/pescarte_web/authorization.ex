@@ -1,22 +1,22 @@
 defmodule PescarteWeb.Authorization do
   import Plug.Conn
 
-  alias Pescarte.Identidades.Handlers.CredenciaisHandler
   alias Pescarte.Identidades.Models.Usuario
-  alias PescarteWeb.Authentication
+  alias Supabase.GoTrue
+  alias Supabase.GoTrue.Session
+  alias Supabase.GoTrue.User
 
   def require_admin_role(conn, _opts) do
     token = get_session(conn, :user_token)
 
-    maybe_user =
-      case CredenciaisHandler.fetch_usuario_by_session_token(token) do
-        {:ok, user} -> user
-        {:error, :not_found} -> nil
-      end
-
-    (token && maybe_user)
+    with {:ok, user} <- Pescarte.Supabase.get_user(%Session{access_token: token}),
+         {:ok, usuario} <- Usuario.fetch_by(external_customer_id: user.id) do
+    (token && usuario)
     |> permit?(:admin)
     |> maybe_halt(conn)
+          else
+            _ -> conn
+        end
   end
 
   defp maybe_halt(true, conn), do: conn
@@ -24,12 +24,12 @@ defmodule PescarteWeb.Authorization do
   defp maybe_halt(_any, conn) do
     conn
     |> Phoenix.Controller.put_flash(:error, "Não autorizado")
-    |> Phoenix.Controller.redirect(to: Authentication.signed_in_path())
+    |> Phoenix.Controller.redirect(to: "/app/pesquisa/perfil")
     |> halt()
   end
 
   def on_mount(:ensure_admin_role, _params, session, socket) do
-    socket = Authentication.mount_current_user(session, socket)
+    socket = GoTrue.LiveView.mount_current_user(session, socket)
     user = socket.assigns.current_user
 
     if user && permit?(user, :admin) do
@@ -38,13 +38,13 @@ defmodule PescarteWeb.Authorization do
       socket =
         socket
         |> Phoenix.LiveView.put_flash(:error, "Não autorizado")
-        |> Phoenix.LiveView.redirect(to: Authentication.signed_in_path())
+        |> Phoenix.LiveView.redirect(to: "/")
 
       {:halt, socket}
     end
   end
 
-  defp permit?(%Usuario{papel: role}, role), do: true
+  defp permit?(%User{role: role}, role), do: true
 
   defp permit?(_user, _role), do: false
 end

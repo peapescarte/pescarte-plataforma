@@ -5,7 +5,7 @@
   </div>
   <div class="user-profile-banner">
     <img src={~p"/images/peixinhos.svg"} />
-    <div :if={!@pesquisador.link_banner_perfil} class="user-profile-banner-default" />
+    <div :if={!@link_banner} class="user-profile-banner-default" />
   </div>
   <div class="user-profile-menu">
     <div class="user-profile-menu-dots">
@@ -27,23 +27,23 @@
         <%= @user_name %>
       </.text>
       <.text size="h4" color="text-black-80">
-        <%= @pesquisador.bolsa %>
+        <%= @bolsa %>
       </.text>
     </div>
     <hr />
     <div class="profile-about">
       <.text size="h4" color="text-black-80">Sobre</.text>
       <.text size="base" color="text-black-80">
-        <%= @pesquisador.minibio %>
+        <%= @minibio %>
       </.text>
     </div>
     <hr />
     <div class="profile-links">
       <.text size="lg" color="text-black-80">Links</.text>
-      <.profile_link href={@pesquisador.link_lattes} label="Lattes">
+      <.profile_link href={@link_lattes} label="Lattes">
         <Lucideicons.file_text width="35" height="21" class="text-white-100" />
       </.profile_link>
-      <.profile_link href={@pesquisador.link_linkedin} label="LinkedIn">
+      <.profile_link href={@link_linkedin} label="LinkedIn">
         <Lucideicons.linkedin width="35" height="21" class="text-white-100" />
       </.profile_link>
     </div>

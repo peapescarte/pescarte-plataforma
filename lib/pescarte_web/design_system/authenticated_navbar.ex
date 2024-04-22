@@ -4,8 +4,8 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
   alias Pescarte.Identidades.Models.Usuario
   alias PescarteWeb.DesignSystem
 
-  attr(:user, Usuario, required: true)
-  attr(:open, :boolean, default: nil)
+  attr :user, Usuario, required: true
+  attr :open, :boolean, default: nil
 
   @impl true
   def render(assigns) do

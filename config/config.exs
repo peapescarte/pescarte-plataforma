@@ -10,8 +10,8 @@ config :supabase_potion,
 config :supabase_gotrue,
   endpoint: PescarteWeb.Endpoint,
   signed_in_path: "/app/pesquisa/perfil",
-  not_authenticated_path: "/",
-  authentication_client: Pescarte.Supabase.Client
+  not_authenticated_path: "/acessar",
+  authentication_client: Pescarte.Supabase
 
 config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 
