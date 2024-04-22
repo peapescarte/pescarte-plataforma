@@ -46,6 +46,7 @@ defmodule PescarteWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [
+        PescarteWeb.NavbarLive,
         {GoTrue.LiveView, :ensure_authenticated},
         {PescarteWeb.SessionContext, :mount_pescarte_context},
         {PescarteWeb.Flash, :flash}
