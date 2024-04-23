@@ -39,12 +39,13 @@ defmodule PescarteWeb.DesignSystem do
   attr :size, :string, values: @text_sizes, required: true
   attr :color, :string, default: "text-black-80"
   attr :class, :string, required: false, default: ""
+  attr :style, :string, default: ""
 
   slot :inner_block
 
   def text(%{size: "h" <> _} = assigns) do
     ~H"""
-    <%= content_tag @size, class: get_text_style(@size, @color, @class) do %>
+    <%= content_tag @size, class: get_text_style(@size, @color, @class), style: @style do %>
       <%= render_slot(@inner_block) %>
     <% end %>
     """
@@ -52,7 +53,7 @@ defmodule PescarteWeb.DesignSystem do
 
   def text(assigns) do
     ~H"""
-    <p class={get_text_style(@size, @color, @class)}>
+    <p class={get_text_style(@size, @color, @class)} style={@style}>
       <%= render_slot(@inner_block) %>
     </p>
     """
@@ -411,45 +412,12 @@ defmodule PescarteWeb.DesignSystem do
 
   ### ACABA COMPONENTES DE INPUT ####
 
-  @doc """
-  Componente de barra de navegação.
-  """
+  attr(:name, :atom, required: true)
+  attr(:class, :string, required: true)
 
-  def navbar(assigns) do
-    ~H"""
-    <header>
-      <nav id="navbar" class="w-full h-full navbar">
-        <img src="/images/pescarte_logo.svg" class="logo" />
-        <!-- TODO: Use named slots to render links -->
-        <ul class="nav-menu">
-          <li class="nav-item">
-            <DesignSystem.link href="/not-found" class="flex font-semibold">
-              <.text size="h4" color="text-blue-100">Cooperativas</.text>
-              <Lucideicons.chevron_down class="text-blue-100" />
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link href="/not-found" class="flex font-semibold">
-              <.text size="h4" color="text-blue-100">Equipes</.text>
-              <Lucideicons.chevron_down class="text-blue-100" />
-            </DesignSystem.link>
-          </li>
-          <li class="nav-item">
-            <DesignSystem.link href="/not-found" class="flex font-semibold">
-              <.text size="h4" color="text-blue-100">Quem Somos</.text>
-              <Lucideicons.chevron_down class="text-blue-100" />
-            </DesignSystem.link>
-          </li>
-        </ul>
-        <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
-          <.button style="primary" class="login-button">
-            <Lucideicons.log_in class="text-white-100" />
-            <.text size="base" color="text-white-100">Acessar</.text>
-          </.button>
-        </PescarteWeb.DesignSystem.link>
-      </nav>
-    </header>
-    """
+  def icon(assigns) do
+    assigns = Map.delete(assigns, :__given__)
+    apply(Lucideicons, assigns.name, [assigns])
   end
 
   @doc """

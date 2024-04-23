@@ -11,12 +11,12 @@ defmodule PescarteWeb.Authorization do
 
     with {:ok, user} <- Pescarte.Supabase.get_user(%Session{access_token: token}),
          {:ok, usuario} <- Usuario.fetch_by(external_customer_id: user.id) do
-    (token && usuario)
-    |> permit?(:admin)
-    |> maybe_halt(conn)
-          else
-            _ -> conn
-        end
+      (token && usuario)
+      |> permit?(:admin)
+      |> maybe_halt(conn)
+    else
+      _ -> conn
+    end
   end
 
   defp maybe_halt(true, conn), do: conn

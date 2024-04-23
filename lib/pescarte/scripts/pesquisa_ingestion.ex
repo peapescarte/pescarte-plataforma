@@ -252,10 +252,12 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
     |> String.split(";", trim: true)
     |> then(fn
       [principal | emails] ->
-      params
-      |> Map.put("email_principal", principal)
-      |> Map.put("emails_adicionais", emails)
-      [] -> Map.put(params, "email_principal", params["email"])
+        params
+        |> Map.put("email_principal", principal)
+        |> Map.put("emails_adicionais", emails)
+
+      [] ->
+        Map.put(params, "email_principal", params["email"])
     end)
   end
 
@@ -266,10 +268,12 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
     |> Enum.map(&String.replace(&1, ~r/\D/, ""))
     |> then(fn
       [principal | telefones] ->
-      params
-      |> Map.put("celular_principal", principal)
-      |> Map.put("celulares_adicionais", telefones)
-      [] -> Map.put(params, "celular_principal", params["telefone"])
+        params
+        |> Map.put("celular_principal", principal)
+        |> Map.put("celulares_adicionais", telefones)
+
+      [] ->
+        Map.put(params, "celular_principal", params["telefone"])
     end)
   end
 

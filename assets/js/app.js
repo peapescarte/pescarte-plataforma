@@ -22,6 +22,16 @@ if (window.location.pathname === "/acessar") {
   });
 }
 
+document.querySelectorAll(`[data-component="navbar-dropdown"]`).forEach(el => {
+  const dropdown = el.querySelector(".nav-dropdown");
+
+  const show = () => dropdown.classList.remove("invisible");
+  const hide = () => dropdown.classList.add("invisible");
+
+  el.addEventListener("mouseover", e => show());
+  dropdown.addEventListener("mouseleave", e => hide());
+});
+
 // Phoenix Hooks
 let Hooks = {};
 

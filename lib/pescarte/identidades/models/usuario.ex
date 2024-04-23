@@ -17,7 +17,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
           id: binary,
           pesquisador: Pesquisador.t(),
           contato: Contato.t(),
-          external_customer_id: String.t
+          external_customer_id: String.t()
         }
 
   @valid_roles ~w(pesquisador pescador admin)a
@@ -81,7 +81,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
   def fetch_by(cpf: cpf) do
     Database.fetch_one(
       from u in __MODULE__,
-        where: u.cpf == ^(String.replace(cpf, ~r/\D/, "")),
+        where: u.cpf == ^String.replace(cpf, ~r/\D/, ""),
         preload: [:pesquisador, :contato]
     )
   end

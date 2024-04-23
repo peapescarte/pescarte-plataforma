@@ -38,9 +38,9 @@ config :pescarte, PescarteWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"storybook/.*(exs)$",
-      ~r"apps/plataforma_digital_api/lib/*.(ex)$",
-      ~r"apps/plataforma_digital/priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"apps/plataforma_digital/lib/plataforma_digital/(controllers|live|components|templates)/.*(ex|heex)$"
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"lib/pescarte_web/design_system.ex$",
+      ~r"lib/pescarte_web/(controllers|layouts|live|design_system|components|templates)/.*(ex|heex)$"
     ]
   ]
 

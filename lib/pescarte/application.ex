@@ -31,7 +31,7 @@ defmodule Pescarte.Application do
       PescarteWeb.Endpoint,
       Pescarte.CotacoesETL.InjesterSupervisor,
       # ChromicPDF,
-      Pescarte.Supabase,
+      Pescarte.Supabase
     ]
   end
 end

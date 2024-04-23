@@ -26,7 +26,7 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
 
           <DesignSystem.link :for={{menu_name, path, icon} <- @menus} navigate={path}>
             <li class={"nav-item #{if should_activate_menu_item(path, @current_path), do: "active"}"}>
-              <.lucide_icon name={icon} />
+              <.icon name={icon} class="text-black-60" />
               <.text :if={@open} size="base" color="text-black-60"><%= menu_name %></.text>
             </li>
           </DesignSystem.link>
@@ -49,13 +49,6 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
 
   def handle_event("mouseleave", _, socket) do
     {:noreply, assign(socket, open: false)}
-  end
-
-  attr :name, :atom, required: true
-
-  def lucide_icon(assigns) do
-    assigns = Map.delete(assigns, :__given__)
-    apply(Lucideicons, assigns.name, [assigns])
   end
 
   defp should_activate_menu_item(path, current_path) do

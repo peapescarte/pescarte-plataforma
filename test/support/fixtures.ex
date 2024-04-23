@@ -97,7 +97,7 @@ defmodule Pescarte.Fixtures do
       sobrenome: sequence(:last, &"Last User #{&1}"),
       cpf: Brcpfcnpj.cpf_generate(true),
       data_nascimento: Date.utc_today(),
-      contato_id: insert(:contato).id,
+      contato_id: insert(:contato).id
     }
   end
 

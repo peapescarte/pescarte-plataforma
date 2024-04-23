@@ -5,7 +5,7 @@ defmodule PescarteWeb.NavbarLive do
     socket =
       assign(socket,
         menus: [
-          {"Home", ~p"/app/pesquisa/perfil", :home},
+          {"Home", ~p"/", :home},
           {"Pesquisadores", ~p"/app/pesquisa/pesquisadores", :users},
           {"Relatórios", ~p"/app/pesquisa/relatorios", :file_text}
         ]
