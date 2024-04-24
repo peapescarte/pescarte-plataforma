@@ -9,7 +9,7 @@ deps:
   RUN apk add --no-cache build-base gcc git curl
   WORKDIR /src
   COPY mix.exs mix.lock ./
-  COPY --dir lib . # check .earthlyignore
+  COPY --dir config lib . # check .earthlyignore
   RUN mix local.rebar --force
   RUN mix local.hex --force
   RUN mix deps.get
@@ -49,8 +49,8 @@ docker-dev:
   RUN apk update --no-cache
   RUN apk add --no-cache inotify-tools
   ENV MIX_ENV=dev
-  RUN mix deps.compile
   COPY --dir config ./
+  RUN mix deps.compile
   COPY --dir lib ./
   RUN mix compile
   CMD ["mix", "dev"]

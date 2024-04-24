@@ -4,6 +4,11 @@ config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
 config :pescarte, :pesquisa_ingestion, sheet_url: System.get_env("SHEET_URL")
 
+config :supabase_potion,
+  manage_clients: true,
+  supabase_base_url: System.get_env("SUPABASE_URL"),
+  supabase_api_key: System.get_env("SUPABASE_KEY")
+
 if System.get_env("PHX_SERVER") do
   config :pescarte, PescarteWeb.Endpoint, server: true
 end

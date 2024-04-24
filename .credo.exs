@@ -161,7 +161,7 @@
         {Credo.Check.Readability.ImplTrue, false},
         {Credo.Check.Readability.MultiAlias, []},
         {Credo.Check.Readability.SeparateAliasRequire, []},
-        {Credo.Check.Readability.SinglePipe, []},
+        {Credo.Check.Readability.SinglePipe, false},
         {Credo.Check.Readability.Specs, false},
         {Credo.Check.Readability.StrictModuleLayout, false},
         {Credo.Check.Readability.WithCustomTaggedTuple, false},
