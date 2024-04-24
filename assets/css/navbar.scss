@@ -60,6 +60,10 @@
   transform: translateZ(0) scale(1, 1);
   border-right-width: 1px;
 
+  .logo-auth {
+    margin-bottom: 5rem;
+  }
+
   >span {
     @apply border-black-10 rounded-full;
 
@@ -112,12 +116,6 @@
     .active svg {
       @apply text-blue-80;
     }
-  }
-
-  .logo {
-    margin-bottom: 5rem;
-    width: 3.75rem;
-    height: 3.875rem;
   }
 }
 

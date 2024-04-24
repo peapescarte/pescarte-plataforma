@@ -63,7 +63,7 @@ defmodule Pescarte.MixProject do
       {:explorer, "~> 0.8.1"},
       {:swiss_schema, "~> 0.5"},
       {:supabase_potion, "~> 0.3.0"},
-      {:supabase_gotrue, "~> 0.3.0"},
+      {:supabase_gotrue, "~> 0.3"},
       {:supabase_postgrest, "~> 0.1"},
       {:flop, "~> 0.25"},
       {:flop_phoenix, "~> 0.22"},

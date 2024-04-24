@@ -20,8 +20,8 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
         </span>
         <ul class="nav-menu">
           <li class="nav-item">
-            <img :if={!@open} src={~p"/images/icon_logo.svg"} class="logo" />
-            <img :if={@open} src={~p"/images/pescarte_logo.svg"} class="logo" />
+            <img :if={!@open} src={~p"/images/icon_logo.svg"} class="logo-auth" />
+            <img :if={@open} src={~p"/images/pescarte_logo.svg"} class="logo-auth" />
           </li>
 
           <DesignSystem.link :for={{menu_name, path, icon} <- @menus} navigate={path}>

@@ -44,26 +44,6 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
     """
   end
 
-  attr(:label, :string, required: true)
-  attr(:click, :string, required: true)
-
-  slot(:inner_block)
-
-  def profile_menu_link(assigns) do
-    ~H"""
-    <div class="profile-menu-link">
-      <span class="flex items-center justify-center bg-white-100">
-        <%= render_slot(@inner_block) %>
-      </span>
-      <.button style="link" class="whitespace-nowrap" click={@click} phx-target=".profile-menu-link">
-        <.text size="base" color="text-blue-80" class="bg-white-100">
-          <%= @label %>
-        </.text>
-      </.button>
-    </div>
-    """
-  end
-
   @impl true
   def handle_event("edit_profile", _, socket) do
     {:noreply, socket}
@@ -71,10 +51,5 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
 
   def handle_event("change_pass", _, socket) do
     {:noreply, socket}
-  end
-
-  def handle_event("logout", _, socket) do
-    Supabase.GoTrue.LiveView.log_out_user(socket, :local)
-    {:noreply, LiveView.redirect(socket, to: ~p"/")}
   end
 end

@@ -11,15 +11,48 @@
     <div class="user-profile-menu-dots">
       <div class="dots"><span /> <span /> <span /></div>
     </div>
-    <.profile_menu_link click="edit_profile" label="Editar Perfil">
-      <Lucideicons.credit_card width="18" height="18" />
-    </.profile_menu_link>
-    <.profile_menu_link click="change_pass" label="Alterar Senha">
-      <Lucideicons.lock width="18" height="18" />
-    </.profile_menu_link>
-    <.profile_menu_link click="logout" label="Sair">
-      <Lucideicons.log_out width="18" height="18" />
-    </.profile_menu_link>
+    <.form for={%{}} action="/acessar" method="delete">
+      <div class="profile-menu-link">
+        <span class="flex items-center justify-center bg-white-100">
+          <Lucideicons.file_pen class="text-blue-100" />
+        </span>
+        <.button
+          style="link"
+          class="whitespace-nowrap"
+          click="edit_profile"
+          phx-target=".profile-menu-link"
+        >
+          <.text size="base" color="text-blue-80" class="bg-white-100">
+            Editar Perfil
+          </.text>
+        </.button>
+      </div>
+      <div class="profile-menu-link">
+        <span class="flex items-center justify-center bg-white-100">
+          <Lucideicons.lock class="text-blue-100" />
+        </span>
+        <.button
+          style="link"
+          class="whitespace-nowrap"
+          click="change_pass"
+          phx-target=".profile-menu-link"
+        >
+          <.text size="base" color="text-blue-80" class="bg-white-100">
+            Alterar Senha
+          </.text>
+        </.button>
+      </div>
+      <div class="profile-menu-link">
+        <span class="flex items-center justify-center bg-white-100">
+          <Lucideicons.log_out class="text-blue-100" />
+        </span>
+        <.button style="link" class="whitespace-nowrap" submit>
+          <.text size="base" color="text-blue-80" class="bg-white-100">
+            Sair
+          </.text>
+        </.button>
+      </div>
+    </.form>
   </div>
   <section class="user-profile-info" style="overflow-y: auto">
     <div class="basic-info">

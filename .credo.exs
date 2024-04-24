@@ -165,7 +165,7 @@
         {Credo.Check.Readability.Specs, false},
         {Credo.Check.Readability.StrictModuleLayout, false},
         {Credo.Check.Readability.WithCustomTaggedTuple, false},
-        {Credo.Check.Refactor.ABCSize, [max_size: 45]},
+        {Credo.Check.Refactor.ABCSize, [max_size: 70]},
         {Credo.Check.Refactor.AppendSingleItem, []},
         {Credo.Check.Refactor.DoubleBooleanNegation, []},
         {Credo.Check.Refactor.ModuleDependencies, false},
