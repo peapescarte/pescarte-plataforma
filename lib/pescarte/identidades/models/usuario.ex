@@ -86,6 +86,14 @@ defmodule Pescarte.Identidades.Models.Usuario do
     )
   end
 
+  def fetch_by(id: id) do
+    Database.fetch_one(
+      from u in __MODULE__,
+        where: u.id == ^id,
+        preload: [:pesquisador, :contato]
+    )
+  end
+
   def fetch_by(external_customer_id: external_customer_id) do
     id = "supabase|" <> external_customer_id
 

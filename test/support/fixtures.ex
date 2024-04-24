@@ -95,9 +95,16 @@ defmodule Pescarte.Fixtures do
       papel: sequence(:role, ["admin", "pesquisador"]),
       primeiro_nome: sequence(:first, &"User #{&1}"),
       sobrenome: sequence(:last, &"Last User #{&1}"),
-      cpf: Brcpfcnpj.cpf_generate(true),
+      cpf: Brcpfcnpj.cpf_generate(),
       data_nascimento: Date.utc_today(),
       contato_id: insert(:contato).id
+    }
+  end
+
+  def supabase_user_factory do
+    %Supabase.GoTrue.User{
+      id: Ecto.UUID.generate(),
+      email: sequence(:email, &"test-#{&1}@example.com")
     }
   end
 

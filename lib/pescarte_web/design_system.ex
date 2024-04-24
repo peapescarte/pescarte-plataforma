@@ -10,7 +10,6 @@ defmodule PescarteWeb.DesignSystem do
 
   import PhoenixHTMLHelpers.Tag, only: [content_tag: 3]
 
-  alias PescarteWeb.DesignSystem
   alias PescarteWeb.DesignSystem.SearchInput
   alias Phoenix.LiveView.JS
 

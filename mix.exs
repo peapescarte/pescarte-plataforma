@@ -33,7 +33,6 @@ defmodule Pescarte.MixProject do
     [
       {:bandit, "~> 1.0"},
       {:nanoid, "~> 2.0"},
-      {:bcrypt_elixir, "~> 2.0"},
       {:brcpfcnpj, "~> 1.0.0"},
       {:tesla, "~> 1.4"},
       {:finch, "~> 0.16"},
@@ -67,11 +66,10 @@ defmodule Pescarte.MixProject do
       {:supabase_postgrest, "~> 0.1"},
       {:flop, "~> 0.25"},
       {:flop_phoenix, "~> 0.22"},
+      {:mox, "~> 1.0", only: [:test]},
+      {:rewire, "~> 0.9", only: [:test]},
       {:phoenix_html_helpers, "~> 1.0"},
       {:faker, "~> 0.18", only: [:dev, :test]},
-      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
@@ -86,17 +84,8 @@ defmodule Pescarte.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.build": [
-        "esbuild default",
-        "sass default",
-        "tailwind default"
-      ],
-      "assets.deploy": [
-        "esbuild default --minify",
-        "sass default",
-        "tailwind default --minify",
-        "phx.digest"
-      ]
+      "assets.build": ["cmd --cd assets node build.js"],
+      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"]
     ]
   end
 end

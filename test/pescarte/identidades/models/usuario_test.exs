@@ -73,48 +73,6 @@ defmodule Identidades.Models.UsuarioTest do
     assert Keyword.get(changeset.errors, :contato_id)
   end
 
-  test "changeset inválido com senha nula e tipo pesquisador" do
-    user = insert(:usuario)
-
-    attrs = %{
-      senha: nil,
-      senha_confirmation: nil
-    }
-
-    changeset = Usuario.password_changeset(user, attrs)
-
-    refute changeset.valid?
-    assert Keyword.get(changeset.errors, :senha)
-  end
-
-  test "changeset inválido com senhas não coincidentes" do
-    user = insert(:usuario)
-
-    attrs = %{
-      senha: "Password123!",
-      senha_confirmation: "DifferentPassword456?"
-    }
-
-    changeset = Usuario.password_changeset(user, attrs)
-
-    refute changeset.valid?
-    assert Keyword.get(changeset.errors, :senha_confirmation)
-  end
-
-  test "changeset inválido com senha fraca" do
-    user = insert(:usuario)
-
-    attrs = %{
-      senha: "weakpassword",
-      senha_confirmation: "weakpassword"
-    }
-
-    changeset = Usuario.password_changeset(user, attrs)
-
-    refute changeset.valid?
-    assert Keyword.get(changeset.errors, :senha)
-  end
-
   test "changeset válido com tipo admin" do
     contato = insert(:contato)
 
@@ -131,14 +89,5 @@ defmodule Identidades.Models.UsuarioTest do
 
     assert changeset.valid?
     assert get_change(changeset, :papel) == :admin
-  end
-
-  test "changeset válido com confirmado_em" do
-    user = insert(:usuario)
-
-    changeset = Usuario.confirm_changeset(user, ~U[2023-05-01T12:00:00Z])
-
-    assert changeset.valid?
-    assert get_change(changeset, :confirmado_em) == ~U[2023-05-01T12:00:00Z]
   end
 end

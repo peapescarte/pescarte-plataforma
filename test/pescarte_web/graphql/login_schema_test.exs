@@ -49,7 +49,7 @@ defmodule PescarteWeb.GraphQL.LoginSchemaTest do
       conn =
         post(conn, "/api", %{
           "query" => @login_mutation,
-          "variables" => %{"input" => %{"cpf" => user.cpf, "senha" => senha_atual()}}
+          "variables" => %{"input" => %{"cpf" => user.cpf, "senha" => "Senha!123"}}
         })
 
       assert %{"data" => %{"login" => %{"usuario" => logged}}} = json_response(conn, 200)

@@ -25,6 +25,7 @@ defmodule PescarteWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
+      import Pescarte.Fixtures
       import PescarteWeb.ConnCase
 
       # The default endpoint for testing
@@ -40,8 +41,6 @@ defmodule PescarteWeb.ConnCase do
     {:ok, conn: Map.replace!(conn, :secret_key_base, secret_key_base)}
   end
 
-  @token_salt "autenticação de usuário"
-
   @doc """
   Insere e cria um JWT para um usuário, para ser usado nos testes
   de API.
@@ -52,8 +51,11 @@ defmodule PescarteWeb.ConnCase do
   """
   def register_and_generate_jwt_token(%{conn: conn}) do
     user = Pescarte.Fixtures.insert(:usuario)
-    token = Phoenix.Token.sign(PescarteWeb.Endpoint, @token_salt, user.id)
-    %{conn: Plug.Conn.put_req_header(conn, "authorization", "Bearer " <> token), user: user}
+
+    %{
+      conn: Plug.Conn.put_req_header(conn, "authorization", "Bearer " <> user.id),
+      user: user
+    }
   end
 
   @doc """
@@ -75,10 +77,8 @@ defmodule PescarteWeb.ConnCase do
   Ele retorna um `conn` atualizado.
   """
   def log_in_user(conn, user) do
-    token = Phoenix.Token.sign(conn, "user auth", user.id)
-
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
-    |> Plug.Conn.put_session(:user_token, token)
+    |> Plug.Conn.put_session(:user_token, user.id)
   end
 end

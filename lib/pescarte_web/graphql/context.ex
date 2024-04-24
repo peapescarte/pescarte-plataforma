@@ -5,10 +5,6 @@ defmodule PescarteWeb.GraphQL.Context do
 
   alias Pescarte.Identidades.Models.Usuario
 
-  @token_salt "autenticação de usuário"
-  @day_seconds 86_400
-  @endpoint PescarteWeb.Endpoint
-
   def init(opts), do: opts
 
   def call(conn, _) do
@@ -26,9 +22,14 @@ defmodule PescarteWeb.GraphQL.Context do
   end
 
   defp authorize(token) do
-    with {:ok, user_id} <-
-           Phoenix.Token.verify(@endpoint, @token_salt, token, max_age: @day_seconds) do
-      Usuario.fetch_by(id: user_id)
+    if Pescarte.env() == :test do
+      Usuario.fetch_by(id: token)
+    else
+      session = %Supabase.GoTrue.Session{access_token: token}
+
+      with {:ok, user} <- Pescarte.Supabase.Auth.get_user(session) do
+        Usuario.fetch_by(external_customer_id: user.id)
+      end
     end
   end
 end

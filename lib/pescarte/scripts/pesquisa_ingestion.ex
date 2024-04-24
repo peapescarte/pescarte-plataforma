@@ -1,10 +1,11 @@
 defmodule Pescarte.Scripts.PesquisaIngestion do
   import Ecto.Changeset
   import Explorer.Series
-  import Pescarte.Application, only: [supabase_client: 0]
 
   alias Ecto.Multi, as: TRX
   alias Pescarte.Database.Repo
+
+  alias Pescarte.Supabase.Auth
 
   alias Pescarte.Identidades.Models.Contato
   alias Pescarte.Identidades.RegisterUsuario
@@ -14,8 +15,6 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
   alias Pescarte.ModuloPesquisa.Models.NucleoPesquisa
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.ModuloPesquisa.Models.PesquisadorLP
-
-  alias Supabase.GoTrue
 
   require Explorer.DataFrame, as: DF
 
@@ -198,7 +197,7 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
           |> Map.put("phone_confirm", true)
           |> Map.put("role", "pesquisador")
           |> Map.put("app_metadata", app_metadata)
-          |> then(&GoTrue.Admin.create_user(supabase_client(), &1))
+          |> then(&Auth.Admin.create_user/1)
         end)
         |> TRX.run(key, fn _repo, state ->
           contato = state[contato_key]

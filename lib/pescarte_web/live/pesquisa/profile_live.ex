@@ -4,7 +4,6 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
   import Phoenix.Naming, only: [humanize: 1]
 
   alias Pescarte.Identidades.Models.Usuario
-  alias Phoenix.LiveView
 
   @impl true
   def mount(_params, _session, socket) do

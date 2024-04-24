@@ -1,10 +1,6 @@
 defmodule Pescarte.Application do
   use Application
 
-  @supabase_client Pescarte.Supabase.Client
-
-  def supabase_client, do: @supabase_client
-
   @impl true
   def start(_, _) do
     session_opts = [:named_table, :public, read_concurrency: true]
@@ -30,8 +26,11 @@ defmodule Pescarte.Application do
       {Phoenix.PubSub, name: Pescarte.PubSub},
       PescarteWeb.Endpoint,
       Pescarte.CotacoesETL.InjesterSupervisor,
-      # ChromicPDF,
       Pescarte.Supabase
     ]
+    |> maybe_append_children(Pescarte.env())
   end
+
+  defp maybe_append_children(children, :test), do: children
+  defp maybe_append_children(children, _), do: [ChromicPDF | children]
 end
