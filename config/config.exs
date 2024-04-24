@@ -11,7 +11,7 @@ config :supabase_gotrue,
   endpoint: PescarteWeb.Endpoint,
   signed_in_path: "/app/pesquisa/perfil",
   not_authenticated_path: "/acessar",
-  authentication_client: Pescarte.Supabase
+  authentication_client: Pescarte.Supabase.Auth
 
 config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 
@@ -30,30 +30,6 @@ config :pescarte, PescarteWeb.Endpoint,
   render_errors: [formats: [html: PescarteWeb.ErrorHTML], layout: false],
   live_view: [signing_salt: "TxTzLCT/WGlob2+Vo0uZ1IQAfkgq53M"],
   server: true
-
-config :esbuild,
-  version: "0.18.6",
-  default: [
-    args:
-      ~w(js/app.js --bundle --platform=node --target=es2017 --outdir=../priv/static/assets),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ]
-
-config :dart_sass,
-  version: "1.63.6",
-  default: [
-    args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
-    cd: Path.expand("../assets", __DIR__)
-  ]
-
-config :tailwind,
-  version: "3.3.2",
-  default: [
-    args:
-      ~w(--config=tailwind.config.js --input=../priv/static/assets/app.css.tailwind --output=../priv/static/assets/app.css),
-    cd: Path.expand("../assets", __DIR__)
-  ]
 
 # Configures Elixir's Logger
 config :logger, :console,

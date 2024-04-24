@@ -17,16 +17,15 @@ Este projeto possui três opções para ambientes de desenvolvimento:
 
 ## Estrutura do projeto
 
-O projeto **PEA Pescarte** está implementado como uma aplicação [umbrella](https://elixirschool.com/pt/lessons/advanced/umbrella_projects). Isso significa que o projeto pode ser entendido como disposto no padrão [monorepo](https://pt.stackoverflow.com/questions/452607/o-que-%C3%A9-um-monorepo-quais-s%C3%A3o-as-suas-vantagens-e-desvantagens).
-
-Em suma, o projeto é dividido entre algumas aplicações internas, com responsabilidades diferentes e bem definidas. Siga a tabela abaixo para entender cada app interno e suas responsabilidades:
-
-- [Database](./apps/database)
-- [Proxy web](./apps/proxy_web)
-- [Identidades](./apps/identidades)
-- [Módulo Pesquisa](./apps/modulo_pesquisa)
-- [Plataforma Digital](./apps/plataforma_digital)
-- [API Plataforma Digital](./apps/plataforma_digital_api)
+- `/assets`: Armazena recursos estáticos como imagens, folhas de estilo e scripts que são usados pela aplicação web.
+- `/config`: Inclui arquivos de configuração para diferentes ambientes de execução do projeto, controlando aspectos como conexões de banco de dados e outras variáveis de ambiente.
+- `/guides`: Contém documentos e guias auxiliares para novos desenvolvedores, incluindo instruções de configuração, operações comuns e melhores práticas.
+- `/lib`: O coração do projeto, onde reside a maior parte do código fonte da aplicação, incluindo módulos e funções da aplicação.
+  - `/pescarte`: Módulos e funções que implementam lógica do servidor e interação com o banco de dados. É onde reside a lógica de negócio.
+  - `/pescarte_web`: Onde reside a camada web da aplicação, contendo rotas, páginas, componentes visuais e lógicas aplicadas à UI.
+- `/priv`: Diretório para dados privados que não são expostos no controle de versão, como scripts de migração do banco de dados.
+- `/rel`: Contém scripts e configurações necessárias para gerar releases da aplicação, permitindo a compilação de builds que podem ser distribuídas e executadas em ambientes de produção.
+- `/test`: Inclui testes de software, fundamental para garantir a qualidade e a estabilidade do código através de testes automatizados.
 
 ------------------------------------------------------------------------
 

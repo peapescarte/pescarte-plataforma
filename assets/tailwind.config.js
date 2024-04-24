@@ -89,5 +89,5 @@ module.exports = {
       borderWith: { 1: "1.5px" },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require('@tailwindcss/forms')]
 };

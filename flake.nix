@@ -31,7 +31,7 @@
           mkShell {
             name = "peapescarte";
             packages = with pkgs;
-              [beam.elixir_1_16 ghostscript zlib postgresql]
+              [beam.elixir_1_16 nodejs supabase-cli ghostscript zlib postgresql]
               ++ lib.optional stdenv.isLinux [inotify-tools chromium]
               ++ lib.optional stdenv.isDarwin [
                 darwin.apple_sdk.frameworks.CoreServices

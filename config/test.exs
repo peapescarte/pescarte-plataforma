@@ -2,16 +2,16 @@ import Config
 
 config :pescarte, ecto_repos: [Pescarte.Database.Repo]
 
-database = System.get_env("PG_DATABASE", "peapescarte")
 db_user = System.get_env("DATABASE_USER", "peapescarte")
-db_pass = System.get_env("DATABASE_PASSWORD", "peapescarte")
-# docker-compose service
-hostname = System.get_env("DATABASE_HOST", "localhost")
+db_pass = System.get_env("DATABASE_PASS", "peapescarte")
+db_port = System.get_env("DATABASE_PORT", "5432")
+db_host = System.get_env("DATABASE_HOST", "localhost")
 
 database_opts = [
   username: db_user,
   password: db_pass,
-  hostname: hostname,
+  hostname: db_host,
+  port: String.to_integer(db_port),
   database: "peapescarte_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
@@ -25,6 +25,3 @@ config :pescarte, PescarteWeb.Endpoint, server: false
 
 # Print only warnings and errors during test
 config :logger, level: :warning
-
-# Only in tests, remove the complexity from the password hashing algorithm
-config :bcrypt_elixir, :log_rounds, 1

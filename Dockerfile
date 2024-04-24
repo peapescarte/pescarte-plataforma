@@ -1,20 +1,17 @@
 ARG ELIXIR_VERSION=1.16.0
 ARG OTP_VERSION=26.1.2
-ARG DEBIAN_VERSION=bullseye-20231009
+ARG ALPINE_VERSION=3.18.4
 
-ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
-ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
+ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-alpine-${ALPINE_VERSION}"
+ARG RUNNER_IMAGE="alpine:${ALPINE_VERSION}"
 
 FROM ${BUILDER_IMAGE} as builder
 
 # prepare build dir
 WORKDIR /app
 
-RUN apt-get update -y
-RUN apt-get install -y build-essential curl
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get install -y nodejs
-RUN apt-get clean && rm -f /var/lib/apt/lists/*_*
+RUN apk update --no-cache
+RUN apk add --no-cache build-base gcc curl git wget nodejs npm
 
 # install hex + rebar
 RUN mix local.hex --force && \
@@ -38,7 +35,7 @@ COPY priv priv
 
 # compile assets
 COPY assets assets
-# RUN echo $(npm --version) && exit 1
+
 RUN npm ci --prefix assets
 RUN mix assets.deploy
 
@@ -57,17 +54,9 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE}
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update -y
-RUN apt-get install -y libstdc++6 openssl libncurses5 locales wget
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt-get install -y ./google-chrome-stable_current_amd64.deb || apt-get install -fy
-RUN apt-get clean && rm -f /var/lib/apt/lists/*_* && rm google-chrome-stable_current_amd64.deb
-
-
-# Set the locale
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+RUN apk update --no-cache
+RUN apk add --no-cache tzdata openssl ncurses wget
+RUN apk add --no-cache chromium --repository=http://dl-cdn.alpinelinux.org/alpine/v3.18/community
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en

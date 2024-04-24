@@ -3,18 +3,17 @@ import Config
 # -------- #
 # Database #
 # -------- #
-database = System.get_env("PG_DATABASE", "peapescarte")
+db_name = System.get_env("DATABASE_NAME", "peapescarte")
 db_user = System.get_env("DATABASE_USER", "peapescarte")
-db_pass = System.get_env("DATABASE_PASSWORD", "peapescarte")
+db_pass = System.get_env("DATABASE_PASS", "peapescarte")
 db_port = System.get_env("DATABASE_PORT", "5432")
-# docker-compose service
-hostname = System.get_env("DATABASE_HOST", "localhost")
+db_host = System.get_env("DATABASE_HOST", "localhost")
 
 database_opts = [
   username: db_user,
   password: db_pass,
-  hostname: hostname,
-  database: database,
+  hostname: db_host,
+  database: db_name,
   port: String.to_integer(db_port),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
@@ -31,9 +30,7 @@ config :pescarte, PescarteWeb.Endpoint,
   debug_errors: true,
   reloadable_compilers: [:elixir],
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
-    sass: {DartSass, :install_and_run, [:default, ~w(--watch)]}
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)]
   ],
   live_reload: [
     patterns: [
