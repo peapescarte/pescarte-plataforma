@@ -13,7 +13,7 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
   def render(assigns) do
     ~H"""
     <header id="auth-navbar" class="h-full" phx-hook="NavbarHover" phx-target="#auth-navbar">
-      <nav class={["navbar", "authenticated", if(@open, do: "open")]}>
+      <nav class={["navbar-authenticated", if(@open, do: "open")]}>
         <span>
           <Lucideicons.arrow_right :if={!@open} />
           <Lucideicons.arrow_left :if={@open} />
