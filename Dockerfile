@@ -32,17 +32,16 @@ COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN mix deps.compile
 
 COPY priv priv
+COPY lib lib
+
+# Compile the release
+RUN mix compile
 
 # compile assets
 COPY assets assets
 
 RUN npm ci --prefix assets
 RUN mix assets.deploy
-
-COPY lib lib
-
-# Compile the release
-RUN mix compile
 
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/

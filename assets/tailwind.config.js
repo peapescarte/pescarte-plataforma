@@ -1,5 +1,9 @@
 module.exports = {
-  content: ["./js/**/*.js", "../lib/*.ex", "../lib/**/*.*ex"],
+  content: [
+    "./js/**/*.js",
+    "../lib/pescarte_web.ex",
+    "../lib/pescarte_web/**/*.*ex"
+  ],
   theme: {
     colors: {
       white: {
