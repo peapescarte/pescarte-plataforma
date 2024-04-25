@@ -7,6 +7,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
+    "@glidejs/glide": "^3.6.0",
     "esbuild": "^0.17.10",
     "inputmask": "^5.0.7",
     "phoenix": "file:../deps/phoenix",

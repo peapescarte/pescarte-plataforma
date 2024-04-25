@@ -79,3 +79,23 @@ import topbar from "topbar";
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
 window.addEventListener("phx:page-loading-start", (info) => topbar.show());
 window.addEventListener("phx:page-loading-stop", (info) => topbar.hide());
+
+import Glide from "@glidejs/glide/dist/glide.esm";
+
+new Glide('.glide1' , {
+  type: 'slider',
+  gap: 20,
+  perview: 1,
+  autoplay: 2500,
+  hoverpause: true,
+  animationDuration: 750,
+}).mount();
+
+new Glide('.glide2' , {
+  type: 'slider',
+  perview: 3,
+  peek: {
+    before: 500,
+    after: 500
+  }
+}).mount();

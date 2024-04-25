@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "../node_modules/@glidejs/glide/src/assets/sass/glide.core.scss";
 
 $nav-width: 8.75rem;
 $navbar-height: 6.125rem;
