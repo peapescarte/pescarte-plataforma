@@ -35,6 +35,7 @@ defmodule Pescarte.MixProject do
       {:nanoid, "~> 2.0"},
       {:brcpfcnpj, "~> 1.0.0"},
       {:tesla, "~> 1.4"},
+      {:req, "~> 0.4.0"},
       {:finch, "~> 0.16"},
       {:jason, ">= 1.0.0"},
       {:ecto, "~> 3.10"},

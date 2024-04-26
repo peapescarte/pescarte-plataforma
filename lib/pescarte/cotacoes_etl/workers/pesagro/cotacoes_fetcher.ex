@@ -1,4 +1,4 @@
-defmodule Pescarte.CotacoesETL.Workers.Pesagro.Pescarte.CotacoesFetcher do
+defmodule Pescarte.CotacoesETL.Workers.Pesagro.CotacoesFetcher do
   @moduledoc """
   Todos os dias esse Worker visita a página da `Pesagro` e
   busca novos boletins do Mercado Agrícola, a fim de atualizar
@@ -25,7 +25,7 @@ defmodule Pescarte.CotacoesETL.Workers.Pesagro.Pescarte.CotacoesFetcher do
 
   @impl true
   def init(_) do
-    # Process.send_after(__MODULE__, :schedule_fetch, @half_minute)
+    Process.send_after(__MODULE__, :schedule_fetch, :timer.seconds(5))
     {:ok, nil}
   end
 

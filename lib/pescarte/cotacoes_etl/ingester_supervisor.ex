@@ -4,7 +4,7 @@ defmodule Pescarte.CotacoesETL.InjesterSupervisor do
   alias Pescarte.CotacoesETL.Workers.PDFConverter
   alias Pescarte.CotacoesETL.Workers.Pesagro.CotacaoDownloader
   alias Pescarte.CotacoesETL.Workers.Pesagro.CotacaoIngester
-  alias Pescarte.CotacoesETL.Workers.Pesagro.Pescarte.CotacoesFetcher
+  alias Pescarte.CotacoesETL.Workers.Pesagro.CotacoesFetcher
   alias Pescarte.CotacoesETL.Workers.ZIPExtractor
 
   def start_link(opts) do
@@ -32,6 +32,6 @@ defmodule Pescarte.CotacoesETL.InjesterSupervisor do
   end
 
   defp should_fetch_pesagro_cotacoes? do
-    Application.get_env(:cotacoes_etl, :fetch_pesagro_cotacoes, false)
+    Application.get_env(:pescarte, :fetch_pesagro_cotacoes, false)
   end
 end
