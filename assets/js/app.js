@@ -82,20 +82,36 @@ window.addEventListener("phx:page-loading-stop", (info) => topbar.hide());
 
 import Glide from "@glidejs/glide/dist/glide.esm";
 
-new Glide('.glide1' , {
+const glide1 = new Glide('.glide1', {
   type: 'slider',
   gap: 20,
   perview: 1,
-  autoplay: 2500,
+  autoplay: 2000,
   hoverpause: true,
   animationDuration: 750,
-}).mount();
+});
 
-new Glide('.glide2' , {
+glide1.on('run', function () {
+  const bullets = document.querySelectorAll('.glide__bullet');
+  bullets.forEach((bullet, index) => {
+    if (index === glide1.index) {
+      bullet.classList.add('active');
+    } else {
+      bullet.classList.remove('active');
+    }
+  });
+});
+
+glide1.mount();
+
+const glide2 = new Glide('.glide2', {
   type: 'slider',
   perview: 3,
   peek: {
     before: 500,
     after: 500
-  }
-}).mount();
+  },
+  startAt: 1
+});
+
+glide2.mount();
