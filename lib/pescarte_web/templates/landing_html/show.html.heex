@@ -1,8 +1,25 @@
 <main class="landing-grid">
-  <img src={~p"/images/pescador_por_sol.svg"} class="top-banner" />
+  <div class="land-carousel">
+    <div class="glide glide1">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide"><img src={~p"/images/img_slide1.svg"} /></li>
+          <li class="glide__slide"><img src={~p"/images/img_slide4.svg"} /></li>
+          <li class="glide__slide"><img src={~p"/images/img_slide5.jpg"} /></li>
+        </ul>
+      </div>
+
+      <div class="glide__bullets" data-glide-el="controls[nav]">
+        <button class="glide__bullet" data-glide-dir="=0"></button>
+        <button class="glide__bullet" data-glide-dir="=1"></button>
+        <button class="glide__bullet" data-glide-dir="=2"></button>
+      </div>
+    </div>
+  </div>
+
   <div class="links">
     <div class="links-item">
-      <img src={~p"/images/landing/pesquisa.png"} />
+      <img src={~p"/images/landing/fotos_card.png"} />
       <DesignSystem.link href="/not-found" class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">Fotos</.text>
         <.text size="base" color="text-white-100">
@@ -14,7 +31,7 @@
       </DesignSystem.link>
     </div>
     <div class="links-item">
-      <img src={~p"/images/landing/pescado.png"} />
+      <img src={~p"/images/landing/relatorios_card.png"} />
       <DesignSystem.link href="/not-found" class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">Relatórios Públicos</.text>
         <.text size="base" color="text-white-100">
@@ -26,11 +43,11 @@
       </DesignSystem.link>
     </div>
     <div class="links-item">
-      <img src={~p"/images/landing/pescadores.png"} />
-      <DesignSystem.link href="/not-found" class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Livros/Boletins</.text>
+      <img src={~p"/images/landing/publicacoes_card.png"} />
+      <DesignSystem.link href={~p"/publicacoes"} class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Publicações</.text>
         <.text size="base" color="text-white-100">
-          Livros...em construção
+          Publicações...
         </.text>
       </DesignSystem.link>
       <DesignSystem.link
@@ -38,12 +55,12 @@
         class="text-sm font-semibold"
       >
         <.button style="primary">
-          Saiba mais (Boletins) <Lucideicons.arrow_right class="text-white-100" />
+          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
     <div class="links-item">
-      <img src={~p"/images/landing/projetos.png"} />
+      <img src={~p"/images/landing/projetos_card.png"} />
       <DesignSystem.link href="/not-found" class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">Projetos para Editais</.text>
         <.text size="base" color="text-white-100">
@@ -54,43 +71,15 @@
         </.button>
       </DesignSystem.link>
     </div>
-    <div class="links-item">
-      <img src={~p"/images/landing/pescadores.png"} />
-      <a href="https://cotacoes.pescarte.uenf.br/">
-        <.text size="h3" color="text-white-100">Aplicativos Públicos</.text>
-        <.text size="base" color="text-white-100">
-          Cotações de Pescados...
-        </.text>
-      </a>
-    </div>
-    <div class="links-item">
-      <img src={~p"/images/landing/pescado.png"} />
-      <DesignSystem.link href="/not-found" class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Aplicativo CENSO</.text>
-        <.text size="base" color="text-white-100">
-          e-Quest 2.0...
-        </.text>
-        <.button style="primary">
-          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
-        </.button>
-      </DesignSystem.link>
-    </div>
-    <div class="links-item">
-      <img src={~p"/images/landing/pescadores.png"} />
-      <a href="https://dadosmeteorologicos.uenf.br/">
-        <.text size="h3" color="text-white-100">Aplicativos Públicos</.text>
-        <.text size="base" color="text-white-100">
-          Dados Meteorológicos...
-        </.text>
-      </a>
-    </div>
   </div>
   <div class="about">
     <section class="about-text">
-      <.text size="sm" color="text-black-40">O PROJETO</.text>
-      <.text size="h1" color="text-blue-100">
-        O que o Pescarte oferece para a comunidade?
-      </.text>
+      <span>
+        <.text size="sm" color="text-black-40">O PROJETO</.text>
+        <.text size="h1" color="text-blue-100">
+          O que o Pescarte oferece para a comunidade?
+        </.text>
+      </span>
       <.text size="lg" color="text-black-80">
         O Projeto PESCARTE tem como sua principal finalidade a criação de uma
         rede social regional integrada por pescadores artesanais e por seus
@@ -135,7 +124,7 @@
       </div>
       <div class="news-item">
         <a href="#">
-          <img src={~p"/images/landing/news/news2.png"} />
+          <img src={~p"/images/landing/news/news5.png"} />
         </a>
         <div class="p-5">
           <a href="#">
@@ -155,7 +144,7 @@
       </div>
       <div class="news-item">
         <a href="#">
-          <img src={~p"/images/landing/news/news3.png"} />
+          <img src={~p"/images/landing/news/news6.png"} />
         </a>
         <div class="p-5">
           <a href="#">
@@ -175,7 +164,7 @@
       </div>
       <div class="news-item">
         <a href="#">
-          <img src={~p"/images/landing/news/news4.png"} />
+          <img src={~p"/images/landing/news/news7.png"} />
         </a>
         <div class="p-5">
           <a href="https://www.instagram.com/p/CzwyZf1Ccj2/?igsh=NTZiY2lleDRjbTlp">
@@ -195,5 +184,63 @@
       </div>
     </div>
   </div>
-  <img src={~p"/images/rede_pesca_bottom.svg"} class="bottom-banner" />
+
+  <div class="gallery-carousel">
+    <.text size="h2" color="text-blue-100">Galeria Pescarte</.text>
+
+    <div class="glide glide2">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide"><img src={~p"/images/img_slide6.jpg"} /></li>
+          <li class="glide__slide"><img src={~p"/images/img_slide2.jpeg"} /></li>
+          <li class="glide__slide"><img src={~p"/images/img_slide3.jpeg"} /></li>
+        </ul>
+      </div>
+
+      <div class="glide__progress">
+        <div class="glide__progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="find-us">
+    <.text size="h2" color="text-white-100">Onde nos Encontrar</.text>
+
+    <section class="find-us-content">
+      <.text size="lg" color="text-white-80">
+        Estamos presentes nas redes sociais! Clique nos botões abaixo para visitar nossos perfis.
+      </.text>
+
+      <div class="find-us-links">
+        <a href="#">
+          <img src={~p"/images/linkedin.svg"} alt="" />
+        </a>
+
+        <a href="https://www.facebook.com/peapescarte">
+          <img src={~p"/images/facebook.svg"} alt="" />
+        </a>
+
+        <a href="https://www.instagram.com/peapescarte/?img_index=1">
+          <img src={~p"/images/instagram.svg"} alt="" />
+        </a>
+
+        <a href="https://www.youtube.com/PEAPescarte">
+          <img src={~p"/images/youtube.svg"} alt="" />
+        </a>
+      </div>
+
+      <.text size="lg" color="text-white-80">
+        Mas, se preferir, entre em contato diretamente.
+      </.text>
+
+      <div class="find-us-bttn">
+        <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+          <img src={~p"/images/message-square.svg"} />
+          <.text size="base" color="text-orange-100">
+            Fale Conosco
+          </.text>
+        </DesignSystem.link>
+      </div>
+    </section>
+  </div>
 </main>

@@ -1,7 +1,10 @@
 import "../css/app.scss";
+import "../node_modules/@glidejs/glide/src/assets/sass/glide.core.scss";
 
 import "phoenix_html";
 import Inputmask from "inputmask";
+
+import './glide';
 
 const cpf = document.querySelector("#user_cpf");
 

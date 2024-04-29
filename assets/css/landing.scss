@@ -1,9 +1,10 @@
 .landing-grid {
   overflow: scroll;
+  overflow-x: hidden;
   display: grid;
-  gap: 2rem;
   grid-template-areas:
     "top-banner"
+    "glide"
     "links"
     "about"
     "news"
@@ -13,8 +14,47 @@
 .top-banner {
   @apply w-full;
 
-  height: 25rem;
+  width: 100%;
+  min-height: 25rem;
   grid-area: top-banner;
+}
+
+.land-carousel {
+  margin-bottom: 70px;
+
+  .glide1 {
+    max-width: 100vw;
+    max-height: 600px;
+  }
+
+  .glide__slide {
+    max-width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+    }
+  }
+
+  .glide__bullets {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .glide__bullet {
+    @apply bg-black-10;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+  }
+
+  .glide__bullet.active {
+    @apply bg-blue-80;
+  }
 }
 
 .bottom-banner {
@@ -25,12 +65,10 @@
 }
 
 .links {
-  @apply flex flex-wrap justify-center md:mt-10;
+  @apply flex flex-wrap justify-center;
 
   .links-item {
-    @apply flex flex-col justify-end m-4;
-    height: 20.875rem;
-    width: 20.125rem;
+    @apply flex flex-col justify-start items-start m-8;
     border-radius: 8px;
     background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
 
@@ -46,20 +84,19 @@
     }
 
     p {
-      width: 85%;
+      text-wrap: nowrap;
       margin-top: 0.5rem;
       padding: 0 1rem 1.5rem 1rem;
     }
 
     button {
-      width: 60%;
+      width: 100%;
+      padding: 0 1rem 1.5rem 0;
       background-color: transparent;
 
       p {
-        @apply w-full inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0 1rem 1rem 0;
+        display: inline-flex;
+        width: inherit;
 
         &:hover {
           text-decoration: underline;
@@ -71,25 +108,24 @@
 
 .about {
   @apply flex justify-center;
-  padding: 2.5rem;
+  padding: 2rem;
 
   .about-text {
-    width: 40rem;
-    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
     padding-right: 1rem;
+    min-height: 300px;
 
-    h1 {
-      margin: 0.25rem 0 1rem 0;
-    }
-
-    button {
-      margin-top: 1rem;
+    a {
+      max-width: 120px !important;
     }
   }
 
   img {
     width: 40rem;
     height: 30rem;
+    margin-top: 15px;
   }
 }
 
@@ -113,7 +149,8 @@
       img {
         border-radius: 0.5rem 0.5rem 0 0;
         width: 100%;
-        height: auto;
+        min-height: 242px;
+        max-height: 242px;
       }
 
       h2 {
@@ -123,6 +160,107 @@
 
       button {
         margin-top: 1rem;
+      }
+    }
+  }
+}
+
+.gallery-carousel {
+  padding: 56px 0;
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .glide2 {
+    max-width: 100vw;
+    max-height: 500px;
+  }
+
+  .glide__slides {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .glide__slide {
+    @apply flex justify-center items-center;
+    width: 670px !important;
+    height: 380px;
+    transition: transform 0.25s ease-out;
+  }
+
+  .glide__slide img {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .glide__progress {
+    max-width: 660px;
+    margin: 56px auto 0;
+    height: 4px;
+    background-color: #ddd;
+    border-radius: 2px;
+  }
+
+  .glide__progress-bar {
+    @apply bg-blue-80;
+    height: 4px;
+    width: 0;
+    border-radius: 2px;
+  }
+}
+
+.find-us {
+  @apply bg-orange-100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 650px;
+  padding: 80px 0;
+
+  .find-us-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    >p {
+      margin-bottom: 40px;
+    }
+  }
+
+  h2 {
+    margin-bottom: 80px;
+  }
+
+  .find-us-links {
+    display: inline-flex;
+    margin-bottom: 80px;
+
+    a {
+      margin: 10px;
+    }
+  }
+
+  .find-us-bttn {
+    display: flex;
+    background-color: white;
+    width: 185px;
+    padding: 16px 24px;
+    border-radius: 4px;
+
+    a {
+      display: inline-flex;
+      text-wrap: nowrap;
+      text-decoration: none;
+
+      img {
+        margin-right: 6px;
       }
     }
   }

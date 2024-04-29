@@ -7,6 +7,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
+    "@glidejs/glide": "^3.6.0",
     "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.19",
     "esbuild": "^0.20.2",
