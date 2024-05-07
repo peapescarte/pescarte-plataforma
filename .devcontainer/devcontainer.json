@@ -1,0 +1,37 @@
+{
+  "name": "plataforma-digital-pea-pescarte",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/node-asdf:0": {},
+    "ghcr.io/devcontainers-contrib/features/elixir-asdf:2": {},
+    "ghcr.io/devcontainers-contrib/features/supabase-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/wxw-matt/devcontainer-features/script_runner:latest": {
+      "script1": "setup-local#https://raw.githubusercontent.com/peapescarte/pescarte-plataforma/main/scripts/setup-local",
+      "script2": "setup-supabase#https://raw.githubusercontent.com/peapescarte/pescarte-plataforma/main/scripts/setup-supabase"
+    }
+  },
+  "containerEnv": {
+    "DATABASE_USER": "postgres",
+    "DATABASE_PASS": "postgres",
+    "DATABASE_HOST": "127.0.0.1",
+    "DATABASE_NAME": "postgres",
+    "DATABASE_PORT": 54322,
+    "SUPABASE_URL": "http://127.0.0.1:54321",
+    "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "elixir-tools.elixir-tools",
+        "lexical-lsp.lexical",
+        "aaron-bond.better-comments",
+        "editorconfig.editorconfig",
+        "kisstkondoros.vscode-gutter-preview",
+        "byi8220.indented-block-highlighting",
+        "christian-kohler.path-intellisense",
+        "phoenixframework.phoenix"
+      ]
+    }
+  }
+}
