@@ -5,11 +5,7 @@
     "ghcr.io/devcontainers-contrib/features/elixir-asdf:2": {},
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers-contrib/features/supabase-cli:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/wxw-matt/devcontainer-features/script_runner:latest": {
-      "script1": "setup-local#https://raw.githubusercontent.com/peapescarte/pescarte-plataforma/main/scripts/setup-local",
-      "script2": "setup-supabase#https://raw.githubusercontent.com/peapescarte/pescarte-plataforma/main/scripts/setup-supabase"
-    }
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "containerEnv": {
     "DATABASE_USER": "postgres",
