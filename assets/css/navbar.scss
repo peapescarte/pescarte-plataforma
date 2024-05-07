@@ -27,24 +27,6 @@
         @apply border-b-2 border-blue-100;
         cursor: pointer;
       }
-
-      .nav-dropdown {
-        @apply border-black-5 bg-white-100 border-2;
-        @apply flex flex-col justify-between items-center;
-        z-index: 9999;
-        width: 316px;
-        position: relative;
-        left: 50%;
-        bottom: -21px;
-        gap: 44px;
-        padding: 24px;
-        border-radius: 4px;
-
-        &:hover,
-        &:focus {
-          visibility: visible;
-        }
-      }
     }
   }
 }
