@@ -2,8 +2,8 @@
   "name": "plataforma-digital-pea-pescarte",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
-    "ghcr.io/devcontainers-contrib/features/node-asdf:0": {},
     "ghcr.io/devcontainers-contrib/features/elixir-asdf:2": {},
+    "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers-contrib/features/supabase-cli:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/wxw-matt/devcontainer-features/script_runner:latest": {
