@@ -10,12 +10,23 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
   @impl true
   def render(assigns) do
     ~H"""
-    <header id="auth-navbar" class="h-full" phx-hook="NavbarHover" phx-target="#auth-navbar">
+    <header id="auth-navbar" class="h-full" phx-hook="NavbarClick">
       <nav class={["navbar", "authenticated", if(@open, do: "open")]}>
-        <span>
-          <Lucideicons.arrow_right :if={!@open} />
-          <Lucideicons.arrow_left :if={@open} />
-        </span>
+        <img
+          :if={!@open}
+          class="arrow-open"
+          src={~p"/images/seta.png"}
+          phx-click="open_navbar"
+          phx-target="#auth-navbar"
+        />
+        <img
+          :if={@open}
+          class="arrow-close"
+          src={~p"/images/seta.png"}
+          style="transform: rotate(180deg)"
+          phx-click="close_navbar"
+          phx-target="#auth-navbar"
+        />
         <ul class="nav-menu">
           <li class="nav-item">
             <img :if={!@open} src={~p"/images/icon_logo.svg"} class="logo" />
@@ -59,7 +70,7 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
         <div class="user-info">
           <Lucideicons.user class="text-black-60" />
           <.text :if={@open} size="base" color="text-black-80">
-            Zoey de Souza Pessanha
+            <%= @user.primeiro_nome <> " " <> @user.sobrenome %>
           </.text>
         </div>
       </nav>
@@ -68,11 +79,11 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
   end
 
   @impl true
-  def handle_event("mouseover", _, socket) do
+  def handle_event("open_navbar", _, socket) do
     {:noreply, assign(socket, open: true)}
   end
 
-  def handle_event("mouseleave", _, socket) do
+  def handle_event("close_navbar", _, socket) do
     {:noreply, assign(socket, open: false)}
   end
 end

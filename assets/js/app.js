@@ -36,17 +36,23 @@ Hooks.CpfNumberMask = {
   }
 }
 
-Hooks.NavbarHover = {
+Hooks.NavbarClick = {
   mounted() {
     const navbar = document.querySelector("#auth-navbar");
+    const openArrow = document.querySelector(".arrow-open");
+    const closeArrow = document.querySelector(".arrow-close");
 
-    navbar.addEventListener("mouseover", (e) => {
-      this.pushEventTo(navbar, "mouseover");
-    });
+    if(openArrow) {
+      openArrow.addEventListener("click", (e) => {
+        this.pushEventTo(navbar, "open_navbar");
+      })
+    }
 
-    navbar.addEventListener("mouseleave", (e) => {
-      this.pushEventTo(navbar, "mouseleave");
-    });
+    if(closeArrow) {
+      closeArrow.addEventListener("click", (e) => {
+        this.pushEventTo(navbar, "close_navbar");
+      })
+    }
   },
 };
 

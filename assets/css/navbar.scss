@@ -80,6 +80,25 @@
   }
 }
 
+.arrows-container {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  right: 5vw;
+  transform: translateY(-50%);
+}
+
+.navbar.authenticated {
+  overflow: visible;
+}
+
+.arrow-open, .arrow-close {
+  position: absolute;
+  top: 50%;
+  right: -1rem;
+  transform: translateY(-50%);
+}
+
 .navbar.authenticated.open {
   @apply relative bg-white-100 items-center;
   z-index: 999;
