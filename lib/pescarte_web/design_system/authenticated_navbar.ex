@@ -2,7 +2,14 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
   use PescarteWeb, :live_component
 
   alias Pescarte.Identidades.Models.Usuario
+  alias Pescarte.Database.Repo
   alias PescarteWeb.DesignSystem
+
+  def mount(_params, _session, socket) do
+    current_user = Repo.preload(socket.assigns.current_user, [:pesquisador])
+
+    {:ok, assign(socket, pesquisador: current_user.pesquisador)}
+  end
 
   attr(:user, Usuario, required: true)
   attr(:open, :boolean, default: nil)
@@ -16,6 +23,7 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
           :if={!@open}
           class="arrow-open"
           src={~p"/images/seta.png"}
+          style="transform: rotate(180deg)"
           phx-click="open_navbar"
           phx-target="#auth-navbar"
         />
@@ -23,7 +31,6 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
           :if={@open}
           class="arrow-close"
           src={~p"/images/seta.png"}
-          style="transform: rotate(180deg)"
           phx-click="close_navbar"
           phx-target="#auth-navbar"
         />
@@ -68,7 +75,8 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
           </li>
         </ul>
         <div class="user-info">
-          <Lucideicons.user class="text-black-60" />
+          <!-- <Lucideicons.user :if={!@pesquisador.link_avatar} width="100" height="100" /> -->
+          <!-- <img :if={@pesquisador.link_avatar} src={@pesquisador.link_avatar} /> -->
           <.text :if={@open} size="base" color="text-black-80">
             <%= @user.primeiro_nome <> " " <> @user.sobrenome %>
           </.text>
