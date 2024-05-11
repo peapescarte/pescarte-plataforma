@@ -1,8 +1,8 @@
 defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
   use PescarteWeb, :live_component
 
-  alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.Database.Repo
+  alias Pescarte.Identidades.Models.Usuario
   alias PescarteWeb.DesignSystem
 
   def mount(_params, _session, socket) do
