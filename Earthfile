@@ -9,10 +9,12 @@ deps:
   RUN apk add --no-cache build-base gcc git curl
   WORKDIR /src
   COPY mix.exs mix.lock ./
-  COPY --dir config lib . # check .earthlyignore
+  COPY --dir config . # check .earthlyignore
   RUN mix local.rebar --force
   RUN mix local.hex --force
   RUN mix deps.get
+  RUN mix deps.compile
+  COPY --dir lib .
   SAVE ARTIFACT /src/deps AS LOCAL deps
 
 ci:
@@ -47,15 +49,19 @@ docker-prod:
 docker-dev:
   FROM +deps
   RUN apk update --no-cache
-  RUN apk add --no-cache inotify-tools
+  RUN apk add --no-cache inotify-tools nodejs npm
   ENV MIX_ENV=dev
   COPY --dir config ./
   RUN mix deps.compile
-  COPY --dir lib ./
+  COPY --dir assets ./
+  COPY --dir priv ./
   RUN mix compile
   CMD ["mix", "dev"]
   ARG GITHUB_REPO=peapescarte/pescarte-plataforma
   SAVE IMAGE --push ghcr.io/$GITHUB_REPO:dev
+
+docker-dev-arm:
+  BUILD --platform=linux/arm64/v8 +docker-dev
 
 docker:
   BUILD +docker-dev

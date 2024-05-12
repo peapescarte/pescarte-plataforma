@@ -80,7 +80,7 @@ defmodule Pescarte.MixProject do
 
   defp aliases do
     [
-      dev: ["setup", "phx.server"],
+      dev: ["cmd --cd assets npm ci", "assets.build", "setup", "phx.server"],
       setup: ["deps.get", "ecto.setup", "seed"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],

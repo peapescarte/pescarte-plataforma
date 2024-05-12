@@ -16,6 +16,8 @@ defmodule PescarteWeb.LoginController do
   def create(conn, %{"user" => user_params}) do
     %{"cpf" => cpf, "password" => password} = user_params
 
+    Logger.info(inspect(Pescarte.Supabase.Auth.Admin.list_users()))
+
     with {:ok, user} <- Usuario.fetch_by(cpf: cpf),
          email = user.contato.email_principal,
          params = %{email: email, password: password},

@@ -6,27 +6,27 @@ defmodule Seeder.Identidades.Contato do
   def entries do
     [
       %Contato{
-        email_principal: Faker.Internet.safe_email(),
+        email_principal: "dev.admin@pescarte.org.br",
         endereco: Faker.Address.street_address(true),
         celular_principal: Faker.Phone.PtBr.phone()
       },
       %Contato{
-        email_principal: Faker.Internet.safe_email(),
+        email_principal: "dev.user@pescarte.org.br",
         endereco: Faker.Address.street_address(true),
         celular_principal: Faker.Phone.PtBr.phone()
       },
       %Contato{
-        email_principal: Faker.Internet.safe_email(),
+        email_principal: "dev.user1@pescarte.org.br",
         endereco: Faker.Address.street_address(true),
         celular_principal: Faker.Phone.PtBr.phone()
       },
       %Contato{
-        email_principal: Faker.Internet.safe_email(),
+        email_principal: "dev.user2@pescarte.org.br",
         endereco: Faker.Address.street_address(true),
         celular_principal: Faker.Phone.PtBr.phone()
       },
       %Contato{
-        email_principal: Faker.Internet.safe_email(),
+        email_principal: "dev.user3@pescarte.org.br",
         endereco: Faker.Address.street_address(true),
         celular_principal: Faker.Phone.PtBr.phone()
       }

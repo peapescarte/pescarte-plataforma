@@ -1,4 +1,8 @@
 <main class="landing-grid">
+  <.flash :if={@error_message} id="login-error" kind={:error}>
+    <%= @error_message %>
+  </.flash>
+
   <div class="land-carousel">
     <div class="glide glide1">
       <div class="glide__track" data-glide-el="track">

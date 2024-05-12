@@ -7,6 +7,7 @@
 | [nix](https://nixos.org/)                                 | 2.5.1+  |
 | [direnv](https://direnv.net/)                             | 2.28.0+ |
 | [nix-direnv](https://github.com/nix-community/nix-direnv) | 1.5.1+  |
+| [supabase-cli](https://github.com/supabase/cli) | >= 1.122.0 |
 
 ---
 
@@ -25,6 +26,11 @@ O ambiente local será baixado e compilado usando [nix-flakes](https://nixos.wik
 Inicie o banco em um terminal/processo:
 ```sh
 postgres
+```
+
+Inciie os serviços da supabase (precisa do docker):
+```sh
+supabase start
 ```
 
 E suba o servidor do `Phoenix` normalmente:

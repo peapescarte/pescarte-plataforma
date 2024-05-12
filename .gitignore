@@ -38,6 +38,7 @@ erl_crash.dump
 /.direnv/
 /.nix-*/
 /.postgres/
+/.pg-admin/
 .elixir-tools/
 .lexical/
 result

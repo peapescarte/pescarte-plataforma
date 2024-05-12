@@ -7,6 +7,15 @@
 
 ## Setup Ambiente de desenvolvimento
 
+Para todo tipo de setup, seja local, asdf, docker ou nix, é necessário baixar e instalar a [supabase-cli](https://supabase.com/docs/guides/cli/getting-started#installing-the-supabase-cli)!
+
+No seu primeio uso, é necessário criar uma conta e fazer login no serviço:
+```sh
+supabase login
+```
+
+Com isso, é possível seguir com os guias de instalação local a seguir.
+
 ### Primeira vez rodando
 
 Este projeto possui três opções para ambientes de desenvolvimento:
@@ -14,6 +23,10 @@ Este projeto possui três opções para ambientes de desenvolvimento:
 1.  [Docker](./guides/local/docker.md)
 2.  [Nix](./guides/local/nix.md)
 3.  [asdf](./guides/local/asdf.md)
+
+## Constribuindo com o projeto
+
+Siga nosso tutorial de contribuição em [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Estrutura do projeto
 

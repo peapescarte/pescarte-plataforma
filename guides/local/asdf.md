@@ -4,10 +4,13 @@
 
 | requirement                                               | release |
 | --------------------------------------------------------- | ------- |
+| [docker](https://docs.docker.com/get-docker/)                 | 24.0.8+  |
+| [docker-compose](https://github.com/docker/compose/releases/) | 2.19.0+  |
 | [asdf](https://asdf-vm.com/)                              | 0.9.0+  |
 | [asdf-postgres](https://github.com/smashedtoatoms/asdf-postgres#dependencies) | - |
 | [asdf-elixir](https://github.com/asdf-vm/asdf-elixir#install)                 | - |
 | [asdf-erlang](https://github.com/asdf-vm/asdf-erlang#install)                 | - |
+| [supabase-cli](https://github.com/supabase/cli) | >= 1.122.0 |
 
 
 ---
@@ -24,6 +27,16 @@ Serão baixadas as versões exatas da `Erlang/OTP`, `Elixir` e `Postgres` usadas
 
 ### Rodando o projeto pela primeira vez
 
+Carrege as varáveis de ambiente contidas em `.env.dev`:
+```sh
+source .env.dev
+```
+
+Inicia os serviços do supabase (precisa do docker):
+```sh
+supabase start
+```
+
 Instale as dependências do projeto:
 
 ```sh
@@ -37,6 +50,11 @@ mix ecto.setup
 ```
 
 ### Sempre que for rodar o projeto
+
+Inicie os serviços da supabase:
+```sh
+supabase start
+```
 
 Suba o servidor do `Phoenix` normalmente:
 

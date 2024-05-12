@@ -6,6 +6,7 @@
 | ------------------------------------------------------------- | -------- |
 | [docker](https://docs.docker.com/get-docker/)                 | 24.0.8+  |
 | [docker-compose](https://github.com/docker/compose/releases/) | 2.19.0+  |
+| [supabase-cli](https://github.com/supabase/cli) | >= 1.122.0 |
 
 ---
 
@@ -20,11 +21,15 @@ Como a opção padrão para executar o projeto é com `Nix`, você pode controla
 
 tanto nos ambiente de teste quanto para desenvolvimento.
 
-
 Em seguida, execute o build dos containers.
 
 ```console
 $ docker compose build
+```
+
+Inicie os serviços da supabase:
+```sh
+supabase start
 ```
 
 Depois, basta rodar o setup.
@@ -37,8 +42,14 @@ Dessa forma, o setup do banco, bem como todas as dependências serão instaladas
 
 ### Sempre que for rodar o projeto
 
+Inicie os serviços da supabase:
+```sh
+supabase start
+```
+
+Depois,
 ```console
-$ docker-compose up
+$ docker compose up
 ```
 
 Ou caso precise de um REPL interativo com `iex`:

@@ -9,6 +9,7 @@ services:
       - 4000:4000
     depends_on:
       - database
+      - pgadmin
     env_file:
       - .env-sample
     volumes:
@@ -33,3 +34,14 @@ services:
       interval: 5s
       timeout: 2s
       retries: 1
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: plataforma_pescarte_pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=dev@pescarte.org.br
+      - PGADMIN_DEFAULT_PASSWORD=peapescarte
+    ports:
+      - 8888:80
+    volumes:
+      - .postgres:/var/lib/pgadmin
