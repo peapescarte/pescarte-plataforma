@@ -1,14 +1,10 @@
 defmodule Pescarte.Supabase do
-  defmodule PostgREST do
-    use Supabase.PostgREST, client: __MODULE__
-  end
-
   defmodule Auth do
     use Supabase.GoTrue, client: Pescarte.Supabase.Auth
   end
 
   def start_link(_opts) do
-    children = [__MODULE__.Auth, __MODULE__.PostgREST]
+    children = [__MODULE__.Auth]
     opts = [strategy: :one_for_one, name: __MODULE__]
     Supervisor.start_link(children, opts)
   end
