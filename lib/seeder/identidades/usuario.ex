@@ -20,7 +20,9 @@ defmodule Seeder.Identidades.Usuario do
         contato_id: contato_id_by(index: 0),
         papel: :admin,
         rg: "123456789",
-        external_customer_id: "supabase|" <> "ed31ec14-b4bc-4e24-a877-91fb8d0d2de4"
+        external_customer_id: "supabase|" <> "ed31ec14-b4bc-4e24-a877-91fb8d0d2de4",
+        link_avatar:
+          "https://drive.google.com/file/d/1le-ipDAdzymf0X0LRvP2E5T7HP262Yip/view?usp=drive_link"
       },
       %Usuario{
         primeiro_nome: "Annabell",
@@ -30,7 +32,9 @@ defmodule Seeder.Identidades.Usuario do
         contato_id: contato_id_by(index: 1),
         papel: :admin,
         rg: "123456789",
-        external_customer_id: "supabase|" <> "8ecdf5e3-eba3-4dc8-a974-0427ebd10e59"
+        external_customer_id: "supabase|" <> "8ecdf5e3-eba3-4dc8-a974-0427ebd10e59",
+        link_avatar:
+          "https://drive.google.com/file/d/1VbbvEw36djPzV1DKQwS-SBO07Qo__Tmp/view?usp=drive_link"
       },
       %Usuario{
         primeiro_nome: "Gisele Braga",
@@ -50,7 +54,9 @@ defmodule Seeder.Identidades.Usuario do
         contato_id: contato_id_by(index: 3),
         papel: :pesquisador,
         rg: "123456789",
-        external_customer_id: "supabase|" <> "cb4397a6-4206-4b36-af05-1518a22cea33"
+        external_customer_id: "supabase|" <> "cb4397a6-4206-4b36-af05-1518a22cea33",
+        link_avatar:
+          "https://drive.google.com/file/d/1gAeRzMWuSd7Ys75MvYdbUPJFzMCow_kJ/view?usp=drive_link"
       },
       %Usuario{
         primeiro_nome: "Sahudy",
@@ -60,7 +66,9 @@ defmodule Seeder.Identidades.Usuario do
         contato_id: contato_id_by(index: 4),
         papel: :admin,
         rg: "123456789",
-        external_customer_id: "supabase|" <> "006019fe-10a2-4aa9-8c25-0407d09fbe43"
+        external_customer_id: "supabase|" <> "006019fe-10a2-4aa9-8c25-0407d09fbe43",
+        link_avatar:
+          "https://drive.google.com/file/d/1KIJ6E5XkfI0FJjsfDvxuHizNtbYArF_5/view?usp=drive_link"
       }
     ]
   end

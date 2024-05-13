@@ -21,7 +21,6 @@ glide1.on('run', function () {
   });
 });
 
-glide1.mount();
 
 const glide2 = new Glide('.glide2', {
   type: 'carousel',
@@ -32,4 +31,7 @@ const glide2 = new Glide('.glide2', {
   peek: 107
 });
 
-glide2.mount();
+if (window.location.pathname === '/') {
+  glide1.mount();
+  glide2.mount();
+}

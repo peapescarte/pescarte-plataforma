@@ -6,11 +6,6 @@ import Inputmask from "inputmask";
 
 import './glide';
 
-const cpf = document.querySelector("#user_cpf");
-
-// input masks
-if (cpf) Inputmask({ mask: "999.999.999-99" }).mask(cpf);
-
 function onVisible(elem, callback) {
   const options = { root: document.documentElement };
 
@@ -42,12 +37,10 @@ let Hooks = {};
 
 Hooks.CpfNumberMask = {
   mounted() {
-    this.el.addEventListener("input", e => {
-      let match = this.el.value.replace(/\D/g, "").match(/^(\d{3})(\d{3})(\d{3})(\d{2})$/)
-      if (match) {
-        this.el.value = `${match[1]}.${match[2]}.${match[3]}-${match[4]}`
-      }
-    })
+    const cpf = document.querySelector("#user_cpf");
+
+    // input masks
+    if (cpf) Inputmask({ mask: "999.999.999-99" }).mask(cpf);
   }
 }
 

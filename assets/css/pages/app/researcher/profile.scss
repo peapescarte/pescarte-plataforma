@@ -1,19 +1,20 @@
 $profile-banner-width: 12.5rem;
 
-  .user-profile-wrapper {
-    @apply w-full h-full;
-    display: grid;
+.user-profile-wrapper {
+  @apply w-full h-full;
+  display: grid;
+  max-width: 100vw;
 
-    .user-profile-banner {
-      @apply w-full;
+  .user-profile-banner {
+    @apply w-full;
 
-      height: $profile-banner-width;
+    height: $profile-banner-width;
 
-      .user-profile-banner-default {
-        background-color: transparent;
-        height: inherit;
-      }
+    .user-profile-banner-default {
+      background-color: transparent;
+      height: inherit;
     }
+  }
 
   .user-profile-avatar {
     @apply bg-orange-100;
@@ -64,16 +65,17 @@ $profile-banner-width: 12.5rem;
       height: max-content;
       width: max-content;
 
-      > span {
+      >span {
         margin-right: 0.875rem;
         width: max-content;
         height: max-content;
       }
 
-      .btn-link{
+      .btn-link {
         background-color: transparent;
       }
-      .btn{
+
+      .btn {
         gap: 0.2rem;
       }
     }
@@ -125,7 +127,7 @@ $profile-banner-width: 12.5rem;
       margin-bottom: 2.5rem;
       width: max-content;
 
-      > h2 {
+      >h2 {
         margin-bottom: 0.5rem;
       }
     }
@@ -138,7 +140,7 @@ $profile-banner-width: 12.5rem;
       height: max-content;
       max-width: 58.5rem;
 
-      > h4 {
+      >h4 {
         margin-bottom: 0.75rem;
       }
     }
@@ -148,14 +150,14 @@ $profile-banner-width: 12.5rem;
 
       width: max-content;
 
-      > p {
+      >p {
         margin-bottom: 0.75rem;
       }
 
-      > .profile-link {
+      >.profile-link {
         margin-bottom: 1.125rem;
 
-        > span {
+        >span {
           margin-right: 0.5rem;
         }
       }

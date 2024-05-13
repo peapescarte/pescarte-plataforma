@@ -55,7 +55,8 @@ defmodule PescarteWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {PescarteWeb.Layouts, :app}
+        layout: {PescarteWeb.Layouts, :app},
+        container: {:div, class: "grid"}
 
       unquote(html_helpers())
     end
@@ -64,7 +65,8 @@ defmodule PescarteWeb do
   def auth_live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {PescarteWeb.Layouts, :authenticated}
+        layout: {PescarteWeb.Layouts, :authenticated},
+        container: {:div, class: "auth-grid"}
 
       unquote(html_helpers())
     end

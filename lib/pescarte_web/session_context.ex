@@ -13,9 +13,9 @@ defmodule PescarteWeb.SessionContext do
 
       {:error, :not_found} ->
         {:halt,
-          socket
-          |> assign(error_message: "Não conseguimos carregar seu usuário!")
-          |> redirect(to: "/")}
+         socket
+         |> assign(error_message: "Não conseguimos carregar seu usuário!")
+         |> redirect(to: "/")}
     end
   end
 end

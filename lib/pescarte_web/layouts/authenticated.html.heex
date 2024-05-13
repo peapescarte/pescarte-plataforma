@@ -1,14 +1,12 @@
-<body class="auth-grid">
-  <.live_component
-    id="auth-navbar"
-    user={@current_usuario}
-    menus={@menus}
-    current_path={@current_path}
-    module={PescarteWeb.DesignSystem.AuthenticatedNavbar}
-  />
-  <main>
-    <.flash_group flash={@flash} />
-    <%= @inner_content %>
-  </main>
-  <.footer />
-</body>
+<.live_component
+  id="auth-navbar"
+  user={@current_usuario}
+  menus={@menus}
+  current_path={@current_path}
+  module={PescarteWeb.DesignSystem.AuthenticatedNavbar}
+/>
+<main>
+  <.flash_group flash={@flash} />
+  <%= @inner_content %>
+</main>
+<.footer />

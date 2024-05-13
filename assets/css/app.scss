@@ -44,11 +44,6 @@ body,
   @apply wh-screen;
 }
 
-.phx-connected,
-.phx-loading {
-  @apply auth-grid wh-screen;
-}
-
 .phx-error {
   opacity: 0.25;
   cursor: not-allowed;

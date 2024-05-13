@@ -15,8 +15,8 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
     <header id="auth-navbar" class="h-full" phx-hook="NavbarHover" phx-target="#auth-navbar">
       <nav class={["navbar-authenticated", if(@open, do: "open")]}>
         <span>
-          <Lucideicons.arrow_right :if={!@open} />
-          <Lucideicons.arrow_left :if={@open} />
+          <Lucideicons.arrow_right :if={!@open} class="arrow-close" />
+          <Lucideicons.arrow_left :if={@open} class="arrow-open" />
         </span>
         <ul class="nav-menu">
           <li class="nav-item">
@@ -32,9 +32,10 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
           </DesignSystem.link>
         </ul>
         <div class="user-info">
-          <Lucideicons.user class="text-black-60" />
+          <Lucideicons.user :if={!@user.link_avatar} class="text-black-60" />
+          <img :if={@user.link_avatar} src={@user.link_avatar} class="text-black-60" />
           <.text :if={@open} size="base" color="text-black-80">
-            Zoey de Souza Pessanha
+            <%= Usuario.build_usuario_name(@user) %>
           </.text>
         </div>
       </nav>

@@ -34,7 +34,9 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <%= @inner_content %>
+  <body class={if !Map.get(assigns, :current_usuario), do: "grid", else: ""}>
+    <%= @inner_content %>
+  </body>
   <script>
     if (navigator.serviceWorker) {
       navigator.serviceWorker.register('/service_worker.js', { scope: './' })
