@@ -1,8 +1,13 @@
 defmodule PescarteWeb.LoginController do
   use PescarteWeb, :controller
 
+  import Phoenix.LiveView.Controller, only: [live_render: 3]
+
   alias Pescarte.Identidades.Models.Usuario
+  alias Pescarte.Supabase.Auth
+  alias PescarteWeb.LoginLive
   alias Supabase.GoTrue
+  alias Supabase.GoTrue.Session
 
   require Logger
 
@@ -16,8 +21,6 @@ defmodule PescarteWeb.LoginController do
   def create(conn, %{"user" => user_params}) do
     %{"cpf" => cpf, "password" => password} = user_params
 
-    Logger.info(inspect(Pescarte.Supabase.Auth.Admin.list_users()))
-
     with {:ok, user} <- Usuario.fetch_by(cpf: cpf),
          email = user.contato.email_principal,
          params = %{email: email, password: password},
@@ -29,7 +32,15 @@ defmodule PescarteWeb.LoginController do
           "[#{__MODULE__}] ==> Cannot log in user:\nERROR: #{inspect(err, pretty: true)}"
         )
 
-        render(conn, :show, error_message: @err_msg)
+        conn
+        |> put_flash(:error, @err_msg)
+        |> put_layout(false)
+        |> live_render(LoginLive,
+          session: %{
+            "user_token" => get_session(conn, :user_token),
+            "current_user" => conn.assigns[:current_user]
+          }
+        )
     end
   end
 
@@ -37,5 +48,41 @@ defmodule PescarteWeb.LoginController do
     conn
     |> put_flash(:info, "Desconectado com sucesso")
     |> GoTrue.Plug.log_out_user(:local)
+  end
+
+  @cannot_reset_err "Você não possui permissão para acessar essa página"
+
+  def get_reset_pass(conn, %{"access_token" => token, "type" => "recovery"}) do
+    case Auth.get_user(%Session{access_token: token}) do
+      {:ok, _} ->
+        conn
+        |> GoTrue.Plug.put_token_in_session(token)
+        |> redirect(~p"/app/pesquisa/perfil?type=recovery")
+
+      {:error, _} ->
+        conn
+        |> put_status(:forbidden)
+        |> put_flash(:error, @cannot_reset_err)
+        |> put_layout(false)
+        |> live_render(LoginLive,
+          session: %{
+            "user_token" => get_session(conn, :user_token),
+            "current_user" => conn.assigns[:current_user]
+          }
+        )
+    end
+  end
+
+  def get_reset_pass(conn, _) do
+    conn
+    |> put_status(:forbidden)
+    |> put_flash(:error, @cannot_reset_err)
+    |> put_layout(false)
+    |> live_render(LoginLive,
+      session: %{
+        "user_token" => get_session(conn, :user_token),
+        "current_user" => conn.assigns[:current_user]
+      }
+    )
   end
 end

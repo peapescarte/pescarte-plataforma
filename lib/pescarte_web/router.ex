@@ -38,8 +38,9 @@ defmodule PescarteWeb.Router do
   scope "/", PescarteWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/acessar", LoginController, :show
+    live "/acessar", LoginLive, :show
     post "/acessar", LoginController, :create
+    get "/resetar-senha", LoginController, :get_reset_pass
   end
 
   scope "/app/pesquisa", PescarteWeb.Pesquisa do
