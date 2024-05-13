@@ -2,6 +2,7 @@
   display: inline-flex;
   flex-direction: column-reverse;
   position: fixed;
+  z-index: 30;
   max-width: 25rem;
   top: 1.5rem;
   right: 1.5rem;

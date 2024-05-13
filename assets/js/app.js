@@ -32,6 +32,12 @@ document.querySelectorAll(`[data-component="navbar-dropdown"]`).forEach(el => {
   dropdown.addEventListener("mouseleave", e => hide());
 });
 
+window.addEventListener("phx:js-exec", ({detail}) => {
+  document.querySelectorAll(detail.to).forEach(el => {
+      liveSocket.execJS(el, el.getAttribute(detail.attr))
+  })
+})
+
 // Phoenix Hooks
 let Hooks = {};
 

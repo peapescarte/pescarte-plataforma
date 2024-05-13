@@ -450,6 +450,7 @@ defmodule PescarteWeb.DesignSystem do
   attr :method, :string, default: "get", values: ~w(get put post delete patch)
   attr :styless, :boolean, default: false
   attr :class, :string, default: ""
+  attr :"on-click", :string, default: ""
 
   slot :inner_block
 
@@ -461,6 +462,7 @@ defmodule PescarteWeb.DesignSystem do
       href={@href}
       method={@method}
       class={[if(!@styless, do: "link"), @class]}
+      phx-click={Map.get(assigns, :"on-click")}
     >
       <%= render_slot(@inner_block) %>
     </Phoenix.Component.link>
@@ -618,6 +620,105 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
+  @doc """
+  Renders a modal.
+
+  ## Examples
+
+      <.modal id="confirm-modal">
+        This is a modal.
+      </.modal>
+
+  JS commands may be passed to the `:on_cancel` to configure
+  the closing/cancel event, for example:
+
+      <.modal id="confirm" on_cancel={JS.navigate(~p"/posts")}>
+        This is another modal.
+      </.modal>
+
+  """
+  attr :id, :string, required: true
+  attr :show, :boolean, default: false
+  attr :on_cancel, JS, default: %JS{}
+  attr :title, :string, default: ""
+
+  slot :inner_block, required: true
+
+  slot :footer, required: false do
+    attr :class, :string
+    attr :style, :string
+  end
+
+  def modal(assigns) do
+    ~H"""
+    <div
+      id={@id}
+      phx-mounted={@show && show_modal(@id)}
+      phx-remove={hide_modal(@id)}
+      data-cancel={JS.exec(@on_cancel, "phx-remove")}
+      class="relative z-20 hidden"
+      data-show={show_modal(@id)}
+    >
+      <div
+        id={"#{@id}-bg"}
+        class="bg-blue-60 fixed inset-0 transition-opacity"
+        aria-hidden="true"
+        style="opacity: 0.5;"
+      />
+      <div
+        class="fixed inset-0 overflow-y-auto"
+        aria-labelledby={"#{@id}-title"}
+        aria-describedby={"#{@id}-description"}
+        role="dialog"
+        aria-modal="true"
+        tabindex="0"
+      >
+        <div class="flex items-center justify-center" style="min-height: 100%">
+          <div class="w-full" style="width: 484px;">
+            <.focus_wrap
+              id={"#{@id}-container"}
+              phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
+              phx-key="escape"
+              phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
+              class="relative hidden rounded-2xl bg-white-100 transition"
+              style="width: 484px; padding: 24px; min-height: 340px;"
+            >
+              <div
+                class="w-full right-5 flex justify-between"
+                style="top: 1.25rem; align-items: center; max-width: 442px;"
+              >
+                <.text size="h2" color="black-80">
+                  <%= @title %>
+                </.text>
+                <button
+                  phx-click={JS.exec("data-cancel", to: "##{@id}")}
+                  type="button"
+                  class="flex-none hover:opacity-40 border-black-80 rounded-full"
+                  style="width: 30px; height: 30px; border-width: 1.5px;"
+                  aria-label="close modal button"
+                >
+                  <Lucideicons.x class="text-black-80" style="margin: auto" />
+                </button>
+              </div>
+              <div id={"#{@id}-content"} style="margin: 64px 0;">
+                <%= render_slot(@inner_block) %>
+              </div>
+              <div
+                :for={footer <- @footer}
+                id={"#{@id}-footer"}
+                class={Map.get(footer, :class)}
+                style={Map.get(footer, :style)}
+              >
+                <%= render_slot(footer) %>
+              </div>
+            </.focus_wrap>
+          </div>
+        </div>
+      </div>
+    </div>
+    """
+  end
+
   ## JS Commands
 
   def show(js \\ %JS{}, selector) do
@@ -639,5 +740,29 @@ defmodule PescarteWeb.DesignSystem do
          "opacity-100 translate-y-0 sm:scale-100",
          "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
     )
+  end
+
+  def show_modal(js \\ %JS{}, id) when is_binary(id) do
+    js
+    |> JS.show(to: "##{id}")
+    |> JS.show(
+      to: "##{id}-bg",
+      transition: {"transition-all transform ease-out duration-300", "opacity-0", "opacity-100"}
+    )
+    |> show("##{id}-container")
+    |> JS.add_class("overflow-hidden", to: "body")
+    |> JS.focus_first(to: "##{id}-content")
+  end
+
+  def hide_modal(js \\ %JS{}, id) do
+    js
+    |> JS.hide(
+      to: "##{id}-bg",
+      transition: {"transition-all transform ease-in duration-200", "opacity-100", "opacity-0"}
+    )
+    |> hide("##{id}-container")
+    |> JS.hide(to: "##{id}", transition: {"block", "block", "hidden"})
+    |> JS.remove_class("overflow-hidden", to: "body")
+    |> JS.pop_focus()
   end
 end
