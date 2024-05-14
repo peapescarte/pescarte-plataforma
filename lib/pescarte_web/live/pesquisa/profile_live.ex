@@ -64,7 +64,7 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
 
     case recover_pass_changeset(params) do
       {:ok, attrs} ->
-        case Supabase.Auth.update_user(socket, %{password: attrs.password}) |> IO.inspect() do
+        case Supabase.Auth.update_user(socket, %{password: attrs.password}) do
           {:ok, socket} -> {:noreply, redirect(socket, to: ~p"/app/pesquisa/perfil")}
           {:error, error} -> {:noreply, assign_error(socket, error)}
         end

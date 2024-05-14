@@ -7,7 +7,6 @@ defmodule PescarteWeb.LoginController do
   alias Pescarte.Supabase.Auth
   alias PescarteWeb.LoginLive
   alias Supabase.GoTrue
-  alias Supabase.GoTrue.Session
 
   require Logger
 
@@ -35,12 +34,7 @@ defmodule PescarteWeb.LoginController do
         conn
         |> put_flash(:error, @err_msg)
         |> put_layout(false)
-        |> live_render(LoginLive,
-          session: %{
-            "user_token" => get_session(conn, :user_token),
-            "current_user" => conn.assigns[:current_user]
-          }
-        )
+        |> live_render(LoginLive, session: to_live_view_session(conn))
     end
   end
 
@@ -52,24 +46,26 @@ defmodule PescarteWeb.LoginController do
 
   @cannot_reset_err "Você não possui permissão para acessar essa página"
 
-  def get_reset_pass(conn, %{"access_token" => token, "type" => "recovery"}) do
-    case Auth.get_user(%Session{access_token: token}) do
-      {:ok, _} ->
+  def get_reset_pass(conn, %{"token_hash" => token, "type" => "recovery"}) do
+    with {:ok, session} <- Auth.verify_otp(%{token_hash: token, type: :recovery}),
+         {:ok, _} <- Auth.get_user(session) do
+      conn
+      |> GoTrue.Plug.put_token_in_session(session.access_token)
+      |> redirect(to: ~p"/app/pesquisa/perfil?type=recovery")
+    else
+      {:error, %{"error_code" => "otp_expired"}} ->
         conn
-        |> GoTrue.Plug.put_token_in_session(token)
-        |> redirect(~p"/app/pesquisa/perfil?type=recovery")
+        |> put_status(:forbidden)
+        |> put_flash(:error, "Parece que o código de verificação informado expirou")
+        |> put_layout(false)
+        |> live_render(LoginLive, session: to_live_view_session(conn))
 
       {:error, _} ->
         conn
         |> put_status(:forbidden)
         |> put_flash(:error, @cannot_reset_err)
         |> put_layout(false)
-        |> live_render(LoginLive,
-          session: %{
-            "user_token" => get_session(conn, :user_token),
-            "current_user" => conn.assigns[:current_user]
-          }
-        )
+        |> live_render(LoginLive, session: to_live_view_session(conn))
     end
   end
 
@@ -78,11 +74,13 @@ defmodule PescarteWeb.LoginController do
     |> put_status(:forbidden)
     |> put_flash(:error, @cannot_reset_err)
     |> put_layout(false)
-    |> live_render(LoginLive,
-      session: %{
-        "user_token" => get_session(conn, :user_token),
-        "current_user" => conn.assigns[:current_user]
-      }
-    )
+    |> live_render(LoginLive, session: to_live_view_session(conn))
+  end
+
+  defp to_live_view_session(conn) do
+    %{
+      "user_token" => get_session(conn, :user_token),
+      "current_user" => conn.assigns[:current_user]
+    }
   end
 end
