@@ -20,7 +20,7 @@ defmodule PescarteWeb.SessionContext do
 
     case Usuario.fetch_by(external_customer_id: current_user && current_user.id) do
       {:ok, usuario} ->
-        {:cont, assign_new(socket, :current_usuario, fn -> usuario end)}
+        {:cont, assign(socket, current_usuario: usuario)}
 
       {:error, :not_found} ->
         {:halt,

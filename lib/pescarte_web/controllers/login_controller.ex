@@ -4,7 +4,6 @@ defmodule PescarteWeb.LoginController do
   import Phoenix.LiveView.Controller, only: [live_render: 3]
 
   alias Pescarte.Identidades.Models.Usuario
-  alias Pescarte.Supabase.Auth
   alias PescarteWeb.LoginLive
   alias Supabase.GoTrue
 
@@ -42,39 +41,6 @@ defmodule PescarteWeb.LoginController do
     conn
     |> put_flash(:info, "Desconectado com sucesso")
     |> GoTrue.Plug.log_out_user(:local)
-  end
-
-  @cannot_reset_err "Você não possui permissão para acessar essa página"
-
-  def get_reset_pass(conn, %{"token_hash" => token, "type" => "recovery"}) do
-    with {:ok, session} <- Auth.verify_otp(%{token_hash: token, type: :recovery}),
-         {:ok, _} <- Auth.get_user(session) do
-      conn
-      |> GoTrue.Plug.put_token_in_session(session.access_token)
-      |> redirect(to: ~p"/app/pesquisa/perfil?type=recovery")
-    else
-      {:error, %{"error_code" => "otp_expired"}} ->
-        conn
-        |> put_status(:forbidden)
-        |> put_flash(:error, "Parece que o código de verificação informado expirou")
-        |> put_layout(false)
-        |> live_render(LoginLive, session: to_live_view_session(conn))
-
-      {:error, _} ->
-        conn
-        |> put_status(:forbidden)
-        |> put_flash(:error, @cannot_reset_err)
-        |> put_layout(false)
-        |> live_render(LoginLive, session: to_live_view_session(conn))
-    end
-  end
-
-  def get_reset_pass(conn, _) do
-    conn
-    |> put_status(:forbidden)
-    |> put_flash(:error, @cannot_reset_err)
-    |> put_layout(false)
-    |> live_render(LoginLive, session: to_live_view_session(conn))
   end
 
   defp to_live_view_session(conn) do

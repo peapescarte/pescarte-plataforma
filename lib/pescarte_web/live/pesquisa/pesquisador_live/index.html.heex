@@ -1,4 +1,4 @@
-<div class="listagem-pesquisador">
+<div :if={@live_action == :index} class="listagem-pesquisador">
   <div class="listagem-actions">
     <.search_input
       id="listagem-pesquisador"
@@ -8,7 +8,7 @@
     />
 
     <.button :if={@current_usuario.papel == :admin} style="primary" click="register">
-      <DesignSystem.link navigate={~p"/app/pesquisa/cadastro"}>
+      <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores/cadastro"}>
         <Lucideicons.user_plus />
         <.text size="h5" color="text-white-100">Cadastrar</.text>
       </DesignSystem.link>
@@ -32,3 +32,13 @@
     </:column>
   </.table>
 </div>
+
+<.live_component
+  :if={@live_action in [:new, :edit]}
+  module={FormComponent}
+  id={@pesquisador.id || :new}
+  title={@page_title}
+  action={@live_action}
+  pesquisador={@pesquisador}
+  patch={~p"/app/pesquisa/pesquisadores"}
+/>

@@ -4,7 +4,7 @@
 
 $nav-width: 8.75rem;
 $navbar-height: 6.125rem;
-$footer-height: 4.438rem;
+$footer-height: 6.438rem;
 
 .link {
   @apply hover:underline decoration-from-font;
@@ -166,7 +166,9 @@ footer {
 @import "./textarea.scss";
 @import "./tabela.scss";
 @import "./label.scss";
-@import "./dropdown.scss";
+/* @import "./dropdown.scss"; */
+@import "./select.scss";
+@import "./multiple_select.scss";
 
 // Páginas
 // Sem autenticação
@@ -177,6 +179,7 @@ footer {
 @import "./pages/app/researcher/listagem_pesquisador.scss";
 @import "./pages/app/researcher/relatorio/list_report.scss";
 @import "./pages/app/researcher/relatorio/report.scss";
+@import "./pages/app/researcher/pesquisador";
 
 // Páginas de Erros
 @import "./errors/404.scss";

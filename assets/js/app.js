@@ -50,6 +50,15 @@ Hooks.CpfNumberMask = {
   }
 }
 
+Hooks.MobileMask = {
+  mounted() {
+    const mob = document.querySelector("#mobile");
+
+    // input masks
+    if (mob) Inputmask({ mask: "+99 (99) 99999-9999" }).mask(mob);
+  }
+}
+
 Hooks.NavbarHover = {
   mounted() {
     const navbar = document.querySelector("#auth-navbar");
@@ -61,7 +70,7 @@ Hooks.NavbarHover = {
     navbar.addEventListener("mouseleave", (e) => {
       this.pushEventTo(navbar, "mouseleave");
     });
-  },
+  }
 };
 
 // LIVE VIEW

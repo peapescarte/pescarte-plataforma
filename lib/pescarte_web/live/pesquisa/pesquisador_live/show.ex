@@ -1,26 +1,16 @@
-defmodule PescarteWeb.Pesquisa.ProfileLive do
+defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
   use PescarteWeb, :auth_live_view
 
   import Phoenix.Naming, only: [humanize: 1]
 
   alias Pescarte.Identidades.Models.Usuario
+  alias Pescarte.ModuloPesquisa.GetPesquisador
+  alias Pescarte.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.Supabase
 
   @impl true
   def mount(_params, _session, socket) do
-    %Usuario{} = current_usuario = socket.assigns.current_usuario
-
-    {:ok,
-     assign(socket,
-       reset_form: to_form(%{}, as: :reset_pass),
-       user_name: Usuario.build_usuario_name(current_usuario),
-       bolsa: humanize(current_usuario.pesquisador.bolsa),
-       minibio: current_usuario.pesquisador.minibio,
-       link_lattes: current_usuario.pesquisador.link_lattes,
-       link_linkedin: current_usuario.pesquisador.link_linkedin,
-       link_banner: current_usuario.pesquisador.link_banner_perfil,
-       link_avatar: current_usuario.link_avatar
-     )}
+    {:ok, socket}
   end
 
   @impl true
@@ -28,8 +18,29 @@ defmodule PescarteWeb.Pesquisa.ProfileLive do
     {:noreply, push_event(socket, "js-exec", %{to: "#reset-password", attr: "data-show"})}
   end
 
+  def handle_params(%{"id" => id}, _uri, socket) do
+    pesquisador = GetPesquisador.run(id: id)
+    {:noreply, assign_state(socket, pesquisador)}
+  end
+
   def handle_params(_params, _uri, socket) do
-    {:noreply, socket}
+    {:noreply, assign_state(socket, socket.assigns.current_usuario.pesquisador)}
+  end
+
+  defp assign_state(socket, %Pesquisador{} = pesquisador) do
+    assign(socket,
+      reset_form: to_form(%{}, as: :reset_pass),
+      user_name: Usuario.build_usuario_name(pesquisador.usuario),
+      bolsa: humanize(pesquisador.bolsa),
+      minibio: pesquisador.minibio,
+      link_lattes: pesquisador.link_lattes,
+      link_linkedin: pesquisador.link_linkedin,
+      link_banner: pesquisador.link_banner_perfil,
+      link_avatar: pesquisador.usuario.link_avatar,
+      link_avatar:
+        "https://drive.google.com/file/d/1le-ipDAdzymf0X0LRvP2E5T7HP262Yip/view?usp=sharing",
+      logged_user?: pesquisador.usuario_id == socket.assigns.current_usuario.id
+    )
   end
 
   # Components

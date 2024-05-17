@@ -22,8 +22,8 @@ defmodule Pescarte.Identidades.Models.Usuario do
 
   @valid_roles ~w(pesquisador pescador admin)a
 
-  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento contato_id papel)a
-  @optional_fields ~w(rg link_avatar)a
+  @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento papel)a
+  @optional_fields ~w(rg link_avatar contato_id)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
@@ -54,6 +54,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
     |> validate_required(@required_fields)
     |> validate_cpf(:cpf, message: "CPF inválido")
     |> unique_constraint(:cpf)
+    |> cast_assoc(:contato, required: false)
     |> foreign_key_constraint(:contato_id)
   end
 
@@ -82,7 +83,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
     Database.fetch_one(
       from u in __MODULE__,
         where: u.cpf == ^String.replace(cpf, ~r/\D/, ""),
-        preload: [:pesquisador, :contato]
+        preload: [:contato, pesquisador: [:usuario]]
     )
   end
 
@@ -90,17 +91,17 @@ defmodule Pescarte.Identidades.Models.Usuario do
     Database.fetch_one(
       from u in __MODULE__,
         where: u.id == ^id,
-        preload: [:pesquisador, :contato]
+        preload: [:contato, pesquisador: [:usuario]]
     )
   end
 
   def fetch_by(external_customer_id: external_customer_id) do
-    id = "supabase|" <> external_customer_id
+    id = "supabase|#{external_customer_id}"
 
     Database.fetch_one(
       from u in __MODULE__,
         where: u.external_customer_id == ^id,
-        preload: [:pesquisador, :contato]
+        preload: [:contato, pesquisador: [:usuario]]
     )
   end
 

@@ -39,7 +39,7 @@
     <img src={~p"/images/peixinhos.svg"} />
     <div :if={!@link_banner} class="user-profile-banner-default" />
   </div>
-  <div class="user-profile-menu">
+  <div :if={@logged_user?} class="user-profile-menu">
     <div class="user-profile-menu-dots">
       <div class="dots"><span /> <span /> <span /></div>
     </div>

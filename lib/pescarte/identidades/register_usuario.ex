@@ -14,6 +14,15 @@ defmodule Pescarte.Identidades.RegisterUsuario do
     end)
   end
 
+  def run(attrs) do
+    Repo.transaction(fn ->
+      {:ok, internal} = do_create_usuario(attrs)
+      {:ok, external} = UsuarioAdapter.to_external(internal)
+      {:ok, _} = Auth.Admin.create_user(external)
+      internal
+    end)
+  end
+
   defp do_create_usuario(attrs) do
     %Usuario{}
     |> Usuario.changeset(attrs)
