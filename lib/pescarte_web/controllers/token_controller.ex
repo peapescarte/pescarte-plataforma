@@ -21,14 +21,12 @@ defmodule PescarteWeb.TokenController do
     else
       {:error, %{"error_code" => "otp_expired"}} ->
         conn
-        |> put_status(:forbidden)
         |> put_flash(:error, "Parece que o código de verificação informado expirou")
         |> put_layout(false)
         |> live_render(LoginLive)
 
       {:error, _} ->
         conn
-        |> put_status(:forbidden)
         |> put_flash(:error, @cannot_confirm_err)
         |> put_layout(false)
         |> live_render(LoginLive)
@@ -44,14 +42,12 @@ defmodule PescarteWeb.TokenController do
     else
       {:error, %{"error_code" => "otp_expired"}} ->
         conn
-        |> put_status(:forbidden)
         |> put_flash(:error, "Parece que o código de verificação informado expirou")
         |> put_layout(false)
         |> live_render(LoginLive)
 
       {:error, _} ->
         conn
-        |> put_status(:forbidden)
         |> put_flash(:error, @cannot_reset_err)
         |> put_layout(false)
         |> live_render(LoginLive)
@@ -60,7 +56,6 @@ defmodule PescarteWeb.TokenController do
 
   def confirm(conn, _) do
     conn
-    |> put_status(:forbidden)
     |> put_flash(:error, "Parece que seu código de confirmação é inválido")
     |> put_layout(false)
     |> live_render(LoginLive)

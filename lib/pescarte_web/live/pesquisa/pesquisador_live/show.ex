@@ -9,22 +9,18 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
   alias Pescarte.Supabase
 
   @impl true
+  def mount(%{"id" => id}, _session, socket) do
+    pesquisador = GetPesquisador.run(id: id)
+    {:ok, assign_state(socket, pesquisador)}
+  end
+
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, assign_state(socket, socket.assigns.current_usuario.pesquisador)}
   end
 
   @impl true
   def handle_params(%{"type" => "recovery"}, _uri, socket) do
     {:noreply, push_event(socket, "js-exec", %{to: "#reset-password", attr: "data-show"})}
-  end
-
-  def handle_params(%{"id" => id}, _uri, socket) do
-    pesquisador = GetPesquisador.run(id: id)
-    {:noreply, assign_state(socket, pesquisador)}
-  end
-
-  def handle_params(_params, _uri, socket) do
-    {:noreply, assign_state(socket, socket.assigns.current_usuario.pesquisador)}
   end
 
   defp assign_state(socket, %Pesquisador{} = pesquisador) do
