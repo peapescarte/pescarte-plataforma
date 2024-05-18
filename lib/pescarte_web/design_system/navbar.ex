@@ -14,7 +14,9 @@ defmodule PescarteWeb.DesignSystem.Navbar do
         <ul class="nav-menu">
           <.navlink label="Cooperativas" />
 
-          <.navlink label="Sobre" />
+          <DesignSystem.link navigate={~p"/sobre"}>
+            <.navlink label="Sobre" />
+          </DesignSystem.link>
 
           <.navlink label="Equipes" />
         </ul>

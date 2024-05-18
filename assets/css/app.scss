@@ -176,6 +176,7 @@ footer {
 // Páginas
 // Sem autenticação
 @import "./pages/login.scss";
+@import "./aboutus.scss";
 
 // Com autenticação
 @import "./pages/app/researcher/profile.scss";
