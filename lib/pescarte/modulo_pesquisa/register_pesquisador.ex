@@ -11,7 +11,8 @@ defmodule Pescarte.ModuloPesquisa.RegisterPesquisador do
       with {:ok, pesquisador} <- do_create_pesquisador(attrs),
            external = UsuarioAdapter.to_external(pesquisador.usuario),
            {:ok, _} <- Auth.Admin.create_user(external),
-           :ok <- Auth.reset_password_for_email(external.email, redirect_to: ~p"/confirmar") do
+           opts = [type: :signup, redirect_to: ~p"/confirmar"],
+           :ok <- Auth.resend(external.email, opts) do
         pesquisador
       else
         {:error, err} -> Repo.rollback(err)
