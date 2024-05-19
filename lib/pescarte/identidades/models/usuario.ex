@@ -23,7 +23,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
   @valid_roles ~w(pesquisador pescador admin)a
 
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento papel)a
-  @optional_fields ~w(rg link_avatar contato_id)a
+  @optional_fields ~w(rg link_avatar contato_id external_customer_id)a
 
   @lower_pass_format ~r/[a-z]/
   @upper_pass_format ~r/[A-Z]/
@@ -124,6 +124,14 @@ defmodule Pescarte.Identidades.Models.Usuario do
       order_by: [desc: u.inserted_at],
       limit: 1
     )
+  end
+
+  def link_to_external(user \\ %__MODULE__{}, external_id) do
+    id = "supabase|" <> external_id
+
+    user
+    |> changeset(%{external_customer_id: id})
+    |> Repo.update()
   end
 
   def build_usuario_name(nil), do: ""

@@ -33,6 +33,7 @@ defmodule PescarteWeb.Router do
 
     get "/", LandingController, :show
     delete "/acessar", LoginController, :delete
+    get "/confirmar", TokenController, :confirm
   end
 
   scope "/", PescarteWeb do
@@ -40,7 +41,6 @@ defmodule PescarteWeb.Router do
 
     live "/acessar", LoginLive, :show
     post "/acessar", LoginController, :create
-    get "/confirmar", TokenController, :confirm
   end
 
   scope "/app/pesquisa", PescarteWeb.Pesquisa do

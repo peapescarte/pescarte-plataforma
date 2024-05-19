@@ -23,6 +23,10 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
     {:noreply, push_event(socket, "js-exec", %{to: "#reset-password", attr: "data-show"})}
   end
 
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
   defp assign_state(socket, %Pesquisador{} = pesquisador) do
     assign(socket,
       reset_form: to_form(%{}, as: :reset_pass),

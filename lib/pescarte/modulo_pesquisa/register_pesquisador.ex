@@ -3,6 +3,7 @@ defmodule Pescarte.ModuloPesquisa.RegisterPesquisador do
 
   alias Pescarte.Database.Repo
   alias Pescarte.Identidades.Adapters.UsuarioAdapter
+  alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
   alias Pescarte.Supabase.Auth
 
@@ -10,9 +11,10 @@ defmodule Pescarte.ModuloPesquisa.RegisterPesquisador do
     Repo.transaction(fn ->
       with {:ok, pesquisador} <- do_create_pesquisador(attrs),
            external = UsuarioAdapter.to_external(pesquisador.usuario),
-           {:ok, _} <- Auth.Admin.create_user(external),
+           {:ok, external} <- Auth.Admin.create_user(external),
            opts = [type: :signup, redirect_to: ~p"/confirmar"],
-           :ok <- Auth.resend(external.email, opts) do
+           :ok <- Auth.resend(external.email, opts),
+           {:ok, _} <- Usuario.link_to_external(pesquisador.usuario, external.id) do
         pesquisador
       else
         {:error, err} -> Repo.rollback(err)
