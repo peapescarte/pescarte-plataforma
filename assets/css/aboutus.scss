@@ -32,14 +32,38 @@
 
     img {
         object-fit: cover;
-        height: 512px;
-        min-width: 668px;
+        height: 490px;
+        max-width: 668px;
+        width: 100%;
         border-radius: 16px;
+        transition: height 0.4s ease;
     }
 
     .phase-content {
         display: flex;
         flex-direction: column;
+
+        .current-phase {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+
+            h2 {
+                margin-bottom: 0px;
+            }
+
+            .were-here {
+                display: flex;
+                align-items: center;
+                margin-left: 20px;
+                background-color: #FF6E00;
+                padding: 8px;
+                border-radius: 2px;
+                max-height: 25px;
+            }
+        }
 
         h2 {
             margin-bottom: 20px;
