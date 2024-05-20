@@ -15,7 +15,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
         |> live_render(RelatorioLive.Index,
           session: %{
             "current_user" => get_session(conn, :current_user),
-            "current_researcher" => get_session(conn, :current_researcher)
+            "current_usuario" => get_session(conn, :current_usuario)
           }
         )
 
@@ -44,7 +44,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
     |> live_render(RelatorioLive.Index,
       session: %{
         "current_user" => get_session(conn, :current_user),
-        "current_researcher" => get_session(conn, :current_researcher)
+        "current_usuario" => get_session(conn, :current_usuario)
       }
     )
   end
