@@ -32,6 +32,7 @@ defmodule PescarteWeb.Router do
     pipe_through :browser
 
     get "/", LandingController, :show
+    get "/cooperativas", CooperativasController, :show
     delete "/acessar", LoginController, :delete
   end
 
