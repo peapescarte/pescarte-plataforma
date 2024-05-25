@@ -165,6 +165,17 @@
   }
 }
 
+.input-space {
+  display: flex;
+
+  .eye-button {
+    translate: -30px 10%;
+    width: 0px !important;
+    height: auto !important;
+  }
+}
+
+
 .gallery-carousel {
   padding: 56px 0;
 
