@@ -31,7 +31,8 @@ defmodule PescarteWeb.Router do
   scope "/", PescarteWeb do
     pipe_through :browser
 
-    get "/", LandingController, :show
+    get "/", LandingController, :index
+    get "/equipes", LandingController, :equipes
     delete "/acessar", LoginController, :delete
     get "/confirmar", TokenController, :confirm
   end

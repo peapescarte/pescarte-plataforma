@@ -1,6 +1,8 @@
 defmodule PescarteWeb.DesignSystem.Navbar do
   use PescarteWeb, :component
 
+  alias PescarteWeb.DesignSystem
+
   @doc """
   Componente de barra de navegação.
   """
@@ -16,28 +18,31 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
           <.navlink label="Sobre" />
 
-          <.navlink label="Equipes" />
+          <.navlink label="Equipes" navigate={~p"/equipes"} />
         </ul>
-        <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
+        <DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
             <Lucideicons.log_in class="text-white-100" />
             <.text size="base" color="text-white-100">Acessar</.text>
           </.button>
-        </PescarteWeb.DesignSystem.link>
+        </DesignSystem.link>
       </nav>
     </header>
     """
   end
 
   attr :label, :string, required: true
+  attr :navigate, :string, default: "/"
 
   defp navlink(assigns) do
     ~H"""
-    <li class="nav-link" aria-expanded="false">
-      <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
-        <%= @label %>
-      </.text>
-    </li>
+    <DesignSystem.link navigate={@navigate} styless>
+      <li class="nav-link" aria-expanded="false">
+        <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
+          <%= @label %>
+        </.text>
+      </li>
+    </DesignSystem.link>
     """
   end
 end
