@@ -340,7 +340,8 @@
 
           p {}
 
-          a {
+          a,
+          div {
             @apply flex text-white-100;
             justify-content: center;
             align-items: center;
@@ -350,7 +351,19 @@
             background-color: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 4px;
+            cursor: pointer;
           }
+        }
+
+      }
+
+      .nossas-equipes-content-collapsed {
+        @apply flex;
+        justify-content: center;
+        margin: 0 2.5rem;
+
+        p {
+          font-size: 16px;
         }
       }
     }
