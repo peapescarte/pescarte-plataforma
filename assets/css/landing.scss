@@ -354,7 +354,6 @@
             cursor: pointer;
           }
         }
-
       }
 
       .nossas-equipes-content-collapsed {
@@ -371,8 +370,7 @@
 }
 
 @media screen and (min-width: 1264px) {
-  .nossas-equipes-container .nossas-equipes-card {
+  .nossas-equipes-container {
     width: 1360px;
-    height: 260px;
   }
 }
