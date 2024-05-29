@@ -33,14 +33,10 @@ defmodule PescarteWeb.Router do
 
     get "/", LandingController, :show
     get "/cooperativas", CooperativasController, :show
-    delete "/acessar", LoginController, :delete
-    get "/confirmar", TokenController, :confirm
-  end
-
-  scope "/", PescarteWeb do
-    pipe_through :browser
-
     get "/sobre", AboutUsController, :show
+    get "/publicacoes", JournalController, :show
+    get "/confirmar", TokenController, :confirm
+    delete "/acessar", LoginController, :delete
   end
 
   scope "/", PescarteWeb do
