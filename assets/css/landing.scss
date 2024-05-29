@@ -360,4 +360,67 @@
       }
     }
   }
+
+  .nossas-equipes-wrapper {
+    @apply flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5rem;
+
+    .nossas-equipes-container {
+      @apply flex relative;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 0 2.5rem 0 2.5rem;
+      margin-bottom: 5rem;
+
+      .nossas-equipes-card {
+        @apply relative;
+
+        .nossas-equipes-content {
+          @apply flex absolute;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1.5rem;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+
+          p {}
+
+          a,
+          div {
+            @apply flex text-white-100;
+            justify-content: center;
+            align-items: center;
+            width: 10.938rem;
+            height: 2.563rem;
+            font-size: 0.875rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .nossas-equipes-content-collapsed {
+        @apply flex;
+        justify-content: center;
+        margin: 0 2.5rem;
+
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1264px) {
+  .nossas-equipes-container {
+    width: 1360px;
+  }
 }
