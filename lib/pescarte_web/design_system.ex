@@ -308,20 +308,21 @@ defmodule PescarteWeb.DesignSystem do
       <label :if={@label} for={@name}>
         <.text size="h4"><%= @label %></.text>
       </label>
-      <input
-        id={@id}
-        name={@name}
-        value={@value}
-        type={@type}
-        placeholder={@placeholder}
-        data-inputmask={if @mask, do: "mask: #{@mask}"}
-        class={["input", text_input_state(@valid)]}
-        {@rest}
-      />
-      <span class="dot">
-        <Lucideicons.eye :if={@visiblePass} />
-        <Lucideicons.circle_check :if={!@visiblePass} />
-      </span>
+        <div class="input-space">
+        <input
+          id={@id}
+          name={@name}
+          value={@value}
+          type={@type}
+          placeholder={@placeholder}
+          data-inputmask={if @mask, do: "mask: #{@mask}"}
+          class={["input", if(@type == "password", do: "password-toggle", else: ""), text_input_state(@valid)]}
+          {@rest}
+        />
+        <button class="eye-button" :if={@type == "password"} phx-click={JS.toggle_attribute({"type", "password", "text"}, to: ".password-toggle")}>
+            <Lucideicons.eye />
+        </button>
+      </div>
       <span :if={!is_nil(@valid)} class="dot">
         <Lucideicons.circle_check :if={@valid} />
         <Lucideicons.circle_x :if={!@valid} />
