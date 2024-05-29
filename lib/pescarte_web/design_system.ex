@@ -501,6 +501,7 @@ defmodule PescarteWeb.DesignSystem do
   attr :method, :string, default: "get", values: ~w(get put post delete patch)
   attr :styless, :boolean, default: false
   attr :class, :string, default: ""
+  attr :"target-blank", :boolean, default: false
   attr :"on-click", :string, default: ""
 
   slot :inner_block
@@ -514,6 +515,7 @@ defmodule PescarteWeb.DesignSystem do
       method={@method}
       class={[if(!@styless, do: "link"), @class]}
       phx-click={Map.get(assigns, :"on-click")}
+      target={if Map.get(assigns, :"target-blank"), do: "_blank", else: "_self"}
     >
       <%= render_slot(@inner_block) %>
     </Phoenix.Component.link>
