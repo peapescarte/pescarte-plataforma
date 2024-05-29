@@ -315,3 +315,49 @@
     }
   }
 }
+
+.equipes-wrapper {
+  @apply flex;
+  flex-direction: column;
+  margin-top: 5rem;
+
+  .nossas-sedes-wrapper {
+    @apply flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4.5rem;
+
+    .nossas-sedes-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      padding: 0 7.188rem;
+      margin-bottom: 5rem;
+
+      .sede-detail {
+        @apply flex items-start gap-2.5;
+        gap: 0.625rem;
+
+        svg {
+          @apply text-black-80;
+          margin-top: 0.3rem;
+          width: 14px;
+          height: 14px;
+        }
+
+        .sede-text {
+          @apply flex;
+          flex-direction: column;
+
+          >h5 {
+            line-height: 1.5rem;
+          }
+
+          >h5:nth-child(1) {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
