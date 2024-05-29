@@ -24,20 +24,36 @@
     justify-content: center;
     margin-bottom: 40px;
 
-    thead {
-        h4{
-            font-weight: bold;
+    .table-label {
+        margin-bottom: 15px;
+    }
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        margin-bottom: 20px;
+        width: 100%;
+        border-collapse: collapse;
+
+        thead {
+            h4{
+                font-weight: bold;
+            }
+        }
+
+        th {
+            width: 14%;
+            padding: 0.75rem 1rem;
+        }
+
+        tr {
+            padding: 0.75rem 1rem;
         }
     }
 
-    th {
-        width: 14%;
-        padding: 0.75rem 1rem;
-    }
-
-    tr {
-        padding: 0.75rem 1rem;
-    }
 }
 
 .join-us {

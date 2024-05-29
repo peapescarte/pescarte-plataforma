@@ -8,10 +8,11 @@
       Junho, Julho e Agosto de 2024
     </.text>
   </div>
+
   <div class="atividades">
     <% total = map_size(@mapa) %>
     <%= for {index, rows} <- @mapa do %>
-      <.text size="h4" color="text-blue-100">
+      <.text size="h4" color="text-blue-100" class="table-label">
         <%= index + 1 %> de <%= total %>
       </.text>
       <%= table_render(rows) %>
