@@ -320,9 +320,7 @@ defmodule PescarteWeb.DesignSystem do
           {@rest}
         />
         <button class="eye-button" :if={@type == "password"} phx-click={JS.toggle_attribute({"type", "password", "text"}, to: ".password-toggle")}>
-          <span class="">
             <Lucideicons.eye />
-          </span>
         </button>
       </div>
       <span :if={!is_nil(@valid)} class="dot">

@@ -1,0 +1,98 @@
+<main class="landing-grid">
+  <.flash :if={@error_message} id="login-error" kind={:error}>
+    <%= @error_message %>
+  </.flash>
+
+  <div class="quem-somos">
+    <section class="quem-somos-text quem-somos-text-left">
+      <span>
+        <.text size="h1" color="text-blue-100">
+          O Laço Entre Cooperativas e Pescarte
+        </.text>
+      </span>
+      <.text size="lg" color="text-black-80">
+        Junto às comunidades de pesca artesanal, o PEA Pescarte promove ações colaborativas e democráticas pautadas na economia solidária e no cooperativismo, para a construção de Projetos de Geração de Trabalho e Renda (PGTR’s), que são empreendimentos socioeconômicos, ambientalmente responsáveis para a atuação de pessoas pescadoras e suas famílias em 10 municípios da Bacia de Campos.
+        <br />
+        <br />
+        Os Projetos de Geração de Trabalho e Renda (PGTR's) foram iniciados na segunda fase do projeto Pescarte e resultam na materialização para os Estudos de Viabilidade Técnica, Econômica, Ambiental e Social (EVTEAS) de seis tipos de empreendimentos, previstos para serem implantados de acordo com o Plano de Trabalho do projeto e a particularidade de cada comunidade de pesca.
+      </.text>
+
+      <.text size="lg" color="text-blue-100">
+        <a href={~p"/xx"} class="font-bold">
+          Visite também Organização das Cooperativas do Brasil (OCB)
+        </a>
+      </.text>
+    </section>
+    <img src={~p"/images/landing/rede_pesca_horizonte.png"} />
+  </div>
+
+  <div class="quem-somos">
+    <img src={~p"/images/landing/rede_pesca_horizonte.png"} />
+    <section class="quem-somos-text quem-somos-text-right">
+      <span>
+        <.text size="h1" color="text-blue-100">
+          Estudo de Viabilidade Técnica, Econômica, Ambiental e Social
+        </.text>
+      </span>
+      <.text size="lg" color="text-black-80">
+        O EVTEAS busca identificar as vantagens e desvantagens dos PGTR’s que serão implantados pelo Pescarte. Cada foco do estudo busca investigar aspectos específicos:
+        <ul class="lg-list">
+          <li><b>Técnico:</b> se o projeto tem suporte técnico para existir;</li>
+          <li>
+            <b>Econômico:</b>
+            como o projeto pode render o suficiente para pagar seus custos e gerar lucro para dividir entre as pessoas trabalhadoras.
+          </li>
+          <li>
+            <b>Ambiental:</b>
+            possibilidades e alternativas para criar um empreendimento que gere nenhuma poluição ou dano ao meio ambiente.
+          </li>
+          <li>
+            <b>Social:</b>
+            se os projetos têm um número suficiente de pessoas interessadas em criar e manter um PGTR. Assim, a junção de todos estes termos avalia se o empreendimento pode ou não ser implantando.
+          </li>
+        </ul>
+      </.text>
+    </section>
+  </div>
+
+  <div class="find-us">
+    <.text size="h2" color="text-white-100">Onde nos Encontrar</.text>
+
+    <section class="find-us-content">
+      <.text size="lg" color="text-white-80">
+        Estamos presentes nas redes sociais! Clique nos botões abaixo para visitar nossos perfis.
+      </.text>
+
+      <div class="find-us-links">
+        <a href="#">
+          <img src={~p"/images/linkedin.svg"} alt="" />
+        </a>
+
+        <a href="https://www.facebook.com/peapescarte">
+          <img src={~p"/images/facebook.svg"} alt="" />
+        </a>
+
+        <a href="https://www.instagram.com/peapescarte/?img_index=1">
+          <img src={~p"/images/instagram.svg"} alt="" />
+        </a>
+
+        <a href="https://www.youtube.com/PEAPescarte">
+          <img src={~p"/images/youtube.svg"} alt="" />
+        </a>
+      </div>
+
+      <.text size="lg" color="text-white-80">
+        Mas, se preferir, entre em contato diretamente.
+      </.text>
+
+      <div class="find-us-bttn">
+        <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+          <img src={~p"/images/message-square.svg"} />
+          <.text size="base" color="text-orange-100">
+            Fale Conosco
+          </.text>
+        </DesignSystem.link>
+      </div>
+    </section>
+  </div>
+</main>
