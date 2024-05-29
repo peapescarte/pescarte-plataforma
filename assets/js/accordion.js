@@ -17,15 +17,11 @@ phases.forEach(phase => {
     }
 
     for (let i = 0; i < accordions.length; i++) {
-        accordions[i].addEventListener('mouseover', function() {
+        accordions[i].addEventListener('click', function() {
             if (!this.classList.contains('active')) {
                 this.classList.add('active');
                 adjustImageHeight();
-            }
-        });
-
-        accordions[i].addEventListener('mouseleave', function() {
-            if (this.classList.contains('active')) {
+            } else {
                 this.classList.remove('active');
                 adjustImageHeight();
             }
