@@ -13,10 +13,9 @@ defmodule PescarteWeb.Endpoint do
   end
 
   @session_options [
-    store: :ets,
+    store: :cookie,
     key: "_pescarte_key",
-    signing_salt: "7ZI1IH1h",
-    table: :pescarte_session
+    signing_salt: "7ZI1IH1h"
   ]
 
   socket "/socket", PescarteWeb.UserSocket, websocket: true, longpoll: false

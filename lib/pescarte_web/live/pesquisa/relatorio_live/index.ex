@@ -71,7 +71,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     |> assign(:page_title, "Novo Relatório")
     |> assign(:relatorio, %RelatorioPesquisa{})
     |> assign(:tipo, tipo_relatorio)
-    |> assign(:pesquisador_id, socket.assigns.current_researcher.id)
+    |> assign(:pesquisador_id, socket.assigns.current_usuario.pesquisador.id)
   end
 
   defp apply_action(socket, :index, _params) do
@@ -89,7 +89,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.Index do
     |> assign(:page_title, "Editar Relatório")
     |> assign(:relatorio, relatorio)
     |> assign(:tipo, tipo_relatorio)
-    |> assign(:pesquisador_id, socket.assigns.current_researcher.id)
+    |> assign(:pesquisador_id, socket.assigns.current_usuario.pesquisador.id)
   end
 
   defp make_compile_form(_assigns) do

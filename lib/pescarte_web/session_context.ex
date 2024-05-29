@@ -1,6 +1,6 @@
 defmodule PescarteWeb.SessionContext do
-  import Phoenix.Component, only: [assign: 2, assign_new: 3]
-  import Phoenix.LiveView, only: [redirect: 2]
+  import Phoenix.Component, only: [assign: 2]
+  import Phoenix.LiveView, only: [redirect: 2, put_flash: 3]
 
   alias Pescarte.Identidades.Models.Usuario
   alias Supabase.GoTrue
@@ -20,13 +20,13 @@ defmodule PescarteWeb.SessionContext do
 
     case Usuario.fetch_by(external_customer_id: current_user && current_user.id) do
       {:ok, usuario} ->
-        {:cont, assign_new(socket, :current_usuario, fn -> usuario end)}
+        {:cont, assign(socket, current_usuario: usuario)}
 
       {:error, :not_found} ->
         {:halt,
          socket
-         |> assign(error_message: "Não conseguimos carregar seu usuário!")
-         |> redirect(to: "/")}
+         |> put_flash(:error, "Não conseguimos carregar seu usuário!")
+         |> redirect(to: "/acessar")}
     end
   end
 end

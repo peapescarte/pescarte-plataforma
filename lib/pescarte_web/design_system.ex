@@ -154,7 +154,7 @@ defmodule PescarteWeb.DesignSystem do
   """
   def footer(assigns) do
     ~H"""
-    <footer class="flex justify-center items-center " }>
+    <footer class="flex justify-center items-center">
       <img src={~p"/images/footer_logos.svg"} />
     </footer>
     """
@@ -336,8 +336,39 @@ defmodule PescarteWeb.DesignSystem do
 
   attr :id, :string, default: nil
   attr :name, :string, default: nil
+  attr :value, :any
+  attr :field, Phoenix.HTML.FormField
+  attr :label, :string, default: nil
+  attr :prompt, :string, default: nil
+  attr :options, :list
+  attr :multiple, :boolean, default: false
+  attr :rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required)
+
+  def select(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> select()
+  end
+
+  def select(assigns) do
+    ~H"""
+    <fieldset class="select-input-container">
+      <label :if={@label} for={@name}>
+        <.text size="h4"><%= @label %></.text>
+      </label>
+      <select id={@id} name={@name} class="select-input" multiple={@multiple} {@rest}>
+        <option :if={@prompt} value=""><%= @prompt %></option>
+        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+      </select>
+    </fieldset>
+    """
+  end
+
+  attr :id, :string, default: nil
+  attr :name, :string, default: nil
   attr :disabled, :boolean, default: false
   attr :placeholder, :string, required: false, default: ""
+  attr :field, Phoenix.HTML.FormField
   attr :value, :string, default: ""
   attr :valid, :boolean, required: false, default: nil
   attr :class, :string, default: ""
@@ -355,7 +386,14 @@ defmodule PescarteWeb.DesignSystem do
     <fieldset class={@class}>
       <.text size="base"><%= render_slot(@label) %></.text>
       <div class="textarea-grow-wrapper">
-        <textarea id={@id} name={@name} placeholder={@placeholder} disabled={@disabled} default=""><%= @value%></textarea>
+        <textarea
+          id={@id}
+          name={@name}
+          placeholder={@placeholder}
+          disabled={@disabled}
+          default=""
+          class="textarea"
+        ><%= @value%></textarea>
       </div>
     </fieldset>
     """
@@ -409,7 +447,7 @@ defmodule PescarteWeb.DesignSystem do
   defp input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     assigns
     |> assign(field: nil, id: assigns.id || field.id)
-    |> assign(:name, field.name)
+    |> assign_new(:name, fn -> if assigns[:multiple], do: field.name <> "[]", else: field.name end)
     |> assign_new(:value, fn -> field.value end)
   end
 

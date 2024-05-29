@@ -1,0 +1,44 @@
+<div :if={@live_action == :index} class="listagem-pesquisador">
+  <div class="listagem-actions">
+    <.search_input
+      id="listagem-pesquisador"
+      fields={@filter_fields}
+      meta={@meta}
+      patch={~p"/app/pesquisa/pesquisadores"}
+    />
+
+    <.button :if={@current_usuario.papel == :admin} style="primary" click="register">
+      <DesignSystem.link navigate={~p"/app/pesquisa/pesquisadores/cadastro"}>
+        <Lucideicons.user_plus />
+        <.text size="h5" color="text-white-100">Cadastrar</.text>
+      </DesignSystem.link>
+    </.button>
+  </div>
+
+  <.table items={@pesquisadores} meta={@meta} path={~p"/app/pesquisa/pesquisadores"}>
+    <:column :let={pesquisador} label="Nome" field={:nome}>
+      <%= pesquisador.nome %>
+    </:column>
+    <:column :let={pesquisador} label="CPF" field={:cpf}>
+      <%= pesquisador.cpf %>
+    </:column>
+    <:column :let={pesquisador} label="E-mail" field={:email}>
+      <DesignSystem.link href={"mailto:" <> pesquisador.email}>
+        <%= pesquisador.email %>
+      </DesignSystem.link>
+    </:column>
+    <:column :let={pesquisador} label="Participação" field={:participacao}>
+      <%= humanize_bolsa(pesquisador.participacao) %>
+    </:column>
+  </.table>
+</div>
+
+<.live_component
+  :if={@live_action in [:new, :edit]}
+  module={FormComponent}
+  id={@pesquisador.id || :new}
+  title={@page_title}
+  action={@live_action}
+  pesquisador={@pesquisador}
+  patch={~p"/app/pesquisa/pesquisadores"}
+/>

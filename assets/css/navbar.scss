@@ -52,7 +52,7 @@
   @apply border-black-10 flex flex-col items-center w-full;
 
   position: fixed;
-  padding-top: 2.5rem;
+  padding: 40px;
   width: $nav-width;
   -webkit-transition: width 0.05s linear;
   transition: width 0.1s linear;
