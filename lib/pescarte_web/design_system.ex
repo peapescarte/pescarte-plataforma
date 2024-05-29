@@ -318,9 +318,9 @@ defmodule PescarteWeb.DesignSystem do
         class={["input", text_input_state(@valid)]}
         {@rest}
       />
-      <span class="dot" >
-          <Lucideicons.eye :if={@visiblePass}/>
-          <Lucideicons.circle_check :if={!@visiblePass}/>
+      <span class="dot">
+        <Lucideicons.eye :if={@visiblePass} />
+        <Lucideicons.circle_check :if={!@visiblePass} />
       </span>
       <span :if={!is_nil(@valid)} class="dot">
         <Lucideicons.circle_check :if={@valid} />
