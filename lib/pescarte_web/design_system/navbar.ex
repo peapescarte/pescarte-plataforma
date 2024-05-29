@@ -12,7 +12,9 @@ defmodule PescarteWeb.DesignSystem.Navbar do
           <img src="/images/pescarte_logo.svg" class="logo" />
         </DesignSystem.link>
         <ul class="nav-menu">
-          <.navlink label="Cooperativas" />
+          <DesignSystem.link navigate={~p"/cooperativas"} styless>
+            <.navlink label="Cooperativas" />
+          </DesignSystem.link>
 
           <DesignSystem.link navigate={~p"/sobre"} styless>
             <.navlink label="Sobre" />
