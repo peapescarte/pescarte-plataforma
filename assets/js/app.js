@@ -4,6 +4,8 @@ import "../node_modules/@glidejs/glide/src/assets/sass/glide.core.scss";
 import "phoenix_html";
 import Inputmask from "inputmask";
 
+import './accordion';
+
 import './glide';
 
 function onVisible(elem, callback) {
