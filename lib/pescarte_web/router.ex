@@ -33,6 +33,13 @@ defmodule PescarteWeb.Router do
 
     get "/", LandingController, :show
     delete "/acessar", LoginController, :delete
+    get "/confirmar", TokenController, :confirm
+  end
+
+  scope "/", PescarteWeb do
+    pipe_through :browser
+
+    get "/sobre", AboutUsController, :show
   end
 
   scope "/", PescarteWeb do
@@ -40,7 +47,6 @@ defmodule PescarteWeb.Router do
 
     live "/acessar", LoginLive, :show
     post "/acessar", LoginController, :create
-    get "/resetar-senha", LoginController, :get_reset_pass
   end
 
   scope "/app/pesquisa", PescarteWeb.Pesquisa do
@@ -53,9 +59,13 @@ defmodule PescarteWeb.Router do
         {GoTrue.LiveView, :ensure_authenticated},
         {PescarteWeb.Flash, :flash}
       ] do
-      live "/perfil", ProfileLive
-      live "/pesquisadores", ListPesquisadorLive
-      live "/cadastro", CadastroPesquisadorLive
+      live "/perfil", PesquisadorLive.Show, :show
+
+      scope "/pesquisadores" do
+        live "/", PesquisadorLive.Index, :index
+        live "/cadastro", PesquisadorLive.Index, :new
+        live "/:id", PesquisadorLive.Show, :show
+      end
 
       scope "/relatorios" do
         live "/", RelatorioLive.Index, :index

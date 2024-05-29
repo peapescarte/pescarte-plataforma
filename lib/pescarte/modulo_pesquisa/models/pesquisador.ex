@@ -40,8 +40,8 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
     desconhecido
   )a
 
-  @required_fields ~w(bolsa campus_id usuario_id data_inicio_bolsa data_contratacao formacao)a
-  @optional_fields ~w(orientador_id link_banner_perfil link_linkedin data_fim_bolsa data_termino link_lattes )a
+  @required_fields ~w(bolsa data_inicio_bolsa data_contratacao formacao linha_pesquisa_principal_id data_fim_bolsa data_termino)a
+  @optional_fields ~w(orientador_id link_banner_perfil link_linkedin  link_lattes campus_id usuario_id)a
 
   @derive {
     Flop.Schema,
@@ -105,6 +105,9 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
     pesquisador
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> cast_assoc(:usuario, required: true)
+    |> cast_assoc(:campus, required: true)
+    |> cast_assoc(:linhas_pesquisa, required: false)
     |> unique_constraint(:rg)
     |> foreign_key_constraint(:usuario_id)
     |> foreign_key_constraint(:orientador_id)

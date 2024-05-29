@@ -7,7 +7,6 @@ defmodule Pescarte.Fixtures do
   alias Pescarte.Cotacoes.Models.Pescado
 
   alias Pescarte.Identidades.Models.Contato
-  alias Pescarte.Identidades.Models.Token
   alias Pescarte.Identidades.Models.Usuario
 
   alias Pescarte.ModuloPesquisa.Models.Campus
@@ -111,33 +110,6 @@ defmodule Pescarte.Fixtures do
   def usuario_creation_factory do
     user = build(:usuario)
     user |> Map.from_struct() |> Map.put(:senha_confirmation, user.senha)
-  end
-
-  def email_token_factory do
-    context = sequence(:contexto, ["confirm", "reset_password"])
-    token = :crypto.strong_rand_bytes(32)
-    hashed = :crypto.hash(:sha256, token)
-    contato = insert(:contato)
-    user = insert(:usuario, contato_id: contato.id)
-
-    %Token{
-      contexto: context,
-      usuario_id: user.id,
-      enviado_para: contato.email_principal,
-      token: hashed
-    }
-  end
-
-  def session_token_factory do
-    contato = insert(:contato)
-    user = insert(:usuario, contato_id: contato.id)
-
-    %Token{
-      contexto: "session",
-      usuario_id: user.id,
-      enviado_para: contato.email_principal,
-      token: :crypto.strong_rand_bytes(32)
-    }
   end
 
   defp sequence_list(label, custom, opts) do

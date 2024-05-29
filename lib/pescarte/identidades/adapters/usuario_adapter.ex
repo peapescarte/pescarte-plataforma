@@ -7,7 +7,7 @@ defmodule Pescarte.Identidades.Adapters.UsuarioAdapter do
 
   def to_external(%Usuario{} = usuario, pass \\ @default_pass) do
     %{
-      role: usuario.papel,
+      role: Atom.to_string(usuario.papel),
       phone: usuario.contato.celular_principal,
       email: usuario.contato.email_principal,
       password: pass,

@@ -1,0 +1,116 @@
+<style>
+  #reset-password-content fieldset {
+    width: 100%;
+  }
+
+  #reset-password-content fieldset input {
+    width: 100%;
+  }
+</style>
+
+<.form for={@reset_form} phx-submit="trigger_reset_pass">
+  <.modal id="reset-password" title="Alterar Senha">
+    <div class="flex flex-col justify-between items-start" style="gap: 32px;">
+      <.text_input field={@reset_form[:password]} type="password" label="Nova Senha" required />
+      <.text_input
+        field={@reset_form[:password_confirmation]}
+        type="password"
+        label="Repita a Nova Senha"
+        required
+      />
+    </div>
+    <:footer class="flex justify-between items-center">
+      <.button style="secondary" click={DesignSystem.hide_modal("reset-password")}>
+        Cancelar
+      </.button>
+      <.button style="primary" submit>
+        Salvar
+      </.button>
+    </:footer>
+  </.modal>
+</.form>
+
+<div class="user-profile-wrapper">
+  <div class="user-profile-avatar">
+    <img :if={@link_avatar} src={@link_avatar} />
+    <Lucideicons.user :if={!@link_avatar} width="100" height="100" />
+  </div>
+  <div class="user-profile-banner">
+    <img src={~p"/images/peixinhos.svg"} />
+    <div :if={!@link_banner} class="user-profile-banner-default" />
+  </div>
+  <div :if={@logged_user?} class="user-profile-menu">
+    <div class="user-profile-menu-dots">
+      <div class="dots"><span /> <span /> <span /></div>
+    </div>
+    <.form for={%{}} action="/acessar" method="delete">
+      <div class="profile-menu-link">
+        <span class="flex items-center justify-center bg-white-100">
+          <Lucideicons.file_pen class="text-blue-100" />
+        </span>
+        <.button
+          style="link"
+          class="whitespace-nowrap"
+          click="edit_profile"
+          phx-target=".profile-menu-link"
+        >
+          <.text size="base" color="text-blue-80" class="bg-white-100">
+            Editar Perfil
+          </.text>
+        </.button>
+      </div>
+      <div class="profile-menu-link">
+        <span class="flex items-center justify-center bg-white-100">
+          <Lucideicons.lock class="text-blue-100" />
+        </span>
+        <.button
+          style="link"
+          class="whitespace-nowrap"
+          click={DesignSystem.show_modal("reset-password")}
+          phx-target=".profile-menu-link"
+        >
+          <.text size="base" color="text-blue-80" class="bg-white-100">
+            Alterar Senha
+          </.text>
+        </.button>
+      </div>
+      <div class="profile-menu-link">
+        <span class="flex items-center justify-center bg-white-100">
+          <Lucideicons.log_out class="text-blue-100" />
+        </span>
+        <.button style="link" class="whitespace-nowrap" submit>
+          <.text size="base" color="text-blue-80" class="bg-white-100">
+            Sair
+          </.text>
+        </.button>
+      </div>
+    </.form>
+  </div>
+  <section class="user-profile-info" style="overflow-y: auto">
+    <div class="basic-info">
+      <.text size="h2" color="text-black-80">
+        <%= @user_name %>
+      </.text>
+      <.text size="h4" color="text-black-80">
+        <%= @bolsa %>
+      </.text>
+    </div>
+    <hr />
+    <div class="profile-about">
+      <.text size="h4" color="text-black-80">Sobre</.text>
+      <.text size="base" color="text-black-80">
+        <%= @minibio %>
+      </.text>
+    </div>
+    <hr />
+    <div class="profile-links">
+      <.text size="lg" color="text-black-80">Links</.text>
+      <.profile_link href={@link_lattes} label="Lattes">
+        <Lucideicons.file_text width="35" height="21" class="text-white-100" />
+      </.profile_link>
+      <.profile_link href={@link_linkedin} label="LinkedIn">
+        <Lucideicons.linkedin width="35" height="21" class="text-white-100" />
+      </.profile_link>
+    </div>
+  </section>
+</div>

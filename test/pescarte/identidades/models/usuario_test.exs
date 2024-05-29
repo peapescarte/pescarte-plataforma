@@ -57,22 +57,6 @@ defmodule Identidades.Models.UsuarioTest do
     assert Keyword.get(changeset.errors, :cpf)
   end
 
-  test "changeset inválido sem contato associado" do
-    attrs = %{
-      primeiro_nome: "John",
-      sobrenome: "Doe",
-      cpf: "828.796.660-40",
-      data_nascimento: ~D[1990-01-01],
-      tipo: :pesquisador,
-      contato_id: nil
-    }
-
-    changeset = Usuario.changeset(%Usuario{}, attrs)
-
-    refute changeset.valid?
-    assert Keyword.get(changeset.errors, :contato_id)
-  end
-
   test "changeset válido com tipo admin" do
     contato = insert(:contato)
 

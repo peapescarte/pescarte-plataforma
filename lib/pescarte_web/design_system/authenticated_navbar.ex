@@ -31,13 +31,13 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
             </li>
           </DesignSystem.link>
         </ul>
-        <div class="user-info">
+        <a class="user-info" href={~p"/app/pesquisa/perfil"} style="cursor: pointer;">
           <Lucideicons.user :if={!@user.link_avatar} class="text-black-60" />
           <img :if={@user.link_avatar} src={@user.link_avatar} class="text-black-60" />
           <.text :if={@open} size="base" color="text-black-80">
             <%= Usuario.build_usuario_name(@user) %>
           </.text>
-        </div>
+        </a>
       </nav>
     </header>
     """

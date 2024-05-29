@@ -27,7 +27,13 @@ defmodule PescarteWeb.LoginLive do
     <.form for={@reset_form} phx-submit="trigger_reset_pass">
       <.modal id="reset-password" title="Recuperar Senha">
         <div class="flex flex-col justify-between items-start" style="gap: 32px;">
-          <.text_input field={@reset_form[:email]} type="email" label="E-mail" required />
+          <.text_input
+            field={@reset_form[:email]}
+            type="email"
+            label="E-mail"
+            phx-keyup="trigger_reset_pass"
+            required
+          />
         </div>
         <:footer class="flex justify-center items-center">
           <.button style="primary" class="mx-auto" submit>
@@ -79,12 +85,25 @@ defmodule PescarteWeb.LoginLive do
   @reset_msg "Caso seu email esteja cadastrado, um email para recuperação de senha será enviado"
 
   @impl true
-  def handle_event("trigger_reset_pass", %{"reset_pass" => %{"email" => email}}, socket) do
-    :ok = Supabase.Auth.reset_password_for_email(email, redirect_to: ~p"/resetar-senha")
+  def handle_event("trigger_reset_pass", %{"key" => "Enter", "value" => email}, socket) do
+    :ok = Supabase.Auth.reset_password_for_email(email, redirect_to: ~p"/confirmar")
 
     {:noreply,
      socket
      |> put_flash(:success, @reset_msg)
      |> push_navigate(to: ~p"/acessar")}
+  end
+
+  def handle_event("trigger_reset_pass", %{"reset_pass" => %{"email" => email}}, socket) do
+    :ok = Supabase.Auth.reset_password_for_email(email, redirect_to: ~p"/confirmar")
+
+    {:noreply,
+     socket
+     |> put_flash(:success, @reset_msg)
+     |> push_navigate(to: ~p"/acessar")}
+  end
+
+  def handle_event("trigger_reset_pass", _params, socket) do
+    {:noreply, socket}
   end
 end
