@@ -20,7 +20,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
             <.navlink label="Sobre" />
           </DesignSystem.link>
 
-          <.navlink label="Equipes" navigate={~p"/equipes"} />
+          <.navlink label="Equipes" />
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
@@ -33,18 +33,15 @@ defmodule PescarteWeb.DesignSystem.Navbar do
     """
   end
 
-  attr(:label, :string, required: true)
-  attr(:navigate, :string, default: "/")
+  attr :label, :string, required: true
 
   defp navlink(assigns) do
     ~H"""
-    <DesignSystem.link navigate={@navigate}>
-      <li class="nav-link" aria-expanded="false">
-        <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
-          <%= @label %>
-        </.text>
-      </li>
-    </DesignSystem.link>
+    <li class="nav-link" aria-expanded="false">
+      <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
+        <%= @label %>
+      </.text>
+    </li>
     """
   end
 end
