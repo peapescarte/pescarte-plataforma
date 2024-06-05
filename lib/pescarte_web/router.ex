@@ -32,6 +32,7 @@ defmodule PescarteWeb.Router do
     pipe_through :browser
 
     get "/", LandingController, :show
+    get "/equipes", EquipesController, :show
     get "/cooperativas", CooperativasController, :show
     get "/sobre", AboutUsController, :show
     get "/publicacoes", JournalController, :show
