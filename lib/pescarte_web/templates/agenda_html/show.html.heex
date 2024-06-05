@@ -1,0 +1,70 @@
+<main>
+  <div class="banner">
+    <img src={~p"/images/agenda/top-banner-bg.jpeg"} class="banner-img" />
+    <.text size="h1" color="text-white-100">
+      Agenda Prevista
+    </.text>
+    <.text size="h4" color="text-white-100">
+      Junho, Julho e Agosto de 2024
+    </.text>
+  </div>
+
+  <div class="atividades">
+    <% total = map_size(@mapa) %>
+    <%= for {index, rows} <- @mapa do %>
+      <.text size="h4" color="text-blue-100" class="table-label">
+        <%= index + 1 %> de <%= total %>
+      </.text>
+      <%= table_render(rows) %>
+    <% end %>
+  </div>
+
+  <div class="join-us">
+    <img src={~p"/images/quem-somos/join-bg.jpeg"} />
+    <.text size="h4" color="text-white-100">
+      No <strong>PEA Pescarte</strong>, acreditamos no poder da comunidade e na força da ação coletiva para construir um futuro mais sustentável e justo para os pescadores artesanais. Estamos comprometidos em transformar desafios em oportunidades, garantindo que o legado dos pescadores da Bacia de Campos seja preservado e fortalecido para as gerações futuras.
+      <br /> <br /> <strong>Junte-se a nós nessa jornada de transformação!</strong>
+    </.text>
+  </div>
+
+  <div class="find-us">
+    <.text size="h2" color="text-white-100">Onde nos Encontrar</.text>
+
+    <section class="find-us-content">
+      <.text size="lg" color="text-white-80">
+        Estamos presentes nas redes sociais! Clique nos botões abaixo para visitar nossos perfis.
+      </.text>
+
+      <div class="find-us-links">
+        <a href="#">
+          <img src={~p"/images/linkedin.svg"} alt="" />
+        </a>
+
+        <a href="https://www.facebook.com/peapescarte">
+          <img src={~p"/images/facebook.svg"} alt="" />
+        </a>
+
+        <a href="https://www.instagram.com/peapescarte/?img_index=1">
+          <img src={~p"/images/instagram.svg"} alt="" />
+        </a>
+
+        <a href="https://www.youtube.com/PEAPescarte">
+          <img src={~p"/images/youtube.svg"} alt="" />
+        </a>
+      </div>
+
+      <.text size="lg" color="text-white-80">
+        Mas, se preferir, entre em contato diretamente.
+      </.text>
+
+      <div class="find-us-bttn">
+        <DesignSystem.link href={~p"/xx"} class="text-sm font-semibold">
+          <img src={~p"/images/message-square.svg"} />
+          <.text size="base" color="text-orange-100">
+            Fale Conosco
+          </.text>
+        </DesignSystem.link>
+      </div>
+    </section>
+  </div>
+</main>
