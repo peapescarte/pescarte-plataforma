@@ -212,19 +212,80 @@
           </div>
         </div>
       </div>
-      <div
-        id="toggle-collapse-nucleo-pesquisa"
-        style="display: none;"
-        class="nossas-equipes-content-collapsed"
-      >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+      <div id="toggle-collapse-nucleo-pesquisa" style="display: none;">
+        <div class="nossas-equipes-content-collapsed">
+          <.text size="h4" color="text-black-80">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
+            mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
+            quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
+            primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
+            Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
+            purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
+          </.text>
+          <div
+            class="collapsed-menu-wrapper"
+            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-a")}
+          >
+            <.text size="h2" color="text-white-100">Núcleo A</.text>
+            <Lucideicons.chevron_down />
+          </div>
+          <div
+            id="toggle-collapse-menu-nucleo-a"
+            class="collapsed-menu-content"
+            style="display: none;"
+          >
+            <.text size="h4" color="text-black-80">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
+              mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
+              quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
+              primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
+              Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
+              purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
+            </.text>
+
+            <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
+            <.text size="h3" color="text-blue-100" class="bold">
+              Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
+            </.text>
+            <.text size="h4" color="text-blue-100">
+              Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
+            </.text>
+          </div>
+          <div
+            class="collapsed-menu-wrapper"
+            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-b")}
+          >
+            <.text size="h2" color="text-white-100">Núcleo B</.text>
+            <Lucideicons.chevron_down />
+          </div>
+          <div
+            id="toggle-collapse-menu-nucleo-b"
+            class="collapsed-menu-content"
+            style="display: none;"
+          >
+            <.text size="h2" color="text-black-100">Núcleo B</.text>
+          </div>
+          <div
+            class="collapsed-menu-wrapper"
+            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-c")}
+          >
+            <.text size="h2" color="text-white-100">Núcleo C</.text>
+            <Lucideicons.chevron_down />
+          </div>
+          <div id="toggle-collapse-menu-nucleo-c" style="display: none;">
+            <.text size="h2" color="text-black-100">Núcleo C</.text>
+          </div>
+          <div
+            class="collapsed-menu-wrapper"
+            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-d")}
+          >
+            <.text size="h2" color="text-white-100">Núcleo D</.text>
+            <Lucideicons.chevron_down />
+          </div>
+          <div id="toggle-collapse-menu-nucleo-d" style="display: none;">
+            <.text size="h2" color="text-black-100">Núcleo D</.text>
+          </div>
+        </div>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-07.webp"} />
@@ -343,6 +404,55 @@
           purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
         </p>
       </div>
+    </div>
+  </div>
+  <!-- ONDE NOS ENCONTRAR -->
+  <div class="onde-nos-encontrar-wrapper">
+    <.text size="h1" color="text-white-100">Onde nos Encontrar</.text>
+    <div class="redes-sociais-wrapper">
+      <.text size="h4" color="text-white-100">
+        Estamos presentes nas redes sociais!
+      </.text>
+      <.text size="h4" color="text-white-100">
+        Clique nos botões abaixo para visitar nossos perfis.
+      </.text>
+      <div class="redes-sociais-links-wrapper">
+        <div class="redes-sociais-link">
+          <DesignSystem.link target-blank navigate="https://www.facebook.com/peapescarte">
+            <div class="redes-sociais-icon">
+              <Lucideicons.facebook />
+            </div>
+          </DesignSystem.link>
+          <.text size="h4" color="text-white-100">Facebook</.text>
+        </div>
+        <div class="redes-sociais-link">
+          <DesignSystem.link
+            target-blank
+            navigate="https://www.instagram.com/peapescarte/?img_index=1"
+          >
+            <div class="redes-sociais-icon">
+              <Lucideicons.instagram />
+            </div>
+          </DesignSystem.link>
+          <.text size="h4" color="text-white-100">Instagram</.text>
+        </div>
+        <div class="redes-sociais-link">
+          <DesignSystem.link target-blank navigate="https://www.youtube.com/PEAPescarte">
+            <div class="redes-sociais-icon">
+              <Lucideicons.youtube />
+            </div>
+          </DesignSystem.link>
+          <.text size="h4" color="text-white-100">Youtube</.text>
+        </div>
+      </div>
+    </div>
+    <div class="fale-conosco-wrapper">
+      <.text size="h4" color="text-white-100">
+        Mas, se preferir, entre em contato diretamente.
+      </.text>
+      <.button style="link">
+        <Lucideicons.message_square /> Clique Para Expandir
+      </.button>
     </div>
   </div>
 </div>
