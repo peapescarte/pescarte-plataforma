@@ -431,6 +431,65 @@
 
         .collapsed-menu-content {
           padding: 0 1.5rem 0 1.5rem;
+
+          h4:nth-child(1) {
+            margin-bottom: 2.5rem;
+          }
+
+          .linha-pesquisa {
+            @apply flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+
+            .linha-pesquisa-header {
+              @apply flex;
+              flex-direction: column;
+              gap: 1.5rem;
+            }
+
+            .membros {
+              @apply flex;
+              flex-direction: column;
+              gap: 2.5rem;
+
+              .membro-equipe {
+                @apply flex;
+                align-items: center;
+                gap: 1rem;
+
+                .membro-circle {
+                  @apply bg-blue-100;
+                  border-radius: 50%;
+                  width: 3.75rem;
+                  height: 3.75rem;
+                }
+
+                .membro-description {
+                  @apply flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  gap: 0.5rem;
+
+                  .membro-name {
+                    @apply flex;
+                    align-items: center;
+                    gap: 0.75rem;
+
+                    & h5:nth-child(1) {
+                      font-weight: 600;
+                    }
+
+                    .lider {
+                      @apply bg-blue-10;
+                      border-radius: 2px;
+                      padding: 0.5rem;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
