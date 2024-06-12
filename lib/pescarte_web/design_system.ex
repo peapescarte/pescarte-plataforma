@@ -410,6 +410,39 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   @doc """
+  Um componente de date picker, para selecionar datas.
+
+  O mesmo recebe obrigatoriamente o atributo `name`.
+
+  Caso queira dar um valor inicial para o componente, use o atributo `value`!
+
+  ## Exemplo
+
+      <.date_input name="aniversario"/>
+
+  """
+  attr :name, :string, required: true
+  attr :class, :string, default: ""
+  attr :value, :string, default: ""
+
+  def date_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> date_input()
+  end
+
+  def date_input(assigns) do
+    ~H"""
+    <div class={["date_input", @class]}>
+      <div class="date_input__container">
+        <input type="text" id="air-datepicker" class="input" placeholder="dd/mm/aaaa" value={@value} />
+        <Lucideicons.calendar_days class="date_input--suffix" />
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
   Um componente de pesquisa. Esta função apenas renderiza um componente
   com estado, definido em `PescarteWeb.DesignSystem.SearchInput`.
 
