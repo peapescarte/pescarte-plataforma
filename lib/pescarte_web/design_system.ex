@@ -324,8 +324,8 @@ defmodule PescarteWeb.DesignSystem do
           {@rest}
         />
         <button
-          type="button"
           :if={@type == "password"}
+          type="button"
           class="eye-button"
           phx-click={JS.toggle_attribute({"type", "password", "text"}, to: ".password-toggle")}
         >
