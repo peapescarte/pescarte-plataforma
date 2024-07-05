@@ -8,7 +8,7 @@ defmodule Pescarte.Catalogo.Models.NomeComumPeixe do
           validado?: boolean
         }
 
-  @required_fields ~w(nome_comum nome_cientifico comunicade_nome)a
+  @required_fields ~w(nome_comum nome_cientifico comunidade_nome)a
 
   @primary_key false
   schema "nome_comum_peixe" do

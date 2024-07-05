@@ -21,7 +21,4 @@ defmodule Pescarte.Catalogo.Models.NomeComumPeixeTest do
     assert get_change(changeset, :comunidade_nome) == "Comunidade A"
     assert get_change(changeset, :validado?)
   end
-    assert get_change(changeset, :nativo?)
-    assert get_change(changeset, :link_imagem) == "https://link.com"
-  end
 end
