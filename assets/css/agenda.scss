@@ -66,17 +66,16 @@
     background: #0064C8CC;
     background-blend-mode: multiply;
     margin-bottom: 80px;
-
+  
     h4 {
-        position: absolute;
-        text-align: center;
-        max-width: 668px;
-        height: 180px;
+      position: absolute;
+      text-align: center;
+      max-width: 668px;
     }
-
+  
     img {
-        width: 100vw;
-        height: 100%;
-        z-index: -1;
+      width: 100vw;
+      height: 100%;
+      z-index: -1;
     }
-}
+  }
