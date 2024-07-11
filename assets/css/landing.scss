@@ -408,11 +408,162 @@
 
       .nossas-equipes-content-collapsed {
         @apply flex;
+        flex-direction: column;
         justify-content: center;
         margin: 0 2.5rem;
+        gap: 3rem;
 
         p {
           font-size: 16px;
+        }
+
+        .collapsed-menu-wrapper {
+          @apply flex bg-blue-100;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.5rem;
+          border-radius: 8px;
+
+          svg {
+            @apply text-white-100;
+          }
+        }
+
+        .collapsed-menu-content {
+          padding: 0 1.5rem 0 1.5rem;
+
+          h4:nth-child(1) {
+            margin-bottom: 2.5rem;
+          }
+
+          .linha-pesquisa {
+            @apply flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+
+            .linha-pesquisa-header {
+              @apply flex;
+              flex-direction: column;
+              gap: 1.5rem;
+            }
+
+            .membros {
+              @apply flex;
+              flex-direction: column;
+              gap: 2.5rem;
+
+              .membro-equipe {
+                @apply flex;
+                align-items: center;
+                gap: 1rem;
+
+                .membro-circle {
+                  @apply bg-blue-100;
+                  border-radius: 50%;
+                  width: 3.75rem;
+                  height: 3.75rem;
+                }
+
+                .membro-description {
+                  @apply flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  gap: 0.5rem;
+
+                  .membro-name {
+                    @apply flex;
+                    align-items: center;
+                    gap: 0.75rem;
+
+                    & h5:nth-child(1) {
+                      font-weight: 600;
+                    }
+
+                    .lider {
+                      @apply bg-blue-10;
+                      border-radius: 2px;
+                      padding: 0.5rem;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .onde-nos-encontrar-wrapper {
+    @apply flex bg-orange-100;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    padding: 5rem;
+
+    .redes-sociais-wrapper {
+      @apply flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .redes-sociais-links-wrapper {
+        @apply flex;
+        padding-top: 2.5rem;
+
+        .redes-sociais-link {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+          padding: 0 5rem 0 5rem;
+
+          .redes-sociais-icon {
+            @apply flex bg-white-100 text-orange-100;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+
+            width: 88px;
+            height: 88px;
+
+            svg {
+              width: 2.5rem;
+              height: 2.5rem;
+            }
+          }
+
+          p {
+            @apply text-white-100;
+          }
+        }
+      }
+    }
+
+    .fale-conosco-wrapper {
+      @apply flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+
+      .btn {
+        @apply flex bg-white-100;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        padding: 1rem 1.5rem 1rem 1.5rem;
+        cursor: pointer;
+        text-decoration: none;
+
+        p {
+          @apply text-orange-100;
+        }
+
+        svg {
+          @apply text-orange-100;
         }
       }
     }
