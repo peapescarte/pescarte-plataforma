@@ -9,6 +9,7 @@ defmodule Pescarte.Catalogo.Models.NomeComumPeixe do
         }
 
   @required_fields ~w(nome_comum nome_cientifico comunidade_nome)a
+  @optional_fields ~w(validado?)a
 
   @primary_key false
   schema "nome_comum_peixe" do
@@ -23,8 +24,8 @@ defmodule Pescarte.Catalogo.Models.NomeComumPeixe do
   @spec changeset(NomeComumPeixe.t(), map) :: changeset
   def changeset(nome_comum_peixe, attrs) do
     nome_comum_peixe
-    |> cast(attrs, [:nome_comum, :nome_cientifico, :comunidade_nome, :validado?])
-    |> validate_required([:nome_comum, :nome_cientifico, :comunidade_nome, :validado?])
+    |> cast(attrs, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
   end
 
   def create(params) do
