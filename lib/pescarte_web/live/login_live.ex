@@ -7,6 +7,7 @@ defmodule PescarteWeb.LoginLive do
   def mount(_params, _session, socket) do
     {:ok,
      socket
+     |> assign(current_path: "/acessar")
      |> assign(form: to_form(%{}, as: :user))
      |> assign(reset_form: to_form(%{}, as: :reset_pass))}
   end
