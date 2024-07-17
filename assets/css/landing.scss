@@ -410,11 +410,12 @@
         @apply flex;
         flex-direction: column;
         justify-content: center;
-        margin: 0 2.5rem;
+        margin: 2.5rem 2.5rem;
         gap: 3rem;
 
-        p {
+        h4 {
           font-size: 16px;
+          line-height: 18px;
         }
 
         .collapsed-menu-wrapper {

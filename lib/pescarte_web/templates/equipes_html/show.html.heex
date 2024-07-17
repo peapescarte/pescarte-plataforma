@@ -94,9 +94,9 @@
         <img src={~p"/images/landing/equipes/card-01.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Coordenação Técnica</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-coordenacao-tecnica")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-coordenacao-tecnica")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -117,9 +117,9 @@
         <img src={~p"/images/landing/equipes/card-02.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Pedagógico</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-pedagogico")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-pedagogico")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -140,9 +140,9 @@
         <img src={~p"/images/landing/equipes/card-03.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Administrativo</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-administrativo")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-administrativo")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -163,9 +163,9 @@
         <img src={~p"/images/landing/equipes/card-04.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Norte</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-norte")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-norte")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -186,7 +186,9 @@
         <img src={~p"/images/landing/equipes/card-05.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Sul</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-sul")}>Clique Para Expandir</div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-sul")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -213,24 +215,16 @@
         </div>
       </div>
       <div id="toggle-collapse-nucleo-pesquisa" style="display: none;">
-        <div class="nossas-equipes-content-collapsed">
-          <.text size="h4" color="text-black-80">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-            mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-            quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-            primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-            Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-            purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-          </.text>
+        <div :for={nucleos <- @data} class="nossas-equipes-content-collapsed">
           <div
             class="collapsed-menu-wrapper"
-            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-a")}
+            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-#{nucleos["nucleo"]}")}
           >
-            <.text size="h2" color="text-white-100">Núcleo A</.text>
+            <.text size="h2" color="text-white-100">Núcleo <%= nucleos["nucleo"] %></.text>
             <Lucideicons.chevron_down />
           </div>
           <div
-            id="toggle-collapse-menu-nucleo-a"
+            id={"toggle-collapse-menu-nucleo-#{nucleos["nucleo"]}"}
             class="collapsed-menu-content"
             style="display: none;"
           >
@@ -242,528 +236,40 @@
               Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
               purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
             </.text>
-            <div class="linha-pesquisa">
+            <div :for={linha_pesquisa <- nucleos["linhas_pesquisa"]} class="linha-pesquisa">
               <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
                 <.text size="h3" color="text-blue-100" class="bold">
-                  Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
+                  Linha de Pesquisa <%= linha_pesquisa["numero"] %>
+                </.text>
+                <.text size="h3" color="text-blue-100" class="bold">
+                  <%= linha_pesquisa["titulo"] %>
                 </.text>
                 <.text size="h4" color="text-black-80">
-                  Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
+                  <%= linha_pesquisa["descricao"] %>
                 </.text>
               </div>
               <div class="membros">
-                <div class="membro-equipe">
+                <div :for={colaborador <- linha_pesquisa["colaboradores"]} class="membro-equipe">
                   <div class="membro-circle"></div>
                   <div class="membro-description">
                     <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Lilian Sagio Cezar</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
+                      <.text size="h5" color="text-black-80"><%= colaborador["nome"] %></.text>
+                      <.text
+                        :if={colaborador["lider"]}
+                        size="h5"
+                        color="text-blue-100"
+                        class="lider"
+                      >
+                        Líder da Equipe
+                      </.text>
                     </div>
                     <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
+                      <%= colaborador["equipe"] %>
                     </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="linha-pesquisa">
-              <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 2</.text>
-                <.text size="h3" color="text-blue-100" class="bold">
-                  Saberes e fazeres tradicionais das comunidades pesqueiras litorâneas da Região dos Lagos a partir do Projeto Pescarte
-                </.text>
-                <.text size="h4" color="text-black-80">
-                  Investigação dos conhecimentos e práticas tradicionais.
-                </.text>
-              </div>
-              <div class="membros">
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Giovane do Nascimento</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
-                    </div>
-                    <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
-                    </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="linha-pesquisa">
-              <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
-                <.text size="h3" color="text-blue-100" class="bold">
-                  Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
-                </.text>
-                <.text size="h4" color="text-black-80">
-                  Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
-                </.text>
-              </div>
-              <div class="membros">
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Lilian Sagio Cezar</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
-                    </div>
-                    <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
-                    </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="linha-pesquisa">
-              <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
-                <.text size="h3" color="text-blue-100" class="bold">
-                  Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
-                </.text>
-                <.text size="h4" color="text-black-80">
-                  Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
-                </.text>
-              </div>
-              <div class="membros">
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Lilian Sagio Cezar</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
-                    </div>
-                    <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
-                    </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="linha-pesquisa">
-              <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
-                <.text size="h3" color="text-blue-100" class="bold">
-                  Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
-                </.text>
-                <.text size="h4" color="text-black-80">
-                  Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
-                </.text>
-              </div>
-              <div class="membros">
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Lilian Sagio Cezar</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
-                    </div>
-                    <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
-                    </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="linha-pesquisa">
-              <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
-                <.text size="h3" color="text-blue-100" class="bold">
-                  Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
-                </.text>
-                <.text size="h4" color="text-black-80">
-                  Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
-                </.text>
-              </div>
-              <div class="membros">
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Lilian Sagio Cezar</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
-                    </div>
-                    <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
-                    </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="linha-pesquisa">
-              <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
-                <.text size="h3" color="text-blue-100" class="bold">
-                  Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
-                </.text>
-                <.text size="h4" color="text-black-80">
-                  Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
-                </.text>
-              </div>
-              <div class="membros">
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Lilian Sagio Cezar</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
-                    </div>
-                    <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
-                    </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="linha-pesquisa">
-              <div class="linha-pesquisa-header">
-                <.text size="h3" color="text-blue-100" class="bold">Linha de Pesquisa 1</.text>
-                <.text size="h3" color="text-blue-100" class="bold">
-                  Antropologia Visual aplicada à investigação de memórias, identidades e fazeres artesanais entre Comunidades Pesqueiras interlocutoras do Projeto Ambiental Pescarte
-                </.text>
-                <.text size="h4" color="text-black-80">
-                  Um estudo profundo sobre a cultura e práticas das comunidades pesqueiras.
-                </.text>
-              </div>
-              <div class="membros">
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5" color="text-black-80">Lilian Sagio Cezar</.text>
-                      <.text size="h5" color="text-blue-100" class="lider">Líder da Equipe</.text>
-                    </div>
-                    <.text size="h5" color="text-black-80">
-                      Doutora, UENF - Campos dos Goytacazes
-                    </.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">João Vitor Alves Dias</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Tomás Gabriel de Almeida Araujo</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Wesley  Valentim Silva Faria</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-                <div class="membro-equipe">
-                  <div class="membro-circle"></div>
-                  <div class="membro-description">
-                    <div class="membro-name">
-                      <.text size="h5">Julia Pinheiro Laurentino</.text>
-                    </div>
-                    <.text size="h5">Graduando, UENF - Campos dos Goytacazes</.text>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="collapsed-menu-wrapper"
-            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-b")}
-          >
-            <.text size="h2" color="text-white-100">Núcleo B</.text>
-            <Lucideicons.chevron_down />
-          </div>
-          <div
-            id="toggle-collapse-menu-nucleo-b"
-            class="collapsed-menu-content"
-            style="display: none;"
-          >
-            <.text size="h2" color="text-black-100">Núcleo B</.text>
-          </div>
-          <div
-            class="collapsed-menu-wrapper"
-            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-c")}
-          >
-            <.text size="h2" color="text-white-100">Núcleo C</.text>
-            <Lucideicons.chevron_down />
-          </div>
-          <div id="toggle-collapse-menu-nucleo-c" style="display: none;">
-            <.text size="h2" color="text-black-100">Núcleo C</.text>
-          </div>
-          <div
-            class="collapsed-menu-wrapper"
-            phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-d")}
-          >
-            <.text size="h2" color="text-white-100">Núcleo D</.text>
-            <Lucideicons.chevron_down />
-          </div>
-          <div id="toggle-collapse-menu-nucleo-d" style="display: none;">
-            <.text size="h2" color="text-black-100">Núcleo D</.text>
           </div>
         </div>
       </div>
@@ -771,9 +277,9 @@
         <img src={~p"/images/landing/equipes/card-07.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo de Direitos e Benefícios</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-direitos-beneficios")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-direitos-beneficios")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -796,9 +302,9 @@
           <.text size="h2" color="text-white-100">
             Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA
           </.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-autonomia")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-autonomia")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -819,9 +325,9 @@
         <img src={~p"/images/landing/equipes/card-09.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo de Informação</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-informacao")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-informacao")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -842,9 +348,9 @@
         <img src={~p"/images/landing/equipes/card-10.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Criativo</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-criativo")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-criativo")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
@@ -865,9 +371,9 @@
         <img src={~p"/images/landing/equipes/card-11.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Censo</.text>
-          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-censo")}>
-            Clique Para Expandir
-          </div>
+          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-censo")}> -->
+            <!-- Clique Para Expandir -->
+          <!-- </div> -->
         </div>
       </div>
       <div
