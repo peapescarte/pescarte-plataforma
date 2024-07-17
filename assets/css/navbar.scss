@@ -17,10 +17,18 @@
     gap: 24px;
     margin: 21px 0;
 
+    a:hover {
+      text-decoration: none;
+    }
+
     .nav-link {
       padding: 16px 24px;
       max-height: 56px;
       max-width: 200px;
+
+      &.active {
+        @apply border-b-2 border-blue-100;
+      }
 
       &:hover,
       &:focus-within {
