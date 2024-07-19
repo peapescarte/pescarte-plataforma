@@ -3,7 +3,7 @@ defmodule PescarteWeb.EquipesController do
 
   def show(conn, _params) do
     {:ok, data} =
-      "priv/static/equipes.json"
+      "priv/static/equipes/equipes.json"
       |> File.read!()
       |> Jason.decode()
 

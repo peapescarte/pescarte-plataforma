@@ -250,7 +250,12 @@
               </div>
               <div class="membros">
                 <div :for={colaborador <- linha_pesquisa["colaboradores"]} class="membro-equipe">
-                  <div class="membro-circle"></div>
+                  <div class="membro-circle">
+                    <img
+                      :if={colaborador["imagem"] != ""}
+                      src={~p"/images/equipes/#{colaborador["imagem"]}"}
+                    />
+                  </div>
                   <div class="membro-description">
                     <div class="membro-name">
                       <.text size="h5" color="text-black-80"><%= colaborador["nome"] %></.text>

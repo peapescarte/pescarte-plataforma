@@ -460,10 +460,15 @@
                 gap: 1rem;
 
                 .membro-circle {
-                  @apply bg-blue-100;
+                  @apply flex bg-blue-100;
+                  justify-content: center;
                   border-radius: 50%;
                   width: 3.75rem;
                   height: 3.75rem;
+
+                  img {
+                    width: 80%;
+                  }
                 }
 
                 .membro-description {
