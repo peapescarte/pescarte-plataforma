@@ -1,6 +1,8 @@
-<PescarteWeb.DesignSystem.Navbar.render />
+<PescarteWeb.DesignSystem.Navbar.render current_path={@current_path} />
+
 <main class="w-full h-full">
   <.flash_group flash={@flash} />
   <%= @inner_content %>
 </main>
+
 <.footer />

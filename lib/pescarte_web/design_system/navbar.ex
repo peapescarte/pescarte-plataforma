@@ -12,9 +12,9 @@ defmodule PescarteWeb.DesignSystem.Navbar do
           <img src="/images/pescarte_logo.svg" class="logo" />
         </DesignSystem.link>
         <ul class="nav-menu">
-          <.navlink label="Cooperativas" navigate={~p"/cooperativas"} />
-          <.navlink label="Sobre" navigate={~p"/sobre"} />
-          <.navlink label="Equipes" navigate={~p"/equipes"} />
+          <.navlink label="Cooperativas" navigate={~p"/cooperativas"} current_path={@current_path} />
+          <.navlink label="Sobre" navigate={~p"/sobre"} current_path={@current_path} />
+          <.navlink label="Equipes" navigate={~p"/equipes"} current_path={@current_path} />
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
@@ -29,11 +29,14 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
   attr(:label, :string, required: true)
   attr(:navigate, :string, default: "/")
+  attr(:current_path, :string, default: "/")
 
   defp navlink(assigns) do
+    active_class = if assigns.current_path == assigns.navigate, do: "active", else: ""
+
     ~H"""
     <DesignSystem.link navigate={@navigate}>
-      <li class="nav-link" aria-expanded="false">
+      <li class={"nav-link " <> active_class} aria-expanded="false">
         <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
           <%= @label %>
         </.text>
