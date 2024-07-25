@@ -1,6 +1,8 @@
 defmodule PescarteWeb.DesignSystem.Navbar do
   use PescarteWeb, :component
 
+  attr :current_path, :string, default: ""
+
   @doc """
   Componente de barra de navegação.
   """
