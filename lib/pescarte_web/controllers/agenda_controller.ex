@@ -4,10 +4,8 @@ defmodule PescarteWeb.AgendaController do
   alias NimbleCSV.RFC4180, as: CSV
 
   def show(conn, _params) do
-    file_path = Path.expand("../../../priv/static/appointments_data/compromissos.csv", __DIR__)
-
     table_data =
-      file_path
+      ~p"/appointments_data/compromissos.csv"
       |> File.stream!()
       |> CSV.parse_stream()
       |> Stream.map(&convert_to_map/1)
