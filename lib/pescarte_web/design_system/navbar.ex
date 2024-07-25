@@ -1,6 +1,8 @@
 defmodule PescarteWeb.DesignSystem.Navbar do
   use PescarteWeb, :component
 
+  attr :current_path, :string, default: ""
+
   @doc """
   Componente de barra de navegação.
   """
@@ -12,15 +14,9 @@ defmodule PescarteWeb.DesignSystem.Navbar do
           <img src="/images/pescarte_logo.svg" class="logo" />
         </DesignSystem.link>
         <ul class="nav-menu">
-          <DesignSystem.link navigate={~p"/cooperativas"} styless>
-            <.navlink label="Cooperativas" />
-          </DesignSystem.link>
-
-          <DesignSystem.link navigate={~p"/sobre"} styless>
-            <.navlink label="Sobre" />
-          </DesignSystem.link>
-
-          <.navlink label="Equipes" navigate={~p"/equipes"} />
+          <.navlink label="Cooperativas" navigate={~p"/cooperativas"} current_path={@current_path} />
+          <.navlink label="Sobre" navigate={~p"/sobre"} current_path={@current_path} />
+          <.navlink label="Equipes" navigate={~p"/equipes"} current_path={@current_path} />
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
@@ -35,11 +31,12 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
   attr(:label, :string, required: true)
   attr(:navigate, :string, default: "/")
+  attr(:current_path, :string, default: "/")
 
   defp navlink(assigns) do
     ~H"""
     <DesignSystem.link navigate={@navigate}>
-      <li class="nav-link" aria-expanded="false">
+      <li class={["nav-link ", if(@current_path == @navigate, do: "active")]} aria-expanded="false">
         <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
           <%= @label %>
         </.text>

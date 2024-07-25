@@ -16,7 +16,9 @@ defmodule PescarteWeb.AgendaController do
       |> Enum.with_index()
       |> Enum.reduce(%{}, fn {lista, index}, acc -> Map.put(acc, index, lista) end)
 
-    render(conn, :show, mapa: table_data)
+    current_path = conn.request_path
+
+    render(conn, :show, mapa: table_data, current_path: current_path)
   end
 
   defp convert_to_map([meta, data, horario, duracao, atividade, local, participantes]) do
