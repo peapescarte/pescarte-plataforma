@@ -5,7 +5,8 @@ defmodule PescarteWeb.AgendaController do
 
   def show(conn, _params) do
     table_data =
-      ~p"/appointments_data/compromissos.csv"
+      "appointments_data"
+      |> Pescarte.get_static_file_path("compromissos.csv")
       |> File.stream!()
       |> CSV.parse_stream()
       |> Stream.map(&convert_to_map/1)

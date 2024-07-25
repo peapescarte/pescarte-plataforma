@@ -5,7 +5,8 @@ defmodule PescarteWeb.EquipesController do
     current_path = conn.request_path
 
     {:ok, data} =
-      ~p"/equipes/equipes.json"
+      "equipes"
+      |> Pescarte.get_static_file_path("equipes.json")
       |> File.read!()
       |> Jason.decode()
 
