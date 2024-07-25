@@ -2,7 +2,11 @@ defmodule PescarteWeb.EquipesController do
   use PescarteWeb, :controller
 
   def show(conn, _params) do
-    current_path = conn.request_path
-    render(conn, :show, current_path: current_path, error_message: nil)
+    {:ok, data} =
+      "priv/static/equipes/equipes.json"
+      |> File.read!()
+      |> Jason.decode()
+
+    render(conn, :show, data: data, error_message: nil)
   end
 end
