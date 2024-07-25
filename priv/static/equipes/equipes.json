@@ -45,7 +45,7 @@
         "descricao": "Propõe-se realizar um inventário participativo das produções ligadas à cultura pesqueira. Em consonância ao tópico do diagnóstico participativo, (iii) identificar e caracterizar potencialidades socioambientais, a pesquisa parte do princípio de que é a partir da valorização dos sujeitos como produtores de culturas, de valores materiais e imateriais que podemos pensar temas como respeito, autonomia, criação e autocriação. O reconhecimento dos sujeitos como agentes formadores implica no reconhecimento do patrimônio cultural e de suas tradições, dessa forma, a linha de pesquisa auxilia na identificação e caracterizar os sujeitos prioritários da ação educativa e concentra-se nos saberes da gastronomia.",
         "colaboradores": [
           {
-            "nome": "Giovane NaN do Nascimento",
+            "nome": "Giovane do Nascimento",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": true
@@ -138,7 +138,7 @@
             "lider": false
           },
           {
-            "nome": "Eduardo NaN Moreira",
+            "nome": "Eduardo Moreira",
             "equipe": "Doutorando, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": false
@@ -157,7 +157,7 @@
             "lider": true
           },
           {
-            "nome": "Tatiana NaN Walter",
+            "nome": "Tatiana Walter",
             "equipe": "Doutora, FURG - São Lourenço do Sul",
             "imagem": "",
             "lider": false
@@ -417,7 +417,7 @@
             "lider": false
           },
           {
-            "nome": "Renan NaN Assis",
+            "nome": "Renan Assis",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": false
@@ -546,22 +546,10 @@
         "descricao": "Combina dados biológicos de captura e econômicos da cadeia produtiva da pesca para compreender a atuação desta no ecossistema e analisar como essa influencia a economia da atividade. O modelo gerado será combinado a um modelo socioeconômico, utilizando ferramentas para o delineamento da cadeia produtiva da pesca. A modelagem permitirá simulações das reações do ecossistema frente à sobre pesca e acidentes decorrentes da exploração de petróleo e gás. Com os resultados poderemos analisar a interferência antrópica no ecossistema, e considerar como essa atuaria na cadeia produtiva e seus impactos sociais, neste sentido, todos os dados gerados pelo censo interessam à medida que a modelagem se alimenta de uma gama variada de dados integrando e vendo seus efeitos líquidos, possibilitando a proposição de um ordenamento pesqueiro ecossistêmico, com ênfase na cadeia produtiva.",
         "colaboradores": [
           {
-            "nome": "Shirlena Campos de Souza Amaral",
-            "equipe": "Doutora, UENF - Campos dos Goytacazes",
+            "nome": "Marcelo Viana",
+            "equipe": "Doutor, UFRJ - Rio de Janeiro",
             "imagem": "",
             "lider": true
-          },
-          {
-            "nome": "Luísa Linhares Mora da Silva",
-            "equipe": "Graduando, UCAM - Campos dos Goytacazes",
-            "imagem": "",
-            "lider": false
-          },
-          {
-            "nome": "Fernanda Pacheco da Silva Huguenin",
-            "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
-            "lider": false
           }
         ]
       },
@@ -571,14 +559,14 @@
         "descricao": "Surge com a missão de facilitar a difusão dos saberes dos(as) pescadores(as), das produções científicas das linhas de pesquisa e do censo, dando publicidade e transparências às atividades do projeto como um todo e dos empreendimentos que serão implantados na terceira fase do projeto. Tem como elemento central que as plataformas digitais podem assumir a conformação de modelos baseados em tecnologia cuja missão é conectar interesses e pessoas, promovendo interações de valor entre os envolvidos e, desta maneira, integrar e mobilizar os sujeitos da ação de maneira que as ações de controle social e informação acessível aos pescadores possam ser alcançadas de maneira a permitir o desenvolvimento e consolidação de uma forte confiança nos processos desenvolvidos no ambiente dos projetos de geração de trabalho e renda.",
         "colaboradores": [
           {
-            "nome": "Eliana Crispim França Luquetti",
+            "nome": "Annabell del Real Tamariz",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": true
           },
           {
-            "nome": "Shirlena Campos de Souza Amaral",
-            "equipe": "Doutora, UENF - Campos dos Goytacazes",
+            "nome": "Zoey de Souza Pessanha",
+            "equipe": "Graduando, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": false
           }
