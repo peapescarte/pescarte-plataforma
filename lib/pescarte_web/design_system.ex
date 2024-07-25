@@ -155,7 +155,7 @@ defmodule PescarteWeb.DesignSystem do
   def footer(assigns) do
     ~H"""
     <footer class="flex justify-center items-center">
-      <img src={~p"/images/footer_logos.svg"} />
+      <img src={~p"/images/footer_logos.png"} />
     </footer>
     """
   end
