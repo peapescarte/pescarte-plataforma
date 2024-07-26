@@ -14,9 +14,9 @@ defmodule PescarteWeb.DesignSystem.Navbar do
           <img src="/images/pescarte_logo.svg" class="logo" />
         </DesignSystem.link>
         <ul class="nav-menu">
-          <.navlink label="Cooperativas" navigate={~p"/cooperativas"} current_path={@current_path} />
           <.navlink label="Sobre" navigate={~p"/sobre"} current_path={@current_path} />
-          <.navlink label="Equipes" navigate={~p"/equipes"} current_path={@current_path} />
+          <.navlink label="Equipes / Sedes" navigate={~p"/equipes"} current_path={@current_path} />
+          <.navlink label="Cooperativas" navigate={~p"/cooperativas"} current_path={@current_path} />
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
