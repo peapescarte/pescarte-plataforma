@@ -388,8 +388,6 @@
           transform: translate(-50%, -50%);
           text-align: center;
 
-          p {}
-
           a,
           div {
             @apply flex text-white-100;
@@ -412,6 +410,14 @@
         justify-content: center;
         margin: 2.5rem 2.5rem;
         gap: 3rem;
+
+        .margin {
+          margin: 1rem;
+        }
+
+        .bold {
+          font-weight: 700;
+        }
 
         h4 {
           font-size: 16px;
@@ -436,6 +442,7 @@
           h4:nth-child(1) {
             margin-bottom: 2.5rem;
           }
+
 
           .linha-pesquisa {
             @apply flex;
@@ -496,80 +503,6 @@
               }
             }
           }
-        }
-      }
-    }
-  }
-
-  .onde-nos-encontrar-wrapper {
-    @apply flex bg-orange-100;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5rem;
-    padding: 5rem;
-
-    .redes-sociais-wrapper {
-      @apply flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      .redes-sociais-links-wrapper {
-        @apply flex;
-        padding-top: 2.5rem;
-
-        .redes-sociais-link {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 1.5rem;
-          padding: 0 5rem 0 5rem;
-
-          .redes-sociais-icon {
-            @apply flex bg-white-100 text-orange-100;
-            justify-content: center;
-            align-items: center;
-            border-radius: 100%;
-
-            width: 88px;
-            height: 88px;
-
-            svg {
-              width: 2.5rem;
-              height: 2.5rem;
-            }
-          }
-
-          p {
-            @apply text-white-100;
-          }
-        }
-      }
-    }
-
-    .fale-conosco-wrapper {
-      @apply flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 2.5rem;
-
-      .btn {
-        @apply flex bg-white-100;
-        justify-content: center;
-        align-items: center;
-        border-radius: 4px;
-        padding: 1rem 1.5rem 1rem 1.5rem;
-        cursor: pointer;
-        text-decoration: none;
-
-        p {
-          @apply text-orange-100;
-        }
-
-        svg {
-          @apply text-orange-100;
         }
       }
     }
