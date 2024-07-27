@@ -20,12 +20,6 @@
             "lider": false
           },
           {
-            "nome": "Tomás Gabriel de Almeida Araujo",
-            "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
-            "lider": false
-          },
-          {
             "nome": "Wesley Valentim Silva Faria",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
             "imagem": "",
@@ -33,7 +27,7 @@
           },
           {
             "nome": "Julia Pinheiro Laurentino",
-            "equipe": "Graduando, UENF - Campos dos Goytacazes",
+            "equipe": "Graduanda, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": false
           }
@@ -63,8 +57,14 @@
             "lider": false
           },
           {
+            "nome": "Mayara Nunes do Nascimento",
+            "equipe": "Graduanda, UNESA - Cabo Frio",
+            "imagem": "",
+            "lider": false
+          },
+          {
             "nome": "Yasmim Sousa de Oliveira",
-            "equipe": "Graduando, IFF - Cabo Frio",
+            "equipe": "Graduanda, IFF - Cabo Frio",
             "imagem": "",
             "lider": false
           }
@@ -80,12 +80,6 @@
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": true
-          },
-          {
-            "nome": "Luísa Linhares Mora da Silva",
-            "equipe": "Graduando, UCAM - Campos dos Goytacazes",
-            "imagem": "",
-            "lider": false
           },
           {
             "nome": "Fernanda Pacheco da Silva Huguenin",
@@ -202,12 +196,6 @@
           {
             "nome": "João Pedro Rabelo de Carvalho",
             "equipe": "Graduando, UFV - Viçosa",
-            "imagem": "",
-            "lider": false
-          },
-          {
-            "nome": "Wesley Valentim Silva Faria",
-            "equipe": "Graduando, UENF - Campos dos Goytacazes",
             "imagem": "",
             "lider": false
           },
