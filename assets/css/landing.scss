@@ -66,11 +66,16 @@
 
 .links {
   @apply flex flex-wrap justify-center;
+  gap: 1.5rem !important;
+  padding: 1.5rem !important;
+  justify-content: center !important;
 
   .links-item {
     @apply flex flex-col justify-start items-start m-8;
     border-radius: 8px;
     background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+    width: 20.125rem !important;
+    height: 20.875rem !important;
 
     img {
       @apply absolute;
@@ -213,7 +218,6 @@
     height: auto !important;
   }
 }
-
 
 .gallery-carousel {
   padding: 56px 0;
