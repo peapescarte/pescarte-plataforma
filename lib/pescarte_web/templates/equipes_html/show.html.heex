@@ -366,7 +366,9 @@
             class="collapsed-menu-wrapper"
             phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-#{nucleos["nucleo"]}")}
           >
-            <.text size="h2" color="text-white-100">Núcleo <%= nucleos["nucleo"] %></.text>
+            <.text size="h2" color="text-white-100">
+              Núcleo <%= nucleos["nucleo"] %> - <%= nucleos["subtitulo"] %>
+            </.text>
             <Lucideicons.chevron_down />
           </div>
           <div

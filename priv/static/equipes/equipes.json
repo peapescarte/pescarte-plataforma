@@ -1,6 +1,7 @@
 [
   {
     "nucleo": "A",
+    "subtitulo": "Cultura",
     "linhas_pesquisa": [
       {
         "numero": 1,
@@ -175,6 +176,7 @@
   },
   {
     "nucleo": "B",
+    "subtitulo": "Recursos Hídricos e Alimentares",
     "linhas_pesquisa": [
       {
         "numero": 5,
@@ -292,6 +294,7 @@
   },
   {
     "nucleo": "C",
+    "subtitulo": "Sociabilidade e Participação",
     "linhas_pesquisa": [
       {
         "numero": 4,
@@ -471,6 +474,7 @@
   },
   {
     "nucleo": "D",
+    "subtitulo": "Censo e Afins",
     "linhas_pesquisa": [
       {
         "numero": 7,
