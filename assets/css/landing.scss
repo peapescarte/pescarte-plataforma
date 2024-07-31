@@ -276,11 +276,23 @@
   flex-direction: column;
   margin-top: 5rem;
 
+  .mapa-wrapper {
+    @apply flex;
+    padding: 0 2.5rem;
+
+    img {
+      border-radius: 1.5rem;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
   .nossas-sedes-wrapper {
     @apply flex;
     flex-direction: column;
     align-items: center;
     gap: 4.5rem;
+    margin-top: 5rem;
 
     .nossas-sedes-container {
       display: grid;
