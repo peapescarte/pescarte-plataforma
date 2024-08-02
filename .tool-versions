@@ -1,3 +1,3 @@
 elixir 1.16.2-otp-26
 postgres 14.6
-erlang 27.0.1
+erlang 26.1.2

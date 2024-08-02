@@ -1,0 +1,51 @@
+.contact-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    padding: 80px 120px;
+
+    .contact-form {
+        width: 50%;
+        .form-inputs {
+
+            h1 {
+                margin-bottom: 16px;
+            }
+
+            margin-bottom: 32px;
+
+            .input-area {
+                border-style: none;
+                padding: 12px 0px 12px 0px;
+                input{
+                    width: 100%;
+                    max-width: 500px;
+                }
+                select {
+                    width: 100%;
+                    max-width: 500px;
+                }
+                textarea {
+                    width: 100%;
+                    max-width: 500px;
+                }
+            }
+        }
+        
+        .send-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0064C8;
+            width: 130px;
+            height: 50px;
+            border-radius: 4px;
+            cursor: pointer;
+
+            img {
+                margin-right: 18px;
+            }
+        }
+    }
+}

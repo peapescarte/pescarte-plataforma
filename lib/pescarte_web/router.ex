@@ -48,6 +48,12 @@ defmodule PescarteWeb.Router do
   end
 
   scope "/", PescarteWeb do
+    pipe_through :browser
+
+    get "/contato", ContactController, :show
+  end
+
+  scope "/", PescarteWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     live "/acessar", LoginLive, :show
