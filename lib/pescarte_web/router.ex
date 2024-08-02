@@ -51,6 +51,7 @@ defmodule PescarteWeb.Router do
     pipe_through :browser
 
     get "/contato", ContactController, :show
+    post "/send-email", ContactController, :send_email
   end
 
   scope "/", PescarteWeb do

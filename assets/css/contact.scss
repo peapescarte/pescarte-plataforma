@@ -10,7 +10,7 @@
         .form-inputs {
 
             h1 {
-                margin-bottom: 16px;
+                margin-bottom: 32px;
             }
 
             margin-bottom: 32px;
@@ -18,14 +18,17 @@
             .input-area {
                 border-style: none;
                 padding: 12px 0px 12px 0px;
+
                 input{
                     width: 100%;
                     max-width: 500px;
                 }
+
                 select {
                     width: 100%;
                     max-width: 500px;
                 }
+
                 textarea {
                     width: 100%;
                     max-width: 500px;
@@ -44,7 +47,7 @@
             cursor: pointer;
 
             img {
-                margin-right: 18px;
+                margin-right: 16px;
             }
         }
     }
