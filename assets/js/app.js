@@ -5,7 +5,6 @@ import "phoenix_html";
 import Inputmask from "inputmask";
 
 import './accordion';
-import './contact'
 
 import './glide';
 import "./date_input";

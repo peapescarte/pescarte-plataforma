@@ -7,10 +7,10 @@ defmodule PescarteWeb.ContactController do
   end
 
   def send_email(conn, %{
-        "name" => name,
-        "email" => email,
-        "subject" => subject,
-        "message" => message
+        "form-name" => name,
+        "form-email" => email,
+        "options" => subject,
+        "form-message" => message
       }) do
     client = Resend.client(api_key: "RESEND_KEY")
 
@@ -30,18 +30,13 @@ defmodule PescarteWeb.ContactController do
         IO.puts("Sent email! #{inspect(email_response)}")
 
         conn
-        |> put_resp_content_type("application/json")
-        |> send_resp(200, Jason.encode!(%{message: "Email was successfully sent!"}))
+        |> put_flash(:info, "Email enviado com sucesso!")
 
       {:error, reason} ->
         IO.puts("Error sending email: #{inspect(reason)}")
 
         conn
-        |> put_resp_content_type("application/json")
-        |> send_resp(
-          500,
-          Jason.encode!(%{error: "Could not deliver the email. Reason: #{inspect(reason)}"})
-        )
+        |> put_flash(:error, "Erro ao enviar email.")
     end
   end
 end
