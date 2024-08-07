@@ -3,18 +3,43 @@ defmodule PescarteWeb.LandingHTML do
 
   embed_templates("landing_html/*")
 
-  def handle_notice_text_length(text, max_length) do
-    case String.length(text) do
-      text_length when text_length >= max_length ->
-        text =
-          text
-          |> String.slice(0..(max_length - 4))
-          |> String.trim_trailing()
+  @notice_title_max_length Application.compile_env!(:pescarte, [
+                             PescarteWeb,
+                             :notice_title_max_length
+                           ])
 
-        text <> "..."
+  @notice_desc_max_length Application.compile_env!(:pescarte, [
+                            PescarteWeb,
+                            :notice_desc_max_length
+                          ])
 
-      _text_length ->
-        text
+  def handle_notice_title_length(text) do
+    if String.length(text) > @notice_title_max_length do
+      text
+      |> truncate_text_until(@notice_title_max_length - 4)
+      |> put_ellipsis()
+    else
+      text
     end
+  end
+
+  def handle_notice_desc_length(text) do
+    if String.length(text) > @notice_desc_max_length do
+      text
+      |> truncate_text_until(@notice_desc_max_length - 4)
+      |> put_ellipsis()
+    else
+      text
+    end
+  end
+
+  defp truncate_text_until(text, length) do
+    text
+    |> String.slice(0..length)
+    |> String.trim_trailing()
+  end
+
+  defp put_ellipsis(text) do
+    text <> "..."
   end
 end
