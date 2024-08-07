@@ -2,6 +2,10 @@ import Config
 
 config :pescarte, env: config_env()
 
+config :pescarte, PescarteWeb,
+  notice_title_max_length: 110,
+  notice_desc_max_length: 145
+
 config :supabase_gotrue,
   endpoint: PescarteWeb.Endpoint,
   signed_in_path: "/app/pesquisa/perfil",

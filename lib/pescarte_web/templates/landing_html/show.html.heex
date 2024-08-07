@@ -118,17 +118,17 @@
         <div class="p-5">
           <a href="#">
             <.text size="h4" color="text-blue-100">
-              Doação do terreno em Cabo Frio.
+              <%= handle_notice_title_length("Doação do terreno em Cabo Frio.") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            e a mudança do marco regulatório do defeso do camarão na Laguna de Araruama..
+            <%= handle_notice_desc_length(
+              "e a mudança do marco regulatório do defeso do camarão na Laguna de Araruama.."
+            ) %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
-              <a href="https://drive.google.com/drive/u/1/folders/1w961gkYNiUKWUF2S8zkRBAI46iMkh9CR">
-                <.text size="base" color="text-white-100">Ler mais</.text>
-              </a>
+              <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
           </DesignSystem.link>
         </div>
@@ -140,13 +140,17 @@
         <div class="p-5">
           <a href="#">
             <.text size="h4" color="text-blue-100">
-              Diário de Bordo: falas de pessoas pescadoras que falam sobre a importância do PEA Pescarte
+              <%= handle_notice_title_length(
+                " Diário de Bordo: falas de pessoas pescadoras que falam sobre a importância do PEA Pescarte"
+              ) %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            Proin nec ligula ultricies, finibus mi ac, pretium lectus. Nunc venenatis egestas finibus.
+            <%= handle_notice_desc_length(
+              "Proin nec ligula ultricies, finibus mi ac, pretium lectus. Nunc venenatis egestas finibus."
+            ) %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -160,13 +164,15 @@
         <div class="p-5">
           <a href="#">
             <.text size="h4" color="text-blue-100">
-              O Censo Pescarte continua nas ruas,
+              <%= handle_notice_title_length(" O Censo Pescarte continua nas ruas,") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação.
+            <%= handle_notice_desc_length(
+              "buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação."
+            ) %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -180,13 +186,13 @@
         <div class="p-5">
           <a href="https://www.instagram.com/p/CzwyZf1Ccj2/?igsh=NTZiY2lleDRjbTlp">
             <.text size="h4" color="text-blue-100">
-              Seguro Defeso.
+              <%= handle_notice_title_length("Seguro Defeso.") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            Pescador, tire suas dúvidas aqui.
+            <%= handle_notice_desc_length("Pescador, tire suas dúvidas aqui.") %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
