@@ -1,4 +1,8 @@
 <main class="equipes-wrapper">
+  <!-- MAPA -->
+  <div class="mapa-wrapper">
+    <img src={~p"/equipes/mapa.jpeg"} />
+  </div>
   <!-- NOSSAS SEDES MUNICIPAIS -->
   <div class="nossas-sedes-wrapper">
     <.text size="h2" color="text-blue-100">Nossas Sedes Municipais</.text>
@@ -366,7 +370,9 @@
             class="collapsed-menu-wrapper"
             phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-#{nucleos["nucleo"]}")}
           >
-            <.text size="h2" color="text-white-100">Núcleo <%= nucleos["nucleo"] %></.text>
+            <.text size="h2" color="text-white-100">
+              Núcleo <%= nucleos["nucleo"] %> - <%= nucleos["subtitulo"] %>
+            </.text>
             <Lucideicons.chevron_down />
           </div>
           <div

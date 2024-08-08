@@ -9,7 +9,7 @@ assignees: ''
 
 ## Contexto
 
-<!-- Choose the context for the feature request -->
+<!-- Qual o contexto dessa tarefa? -->
 - [ ] Parte Pública
 - [ ] Módulo Pescador
 - [ ] Módulo Pesquisa
@@ -20,13 +20,13 @@ assignees: ''
 
 ## Stack
 
-<!-- Choose the relevant stack for the feature request -->
+<!-- Com qual stack essa tarefa se relaciona? -->
 - [ ] Backend
 - [ ] Frontend
 
 ## Prioridade
 
-<!-- Choose the priority level for the feature request -->
+<!-- Qual prioridade dessa tarefa? -->
 - [ ] Urgente
 - [ ] Alta
 - [ ] Média
@@ -34,9 +34,9 @@ assignees: ''
 
 ## Descrição da Tarefa
 
-<!-- A short and simple description of the feature request -->
+<!-- Descrição curta e simples do que deve ser feito na tarefa -->
 
 ## Links Adicionais
 
-<!-- Add any relevant links such as Figma designs or external files -->
+<!-- Qualque outro link relevante -->
 <!-- Figma, planilhas, documentos notion -->
