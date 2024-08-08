@@ -1,4 +1,4 @@
-defmodule PescarteWeb.CooperativasController do
+defmodule PescarteWeb.CensoController do
   use PescarteWeb, :controller
 
   def show(conn, _params) do

@@ -1317,6 +1317,8 @@ defmodule PescarteWeb.AgendaController do
       |> Enum.with_index()
       |> Enum.reduce(%{}, fn {lista, index}, acc -> Map.put(acc, index, lista) end)
 
-    render(conn, :show, mapa: mapa)
+    current_path = conn.request_path
+
+    render(conn, :show, mapa: mapa, current_path: current_path)
   end
 end

@@ -36,6 +36,7 @@ defmodule PescarteWeb.Router do
     get "/cooperativas", CooperativasController, :show
     get "/sobre", AboutUsController, :show
     get "/publicacoes", JournalController, :show
+    get "/censo", CensoController, :show
     get "/confirmar", TokenController, :confirm
     delete "/acessar", LoginController, :delete
   end

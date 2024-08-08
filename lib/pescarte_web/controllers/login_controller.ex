@@ -13,7 +13,8 @@ defmodule PescarteWeb.LoginController do
   @err_msg "Email ou senha inválidos"
 
   def show(conn, _params) do
-    render(conn, :show, error_message: nil)
+    current_path = conn.request_path
+    render(conn, :show, current_path: current_path, error_message: nil)
   end
 
   def create(conn, %{"user" => user_params}) do

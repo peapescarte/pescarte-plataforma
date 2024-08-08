@@ -7,6 +7,7 @@ import Inputmask from "inputmask";
 import './accordion';
 
 import './glide';
+import "./date_input";
 
 function onVisible(elem, callback) {
   const options = { root: document.documentElement };

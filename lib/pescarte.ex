@@ -3,6 +3,13 @@ defmodule Pescarte do
     Application.get_env(:pescarte, :env)
   end
 
+  def get_static_file_path(folder, file) do
+    :pescarte
+    |> :code.priv_dir()
+    |> List.to_string()
+    |> then(&Path.join([&1, "static", folder, file]))
+  end
+
   def model do
     quote do
       use Ecto.Schema

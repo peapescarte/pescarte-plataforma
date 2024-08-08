@@ -155,7 +155,7 @@ defmodule PescarteWeb.DesignSystem do
   def footer(assigns) do
     ~H"""
     <footer class="flex justify-center items-center">
-      <img src={~p"/images/footer_logos.svg"} />
+      <img src={~p"/images/footer_logos.png"} />
     </footer>
     """
   end
@@ -406,6 +406,39 @@ defmodule PescarteWeb.DesignSystem do
         ><%= @value%></textarea>
       </div>
     </fieldset>
+    """
+  end
+
+  @doc """
+  Um componente de date picker, para selecionar datas.
+
+  O mesmo recebe obrigatoriamente o atributo `name`.
+
+  Caso queira dar um valor inicial para o componente, use o atributo `value`!
+
+  ## Exemplo
+
+      <.date_input name="aniversario"/>
+
+  """
+  attr :name, :string, required: true
+  attr :class, :string, default: ""
+  attr :value, :string, default: ""
+
+  def date_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
+    assigns
+    |> input()
+    |> date_input()
+  end
+
+  def date_input(assigns) do
+    ~H"""
+    <div class={["date_input", @class]}>
+      <div class="date_input__container">
+        <input type="text" id="air-datepicker" class="input" placeholder="dd/mm/aaaa" value={@value} />
+        <Lucideicons.calendar_days class="date_input--suffix" />
+      </div>
+    </div>
     """
   end
 
