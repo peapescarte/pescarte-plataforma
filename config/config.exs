@@ -14,7 +14,7 @@ config :flop, repo: Pescarte.Database.Repo.Replica
 
 config :pescarte, fetch_pesagro_cotacoes: !!System.get_env("FETCH_PESAGRO_COTACOES")
 
-config :pescarte, Pescarte.Controller, receiver_email: "plataformapeapescarte@gmail.com"
+config :pescarte, PescarteWeb, receiver_email: "plataformapeapescarte@gmail.com"
 
 config :pescarte,
   ecto_repos: [Pescarte.Database.Repo],
