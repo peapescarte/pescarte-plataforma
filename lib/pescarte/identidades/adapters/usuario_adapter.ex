@@ -3,8 +3,6 @@ defmodule Pescarte.Identidades.Adapters.UsuarioAdapter do
 
   @default_pass "@peaSenha!123@"
 
-  @contato_fields ~w(email_principal celular_principal emails_adicionais celulares_adicionais endereco)a
-
   def to_external(%Usuario{} = usuario, pass \\ @default_pass) do
     %{
       role: Atom.to_string(usuario.papel),
@@ -13,11 +11,10 @@ defmodule Pescarte.Identidades.Adapters.UsuarioAdapter do
       password: pass,
       app_metadata: %{
         cpf: usuario.cpf,
-        rg: usuario.rg,
-        contato: Map.take(usuario.contato, @contato_fields),
-        primeiro_nome: usuario.primeiro_nome,
-        sobrenome: usuario.sobrenome,
-        nome_completo: Usuario.build_usuario_name(usuario)
+        first_name: usuario.primeiro_nome,
+        last_name: usuario.sobrenome,
+        birthdate: usuario.data_nascimento,
+        user_id: usuario.id
       }
     }
   end

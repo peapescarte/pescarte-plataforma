@@ -6,7 +6,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
   alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.GetPesquisador
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Supabase
+  alias Pescarte.Clients.Auth
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
@@ -72,10 +72,11 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
 
   def handle_event("trigger_reset_pass", %{"reset_pass" => params}, socket) do
     # TODO criar função para verificar se a senha atual é correta
+    current_user = socket.assigns.current_user
 
     case recover_pass_changeset(params) do
       {:ok, attrs} ->
-        case Supabase.Auth.update_user(socket, %{password: attrs.password}) do
+        case Auth.update_user(current_user.id, %{password: attrs.password}) do
           {:ok, socket} -> {:noreply, redirect(socket, to: ~p"/app/pesquisa/perfil")}
           {:error, error} -> {:noreply, assign_error(socket, error)}
         end

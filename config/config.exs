@@ -2,6 +2,9 @@ import Config
 
 config :pescarte, env: config_env()
 
+config :pescarte, Pescarte.Clients,
+  auth: Pescarte.Clients.Auth.Supabase
+
 config :pescarte, PescarteWeb,
   notice_title_max_length: 110,
   notice_desc_max_length: 145
@@ -10,7 +13,7 @@ config :supabase_gotrue,
   endpoint: PescarteWeb.Endpoint,
   signed_in_path: "/app/pesquisa/perfil",
   not_authenticated_path: "/acessar",
-  authentication_client: Pescarte.Supabase.Auth
+  authentication_client: :pescarte_supabase
 
 config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 

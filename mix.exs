@@ -31,6 +31,7 @@ defmodule Pescarte.MixProject do
 
   defp deps do
     [
+      {:peri, "~> 0.2"},
       {:bandit, "~> 1.0"},
       {:nanoid, "~> 2.0"},
       {:brcpfcnpj, "~> 1.0.0"},

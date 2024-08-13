@@ -2,15 +2,14 @@ defmodule PescarteWeb.Authorization do
   import Plug.Conn
 
   alias Pescarte.Identidades.Models.Usuario
-  alias Pescarte.Supabase.Auth
+  alias Pescarte.Clients.Auth
   alias Supabase.GoTrue
-  alias Supabase.GoTrue.Session
-  alias Supabase.GoTrue.User
 
   def require_admin_role(conn, _opts) do
+    current_user = conn.assigns.current_user
     token = get_session(conn, :user_token)
 
-    with {:ok, user} <- Auth.get_user(%Session{access_token: token}),
+    with {:ok, user} <- Auth.get_user(current_user.id),
          {:ok, usuario} <- Usuario.fetch_by(external_customer_id: user.id) do
       (token && usuario)
       |> permit?(:admin)
@@ -45,7 +44,7 @@ defmodule PescarteWeb.Authorization do
     end
   end
 
-  defp permit?(%User{role: role}, role), do: true
+  defp permit?(%Usuario{papel: role}, role), do: true
 
   defp permit?(_user, _role), do: false
 end

@@ -3,7 +3,7 @@ defmodule Pescarte.Result do
   O módulo `Pescarte.Result` fornece funções utilitárias para lidar com resultados que podem ser bem-sucedidos (`:ok` ou `{:ok, term}`) ou erros (`{:error, term}`). Este módulo ajuda a gerenciar o fluxo de controle e tratamento de erros de forma clara e funcional.
 
   ### Mônada Result (ou Either)
-  
+
   A ideia por trás da mônada Result (ou Either) é encapsular a lógica de sucesso e erro em um único tipo de dados. Em vez de lançar exceções ou lidar com valores nulos, a mônada Result permite que as operações retornem explicitamente um valor de sucesso ou um erro, promovendo um estilo de programação mais seguro e robusto.
 
   No Elixir, utilizamos o formato `{:ok, term}` para indicar sucesso e `{:error, term}` para indicar falha. Isso permite compor operações sequenciais sem a necessidade de constantes verificações de erro, utilizando funções como `and_then/2` para encadear operações e `or_else/2` para tratar erros.
@@ -15,7 +15,10 @@ defmodule Pescarte.Result do
   - [Understanding Either Monad in Haskell](https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/either-monad) - Explicação detalhada sobre a mônada Either em Haskell, outra fonte de inspiração.
   """
 
-  @type t :: :ok | {:ok, term} | {:error, term}
+  @opaque left(a) :: {:error, a}
+  @opaque right(b) :: :ok | {:ok, b}
+  @type t(a, b) :: left(a) | right(b)
+  @type t :: left(term) | right(term)
 
   @doc """
   Cria um novo `Result` representando uma operação de sucesso
@@ -28,8 +31,8 @@ defmodule Pescarte.Result do
       iex> Pescarte.Result.ok(%{foo: "bar"})
       {:ok, %{foo: "bar"}}
   """
-  @spec ok :: t
-  @spec ok(term) :: t
+  @spec ok :: right(term)
+  @spec ok(term) :: right(term)
   def ok, do: :ok
   def ok(val), do: {:ok, val}
 
@@ -44,7 +47,7 @@ defmodule Pescarte.Result do
       iex> Pescarte.Result.err({:rate_limited, "Número máximo de acessos"})
       {:error, {:rate_limited, "Número máximo de acessos"}}
   """
-  @spec err(term) :: t
+  @spec err(term) :: left(term)
   def err(reason), do: {:error, reason}
 
   @doc """
@@ -145,4 +148,3 @@ defmodule Pescarte.Result do
   def unwrap_or({:ok, data}, _default), do: data
   def unwrap_or({:error, _}, default), do: default
 end
-
