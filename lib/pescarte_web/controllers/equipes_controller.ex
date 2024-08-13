@@ -10,6 +10,8 @@ defmodule PescarteWeb.EquipesController do
       |> File.read!()
       |> Jason.decode()
 
+    Pescarte.Supabase.Storage.list_buckets()
+
     render(conn, :show, data: data, error_message: nil, current_path: current_path)
   end
 end
