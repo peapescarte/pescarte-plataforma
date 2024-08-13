@@ -38,20 +38,15 @@ defmodule PescarteWeb.Router do
     get "/publicacoes", JournalController, :show
     get "/censo", CensoController, :show
     get "/confirmar", TokenController, :confirm
-    delete "/acessar", LoginController, :delete
-  end
 
-  scope "/", PescarteWeb do
-    pipe_through :browser
+    delete "/acessar", LoginController, :delete
 
     get "/agenda", AgendaController, :show
-  end
 
-  scope "/", PescarteWeb do
-    pipe_through :browser
-
-    get "/contato", ContactController, :show
-    post "/contato", ContactController, :send_email
+    scope "/contato" do
+      get "/", ContactController, :show
+      post "/", ContactController, :send_email
+    end
   end
 
   scope "/", PescarteWeb do
