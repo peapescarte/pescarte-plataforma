@@ -1,6 +1,6 @@
 defmodule Pescarte.Blog.BlogPosts.Post do
-  alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.Database.Types.PublicId
+  alias Pescarte.Identidades.Models.Usuario
   use Pescarte, :model
 
   @doc """

@@ -6,8 +6,8 @@ defmodule Pescarte.Blog.Posts do
   @doc """
   Módulo criado para realizar o CRUD na tabela de posts referentes as notícias.
   """
-  @spec get_posts() :: list(Post.t()) | Ecto.QueryError
-  def get_posts() do
+  @spec get_posts :: list(Post.t()) | Ecto.QueryError
+  def get_posts do
     Repo.Replica.all(Post)
   end
 
