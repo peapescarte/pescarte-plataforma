@@ -1,10 +1,10 @@
 defmodule Pescarte.Blog.BlogTag do
-  @moduledoc"""
+  @moduledoc """
   O contexto BlogTag é responsável por gerenciar as operações relacionadas a TAG.
   """
 
-  alias Pescarte.Database.Repo
   alias Pescarte.Blog.Models.Tag
+  alias Pescarte.Database.Repo
 
   @spec list_tags() :: {:ok, list(Tag.t())} | {:error, term()}
   def list_tags do
@@ -28,7 +28,8 @@ defmodule Pescarte.Blog.BlogTag do
     |> Repo.insert()
   end
 
-  @spec update_tag(String.t(), map()) :: {:ok, Tag.t()} | {:error, :not_found | Ecto.Changeset.t()}
+  @spec update_tag(String.t(), map()) ::
+          {:ok, Tag.t()} | {:error, :not_found | Ecto.Changeset.t()}
   def update_tag(id, attrs) do
     case Repo.get(Tag, id) do
       nil ->
@@ -44,10 +45,8 @@ defmodule Pescarte.Blog.BlogTag do
   @spec delete_tag_by_id(String.t()) :: {:ok, Tag.t()} | {:error, :not_found}
   def delete_tag_by_id(id) do
     case Repo.get(Tag, id) do
-      nil ->
-        {:error, :not_found}
-      tag ->
-        Repo.delete(tag)
+      nil -> {:error, :not_found}
+      tag -> Repo.delete(tag)
     end
   end
 end
