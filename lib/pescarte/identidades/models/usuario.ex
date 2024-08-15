@@ -1,4 +1,5 @@
 defmodule Pescarte.Identidades.Models.Usuario do
+  alias Pescarte.Blog.BlogPosts.Post
   use Pescarte, :model
 
   import Brcpfcnpj.Changeset, only: [validate_cpf: 3]
@@ -43,6 +44,8 @@ defmodule Pescarte.Identidades.Models.Usuario do
     has_one :pesquisador, Pesquisador
 
     belongs_to :contato, Contato, type: :string
+
+    has_many :posts, Post
 
     timestamps()
   end
