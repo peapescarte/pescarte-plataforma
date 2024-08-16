@@ -14,7 +14,7 @@
 
   .nav-menu {
     @apply flex justify-between items-center;
-    gap: 24px;
+    gap: 3rem;
     margin: 21px 0;
 
     a:hover {
@@ -22,7 +22,7 @@
     }
 
     .nav-link {
-      padding: 16px 24px;
+      padding: 16px 0px;
       max-height: 56px;
       max-width: 200px;
 

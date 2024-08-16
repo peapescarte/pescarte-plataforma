@@ -21,31 +21,20 @@
     </div>
   </div>
 
-  <div class="links">
+  <div class="links-landing">
     <div class="links-item">
       <img src={~p"/images/landing/fotos_card.png"} />
-      <DesignSystem.link href="/not-found" class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Fotos</.text>
+      <DesignSystem.link href={~p"/noticias"} class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Notícias</.text>
         <.text size="base" color="text-white-100">
-          Mídias do Projeto
+          Notícias do Projeto
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
-    <div class="links-item">
-      <img src={~p"/images/landing/relatorios_card.png"} />
-      <DesignSystem.link href={~p"/agenda"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Relatórios Públicos</.text>
-        <.text size="base" color="text-white-100">
-          Eventos e encontros do projeto
-        </.text>
-        <.button style="primary">
-          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
-        </.button>
-      </DesignSystem.link>
-    </div>
+
     <div class="links-item">
       <img src={~p"/images/landing/publicacoes_card.png"} />
       <DesignSystem.link href={~p"/publicacoes"} class="text-sm font-semibold">
@@ -64,6 +53,18 @@
         <.text size="h3" color="text-white-100">Agenda</.text>
         <.text size="base" color="text-white-100">
           Agenda Trimestral.
+        </.text>
+        <.button style="primary">
+          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
+        </.button>
+      </DesignSystem.link>
+    </div>
+    <div class="links-item">
+      <img src={~p"/images/landing/fotos_card.png"} />
+      <DesignSystem.link href="/censo" class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">CENSO</.text>
+        <.text size="base" color="text-white-100">
+          Dados do Censo
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
@@ -118,17 +119,17 @@
         <div class="p-5">
           <a href="#">
             <.text size="h4" color="text-blue-100">
-              Doação do terreno em Cabo Frio.
+              <%= handle_notice_title_length("Doação do terreno em Cabo Frio.") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            e a mudança do marco regulatório do defeso do camarão na Laguna de Araruama..
+            <%= handle_notice_desc_length(
+              "e a mudança do marco regulatório do defeso do camarão na Laguna de Araruama.."
+            ) %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
-              <a href="https://drive.google.com/drive/u/1/folders/1w961gkYNiUKWUF2S8zkRBAI46iMkh9CR">
-                <.text size="base" color="text-white-100">Ler mais</.text>
-              </a>
+              <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
           </DesignSystem.link>
         </div>
@@ -140,13 +141,17 @@
         <div class="p-5">
           <a href="#">
             <.text size="h4" color="text-blue-100">
-              Diário de Bordo: falas de pessoas pescadoras que falam sobre a importância do PEA Pescarte
+              <%= handle_notice_title_length(
+                " Diário de Bordo: falas de pessoas pescadoras que falam sobre a importância do PEA Pescarte"
+              ) %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            Proin nec ligula ultricies, finibus mi ac, pretium lectus. Nunc venenatis egestas finibus.
+            <%= handle_notice_desc_length(
+              "Proin nec ligula ultricies, finibus mi ac, pretium lectus. Nunc venenatis egestas finibus."
+            ) %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -160,13 +165,15 @@
         <div class="p-5">
           <a href="#">
             <.text size="h4" color="text-blue-100">
-              O Censo Pescarte continua nas ruas,
+              <%= handle_notice_title_length(" O Censo Pescarte continua nas ruas,") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação.
+            <%= handle_notice_desc_length(
+              "buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação."
+            ) %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -180,13 +187,13 @@
         <div class="p-5">
           <a href="https://www.instagram.com/p/CzwyZf1Ccj2/?igsh=NTZiY2lleDRjbTlp">
             <.text size="h4" color="text-blue-100">
-              Seguro Defeso.
+              <%= handle_notice_title_length("Seguro Defeso.") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            Pescador, tire suas dúvidas aqui.
+            <%= handle_notice_desc_length("Pescador, tire suas dúvidas aqui.") %>
           </.text>
-          <DesignSystem.link href="/not-found" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -213,42 +220,6 @@
       </div>
     </div>
   </div>
-
-  <div class="find-us">
-    <.text size="h2" color="text-white-100">Onde nos Encontrar</.text>
-
-    <section class="find-us-content">
-      <.text size="lg" color="text-white-80">
-        Estamos presentes nas redes sociais! Clique nos botões abaixo para visitar nossos perfis.
-      </.text>
-
-      <div class="find-us-links">
-        <a href="https://www.facebook.com/peapescarte/">
-          <img src={~p"/images/facebook.svg"} alt="" />
-        </a>
-
-        <a href="https://www.instagram.com/peapescarte/?img_index=1">
-          <img src={~p"/images/instagram.svg"} alt="" />
-        </a>
-
-        <a href="https://www.youtube.com/c/PEAPescarte">
-          <img src={~p"/images/youtube.svg"} alt=""
-           />
-        </a>
-      </div>
-
-      <.text size="lg" color="text-white-80">
-        Mas, se preferir, entre em contato diretamente.
-      </.text>
-
-      <div class="find-us-bttn">
-        <DesignSystem.link href="/not-found" class="text-sm font-semibold">
-          <img src={~p"/images/message-square.svg"} />
-          <.text size="base" color="text-orange-100">
-            Fale Conosco
-          </.text>
-        </DesignSystem.link>
-      </div>
-    </section>
-  </div>
+  <!-- ONDE NOS ENCONTRAR -->
+  <PescarteWeb.DesignSystem.GetInTouch.render />
 </main>

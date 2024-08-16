@@ -1,0 +1,91 @@
+<main class="landing-grid">
+  <.flash :if={@error_message} id="login-error" kind={:error}>
+    <%= @error_message %>
+  </.flash>
+
+<div class="news">
+    <.text size="h2" color="text-blue-100">Notícias</.text>
+    <div class="news-cards">
+      <div class="news-item">
+        <a href="">
+          <img src={~p"/images/landing/news/news1.png"} />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti1">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length("Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa.") %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Estudo aponta tecnologias utilizadas na pesca e maricultura que auxiliem nas soluções
+              de infraestrutura dos Projetos de Geração de Trabalho e Renda"
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+      <div class="news-item">
+        <a href="">
+          <img src={~p"/images/landing/news/news1.png"} />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti1">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length("Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa.") %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Estudo aponta tecnologias utilizadas na pesca e maricultura que auxiliem nas soluções
+              de infraestrutura dos Projetos de Geração de Trabalho e Renda"
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- criando os cards das noticias -->
+
+<div class="links-landing">
+    <div class="links-item">
+      <img src={~p"/images/landing/fotos_card.png"} />
+      <DesignSystem.link href={~p"/noticias"} class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Notícia 1</.text>
+        <.text size="base" color="text-white-100">
+          Notícias do Projeto
+        </.text>
+        <.button style="primary">
+          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
+        </.button>
+      </DesignSystem.link>
+    </div>
+
+    <div class="links-item">
+      <img src={~p"/images/landing/publicacoes_card.png"} />
+      <DesignSystem.link href={~p"/publicacoes"} class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Notícia 2</.text>
+        <.text size="base" color="text-white-100">
+          Publicações...
+        </.text>
+        <.button style="primary">
+          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
+        </.button>
+      </DesignSystem.link>
+    </div>
+</div>
+
+
+
+  <!-- ONDE NOS ENCONTRAR -->
+  <PescarteWeb.DesignSystem.GetInTouch.render />
+</main>
