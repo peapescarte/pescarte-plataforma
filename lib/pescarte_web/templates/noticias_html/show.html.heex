@@ -3,7 +3,7 @@
     <%= @error_message %>
   </.flash>
 
-<div class="news">
+  <div class="news">
     <.text size="h2" color="text-blue-100">Notícias</.text>
     <div class="news-cards">
       <div class="news-item">
@@ -13,7 +13,9 @@
         <div class="p-5">
           <a href="/noticias/noti1">
             <.text size="h4" color="text-blue-100">
-              <%= handle_notice_title_length("Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa.") %>
+              <%= handle_notice_title_length(
+                "Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa."
+              ) %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
@@ -36,7 +38,9 @@
         <div class="p-5">
           <a href="/noticias/noti1">
             <.text size="h4" color="text-blue-100">
-              <%= handle_notice_title_length("Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa.") %>
+              <%= handle_notice_title_length(
+                "Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa."
+              ) %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
@@ -53,10 +57,9 @@
         </div>
       </div>
     </div>
-</div>
-<!-- criando os cards das noticias -->
-
-<div class="links-landing">
+  </div>
+  <!-- criando os cards das noticias -->
+  <div class="links-landing">
     <div class="links-item">
       <img src={~p"/images/landing/fotos_card.png"} />
       <DesignSystem.link href={~p"/noticias"} class="text-sm font-semibold">
@@ -82,10 +85,7 @@
         </.button>
       </DesignSystem.link>
     </div>
-</div>
-
-
-
+  </div>
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 </main>
