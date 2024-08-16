@@ -130,6 +130,31 @@
                 Promover a atualização contínua dos objetivos do PEA, garantindo que o conteúdo educativo esteja alinhado aos objetivos de alcançar uma melhor organização social por meio de projeto de geração de trabalho e renda.
               </.text>
             </div>
+            <div class="membros">
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Coordenação"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={~p"/equipes/coordenacao/#{imagem}"} />
+                </div>
+                <div :if={imagem == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= equipe %>
+                  </.text>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -147,32 +172,63 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <.text size="h4" color="text-black-80">
-          Em meio aos desafios contemporâneos da sustentabilidade e preservação ambiental, as comunidades de pesca artesanal são atores-chave, desempenhando um papel vital nas cadeias produtivas e na conservação dos ecossistemas aquáticos. O Núcleo Pedagógico do Projeto de Educação Ambiental surge como um facilitador nesse cenário, direcionando esforços para formar e capacitar a Equipe do projeto e os próprio pescadores artesanais e comunidades relacionadas na prática da pesca responsável e sustentável.
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Seus objetivos são:
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Integração de Práticas Educacionais buscando orientar as comunidades pesqueiras na assimilação de conhecimentos que reforçam os processos de auto organização e ação dos Sujeitos da Ação Educativa;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Desenvolvimento Comunitário por meio da formação continuada em que o Núcleo visa fortalecer as habilidades e competências da comunidade pesqueira, adaptando-se às mudanças ambientais e econômicas;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Desenvolvimento de recursos e treinamentos em que são oferecidos materiais didáticos pedagógicos específicos com vistas a capacitação de pescadores e líderes comunitários para atuarem de forma coletiva em nome dos interesses da classe pesqueira;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Realiza a Supervisão e busca promover iniciativas educativas que são continuamente monitoradas e avaliadas, visando à excelência e à modernização das práticas educativas ministradas pelo PEA;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Mantém o Foco na Cultura e na Tradição, respeitando e valorizando as tradições pesqueiras, enfatizando uma educação que é culturalmente relevante e adaptada às necessidades das comunidades;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Busca manter o princípio da melhoria contínua, acompanhando os indicadores de desempenho e dando e recebendo feedback das comunidades;
-        </.text>
+        <div class="collapsed-menu-content">
+          <div class="linha-pesquisa">
+            <div>
+              <.text size="h4" color="text-black-80">
+                Em meio aos desafios contemporâneos da sustentabilidade e preservação ambiental, as comunidades de pesca artesanal são atores-chave, desempenhando um papel vital nas cadeias produtivas e na conservação dos ecossistemas aquáticos. O Núcleo Pedagógico do Projeto de Educação Ambiental surge como um facilitador nesse cenário, direcionando esforços para formar e capacitar a Equipe do projeto e os próprio pescadores artesanais e comunidades relacionadas na prática da pesca responsável e sustentável.
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Seus objetivos são:
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Integração de Práticas Educacionais buscando orientar as comunidades pesqueiras na assimilação de conhecimentos que reforçam os processos de auto organização e ação dos Sujeitos da Ação Educativa;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Desenvolvimento Comunitário por meio da formação continuada em que o Núcleo visa fortalecer as habilidades e competências da comunidade pesqueira, adaptando-se às mudanças ambientais e econômicas;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Desenvolvimento de recursos e treinamentos em que são oferecidos materiais didáticos pedagógicos específicos com vistas a capacitação de pescadores e líderes comunitários para atuarem de forma coletiva em nome dos interesses da classe pesqueira;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Realiza a Supervisão e busca promover iniciativas educativas que são continuamente monitoradas e avaliadas, visando à excelência e à modernização das práticas educativas ministradas pelo PEA;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Mantém o Foco na Cultura e na Tradição, respeitando e valorizando as tradições pesqueiras, enfatizando uma educação que é culturalmente relevante e adaptada às necessidades das comunidades;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Busca manter o princípio da melhoria contínua, acompanhando os indicadores de desempenho e dando e recebendo feedback das comunidades;
+              </.text>
+            </div>
+            <div class="membros">
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Núcleo Pedagógico"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={~p"/equipes/nucleo_pedagogico/#{imagem}"} />
+                </div>
+                <div :if={imagem == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= equipe %>
+                  </.text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-03.webp"} />
@@ -231,54 +287,26 @@
               </.text>
             </div>
             <div class="membros">
-              <div class="membro-equipe">
-                <div :if={true} class="membro-circle-transparent">
-                  <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/equipes/nucleo_administrativo/nucleo_administrativo_iandra_araujo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvZXF1aXBlcy9udWNsZW9fYWRtaW5pc3RyYXRpdm8vbnVjbGVvX2FkbWluaXN0cmF0aXZvX2lhbmRyYV9hcmF1am8ucG5nIiwiaWF0IjoxNzIzNTU2MTE2LCJleHAiOjE3MjQxNjA5MTZ9.sqgYpjEdY6T9r3JI_uz8oQ6ODGZBH7tIJrbQvNUyFek&t=2024-08-13T13%3A35%3A16.608Z" />
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Núcleo Administrativo"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={~p"/equipes/nucleo_administrativo/#{imagem}"} />
                 </div>
+                <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80">Iandra Araújo da Silva</.text>
-                    <.text :if={true} size="h5" color="text-blue-100" class="lider">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    Núcleo Administrativo
-                  </.text>
-                </div>
-              </div>
-              <div class="membro-equipe">
-                <div class="membro-circle">
-                  <img
-                    :if={false}
-                    src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/equipes/nucleo_administrativo/nucleo_administrativo_iandra_araujo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvZXF1aXBlcy9udWNsZW9fYWRtaW5pc3RyYXRpdm8vbnVjbGVvX2FkbWluaXN0cmF0aXZvX2lhbmRyYV9hcmF1am8ucG5nIiwiaWF0IjoxNzIzNTU2MTE2LCJleHAiOjE3MjQxNjA5MTZ9.sqgYpjEdY6T9r3JI_uz8oQ6ODGZBH7tIJrbQvNUyFek&t=2024-08-13T13%3A35%3A16.608Z"
-                  />
-                </div>
-                <div class="membro-description">
-                  <div class="membro-name">
-                    <.text size="h5" color="text-black-80">Patricia Brandão Pupe</.text>
-                    <.text :if={false} size="h5" color="text-blue-100" class="lider">
-                      Líder da Equipe
-                    </.text>
-                  </div>
-                  <.text size="h5" color="text-black-80">
-                    Núcleo Administrativo
-                  </.text>
-                </div>
-              </div>
-              <div class="membro-equipe">
-                <div class="membro-circle">
-                  <img :if={false} src={~p"/images/equipes/false"} />
-                </div>
-                <div class="membro-description">
-                  <div class="membro-name">
-                    <.text size="h5" color="text-black-80">Rian Hamden de Oliveira</.text>
-                    <.text :if={false} size="h5" color="text-blue-100" class="lider">
-                      Líder da Equipe
-                    </.text>
-                  </div>
-                  <.text size="h5" color="text-black-80">
-                    Núcleo Administrativo
+                    <%= equipe %>
                   </.text>
                 </div>
               </div>
@@ -430,7 +458,7 @@
         </div>
       </div>
       <div id="toggle-collapse-nucleo-pesquisa" style="display: none;">
-        <div :for={nucleos <- @data} class="nossas-equipes-content-collapsed">
+        <div :for={nucleos <- @linhas_pesquisas} class="nossas-equipes-content-collapsed">
           <div
             class="collapsed-menu-wrapper"
             phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-#{nucleos["nucleo"]}")}
@@ -445,14 +473,6 @@
             class="collapsed-menu-content"
             style="display: none;"
           >
-            <!-- <.text size="h4" color="text-black-80"> -->
-              <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum, -->
-              <!-- mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus, -->
-              <!-- quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum -->
-              <!-- primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris. -->
-              <!-- Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies -->
-              <!-- purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam. -->
-            <!-- </.text> -->
             <div :for={linha_pesquisa <- nucleos["linhas_pesquisa"]} class="linha-pesquisa">
               <div class="linha-pesquisa-header">
                 <.text size="h3" color="text-blue-100" class="bold">
@@ -509,43 +529,75 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <.text size="h4" color="text-black-80">
-          O Núcleo de Direitos e Benefícios (NDB), criado na terceira fase do PEA Pescarte, tem como objetivo atender demandas jurídicas, incluindo a elaboração de pareceres e a organização de documentos para implementação dos PGTRs. Além disso, foca na construção participativa de estatutos e materiais de apoio sobre direitos dos pescadores artesanais. Uma característica marcante do NDB é sua ênfase nas práticas educativas voltadas para as mulheres, buscando fortalecer organizações comunitárias e promover a consciência sobre violências sofridas por elas. O núcleo utiliza a metodologia Freiriana, valorizando a educação como ferramenta de transformação social e seus principais objetivos são:
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Suprir Necessidades Jurídicas do PEA Pescarte, atuando em demandas legais emergentes do projeto;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Elaboração de Parecer Jurídico contribuindo para a definição do modelo de doação de área das Prefeituras para as cooperativas;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Levantamento Documental necessário para a implementação dos PGTRs;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Construção Participativa de Estatutos;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Elaboração das atas de fundação das cooperativas;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Desenvolver materiais referentes aos direitos dos pescadores artesanais e fornecer informações para a comunidade pesqueira;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Realizar formações críticas que destaquem a consciência histórica da mulher na sociedade;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Promover a conscientização sobre as várias formas de violência que as mulheres enfrentam, principalmente as naturalizadas no âmbito social, familiar e profissional;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Estimular a compreensão do papel das mulheres na sociedade e reforçar sua participação ativa em organizações comunitárias;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Contribuir para a valorização e aperfeiçoamento das estruturas organizacionais existentes na comunidade;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Utilizar o método educacional proposto por Paulo Freire para promover uma leitura crítica da realidade, visando transformações sociais e benéficas para a comunidade.
-        </.text>
+        <div class="collapsed-menu-content">
+          <div class="linha-pesquisa">
+            <div>
+              <.text size="h4" color="text-black-80">
+                O Núcleo de Direitos e Benefícios (NDB), criado na terceira fase do PEA Pescarte, tem como objetivo atender demandas jurídicas, incluindo a elaboração de pareceres e a organização de documentos para implementação dos PGTRs. Além disso, foca na construção participativa de estatutos e materiais de apoio sobre direitos dos pescadores artesanais. Uma característica marcante do NDB é sua ênfase nas práticas educativas voltadas para as mulheres, buscando fortalecer organizações comunitárias e promover a consciência sobre violências sofridas por elas. O núcleo utiliza a metodologia Freiriana, valorizando a educação como ferramenta de transformação social e seus principais objetivos são:
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Suprir Necessidades Jurídicas do PEA Pescarte, atuando em demandas legais emergentes do projeto;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Elaboração de Parecer Jurídico contribuindo para a definição do modelo de doação de área das Prefeituras para as cooperativas;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Levantamento Documental necessário para a implementação dos PGTRs;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Construção Participativa de Estatutos;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Elaboração das atas de fundação das cooperativas;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Desenvolver materiais referentes aos direitos dos pescadores artesanais e fornecer informações para a comunidade pesqueira;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Realizar formações críticas que destaquem a consciência histórica da mulher na sociedade;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Promover a conscientização sobre as várias formas de violência que as mulheres enfrentam, principalmente as naturalizadas no âmbito social, familiar e profissional;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Estimular a compreensão do papel das mulheres na sociedade e reforçar sua participação ativa em organizações comunitárias;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Contribuir para a valorização e aperfeiçoamento das estruturas organizacionais existentes na comunidade;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Utilizar o método educacional proposto por Paulo Freire para promover uma leitura crítica da realidade, visando transformações sociais e benéficas para a comunidade.
+              </.text>
+            </div>
+
+            <div class="membros">
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Núcleo de Direitos e Benefícios"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={~p"/equipes/nucleo_de_direitos_e_beneficios_ndb/#{imagem}"} />
+                </div>
+                <div :if={imagem == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= equipe %>
+                  </.text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-08.webp"} />
@@ -630,25 +682,50 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <.text size="h4" color="text-black-80">
-          Em um mundo dominado por informações visuais e digitais, o papel de um Núcleo Criativo nunca foi tão crucial, especialmente em projetos de educação ambiental. Este núcleo, com sua paixão pela inovação e habilidade técnica, desempenha funções que vão muito além da simples criação de materiais; eles traduzem a missão do projeto para linguagens compreensíveis e envolventes, atingindo uma variedade de públicos. Em resumo, o Núcleo Criativo é a ponte entre o projeto de educação ambiental e seu público. Eles não apenas comunicam a mensagem, mas garantem que ela ressoe, inspire e eduque. Em sua essência, eles são contadores de histórias, usando ferramentas modernas para narrar uma das histórias mais importantes de nosso tempo: a necessidade de educação e ação ambiental.
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Produzir Materiais de Marketing e Publicidade por meio de design gráfico, copywriting e estratégias inovadoras, o Núcleo Criativo desenvolve materiais promocionais que comunicam eficazmente a importância e os objetivos da educação ambiental, sensibilizando e educando o público;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Formatar Documentos e Publicações em busca de tornar os documentos além de visualmente atraentes, também busca garantir que sejam acessíveis e compreensíveis. Seja formatando livros, cartazes ou outros materiais educativos, o Núcleo garante que a informação seja apresentada de forma clara e envolvente;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Produzir Vídeos que buscam ser educativos e inspiradores, servindo como uma primeira introdução ao projeto, garantindo que sejam tanto informativos quanto cativantes;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Fazer a Gestão de Mídias Sociais e Site procurando manter uma presença online atualizada nas plataformas de Facebook, do Instagram e do YouTube. O Núcleo procura assegurar que o projeto permaneça relevante e acessível às comunidades de pesca. Eles não apenas atualizam informações, mas, também, engajam o público por meio de conteúdos interativos e atualizações regulares;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Promover a Integração Multimídia por meio de um post no Instagram, um vídeo no YouTube ou uma publicação no site.
-        </.text>
+        <div class="collapsed-menu-content">
+          <div class="linha-pesquisa">
+            <div>
+              <.text size="h4" color="text-black-80">
+                Em um mundo dominado por informações visuais e digitais, o papel de um Núcleo Criativo nunca foi tão crucial, especialmente em projetos de educação ambiental. Este núcleo, com sua paixão pela inovação e habilidade técnica, desempenha funções que vão muito além da simples criação de materiais; eles traduzem a missão do projeto para linguagens compreensíveis e envolventes, atingindo uma variedade de públicos. Em resumo, o Núcleo Criativo é a ponte entre o projeto de educação ambiental e seu público. Eles não apenas comunicam a mensagem, mas garantem que ela ressoe, inspire e eduque. Em sua essência, eles são contadores de histórias, usando ferramentas modernas para narrar uma das histórias mais importantes de nosso tempo: a necessidade de educação e ação ambiental.
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Produzir Materiais de Marketing e Publicidade por meio de design gráfico, copywriting e estratégias inovadoras, o Núcleo Criativo desenvolve materiais promocionais que comunicam eficazmente a importância e os objetivos da educação ambiental, sensibilizando e educando o público;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Formatar Documentos e Publicações em busca de tornar os documentos além de visualmente atraentes, também busca garantir que sejam acessíveis e compreensíveis. Seja formatando livros, cartazes ou outros materiais educativos, o Núcleo garante que a informação seja apresentada de forma clara e envolvente;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Produzir Vídeos que buscam ser educativos e inspiradores, servindo como uma primeira introdução ao projeto, garantindo que sejam tanto informativos quanto cativantes;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Fazer a Gestão de Mídias Sociais e Site procurando manter uma presença online atualizada nas plataformas de Facebook, do Instagram e do YouTube. O Núcleo procura assegurar que o projeto permaneça relevante e acessível às comunidades de pesca. Eles não apenas atualizam informações, mas, também, engajam o público por meio de conteúdos interativos e atualizações regulares;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Promover a Integração Multimídia por meio de um post no Instagram, um vídeo no YouTube ou uma publicação no site.
+              </.text>
+            </div>
+            <div class="membros">
+              <div :for={membro <- @membros["Núcleo Criativo"]} class="membro-equipe">
+                <div :if={membro["imagem"] != ""} class="membro-circle-transparent">
+                  <img src={membro["imagem"]} />
+                </div>
+                <div :if={membro["imagem"] == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= membro["nome"] %></.text>
+                    <.text :if={membro["lider"]} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= membro["equipe"] %>
+                  </.text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-11.webp"} />
@@ -664,35 +741,60 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <.text size="h4" color="text-black-80">
-          O 2º Censo Pescarte, desenvolvido com o intuito de ser o principal instrumento empírico de análise sobre os pescadores do Brasil, teve seu início em 2022 e concluirá em dezembro de 2023. Este projeto abrange características de censos populacionais e pesquisas seccionais, permitindo uma visão abrangente tanto das estatísticas demográficas quanto das avaliações sobre políticas públicas, acesso a serviços básicos e questões relacionadas a gênero, capital social e associativismo.
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Sediado na bacia de Campos, no Estado do Rio de Janeiro, o censo engloba 10 municípios costeiros da Bacia de Campos, na região Norte e região dos Lagos. Esta região, impactada pelas atividades petrolíferas, possui comunidades de pescadores com variadas características e comportamentos, tornando-se fundamental reconhecer a diversidade dentro do mesmo segmento. Por exemplo, a heterogeneidade no modo de pesca, os diferentes equipamentos e artes de pesca, os padrões de trabalho e os desafios econômicos enfrentados por essas comunidades são fatores intrínsecos à pesquisa. Em resumo, o Censo Pescarte visa fornecer um retrato detalhado e atualizado das comunidades pesqueiras na bacia de Campos, informando tomadores de decisão, acadêmicos, e a própria comunidade sobre dados relevantes pouco investigados em outras pesquisas.
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Promover a Caracterização Demográfica da população pesqueira, o que envolve contar e caracterizar a população de pescadores, registrando aspectos como sexo, idade e outros atributos demográficos, para entender a composição e a estrutura dessas comunidades;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Avaliar as Políticas Públicas destinada à essa população, investigando sua eficácia, o acesso e a percepção da qualidade das políticas públicas, identificando áreas de êxito e pontos de melhoria;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Avaliar os Serviços Básicos, determinando grau de acesso que os pescadores têm a serviços fundamentais, como saúde e educação, revelando áreas de êxito e pontos de melhoria;;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Avaliar as questões de Gênero, identificando suas dinâmicas nas comunidades pesqueiras, incluindo os papéis e responsabilidades tradicionais, bem como possíveis desigualdades enfrentadas pelas pescadoras;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Avaliar o capital social e a tendência ao associativismo, procurando compreender o nível de coesão social, a existência de organizações comunitárias e o grau de participação dos pescadores em tais grupos;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Avaliar as dinâmicas comunitárias e sua relação com as práticas Profissionais dos pescadores e pescadoras, identificando as variadas práticas e rotinas de pesca, incluindo os tipos de equipamentos e artes de pesca, horários de trabalho e outros aspectos que caracterizam a atividade pesqueira;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Identificar os desafios econômicos enfrentados pelas comunidades, como a sazonalidade, os custos de produção, o controle de preços pelos intermediários e a pluriatividade de atividades como estratégia de sobrevivência econômica.
-        </.text>
+        <div class="collapsed-menu-content">
+          <div class="linha-pesquisa">
+            <div>
+              <.text size="h4" color="text-black-80">
+                O 2º Censo Pescarte, desenvolvido com o intuito de ser o principal instrumento empírico de análise sobre os pescadores do Brasil, teve seu início em 2022 e concluirá em dezembro de 2023. Este projeto abrange características de censos populacionais e pesquisas seccionais, permitindo uma visão abrangente tanto das estatísticas demográficas quanto das avaliações sobre políticas públicas, acesso a serviços básicos e questões relacionadas a gênero, capital social e associativismo.
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Sediado na bacia de Campos, no Estado do Rio de Janeiro, o censo engloba 10 municípios costeiros da Bacia de Campos, na região Norte e região dos Lagos. Esta região, impactada pelas atividades petrolíferas, possui comunidades de pescadores com variadas características e comportamentos, tornando-se fundamental reconhecer a diversidade dentro do mesmo segmento. Por exemplo, a heterogeneidade no modo de pesca, os diferentes equipamentos e artes de pesca, os padrões de trabalho e os desafios econômicos enfrentados por essas comunidades são fatores intrínsecos à pesquisa. Em resumo, o Censo Pescarte visa fornecer um retrato detalhado e atualizado das comunidades pesqueiras na bacia de Campos, informando tomadores de decisão, acadêmicos, e a própria comunidade sobre dados relevantes pouco investigados em outras pesquisas.
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Promover a Caracterização Demográfica da população pesqueira, o que envolve contar e caracterizar a população de pescadores, registrando aspectos como sexo, idade e outros atributos demográficos, para entender a composição e a estrutura dessas comunidades;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Avaliar as Políticas Públicas destinada à essa população, investigando sua eficácia, o acesso e a percepção da qualidade das políticas públicas, identificando áreas de êxito e pontos de melhoria;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Avaliar os Serviços Básicos, determinando grau de acesso que os pescadores têm a serviços fundamentais, como saúde e educação, revelando áreas de êxito e pontos de melhoria;;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Avaliar as questões de Gênero, identificando suas dinâmicas nas comunidades pesqueiras, incluindo os papéis e responsabilidades tradicionais, bem como possíveis desigualdades enfrentadas pelas pescadoras;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Avaliar o capital social e a tendência ao associativismo, procurando compreender o nível de coesão social, a existência de organizações comunitárias e o grau de participação dos pescadores em tais grupos;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Avaliar as dinâmicas comunitárias e sua relação com as práticas Profissionais dos pescadores e pescadoras, identificando as variadas práticas e rotinas de pesca, incluindo os tipos de equipamentos e artes de pesca, horários de trabalho e outros aspectos que caracterizam a atividade pesqueira;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Identificar os desafios econômicos enfrentados pelas comunidades, como a sazonalidade, os custos de produção, o controle de preços pelos intermediários e a pluriatividade de atividades como estratégia de sobrevivência econômica.
+              </.text>
+            </div>
+            <div class="membros">
+              <div :for={membro <- @membros["Núcleo Censo"]} class="membro-equipe">
+                <div :if={membro["imagem"] != ""} class="membro-circle-transparent">
+                  <img src={membro["imagem"]} />
+                </div>
+                <div :if={membro["imagem"] == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= membro["nome"] %></.text>
+                    <.text :if={membro["lider"]} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= membro["equipe"] %>
+                  </.text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
