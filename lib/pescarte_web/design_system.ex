@@ -853,3 +853,6 @@ defmodule PescarteWeb.DesignSystem do
     |> JS.pop_focus()
   end
 end
+
+## inserindo funções para determinar tamanho de texto:
+## deu erro quando inseri o código desenvolvido em landing_html.ex ==> 16/08/2024

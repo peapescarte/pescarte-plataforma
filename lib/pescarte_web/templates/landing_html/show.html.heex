@@ -7,9 +7,9 @@
     <div class="glide glide1">
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
-          <li class="glide__slide"><img src={~p"/images/img_slide1.svg"} /></li>
-          <li class="glide__slide"><img src={~p"/images/img_slide4.svg"} /></li>
           <li class="glide__slide"><img src={~p"/images/img_slide5.jpg"} /></li>
+          <li class="glide__slide"><img src={~p"/images/img_slide4.svg"} /></li>
+          <li class="glide__slide"><img src={~p"/images/journal/boletin/DSC05126.JPG"} /></li>
         </ul>
       </div>
 
@@ -27,19 +27,20 @@
       <DesignSystem.link href="/" class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">Fotos</.text>
         <.text size="base" color="text-white-100">
-          Mídias do Projeto
+          Notícias do Projeto
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
+
     <div class="links-item">
       <img src={~p"/images/landing/relatorios_card.png"} />
       <DesignSystem.link href="https://linktr.ee/peapescarte" class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">Relatórios Públicos</.text>
         <.text size="base" color="text-white-100">
-          Eventos e encontros do projeto
+          Publicações...
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
@@ -47,11 +48,11 @@
       </DesignSystem.link>
     </div>
     <div class="links-item">
-      <img src={~p"/images/landing/publicacoes_card.png"} />
-      <DesignSystem.link href={~p"/publicacoes"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Publicações</.text>
+      <img src={~p"/images/landing/34.png"} />
+      <DesignSystem.link href={~p"/agenda"} class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Agenda</.text>
         <.text size="base" color="text-white-100">
-          Publicações...
+          Agenda Trimestral.
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
@@ -106,25 +107,25 @@
         </.button>
       </DesignSystem.link>
     </section>
-    <img src={~p"/images/landing/rede_pesca_horizonte.png"} />
+    <img src={~p"/images/landing/27.png"} />
   </div>
   <div class="news">
     <.text size="h2" color="text-blue-100">Notícias</.text>
     <div class="news-cards">
       <div class="news-item">
-        <a href="#">
-          <img src={~p"/images/landing/news/news1.png"} />
+        <a href="/noticias/noti1">
+          <img src={~p"/images/noticias/TECNOLOGIA_SOCIAL/capa_noti1.JPG"} />
         </a>
         <div class="p-5">
-          <a href="#">
+          <a href="/noticias/noti1">
             <.text size="h4" color="text-blue-100">
               <%= handle_notice_title_length("Doação do terreno em Cabo Frio.") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
-            <%= handle_notice_desc_length(
-              "e a mudança do marco regulatório do defeso do camarão na Laguna de Araruama.."
-            ) %>
+            <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
+              e a mudança do marco regulatório do defeso do camarão na Laguna de Araruama..
+            </DesignSystem.link>
           </.text>
           <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
@@ -134,49 +135,53 @@
         </div>
       </div>
       <div class="news-item">
-        <a href="#">
-          <img src={~p"/images/landing/news/news5.png"} />
+        <a href="/noticias/noti2">
+          <img src={~p"/images/noticias/REALINHAMENTO_PESQUISA/capa_noti2.JPG"} />
         </a>
         <div class="p-5">
-          <a href="#">
+          <a href="/noticias/noti2">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length("Reunião de Avaliação e Realinhamento do
+                Núcleo de Pesquisa promove ecologia de saberes no PEA Pescarte") %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Pesquisas desenvolvidas cumprem com o desafio de mitigar os impactos das atividades de extração e produção de petróleo e gás na Bacia de Campos."
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti2" class="text-sm font-semibold">
+            Proin nec ligula ultricies, finibus mi ac, pretium lectus. Nunc venenatis egestas finibus.
+          </DesignSystem.link>
+
+          <.button style="primary">
+            <.text size="base" color="text-white-100">Ler mais</.text>
+          </.button>
+        </div>
+      </div>
+      <div class="news-item">
+        <a href="/noticias/noti3">
+          <img src={~p"/images/noticias/MAPEAMENTO_MERCADO/capa_noti3.JPG"} />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti3">
             <.text size="h4" color="text-blue-100">
               <%= handle_notice_title_length(
-                " Diário de Bordo: falas de pessoas pescadoras que falam sobre a importância do PEA Pescarte"
+                " Levantamento do PEA Pescarte realiza o mapeamento do mercado do pescado em cidades do Rio de Janeiro"
               ) %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
             <%= handle_notice_desc_length(
-              "Proin nec ligula ultricies, finibus mi ac, pretium lectus. Nunc venenatis egestas finibus."
+              "Pesquisa tem o objetivo de compreender o comportamento do consumidor e dos fornecedores para levar aos PGTR como funciona o mercado de pescados."
             ) %>
           </.text>
-          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
-            <.button style="primary">
-              <.text size="base" color="text-white-100">Ler mais</.text>
-            </.button>
+          <DesignSystem.link href="/noticias/noti3" class="text-sm font-semibold">
+            buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação.
           </DesignSystem.link>
-        </div>
-      </div>
-      <div class="news-item">
-        <a href="#">
-          <img src={~p"/images/landing/news/news6.png"} />
-        </a>
-        <div class="p-5">
-          <a href="#">
-            <.text size="h4" color="text-blue-100">
-              <%= handle_notice_title_length(" O Censo Pescarte continua nas ruas,") %>
-            </.text>
-          </a>
-          <.text size="sm" color="text-black-60">
-            <%= handle_notice_desc_length(
-              "buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação."
-            ) %>
-          </.text>
-          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
-            <.button style="primary">
-              <.text size="base" color="text-white-100">Ler mais</.text>
-            </.button>
-          </DesignSystem.link>
+          <.button style="primary">
+            <.text size="base" color="text-white-100">Ler mais</.text>
+          </.button>
         </div>
       </div>
       <div class="news-item">

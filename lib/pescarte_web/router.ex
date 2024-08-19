@@ -43,6 +43,16 @@ defmodule PescarteWeb.Router do
 
     get "/agenda", AgendaController, :show
 
+    scope "/noticias" do
+      get "/noti1", Noti1Controller, :show
+      get "/noti2", Noti2Controller, :show
+      get "/noti3", Noti3Controller, :show
+    end
+
+    scope "/publicacoes" do
+      get "/boletin", BoletinController, :show
+    end
+
     scope "/contato" do
       get "/", ContactController, :show
       post "/", ContactController, :send_email
