@@ -11,5 +11,7 @@ defmodule Pescarte.Database.Repo.Migrations.CreatePost do
 
       timestamps()
   end
+
+  create unique_index(:posts, :titulo)
 end
 end

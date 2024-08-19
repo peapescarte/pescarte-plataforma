@@ -40,5 +40,6 @@ defmodule Pescarte.Blog.BlogPosts.Post do
     post
     |> cast(params, @required_params)
     |> validate_required(@required_params)
+    |> unique_constraint(:titulo)
   end
 end
