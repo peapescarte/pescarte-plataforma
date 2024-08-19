@@ -7,8 +7,8 @@
     <.text size="h2" color="text-blue-100">Notícias</.text>
     <div class="news-cards">
       <div class="news-item">
-        <a href="">
-          <img src={~p"/images/landing/news/news1.png"} />
+        <a href="/noticias/noti1">
+          <img src={~p"/images/noticias/TECNOLOGIA_SOCIAL/capa_noti1.JPG"} />
         </a>
         <div class="p-5">
           <a href="/noticias/noti1">
@@ -32,24 +32,45 @@
         </div>
       </div>
       <div class="news-item">
-        <a href="">
-          <img src={~p"/images/landing/news/news1.png"} />
+        <a href="/noticias/noti2">
+          <img src={~p"/images/noticias/REALINHAMENTO_PESQUISA/capa_noti2.JPG"} />
         </a>
         <div class="p-5">
-          <a href="/noticias/noti1">
+          <a href="/noticias/noti2">
             <.text size="h4" color="text-blue-100">
               <%= handle_notice_title_length(
-                "Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa."
+                "Reunião de Avaliação e Realinhamento do Núcleo de Pesquisa promove ecologia de saberes no PEA Pescarte."
               ) %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
             <%= handle_notice_desc_length(
-              "Estudo aponta tecnologias utilizadas na pesca e maricultura que auxiliem nas soluções
-              de infraestrutura dos Projetos de Geração de Trabalho e Renda"
+              "Pesquisas desenvolvidas cumprem com o desafio de mitigar os impactos das atividades de extração e produção de petróleo e gás na Bacia de Campos"
             ) %>
           </.text>
-          <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
+          <DesignSystem.link href="/noticias/noti2" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+      <div class="news-item">
+        <a href="/noticias/noti3">
+          <img src={~p"/images/noticias/MAPEAMENTO_MERCADO/capa_noti3.JPG"} />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti3">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length(" Levantamento do PEA Pescarte realiza o mapeamento do mercado do pescado em cidades do Rio de Janeiro") %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Pesquisa tem o objetivo de compreender o comportamento do consumidor e dos fornecedores para levar aos PGTR como funciona o mercado de pescados."
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti3" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -61,11 +82,11 @@
   <!-- criando os cards das noticias -->
   <div class="links-landing">
     <div class="links-item">
-      <img src={~p"/images/landing/fotos_card.png"} />
-      <DesignSystem.link href={~p"/noticias"} class="text-sm font-semibold">
+      <img src={~p"/images/noticias/TECNOLOGIA_SOCIAL/capa_noti1.JPG"} />
+      <DesignSystem.link href={~p"/noticias/noti1"} class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">Notícia 1</.text>
         <.text size="base" color="text-white-100">
-          Notícias do Projeto
+          Tecnologia Social nos Empreendimentos
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
@@ -74,17 +95,31 @@
     </div>
 
     <div class="links-item">
-      <img src={~p"/images/landing/publicacoes_card.png"} />
-      <DesignSystem.link href={~p"/publicacoes"} class="text-sm font-semibold">
+      <img src={~p"/images/noticias/REALINHAMENTO_PESQUISA/capa_noti2.JPG"} />
+      <DesignSystem.link href={~p"/noticias/noti2"} class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">Notícia 2</.text>
         <.text size="base" color="text-white-100">
-          Publicações...
+          Avaliação e Realinhamento da Pesquisa
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
+
+    <div class="links-item">
+      <img src={~p"/images/noticias/MAPEAMENTO_MERCADO/capa_noti3.JPG"} />
+      <DesignSystem.link href={~p"/noticias/noti3"} class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Notícia 3</.text>
+        <.text size="base" color="text-white-100">
+          Mapeamento de Mercado
+        </.text>
+        <.button style="primary">
+          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
+        </.button>
+      </DesignSystem.link>
+    </div>
+
   </div>
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
