@@ -23,9 +23,9 @@
 
   <div class="links-landing">
     <div class="links-item">
-      <img src={~p"/images/landing/29.png"} />
-      <DesignSystem.link href={~p"/noticias"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Notícias</.text>
+      <img src={~p"/images/landing/fotos_card.png"} />
+      <DesignSystem.link href="/" class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Fotos</.text>
         <.text size="base" color="text-white-100">
           Notícias do Projeto
         </.text>
@@ -36,9 +36,9 @@
     </div>
 
     <div class="links-item">
-      <img src={~p"/images/landing/24.png"} />
-      <DesignSystem.link href={~p"/publicacoes"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Publicações</.text>
+      <img src={~p"/images/landing/relatorios_card.png"} />
+      <DesignSystem.link href="https://linktr.ee/peapescarte" class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Relatórios Públicos</.text>
         <.text size="base" color="text-white-100">
           Publicações...
         </.text>
@@ -60,7 +60,19 @@
       </DesignSystem.link>
     </div>
     <div class="links-item">
-      <img src={~p"/images/landing/Censo.png"} />
+      <img src={~p"/images/landing/projetos_card.png"} />
+      <DesignSystem.link href={~p"/agenda"} class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Agenda</.text>
+        <.text size="base" color="text-white-100">
+          Agenda Trimestral.
+        </.text>
+        <.button style="primary">
+          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
+        </.button>
+      </DesignSystem.link>
+    </div>
+    <div class="links-item">
+      <img src={~p"/images/landing/fotos_card.png"} />
       <DesignSystem.link href="/censo" class="text-sm font-semibold">
         <.text size="h3" color="text-white-100">CENSO</.text>
         <.text size="base" color="text-white-100">
@@ -107,18 +119,16 @@
         <div class="p-5">
           <a href="/noticias/noti1">
             <.text size="h4" color="text-blue-100">
-            <%= handle_notice_title_length(
-                "Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa."
-              ) %>
+              <%= handle_notice_title_length("Doação do terreno em Cabo Frio.") %>
             </.text>
           </a>
           <.text size="sm" color="text-black-60">
             <%= handle_notice_desc_length(
-              "Estudo aponta tecnologias utilizadas na pesca e maricultura que auxiliem nas soluções
-              de infraestrutura dos Projetos de Geração de Trabalho e Renda"
+          <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
+              "e a mudança do marco regulatório do defeso do camarão na Laguna de Araruama.."
             ) %>
           </.text>
-          <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
+          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -143,6 +153,10 @@
             ) %>
           </.text>
           <DesignSystem.link href="/noticias/noti2" class="text-sm font-semibold">
+              "Proin nec ligula ultricies, finibus mi ac, pretium lectus. Nunc venenatis egestas finibus."
+            ) %>
+          </.text>
+
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
@@ -156,6 +170,7 @@
         <div class="p-5">
           <a href="/noticias/noti3">
             <.text size="h4" color="text-blue-100">
+
               <%= handle_notice_title_length(" Levantamento do PEA Pescarte realiza o mapeamento do mercado do pescado em cidades do Rio de Janeiro") %>
             </.text>
           </a>
@@ -165,6 +180,9 @@
             ) %>
           </.text>
           <DesignSystem.link href="/noticias/noti3" class="text-sm font-semibold">
+              "buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação."
+            ) %>
+          </.text>
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>
