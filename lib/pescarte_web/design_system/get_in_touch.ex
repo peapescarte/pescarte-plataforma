@@ -46,9 +46,9 @@ defmodule PescarteWeb.DesignSystem.GetInTouch do
         <.text size="h4" color="text-white-100">
           Mas, se preferir, entre em contato diretamente.
         </.text>
-        <.button style="link">
+        <DesignSystem.link href={~p"/contato"} class="contact-btn">
           <Lucideicons.message_square /> Clique Para Expandir
-        </.button>
+        </DesignSystem.link>
       </div>
     </div>
     """
