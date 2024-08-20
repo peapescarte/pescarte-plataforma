@@ -65,6 +65,10 @@ body {
 footer {
   @apply border-black-10;
   border-top-width: 1px;
+
+  img {
+    z-index: -99;
+  }
 }
 
 .grid {
