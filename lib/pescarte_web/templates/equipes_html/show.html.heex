@@ -1,7 +1,7 @@
 <main class="equipes-wrapper">
   <!-- MAPA -->
   <div class="mapa-wrapper">
-    <img src={~p"/equipes/mapa.jpeg"} />
+    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/mapa.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWFwYS5qcGVnIiwiaWF0IjoxNzI0MTU2NjYwLCJleHAiOjE3NTU2OTI2NjB9.cpDBGFmH-HhwRjZ27FUpBLZ_tsulytz7MlcngJLlyyI&t=2024-08-20T12%3A24%3A20.597Z" />
   </div>
   <!-- NOSSAS SEDES MUNICIPAIS -->
   <div class="nossas-sedes-wrapper">
@@ -142,7 +142,7 @@
                 class="membro-equipe"
               >
                 <div :if={imagem != ""} class="membro-circle-transparent">
-                  <img src={~p"/equipes/coordenacao/#{imagem}"} />
+                  <img src={imagem} />
                 </div>
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
@@ -214,7 +214,7 @@
                 class="membro-equipe"
               >
                 <div :if={imagem != ""} class="membro-circle-transparent">
-                  <img src={~p"/equipes/nucleo_pedagogico/#{imagem}"} />
+                  <img src={imagem} />
                 </div>
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
@@ -298,7 +298,7 @@
                 class="membro-equipe"
               >
                 <div :if={imagem != ""} class="membro-circle-transparent">
-                  <img src={~p"/equipes/nucleo_administrativo/#{imagem}"} />
+                  <img src={imagem} />
                 </div>
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
@@ -583,7 +583,7 @@
                 class="membro-equipe"
               >
                 <div :if={imagem != ""} class="membro-circle-transparent">
-                  <img src={~p"/equipes/nucleo_de_direitos_e_beneficios_ndb/#{imagem}"} />
+                  <img src={imagem} />
                 </div>
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
@@ -618,20 +618,52 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <.text size="h4" color="text-black-80">
-          No coração do Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA - está a firme convicção de que os pescadores artesanais devem ser protagonistas ativos nas discussões que afetam diretamente suas vidas e profissões. Esta iniciativa busca, acima de tudo, garantir que esses profissionais não só tenham voz, mas, também, presença marcante nos cenários, tanto públicos quanto privados, que deliberam sobre a realidade pesqueira.
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          O Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA, mais do que uma plataforma de sustentabilidade, é um veículo para a empoderamento e representatividade dos pescadores artesanais. Ao buscar garantir que esses profissionais estejam integrados às esferas que têm influência sobre a realidade pesqueira, a iniciativa busca não apenas reconhecer, mas também amplificar a importância e a expertise dos que vivem essa realidade diariamente.
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Busca priorizar a inclusão dos pescadores em fóruns, debates e espaços de decisão, trabalhando incansavelmente para abrir portas e garantir que suas perspectivas sejam ouvidas e consideradas;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Promover a informação, workshops e treinamentos contínuos para que os pescadores se familiarizem com os principais temas, desafios e oportunidades que impactam o setor pesqueiro.
-        </.text>
+        <div class="collapsed-menu-content">
+          <div class="linha-pesquisa">
+            <div>
+              <.text size="h4" color="text-black-80">
+                No coração do Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA - está a firme convicção de que os pescadores artesanais devem ser protagonistas ativos nas discussões que afetam diretamente suas vidas e profissões. Esta iniciativa busca, acima de tudo, garantir que esses profissionais não só tenham voz, mas, também, presença marcante nos cenários, tanto públicos quanto privados, que deliberam sobre a realidade pesqueira.
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                O Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA, mais do que uma plataforma de sustentabilidade, é um veículo para a empoderamento e representatividade dos pescadores artesanais. Ao buscar garantir que esses profissionais estejam integrados às esferas que têm influência sobre a realidade pesqueira, a iniciativa busca não apenas reconhecer, mas também amplificar a importância e a expertise dos que vivem essa realidade diariamente.
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Busca priorizar a inclusão dos pescadores em fóruns, debates e espaços de decisão, trabalhando incansavelmente para abrir portas e garantir que suas perspectivas sejam ouvidas e consideradas;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Promover a informação, workshops e treinamentos contínuos para que os pescadores se familiarizem com os principais temas, desafios e oportunidades que impactam o setor pesqueiro.
+              </.text>
+            </div>
+
+            <div class="membros">
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Naipa"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={imagem} />
+                </div>
+                <div :if={imagem == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= equipe %>
+                  </.text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-09.webp"} />
@@ -647,29 +679,61 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <.text size="h4" color="text-black-80">
-          O Núcleo de Informação serve como o coração pulsante e centralizador de todos os registros documentais do PEA. Suas funções são amplas e vitais para garantir a transparência, organização e eficácia das operações do programa, realizando a pós-checagem das ações realizadas e sua devida relatoria. Em essência, o Núcleo de Informação é a biblioteca viva do PEA, preservando seu passado, registrando seu presente e, assim, ajudando a moldar seu futuro. Ele assegura que cada pedaço de informação seja tratado com a importância que merece, criando um legado duradouro de conhecimento e realização.
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          A seguir, descrevemos suas principais responsabilidades:
-        </.text>
-        <div class="margin"></div>
-        <.text size="h4" color="text-black-80">
-          Recebimento e Catalogação de cada relatório, plano de trabalho, resultado de pesquisa ou qualquer outro documento relevante que chega ou é produzido pelo  PEA é imediatamente encaminhado ao Núcleo de Informação. Aqui, estes documentos são meticulosamente catalogados, garantindo fácil acesso e rastreabilidade;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          A Construção e manutenção atualizada da “Árvore do IBAMA” é uma das tarefas primordiais deste Núcleo. Esta estrutura documental permite que todo o histórico do PEA seja preservado de forma lógica e hierarquizada, facilitando consultas e revisões futuras;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Promover a Consolidação do Relatório Anual, o Núcleo é responsável por compilar, analisar e consolidar todas as informações em um relatório anual abrangente que é remetido à Petrobras e IBAMA para ciência dos avanços, desafios e realizações do PEA ao longo de cada ano;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Arquivamento de todos os materiais de publicidade relacionados ao PEA;
-        </.text>
-        <.text size="h4" color="text-black-80">
-          Garantia de Transparência das informações do PEA, permitindo uma maior centralização de todas as informações e a garantia de seu fácil acesso. Qualquer parte interessada, seja interna ou externa, pode solicitar ao Núcleo de Informação atualizadas sobre qualquer aspecto do PEA.
-        </.text>
+        <div class="collapsed-menu-content">
+          <div class="linha-pesquisa">
+            <div>
+              <.text size="h4" color="text-black-80">
+                O Núcleo de Informação serve como o coração pulsante e centralizador de todos os registros documentais do PEA. Suas funções são amplas e vitais para garantir a transparência, organização e eficácia das operações do programa, realizando a pós-checagem das ações realizadas e sua devida relatoria. Em essência, o Núcleo de Informação é a biblioteca viva do PEA, preservando seu passado, registrando seu presente e, assim, ajudando a moldar seu futuro. Ele assegura que cada pedaço de informação seja tratado com a importância que merece, criando um legado duradouro de conhecimento e realização.
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                A seguir, descrevemos suas principais responsabilidades:
+              </.text>
+              <div class="margin"></div>
+              <.text size="h4" color="text-black-80">
+                Recebimento e Catalogação de cada relatório, plano de trabalho, resultado de pesquisa ou qualquer outro documento relevante que chega ou é produzido pelo  PEA é imediatamente encaminhado ao Núcleo de Informação. Aqui, estes documentos são meticulosamente catalogados, garantindo fácil acesso e rastreabilidade;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                A Construção e manutenção atualizada da “Árvore do IBAMA” é uma das tarefas primordiais deste Núcleo. Esta estrutura documental permite que todo o histórico do PEA seja preservado de forma lógica e hierarquizada, facilitando consultas e revisões futuras;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Promover a Consolidação do Relatório Anual, o Núcleo é responsável por compilar, analisar e consolidar todas as informações em um relatório anual abrangente que é remetido à Petrobras e IBAMA para ciência dos avanços, desafios e realizações do PEA ao longo de cada ano;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Arquivamento de todos os materiais de publicidade relacionados ao PEA;
+              </.text>
+              <.text size="h4" color="text-black-80">
+                Garantia de Transparência das informações do PEA, permitindo uma maior centralização de todas as informações e a garantia de seu fácil acesso. Qualquer parte interessada, seja interna ou externa, pode solicitar ao Núcleo de Informação atualizadas sobre qualquer aspecto do PEA.
+              </.text>
+            </div>
+
+            <div class="membros">
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Núcleo de Informação"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={imagem} />
+                </div>
+                <div :if={imagem == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= equipe %>
+                  </.text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-10.webp"} />
@@ -709,20 +773,26 @@
               </.text>
             </div>
             <div class="membros">
-              <div :for={membro <- @membros["Núcleo Criativo"]} class="membro-equipe">
-                <div :if={membro["imagem"] != ""} class="membro-circle-transparent">
-                  <img src={membro["imagem"]} />
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Núcleo Criativo"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={imagem} />
                 </div>
-                <div :if={membro["imagem"] == ""} class="membro-circle"></div>
+                <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= membro["nome"] %></.text>
-                    <.text :if={membro["lider"]} size="h5" color="text-blue-100" class="lider">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= membro["equipe"] %>
+                    <%= equipe %>
                   </.text>
                 </div>
               </div>
@@ -778,20 +848,26 @@
               </.text>
             </div>
             <div class="membros">
-              <div :for={membro <- @membros["Núcleo Censo"]} class="membro-equipe">
-                <div :if={membro["imagem"] != ""} class="membro-circle-transparent">
-                  <img src={membro["imagem"]} />
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Núcleo Censo"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={imagem} />
                 </div>
-                <div :if={membro["imagem"] == ""} class="membro-circle"></div>
+                <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= membro["nome"] %></.text>
-                    <.text :if={membro["lider"]} size="h5" color="text-blue-100" class="lider">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= membro["equipe"] %>
+                    <%= equipe %>
                   </.text>
                 </div>
               </div>
