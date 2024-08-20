@@ -63,23 +63,23 @@
       "lider": false
     }
   ],
-  "Equipe Armação dos Búzios": [
+  "Equipe de Campo - Armação dos Búzios": [
     {
       "nome": "Marcos Vinicius Cardoso Mello",
       "equipe": "Equipe Armação dos Búzios",
-      "imagem": "url_imagem_marcos",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_armacao_dos_buzios/equipe_buzios_marcus_vinicius_cardoso.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fYXJtYWNhb19kb3NfYnV6aW9zL2VxdWlwZV9idXppb3NfbWFyY3VzX3ZpbmljaXVzX2NhcmRvc28ucG5nIiwiaWF0IjoxNzI0MTc2ODY2LCJleHAiOjE3NTU3MTI4NjZ9.2BMqt54bLOEYNjtbcbHNpmEhycOaktiyCSZ_x6rH7ds&t=2024-08-20T18%3A01%3A07.139Z",
       "lider": false
     },
     {
       "nome": "Gerson Rodrigues do Couto",
       "equipe": "Equipe de Campo - Armação dos Búzios",
-      "imagem": "url_imagem_gerson",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_armacao_dos_buzios/equipe_buzios_gerson_rodrigues.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fYXJtYWNhb19kb3NfYnV6aW9zL2VxdWlwZV9idXppb3NfZ2Vyc29uX3JvZHJpZ3Vlcy5wbmciLCJpYXQiOjE3MjQxNzY4NDcsImV4cCI6MTc1NTcxMjg0N30.nA9bLMrlBVJwJp24iOxhgzClmKuQlXNHS39wf_qMJnA&t=2024-08-20T18%3A00%3A47.385Z",
       "lider": false
     },
     {
       "nome": "Patricia Pereira da Silva",
       "equipe": "Equipe de Campo - Armação dos Búzios",
-      "imagem": "url_imagem_patricia",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_armacao_dos_buzios/equipe_buzios_patricia_pereira.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fYXJtYWNhb19kb3NfYnV6aW9zL2VxdWlwZV9idXppb3NfcGF0cmljaWFfcGVyZWlyYS5wbmciLCJpYXQiOjE3MjQxNzY4NzUsImV4cCI6MTc1NTcxMjg3NX0.kmX9JOtclTdBcndCjuCg-zrjKnIzrZhsD8sTnyRPxuE&t=2024-08-20T18%3A01%3A15.649Z",
       "lider": false
     }
   ],
@@ -87,31 +87,31 @@
     {
       "nome": "Giovana dos Santos Azeredo Andrade",
       "equipe": "Equipe de Campo - Campos dos Goytacazes",
-      "imagem": "url_imagem_giovana",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_campos_dos_goytacazes/equipe_campos_giovana_dos_santos.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FtcG9zX2Rvc19nb3l0YWNhemVzL2VxdWlwZV9jYW1wb3NfZ2lvdmFuYV9kb3Nfc2FudG9zLnBuZyIsImlhdCI6MTcyNDE3NzM1MywiZXhwIjoxNzU1NzEzMzUzfQ.d-ZmtMQBLixN5N2lVBRENY-ROiVFCHYJPijw_SDRdCk&t=2024-08-20T18%3A09%3A13.667Z",
       "lider": false
     },
     {
       "nome": "Deisimara Barreto Peixoto Gomes Morais",
       "equipe": "Equipe de Campo - Campos dos Goytacazes",
-      "imagem": "url_imagem_deisimara",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_campos_dos_goytacazes/equipe_campos_deisimara_barreto.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FtcG9zX2Rvc19nb3l0YWNhemVzL2VxdWlwZV9jYW1wb3NfZGVpc2ltYXJhX2JhcnJldG8ucG5nIiwiaWF0IjoxNzI0MTc3MzMyLCJleHAiOjE3NTU3MTMzMzJ9.NBGWphbLzciAeqE3saiXlDA73gIBHxhgfMngFyNXiMQ&t=2024-08-20T18%3A08%3A52.676Z",
       "lider": false
     },
     {
       "nome": "Manuela Chagas Manhães",
       "equipe": "Equipe de Campo - Campos dos Goytacazes",
-      "imagem": "url_imagem_manuela",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_campos_dos_goytacazes/equipe_campos_manuela_manhaes.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FtcG9zX2Rvc19nb3l0YWNhemVzL2VxdWlwZV9jYW1wb3NfbWFudWVsYV9tYW5oYWVzLnBuZyIsImlhdCI6MTcyNDE3NzM2MywiZXhwIjoxNzU1NzEzMzYzfQ.QMa48JQzwCfgm4NtPewEC-yMsOhvqq5RJyTsHuIDtZ0&t=2024-08-20T18%3A09%3A24.061Z",
       "lider": false
     },
     {
       "nome": "Victor Hugo Oliveira Dias",
       "equipe": "Equipe de Campo - Campos dos Goytacazes",
-      "imagem": "url_imagem_victor_hugo",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_campos_dos_goytacazes/equipe_campos_victor_hugo_oliveira.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FtcG9zX2Rvc19nb3l0YWNhemVzL2VxdWlwZV9jYW1wb3NfdmljdG9yX2h1Z29fb2xpdmVpcmEucG5nIiwiaWF0IjoxNzI0MTc3MzczLCJleHAiOjE3NTU3MTMzNzN9.ISvQ43wj-AvFFTNl2PmsbXZbZKgoJA-oeEnDApKC6Q8&t=2024-08-20T18%3A09%3A33.157Z",
       "lider": false
     },
     {
       "nome": "Wayne Lyana dos Santos Oliveira",
       "equipe": "Equipe de Campo - Campos dos Goytacazes",
-      "imagem": "url_imagem_wayne",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_campos_dos_goytacazes/equipe_campos_wayne_oliveira.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FtcG9zX2Rvc19nb3l0YWNhemVzL2VxdWlwZV9jYW1wb3Nfd2F5bmVfb2xpdmVpcmEucG5nIiwiaWF0IjoxNzI0MTc3MzgyLCJleHAiOjE3NTU3MTMzODJ9.xqFz5Pd6d9t0O1y3YI_8yDEiwOqkZHvpFM9sUTYPe6c&t=2024-08-20T18%3A09%3A42.240Z",
       "lider": false
     }
   ],
@@ -157,25 +157,25 @@
     {
       "nome": "Angeline da Conceição Lopes",
       "equipe": "Equipe de Campo - Cabo Frio",
-      "imagem": "url_imagem_angeline",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_cabo_frio/equipe_cabo_frio_angeline_lopes.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2Fib19mcmlvL2VxdWlwZV9jYWJvX2ZyaW9fYW5nZWxpbmVfbG9wZXMucG5nIiwiaWF0IjoxNzI0MTc3MDIwLCJleHAiOjE3NTU3MTMwMjB9.WIY06vy8x5OSJg1_7BpHkLzWVk62Dvtd6jB38HuMwjA&t=2024-08-20T18%3A03%3A40.948Z",
       "lider": false
     },
     {
       "nome": "Eleazar Oliva Junior",
       "equipe": "Equipe de Campo - Cabo Frio",
-      "imagem": "url_imagem_eleazar",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_cabo_frio/equipe_cabo_frio_eleazar_oliva.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2Fib19mcmlvL2VxdWlwZV9jYWJvX2ZyaW9fZWxlYXphcl9vbGl2YS5wbmciLCJpYXQiOjE3MjQxNzcwMzEsImV4cCI6MTc1NTcxMzAzMX0.sSIA4B1o-EQFIvcNp4oH2cmzuBDOfIwWwQUfxIDOGpw&t=2024-08-20T18%3A03%3A51.882Z",
       "lider": false
     },
     {
       "nome": "Rafaela Machado de Almeida Schuindt",
       "equipe": "Equipe de Campo - Cabo Frio",
-      "imagem": "url_imagem_rafaela",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_cabo_frio/equipe_cabo_frio_rafaela_machado.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2Fib19mcmlvL2VxdWlwZV9jYWJvX2ZyaW9fcmFmYWVsYV9tYWNoYWRvLnBuZyIsImlhdCI6MTcyNDE3NzA0MSwiZXhwIjoxNzU1NzEzMDQxfQ.emIkF5wh-iZ8W6d3QBMc64Y4oLoG-BlZPZ4f3aUxb24&t=2024-08-20T18%3A04%3A01.854Z",
       "lider": false
     },
     {
       "nome": "Rodrigo da Silva Flauzino",
       "equipe": "Equipe de Campo - Cabo Frio",
-      "imagem": "url_imagem_rodrigo",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_cabo_frio/equipe_cabo_frio_rodrigo_flauzino.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2Fib19mcmlvL2VxdWlwZV9jYWJvX2ZyaW9fcm9kcmlnb19mbGF1emluby5wbmciLCJpYXQiOjE3MjQxNzcwNTIsImV4cCI6MTc1NTcxMzA1Mn0.XbCNqitqribrIRUoG9n6-eQ1ZyoTxcuVQS_5PQJ-XT0&t=2024-08-20T18%3A04%3A12.499Z",
       "lider": false
     }
   ],
@@ -183,31 +183,31 @@
     {
       "nome": "Ana Carolini Macedo da Silva",
       "equipe": "Equipe de Campo - Carapebus/Macaé",
-      "imagem": "url_imagem_ana_carolini",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_carapebus_macae/equipe_macae_e_carapebus_ana_carolini_macedo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FyYXBlYnVzX21hY2FlL2VxdWlwZV9tYWNhZV9lX2NhcmFwZWJ1c19hbmFfY2Fyb2xpbmlfbWFjZWRvLnBuZyIsImlhdCI6MTcyNDE3NzA4OSwiZXhwIjoxNzU1NzEzMDg5fQ.lk6JqP0SNysX85PDHk5efVQyDvc0jMVvguXFm_0f-aA&t=2024-08-20T18%3A04%3A49.930Z",
       "lider": false
     },
     {
       "nome": "Brenner Chagas Maximiano",
       "equipe": "Equipe de Campo - Carapebus/Macaé",
-      "imagem": "url_imagem_brenner",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_carapebus_macae/equipe_macae_e_carapebus_brenner_chagas.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FyYXBlYnVzX21hY2FlL2VxdWlwZV9tYWNhZV9lX2NhcmFwZWJ1c19icmVubmVyX2NoYWdhcy5wbmciLCJpYXQiOjE3MjQxNzcxMDYsImV4cCI6MTc1NTcxMzEwNn0.8_vhlqKQUpEwNKwzl4x391Rjl5TFRukyuQHGTGhnhZc&t=2024-08-20T18%3A05%3A06.580Z",
       "lider": false
     },
     {
       "nome": "Carolayne dos Santos",
       "equipe": "Equipe de Campo - Carapebus/Macaé",
-      "imagem": "url_imagem_carolayne",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_carapebus_macae/equipe_macae_e_carapebus_brenner_chagas.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FyYXBlYnVzX21hY2FlL2VxdWlwZV9tYWNhZV9lX2NhcmFwZWJ1c19icmVubmVyX2NoYWdhcy5wbmciLCJpYXQiOjE3MjQxNzcxMDYsImV4cCI6MTc1NTcxMzEwNn0.8_vhlqKQUpEwNKwzl4x391Rjl5TFRukyuQHGTGhnhZc&t=2024-08-20T18%3A05%3A06.580Z",
       "lider": false
     },
     {
       "nome": "Glayson Vitor Pecanha Rodrigues",
       "equipe": "Equipe de Campo - Carapebus/Macaé",
-      "imagem": "url_imagem_glayson",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_carapebus_macae/equipe_macae_e_carapebus_glayson_vitor_rodrigues.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FyYXBlYnVzX21hY2FlL2VxdWlwZV9tYWNhZV9lX2NhcmFwZWJ1c19nbGF5c29uX3ZpdG9yX3JvZHJpZ3Vlcy5wbmciLCJpYXQiOjE3MjQxNzcxMzEsImV4cCI6MTc1NTcxMzEzMX0.W_I-gIOpMK1T-nKneuNbugsXbvtjzfqbY-qGJLYgt1M&t=2024-08-20T18%3A05%3A33.141Z",
       "lider": false
     },
     {
       "nome": "Valéria Docílio da Silva",
       "equipe": "Equipe de Campo - Carapebus/Macaé",
-      "imagem": "url_imagem_valeria",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_carapebus_macae/equipe_macae_e_carapebus_valeria_docilio.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fY2FyYXBlYnVzX21hY2FlL2VxdWlwZV9tYWNhZV9lX2NhcmFwZWJ1c192YWxlcmlhX2RvY2lsaW8ucG5nIiwiaWF0IjoxNzI0MTc3MTQxLCJleHAiOjE3NTU3MTMxNDF9.UpJ73kEPS8flup9lzQY_vO2s-68rvh7O5cPhqJXMPcw&t=2024-08-20T18%3A05%3A41.562Z",
       "lider": false
     }
   ],
@@ -215,13 +215,13 @@
     {
       "nome": "Adrya Pessanha de Paula",
       "equipe": "Equipe de Campo - Quissamã",
-      "imagem": "url_imagem_adrya",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_quissama/equipe_quissama_adrya_pessanha.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fcXVpc3NhbWEvZXF1aXBlX3F1aXNzYW1hX2FkcnlhX3Blc3NhbmhhLnBuZyIsImlhdCI6MTcyNDE3NzQxMywiZXhwIjoxNzU1NzEzNDEzfQ.IHX0k5suBRGEQ7GGunYgWqI_F0-9CAYeLtgyWZYDT6k&t=2024-08-20T18%3A10%3A13.693Z",
       "lider": false
     },
     {
       "nome": "Rafael Moraes da Silva",
       "equipe": "Equipe de Campo - Quissamã",
-      "imagem": "url_imagem_rafael_moraes",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_quissama/equipe_quissama_rafael_moraes.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fcXVpc3NhbWEvZXF1aXBlX3F1aXNzYW1hX3JhZmFlbF9tb3JhZXMucG5nIiwiaWF0IjoxNzI0MTc3NDIyLCJleHAiOjE3NTU3MTM0MjJ9.w0VazG_BYVqk11PU_tzl8y75Ng5AjlfvyZo3ufiDds4&t=2024-08-20T18%3A10%3A22.274Z",
       "lider": false
     }
   ],
@@ -229,19 +229,19 @@
     {
       "nome": "Elaine Maria de Barros",
       "equipe": "Equipe de Campo - Rio das Ostras",
-      "imagem": "url_imagem_elaine",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_rio_das_ostras/equipe_rio_das_ostras_elaine_maria_de_barros.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fcmlvX2Rhc19vc3RyYXMvZXF1aXBlX3Jpb19kYXNfb3N0cmFzX2VsYWluZV9tYXJpYV9kZV9iYXJyb3MucG5nIiwiaWF0IjoxNzI0MTc3MjQ0LCJleHAiOjE3NTU3MTMyNDR9.5p9WWMGXg7ESq75Dgt01nCrBU2A-PMEjoOjYHaC2h_g&t=2024-08-20T18%3A07%3A24.547Z",
       "lider": false
     },
     {
       "nome": "Maria Clara Monteiro Christh de Souza",
       "equipe": "Equipe de Campo - Rio das Ostras",
-      "imagem": "url_imagem_maria_clara",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_rio_das_ostras/equipe_rio_das_ostras_maria_clara_monteiro.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fcmlvX2Rhc19vc3RyYXMvZXF1aXBlX3Jpb19kYXNfb3N0cmFzX21hcmlhX2NsYXJhX21vbnRlaXJvLnBuZyIsImlhdCI6MTcyNDE3NzI1NSwiZXhwIjoxNzU1NzEzMjU1fQ.CgRdm9dPb9yGRtzi9g-OI9DmEPbD6ig1rJFItuRQ9C8&t=2024-08-20T18%3A07%3A35.984Z",
       "lider": false
     },
     {
       "nome": "Munira de Andrade Ferreira",
       "equipe": "Equipe de Campo - Rio das Ostras",
-      "imagem": "url_imagem_munira",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_rio_das_ostras/equipe_rio_das_ostras_munira_de_andrade.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fcmlvX2Rhc19vc3RyYXMvZXF1aXBlX3Jpb19kYXNfb3N0cmFzX211bmlyYV9kZV9hbmRyYWRlLnBuZyIsImlhdCI6MTcyNDE3NzI2OCwiZXhwIjoxNzU1NzEzMjY4fQ.AQcYtWSpbGC9LDwLACWr2SrbIS_b9766O4mv_icKJfs&t=2024-08-20T18%3A07%3A48.951Z",
       "lider": false
     }
   ],
@@ -249,19 +249,19 @@
     {
       "nome": "Kissila da Silva Rangel",
       "equipe": "Equipe de Campo - São Francisco de Itabapoana",
-      "imagem": "url_imagem_kissila",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_sao_francisco_de_itabapoana/equipe_sfi_kissila_rangel.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fc2FvX2ZyYW5jaXNjb19kZV9pdGFiYXBvYW5hL2VxdWlwZV9zZmlfa2lzc2lsYV9yYW5nZWwucG5nIiwiaWF0IjoxNzI0MTc3NDUxLCJleHAiOjE3NTU3MTM0NTF9.ILZbsYEn7o-4RvL-mChwsvWjBl9RyKNJjMoEtbBctGM&t=2024-08-20T18%3A10%3A51.189Z",
       "lider": false
     },
     {
       "nome": "Luiz Fernando Lima da Mata Filho",
       "equipe": "Equipe de Campo - São Francisco de Itabapoana",
-      "imagem": "url_imagem_luiz_fernando",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_sao_francisco_de_itabapoana/equipe_sfi_luis_fernando_lima.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fc2FvX2ZyYW5jaXNjb19kZV9pdGFiYXBvYW5hL2VxdWlwZV9zZmlfbHVpc19mZXJuYW5kb19saW1hLnBuZyIsImlhdCI6MTcyNDE3NzQ2NCwiZXhwIjoxNzU1NzEzNDY0fQ.t3bKclnmRkdwJPrs4EPWa6bi_9VV0gp_MSWSo1BOPaA&t=2024-08-20T18%3A11%3A05.104Z",
       "lider": false
     },
     {
       "nome": "Maurício Ferreira Costa",
       "equipe": "Equipe de Campo - São Francisco de Itabapoana",
-      "imagem": "url_imagem_mauricio",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_sao_francisco_de_itabapoana/equipe_sfi_mauricio_costa.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fc2FvX2ZyYW5jaXNjb19kZV9pdGFiYXBvYW5hL2VxdWlwZV9zZmlfbWF1cmljaW9fY29zdGEucG5nIiwiaWF0IjoxNzI0MTc3NDc0LCJleHAiOjE3NTU3MTM0NzR9.6F2Fb3CdCj_97scCVIKbYBMSLyFqyAxAdrPYFkiodKI&t=2024-08-20T18%3A11%3A14.717Z",
       "lider": false
     }
   ],
@@ -269,19 +269,19 @@
     {
       "nome": "Antônio Peruzzi Netto",
       "equipe": "Equipe de Campo - São João da Barra",
-      "imagem": "url_imagem_antonio",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_sao_joao_da_barra/equipe_sjb_antonio_peruzzi.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fc2FvX2pvYW9fZGFfYmFycmEvZXF1aXBlX3NqYl9hbnRvbmlvX3BlcnV6emkucG5nIiwiaWF0IjoxNzI0MTc3NTA0LCJleHAiOjE3NTU3MTM1MDR9.nq3clYyB6PfF9zHz4rlJlheT8rG0OkT5pxXxmg2yFmo&t=2024-08-20T18%3A11%3A44.652Z",
       "lider": false
     },
     {
       "nome": "Jhammirys Fruzoni L. de Souza",
       "equipe": "Equipe de Campo - São João da Barra",
-      "imagem": "url_imagem_jhammirys",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_sao_joao_da_barra/equipe_sjb_jhammirys_fruzoni.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fc2FvX2pvYW9fZGFfYmFycmEvZXF1aXBlX3NqYl9qaGFtbWlyeXNfZnJ1em9uaS5wbmciLCJpYXQiOjE3MjQxNzc1MTQsImV4cCI6MTc1NTcxMzUxNH0.4QK7Cc2sLuzTLIwx7NsvEUFat-hdqvZj9hW2Azkc_uQ&t=2024-08-20T18%3A11%3A54.501Z",
       "lider": false
     },
     {
       "nome": "Victor dos Santos Carvalho",
       "equipe": "Equipe de Campo - São João da Barra",
-      "imagem": "url_imagem_victor_santos",
+      "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/equipe_de_campo_sao_joao_da_barra/equipe_sjb_victor_dos_santos.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9lcXVpcGVfZGVfY2FtcG9fc2FvX2pvYW9fZGFfYmFycmEvZXF1aXBlX3NqYl92aWN0b3JfZG9zX3NhbnRvcy5wbmciLCJpYXQiOjE3MjQxNzc1MjIsImV4cCI6MTc1NTcxMzUyMn0.cQ5rciDaM1uNy5cAJd1z4ufZfaDtUqXPkfi8EnCfzjw&t=2024-08-20T18%3A12%3A03.024Z",
       "lider": false
     }
   ],

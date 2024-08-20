@@ -6,9 +6,26 @@ defmodule PescarteWeb.EquipesController do
     linhas_pesquisas = get_data_from_file("linhas_pesquisas.json")
     membros = get_data_from_file("membros.json")
 
+    nucleo_norte = [
+      "Equipe de Campo - Campos dos Goytacazes",
+      "Equipe de Campo - Quissamã",
+      "Equipe de Campo - São João da Barra",
+      "Equipe de Campo - São Francisco de Itabapoana"
+    ]
+
+    nucleo_sul = [
+      "Equipe de Campo - Carapebus/Macaé",
+      "Equipe de Campo - Rio das Ostras",
+      "Equipe de Campo - Arraial do Cabo",
+      "Equipe de Campo - Cabo Frio",
+      "Equipe de Campo - Armação dos Búzios"
+    ]
+
     render(conn, :show,
       linhas_pesquisas: linhas_pesquisas,
       membros: membros,
+      nucleo_norte: nucleo_norte,
+      nucleo_sul: nucleo_sul,
       error_message: nil,
       current_path: current_path
     )
