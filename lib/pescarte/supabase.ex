@@ -3,6 +3,10 @@ defmodule Pescarte.Supabase do
     use Supabase.GoTrue, client: Pescarte.Supabase.Auth
   end
 
+  defmodule Storage do
+    use Supabase.Storage, client: Pescarte.Supabase.Auth
+  end
+
   def start_link(_opts) do
     children = [__MODULE__.Auth]
     opts = [strategy: :one_for_one, name: __MODULE__]
