@@ -68,6 +68,7 @@ defmodule Pescarte.MixProject do
       {:flop, "~> 0.25"},
       {:flop_phoenix, "~> 0.22"},
       {:mox, "~> 1.0", only: [:test]},
+      {:resend, "~> 0.4.0"},
       {:rewire, "~> 0.9", only: [:test]},
       {:phoenix_html_helpers, "~> 1.0"},
       {:nimble_csv, "~> 1.1"},

@@ -1,90 +1,5 @@
-<div class="equipes-wrapper">
-  <!-- NOSSAS SEDES MUNICIPAIS -->
-  <div class="nossas-sedes-wrapper">
-    <.text size="h2" color="text-blue-100">Nossas Sedes Municipais</.text>
-    <div class="nossas-sedes-container">
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Arraial do Cabo</.text>
-          <.text size="h5">Praça da Independência, 3B - Centro.</.text>
-          <.text size="h5">Tel.: (22) 99600-2422</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Macaé</.text>
-          <.text size="h5">Rua Teixeira de Gouveia, no 732 - Centro.</.text>
-          <.text size="h5">Tel.: (22) 99600-2422</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Armação dos Búzios</.text>
-          <.text size="h5">Avenida José Bento Ribeiro Dantas, No 2935 - Manguinhos.</.text>
-          <.text size="h5">Tel.: (22) 99600-2422</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Quissamã</.text>
-          <.text size="h5">Avenida Amílcar Pereira da Silva, no 482 - Mato de Pipa.</.text>
-          <.text size="h5">Tel.: (22) 99600-2422</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Cabo Frio</.text>
-          <.text size="h5">Avenida Nilo Peçanha - Edifício Varandas do Fortes - Centro.</.text>
-          <.text size="h5">Tel.: (22) 99600-2422</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Rio das Ostras</.text>
-          <.text size="h5">Avenida Linda, no 25 - Nova Esperança.</.text>
-          <.text size="h5">Tel.: (22) 99600-2422</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Campos dos Goytacazes</.text>
-          <.text size="h5">Rua Marechal Deodoro, no 55 - Centro.</.text>
-          <.text size="h5">Tel.: (22) 3026-0412</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">São Francisco de Itabapoana</.text>
-          <.text size="h5">Avenida Vereador Edenites da Silva Viana, no 107 - Centro.</.text>
-          <.text size="h5">Tel.: (22) 99892-6706</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">Carapebus</.text>
-          <.text size="h5">Rua João Pedro Sobrinho, no 130 - Centro.</.text>
-          <.text size="h5">Tel.: (22) 99600-2422</.text>
-        </div>
-      </div>
-      <div class="sede-detail">
-        <Lucideicons.fish />
-        <div class="sede-text">
-          <.text size="h5">São João da Barra</.text>
-          <.text size="h5">Rua Senhor dos Passos, 243 - Chatuba.</.text>
-          <.text size="h5">Tel.: (22) 99827-8701</.text>
-        </div>
-      </div>
-    </div>
-  </div>
+<main class="equipes-wrapper">
+
   <!-- NOSSAS EQUIPES DE TRABALHO -->
   <div class="nossas-equipes-wrapper">
     <.text size="h2" color="text-blue-100">Nossas Equipes de Trabalho</.text>
@@ -94,9 +9,9 @@
         <img src={~p"/images/landing/equipes/card-01.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Coordenação Técnica</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-coordenacao-tecnica")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-coordenacao-tecnica")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -104,22 +19,33 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          A Coordenação Técnica desempenha um papel fundamental na condução de um projeto de educação ambiental associado ao licenciamento de petróleo e gás. Ela é responsável por garantir que todas as atividades se alinhem aos objetivos estabelecidos no Plano de Trabalho, mantendo a integridade e eficácia do projeto. Assim, a Coordenação Técnica serve como o alicerce que mantém o projeto coeso, relevante e eficaz, assegurando que as ações planejadas sejam executadas dentro dos parâmetros estabelecidos.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Promover o Planejamento e a Estratégia do PEA por meio da definição de objetivos claros que garantam que as atividades estejam em consonância com os princípios do licenciamento ambiental federal de petróleo e gás;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover a Integração Interdisciplinar, trabalhando em estreita colaboração com especialistas de diferentes áreas – de biólogos a comunicadores – garantindo uma abordagem holística ao ensino e aprendizado promovidos pelo PEA;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover o Monitoramento e a Avaliação das ações do PEA de modo a acompanhar o progresso das atividades, avaliando sua eficácia e fazendo ajustes conforme necessário para alcançar os melhores resultados;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover a aproximação com os Stakeholders, estabelecendo uma comunicação com todas as partes interessadas, incluindo autoridades reguladoras, comunidade local, empresas de petróleo e gás e organizações ambientais, garantindo que todas as perspectivas sejam consideradas na ação a ser desenvolvidas pelo PEA;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover a atualização contínua dos objetivos do PEA, garantindo que o conteúdo educativo esteja alinhado aos objetivos de alcançar uma melhor organização social por meio de projeto de geração de trabalho e renda.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-02.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Pedagógico</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-pedagogico")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-pedagogico")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -127,22 +53,40 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          Em meio aos desafios contemporâneos da sustentabilidade e preservação ambiental, as comunidades de pesca artesanal são atores-chave, desempenhando um papel vital nas cadeias produtivas e na conservação dos ecossistemas aquáticos. O Núcleo Pedagógico do Projeto de Educação Ambiental surge como um facilitador nesse cenário, direcionando esforços para formar e capacitar a Equipe do projeto e os próprio pescadores artesanais e comunidades relacionadas na prática da pesca responsável e sustentável.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Seus objetivos são:
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Integração de Práticas Educacionais buscando orientar as comunidades pesqueiras na assimilação de conhecimentos que reforçam os processos de auto organização e ação dos Sujeitos da Ação Educativa;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Desenvolvimento Comunitário por meio da formação continuada em que o Núcleo visa fortalecer as habilidades e competências da comunidade pesqueira, adaptando-se às mudanças ambientais e econômicas;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Desenvolvimento de recursos e treinamentos em que são oferecidos materiais didáticos pedagógicos específicos com vistas a capacitação de pescadores e líderes comunitários para atuarem de forma coletiva em nome dos interesses da classe pesqueira;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realiza a Supervisão e busca promover iniciativas educativas que são continuamente monitoradas e avaliadas, visando à excelência e à modernização das práticas educativas ministradas pelo PEA;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Mantém o Foco na Cultura e na Tradição, respeitando e valorizando as tradições pesqueiras, enfatizando uma educação que é culturalmente relevante e adaptada às necessidades das comunidades;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Busca manter o princípio da melhoria contínua, acompanhando os indicadores de desempenho e dando e recebendo feedback das comunidades;
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-03.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Administrativo</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-administrativo")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-administrativo")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -150,22 +94,52 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          O Núcleo Administrativo desempenha funções essenciais no projeto, garantindo que os objetivos sejam alcançados de forma organizada e eficaz. Em um projeto de Educação Ambiental vinculado ao licenciamento de petróleo e gás, as responsabilidades desse núcleo são aumentadas devido às especificidades e sensibilidades associadas tanto aos requisitos da indústria petrolífera quanto à comunidade atendida, tendo em vista responder às demandas do Órgão Ambiental. Aqui estão algumas das ações desenvolvidas pelo Núcleo Administrativo.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80 bold">
+          Atividades e Ações
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Acompanhamento das Reuniões em que ocorrem as definições de metas e objetivos para o programa de educação ambiental;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Acompanhamento da execução orçamentária;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Contratação e Gerenciamento de Pessoal;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Contratação de especialistas, instrutores, facilitadores e outros profissionais necessários à execução do PEA;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Execução da Logística dos eventos, workshops e seminários;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar as solicitações em tempo hábil dos recursos necessários para a execução das atividades, como materiais didáticos, equipamentos, espaços para realização de eventos, entre outros;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Acompanhamento das demandas de materiais de comunicação, como folhetos, vídeos e plataformas digitais;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Preparação e apresentação regular de relatórios de medição do projeto;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Manutenção de registros detalhados de todas as atividades, participação dos stakeholders, impactos alcançados e desafios enfrentados;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Para o projeto é essencial que o Núcleo Administrativo opere com transparência, integridade e eficiência, dado os compromissos assumidos pela educação ambiental nas comunidades atendidas pelo PEA Pescarte.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-04.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Norte</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-norte")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-norte")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -173,22 +147,66 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          Dada a importância de uma gestão regionalizada para efetivar ações do PEA Pescarte e considerando a abordagem territorial e multidimensional que precisa ser realizada, os Núcleos de Ações Regionais (Núcleo Norte e Núcleo Sul) são responsáveis pela execução de tarefas específicas. Eles atuam de forma coordenada de forma a atenderem as comunidades de pesca em cada município, ao mesmo tempo que promovem a sinergia inter-regional.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Realizar o mapeamento e diagnóstico contínuo das atividades pesqueiras em cada município, identificando as principais demandas, oportunidades e desafios;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar diagnósticos socioeconômicos e ambientais para entender as características e necessidades específicas de cada comunidade de pesca;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Estabelecer canais de comunicação eficientes entre as equipes dos municípios dentro de cada núcleo e entre os dois núcleos;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar reuniões periódicas de coordenação no núcleo e entre os núcleos para garantir que as ações estejam alinhadas e que os recursos estejam sendo utilizados de forma otimizada;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Desenvolver programas de capacitação e treinamento para as equipes municipais, garantindo que estejam capacitadas para implementar as ações do Plano de Trabalho;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover intercâmbios entre as equipes dos municípios para compartilhamento de boas práticas e aprendizado mútuo;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Mobilizar e organizar os Sujeitos da Ação Educativa e envolver suas respectivas comunidades nas tomadas de decisões e na implementação das ações decididas pelos núcleos;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Organizar as assembleias previstas no Plano de Trabalho em cada um dos municípios;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Implementar sistemas de monitoramento e avaliação para acompanhar o progresso e a eficácia das ações em cada município;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar avaliações periódicas para adaptar e realinhar as ações conforme necessário, garantindo que os objetivos estabelecidos sejam alcançados;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Identificar e disseminar boas práticas e inovações em gestão pesqueira, tanto dentro dos núcleos como entre eles;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Trabalhar em colaboração com outros setores relevantes, como turismo, comércio e meio ambiente, para garantir que as ações de pesca estejam alinhadas com os objetivos mais amplos de desenvolvimento regional;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Acompanhar as comunidades de pesca em fóruns regionais e nacionais, promovendo seus interesses e assegurando que suas vozes sejam ouvidas nas decisões que afetam o setor;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Garantir que os recursos sejam distribuídos de forma justa e equitativa entre os municípios, de acordo com suas necessidades e prioridades;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Documentar todas as ações por meio de relatórios;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          A colaboração, comunicação e coordenação eficazes entre os Núcleos Norte e Sul e os demais Núcleos que formam a estrutura organizativa do PEA Pescarte tem sido um dos elementos essenciais para o sucesso das ações em toda a região. As equipes municipais desempenham um papel vital na implementação das ações no território pesqueiro, garantindo que as ações sejam adaptadas às condições e necessidades locais.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-05.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Sul</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-sul")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-sul")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -196,14 +214,58 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          Dada a importância de uma gestão regionalizada para efetivar ações do PEA Pescarte e considerando a abordagem territorial e multidimensional que precisa ser realizada, os Núcleos de Ações Regionais (Núcleo Norte e Núcleo Sul) são responsáveis pela execução de tarefas específicas. Eles atuam de forma coordenada de forma a atenderem as comunidades de pesca em cada município, ao mesmo tempo que promovem a sinergia inter-regional.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Realizar o mapeamento e diagnóstico contínuo das atividades pesqueiras em cada município, identificando as principais demandas, oportunidades e desafios;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar diagnósticos socioeconômicos e ambientais para entender as características e necessidades específicas de cada comunidade de pesca;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Estabelecer canais de comunicação eficientes entre as equipes dos municípios dentro de cada núcleo e entre os dois núcleos;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar reuniões periódicas de coordenação no núcleo e entre os núcleos para garantir que as ações estejam alinhadas e que os recursos estejam sendo utilizados de forma otimizada;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Desenvolver programas de capacitação e treinamento para as equipes municipais, garantindo que estejam capacitadas para implementar as ações do Plano de Trabalho;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover intercâmbios entre as equipes dos municípios para compartilhamento de boas práticas e aprendizado mútuo;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Mobilizar e organizar os Sujeitos da Ação Educativa e envolver suas respectivas comunidades nas tomadas de decisões e na implementação das ações decididas pelos núcleos;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Organizar as assembleias previstas no Plano de Trabalho em cada um dos municípios;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Implementar sistemas de monitoramento e avaliação para acompanhar o progresso e a eficácia das ações em cada município;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar avaliações periódicas para adaptar e realinhar as ações conforme necessário, garantindo que os objetivos estabelecidos sejam alcançados;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Identificar e disseminar boas práticas e inovações em gestão pesqueira, tanto dentro dos núcleos como entre eles;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Trabalhar em colaboração com outros setores relevantes, como turismo, comércio e meio ambiente, para garantir que as ações de pesca estejam alinhadas com os objetivos mais amplos de desenvolvimento regional;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Acompanhar as comunidades de pesca em fóruns regionais e nacionais, promovendo seus interesses e assegurando que suas vozes sejam ouvidas nas decisões que afetam o setor;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Garantir que os recursos sejam distribuídos de forma justa e equitativa entre os municípios, de acordo com suas necessidades e prioridades;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Documentar todas as ações por meio de relatórios;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          A colaboração, comunicação e coordenação eficazes entre os Núcleos Norte e Sul e os demais Núcleos que formam a estrutura organizativa do PEA Pescarte tem sido um dos elementos essenciais para o sucesso das ações em toda a região. As equipes municipais desempenham um papel vital na implementação das ações no território pesqueiro, garantindo que as ações sejam adaptadas às condições e necessidades locais.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-06.webp"} />
@@ -220,7 +282,9 @@
             class="collapsed-menu-wrapper"
             phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-#{nucleos["nucleo"]}")}
           >
-            <.text size="h2" color="text-white-100">Núcleo <%= nucleos["nucleo"] %></.text>
+            <.text size="h2" color="text-white-100">
+              Núcleo <%= nucleos["nucleo"] %> - <%= nucleos["subtitulo"] %>
+            </.text>
             <Lucideicons.chevron_down />
           </div>
           <div
@@ -282,9 +346,9 @@
         <img src={~p"/images/landing/equipes/card-07.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo de Direitos e Benefícios</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-direitos-beneficios")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-direitos-beneficios")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -292,14 +356,43 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          O Núcleo de Direitos e Benefícios (NDB), criado na terceira fase do PEA Pescarte, tem como objetivo atender demandas jurídicas, incluindo a elaboração de pareceres e a organização de documentos para implementação dos PGTRs. Além disso, foca na construção participativa de estatutos e materiais de apoio sobre direitos dos pescadores artesanais. Uma característica marcante do NDB é sua ênfase nas práticas educativas voltadas para as mulheres, buscando fortalecer organizações comunitárias e promover a consciência sobre violências sofridas por elas. O núcleo utiliza a metodologia Freiriana, valorizando a educação como ferramenta de transformação social e seus principais objetivos são:
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Suprir Necessidades Jurídicas do PEA Pescarte, atuando em demandas legais emergentes do projeto;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Elaboração de Parecer Jurídico contribuindo para a definição do modelo de doação de área das Prefeituras para as cooperativas;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Levantamento Documental necessário para a implementação dos PGTRs;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Construção Participativa de Estatutos;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Elaboração das atas de fundação das cooperativas;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Desenvolver materiais referentes aos direitos dos pescadores artesanais e fornecer informações para a comunidade pesqueira;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Realizar formações críticas que destaquem a consciência histórica da mulher na sociedade;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover a conscientização sobre as várias formas de violência que as mulheres enfrentam, principalmente as naturalizadas no âmbito social, familiar e profissional;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Estimular a compreensão do papel das mulheres na sociedade e reforçar sua participação ativa em organizações comunitárias;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Contribuir para a valorização e aperfeiçoamento das estruturas organizacionais existentes na comunidade;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Utilizar o método educacional proposto por Paulo Freire para promover uma leitura crítica da realidade, visando transformações sociais e benéficas para a comunidade.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-08.webp"} />
@@ -307,9 +400,9 @@
           <.text size="h2" color="text-white-100">
             Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA
           </.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-autonomia")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-autonomia")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -317,22 +410,28 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          No coração do Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA - está a firme convicção de que os pescadores artesanais devem ser protagonistas ativos nas discussões que afetam diretamente suas vidas e profissões. Esta iniciativa busca, acima de tudo, garantir que esses profissionais não só tenham voz, mas, também, presença marcante nos cenários, tanto públicos quanto privados, que deliberam sobre a realidade pesqueira.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          O Núcleo de Autonomia e Incidência da Pesca Artesanal - NAIPA, mais do que uma plataforma de sustentabilidade, é um veículo para a empoderamento e representatividade dos pescadores artesanais. Ao buscar garantir que esses profissionais estejam integrados às esferas que têm influência sobre a realidade pesqueira, a iniciativa busca não apenas reconhecer, mas também amplificar a importância e a expertise dos que vivem essa realidade diariamente.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Busca priorizar a inclusão dos pescadores em fóruns, debates e espaços de decisão, trabalhando incansavelmente para abrir portas e garantir que suas perspectivas sejam ouvidas e consideradas;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover a informação, workshops e treinamentos contínuos para que os pescadores se familiarizem com os principais temas, desafios e oportunidades que impactam o setor pesqueiro.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-09.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo de Informação</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-informacao")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-informacao")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -340,22 +439,37 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          O Núcleo de Informação serve como o coração pulsante e centralizador de todos os registros documentais do PEA. Suas funções são amplas e vitais para garantir a transparência, organização e eficácia das operações do programa, realizando a pós-checagem das ações realizadas e sua devida relatoria. Em essência, o Núcleo de Informação é a biblioteca viva do PEA, preservando seu passado, registrando seu presente e, assim, ajudando a moldar seu futuro. Ele assegura que cada pedaço de informação seja tratado com a importância que merece, criando um legado duradouro de conhecimento e realização.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          A seguir, descrevemos suas principais responsabilidades:
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Recebimento e Catalogação de cada relatório, plano de trabalho, resultado de pesquisa ou qualquer outro documento relevante que chega ou é produzido pelo  PEA é imediatamente encaminhado ao Núcleo de Informação. Aqui, estes documentos são meticulosamente catalogados, garantindo fácil acesso e rastreabilidade;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          A Construção e manutenção atualizada da “Árvore do IBAMA” é uma das tarefas primordiais deste Núcleo. Esta estrutura documental permite que todo o histórico do PEA seja preservado de forma lógica e hierarquizada, facilitando consultas e revisões futuras;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover a Consolidação do Relatório Anual, o Núcleo é responsável por compilar, analisar e consolidar todas as informações em um relatório anual abrangente que é remetido à Petrobras e IBAMA para ciência dos avanços, desafios e realizações do PEA ao longo de cada ano;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Arquivamento de todos os materiais de publicidade relacionados ao PEA;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Garantia de Transparência das informações do PEA, permitindo uma maior centralização de todas as informações e a garantia de seu fácil acesso. Qualquer parte interessada, seja interna ou externa, pode solicitar ao Núcleo de Informação atualizadas sobre qualquer aspecto do PEA.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-10.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Criativo</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-criativo")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-criativo")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -363,22 +477,33 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          Em um mundo dominado por informações visuais e digitais, o papel de um Núcleo Criativo nunca foi tão crucial, especialmente em projetos de educação ambiental. Este núcleo, com sua paixão pela inovação e habilidade técnica, desempenha funções que vão muito além da simples criação de materiais; eles traduzem a missão do projeto para linguagens compreensíveis e envolventes, atingindo uma variedade de públicos. Em resumo, o Núcleo Criativo é a ponte entre o projeto de educação ambiental e seu público. Eles não apenas comunicam a mensagem, mas garantem que ela ressoe, inspire e eduque. Em sua essência, eles são contadores de histórias, usando ferramentas modernas para narrar uma das histórias mais importantes de nosso tempo: a necessidade de educação e ação ambiental.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Produzir Materiais de Marketing e Publicidade por meio de design gráfico, copywriting e estratégias inovadoras, o Núcleo Criativo desenvolve materiais promocionais que comunicam eficazmente a importância e os objetivos da educação ambiental, sensibilizando e educando o público;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Formatar Documentos e Publicações em busca de tornar os documentos além de visualmente atraentes, também busca garantir que sejam acessíveis e compreensíveis. Seja formatando livros, cartazes ou outros materiais educativos, o Núcleo garante que a informação seja apresentada de forma clara e envolvente;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Produzir Vídeos que buscam ser educativos e inspiradores, servindo como uma primeira introdução ao projeto, garantindo que sejam tanto informativos quanto cativantes;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Fazer a Gestão de Mídias Sociais e Site procurando manter uma presença online atualizada nas plataformas de Facebook, do Instagram e do YouTube. O Núcleo procura assegurar que o projeto permaneça relevante e acessível às comunidades de pesca. Eles não apenas atualizam informações, mas, também, engajam o público por meio de conteúdos interativos e atualizações regulares;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Promover a Integração Multimídia por meio de um post no Instagram, um vídeo no YouTube ou uma publicação no site.
+        </.text>
       </div>
       <div class="nossas-equipes-card">
         <img src={~p"/images/landing/equipes/card-11.webp"} />
         <div class="nossas-equipes-content">
           <.text size="h2" color="text-white-100">Núcleo Censo</.text>
-          <!-- <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-censo")}> -->
-            <!-- Clique Para Expandir -->
-          <!-- </div> -->
+          <div phx-click={JS.toggle(to: "#toggle-collapse-nucleo-censo")}>
+            Clique Para Expandir
+          </div>
         </div>
       </div>
       <div
@@ -386,66 +511,38 @@
         style="display: none;"
         class="nossas-equipes-content-collapsed"
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique, lorem nec maximus fermentum,
-          mauris tellus luctus nisi, quis condimentum mi odio vel quam. Integer ultricies, augue a tempor luctus,
-          quam sem vehicula justo, maximus lacinia erat elit ut massa. Interdum et malesuada fames ac ante ipsum
-          primis in faucibus. Nam commodo mi non dui blandit tempus. Quisque vitae tincidunt nisi, at vulputate mauris.
-          Vestibulum sapien augue, luctus dapibus augue a, porttitor eleifend orci. Aliquam ac urna posuere, ultricies
-          purus in, auctor ex. Maecenas lacus sapien, euismod ut risus vulputate, faucibus suscipit diam.
-        </p>
+        <.text size="h4" color="text-black-80">
+          O 2º Censo Pescarte, desenvolvido com o intuito de ser o principal instrumento empírico de análise sobre os pescadores do Brasil, teve seu início em 2022 e concluirá em dezembro de 2023. Este projeto abrange características de censos populacionais e pesquisas seccionais, permitindo uma visão abrangente tanto das estatísticas demográficas quanto das avaliações sobre políticas públicas, acesso a serviços básicos e questões relacionadas a gênero, capital social e associativismo.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Sediado na bacia de Campos, no Estado do Rio de Janeiro, o censo engloba 10 municípios costeiros da Bacia de Campos, na região Norte e região dos Lagos. Esta região, impactada pelas atividades petrolíferas, possui comunidades de pescadores com variadas características e comportamentos, tornando-se fundamental reconhecer a diversidade dentro do mesmo segmento. Por exemplo, a heterogeneidade no modo de pesca, os diferentes equipamentos e artes de pesca, os padrões de trabalho e os desafios econômicos enfrentados por essas comunidades são fatores intrínsecos à pesquisa. Em resumo, o Censo Pescarte visa fornecer um retrato detalhado e atualizado das comunidades pesqueiras na bacia de Campos, informando tomadores de decisão, acadêmicos, e a própria comunidade sobre dados relevantes pouco investigados em outras pesquisas.
+        </.text>
+        <div class="margin"></div>
+        <.text size="h4" color="text-black-80">
+          Promover a Caracterização Demográfica da população pesqueira, o que envolve contar e caracterizar a população de pescadores, registrando aspectos como sexo, idade e outros atributos demográficos, para entender a composição e a estrutura dessas comunidades;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Avaliar as Políticas Públicas destinada à essa população, investigando sua eficácia, o acesso e a percepção da qualidade das políticas públicas, identificando áreas de êxito e pontos de melhoria;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Avaliar os Serviços Básicos, determinando grau de acesso que os pescadores têm a serviços fundamentais, como saúde e educação, revelando áreas de êxito e pontos de melhoria;;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Avaliar as questões de Gênero, identificando suas dinâmicas nas comunidades pesqueiras, incluindo os papéis e responsabilidades tradicionais, bem como possíveis desigualdades enfrentadas pelas pescadoras;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Avaliar o capital social e a tendência ao associativismo, procurando compreender o nível de coesão social, a existência de organizações comunitárias e o grau de participação dos pescadores em tais grupos;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Avaliar as dinâmicas comunitárias e sua relação com as práticas Profissionais dos pescadores e pescadoras, identificando as variadas práticas e rotinas de pesca, incluindo os tipos de equipamentos e artes de pesca, horários de trabalho e outros aspectos que caracterizam a atividade pesqueira;
+        </.text>
+        <.text size="h4" color="text-black-80">
+          Identificar os desafios econômicos enfrentados pelas comunidades, como a sazonalidade, os custos de produção, o controle de preços pelos intermediários e a pluriatividade de atividades como estratégia de sobrevivência econômica.
+        </.text>
       </div>
     </div>
   </div>
   <!-- ONDE NOS ENCONTRAR -->
-  <div class="onde-nos-encontrar-wrapper">
-    <.text size="h1" color="text-white-100">Onde nos Encontrar</.text>
-    <div class="redes-sociais-wrapper">
-      <.text size="h4" color="text-white-100">
-        Estamos presentes nas redes sociais!
-      </.text>
-      <.text size="h4" color="text-white-100">
-        Clique nos botões abaixo para visitar nossos perfis.
-      </.text>
-      <div class="redes-sociais-links-wrapper">
-        <div class="redes-sociais-link">
-          <DesignSystem.link
-            target-blank
-            navigate="https://www.facebook.com/peapescarte">
-            <div class="redes-sociais-icon">
-              <Lucideicons.facebook />
-            </div>
-          </DesignSystem.link>
-          <.text size="h4" color="text-white-100">Facebook</.text>
-        </div>
-        <div class="redes-sociais-link">
-          <DesignSystem.link
-            target-blank
-            navigate="https://www.instagram.com/peapescarte/"
-          >
-            <div class="redes-sociais-icon">
-              <Lucideicons.instagram />
-            </div>
-          </DesignSystem.link>
-          <.text size="h4" color="text-white-100">Instagram</.text>
-        </div>
-        <div class="redes-sociais-link">
-          <DesignSystem.link target-blank navigate="https://www.youtube.com/PEAPescarte">
-            <div class="redes-sociais-icon">
-              <Lucideicons.youtube />
-            </div>
-          </DesignSystem.link>
-          <.text size="h4" color="text-white-100">Youtube</.text>
-        </div>
-      </div>
-    </div>
-    <div class="fale-conosco-wrapper">
-      <.text size="h4" color="text-white-100">
-        Mas, se preferir, entre em contato diretamente.
-      </.text>
-      <.button style="link">
-        <Lucideicons.message_square /> Clique Para Expandir
-      </.button>
-    </div>
-  </div>
-</div>
+  <PescarteWeb.DesignSystem.GetInTouch.render />
+</main>

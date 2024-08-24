@@ -2,6 +2,10 @@ import Config
 
 config :pescarte, env: config_env()
 
+config :pescarte, PescarteWeb,
+  notice_title_max_length: 110,
+  notice_desc_max_length: 145
+
 config :supabase_gotrue,
   endpoint: PescarteWeb.Endpoint,
   signed_in_path: "/app/pesquisa/perfil",
@@ -13,6 +17,8 @@ config :tesla, adapter: {Tesla.Adapter.Finch, name: PescarteHTTPClient}
 config :flop, repo: Pescarte.Database.Repo.Replica
 
 config :pescarte, fetch_pesagro_cotacoes: !!System.get_env("FETCH_PESAGRO_COTACOES")
+
+config :pescarte, PescarteWeb, receiver_email: "plataformapeapescarte@gmail.com"
 
 config :pescarte,
   ecto_repos: [Pescarte.Database.Repo],
