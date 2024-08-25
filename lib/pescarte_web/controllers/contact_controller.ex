@@ -14,7 +14,7 @@ defmodule PescarteWeb.ContactController do
   def send_email(conn, %{"contact_form" => contact_form_params}) do
     case ContactForm.apply_action_changeset(contact_form_params, :insert) do
       {:ok, contact_form} ->
-        client = Resend.client(api_key: "RESEND_KEY")
+        client = Resend.client()
 
         email_data = %{
           from: contact_form.sender_email,
