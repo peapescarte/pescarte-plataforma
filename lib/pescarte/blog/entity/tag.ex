@@ -1,4 +1,4 @@
-defmodule Pescarte.Blog.Models.Tag do
+defmodule Pescarte.Blog.Entity.Tag do
   use Pescarte, :model
 
   alias Pescarte.Database.Types.PublicId
