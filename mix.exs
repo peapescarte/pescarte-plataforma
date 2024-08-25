@@ -12,7 +12,6 @@ defmodule Pescarte.MixProject do
       releases: [
         pescarte: [
           strip_beams: true,
-          cookie: Base.url_encode64(:crypto.strong_rand_bytes(40)),
           validate_compile_env: true,
           quiet: true,
           include_erts: true,

@@ -10,7 +10,7 @@
   </div>
 
   <div class="atividades">
-    <%= for {index, rows} <- @mapa do %>
+    <%= for {_, rows} <- @mapa do %>
       <%= table_render(rows) %>
     <% end %>
   </div>

@@ -3,6 +3,8 @@ defmodule PescarteWeb.ContactController do
   require Logger
   alias PescarteWeb.ContactForm
 
+  @receiver_email Application.compile_env!(:pescarte, [PescarteWeb, :receiver_email])
+
   def show(conn, _params) do
     changeset = ContactForm.changeset(%{})
     current_path = conn.request_path
@@ -14,12 +16,9 @@ defmodule PescarteWeb.ContactController do
       {:ok, contact_form} ->
         client = Resend.client(api_key: "RESEND_KEY")
 
-        receiver_email =
-          Application.fetch_env!(:pescarte, PescarteWeb.Controller)[:receiver_email]
-
         email_data = %{
           from: contact_form.sender_email,
-          to: receiver_email,
+          to: @receiver_email,
           subject: contact_form.sender_option,
           html: """
           <p><strong>Nome:</strong> #{contact_form.sender_name}</p>
