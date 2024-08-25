@@ -15,8 +15,10 @@ defmodule PescarteWeb.DesignSystem.Navbar do
         </DesignSystem.link>
         <ul class="nav-menu">
           <.navlink label="Sobre" navigate={~p"/sobre"} current_path={@current_path} />
-          <.navlink label="Equipes e Sedes" navigate={~p"/equipes"} current_path={@current_path} />
+          <.navlink label="Equipes" navigate={~p"/equipes"} current_path={@current_path} />
+          <.navlink label="Sedes" navigate={~p"/sedes"} current_path={@current_path} />
           <.navlink label="Cooperativas" navigate={~p"/cooperativas"} current_path={@current_path} />
+          <.navlink label="Contato" navigate={~p"/contato"} current_path={@current_path} />
         </ul>
         <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless>
           <.button style="primary" class="login-button">
