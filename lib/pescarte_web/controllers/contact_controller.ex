@@ -37,6 +37,7 @@ defmodule PescarteWeb.ContactController do
 
             conn
             |> put_flash(:info, "Email enviado com sucesso!")
+            |> redirect(~p"/")
 
           {:error, reason} ->
             Logger.error("""
@@ -47,11 +48,13 @@ defmodule PescarteWeb.ContactController do
 
             conn
             |> put_flash(:error, "Erro ao enviar email.")
+            |> redirect(~p"/")
         end
 
       {:error, _changeset} ->
         conn
         |> put_flash(:error, "Erro na validação do formulário.")
+        |> redirect(~p"/")
     end
   end
 end
