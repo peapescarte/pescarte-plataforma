@@ -4,7 +4,11 @@
   height: 98px;
 
   .logo {
-    margin: 24px 0px 24px 100px;
+    margin: 1.5rem 0 1.5rem 6.25rem;
+
+    @media screen and (max-width: 768px) {
+      margin: 1.5rem 1.5rem;
+    }
   }
 
   .login-button {
@@ -13,7 +17,7 @@
   }
 
   .nav-menu {
-    @apply flex justify-between items-center;
+    @apply md:flex hidden justify-between items-center;
     gap: 3rem;
     margin: 21px 0;
 
