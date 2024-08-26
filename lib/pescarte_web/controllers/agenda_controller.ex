@@ -6,29 +6,31 @@ defmodule PescarteWeb.AgendaController do
   def show(conn, _params) do
     table_data =
       "appointments_data"
-      |> Pescarte.get_static_file_path("compromissos.csv")
+      |> Pescarte.get_static_file_path("agenda_setembro.csv")
       |> File.stream!()
       |> CSV.parse_stream()
       |> Stream.map(&convert_to_map/1)
       |> Enum.filter(& &1)
-      |> Enum.chunk_every(4)
-      |> Enum.with_index()
-      |> Enum.reduce(%{}, fn {lista, index}, acc -> Map.put(acc, index, lista) end)
+      |> then(fn rows ->
+        total_rows = Enum.count(rows)
+
+        rows
+        |> Enum.chunk_every(total_rows)
+        |> Enum.with_index()
+        |> Enum.reduce(%{}, fn {lista, index}, acc -> Map.put(acc, index, lista) end)
+      end)
 
     current_path = conn.request_path
 
     render(conn, :show, mapa: table_data, current_path: current_path)
   end
 
-  defp convert_to_map([meta, data, horario, duracao, atividade, local, participantes]) do
+  defp convert_to_map([data, horario, atividade, local]) do
     %{
-      meta: meta,
       data: data,
       horario: horario,
-      duracao: duracao,
       atividade: atividade,
-      local: local,
-      participantes: participantes
+      local: local
     }
   end
 end
