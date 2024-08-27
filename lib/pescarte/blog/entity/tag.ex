@@ -1,4 +1,8 @@
 defmodule Pescarte.Blog.Entity.Tag do
+  @moduledoc """
+  A entidade `Tag` fornece um CRUD básico para a mesma e é responsável por categorizar os posts do contexto Blog, para filtragem e pesquisa.
+  """
+
   use Pescarte, :model
 
   alias Pescarte.Database.Types.PublicId
@@ -69,5 +73,4 @@ defmodule Pescarte.Blog.Entity.Tag do
       {_, _} -> {:error, :not_found}
     end
   end
-
 end
