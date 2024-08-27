@@ -44,27 +44,29 @@ defmodule Pescarte.Blog.Entity.Tag do
     |> Repo.insert()
   end
 
-  @spec update_tag(String.t(), map()) :: {:ok, :updated} | {:error, :not_found}
+  @spec update_tag(String.t(), map()) :: {:ok, Tag.t()} | {:error, :not_found}
   def update_tag(id, attrs) do
-    query = from(t in Tag, where: t.id == ^id)
+    query = from(t in Tag, where: t.id == ^id, select: t)
+
+    attrs_with_updated_date = Map.put(attrs, :updated_at, NaiveDateTime.utc_now())
 
     query
-    |> Repo.update_all(set: Map.to_list(attrs))
+    |> Repo.update_all(set: Map.to_list(attrs_with_updated_date))
     |> case do
-      {0, _} -> {:error, :not_found}
-      {_, _} -> {:ok, :updated}
+      {1, [updated_tag]} -> {:ok, updated_tag}
+      {_, _} -> {:error, :not_found}
     end
   end
 
-  @spec delete_tag(String.t()) :: {:ok, :deleted} | {:error, :not_found}
+  @spec delete_tag(String.t()) :: :ok | {:error, :not_found}
   def delete_tag(id) do
     query = from(t in Tag, where: t.id == ^id)
 
     query
     |> Repo.delete_all()
     |> case do
-      {0, _} -> {:error, :not_found}
-      {_, _} -> {:ok, :deleted}
+      {1, _} -> :ok
+      {_, _} -> {:error, :not_found}
     end
   end
 
