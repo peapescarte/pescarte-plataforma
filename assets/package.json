@@ -20,6 +20,6 @@
     "phoenix_live_view": "file:../deps/phoenix_live_view",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "topbar": "^1.0.1"
+    "topbar": "^3.0.0"
   }
 }

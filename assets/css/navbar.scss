@@ -17,7 +17,7 @@
   }
 
   .nav-menu {
-    @apply md:flex hidden justify-between items-center;
+    @apply justify-between items-center;
     gap: 3rem;
     margin: 21px 0;
 
@@ -39,6 +39,28 @@
         @apply border-b-2 border-blue-100;
         cursor: pointer;
       }
+    }
+  }
+
+  .hamburger-button {
+    @apply md:hidden;
+    margin: 1.5rem;
+  }
+}
+
+#navbar {
+  .hamburger-container {
+    @apply absolute;
+    margin: 0 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+
+    .nav-menu {
+      @apply flex;
+      flex-direction: column;
+      gap: 0.8rem;
     }
   }
 }
