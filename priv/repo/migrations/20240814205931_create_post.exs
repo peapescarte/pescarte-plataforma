@@ -13,5 +13,6 @@ defmodule Pescarte.Database.Repo.Migrations.CreatePost do
   end
 
   create unique_index(:posts, :titulo)
+  create index(:posts, :user_id)
 end
 end
