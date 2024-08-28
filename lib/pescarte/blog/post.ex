@@ -33,7 +33,7 @@ defmodule Pescarte.Blog.Post do
     belongs_to :usuario, Usuario
 
     # comentado enquanto o PR das tags não é aprovado
-    # has_many :tags, Tag, through: [:post_tags, :tag]
+    # many_to_many :tags, Tag, through: [:post_tags, :tag]
 
     timestamps()
   end
@@ -63,24 +63,33 @@ defmodule Pescarte.Blog.Post do
     |> Repo.insert()
   end
 
-  @spec delete_post(String.t()) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
+  @spec delete_post(String.t()) :: {:ok, Post.t()} | {:error, :not_found}
   def delete_post(id) do
-    case Repo.get(Post, id) do
-      nil -> {:error, :not_found}
-      post -> Repo.delete(post)
+
+    query = from(p in Post, where: p.id == ^id, select: p)
+
+    query
+    |> Repo.delete_all()
+    |> case do
+      {1, [deleted_post]} -> {:ok, deleted_post}
+      {0, nil} -> {:error, :not_found}
     end
   end
 
-  @spec update_post(String.t(), Post.t()) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
+  @spec update_post(String.t(), Post.t()) :: {:ok, Post.t()} | {:error, :not_found}
   def update_post(id, params) do
-    case Repo.get(Post, id) do
-      nil ->
-        {:error, :not_found}
+    query = from(p in Post, where: p.id == ^id, select: p)
 
-      post ->
-        post
-        |> Post.changeset(params)
-        |> Repo.update()
+    params_with_updated_at =
+      params
+      |> Map.put(:updated_at, NaiveDateTime.utc_now())
+      |> Map.to_list()
+
+    query
+    |> Repo.update_all(set: params_with_updated_at)
+    |> case do
+      {1, [updated_post]} -> {:ok, updated_post}
+      {0, _} -> {:error, :not_found}
     end
   end
 end
