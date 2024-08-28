@@ -2,7 +2,6 @@ defmodule Pescarte.Blog.Post do
   @moduledoc """
   Módulo que define o schema e o changeset para os posts.
   """
-  alias Pescarte.Blog.BlogPosts.Post
   alias Pescarte.Database
   alias Pescarte.Database.Repo
   alias Pescarte.Database.Types.PublicId
