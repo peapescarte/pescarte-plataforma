@@ -2,11 +2,11 @@ defmodule Pescarte.Blog.Post do
   @moduledoc """
   Módulo que define o schema e o changeset para os posts.
   """
-  alias Pescarte.Database.Types.PublicId
-  alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.Blog.BlogPosts.Post
   alias Pescarte.Database
   alias Pescarte.Database.Repo
+  alias Pescarte.Database.Types.PublicId
+  alias Pescarte.Identidades.Models.Usuario
   use Pescarte, :model
 
   @type t :: %Post{
@@ -45,7 +45,6 @@ defmodule Pescarte.Blog.Post do
     |> unique_constraint(:titulo)
   end
 
-
   @spec get_posts :: list(Post.t()) | Ecto.QueryError
   def get_posts do
     Repo.Replica.all(Post)
@@ -65,7 +64,6 @@ defmodule Pescarte.Blog.Post do
 
   @spec delete_post(String.t()) :: {:ok, Post.t()} | {:error, :not_found}
   def delete_post(id) do
-
     query = from(p in Post, where: p.id == ^id, select: p)
 
     query
