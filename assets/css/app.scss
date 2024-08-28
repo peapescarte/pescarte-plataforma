@@ -62,14 +62,7 @@ body {
   position: relative;
 }
 
-footer {
-  @apply border-black-10;
-  border-top-width: 1px;
 
-  img {
-    z-index: -99;
-  }
-}
 
 .grid {
   display: grid;
@@ -104,6 +97,7 @@ nav {
 
 main {
   grid-area: content;
+  margin-bottom: 100px;
 }
 
 footer {
