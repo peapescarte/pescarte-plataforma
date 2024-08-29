@@ -62,15 +62,6 @@ body {
   position: relative;
 }
 
-footer {
-  @apply border-black-10;
-  border-top-width: 1px;
-
-  img {
-    z-index: -99;
-  }
-}
-
 .grid {
   display: grid;
   grid-template-rows: $navbar-height 1fr $footer-height;
