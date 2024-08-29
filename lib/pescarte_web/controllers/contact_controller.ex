@@ -1,6 +1,8 @@
 defmodule PescarteWeb.ContactController do
   use PescarteWeb, :controller
+
   require Logger
+
   alias PescarteWeb.ContactForm
 
   @receiver_email Application.compile_env!(:pescarte, [PescarteWeb, :receiver_email])
