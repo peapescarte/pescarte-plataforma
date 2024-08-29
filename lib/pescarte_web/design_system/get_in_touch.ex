@@ -42,7 +42,6 @@ defmodule PescarteWeb.DesignSystem.GetInTouch do
           </div>
         </div>
       </div>
-
       <div class="fale-conosco-wrapper">
         <.text size="h4" color="text-white-100">
           Mas, se preferir, entre em contato diretamente.

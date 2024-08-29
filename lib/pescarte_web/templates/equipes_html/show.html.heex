@@ -843,11 +843,37 @@
                 Identificar os desafios econômicos enfrentados pelas comunidades, como a sazonalidade, os custos de produção, o controle de preços pelos intermediários e a pluriatividade de atividades como estratégia de sobrevivência econômica.
               </.text>
             </div>
+            <div class="membros">
+              <div
+                :for={
+                  %{"nome" => nome, "equipe" => equipe, "imagem" => imagem, "lider" => lider} <-
+                    @membros["Núcleo Censo"]
+                }
+                class="membro-equipe"
+              >
+                <div :if={imagem != ""} class="membro-circle-transparent">
+                  <img src={imagem} />
+                </div>
+                <div :if={imagem == ""} class="membro-circle"></div>
+                <div class="membro-description">
+                  <div class="membro-name">
+                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text :if={lider} size="h5" color="text-blue-100" class="lider">
+                      Líder da Equipe
+                    </.text>
+                  </div>
+                  <.text size="h5" color="text-black-80">
+                    <%= equipe %>
+                  </.text>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+        
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 </main>

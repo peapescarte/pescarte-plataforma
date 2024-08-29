@@ -1,6 +1,8 @@
 defmodule PescarteWeb.ContactController do
   use PescarteWeb, :controller
+
   require Logger
+
   alias PescarteWeb.ContactForm
 
   @receiver_email Application.compile_env!(:pescarte, [PescarteWeb, :receiver_email])
@@ -48,13 +50,13 @@ defmodule PescarteWeb.ContactController do
 
             conn
             |> put_flash(:error, "Erro ao enviar email.")
-            |> redirect(~p"/")
+            |> redirect(to: ~p"/")
         end
 
       {:error, _changeset} ->
         conn
         |> put_flash(:error, "Erro na validação do formulário.")
-        |> redirect(~p"/")
+        |> redirect(to: ~p"/")
     end
   end
 end
