@@ -410,7 +410,6 @@
             margin-bottom: 2.5rem;
           }
 
-
           .linha-pesquisa {
             @apply flex;
             flex-direction: column;
@@ -442,6 +441,17 @@
 
                   img {
                     width: 80%;
+                  }
+                }
+
+                .membro-circle-transparent {
+                  @apply flex;
+                  justify-content: center;
+                  width: 3.75rem;
+                  height: auto;
+
+                  img {
+                    width: 100%;
                   }
                 }
 

@@ -26,7 +26,7 @@ defmodule Pescarte.Application do
       {Phoenix.PubSub, name: Pescarte.PubSub},
       PescarteWeb.Endpoint,
       Pescarte.CotacoesETL.InjesterSupervisor,
-      {Task, fn -> Supabase.init_client!(:pescarte_supabase, supa_config()) end}
+      {Finch, name: PescarteHTTPClient}
     ]
     |> maybe_append_children(Pescarte.env())
   end
@@ -34,11 +34,4 @@ defmodule Pescarte.Application do
   defp maybe_append_children(children, :test), do: children
   # defp maybe_append_children(children, _), do: [ChromicPDF | children]
   defp maybe_append_children(children, _), do: children
-
-  defp supa_config do
-    base_url = Application.get_env(:supabase_potion, :supabase_base_url)
-    api_key = Application.get_env(:supabase_potion, :supabase_api_key)
-
-    %{conn: %{base_url: base_url, api_key: api_key}}
-  end
 end

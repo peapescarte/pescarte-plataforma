@@ -42,13 +42,15 @@ defmodule PescarteWeb.DesignSystem.GetInTouch do
           </div>
         </div>
       </div>
+
       <div class="fale-conosco-wrapper">
         <.text size="h4" color="text-white-100">
           Mas, se preferir, entre em contato diretamente.
         </.text>
-        <.button style="link">
-          <Lucideicons.message_square /> Clique Para Expandir
-        </.button>
+        <DesignSystem.link href={~p"/contato"} class="contact-btn">
+          <Lucideicons.message_square />
+          <p>Fale Conosco</p>
+        </DesignSystem.link>
       </div>
     </div>
     """
