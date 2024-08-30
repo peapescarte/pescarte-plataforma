@@ -7,8 +7,8 @@
           <.text size="lg" color="text-black-80">Nome</.text>
           <input
             type="text"
-            name="contact_form[sender_name]"
-            id="sender_name"
+            name="contact_form[form_sender_name]"
+            id="form_sender_name"
             placeholder="João da Silva"
             required
           />
@@ -17,15 +17,15 @@
           <.text size="lg" color="text-black-80">Email</.text>
           <input
             type="email"
-            name="contact_form[sender_email]"
-            id="sender_email"
+            name="contact_form[form_sender_email]"
+            id="form_sender_email"
             placeholder="joaodasilva@email.com"
             required
           />
         </div>
         <div class="input-area">
           <.text size="lg" color="text-black-80">Assunto</.text>
-          <select id="sender_option" name="contact_form[sender_option]" required>
+          <select id="form_sender_option" name="contact_form[form_sender_option]" required>
             <option value="Dúvida">Dúvida</option>
             <option value="Comentário">Comentário</option>
             <option value="Solicitação">Solicitação</option>
@@ -35,10 +35,10 @@
         <div class="input-area">
           <.text size="lg" color="text-black-80">Mensagem</.text>
           <textarea
-            name="contact_form[sender_message]"
+            name="contact_form[form_sender_message]"
             rows="10"
-            id="sender_message"
-            placeholder="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam voluptates, nam provident inventore perferendis ea ipsum? Distinctio, pariatur accusamus. Facilis, deleniti vel repudiandae aliquam voluptatibus sed. Delectus, quae. Iusto, nam?"
+            id="form_sender_message"
+            placeholder="Digite aqui sua mensagem..."
             required
           ></textarea>
         </div>
@@ -53,5 +53,6 @@
     </.simple_form>
     <img src={~p"/images/contato/fishing.svg"} />
   </div>
+
   <PescarteWeb.DesignSystem.GetInTouch.render />
 </main>
