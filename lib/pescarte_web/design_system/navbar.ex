@@ -18,7 +18,17 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
         <.hamburger_button />
       </nav>
-      <.hamburger_menu current_path={@current_path} />
+      <div id="hamburger-container" class="hamburger-container hidden">
+        <ul class="nav-menu md:flex">
+          <.links current_path={@current_path} />
+        </ul>
+
+        <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless class="hidden md:flex">
+          <.button style="link" class="login-button">
+            <.text size="h4" color="text-blue-100">Acessar</.text>
+          </.button>
+        </PescarteWeb.DesignSystem.link>
+      </div>
     </header>
     """
   end
@@ -58,7 +68,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
   defp hamburger_menu(assigns) do
     ~H"""
-    <div id="hamburger-container" class="hamburger-container hidden">
+    <div id="hamburger-container" class="hamburger-container">
       <ul class="nav-menu md:flex">
         <.links current_path={@current_path} />
       </ul>
