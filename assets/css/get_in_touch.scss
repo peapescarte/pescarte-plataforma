@@ -59,7 +59,6 @@
     text-align: center;
     gap: 2.5rem;
 
-
     .contact-btn {
       @apply flex bg-white-100;
       justify-content: center;
@@ -86,6 +85,8 @@
 @media (max-width: 767px) {
   .onde-nos-encontrar-wrapper {
     .redes-sociais-wrapper {
+      margin: 1rem;
+
       .redes-sociais-links-wrapper {
         @apply flex;
 
@@ -109,8 +110,8 @@
         /* 2 colunas em telas médias */
         @apply grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 10rem 1fr 0;
-        gap: 2rem;
+        grid-template-rows: auto;
+        column-gap: 80px;
         min-height: auto;
         margin-top: 2.5rem;
       }
@@ -125,8 +126,8 @@
         /* 3 colunas em telas grandes */
         @apply grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 10rem 1fr 0;
-        gap: 2rem;
+        grid-template-rows: auto;
+        column-gap: 80px;
         min-height: auto;
         margin-top: 2.5rem;
       }
