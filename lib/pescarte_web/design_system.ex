@@ -154,8 +154,8 @@ defmodule PescarteWeb.DesignSystem do
   """
   def footer(assigns) do
     ~H"""
-    <footer class="flex justify-center items-center">
-      <img src={~p"/images/footer_logos.png"} />
+    <footer class="fixed bottom-0 z-10 w-full">
+      <img src={~p"/images/footer_logos_reduced_height.png"} />
     </footer>
     """
   end
@@ -853,3 +853,6 @@ defmodule PescarteWeb.DesignSystem do
     |> JS.pop_focus()
   end
 end
+
+## inserindo funções para determinar tamanho de texto:
+## deu erro quando inseri o código desenvolvido em landing_html.ex ==> 16/08/2024

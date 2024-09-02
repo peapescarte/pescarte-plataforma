@@ -12,7 +12,6 @@ defmodule Pescarte.MixProject do
       releases: [
         pescarte: [
           strip_beams: true,
-          cookie: Base.url_encode64(:crypto.strong_rand_bytes(40)),
           validate_compile_env: true,
           quiet: true,
           include_erts: true,
@@ -65,9 +64,11 @@ defmodule Pescarte.MixProject do
       {:swiss_schema, "~> 0.5"},
       {:supabase_potion, "~> 0.3"},
       {:supabase_gotrue, "~> 0.3"},
+      {:supabase_storage, "~> 0.3"},
       {:flop, "~> 0.25"},
       {:flop_phoenix, "~> 0.22"},
       {:mox, "~> 1.0", only: [:test]},
+      {:resend, "~> 0.4.0"},
       {:rewire, "~> 0.9", only: [:test]},
       {:phoenix_html_helpers, "~> 1.0"},
       {:nimble_csv, "~> 1.1"},

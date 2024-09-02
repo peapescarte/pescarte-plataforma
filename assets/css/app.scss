@@ -62,11 +62,6 @@ body {
   position: relative;
 }
 
-footer {
-  @apply border-black-10;
-  border-top-width: 1px;
-}
-
 .grid {
   display: grid;
   grid-template-rows: $navbar-height 1fr $footer-height;
@@ -100,6 +95,7 @@ nav {
 
 main {
   grid-area: content;
+  margin-bottom: 100px;
 }
 
 footer {
@@ -158,6 +154,7 @@ footer {
 @import "./button.scss";
 @import "./checkbox.scss";
 @import "./flash.scss";
+@import "./get_in_touch.scss";
 @import "./input.scss";
 @import "./landing.scss";
 @import "./quemsomos.scss";
@@ -178,6 +175,7 @@ footer {
 @import "./aboutus.scss";
 
 @import "./agenda.scss";
+@import "./contact.scss";
 
 // Com autenticação
 @import "./pages/app/researcher/profile.scss";

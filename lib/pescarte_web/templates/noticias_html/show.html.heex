@@ -1,0 +1,137 @@
+<main class="landing-grid">
+  <.flash :if={@error_message} id="login-error" kind={:error}>
+    <%= @error_message %>
+  </.flash>
+
+  <div class="gallery-carousel">
+    <.text size="h2" color="text-blue-100">Galeria de Notícias Pescarte</.text>
+    <div class="glide glide2">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide">
+            <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/mulheres%20e%20direitos/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL211bGhlcmVzIGUgZGlyZWl0b3MvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjA0NzIsImV4cCI6MjAzOTc4MDQ3Mn0.sewu3JT9ZCyFomQkKeuf6HMGnA3dtEmnIupv0Y7AWyY&t=2024-08-23T13%3A41%3A12.698Z" />
+          </li>
+          <li class="glide__slide">
+            <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/tecnologia%20social/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL3RlY25vbG9naWEgc29jaWFsL2NhcGEuSlBHIiwiaWF0IjoxNzI0NDE4NDQzLCJleHAiOjIwMzk3Nzg0NDN9.i6DpnsFFdRpOuEy5Kqyu0h_S7ziJt1p1qtmD94YkB6k&t=2024-08-23T13%3A07%3A23.299Z" />
+          </li>
+          <li class="glide__slide">
+            <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/realinhamento%20pesquisa/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL3JlYWxpbmhhbWVudG8gcGVzcXVpc2EvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MTk4ODQsImV4cCI6MjAzOTc3OTg4NH0.Wbh5_ZGtPO6xO4VMnxAI5admEo6XdU1FUacdPMwlJSA&t=2024-08-23T13%3A31%3A24.302Z" />
+          </li>
+          <li class="glide__slide">
+            <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/mapeamento%20mercado/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL21hcGVhbWVudG8gbWVyY2Fkby9jYXBhLkpQRyIsImlhdCI6MTcyNDQxOTgyOCwiZXhwIjoyMDM5Nzc5ODI4fQ.TxJyAKUE4gvGwGDBOMd4bCupVFCyCO1OLDfbfa0Z_oE&t=2024-08-23T13%3A30%3A29.142Z" />
+          </li>
+        </ul>
+      </div>
+
+      <div class="glide__progress">
+        <div class="glide__progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="news">
+    <.text size="h2" color="text-blue-100">Notícias</.text>
+    <div class="news-cards">
+      <div class="news-item">
+        <a href="/noticias/noti4">
+          <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/mulheres%20e%20direitos/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL211bGhlcmVzIGUgZGlyZWl0b3MvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjA0NzIsImV4cCI6MjAzOTc4MDQ3Mn0.sewu3JT9ZCyFomQkKeuf6HMGnA3dtEmnIupv0Y7AWyY&t=2024-08-23T13%3A41%3A12.698Z" />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti4">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length(
+                "Sessão de Encontro: Mulheres e Direitos promove o protagonismo feminino e o fortalecimento da pesca artesanal"
+              ) %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Pesquisa tem o objetivo de compreender o comportamento do consumidor e dos fornecedores para levar aos PGTR como funciona o mercado de pescados."
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti4" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <a href="/noticias/noti1">
+          <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/tecnologia%20social/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL3RlY25vbG9naWEgc29jaWFsL2NhcGEuSlBHIiwiaWF0IjoxNzI0NDE4NDQzLCJleHAiOjIwMzk3Nzg0NDN9.i6DpnsFFdRpOuEy5Kqyu0h_S7ziJt1p1qtmD94YkB6k&t=2024-08-23T13%3A07%3A23.299Z" />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti1">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length(
+                "Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa."
+              ) %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Estudo aponta tecnologias utilizadas na pesca e maricultura que auxiliem nas soluções
+              de infraestrutura dos Projetos de Geração de Trabalho e Renda"
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+      <div class="news-item">
+        <a href="/noticias/noti2">
+          <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/realinhamento%20pesquisa/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL3JlYWxpbmhhbWVudG8gcGVzcXVpc2EvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MTk4ODQsImV4cCI6MjAzOTc3OTg4NH0.Wbh5_ZGtPO6xO4VMnxAI5admEo6XdU1FUacdPMwlJSA&t=2024-08-23T13%3A31%3A24.302Z" />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti2">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length(
+                "Reunião de Avaliação e Realinhamento do Núcleo de Pesquisa promove ecologia de saberes no PEA Pescarte."
+              ) %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Pesquisas desenvolvidas cumprem com o desafio de mitigar os impactos das atividades de extração e produção de petróleo e gás na Bacia de Campos"
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti2" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+      <div class="news-item">
+        <a href="/noticias/noti3">
+          <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/mapeamento%20mercado/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL21hcGVhbWVudG8gbWVyY2Fkby9jYXBhLkpQRyIsImlhdCI6MTcyNDQxOTgyOCwiZXhwIjoyMDM5Nzc5ODI4fQ.TxJyAKUE4gvGwGDBOMd4bCupVFCyCO1OLDfbfa0Z_oE&t=2024-08-23T13%3A30%3A29.142Z" />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti3">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length(
+                " Levantamento do PEA Pescarte realiza o mapeamento do mercado do pescado em cidades do Rio de Janeiro"
+              ) %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Pesquisa tem o objetivo de compreender o comportamento do consumidor e dos fornecedores para levar aos PGTR como funciona o mercado de pescados."
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti3" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ONDE NOS ENCONTRAR -->
+  <PescarteWeb.DesignSystem.GetInTouch.render />
+</main>
