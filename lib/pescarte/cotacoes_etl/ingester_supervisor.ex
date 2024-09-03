@@ -23,8 +23,7 @@ defmodule Pescarte.CotacoesETL.InjesterSupervisor do
         ZIPExtractor,
         CotacoesFetcher,
         CotacaoDownloader,
-        CotacaoIngester,
-        {Finch, name: PescarteHTTPClient}
+        CotacaoIngester
       ]
     else
       []

@@ -1,0 +1,48 @@
+<main class="landing-grid">
+  <.flash :if={@error_message} id="login-error" kind={:error}>
+    <%= @error_message %>
+  </.flash>
+
+  <div class="news">
+    <.text size="h2" color="text-blue-100">Informações sobre os PGTR's</.text>
+
+    <div class="get-to-know">
+      <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzEucG5nIiwiaWF0IjoxNzI0MzQ2OTE1LCJleHAiOjIwMzk3MDY5MTV9.J7I7kUsYTdVVseCs6QcGXHAAXIdrSPo-vEEurvrF2Kw&t=2024-08-22T17%3A15%3A15.147Z" />
+      <div class="know-content">
+        <.text size="lg" color="text-black-80">
+          O Projeto de Educação Ambiental Pescarte (PEA Pescarte) atua no fortalecimento da organização
+          comunitária da pesca artesanal em 10 municípios da Bacia de Campos, no interior do Rio de Janeiro.
+          A organização é promovida com a mobilização e a construção das habilidades dos membros das
+          comunidades de pesca para que atuem no Projeto de Geração de Trabalho e Renda (PGTR),
+          que prevê a implantação de Unidades produtivas.
+        </.text>
+        <.text size="lg" color="text-black-80">
+          Essas unidades funcionarão como cooperativas, com o objetivo de proporcionar condições de
+          trabalho dignas e negociações justas, promovendo o aumento da renda familiar dos integrantes da
+          cadeia produtiva da pesca artesanal.
+        </.text>
+        <.text size="lg" color="text-black-80">
+          Respeitando o plano de trabalho e as fases previstas do PEA Pescarte, atualmente sete
+          municípios iniciaram a implantação dos empreendimentos. São eles: Arraial do Cabo, Cabo Frio,
+          Campos dos Goytacazes, Macaé, Quissamã, São Francisco de Itabapoana e São João da Barra.
+          As cidades de Armação dos Búzios, Carapebus e Rio das Ostras já formaram os Grupos Gestores (GG),
+          que atuarão diretamente no planejamento dos <b>PGTR</b>.
+        </.text>
+        <.text size="lg" color="text-black-80">
+          O processo educativo é realizado nos 10 municípios e se dá através de oficinas com temas diversos,
+          entre eles: economia solidária, cooperativismo, políticas públicas, licenciamento ambiental,
+          letramento digital e gestão participativa. O projeto promove, também, articulações entre os
+          pescadores e pescadoras, com reuniões do Grupo de Trabalho, Grupo Gestor, Grupo de Acompanhamento
+          de Obras e assembleias municipais.
+        </.text>
+        <.text size="lg" color="text-black-80">
+          O PEA Pescarte é uma medida de mitigação exigida pelo licenciamento ambiental federal, coordenado
+          pela Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF), conduzido pelo IBAMA e
+          financiado pela Petrobras
+        </.text>
+      </div>
+    </div>
+  </div>
+  <!-- ONDE NOS ENCONTRAR -->
+  <PescarteWeb.DesignSystem.GetInTouch.render />
+</main>

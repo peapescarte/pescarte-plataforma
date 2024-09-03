@@ -44,13 +44,17 @@
             }
         }
 
-        th {
-            width: 14%;
+        th, tr {
             padding: 0.75rem 1rem;
+            text-align: center;
         }
 
-        tr {
-            padding: 0.75rem 1rem;
+        td {
+            padding: 2rem 1.5rem;
+        }
+
+        .table-lg {
+            text-align: left;
         }
     }
 

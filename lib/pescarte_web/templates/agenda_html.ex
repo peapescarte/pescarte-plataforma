@@ -10,25 +10,19 @@ defmodule PescarteWeb.AgendaHTML do
         <table class="min-w-full">
           <thead>
             <tr>
-              <th>Meta</th>
               <th>Data</th>
               <th>Horário</th>
-              <th>Duração</th>
               <th>Atividade</th>
               <th>Local</th>
-              <th>Participantes</th>
             </tr>
           </thead>
           <tbody>
-            <%= for %{meta: meta, data: data, horario: horario, duracao: duracao, atividade: atividade, local: local, participantes: participantes} <- assigns do %>
+            <%= for %{data: data, horario: horario, atividade: atividade, local: local} <- assigns do %>
               <tr>
-                <td><%= meta %></td>
                 <td><%= data %></td>
                 <td><%= horario %></td>
-                <td><%= duracao %></td>
-                <td><%= atividade %></td>
-                <td><%= local %></td>
-                <td><%= participantes %></td>
+                <td class="table-lg"><%= atividade %></td>
+                <td class="table-lg"><%= local %></td>
               </tr>
             <% end %>
           </tbody>

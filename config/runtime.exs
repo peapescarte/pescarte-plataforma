@@ -4,6 +4,8 @@ config :timex, timezone: System.get_env("TIMEZONE", "America/Sao_Paulo")
 
 config :pescarte, :pesquisa_ingestion, sheet_url: System.get_env("SHEET_URL")
 
+config :resend, Resend.Client, api_key: System.get_env("RESEND_KEY")
+
 config :supabase_potion,
   manage_clients: true,
   supabase_base_url: System.get_env("SUPABASE_URL"),

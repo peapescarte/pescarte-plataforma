@@ -26,7 +26,8 @@ defmodule Pescarte.Application do
       {Phoenix.PubSub, name: Pescarte.PubSub},
       PescarteWeb.Endpoint,
       Pescarte.CotacoesETL.InjesterSupervisor,
-      Pescarte.Supabase
+      Pescarte.Supabase,
+      {Finch, name: PescarteHTTPClient}
     ]
     |> maybe_append_children(Pescarte.env())
   end
