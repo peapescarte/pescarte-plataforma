@@ -46,6 +46,9 @@ RUN mix assets.deploy
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
 
+# generate mappings for sentry stacktraces
+RUN mix sentry.package_source_code
+
 COPY rel rel
 RUN mix release
 
