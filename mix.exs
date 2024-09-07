@@ -72,6 +72,7 @@ defmodule Pescarte.MixProject do
       {:rewire, "~> 0.9", only: [:test]},
       {:phoenix_html_helpers, "~> 1.0"},
       {:nimble_csv, "~> 1.1"},
+      {:sentry, "~> 10.2.0"},
       {:faker, "~> 0.18", only: [:dev, :test]},
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
@@ -88,7 +89,9 @@ defmodule Pescarte.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.build": ["cmd --cd assets node build.js"],
-      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"]
+      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"],
+      lint: ["compile --warning-as-errors", "clean", "format --check-formatted", "credo --strict"],
+      "ci.check": ["lint", "test --only unit", "test --only integration"]
     ]
   end
 end

@@ -48,14 +48,7 @@ config :git_hooks,
   ],
   hooks: [
     pre_push: [
-      tasks: [
-        "mix clean",
-        "mix compile --warning-as-errors",
-        "mix format --check-formatted",
-        "mix credo --strict",
-        "mix test --only unit",
-        "mix test --only integration"
-      ]
+      tasks: ["ci.check"]
     ]
   ]
 

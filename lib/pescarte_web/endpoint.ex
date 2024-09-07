@@ -1,4 +1,5 @@
 defmodule PescarteWeb.Endpoint do
+  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :pescarte
 
   plug PescarteWeb.HealthCheck
@@ -38,6 +39,8 @@ defmodule PescarteWeb.Endpoint do
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
+
+  plug Sentry.PlugContext
 
   plug Plug.MethodOverride
   plug Plug.Head

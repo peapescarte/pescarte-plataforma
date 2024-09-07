@@ -3,8 +3,12 @@ defmodule Pescarte.Application do
 
   @impl true
   def start(_, _) do
-    session_opts = [:named_table, :public, read_concurrency: true]
-    :ets.new(:pescarte_session, session_opts)
+    if Pescarte.env() == :prod do
+      :logger.add_handler(:pescarte_sentry_handler, Sentry.LoggerHandler, %{
+        config: %{metadata: [:file, :line]}
+      })
+    end
+
     opts = [strategy: :one_for_one, name: Pescarte.Supervisor]
     Supervisor.start_link(children(), opts)
   end
