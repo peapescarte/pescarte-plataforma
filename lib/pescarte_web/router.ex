@@ -62,6 +62,8 @@ defmodule PescarteWeb.Router do
 
     scope "/contato" do
       get "/", ContactController, :show
+      get "/success", ContactController, :success
+      get "/failed", ContactController, :failed
       post "/", ContactController, :send_email
     end
   end
