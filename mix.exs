@@ -9,6 +9,7 @@ defmodule Pescarte.MixProject do
       deps: deps(),
       aliases: aliases(),
       elixirc_paths: elixirc_paths(Mix.env()),
+      elixirc_options: [warnings_as_errors: true],
       releases: [
         pescarte: [
           strip_beams: true,
@@ -77,7 +78,7 @@ defmodule Pescarte.MixProject do
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.4.0", only: [:test, :dev], runtime: false}
+      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false}
     ]
   end
 
