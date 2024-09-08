@@ -19,8 +19,6 @@ jobs:
         with:
           version: v0.8.14
       - uses: actions/checkout@v2
-      - name: Docker Login
-        run: echo "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
       - name: Run build
         run: earthly --ci --build-arg MIX_ENV=dev +ci
 
@@ -31,8 +29,6 @@ jobs:
         with:
           version: v0.8.14
       - uses: actions/checkout@v2
-      - name: Docker Login
-        run: echo "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
       - name: Run build
         run: earthly -P --ci --build-arg MIX_ENV=test +test
 
