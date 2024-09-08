@@ -90,7 +90,9 @@ defmodule Pescarte.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.build": ["cmd --cd assets node build.js"],
-      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"]
+      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"],
+      lint: ["compile --warning-as-errors", "clean", "format --check-formatted", "credo --strict"],
+      "ci.check": ["lint", "test --only unit", "test --only integration"]
     ]
   end
 end
