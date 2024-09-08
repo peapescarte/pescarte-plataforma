@@ -4,6 +4,7 @@ deps:
   ARG ELIXIR=1.16.0
   ARG OTP=26.1.2
   ARG ALPINE_VERSION=3.18.4
+  ARG MIX_ENV=test
   FROM hexpm/elixir:${ELIXIR}-erlang-${OTP}-alpine-${ALPINE_VERSION}
   RUN apk update --no-cache
   RUN apk add --no-cache build-base gcc git curl
