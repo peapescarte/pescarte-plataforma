@@ -40,16 +40,4 @@ config :logger, :console,
 
 config :phoenix, :json_library, Jason
 
-config :git_hooks,
-  verbose: false,
-  auto_install: true,
-  branches: [
-    whitelist: ["main"]
-  ],
-  hooks: [
-    pre_push: [
-      tasks: ["ci.check"]
-    ]
-  ]
-
 import_config "#{config_env()}.exs"
