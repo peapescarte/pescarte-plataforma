@@ -50,3 +50,26 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :git_hooks,
+  verbose: false,
+  auto_install: true,
+  branches: [
+    whitelist: ["main"]
+  ],
+  hooks: [
+    pre_push: [
+      tasks: [
+        {:mix_task, :clean},
+        {:mix_task, :compile, ["--force"]},
+        {:mix_task, :format, ["--check-formatted"]},
+        {:mix_task, :credo, ["--strict"]},
+        {:mix_task, :test, ["--only", "unit"]},
+        {:mix_task, :test, ["--only", "integration"]}
+      ]
+    ]
+  ],
+  extra_success_returns: [
+    {:noop, []},
+    {:ok, []}
+  ]
