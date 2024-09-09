@@ -33,10 +33,5 @@ defmodule Pescarte.Application do
       Pescarte.Supabase,
       {Finch, name: PescarteHTTPClient}
     ]
-    |> maybe_append_children(Pescarte.env())
   end
-
-  defp maybe_append_children(children, :test), do: children
-  # defp maybe_append_children(children, _), do: [ChromicPDF | children]
-  defp maybe_append_children(children, _), do: children
 end

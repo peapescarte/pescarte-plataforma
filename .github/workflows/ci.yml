@@ -145,10 +145,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          from: ./Dockerfile
           push: true
           tags: ${{ env.IMAGE_NAME }}:dev
-          build-args: MIX_ENV="dev"
+          build-args: MIX_ENV=dev
           target: builder
       
       - name: Generate artifact attestation
@@ -182,7 +181,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          from: ./Dockerfile
           push: true
           tags: ${{ env.IMAGE_NAME }}:prod
       
