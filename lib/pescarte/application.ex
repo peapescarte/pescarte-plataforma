@@ -21,9 +21,7 @@ defmodule Pescarte.Application do
     :ok
   end
 
-  defp children do
-    if Pescarte.env() == :dev, do: Faker.start()
-
+  def children do
     [
       Pescarte.Database.Supervisor,
       PescarteWeb.Telemetry,
