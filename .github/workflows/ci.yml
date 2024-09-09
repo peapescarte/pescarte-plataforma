@@ -2,6 +2,7 @@ name: ci
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: peapescarte/pescarte-plataforma
+  TAG: ghcr.io/peapescarte/pescarte-plataforma
 
 on:
   push:
@@ -146,7 +147,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}:dev
+          tags: ${{ env.TAG }}:dev
           build-args: MIX_ENV=dev
           target: builder
       
@@ -182,7 +183,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}:prod
+          tags: ${{ env.TAG }}:prod
       
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
