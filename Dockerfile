@@ -1,6 +1,7 @@
 ARG ELIXIR_VERSION=1.16.0
 ARG OTP_VERSION=26.1.2
 ARG ALPINE_VERSION=3.18.4
+ARG MIX_ENV=prod
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-alpine-${ALPINE_VERSION}"
 ARG RUNNER_IMAGE="alpine:${ALPINE_VERSION}"
@@ -16,9 +17,6 @@ RUN apk add --no-cache build-base gcc curl git wget nodejs npm
 # install hex + rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
-
-# set build ENV
-ENV MIX_ENV="prod"
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
