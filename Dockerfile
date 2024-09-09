@@ -6,13 +6,15 @@ ARG MIX_ENV=prod
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-alpine-${ALPINE_VERSION}"
 ARG RUNNER_IMAGE="alpine:${ALPINE_VERSION}"
 
-FROM ${BUILDER_IMAGE} as builder
+FROM ${BUILDER_IMAGE} AS builder
 
 # prepare build dir
 WORKDIR /app
 
 RUN apk update --no-cache
 RUN apk add --no-cache build-base gcc curl git wget nodejs npm
+
+ARG MIX_ENV
 
 # install hex + rebar
 RUN mix local.hex --force && \
@@ -52,11 +54,13 @@ RUN mix release
 
 # start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
-FROM ${RUNNER_IMAGE}
+FROM ${RUNNER_IMAGE} AS runner
 
 RUN apk update --no-cache
 RUN apk add --no-cache tzdata openssl ncurses wget
 RUN apk add --no-cache chromium --repository=http://dl-cdn.alpinelinux.org/alpine/v3.18/community
+
+ARG MIX_ENV
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -69,7 +73,7 @@ RUN chown nobody /app
 ENV MIX_ENV="prod"
 
 # Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/pescarte ./
+COPY --from=builder --chown=nobody:root /app/_build/$MIX_ENV/rel/pescarte ./
 
 USER nobody
 
