@@ -4,6 +4,7 @@ deps:
   ARG ELIXIR=1.16.0
   ARG OTP=26.1.2
   ARG ALPINE_VERSION=3.18.4
+  ARG MIX_ENV=test
   FROM hexpm/elixir:${ELIXIR}-erlang-${OTP}-alpine-${ALPINE_VERSION}
   RUN apk update --no-cache
   RUN apk add --no-cache build-base gcc git curl
@@ -18,7 +19,7 @@ deps:
   SAVE ARTIFACT /src/deps AS LOCAL deps
 
 ci:
-  FROM +deps
+  FROM +deps --MIX_ENV=dev
   COPY .credo.exs .
   COPY .formatter.exs .
   RUN mix clean
@@ -27,7 +28,7 @@ ci:
   RUN mix credo --strict
 
 test:
-  FROM +deps
+  FROM +deps --MIX_ENV=test
   RUN apk add postgresql-client
   COPY --dir config ./
   RUN MIX_ENV=test mix deps.compile
@@ -47,7 +48,7 @@ docker-prod:
   SAVE IMAGE --push ghcr.io/$GITHUB_REPO:prod
 
 docker-dev:
-  FROM +deps
+  FROM +deps --MIX_ENV=dev
   RUN apk update --no-cache
   RUN apk add --no-cache inotify-tools nodejs npm
   ENV MIX_ENV=dev
