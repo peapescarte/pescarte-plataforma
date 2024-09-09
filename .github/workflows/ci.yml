@@ -44,5 +44,5 @@ jobs:
       - name: Docker Login
         run: echo "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
       - name: Run build
-        run: earthly -P --ci --push --build-arg MIX_ENV=prod --build-arg GITHUB_REPO=${{ github.repository }} +docker
+        run: earthly -P --ci --push --build-arg GITHUB_REPO=${{ github.repository }} +docker
 
