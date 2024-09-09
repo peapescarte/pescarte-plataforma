@@ -57,6 +57,7 @@ defmodule PescarteWeb.Router do
     end
 
     scope "/publicacoes" do
+      get "/artigos", ArticleController, :show
       get "/livros", LivrosController, :show
       get "/boletins", BoletinsController, :show
     end
