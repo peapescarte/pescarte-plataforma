@@ -533,10 +533,7 @@
               <div class="membros">
                 <div :for={colaborador <- linha_pesquisa["colaboradores"]} class="membro-equipe">
                   <div class="membro-circle">
-                    <img
-                      :if={colaborador["imagem"] != ""}
-                      src={colaborador["imagem"]}
-                    />
+                    <img :if={colaborador["imagem"] != ""} src={colaborador["imagem"]} />
                   </div>
                   <div class="membro-description">
                     <div class="membro-name">
