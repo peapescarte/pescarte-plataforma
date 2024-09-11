@@ -1,0 +1,46 @@
+.article-wrapper {
+  max-width: 100vw !important;
+  div {
+    max-width: 100vw;
+  }
+}
+.lighter-banner{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  gap: 20px;
+  height: 260px;
+  margin-bottom: 20px;
+  background: #0064c8b0;
+  background-blend-mode: multiply;
+
+  .banner-img {
+    z-index: -1;
+    position: absolute;
+    width: 100vw;
+    height: 260px;
+}
+}
+.publications {
+  .publications-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Estilo padrão para telas grandes */
+.tabela-responsiva {
+  width: 85vw;
+  margin: 0 auto;
+}
+
+/* Estilo para telas pequenas (móveis) */
+@media (max-width: 768px) {
+  .tabela-responsiva {
+    width: 95vw;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
