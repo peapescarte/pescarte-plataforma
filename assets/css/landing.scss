@@ -500,7 +500,7 @@
 
 @media (min-width: 530px) and (max-width: 770px){
   .links-landing {
-    @apply flex flex-col justify-center items-center;
+    @apply flex flex-col justify-center items-center ;
     width: 100%;
 
     .links-item {
