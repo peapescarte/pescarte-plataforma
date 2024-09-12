@@ -1,4 +1,4 @@
-defmodule PescarteWeb.BoletinController do
+defmodule PescarteWeb.BoletinsController do
   use PescarteWeb, :controller
 
   def show(conn, _params) do

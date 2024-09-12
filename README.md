@@ -1,7 +1,6 @@
 # PEA Pescarte
 
-[![lint](https://github.com/peapescarte/pescarte-api/actions/workflows/lint.yml/badge.svg)](https://github.com/peapescarte/pescarte-api/actions/workflows/lint.yml)
-[![test](https://github.com/peapescarte/pescarte-api/actions/workflows/test.yml/badge.svg)](https://github.com/peapescarte/pescarte-api/actions/workflows/test.yml)
+[![ci](https://github.com/peapescarte/pescarte-plataforma/actions/workflows/ci.yml/badge.svg)](https://github.com/peapescarte/pescarte-plataforma/actions/workflows/ci.yml)
 
 ------------------------------------------------------------------------
 

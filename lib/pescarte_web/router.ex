@@ -41,6 +41,7 @@ defmodule PescarteWeb.Router do
     get "/noticias", NoticiasController, :show
     get "/pgtrs", PGTRController, :show
     get "/sedes", SedesController, :show
+    get "/aplicativos", AplicativosController, :show
 
     delete "/acessar", LoginController, :delete
 
@@ -51,10 +52,14 @@ defmodule PescarteWeb.Router do
       get "/noti2", Noti2Controller, :show
       get "/noti3", Noti3Controller, :show
       get "/noti4", Noti4Controller, :show
+      get "/noti5", Noti5Controller, :show
+      get "/noti6", Noti6Controller, :show
     end
 
     scope "/publicacoes" do
-      get "/boletin", BoletinController, :show
+      get "/artigos", ArticleController, :show
+      get "/livros", LivrosController, :show
+      get "/boletins", BoletinsController, :show
     end
 
     scope "/contato" do

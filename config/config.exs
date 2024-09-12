@@ -40,23 +40,4 @@ config :logger, :console,
 
 config :phoenix, :json_library, Jason
 
-config :git_hooks,
-  verbose: false,
-  auto_install: true,
-  branches: [
-    whitelist: ["main"]
-  ],
-  hooks: [
-    pre_push: [
-      tasks: [
-        "mix clean",
-        "mix compile --warning-as-errors",
-        "mix format --check-formatted",
-        "mix credo --strict",
-        "mix test --only unit",
-        "mix test --only integration"
-      ]
-    ]
-  ]
-
 import_config "#{config_env()}.exs"
