@@ -1,6 +1,8 @@
 defmodule Pescarte do
+  @environment Application.compile_env!(:pescarte, :env)
+
   def env do
-    Application.get_env(:pescarte, :env)
+    @environment
   end
 
   def get_static_file_path(folder, file) do
