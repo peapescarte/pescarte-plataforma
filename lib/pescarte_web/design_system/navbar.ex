@@ -18,18 +18,18 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
         <.hamburger_button />
       </nav>
-      <div id="hamburger-container" class="hamburger-container hidden">
-        <ul class="nav-menu md:flex">
-          <.links current_path={@current_path} />
-        </ul>
-
-        <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless class="hidden md:flex">
-          <.button style="link" class="login-button">
-            <.text size="h4" color="text-blue-100">Acessar</.text>
-          </.button>
-        </PescarteWeb.DesignSystem.link>
-      </div>
+      <.hamburger_menu />
     </header>
+    """
+  end
+
+  defp hamburger_button(assigns) do
+    ~H"""
+    <div class="hamburger-button md:hidden" phx-click={JS.toggle(to: "#hamburger-container")}>
+      <.button style="link">
+        <.icon name={:menu} class="text-blue-100" />
+      </.button>
+    </div>
     """
   end
 
@@ -50,25 +50,11 @@ defmodule PescarteWeb.DesignSystem.Navbar do
     """
   end
 
-  defp hamburger_button(assigns) do
-    ~H"""
-    <div
-      id="hamburger-button"
-      class="hamburger-button md:hidden"
-      phx-click={JS.toggle(to: "#hamburger-container")}
-    >
-      <.button style="link">
-        <.icon name={:menu} class="text-blue-100" />
-      </.button>
-    </div>
-    """
-  end
-
   attr(:current_path, :string, default: "/")
 
   defp hamburger_menu(assigns) do
     ~H"""
-    <div id="hamburger-container" class="hamburger-container">
+    <div id="hamburger-container" class="hidden hamburger-container">
       <ul class="nav-menu md:flex">
         <.links current_path={@current_path} />
       </ul>
