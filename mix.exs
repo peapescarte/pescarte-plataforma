@@ -22,11 +22,15 @@ defmodule Pescarte.MixProject do
     ]
   end
 
+  def cli do
+    [preferred_envs: [seed: :test]]
+  end
+
   def application do
     [mod: {Pescarte.Application, []}, extra_applications: [:logger]]
   end
 
-  defp elixirc_paths(e) when e in [:dev, :test], do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
@@ -74,7 +78,7 @@ defmodule Pescarte.MixProject do
       {:phoenix_html_helpers, "~> 1.0"},
       {:nimble_csv, "~> 1.1"},
       {:sentry, "~> 10.2.0"},
-      {:faker, "~> 0.18", only: [:dev, :test]},
+      {:faker, "~> 0.18", only: :test},
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
