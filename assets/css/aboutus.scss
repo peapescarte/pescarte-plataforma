@@ -6,7 +6,7 @@
   }
 }
 
-.lighter-banner{
+.lighter-banner {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -18,10 +18,10 @@
   background-blend-mode: multiply;
 
   .banner-img {
-      z-index: -1;
-      position: absolute;
-      width: 100vw;
-      height: 260px;
+    z-index: -1;
+    position: absolute;
+    width: 100vw;
+    height: 260px;
   }
 
 }
@@ -61,9 +61,6 @@
 
     img {
       width: 100vw;
-      height: auto;
-      padding: 0 20px;
-      border-radius: 8%;
     }
 
     .know-content {
@@ -206,15 +203,6 @@
       max-width: fit-content;
     }
 
-<<<<<<< feat/responsive-landing
-      .accordion-bx {
-        width: 75%;
-
-        @media(max-width: 810px) {
-          width: 60%;
-        }
-      }
-=======
   }
 
 }
@@ -230,11 +218,10 @@
     .phase-content {
       order: 1;
       width: 100%;
->>>>>>> main
     }
 
     img {
-      order: 2; 
+      order: 2;
       width: 100%;
     }
 
