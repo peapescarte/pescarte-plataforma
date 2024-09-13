@@ -155,12 +155,19 @@
       list-style: none;
     }
 
+<<<<<<< feat/responsive-landing
     .glide__slide {
       @apply flex justify-center items-center;
       width: 100%;
       height: auto;
       max-height: 500px;
       transition: transform 0.25s ease-out;
+=======
+    p {
+      text-wrap: wrap;
+      margin-top: 0.5rem;
+      padding: 0 1rem 1.5rem 1rem;
+>>>>>>> main
     }
 
     .glide__slide img {
@@ -536,11 +543,13 @@
                   @apply flex bg-blue-100;
                   justify-content: center;
                   border-radius: 50%;
+                  overflow: hidden;
                   width: 3.75rem;
                   height: 3.75rem;
 
                   img {
-                    width: 80%;
+                    width: 100%;
+                    object-fit: cover;
                   }
                 }
 

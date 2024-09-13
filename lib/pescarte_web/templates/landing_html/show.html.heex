@@ -64,9 +64,9 @@
     <div class="links-item">
       <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_agenda.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX2FnZW5kYS5wbmciLCJpYXQiOjE3MjQzNzM5OTIsImV4cCI6MjAzOTczMzk5Mn0.2O1L-Y12mdu-wd6OzQMVefdmfGLeTox7JvoMHRDrGlU&t=2024-08-23T00%3A46%3A33.186Z" />
       <DesignSystem.link href={~p"/agenda"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Agenda</.text>
+        <.text size="h3" color="text-white-100">Relatórios Públicos</.text>
         <.text size="base" color="text-white-100">
-          Agenda Trimestral.
+          Agenda mensal
         </.text>
         <.button style="primary">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
@@ -97,11 +97,74 @@
         </.button>
       </DesignSystem.link>
     </div>
+
+    <div class="links-item">
+      <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_aplicativos.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX2FwbGljYXRpdm9zLkpQRyIsImlhdCI6MTcyNTQ4Njg0MCwiZXhwIjoyMDQwODQ2ODQwfQ.qccaqwceW3E-rTYE4w3Ploh2HBCjH-PHt6sXRUVqcGM&t=2024-09-04T21%3A54%3A00.745Z" />
+      <DesignSystem.link href="/aplicativos" class="text-sm font-semibold">
+        <.text size="h3" color="text-white-100">Aplicações</.text>
+        <.text size="base" color="text-white-100">
+          Aplicações do projeto
+        </.text>
+        <.button style="primary">
+          Saiba mais <Lucideicons.arrow_right class="text-white-100" />
+        </.button>
+      </DesignSystem.link>
+    </div>
   </div>
   <!-- NEWS -->
   <div class="news">
     <.text size="h2" color="text-blue-100">Notícias</.text>
     <div class="news-cards">
+      <div class="news-item">
+        <a href="/noticias/noti5">
+          <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/seminario%20pesca/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL3NlbWluYXJpbyBwZXNjYS9jYXBhLkpQRyIsImlhdCI6MTcyNDQyMTM1MywiZXhwIjoyMDM5NzgxMzUzfQ.381ZTDzngM9obMbYg8lS0xIl9oMnWSgTf8m_G8uXRRQ&t=2024-08-23T13%3A55%3A53.068Z" />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti5">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length(
+                "1ª edição do Seminário Internacional da Pesca Artesanal marca os 10 anos do PEA Pescarte e reúne mais de 500 pessoas"
+              ) %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Evento reuniu representantes do Ministério da Pesca, Food and Agriculture Organization, Governo Moçambique e Universidade Autônoma de Barcelona"
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti5" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+      <div class="news-item">
+        <a href="/noticias/noti6">
+          <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/grupos%20focais/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL2dydXBvcyBmb2NhaXMvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjEwOTcsImV4cCI6MjAzOTc4MTA5N30.0BiAS0ILyBpEIigMQ7fxQ07zkiV5h_EsUCRQ4FpWYJE&t=2024-08-23T13%3A51%3A37.851Z" />
+        </a>
+        <div class="p-5">
+          <a href="/noticias/noti6">
+            <.text size="h4" color="text-blue-100">
+              <%= handle_notice_title_length(
+                "Núcleo de Pesquisa organiza grupos focais para levantamento de seis temáticas nas
+                comunidades de pesca da região"
+              ) %>
+            </.text>
+          </a>
+          <.text size="sm" color="text-black-60">
+            <%= handle_notice_desc_length(
+              "Realizado nos 10 municípios no primeiro semestre de 2024, levantamento visa criar elementos
+               para as pesquisas desenvolvidas no Pescarte"
+            ) %>
+          </.text>
+          <DesignSystem.link href="/noticias/noti6" class="text-sm font-semibold">
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
       <div class="news-item">
         <a href="/noticias/noti4">
           <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/mulheres%20e%20direitos/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL211bGhlcmVzIGUgZGlyZWl0b3MvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjA0NzIsImV4cCI6MjAzOTc4MDQ3Mn0.sewu3JT9ZCyFomQkKeuf6HMGnA3dtEmnIupv0Y7AWyY&t=2024-08-23T13%3A41%3A12.698Z" />
@@ -192,26 +255,6 @@
           </.text>
           <DesignSystem.link href="/noticias/noti3" class="text-sm font-semibold">
             buscando encontrar e ouvir as pessoas pescadoras de nossa área de atuação.
-          </DesignSystem.link>
-          <.button style="primary">
-            <.text size="base" color="text-white-100">Ler mais</.text>
-          </.button>
-        </div>
-      </div>
-      <div class="news-item">
-        <a href="#">
-          <img src={~p"/images/landing/news/news7.png"} />
-        </a>
-        <div class="p-5">
-          <a href="https://www.instagram.com/p/CzwyZf1Ccj2/?igsh=NTZiY2lleDRjbTlp">
-            <.text size="h4" color="text-blue-100">
-              <%= handle_notice_title_length("Seguro Defeso.") %>
-            </.text>
-          </a>
-          <.text size="sm" color="text-black-60">
-            <%= handle_notice_desc_length("Pescador, tire suas dúvidas aqui.") %>
-          </.text>
-          <DesignSystem.link href="/publicacoes" class="text-sm font-semibold">
             <.button style="primary">
               <.text size="base" color="text-white-100">Ler mais</.text>
             </.button>

@@ -6,6 +6,26 @@
   }
 }
 
+.lighter-banner{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  gap: 20px;
+  height: 260px;
+  margin-bottom: 20px;
+  background: #0064c8b0;
+  background-blend-mode: multiply;
+
+  .banner-img {
+      z-index: -1;
+      position: absolute;
+      width: 100vw;
+      height: 260px;
+  }
+
+}
+
 .get-to-know {
   display: flex;
   align-items: center;
@@ -54,17 +74,30 @@
   }
 }
 
+.phases-img {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
+}
+
+@media (min-width: 360px) and (max-width: 768px) {
+  .phases-img {
+    display: none;
+  }
+}
+
 .phases {
   display: flex;
   align-items: flex-start;
-  gap: 56px;
+  justify-content: center;
+  gap: 180px;
   padding: 40px;
 
   img {
     object-fit: cover;
     height: 490px;
     max-width: 668px;
-    width: 100%;
+    width: 50%;
     border-radius: 16px;
     transition: height 0.4s ease;
   }
@@ -72,6 +105,8 @@
   .phase-content {
     display: flex;
     flex-direction: column;
+    width: 50%;
+    max-width: 800px;
 
     .current-phase {
       display: flex;
@@ -104,9 +139,6 @@
     }
 
     .accordion {
-      max-width: 800px;
-      min-width: 600px;
-
       .accordion-bx {
         display: flex;
         flex-direction: column;
@@ -135,7 +167,7 @@
         }
 
         h4 {
-          padding-left: 25px;
+          padding: 10px 25px;
         }
 
         .accordion-content {
@@ -166,12 +198,15 @@
     }
   }
 
-  @media (max-width: 980px) {
+  @media (min-width: 768px) and (max-width: 1024px) {
     padding: 40px 10px;
+    gap: 90px;
 
-    .phase-content {
-      width: 50%;
+    .accordion {
+      max-width: fit-content;
+    }
 
+<<<<<<< feat/responsive-landing
       .accordion-bx {
         width: 75%;
 
@@ -179,10 +214,28 @@
           width: 60%;
         }
       }
+=======
+  }
+
+}
+
+@media (min-width: 360px) and (max-width: 768px) {
+  .phases {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 35px;
+
+    .phase-content {
+      order: 1;
+      width: 100%;
+>>>>>>> main
     }
 
     img {
-      width: 50%;
+      order: 2; 
+      width: 100%;
     }
 
   }
@@ -206,6 +259,7 @@
   }
 
   img {
+    object-fit: cover;
     width: 100vw;
     height: 100%;
     z-index: -1;

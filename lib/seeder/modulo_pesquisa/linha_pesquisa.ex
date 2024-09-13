@@ -14,26 +14,27 @@ defmodule Seeder.ModuloPesquisa.LinhaPesquisa do
     [
       %LinhaPesquisa{
         numero: 1,
-        desc: Faker.Lorem.sentence(1..25),
-        desc_curta: Faker.Lorem.sentence(1..10),
+        desc:
+          "Praesentium architecto est fugit modi repudiandae amet architecto dolorem corrupti voluptas consequatur eveniet?",
+        desc_curta: "Velit qui repellat sunt harum.",
         nucleo_pesquisa: nucleo_pesquisa_by(letra: "A")
       },
       %LinhaPesquisa{
         numero: 2,
-        desc: Faker.Lorem.sentence(1..25),
-        desc_curta: Faker.Lorem.sentence(1..10),
+        desc: "Debitis culpa ex accusamus sequi?",
+        desc_curta: "Aliquam dolores.",
         nucleo_pesquisa: nucleo_pesquisa_by(letra: "B")
       },
       %LinhaPesquisa{
         numero: 3,
-        desc: Faker.Lorem.sentence(1..25),
-        desc_curta: Faker.Lorem.sentence(1..10),
+        desc: "Aspernatur repudiandae rerum.",
+        desc_curta: "Natus commodi provident sint et recusandae!",
         nucleo_pesquisa: nucleo_pesquisa_by(letra: "C")
       },
       %LinhaPesquisa{
         numero: 4,
-        desc: Faker.Lorem.sentence(1..25),
-        desc_curta: Faker.Lorem.sentence(1..10),
+        desc: "Voluptatem est rerum sit quia aut autem vero esse odit est quam optio quo dolor?",
+        desc_curta: "Minus.",
         nucleo_pesquisa: nucleo_pesquisa_by(letra: "D")
       }
     ]

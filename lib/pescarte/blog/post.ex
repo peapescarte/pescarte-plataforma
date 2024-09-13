@@ -37,6 +37,7 @@ defmodule Pescarte.Blog.Post do
     timestamps()
   end
 
+  @spec changeset(t, map) :: changeset
   def changeset(post \\ %Post{}, params) do
     post
     |> cast(params, @required_params)

@@ -9,6 +9,7 @@ defmodule Pescarte.MixProject do
       deps: deps(),
       aliases: aliases(),
       elixirc_paths: elixirc_paths(Mix.env()),
+      elixirc_options: [warnings_as_errors: true],
       releases: [
         pescarte: [
           strip_beams: true,
@@ -21,11 +22,15 @@ defmodule Pescarte.MixProject do
     ]
   end
 
+  def cli do
+    [preferred_envs: [seed: :test]]
+  end
+
   def application do
     [mod: {Pescarte.Application, []}, extra_applications: [:logger]]
   end
 
-  defp elixirc_paths(e) when e in [:dev, :test], do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
@@ -72,11 +77,12 @@ defmodule Pescarte.MixProject do
       {:rewire, "~> 0.9", only: [:test]},
       {:phoenix_html_helpers, "~> 1.0"},
       {:nimble_csv, "~> 1.1"},
-      {:faker, "~> 0.18", only: [:dev, :test]},
+      {:sentry, "~> 10.2.0"},
+      {:faker, "~> 0.18", only: :test},
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.4.0", only: [:test, :dev], runtime: false}
+      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false}
     ]
   end
 
@@ -88,7 +94,9 @@ defmodule Pescarte.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.build": ["cmd --cd assets node build.js"],
-      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"]
+      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"],
+      lint: ["compile --warning-as-errors", "clean", "format --check-formatted", "credo --strict"],
+      "ci.check": ["lint", "test --only unit", "test --only integration"]
     ]
   end
 end

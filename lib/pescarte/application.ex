@@ -3,8 +3,12 @@ defmodule Pescarte.Application do
 
   @impl true
   def start(_, _) do
-    session_opts = [:named_table, :public, read_concurrency: true]
-    :ets.new(:pescarte_session, session_opts)
+    if Pescarte.env() == :prod do
+      :logger.add_handler(:pescarte_sentry_handler, Sentry.LoggerHandler, %{
+        config: %{metadata: [:file, :line]}
+      })
+    end
+
     opts = [strategy: :one_for_one, name: Pescarte.Supervisor]
     Supervisor.start_link(children(), opts)
   end
@@ -17,9 +21,7 @@ defmodule Pescarte.Application do
     :ok
   end
 
-  defp children do
-    if Pescarte.env() == :dev, do: Faker.start()
-
+  def children do
     [
       Pescarte.Database.Supervisor,
       PescarteWeb.Telemetry,
@@ -29,10 +31,5 @@ defmodule Pescarte.Application do
       Pescarte.Supabase,
       {Finch, name: PescarteHTTPClient}
     ]
-    |> maybe_append_children(Pescarte.env())
   end
-
-  defp maybe_append_children(children, :test), do: children
-  # defp maybe_append_children(children, _), do: [ChromicPDF | children]
-  defp maybe_append_children(children, _), do: children
 end
