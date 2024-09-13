@@ -11,25 +11,25 @@
           {
             "nome": "Lilian Sagio Cezar",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Lilian%20Cezar.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTGlsaWFuIENlemFyLmpwZyIsImlhdCI6MTcyNTE0MTkzOSwiZXhwIjoyMDQwNTAxOTM5fQ.6SeCnYcbPsVAjthEou3d4OEr2ih5FW_0aM2p4HhLzvU&t=2024-08-31T22%3A05%3A39.929Z",
             "lider": true
           },
           {
             "nome": "João Vitor Alves Dias",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Joao%20Vitor%20Alves.enc?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvSm9hbyBWaXRvciBBbHZlcy5lbmMiLCJpYXQiOjE3MjUzMDAwNjMsImV4cCI6MjA0MDY2MDA2M30.0bCIgRoFk17Vb-fl_i21_f-pvC49RL81x4slTbTDaDY&t=2024-09-02T18%3A01%3A05.063Z",
             "lider": false
           },
           {
             "nome": "Wesley Valentim Silva Faria",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Wesley%20Valentim.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvV2VzbGV5IFZhbGVudGltLmpwZWciLCJpYXQiOjE3MjUxNDI1MjQsImV4cCI6MjA0MDUwMjUyNH0.pBYSNQhBNDLbURDYvotVAdsw1CBszK0k4XsrmBZQ10Y&t=2024-08-31T22%3A15%3A25.515Z",
             "lider": false
           },
           {
             "nome": "Julia Pinheiro Laurentino",
             "equipe": "Graduanda, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Julia%20Pinheiro.enc?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvSnVsaWEgUGluaGVpcm8uZW5jIiwiaWF0IjoxNzI1MTQxNzIyLCJleHAiOjIwNDA1MDE3MjJ9.VwuCjoxVWhI8JEuTVIp0EEN7puDhmCz8Lp49ESTdPbc&t=2024-08-31T22%3A02%3A02.903Z",
             "lider": false
           }
         ]
@@ -42,31 +42,31 @@
           {
             "nome": "Giovane do Nascimento",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Giovane%20Nascimento.PNG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2lvdmFuZSBOYXNjaW1lbnRvLlBORyIsImlhdCI6MTcyNTE0MTU4MSwiZXhwIjoyMDQwNTAxNTgxfQ.OVBM_3nM-UcVwJnaDcK8J0tLPfEHNZbLt_yAvQ7TeLk&t=2024-08-31T21%3A59%3A42.165Z",
             "lider": true
           },
           {
             "nome": "Andreza Muniz Teixeira",
             "equipe": "Graduanda, IFF - Cabo Frio",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Andreza%20Muniz%20Teixeira.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQW5kcmV6YSBNdW5peiBUZWl4ZWlyYS5naWYiLCJpYXQiOjE3MjUxNDA4NTUsImV4cCI6MjA0MDUwMDg1NX0.mkRYRnYhl51b8opfGv8n_37LDVsfhYj8QboAtPJwuy0&t=2024-08-31T21%3A47%3A35.511Z",
             "lider": false
           },
           {
             "nome": "Victor Muniz Thomas",
             "equipe": "Graduando, UFF - Niterói",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Victor%20Muniz.enc?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvVmljdG9yIE11bml6LmVuYyIsImlhdCI6MTcyNTE0MjQ4OCwiZXhwIjoyMDQwNTAyNDg4fQ.g2K8mU0KnqhoA2JDop5zwiVITzzwINSxAFP61R6-5Co&t=2024-08-31T22%3A14%3A48.593Z",
             "lider": false
           },
           {
             "nome": "Mayara Nunes do Nascimento",
             "equipe": "Graduanda, UNESA - Cabo Frio",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Mayara%20Nunes.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWF5YXJhIE51bmVzLmdpZiIsImlhdCI6MTcyNTE0MjEyOCwiZXhwIjoyMDQwNTAyMTI4fQ.PH2WWP3GsIxNrLqGIW02WWwc7ZKtFQfrp_J0vHTrLjU&t=2024-08-31T22%3A08%3A49.306Z",
             "lider": false
           },
           {
             "nome": "Yasmim Sousa de Oliveira",
             "equipe": "Graduanda, IFF - Cabo Frio",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Yasmim%20Souza.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvWWFzbWltIFNvdXphLmpwZyIsImlhdCI6MTcyNTE0MjU0MCwiZXhwIjoyMDQwNTAyNTQwfQ.ohIp7m0EkR8BVSxdxmm7Hwd_gVN4D79ect6J-rpL2pY&t=2024-08-31T22%3A15%3A41.045Z",
             "lider": false
           }
         ]
@@ -79,13 +79,13 @@
           {
             "nome": "Shirlena Campos de Souza Amaral",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Shirlena%20Amaral.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvU2hpcmxlbmEgQW1hcmFsLmpwZWciLCJpYXQiOjE3MjUxNDIzNDQsImV4cCI6MjA0MDUwMjM0NH0.xtGBcJ_2tfsGx4Un4AXFMwh6q_K1EyF9jraiHplSPD8&t=2024-08-31T22%3A12%3A24.580Z",
             "lider": true
           },
           {
             "nome": "Fernanda Pacheco da Silva Huguenin",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Fernanda%20Huguenin.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRmVybmFuZGEgSHVndWVuaW4uanBlZyIsImlhdCI6MTcyNTE0MTQ3NiwiZXhwIjoyMDQwNTAxNDc2fQ.m9y9gxeoUIZ7WBDI_3lzvAAOzxnqV1V4Tvoon1GTU3M&t=2024-08-31T21%3A57%3A56.656Z",
             "lider": false
           }
         ]
@@ -98,13 +98,13 @@
           {
             "nome": "Eliana Crispim França Luquetti",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Eliana%20Crispim%20Franca%20Luquetti%20(1).jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRWxpYW5hIENyaXNwaW0gRnJhbmNhIEx1cXVldHRpICgxKS5qcGVnIiwiaWF0IjoxNzI1MzAwMDE4LCJleHAiOjIwNDA2NjAwMTh9.IbeagLjJNZMA5xzdbNSncXjuP_QSSCjXT3VHRWQ4a3Q&t=2024-09-02T18%3A00%3A19.706Z",
             "lider": true
           },
           {
             "nome": "Shirlena Campos de Souza Amaral",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Shirlena%20Amaral.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvU2hpcmxlbmEgQW1hcmFsLmpwZWciLCJpYXQiOjE3MjUxNDIzNDQsImV4cCI6MjA0MDUwMjM0NH0.xtGBcJ_2tfsGx4Un4AXFMwh6q_K1EyF9jraiHplSPD8&t=2024-08-31T22%3A12%3A24.580Z",
             "lider": false
           }
         ]
@@ -117,25 +117,25 @@
           {
             "nome": "Leandro Garcia Pinho",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Leandro%20Pinho.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTGVhbmRybyBQaW5oby5KUEciLCJpYXQiOjE3MjUxNDE5MDIsImV4cCI6MjA0MDUwMTkwMn0.7FSCMV_TpRRr46jZXC7VsjBGJFgTCmpz1W-KIkWjE9E&t=2024-08-31T22%3A05%3A02.537Z",
             "lider": true
           },
           {
             "nome": "Clarissa Menezes de Souza Poubel",
             "equipe": "Doutoranda, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Clarissa%20Poubel.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQ2xhcmlzc2EgUG91YmVsLmpwZWciLCJpYXQiOjE3MjU2NzMwNDksImV4cCI6MjA0MTAzMzA0OX0.QIS_2Njs8YUeG1IqQDGpDCqW6Ca6RhU_XI-HPT4hz10&t=2024-09-07T01%3A37%3A30.323Z",
             "lider": false
           },
           {
             "nome": "Evandro Francisco Marques Vargas",
             "equipe": "Pós Doutorado, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Evandro%20Vargas.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRXZhbmRybyBWYXJnYXMuanBnIiwiaWF0IjoxNzI1MTQxMzU0LCJleHAiOjIwNDA1MDEzNTR9.uzO0WRFVS3q5vNs-4c2IGXiF8XNyBS7xg6bYcD_kV4g&t=2024-08-31T21%3A55%3A55.018Z",
             "lider": false
           },
           {
             "nome": "Eduardo Moreira",
             "equipe": "Doutorando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Eduardo%20Moreira.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRWR1YXJkbyBNb3JlaXJhLmpwZWciLCJpYXQiOjE3MjUxNDEyOTYsImV4cCI6MjA0MDUwMTI5Nn0.nGvj2NQ_p6k9-VYjqsIsga_2_QTTUVMnKZTqZXHaWsk&t=2024-08-31T21%3A54%3A56.773Z",
             "lider": false
           }
         ]
@@ -148,13 +148,13 @@
           {
             "nome": "Fernanda Pacheco da Silva Huguenin",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Fernanda%20Huguenin.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRmVybmFuZGEgSHVndWVuaW4uanBlZyIsImlhdCI6MTcyNTE0MTQ3NiwiZXhwIjoyMDQwNTAxNDc2fQ.m9y9gxeoUIZ7WBDI_3lzvAAOzxnqV1V4Tvoon1GTU3M&t=2024-08-31T21%3A57%3A56.656Z",
             "lider": true
           },
           {
             "nome": "Tatiana Walter",
             "equipe": "Doutora, FURG - São Lourenço do Sul",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Tatiana%20Walter.PNG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvVGF0aWFuYSBXYWx0ZXIuUE5HIiwiaWF0IjoxNzI1MTQyNDU0LCJleHAiOjIwNDA1MDI0NTR9.VSb6K9CsmGFmXfqjMS6zTYH6ux5TrYrkh-ipbE6OP48&t=2024-08-31T22%3A14%3A15.003Z",
             "lider": false
           }
         ]
@@ -167,7 +167,7 @@
           {
             "nome": "Sérgio Arruda de Moura",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Sergio%20Arruda.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvU2VyZ2lvIEFycnVkYS5qcGVnIiwiaWF0IjoxNzI1MzAwMjc0LCJleHAiOjIwNDA2NjAyNzR9.rIY_dMo2ahwQURCDlP-_3_6-rEmavAKaJvCvbZdLusU&t=2024-09-02T18%3A04%3A36.020Z",
             "lider": true
           }
         ]
@@ -186,13 +186,13 @@
           {
             "nome": "Altivo Roberto Andrade de Almeida Cunha",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Altivo%20Cunha.PNG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQWx0aXZvIEN1bmhhLlBORyIsImlhdCI6MTcyNTE0MDcxOSwiZXhwIjoyMDQwNTAwNzE5fQ.07fSmoLpozOMREO12mx7v3lb8ndg1ndQ7pAGSDfCnSA&t=2024-08-31T21%3A45%3A20.006Z",
             "lider": true
           },
           {
             "nome": "Mauro Macedo Campos",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Mauro%20Campos.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWF1cm8gQ2FtcG9zLmpwZyIsImlhdCI6MTcyNTE0MjExMCwiZXhwIjoyMDQwNTAyMTEwfQ.VXx46FEkvFCNHLnlZd5bkBnlQjY-4hq4mGkpKY_kAFM&t=2024-08-31T22%3A08%3A31.207Z",
             "lider": false
           },
           {
@@ -204,7 +204,7 @@
           {
             "nome": "Geraldo Marcio Timóteo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Geraldo%20Timoteo.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2VyYWxkbyBUaW1vdGVvLmdpZiIsImlhdCI6MTcyNTMwMDA0NywiZXhwIjoyMDQwNjYwMDQ3fQ.ir3rSPDMoPgFiwO-A0bsMqYMv23sUz74yKQgpsn6ol4&t=2024-09-02T18%3A00%3A49.389Z",
             "lider": false
           }
         ]
@@ -217,31 +217,31 @@
           {
             "nome": "Mauro Macedo Campos",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Mauro%20Campos.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWF1cm8gQ2FtcG9zLmpwZyIsImlhdCI6MTcyNTE0MjExMCwiZXhwIjoyMDQwNTAyMTEwfQ.VXx46FEkvFCNHLnlZd5bkBnlQjY-4hq4mGkpKY_kAFM&t=2024-08-31T22%3A08%3A31.207Z",
             "lider": true
           },
           {
             "nome": "Renato de Souza Maciel Filho",
             "equipe": "Graduando, UNIFLU - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Renato%20Maciel.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvUmVuYXRvIE1hY2llbC5qcGciLCJpYXQiOjE3MjUxNDIzMjQsImV4cCI6MjA0MDUwMjMyNH0.QNn3TBR6ayCT7bxkxA6UybGYIuLBJAhH_IicuGKVIzI&t=2024-08-31T22%3A12%3A05.409Z",
             "lider": false
           },
           {
             "nome": "Altivo Roberto Andrade de Almeida Cunha ",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Altivo%20Cunha.PNG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQWx0aXZvIEN1bmhhLlBORyIsImlhdCI6MTcyNTE0MDcxOSwiZXhwIjoyMDQwNTAwNzE5fQ.07fSmoLpozOMREO12mx7v3lb8ndg1ndQ7pAGSDfCnSA&t=2024-08-31T21%3A45%3A20.006Z",
             "lider": false
           },
           {
             "nome": "Francine Nogueira Lamy Garcia Pinho",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Francine%20Pinho.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRnJhbmNpbmUgUGluaG8uanBnIiwiaWF0IjoxNzI1MTQxNTA4LCJleHAiOjIwNDA1MDE1MDh9.bp8-y6-tD6WW9OjoXhia7ZUPjyNHNzRVx4_fIxoxR8c&t=2024-08-31T21%3A58%3A28.960Z",
             "lider": false
           },
           {
             "nome": "Nilson  Carlos Rosa",
             "equipe": "Graduando, UNIFLU - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Nilson%20Rosa.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTmlsc29uIFJvc2EuanBlZyIsImlhdCI6MTcyNTE0MjE3NCwiZXhwIjoyMDQwNTAyMTc0fQ.KD-mXWHNJxzbLrm_JB58sGwUaJob3fGaLE42V6nEe90&t=2024-08-31T22%3A09%3A35.316Z",
             "lider": false
           }
         ]
@@ -254,19 +254,19 @@
           {
             "nome": "Manuel  Vazquez Vidal Junior",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Manuel%20Vazquez.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWFudWVsIFZhenF1ZXoud2VicCIsImlhdCI6MTcyNTE0MTk5NSwiZXhwIjoyMDQwNTAxOTk1fQ.U41IwZCgpNcTQb4ofcPm6sY9VP-_r8eGLEV-_LSkNrA&t=2024-08-31T22%3A06%3A36.494Z",
             "lider": true
           },
           {
             "nome": "Arthur Ribeiro Santana",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Arthur%20Ribeiro.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQXJ0aHVyIFJpYmVpcm8uanBnIiwiaWF0IjoxNzI1MTQwOTM2LCJleHAiOjIwNDA1MDA5MzZ9.dbAgGDs1DE9Fod3Xx2BNPwlekoj8vYh3plTDad2-3a0&t=2024-08-31T21%3A48%3A57.356Z",
             "lider": false
           },
           {
             "nome": "Mário Vinícios Mansano Míler",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Mario%20Vinicios%20Miller.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWFyaW8gVmluaWNpb3MgTWlsbGVyLmpwZyIsImlhdCI6MTcyNTMwMDI0NiwiZXhwIjoyMDQwNjYwMjQ2fQ.-X9vxWvg5AhPeXC4xyas21V0GNlgDgO61JkCxE-br3E&t=2024-09-02T18%3A04%3A07.712Z",
             "lider": false
           }
         ]
@@ -279,13 +279,13 @@
           {
             "nome": "Rachel Ferreira Klem de Mattos Morgades",
             "equipe": "Doutoranda, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Rachel%20Ferreira.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvUmFjaGVsIEZlcnJlaXJhLmpwZyIsImlhdCI6MTcyNTE0MjI2NCwiZXhwIjoyMDQwNTAyMjY0fQ.DNF4fiSB9h_q0E6X95AJa7BDvs2_w0hQDFRjewPxQuM&t=2024-08-31T22%3A11%3A05.287Z",
             "lider": true
           },
           {
             "nome": "Geraldo Marcio Timóteo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Geraldo%20Timoteo.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2VyYWxkbyBUaW1vdGVvLmdpZiIsImlhdCI6MTcyNTMwMDA0NywiZXhwIjoyMDQwNjYwMDQ3fQ.ir3rSPDMoPgFiwO-A0bsMqYMv23sUz74yKQgpsn6ol4&t=2024-09-02T18%3A00%3A49.389Z",
             "lider": false
           }
         ]
@@ -304,7 +304,7 @@
           {
             "nome": "Ana Paula Serpa Nogueira de Arruda",
             "equipe": "Doutora, UCAM - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Ana%20Paula%20Serpa.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQW5hIFBhdWxhIFNlcnBhLmpwZWciLCJpYXQiOjE3MjUxNDA4MzksImV4cCI6MjA0MDUwMDgzOX0.i2ld8kmJQNMOIKJPCCV6jplDnhCELuc_9vyMVIfrAFo&t=2024-08-31T21%3A47%3A20.411Z",
             "lider": true
           }
         ]
@@ -317,13 +317,13 @@
           {
             "nome": "Hudson Cassio Gomes de Oliveira",
             "equipe": "Doutorando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Gustavo%20Clayton.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR3VzdGF2byBDbGF5dG9uLmpwZyIsImlhdCI6MTcyNTE0MTYyMSwiZXhwIjoyMDQwNTAxNjIxfQ.XWvNJanRqC7YgRKQIcntLEjtvG5V0yknB7mZipy_wWU&t=2024-08-31T22%3A00%3A22.184Z",
             "lider": true
           },
           {
             "nome": "Geraldo Marcio Timóteo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Geraldo%20Timoteo.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2VyYWxkbyBUaW1vdGVvLmdpZiIsImlhdCI6MTcyNTMwMDA0NywiZXhwIjoyMDQwNjYwMDQ3fQ.ir3rSPDMoPgFiwO-A0bsMqYMv23sUz74yKQgpsn6ol4&t=2024-09-02T18%3A00%3A49.389Z",
             "lider": false
           }
         ]
@@ -336,25 +336,25 @@
           {
             "nome": "Marilene Parente Gonçalves",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Marilene%20Parente.enc?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWFyaWxlbmUgUGFyZW50ZS5lbmMiLCJpYXQiOjE3MjUxNDIwMzMsImV4cCI6MjA0MDUwMjAzM30.mzq1g_x0B1r9M8I4Ze9mu5OLPyswzDZSLoydYXyYFMs&t=2024-08-31T22%3A07%3A14.090Z",
             "lider": true
           },
           {
             "nome": "Geraldo Marcio Timóteo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Geraldo%20Timoteo.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2VyYWxkbyBUaW1vdGVvLmdpZiIsImlhdCI6MTcyNTMwMDA0NywiZXhwIjoyMDQwNjYwMDQ3fQ.ir3rSPDMoPgFiwO-A0bsMqYMv23sUz74yKQgpsn6ol4&t=2024-09-02T18%3A00%3A49.389Z",
             "lider": false
           },
           {
             "nome": "Kaio Lucas Ritter Mota",
             "equipe": "Graduando, UNESA - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Kaio%20Ritter.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvS2FpbyBSaXR0ZXIuanBlZyIsImlhdCI6MTcyNTE0MTc3NSwiZXhwIjoyMDQwNTAxNzc1fQ.-sMwsCom5asfN6zIQXfR4tfVho_AfRiv4QiME15Lo7k&t=2024-08-31T22%3A02%3A56.496Z",
             "lider": false
           },
           {
             "nome": "Kátia Carvalho da Silva Gonçalves",
             "equipe": "Graduanda, UNESA - Cabo Frio",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Katia%20Carvalho.enc?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvS2F0aWEgQ2FydmFsaG8uZW5jIiwiaWF0IjoxNzI1MTQxNzg4LCJleHAiOjIwNDA1MDE3ODh9.TGE6GSQiUo3vKzUXYDHXDXR_iJLkdUpLWKKaufnpKFE&t=2024-08-31T22%3A03%3A09.436Z",
             "lider": false
           }
         ]
@@ -367,19 +367,19 @@
           {
             "nome": "Maria Eugênia Ferreira Totti",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Maria%20Eugenia.PNG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWFyaWEgRXVnZW5pYS5QTkciLCJpYXQiOjE3MjUzMDAyMjcsImV4cCI6MjA0MDY2MDIyN30.B8PJ2qpxMHvmJtt1vSre_vNdFJJeidVpULZcvoRKjrc&t=2024-09-02T18%3A03%3A49.147Z",
             "lider": true
           },
           {
             "nome": "Miguel Arcanjo Gama Degli Esposti",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Miguel%20Arcanjo.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWlndWVsIEFyY2Fuam8uanBnIiwiaWF0IjoxNzI1MTQyMTM5LCJleHAiOjIwNDA1MDIxMzl9.etEh-5yL-_YqDvoHnmpmb8FPL9UfzwIwSJ2Sn_X1wkc&t=2024-08-31T22%3A09%3A00.551Z",
             "lider": false
           },
           {
             "nome": "Natalia Barbosa Ribeiro",
             "equipe": "Mestrado/Doutorando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Natalia%20Ribeiro.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTmF0YWxpYSBSaWJlaXJvLmpwZyIsImlhdCI6MTcyNTMwMDI2MSwiZXhwIjoyMDQwNjYwMjYxfQ.6qGSV_PMo-YLEMiNMrf7-wBEULxjTznmYgk-r4p5vbo&t=2024-09-02T18%3A04%3A23.063Z",
             "lider": false
           },
           {
@@ -398,43 +398,43 @@
           {
             "nome": "Wania Amélia Belchior Mesquita",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Wania%20Mesquita.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvV2FuaWEgTWVzcXVpdGEuanBnIiwiaWF0IjoxNzI1MTQyNTA5LCJleHAiOjIwNDA1MDI1MDl9.t58jpL2WGB2Ob_RiNFBUsBQs3vl0ZlcWO8siKAiBct4&t=2024-08-31T22%3A15%3A09.879Z",
             "lider": true
           },
           {
             "nome": "Juliana Blasi Cunha",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Juliana%20Blasi.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvSnVsaWFuYSBCbGFzaS5qcGciLCJpYXQiOjE3MjUxNDE3MzMsImV4cCI6MjA0MDUwMTczM30.fByvuK72jJ4uUdTem_ledZqCNI7dE5L-_Y50dKwwHxM&t=2024-08-31T22%3A02%3A13.547Z",
             "lider": false
           },
           {
             "nome": "Renan Assis",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Renan%20Assis.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvUmVuYW4gQXNzaXMuanBlZyIsImlhdCI6MTcyNTE0MjMwNSwiZXhwIjoyMDQwNTAyMzA1fQ.fAmapocBwqXbVtRq9RKbOcLcQIuUnqW7wW7goR1xnN4&t=2024-08-31T22%3A11%3A45.871Z",
             "lider": false
           },
           {
             "nome": "Bárbara Hilda Crespo Prado de Carvalho",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Barbara%20Hilda.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQmFyYmFyYSBIaWxkYS5wbmciLCJpYXQiOjE3MjUyOTI0OTQsImV4cCI6MjA0MDY1MjQ5NH0.JoQNypjFaPwEPheug7tkgPU1YVauWdwcCKAYGSIBdC4&t=2024-09-02T15%3A54%3A54.206Z",
             "lider": false
           },
           {
             "nome": "Laís Sílva Tavares Alves",
             "equipe": "Graduanda, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Lais%20Silva.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTGFpcyBTaWx2YS5qcGciLCJpYXQiOjE3MjUxNDE4MTMsImV4cCI6MjA0MDUwMTgxM30.fQHyoZ5dCj7P97YgJ0CoWBYSNntbEOxZWluebullsqU&t=2024-08-31T22%3A03%3A34.133Z",
             "lider": false
           },
           {
             "nome": "Leonardo Patrick Souza Silva",
             "equipe": "Graduando, UFF - Angra dos Reis",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Leonardo%20Silva.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTGVvbmFyZG8gU2lsdmEuanBnIiwiaWF0IjoxNzI1MTQxOTI4LCJleHAiOjIwNDA1MDE5Mjh9.6DMfm8E--MHT94GmbR0y53x-8STyTs3B5XNDCDOlXwM&t=2024-08-31T22%3A05%3A29.132Z",
             "lider": false
           },
           {
             "nome": "Mateus de Lemos Pinto Castro",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Mateus%20Castro.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWF0ZXVzIENhc3Ryby5qcGciLCJpYXQiOjE3MjUxNDIwNTcsImV4cCI6MjA0MDUwMjA1N30.APcBUm_iktRI8wChuaaMOt18wZLEfZMKjqY15wmr4rA&t=2024-08-31T22%3A07%3A37.905Z",
             "lider": false
           }
         ]
@@ -447,25 +447,25 @@
           {
             "nome": "Geraldo Marcio Timóteo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Geraldo%20Timoteo.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2VyYWxkbyBUaW1vdGVvLmdpZiIsImlhdCI6MTcyNTMwMDA0NywiZXhwIjoyMDQwNjYwMDQ3fQ.ir3rSPDMoPgFiwO-A0bsMqYMv23sUz74yKQgpsn6ol4&t=2024-09-02T18%3A00%3A49.389Z",
             "lider": true
           },
           {
             "nome": "Altivo Roberto Andrade de Almeida Cunha",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Altivo%20Cunha.PNG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQWx0aXZvIEN1bmhhLlBORyIsImlhdCI6MTcyNTE0MDcxOSwiZXhwIjoyMDQwNTAwNzE5fQ.07fSmoLpozOMREO12mx7v3lb8ndg1ndQ7pAGSDfCnSA&t=2024-08-31T21%3A45%3A20.006Z",
             "lider": false
           },
           {
             "nome": "Ana Paula Serpa Nogueira de Arruda",
             "equipe": "Doutora, UCAM - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Ana%20Paula%20Serpa.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQW5hIFBhdWxhIFNlcnBhLmpwZWciLCJpYXQiOjE3MjUxNDA4MzksImV4cCI6MjA0MDUwMDgzOX0.i2ld8kmJQNMOIKJPCCV6jplDnhCELuc_9vyMVIfrAFo&t=2024-08-31T21%3A47%3A20.411Z",
             "lider": false
           },
           {
             "nome": "Diego Carvalhar Belo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Diego%20Carvalhar.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRGllZ28gQ2FydmFsaGFyLmpwZyIsImlhdCI6MTcyNTE0MTA2MiwiZXhwIjoyMzU1ODYxMDYyfQ.oOllb29TC759_Ungr4mf6J0PG6zdzapz0MK9dqHoFx4&t=2024-08-31T21%3A51%3A03.262Z",
             "lider": false
           }
         ]
@@ -484,25 +484,25 @@
           {
             "nome": "Silvio Segundo Salej Higgins",
             "equipe": "Doutor, UFMG - Belo Horizonte",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Silvio%20Salej.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvU2lsdmlvIFNhbGVqLmpwZyIsImlhdCI6MTcyNTE0MjM5OSwiZXhwIjoyMDQwNTAyMzk5fQ.e_Dach2R0tSXikC8CqG_FM1MfiaQO8gMWsErtHHx2O8&t=2024-08-31T22%3A13%3A20.824Z",
             "lider": true
           },
           {
             "nome": "Fernanda Pacheco da Silva Huguenin",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Fernanda%20Huguenin.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRmVybmFuZGEgSHVndWVuaW4uanBlZyIsImlhdCI6MTcyNTE0MTQ3NiwiZXhwIjoyMDQwNTAxNDc2fQ.m9y9gxeoUIZ7WBDI_3lzvAAOzxnqV1V4Tvoon1GTU3M&t=2024-08-31T21%3A57%3A56.656Z",
             "lider": false
           },
           {
             "nome": "Wellington Santos Souza",
             "equipe": "Doutor, UEMG - Belo Horizonte",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Wellington%20Souza.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvV2VsbGluZ3RvbiBTb3V6YS5qcGciLCJpYXQiOjE3MjUxNDI1NjMsImV4cCI6MjA0MDUwMjU2M30.yf3RVPtnsf7LTiZiwUfZSCMFRmKXwmBtfpvTDhyglX8&t=2024-08-31T22%3A16%3A04.315Z",
             "lider": false
           },
           {
             "nome": "Geraldo Marcio Timóteo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Geraldo%20Timoteo.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2VyYWxkbyBUaW1vdGVvLmdpZiIsImlhdCI6MTcyNTMwMDA0NywiZXhwIjoyMDQwNjYwMDQ3fQ.ir3rSPDMoPgFiwO-A0bsMqYMv23sUz74yKQgpsn6ol4&t=2024-09-02T18%3A00%3A49.389Z",
             "lider": false
           }
         ]
@@ -515,19 +515,19 @@
           {
             "nome": "Vitor de Moraes Peixoto",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Vitor%20Peixoto.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvVml0b3IgUGVpeG90by5qcGVnIiwiaWF0IjoxNzI1MTQyNDk5LCJleHAiOjIwNDA1MDI0OTl9.BwLUow1hX0wRraZhosOq6YfIVJjGUbGfrAIbxl1tViU&t=2024-08-31T22%3A15%3A00.198Z",
             "lider": true
           },
           {
             "nome": "Bruna Gomes de Oliveira ",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Bruna%20Gomes.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQnJ1bmEgR29tZXMuanBnIiwiaWF0IjoxNzI1MTQwOTU4LCJleHAiOjIwNDA1MDA5NTh9.SisojjHUVqu0Ip7EK8YRqhLojeK2MN7-evRuy7lYZac&t=2024-08-31T21%3A49%3A18.873Z",
             "lider": false
           },
           {
             "nome": "Geraldo Marcio Timóteo",
             "equipe": "Doutor, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Geraldo%20Timoteo.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvR2VyYWxkbyBUaW1vdGVvLmdpZiIsImlhdCI6MTcyNTMwMDA0NywiZXhwIjoyMDQwNjYwMDQ3fQ.ir3rSPDMoPgFiwO-A0bsMqYMv23sUz74yKQgpsn6ol4&t=2024-09-02T18%3A00%3A49.389Z",
             "lider": false
           }
         ]
@@ -540,7 +540,7 @@
           {
             "nome": "Marcelo Viana",
             "equipe": "Doutor, UFRJ - Rio de Janeiro",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Marcelo%20Vianna_1.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvTWFyY2VsbyBWaWFubmFfMS5qcGciLCJpYXQiOjE3MjUxNDIwMDcsImV4cCI6MjA0MDUwMjAwN30.1LFm_cyXmfPE93bdQHIlv9X2QHPs5K1O1wMV64kzLG8&t=2024-08-31T22%3A06%3A47.815Z",
             "lider": true
           }
         ]
@@ -553,13 +553,13 @@
           {
             "nome": "Annabell del Real Tamariz",
             "equipe": "Doutora, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Annabell%20Del%20Real%20Tamariz.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvQW5uYWJlbGwgRGVsIFJlYWwgVGFtYXJpei5qcGciLCJpYXQiOjE3MjUxNDA4NjksImV4cCI6MjA0MDUwMDg2OX0._06PsneFu-4UEjECA-_xXs1cnXLjF1a0F5ahPIbKnxc&t=2024-08-31T21%3A47%3A50.383Z",
             "lider": true
           },
           {
             "nome": "Zoey de Souza Pessanha",
             "equipe": "Graduando, UENF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Zoey-de-Souza-Pessanha.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvWm9leS1kZS1Tb3V6YS1QZXNzYW5oYS53ZWJwIiwiaWF0IjoxNzI1NDc0MDU4LCJleHAiOjIwNDA4MzQwNTh9.GCuUuMrASylb7yBYprerSKBcwcSEVEBdSqtk7sVt4aA&t=2024-09-04T18%3A20%3A58.695Z",
             "lider": false
           }
         ]
