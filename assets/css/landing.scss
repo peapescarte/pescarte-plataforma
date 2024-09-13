@@ -34,7 +34,10 @@
     img {
       width: 100%;
       height: 100%;
+      max-width: 1100px;
+      max-height: 600px;
       background-size: cover;
+      margin: 0 auto;
     }
   }
 
@@ -141,6 +144,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 
     .publications-main-text {
       margin: 5rem 30rem;
@@ -491,5 +495,115 @@
 @media screen and (min-width: 1264px) {
   .nossas-equipes-container {
     width: 1360px;
+  }
+}
+
+@media (min-width: 530px) and (max-width: 770px){
+  .links-landing {
+    @apply flex flex-col justify-center items-center ;
+    width: 100%;
+
+    .links-item {
+      @apply flex flex-col justify-start items-start m-8;
+      width: 60%;
+      height: 16rem;
+      border-radius: 8px;
+      box-sizing: border-box;
+      background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+
+      a {
+        @apply flex flex-col mt-auto;
+      }
+
+      img {
+        border-radius: 8px;
+        width: inherit;
+        height: inherit;
+        @apply absolute;
+        z-index: -10;
+      }
+
+      h3 {
+        padding-left: 1rem;
+      }
+
+      p {
+        text-wrap: wrap;
+        margin-top: 0.5rem;
+        padding: 0 1rem 1.5rem 1rem;
+      }
+
+      button {
+        width: 100%;
+        padding: 0 1rem 1.5rem 0;
+        background-color: transparent;
+
+        p {
+          display: inline-flex;
+          width: inherit;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media (min-width: 350px) and (max-width: 529px){
+
+
+
+  .links-landing {
+    @apply flex flex-col justify-center items-center;
+    width: 100%;
+
+    .links-item {
+      @apply flex flex-col justify-start items-start m-8;
+      width: 70%;
+      height: 13rem;
+      border-radius: 8px;
+      box-sizing: border-box;
+      background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+
+      a {
+        @apply flex flex-col mt-auto;
+      }
+
+      img {
+        border-radius: 8px;
+        width: inherit;
+        height: inherit;
+        @apply absolute;
+        z-index: -10;
+      }
+
+      h3 {
+        padding-left: 1rem;
+      }
+
+      p {
+        text-wrap: wrap;
+        margin-top: 0.5rem;
+        padding: 0 1rem 1.5rem 1rem;
+      }
+
+      button {
+        width: 100%;
+        padding: 0 1rem 1.5rem 0;
+        background-color: transparent;
+
+        p {
+          display: inline-flex;
+          width: inherit;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 }
