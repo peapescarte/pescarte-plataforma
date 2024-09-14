@@ -1,4 +1,8 @@
 <main class="cooperativas-wrapper">
+  <.flash :if={@error_message} id="login-error" kind={:error}>
+    <%= @error_message %>
+  </.flash>
+
   <div class="cooperativas-container">
     <div class="header">
       <div class="header-content">
@@ -31,10 +35,7 @@
     </div>
 
     <div class="block">
-      <img
-        class="hidden md:flex"
-        src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/cooperativas/cooperativas_2.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2Nvb3BlcmF0aXZhcy9jb29wZXJhdGl2YXNfMi5qcGVnIiwiaWF0IjoxNzI0MzQ3OTkxLCJleHAiOjIwMzk3MDc5OTF9.3yy6j3-yQycuAp_8Er6QUrqR2zYL9gXcQfImN5uV0PI&t=2024-08-22T17%3A33%3A11.535Z"
-      />
+      <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/cooperativas/cooperativas_2.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2Nvb3BlcmF0aXZhcy9jb29wZXJhdGl2YXNfMi5qcGVnIiwiaWF0IjoxNzI0MzQ3OTkxLCJleHAiOjIwMzk3MDc5OTF9.3yy6j3-yQycuAp_8Er6QUrqR2zYL9gXcQfImN5uV0PI&t=2024-08-22T17%3A33%3A11.535Z" />
       <div class="block-content">
         <span>
           <.text size="h1" color="text-blue-100">
@@ -60,10 +61,6 @@
           </ul>
         </.text>
       </div>
-      <img
-        class="md:hidden"
-        src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/cooperativas/cooperativas_2.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2Nvb3BlcmF0aXZhcy9jb29wZXJhdGl2YXNfMi5qcGVnIiwiaWF0IjoxNzI0MzQ3OTkxLCJleHAiOjIwMzk3MDc5OTF9.3yy6j3-yQycuAp_8Er6QUrqR2zYL9gXcQfImN5uV0PI&t=2024-08-22T17%3A33%3A11.535Z"
-      />
     </div>
   </div>
   <!-- ONDE NOS ENCONTRAR -->

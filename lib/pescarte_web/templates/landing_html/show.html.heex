@@ -2,6 +2,7 @@
   <.flash :if={@error_message} id="login-error" kind={:error}>
     <%= @error_message %>
   </.flash>
+
   <!-- CAROUSEL -->
   <div class="landing-carousel">
     <div class="glide glide1">
@@ -33,84 +34,88 @@
       </div>
     </div>
   </div>
+
   <!-- CARDS LINKS -->
   <div class="landing-links">
     <div class="links-item">
       <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_noticias.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX25vdGljaWFzLnBuZyIsImlhdCI6MTcyNDM3Mzk1NCwiZXhwIjoyMDM5NzMzOTU0fQ.cF9b5tdo-FVUIDHh_PRpCyjl7qnhCmjTzSZgtJd2G-s&t=2024-08-23T00%3A45%3A54.250Z" />
+      <.text size="h3" color="text-white-100">Notícias</.text>
       <DesignSystem.link href={~p"/noticias"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Notícias</.text>
-        <.text size="base" color="text-white-100">
-          Notícias do Projeto
-        </.text>
-        <.button style="primary">
+        <.button style="link">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
-
     <div class="links-item">
       <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_publicacoes.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX3B1YmxpY2Fjb2VzLkpQRyIsImlhdCI6MTcyNDM3Mzk3MSwiZXhwIjoyMDM5NzMzOTcxfQ.Rsao6qL7tcF6odGOhnALGd2_0YDYHL-e_gEi3IL8qPk&t=2024-08-23T00%3A46%3A13.501Z" />
+      <.text size="h3" color="text-white-100">Publicações</.text>
       <DesignSystem.link href={~p"/publicacoes"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Publicações</.text>
-        <.text size="base" color="text-white-100">
-          Publicações do PEA.
-        </.text>
-        <.button style="primary">
+        <.button style="link">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
-
     <div class="links-item">
       <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_agenda.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX2FnZW5kYS5wbmciLCJpYXQiOjE3MjQzNzM5OTIsImV4cCI6MjAzOTczMzk5Mn0.2O1L-Y12mdu-wd6OzQMVefdmfGLeTox7JvoMHRDrGlU&t=2024-08-23T00%3A46%3A33.186Z" />
+      <.text size="h3" color="text-white-100">Agenda</.text>
       <DesignSystem.link href={~p"/agenda"} class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Relatórios Públicos</.text>
-        <.text size="base" color="text-white-100">
-          Agenda mensal
-        </.text>
-        <.button style="primary">
+        <.button style="link">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
     <div class="links-item">
       <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_censo%20.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX2NlbnNvIC5wbmciLCJpYXQiOjE3MjQzNzQwMDksImV4cCI6MjAzOTczNDAwOX0.UG_-JkTiHX-0ziwO1BbX1HnsFbBNDKUkdEYfPmGRm-E&t=2024-08-23T00%3A46%3A49.447Z" />
-      <DesignSystem.link href="/censo" class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">CENSO</.text>
-        <.text size="base" color="text-white-100">
-          Dados do Censo
-        </.text>
-        <.button style="primary">
+      <.text size="h3" color="text-white-100">Censo</.text>
+      <DesignSystem.link href={~p"/censo"} class="text-sm font-semibold">
+        <.button style="link">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
     <div class="links-item">
       <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_pgtr.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX3BndHIuSlBHIiwiaWF0IjoxNzI0Mzc0OTk5LCJleHAiOjIwMzk3MzQ5OTl9.c5oxVdvtd2slsO5qguXEscJizkJkw9c09fwuZ0TcGVY&t=2024-08-23T01%3A03%3A19.718Z" />
-      <DesignSystem.link href="/pgtrs" class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">PGTR's</.text>
-        <.text size="base" color="text-white-100">
-          Empreendimentos por Munícipios.
-        </.text>
-        <.button style="primary">
+      <.text size="h3" color="text-white-100">PGTR</.text>
+      <DesignSystem.link href={~p"/pgtr"} class="text-sm font-semibold">
+        <.button style="link">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
-
     <div class="links-item">
       <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_card_aplicativos.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19jYXJkX2FwbGljYXRpdm9zLkpQRyIsImlhdCI6MTcyNTQ4Njg0MCwiZXhwIjoyMDQwODQ2ODQwfQ.qccaqwceW3E-rTYE4w3Ploh2HBCjH-PHt6sXRUVqcGM&t=2024-09-04T21%3A54%3A00.745Z" />
+      <.text size="h3" color="text-white-100">Aplicações</.text>
       <DesignSystem.link href="/aplicativos" class="text-sm font-semibold">
-        <.text size="h3" color="text-white-100">Aplicações</.text>
-        <.text size="base" color="text-white-100">
-          Aplicações do projeto
-        </.text>
-        <.button style="primary">
+        <.button style="link">
           Saiba mais <Lucideicons.arrow_right class="text-white-100" />
         </.button>
       </DesignSystem.link>
     </div>
   </div>
+
+  <!-- THE PROJECT -->
+  <div class="project">
+    <div class="project-content">
+      <.text size="sm" color="text-black-40">O PROJETO</.text>
+      <div class="project-body">
+        <.text size="h2" color="text-blue-100">O que o Pescarte oferece para a comunidade?</.text>
+        <.text size="h4" color="text-blue-100">
+          O Projeto PESCARTE tem como sua principal finalidade a criação de uma rede social regional 
+          integrada por pescadores artesanais e por seus familiares, buscando, por meio de processos educativos, 
+          promover, fortalecer e aperfeiçoar a sua organização comunitária e a sua qualificação profissional, 
+          bem como o seu envolvimento na construção participativa e na implementação de projetos de geração de 
+          trabalho e renda.      
+        </.text>
+        <DesignSystem.link href={~p"/"} class="text-sm font-semibold">
+          <.button style="primary">
+            Ver mais
+          </.button>
+        </DesignSystem.link>
+      </div>
+    </div>
+    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/landing/landing_projeto.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2xhbmRpbmcvbGFuZGluZ19wcm9qZXRvLndlYnAiLCJpYXQiOjE3MjYyNTYwMzcsImV4cCI6MTc1Nzc5MjAzN30.CJBLFY2toAjHx9eHXcOXEJOWHZgrI2qQwvR3leWufUY&t=2024-09-13T19%3A33%3A57.292Z" />
+  </div>
+
   <!-- NEWS -->
   <div class="news">
     <.text size="h2" color="text-blue-100">Notícias</.text>

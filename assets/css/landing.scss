@@ -5,12 +5,13 @@
   grid-template-areas:
     "landing-carousel"
     "landing-links"
+    "project"
     "news"
     "gallery-carousel"
     "onde-nos-encontrar";
 
   width: 100%;
-  gap: 1rem;
+  gap: 5rem;
   overflow: scroll;
   overflow-x: hidden;
 
@@ -56,48 +57,137 @@
     gap: 1rem;
 
     .links-item {
-      @apply flex flex-col justify-start items-start;
-      margin: 0 2rem 2rem;
-      border-radius: 8px;
-      width: 20.125rem;
-      height: 20.875rem;
-      box-sizing: border-box;
-      background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+      @apply flex flex-col justify-start items-start bg-blue-100;
+      width: 13.333rem;
+      height: 6.5rem;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
 
       a {
-        @apply flex flex-col mt-auto;
+        @apply flex flex-col;
+        gap: 1rem;
       }
 
       img {
-        @apply absolute;
-        z-index: -10;
-        height: inherit;
-        width: inherit;
+        @apply hidden;
       }
 
       h3 {
-        padding-left: 1rem;
-      }
-
-      p {
-        text-wrap: nowrap;
-        margin-top: 0.5rem;
-        padding: 0 1rem 1.5rem 1rem;
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.75rem;
       }
 
       button {
-        width: 100%;
-        padding: 0 1rem 1.5rem 0;
+        @apply flex;
+        margin: 0;
+        padding: 0;
+        gap: 0.5rem;
         background-color: transparent;
 
         p {
-          display: inline-flex;
-          width: inherit;
+          @apply text-white-100;
+          font-size: 1rem;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 1.125rem;
+        }
+      }
+    }
 
-          &:hover {
-            text-decoration: underline;
+    @media (max-width: 768px) {
+      padding: 1rem 1rem;
+
+      .links-item {
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+
+        img {
+          @apply block absolute;
+          width: inherit;
+          height: inherit;
+          border-radius: 0.5rem;
+          object-fit: cover;
+
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
+          z-index: -10;
+        }
+      }
+    }
+  }
+
+  .project {
+    @apply flex justify-between;
+    grid-area: project;
+    /* width: 100%; */
+    padding: 0 2.5rem;
+
+    .project-content {
+      @apply flex flex-col;
+      gap: 0.94rem;
+      width: 50%;
+
+      p {
+        font-size: 0.75rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.125rem;
+        color: #9f9f9f;
+      }
+
+      .project-body {
+        @apply flex flex-col;
+        gap: 2.5rem;
+        width: 90%;
+
+        a button {
+          @apply flex;
+          height: 3rem;
+          padding: 1rem 1.5rem;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+
+          p {
+            @apply text-white-100;
+            font-size: 1rem;
+            font-weight: 500;
           }
         }
+      }
+    }
+
+    img {
+      width: 50%;
+      border-radius: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      @apply flex flex-col-reverse;
+      padding: 0 1rem;
+
+      .project-content {
+        width: 100%;
+
+        .project-body {
+          width: 100%;
+
+          a button {
+            width: 100%;
+          }
+        }
+      }
+
+      img {
+        width: 100%;
+        margin-bottom: 2.5rem;
       }
     }
   }
@@ -133,8 +223,6 @@
           display: flex;
           justify-content: center;
         }
-
-        button {}
       }
     }
   }
@@ -264,6 +352,7 @@
     grid-template-areas:
       "landing-carousel landing-carousel"
       "landing-links landing-links"
+      "project project"
       "news news"
       "gallery-carousel gallery-carousel"
       "onde-nos-encontrar onde-nos-encontrar";
@@ -277,6 +366,7 @@
     grid-template-areas:
       "landing-carousel landing-carousel landing-carousel"
       "landing-links landing-links landing-links"
+      "project project project"
       "news news news"
       "gallery-carousel gallery-carousel gallery-carousel"
       "onde-nos-encontrar onde-nos-encontrar onde-nos-encontrar";

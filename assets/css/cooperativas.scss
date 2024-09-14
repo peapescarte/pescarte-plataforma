@@ -75,6 +75,11 @@
 
         img {
           width: 100%;
+          border-radius: 0.5rem;
+        }
+
+        &:nth-child(3) {
+          @apply flex flex-col-reverse;
         }
       }
     }
