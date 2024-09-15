@@ -9,13 +9,13 @@ defmodule Seeder.ModuloPesquisa.Campus do
         acronimo: "UENF",
         nome: "Campos dos Goytacazes",
         nome_universidade: "Universidade Estadual do Norte Fluminense Darcy Ribeiro",
-        endereco: Faker.Address.street_address(true)
+        endereco: "57 Georgette Hill Apt. 898"
       },
       %Campus{
         acronimo: "UFSCar",
         nome: "Sorocaba",
         nome_universidade: "Universidade Federal de São Carlos",
-        endereco: Faker.Address.street_address(true)
+        endereco: "8 Morris Inlet Suite 355"
       }
     ]
   end

@@ -21,9 +21,7 @@ defmodule Pescarte.Application do
     :ok
   end
 
-  defp children do
-    if Pescarte.env() == :dev, do: Faker.start()
-
+  def children do
     [
       Pescarte.Database.Supervisor,
       PescarteWeb.Telemetry,
@@ -33,10 +31,5 @@ defmodule Pescarte.Application do
       Pescarte.Supabase,
       {Finch, name: PescarteHTTPClient}
     ]
-    |> maybe_append_children(Pescarte.env())
   end
-
-  defp maybe_append_children(children, :test), do: children
-  # defp maybe_append_children(children, _), do: [ChromicPDF | children]
-  defp maybe_append_children(children, _), do: children
 end
