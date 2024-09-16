@@ -54,9 +54,9 @@
 
   .hamburger-container {
     @apply absolute bg-white-100;
-    margin-top: 0.5rem;
-    padding: 1.5rem 1.5rem;
-    top: 100%;
+    margin-top: 8px;
+    padding: 24px 24px;
+    top: calc(100% + 8px);
     left: 0;
     width: 100%;
     z-index: 10;
@@ -68,11 +68,11 @@
     .nav-menu {
       @apply flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 16px;
     }
 
     a button {
-      margin-top: 1rem;
+      margin-top: 16px;
     }
   }
 }
