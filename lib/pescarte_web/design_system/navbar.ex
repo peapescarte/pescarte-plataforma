@@ -64,7 +64,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
       <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless class="md:flex">
         <.button style="link" class="login-button">
-          <.text size="h4" color="text-blue-100">Acessar</.text>
+          <.text size="h4" color="text-orange-100">Acessar</.text>
         </.button>
       </PescarteWeb.DesignSystem.link>
     </div>
