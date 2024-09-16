@@ -49,19 +49,30 @@
 }
 
 #navbar {
-  .hamburger-container {
-    @apply absolute;
+  @apply relative;
+  z-index: 20;
 
-    margin: 0 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  .hamburger-container {
+    @apply absolute bg-white-100;
+    margin-top: 0.5rem;
+    padding: 1.5rem 1.5rem;
+    top: 100%;
+    left: 0;
+    width: 100%;
     z-index: 10;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 
     .nav-menu {
       @apply flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 1rem;
+    }
+
+    a button {
+      margin-top: 1rem;
     }
   }
 }

@@ -25,8 +25,11 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
   defp hamburger_button(assigns) do
     ~H"""
-    <div class="hamburger-button md:hidden" phx-click={JS.toggle(to: "#hamburger-container")}>
-      <.button style="link">
+    <div class="hamburger-button md:hidden">
+      <.button
+        style="link"
+        click={JS.toggle(to: "#hamburger-container", in: "fade-in-scale", out: "fade-out-scale")}
+      >
         <.icon name={:menu} class="text-blue-100" />
       </.button>
     </div>
@@ -59,7 +62,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
         <.links current_path={@current_path} />
       </ul>
 
-      <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless class="hidden md:flex">
+      <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless class="md:flex">
         <.button style="link" class="login-button">
           <.text size="h4" color="text-blue-100">Acessar</.text>
         </.button>
