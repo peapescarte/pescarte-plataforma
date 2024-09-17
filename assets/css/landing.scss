@@ -238,26 +238,30 @@
     }
 
     .glide__slides {
+      @apply flex justify-center items-center;
       margin: 0;
       padding: 0;
       list-style: none;
-    }
 
-    .glide__slide {
-      @apply flex justify-center items-center;
-      width: 100%;
-      height: auto;
-      max-height: 500px;
-      transition: transform 0.25s ease-out;
-    }
+      .glide__slide {
+        @apply flex justify-center items-center;
+        max-width: 41.75rem;
+        height: auto;
+        transition: transform 0.25s ease-out;
 
-    .glide__slide img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      object-fit: cover;
-      max-width: 100%;
-      max-height: 100%;
+        &:not(.glide__slide--active) {
+          max-width: 33.125rem;
+        }
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 8px;
+          object-fit: cover;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
     }
 
     .glide__progress {
@@ -282,16 +286,13 @@
   .landing-grid {
     .news {
       .news-cards {
-        @apply flex-nowrap overflow-x-auto;
-        padding: 1rem;
+        @apply flex-nowrap;
+        overflow-x: auto;
         scroll-snap-type: x mandatory;
-        gap: 1.5rem;
-        width: 100%;
 
         .news-item {
-          min-width: calc(100% - 3rem);
+          margin: 0 1.5rem 0 0;
           scroll-snap-align: start;
-          margin: 0 0 2.5rem 0;
         }
       }
     }
@@ -306,7 +307,6 @@
         transform: scale(0.8);
         border-radius: 8px;
         overflow: hidden;
-
 
         img {
           width: 100%;
