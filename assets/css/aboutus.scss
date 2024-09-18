@@ -6,7 +6,7 @@
   }
 }
 
-.lighter-banner{
+.lighter-banner {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -18,10 +18,10 @@
   background-blend-mode: multiply;
 
   .banner-img {
-      z-index: -1;
-      position: absolute;
-      width: 100vw;
-      height: 260px;
+    z-index: -1;
+    position: absolute;
+    width: 100vw;
+    height: 260px;
   }
 
 }
@@ -64,7 +64,7 @@
     }
 
     .know-content {
-      width: 100vw; 
+      width: 100vw;
       padding: 0px 20px;
       margin-top: 40px;
     }
@@ -221,7 +221,7 @@
     }
 
     img {
-      order: 2; 
+      order: 2;
       width: 100%;
     }
 

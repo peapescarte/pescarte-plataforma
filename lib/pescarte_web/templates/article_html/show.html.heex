@@ -1,11 +1,16 @@
-<main class="journal-wrapper">
+<main class="article-wrapper">
+  <div class="lighter-banner">
+    <img src={~p"/images/light-banner-bg.png"} class="banner-img" />
+    <.text size="h2" color="text-white-100">
+      Artigos Publicados
+    </.text>
+  </div>
   <div class="publications">
-    <div class="banner-container">
-      <img src={~p"/images/landing/bg_fill.png"} />
-      <h1 class="centered-text">Artigos Publicados</h1>
-    </div>
     <section class="publications-text">
       <.text size="h3" color="text-blue-100">Categoria: <b>Artigos em Revistas</b></.text>
+    </section>
+
+    <div class="tabela-responsiva">
       <table>
         <tr>
           <th>Título</th>
@@ -172,8 +177,13 @@
           </td>
         </tr> -->
       </table>
-
+    </div>
+  </div>
+  <div class="publications">
+    <section class="publications-text">
       <.text size="h3" color="text-blue-100">Categoria: <b>Capítulo de Livros</b></.text>
+    </section>
+    <div class="tabela-responsiva">
       <table>
         <tr>
           <th>Título</th>
@@ -224,7 +234,113 @@
           </td>
         </tr>
       </table>
+    </div>
+  </div>
+  <div class="publications">
+    <section class="publications-text">
+      <.text size="h3" color="text-blue-100">Categoria: <b>Relatórios Técnicos</b></.text>
     </section>
+    <div class="tabela-responsiva">
+      <table>
+        <tr>
+          <th>Título</th>
+          <th>Ano</th>
+          <th>Link</th>
+        </tr>
+        <tr>
+          <td>
+            Capital Social e Associativismo dos Pescadores Artesanais de Municípios Limítrofes à Bacia de Campos: análise a partir dos dados do PEA Pescarte
+          </td>
+          <td>2019</td>
+          <td>
+            <DesignSystem.link
+              href="https://uenf.br/extensao/editora/wp-content/uploads/sites/2/2019/10/Trabalho-e-Pesca-no-Litoral-Fluminense.pdf"
+              class="text-sm font-semibold"
+              target-blank
+            >
+              Leia aqui
+            </DesignSystem.link>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="publications">
+    <section class="publications-text">
+      <.text size="h3" color="text-blue-100">Categoria: <b>Tese Doutoral</b></.text>
+    </section>
+    <div class="tabela-responsiva">
+      <table>
+        <tr>
+          <th data-label="Titulo">Título</th>
+          <th data-label="Ano">Ano</th>
+          <th data-label="Link">Link</th>
+        </tr>
+        <tr>
+          <td>
+            SEGURIDADE SOCIAL: o acesso aos direitos sociais pelas mulheres na atividade pesqueira
+          </td>
+          <td>2023</td>
+          <td>
+            <DesignSystem.link
+              href="https://uenf.br/posgraduacao/politicas-sociais/wp-content/uploads/sites/11/2023/09/ETUANY-MARTINS-RANGEL.pdf"
+              class="text-sm font-semibold"
+              target-blank
+            >
+              Leia aqui
+            </DesignSystem.link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Memórias e vivências na pesca em Gargaú:
+            tecendo circuitos laborais e ecossociais entre pescadores e pescadoras artesanais.
+          </td>
+          <td>2023</td>
+          <td>
+            <DesignSystem.link
+              href="https://uenf.br/posgraduacao/politicas-sociais/wp-content/uploads/sites/11/2023/09/EDUARDO-MOREIRA.pdf"
+              class="text-sm font-semibold"
+              target-blank
+            >
+              Leia aqui
+            </DesignSystem.link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            ESCOLA E ESCOLARIZAÇÃO DE PESCADORES E PESCADORAS EM GARGAÚ/SÃO
+            FRANCISCO DE ITABAPOANA/RJ: NAVEGANDO POR MARES E MEMÓRIAS
+          </td>
+          <td>2023</td>
+          <td>
+            <DesignSystem.link
+              href="https://uenf.br/posgraduacao/politicas-sociais/wp-content/uploads/sites/11/2023/11/CLARISSA-MENEZES-DE-SOUZA-POUBEL.pdf"
+              class="text-sm font-semibold"
+              target-blank
+            >
+              Leia aqui
+            </DesignSystem.link>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            A Emancipação, Trabalho e Solidariedade como elementos centrais da Educação
+            Ambiental Crítica com Pescadoras Artesanais
+          </td>
+          <td>2021</td>
+          <td>
+            <DesignSystem.link
+              href="https://sistemas.furg.br/sistemas/sab/arquivos/bdtd/0000014453.pdf"
+              class="text-sm font-semibold"
+              target-blank
+            >
+              Leia aqui
+            </DesignSystem.link>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />

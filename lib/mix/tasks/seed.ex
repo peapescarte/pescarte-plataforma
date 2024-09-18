@@ -9,7 +9,6 @@ defmodule Mix.Tasks.Seed do
   @impl Mix.Task
   def run(_args) do
     Mix.Task.run("app.start", ["--preload-modules"])
-    Faker.start()
 
     :ok = contato_seeds()
     :ok = usuario_seeds()
