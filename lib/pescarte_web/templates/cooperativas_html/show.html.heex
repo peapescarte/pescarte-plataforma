@@ -1,58 +1,67 @@
-<main class="landing-grid">
+<main class="cooperativas-wrapper">
   <.flash :if={@error_message} id="login-error" kind={:error}>
     <%= @error_message %>
   </.flash>
 
-  <div class="quem-somos">
-    <section class="quem-somos-text quem-somos-text-left">
-      <span>
-        <.text size="h1" color="text-blue-100">
-          O Laço Entre Cooperativas e Pescarte
-        </.text>
-      </span>
-      <.text size="lg" color="text-black-80">
-        Junto às comunidades de pesca artesanal, o PEA Pescarte promove ações colaborativas e democráticas pautadas na economia solidária e no cooperativismo, para a construção de Projetos de Geração de Trabalho e Renda (PGTR’s), que são empreendimentos socioeconômicos, ambientalmente responsáveis para a atuação de pessoas pescadoras e suas famílias em 10 municípios da Bacia de Campos.
-        <br />
-        <br />
-        Os Projetos de Geração de Trabalho e Renda (PGTR's) foram iniciados na segunda fase do projeto Pescarte e resultam na materialização para os Estudos de Viabilidade Técnica, Econômica, Ambiental e Social (EVTEAS) de seis tipos de empreendimentos, previstos para serem implantados de acordo com o Plano de Trabalho do projeto e a particularidade de cada comunidade de pesca.
-      </.text>
+  <div class="cooperativas-container">
+    <div class="header">
+      <div class="header-content">
+        <img src={~p"/images/landing/cooperativas/banner.webp"} />
+        <.text size="h2" color="text-white-100">Cooperativas</.text>
+      </div>
+    </div>
 
-      <.text size="lg" color="text-blue-100">
-        <a href="https://somoscooperativismo.coop.br/institucional/ocb" class="font-bold">
-          Visite também Organização das Cooperativas do Brasil (OCB)
-        </a>
-      </.text>
-    </section>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/cooperativas/cooperativas_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2Nvb3BlcmF0aXZhcy9jb29wZXJhdGl2YXNfMS5wbmciLCJpYXQiOjE3MjQzNDc5NTAsImV4cCI6MjAzOTcwNzk1MH0.aypgmecYR3yFQVDFbP6E9AEqbjZOiVtvpJWfc1z7aDM&t=2024-08-22T17%3A32%3A30.186Z" />
-  </div>
-
-  <div class="quem-somos">
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/cooperativas/cooperativas_2.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2Nvb3BlcmF0aXZhcy9jb29wZXJhdGl2YXNfMi5qcGVnIiwiaWF0IjoxNzI0MzQ3OTkxLCJleHAiOjIwMzk3MDc5OTF9.3yy6j3-yQycuAp_8Er6QUrqR2zYL9gXcQfImN5uV0PI&t=2024-08-22T17%3A33%3A11.535Z" />
-    <section class="quem-somos-text quem-somos-text-right">
-      <span>
-        <.text size="h1" color="text-blue-100">
-          Estudo de Viabilidade Técnica, Econômica, Ambiental e Social
+    <div class="block">
+      <div class="block-content">
+        <span>
+          <.text size="h1" color="text-blue-100">
+            O Laço Entre Cooperativas e Pescarte
+          </.text>
+        </span>
+        <.text size="lg" color="text-black-80">
+          Junto às comunidades de pesca artesanal, o PEA Pescarte promove ações colaborativas e democráticas pautadas na economia solidária e no cooperativismo, para a construção de Projetos de Geração de Trabalho e Renda (PGTR’s), que são empreendimentos socioeconômicos, ambientalmente responsáveis para a atuação de pessoas pescadoras e suas famílias em 10 municípios da Bacia de Campos.
+          <br />
+          <br />
+          Os Projetos de Geração de Trabalho e Renda (PGTR's) foram iniciados na segunda fase do projeto Pescarte e resultam na materialização para os Estudos de Viabilidade Técnica, Econômica, Ambiental e Social (EVTEAS) de seis tipos de empreendimentos, previstos para serem implantados de acordo com o Plano de Trabalho do projeto e a particularidade de cada comunidade de pesca.
         </.text>
-      </span>
-      <.text size="lg" color="text-black-80">
-        O EVTEAS busca identificar as vantagens e desvantagens dos PGTR’s que serão implantados pelo Pescarte. Cada foco do estudo busca investigar aspectos específicos:
-        <ul class="lg-list">
-          <li><b>Técnico:</b> se o projeto tem suporte técnico para existir;</li>
-          <li>
-            <b>Econômico:</b>
-            como o projeto pode render o suficiente para pagar seus custos e gerar lucro para dividir entre as pessoas trabalhadoras.
-          </li>
-          <li>
-            <b>Ambiental:</b>
-            possibilidades e alternativas para criar um empreendimento que gere nenhuma poluição ou dano ao meio ambiente.
-          </li>
-          <li>
-            <b>Social:</b>
-            se os projetos têm um número suficiente de pessoas interessadas em criar e manter um PGTR. Assim, a junção de todos estes termos avalia se o empreendimento pode ou não ser implantando.
-          </li>
-        </ul>
-      </.text>
-    </section>
+
+        <.text size="lg" color="text-blue-100">
+          <a href="https://somoscooperativismo.coop.br/institucional/ocb" class="font-bold">
+            Visite também Organização das Cooperativas do Brasil (OCB)
+          </a>
+        </.text>
+      </div>
+      <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/cooperativas/cooperativas_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2Nvb3BlcmF0aXZhcy9jb29wZXJhdGl2YXNfMS5wbmciLCJpYXQiOjE3MjQzNDc5NTAsImV4cCI6MjAzOTcwNzk1MH0.aypgmecYR3yFQVDFbP6E9AEqbjZOiVtvpJWfc1z7aDM&t=2024-08-22T17%3A32%3A30.186Z" />
+    </div>
+
+    <div class="block">
+      <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/cooperativas/cooperativas_2.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2Nvb3BlcmF0aXZhcy9jb29wZXJhdGl2YXNfMi5qcGVnIiwiaWF0IjoxNzI0MzQ3OTkxLCJleHAiOjIwMzk3MDc5OTF9.3yy6j3-yQycuAp_8Er6QUrqR2zYL9gXcQfImN5uV0PI&t=2024-08-22T17%3A33%3A11.535Z" />
+      <div class="block-content">
+        <span>
+          <.text size="h1" color="text-blue-100">
+            Estudo de Viabilidade Técnica, Econômica, Ambiental e Social
+          </.text>
+        </span>
+        <.text size="lg" color="text-black-80">
+          O EVTEAS busca identificar as vantagens e desvantagens dos PGTR’s que serão implantados pelo Pescarte. Cada foco do estudo busca investigar aspectos específicos:
+          <ul class="lg-list">
+            <li><b>Técnico:</b> se o projeto tem suporte técnico para existir;</li>
+            <li>
+              <b>Econômico:</b>
+              como o projeto pode render o suficiente para pagar seus custos e gerar lucro para dividir entre as pessoas trabalhadoras.
+            </li>
+            <li>
+              <b>Ambiental:</b>
+              possibilidades e alternativas para criar um empreendimento que gere nenhuma poluição ou dano ao meio ambiente.
+            </li>
+            <li>
+              <b>Social:</b>
+              se os projetos têm um número suficiente de pessoas interessadas em criar e manter um PGTR. Assim, a junção de todos estes termos avalia se o empreendimento pode ou não ser implantando.
+            </li>
+          </ul>
+        </.text>
+      </div>
+    </div>
   </div>
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />

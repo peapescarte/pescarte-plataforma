@@ -4,7 +4,11 @@
   height: 98px;
 
   .logo {
-    margin: 24px 0px 24px 100px;
+    margin: 1.5rem 0 1.5rem 6.25rem;
+
+    @media screen and (max-width: 768px) {
+      margin: 1.5rem 1.5rem;
+    }
   }
 
   .login-button {
@@ -13,7 +17,7 @@
   }
 
   .nav-menu {
-    @apply flex justify-between items-center;
+    @apply justify-between items-center;
     gap: 3rem;
     margin: 21px 0;
 
@@ -35,6 +39,40 @@
         @apply border-b-2 border-blue-100;
         cursor: pointer;
       }
+    }
+  }
+
+  .hamburger-button {
+    @apply md:hidden;
+    margin: 1.5rem;
+  }
+}
+
+#navbar {
+  @apply relative;
+  z-index: 20;
+
+  .hamburger-container {
+    @apply absolute bg-white-100;
+    margin-top: 8px;
+    padding: 24px 24px;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    .nav-menu {
+      @apply flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    a button {
+      margin-top: 16px;
     }
   }
 }
