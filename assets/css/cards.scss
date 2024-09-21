@@ -47,3 +47,31 @@
     }
   }
 }
+
+@media (max-width: 768px) and (min-width: 577px){
+.card-links{
+  .card-item{
+    width: 70%;
+    height: 16rem;
+
+    img{
+      border-radius: 8px;
+    }
+  }
+}
+
+}
+
+@media (min-width: 350px) and (max-width: 576px){
+  .card-links{
+    .card-item{
+      width: 80%;
+      height: 14rem;
+
+      img{
+        border-radius: 8px;
+      }
+    }
+  }
+
+}
