@@ -105,8 +105,10 @@
         }
 
         .accordion-bx.active {
+
             .accordion-label {
                 margin-top: 20px;
+                
                 .text-blue-100 {
                     transform: rotate(180deg);
                 }
@@ -118,20 +120,70 @@
                     width: 100%;
                     gap: 20px;
                     padding: 10px 25px;
-                    transition: 0.3s;
+                    transition: max-height 0.3s ease-out; 
+
+                    hr {
+                        height: 1px;
+                        border-top-width: 1px;
+                        width: 100%;
+                        color: #E7E7E7;
+                    }
 
                     .content-item {
                         display: flex;
+                        flex-direction: column;
                         justify-content: space-between;
-                        align-items: center;
+                        align-items: flex-start;
                         padding: 10px;
                         border-radius: 4px;
+                        gap: 20px;
 
-                        .status {
-                            background-color: #404040;
-                            color: #fff;
+                       .content-title {
+                        font-weight: bold;
+                       }
+
+                        h4 {
+                            font-weight: bold;
+                            padding: 0px;
+                        }
+
+                        .status-pending {
+                            background-color: #E7E7E7;
+                            color: #404040;
                             padding: 6px 12px;
                             border-radius: 4px;
+                        }
+
+                        .status-in-progress {
+                            background-color: #00B464;
+                            color: #FFFFFF;
+                            padding: 6px 12px;
+                            border-radius: 4px;
+                        }
+
+                        .status-done{
+                            background-color: #EEB61F;
+                            color: #FFFFFF;
+                            padding: 6px 12px;
+                            border-radius: 4px;
+                        }
+
+                        .download-button {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            padding: 16px 24px;
+                            max-width: 225px;
+                            height: 40px;
+                            border-radius: 4px;
+                            background-color: #0064C8;
+                            cursor: pointer;
+
+                            .download-icon {
+                                max-width: 16px;
+                                max-height: 16px;
+                            }
                         }
                     }
                 }
