@@ -5,12 +5,13 @@ units.forEach(unit => {
     const accordions = unit.getElementsByClassName('accordion-bx');
     
     for (let i = 0; i < accordions.length; i++) {
-        accordions[i].addEventListener('click', function() {
-          
-            if (!this.classList.contains('active')) {
-                this.classList.add('active');
+        const label = accordions[i].querySelector('.accordion-label');
+
+        label.addEventListener('click', function() {
+            if (!accordions[i].classList.contains('active')) {
+                accordions[i].classList.add('active');
             } else {
-                this.classList.remove('active');
+                accordions[i].classList.remove('active');
             }
         });
     }
