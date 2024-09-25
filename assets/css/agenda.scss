@@ -7,12 +7,12 @@
     height: 260px;
     background: rgba(0, 50, 100, 0.8);
     margin-bottom: 60px;
-    
+
     .banner-img {
         z-index: -1;
         position: absolute;
         width: 100vw;
-        max-height: 260px; 
+        max-height: 260px;
     }
 
 }
@@ -24,8 +24,16 @@
     justify-content: center;
     margin-bottom: 40px;
 
+    .alert {
+      padding: 0 2em;
+    }
+
     .table-label {
         margin-bottom: 15px;
+    }
+
+    .container {
+      width: 95vw;
     }
 
     .table-container {
@@ -70,13 +78,14 @@
     background: #0064C8CC;
     background-blend-mode: multiply;
     margin-bottom: 80px;
-  
+
     h4 {
       position: absolute;
       text-align: center;
       max-width: 668px;
+      padding: 0 1em;
     }
-  
+
     img {
       width: 100vw;
       height: 100%;

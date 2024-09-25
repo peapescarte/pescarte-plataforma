@@ -19,14 +19,12 @@
     grid-area: landing-carousel;
     grid-column: 1 / -1;
 
-    .glide__slide {
-      max-width: 100%;
-      height: 100%;
+    .glide__slides {
+      height: 30.5625rem;
 
-      img {
-        width: 100%;
-        height: 100%;
+      .glide__slide img {
         background-size: cover;
+        transform: translateY(-20%);
       }
     }
 
@@ -284,6 +282,13 @@
 
 @media (max-width: 768px) {
   .landing-grid {
+    .landing-carousel {
+      .glide__slides {
+        height: auto;
+        max-height: 24.125rem;
+      }
+    }
+
     .news {
       .news-cards {
         @apply flex-nowrap;
