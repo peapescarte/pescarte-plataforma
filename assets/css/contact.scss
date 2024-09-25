@@ -2,8 +2,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 100vw;
     margin-bottom: 40px;
     padding: 80px 120px;
+
+    .contact-message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .text-black-80 {
+            margin-bottom: 20px;
+        }
+
+        .return-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0064C8;
+            border-radius: 4px;
+            gap: 8px;
+            padding: 16px 24px;
+            width: 267px;
+            cursor: pointer;
+        }
+
+    }
 
     .contact-form {
         width: 50%;
@@ -49,6 +78,26 @@
             img {
                 margin-right: 16px;
             }
+        }
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .contact-area {
+        margin: 20px 40px;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 768px) {
+    .contact-area {
+        display: flex;
+        padding: 10px 5px;
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+
+        .contact-message {
+            align-items: center;
         }
     }
 }
