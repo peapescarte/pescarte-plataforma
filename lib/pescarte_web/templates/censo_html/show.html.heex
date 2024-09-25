@@ -1,52 +1,21 @@
-<main class="landing-grid">
+<main class="links-landing">
   <.flash :if={@error_message} id="login-error" kind={:error}>
     <%= @error_message %>
   </.flash>
 
-  <div class="quem-somos">
-    <section class="quem-somos-text center">
-      <span>
-        <.text size="h1" color="text-blue-100">
-          CENSO Pescarte
-        </.text>
-      </span>
-      <.text size="lg" color="text-black-80">
-        Com o objetivo de traçar o perfil dos integrantes das comunidades de pesca artesanal, o Pescarte realiza o Censo da Pesca, que coleta informações sobre a realidade das pessoas pescadoras, analisando dados econômicos, sociais e aspectos ambientais.
-        <br />
-        O último Censo da Pesca foi iniciado no primeiro semestre de 2022 e encerrado no fim de 2023.
-        <br />
-        O levantamento reúne informações da quantidade de pessoas envolvidas na cadeia da pesca, onde estão e como vivem, captando suas necessidades e desafios.
-        <br />
-        A primeira edição do levantamento foi realizada entre os anos de 2014 e 2016, dando origem a artigos científicos, livros e apoio aos agentes de políticas públicas envolvidos na classe da pesca artesanal.
-        <br />
-        As informações levantadas também subsidiam o planejamento didático-pedagógico e a execução dos processos formativos dos educadores socioambientais e dos integrantes das comunidades de pesca, promovendo a organização comunitária e a qualificação profissional dos pescadores e pescadoras.
-        <br />
-        <.text size="h4" color="text-black-80">
-          Junto às comunidades de pesca artesanal, o PEA Pescarte promove ações colaborativas e democráticas pautadas na economia solidária e no cooperativismo, para a construção de Projetos de Geração de Trabalho e Renda (PGTR’s), que são empreendimentos socioeconômicos, ambientalmente responsáveis para a atuação de pessoas pescadoras e suas famílias em 10 municípios da Bacia de Campos.
-        </.text>
-        <br />
-        <br />
+  <div class="links-item">
+    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/aplicativos/card_censo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2FwbGljYXRpdm9zL2NhcmRfY2Vuc28ucG5nIiwiaWF0IjoxNzI3MTE0MTk4LCJleHAiOjIwNDI0NzQxOTh9.wW5kuYkVJGCAtGe5YAgfIIOVQcigKOBCNUg9qsaHV0Q&t=2024-09-23T17%3A56%3A39.115Z" />
+    <DesignSystem.link
+      href="https://pescarteproject.z13.web.core.windows.net/"
+      class="text-sm font-semibold"
+    >
+      <.text size="h3" color="text-blue-100">CENSO da Pesca</.text>
+      <.text size="base" color="text-blue-100">
+        Se quiser ver dados do CENSO, consulte o aplicativo.
       </.text>
-    </section>
-  </div>
-
-  <div class="quem-somos">
-    <section class="quem-somos-text quem-somos-text-left">
-      <.text size="h1" color="text-blue-100">
-        Acesso ao Infográfico Dinâmico (Testando!!!!)
-      </.text>
-      <.text size="lg" color="text-blue-100">
-        <iframe
-          width="900"
-          height="650"
-          src="https://lookerstudio.google.com/embed/reporting/8ec716a7-59e3-42c6-8f5e-7c05aec57eb4/page/TlJ0C"
-          frameborder="0"
-          style="border:0"
-          allowfullscreen
-          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-        >
-        </iframe>
-      </.text>
-    </section>
+      <.button style="primary">
+        Saiba mais <Lucideicons.arrow_right class="text-blue-100" />
+      </.button>
+    </DesignSystem.link>
   </div>
 </main>
