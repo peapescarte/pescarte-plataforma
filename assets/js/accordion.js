@@ -16,6 +16,23 @@ units.forEach(unit => {
         });
     }
 });
+const units = document.querySelectorAll('.units-accordions');
+
+units.forEach(unit => {
+    const accordions = unit.getElementsByClassName('accordion-bx');
+    
+    for (let i = 0; i < accordions.length; i++) {
+        const label = accordions[i].querySelector('.accordion-label');
+
+        label.addEventListener('click', function() {
+            if (!accordions[i].classList.contains('active')) {
+                accordions[i].classList.add('active');
+            } else {
+                accordions[i].classList.remove('active');
+            }
+        });
+    }
+});
 
 phases.forEach(phase => {
     const accordions = phase.getElementsByClassName('accordion-bx');
