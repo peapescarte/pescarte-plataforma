@@ -6,7 +6,7 @@ defmodule PescarteWeb.AgendaController do
   def show(conn, _params) do
     current_month =
       "appointments_data"
-      |> Pescarte.get_static_file_path("agenda_setembro.csv")
+      |> Pescarte.get_static_file_path("agenda_outubro.csv")
       |> File.stream!()
       |> CSV.parse_stream(skip_headers: false)
       |> Enum.take(1)
@@ -14,12 +14,12 @@ defmodule PescarteWeb.AgendaController do
 
     table_data =
       "appointments_data"
-      |> Pescarte.get_static_file_path("agenda_setembro.csv")
+      |> Pescarte.get_static_file_path("agenda_outubro.csv")
       |> File.stream!()
       |> CSV.parse_stream()
       |> Stream.drop(1)
+      |> Stream.filter(&valid_row?/1)
       |> Stream.map(&convert_to_map/1)
-      |> Enum.filter(&valid_row?/1)
       |> then(fn rows ->
         total_rows = Enum.count(rows)
 
@@ -48,6 +48,6 @@ defmodule PescarteWeb.AgendaController do
   end
 
   defp valid_row?(row) do
-    Enum.all?(row, &(&1 != ""))
+    Enum.all?(row, fn field -> String.trim(field) != "" end)
   end
 end
