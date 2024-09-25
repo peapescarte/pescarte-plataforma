@@ -60,6 +60,7 @@ body {
   font-size: 62.5%;
   font-weight: 400;
   position: relative;
+  overflow-x: hidden;
 }
 
 .grid {
@@ -173,11 +174,15 @@ footer {
 // Sem autenticação
 @import "./pages/login.scss";
 @import "./aboutus.scss";
+@import "./noticias.scss";
+@import "./cooperativas.scss";
 
 @import "./agenda.scss";
 @import "./contact.scss";
 @import "./article.scss";
 @import "./boletins.scss";
+@import "./noticias.scss";
+@import "./cards.scss";
 
 // Com autenticação
 @import "./pages/app/researcher/profile.scss";

@@ -39,7 +39,7 @@ defmodule PescarteWeb.Router do
     get "/censo", CensoController, :show
     get "/confirmar", TokenController, :confirm
     get "/noticias", NoticiasController, :show
-    get "/pgtrs", PGTRController, :show
+    get "/pgtr", PGTRController, :show
     get "/sedes", SedesController, :show
     get "/aplicativos", AplicativosController, :show
 
@@ -64,6 +64,8 @@ defmodule PescarteWeb.Router do
 
     scope "/contato" do
       get "/", ContactController, :show
+      get "/success", ContactController, :success
+      get "/failed", ContactController, :failed
       post "/", ContactController, :send_email
     end
   end
