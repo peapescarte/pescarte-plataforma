@@ -60,6 +60,7 @@ body {
   font-size: 62.5%;
   font-weight: 400;
   position: relative;
+  overflow-x: hidden;
 }
 
 .grid {
@@ -154,6 +155,7 @@ footer {
 @import "./button.scss";
 @import "./checkbox.scss";
 @import "./flash.scss";
+@import "./footer.scss";
 @import "./get_in_touch.scss";
 @import "./input.scss";
 @import "./landing.scss";
@@ -174,13 +176,20 @@ footer {
 @import "./pages/login.scss";
 @import "./aboutus.scss";
 @import "./noticias.scss";
+@import "./equipes.scss";
 @import "./cooperativas.scss";
+@import "./sedes.scss";
+@import "./pgtr.scss";
+@import "./pgtr.scss";
 
 @import "./agenda.scss";
 @import "./contact.scss";
 @import "./article.scss";
 @import "./boletins.scss";
 @import "./noticias.scss";
+@import "./cards.scss";
+@import "./article.scss";
+@import "./boletins.scss";
 
 // Com autenticação
 @import "./pages/app/researcher/profile.scss";

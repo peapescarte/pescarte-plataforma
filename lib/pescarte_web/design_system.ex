@@ -154,8 +154,14 @@ defmodule PescarteWeb.DesignSystem do
   """
   def footer(assigns) do
     ~H"""
-    <footer class="fixed bottom-0 z-10 w-full">
-      <img src={~p"/images/footer_logos_reduced_height.png"} />
+    <footer>
+      <img src={~p"/images/footer/logo_ibama.svg"} />
+      <img src={~p"/images/footer/logo_uenf.svg"} />
+      <img src={~p"/images/footer/logo_petrobras.svg"} />
+      <img src={~p"/images/footer/logo_ipead.svg"} />
+      <.text size="base" color="text-blue-100">
+        A realização do Projeto Pescarte é uma medida de mitigação exigida pelo licenciamento ambiental federal, conduzido pelo IBAMA.
+      </.text>
     </footer>
     """
   end
