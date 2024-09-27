@@ -6,22 +6,23 @@
   }
 }
 
-.lighter-banner {
+.lighter-banner{
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
   gap: 20px;
   height: 260px;
+  width: 100vw;
   margin-bottom: 20px;
   background: #0064c8b0;
   background-blend-mode: multiply;
 
   .banner-img {
-    z-index: -1;
-    position: absolute;
-    width: 100vw;
-    height: 260px;
+      z-index: -1;
+      position: absolute;
+      width: 100vw;
+      height: 260px;
   }
 
 }
@@ -221,7 +222,7 @@
     }
 
     img {
-      order: 2;
+      order: 2; 
       width: 100%;
     }
 
