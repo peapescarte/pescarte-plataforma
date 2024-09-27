@@ -5,7 +5,7 @@
     gap: 56px;
     padding: 80px 40px;
     width: 100vw;
-  
+
     img {
         object-fit: cover;
         width: 50%;
@@ -13,7 +13,7 @@
         max-height: 440px;
         border-radius: 16px;
     }
-  
+
     .content-pgtr {
         display: flex;
         flex-direction: column;
@@ -24,7 +24,7 @@
             margin-bottom: 20px;
         }
     }
-  
+
     @media (min-width: 328px) and (max-width: 1024px) {
         flex-direction: column;
         align-items: center;
@@ -37,7 +37,7 @@
         }
 
         .content-pgtr {
-            width: 100vw; 
+            width: 100vw;
             padding: 0px 20px;
             margin-top: 40px;
         }
@@ -117,7 +117,7 @@
 
             .accordion-label {
                 margin-top: 20px;
-                
+
                 .text-blue-100 {
                     transform: rotate(180deg);
                 }
@@ -129,7 +129,7 @@
                     width: 100%;
                     gap: 20px;
                     padding: 10px 25px;
-                    transition: max-height 0.3s ease-out; 
+                    transition: max-height 0.3s ease-out;
 
                     hr {
                         height: 1px;
@@ -157,21 +157,21 @@
                         }
 
                         .status-pending {
-                            background-color: #E7E7E7;
-                            color: #404040;
+                            background-color: #ff0000;
+                            color: #FFFFFF;
                             padding: 6px 12px;
                             border-radius: 4px;
                         }
 
                         .status-in-progress {
-                            background-color: #00B464;
+                            background-color: #ffa500;
                             color: #FFFFFF;
                             padding: 6px 12px;
                             border-radius: 4px;
                         }
 
                         .status-done{
-                            background-color: #EEB61F;
+                            background-color:  #00B464;
                             color: #FFFFFF;
                             padding: 6px 12px;
                             border-radius: 4px;
@@ -205,7 +205,7 @@
 
             .accordion {
                 padding: 10px 40px;
-                
+
                 .accordion-bx {
                     width: auto;
                 }
