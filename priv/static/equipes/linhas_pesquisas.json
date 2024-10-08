@@ -196,9 +196,9 @@
             "lider": false
           },
           {
-            "nome": "João Pedro Rabelo de Carvalho",
-            "equipe": "Graduando, UFV - Viçosa",
-            "imagem": "",
+            "nome": "Fernanda Gomes de Oliveira",
+            "equipe": "Graduanda, IFF - Guarus",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Fernanda%20Gomes.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvRmVybmFuZGEgR29tZXMuZ2lmIiwiaWF0IjoxNzI3MTUxNzg1LCJleHAiOjIwNDI1MTE3ODV9.fZJtVf_1eOxRHIZDPBy8YcJ5btc6dCSNuTBXvMYxQPs&t=2024-09-24T04%3A23%3A07.016Z",
             "lider": false
           },
           {
@@ -383,9 +383,9 @@
             "lider": false
           },
           {
-            "nome": "Vínicius  Pedrosa Carvalho",
+            "nome": "Júlio César Tuller Campista",
             "equipe": "Graduando, IFF - Campos dos Goytacazes",
-            "imagem": "",
+            "imagem": "https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/equipes/membros/nucleo_de_pesquisas/pesquisadores/Julio%20Cesar%20Tuller.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL2VxdWlwZXMvbWVtYnJvcy9udWNsZW9fZGVfcGVzcXVpc2FzL3Blc3F1aXNhZG9yZXMvSnVsaW8gQ2VzYXIgVHVsbGVyLmdpZiIsImlhdCI6MTcyNzE1MTc0NywiZXhwIjoyMDQyNTExNzQ3fQ.L2n_DWCC6KvlBBjIh6svTOY3Jrp2vI5t-kSWTvJPfi8&t=2024-09-24T04%3A22%3A29.158Z",
             "lider": false
           }
         ]

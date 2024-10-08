@@ -1,19 +1,25 @@
 .onde-nos-encontrar-wrapper {
   @apply flex bg-orange-100;
+  grid-area: onde-nos-encontrar;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   gap: 5rem;
-  padding: 5rem;
+  padding: 5rem 0 5rem 0;
+  width: 100vw;
 
   .redes-sociais-wrapper {
     @apply flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     .redes-sociais-links-wrapper {
-      @apply flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
       padding-top: 2.5rem;
 
       .redes-sociais-link {
@@ -50,6 +56,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     gap: 2.5rem;
 
     .contact-btn {
@@ -70,6 +77,61 @@
 
       svg {
         @apply text-orange-100;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .onde-nos-encontrar-wrapper {
+    margin: 0;
+
+    .redes-sociais-wrapper {
+      margin: 1rem;
+
+      .redes-sociais-links-wrapper {
+        @apply flex;
+
+        .redes-sociais-link {
+          padding: 0;
+
+          .redes-sociais-icon {
+            width: 60px;
+            height: 60px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .onde-nos-encontrar-wrapper {
+    .redes-sociais-wrapper {
+      .redes-sociais-links-wrapper {
+        /* 2 colunas em telas médias */
+        @apply grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        column-gap: 80px;
+        min-height: auto;
+        margin-top: 2.5rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .onde-nos-encontrar-wrapper {
+    .redes-sociais-wrapper {
+      .redes-sociais-links-wrapper {
+        /* 3 colunas em telas grandes */
+        @apply grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        column-gap: 80px;
+        min-height: auto;
+        margin-top: 2.5rem;
       }
     }
   }

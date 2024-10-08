@@ -6,6 +6,16 @@ defmodule PescarteWeb.ContactController do
   @sender_email Application.compile_env!(:pescarte, [PescarteWeb, :sender_email])
   @receiver_email Application.compile_env!(:pescarte, [PescarteWeb, :receiver_email])
 
+  def success(conn, _params) do
+    current_path = conn.request_path
+    render(conn, :success, current_path: current_path, error_message: nil)
+  end
+
+  def failed(conn, _params) do
+    current_path = conn.request_path
+    render(conn, :failed, current_path: current_path, error_message: nil)
+  end
+
   def show(conn, _params) do
     changeset = ContactForm.changeset(%{})
     current_path = conn.request_path
@@ -21,7 +31,7 @@ defmodule PescarteWeb.ContactController do
              {:ok, _} <- send_confirmation_email(client, contact_form) do
           conn
           |> put_flash(:info, "Email enviado com sucesso!")
-          |> redirect(to: ~p"/")
+          |> redirect(to: ~p"/contato/success")
         else
           {:error, reason} ->
             Logger.error("""
@@ -32,13 +42,13 @@ defmodule PescarteWeb.ContactController do
 
             conn
             |> put_flash(:error, "Erro ao enviar email.")
-            |> redirect(to: ~p"/")
+            |> redirect(to: ~p"/contato/failed")
         end
 
       {:error, _changeset} ->
         conn
         |> put_flash(:error, "Erro na validação do formulário.")
-        |> redirect(to: ~p"/")
+        |> redirect(to: ~p"/contato/failed")
     end
   end
 

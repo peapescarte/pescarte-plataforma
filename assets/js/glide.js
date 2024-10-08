@@ -3,15 +3,15 @@ import Glide from "@glidejs/glide/dist/glide.esm";
 const glide1 = new Glide('.glide1', {
   type: 'slider',
   gap: 20,
-  perview: 1,
-  autoplay: 35 * 10 * 10,
+  perView: 1,
+  autoplay: 3500,
   hoverpause: true,
-  animationDuration: 15 * 100,
+  animationDuration: 1500,
   direction: 'ltr'
 });
 
-glide1.on('run', function () {
-  const bullets = document.querySelectorAll('.glide__bullet');
+glide1.on('run', function() {
+  const bullets = document.querySelectorAll('.glide1 .glide__bullet');
   bullets.forEach((bullet, index) => {
     if (index === glide1.index) {
       bullet.classList.add('active');
@@ -21,7 +21,6 @@ glide1.on('run', function () {
   });
 });
 
-
 const glide2 = new Glide('.glide2', {
   type: 'carousel',
   autoplay: 5000,
@@ -29,6 +28,17 @@ const glide2 = new Glide('.glide2', {
   focusAt: 'center',
   gap: 24,
   peek: 107
+});
+
+glide2.on('run', function() {
+  const bullets = document.querySelectorAll('.glide2 .glide__bullet');
+  bullets.forEach((bullet, index) => {
+    if (index === glide2.index) {
+      bullet.classList.add('active');
+    } else {
+      bullet.classList.remove('active');
+    }
+  });
 });
 
 if (window.location.pathname === '/') {

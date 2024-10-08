@@ -13,6 +13,7 @@
   justify-content: center;
   gap: 20px;
   height: 260px;
+  width: 100vw;
   margin-bottom: 20px;
   background: #0064c8b0;
   background-blend-mode: multiply;
@@ -64,7 +65,7 @@
     }
 
     .know-content {
-      width: 100vw; 
+      width: 100vw;
       padding: 0px 20px;
       margin-top: 40px;
     }

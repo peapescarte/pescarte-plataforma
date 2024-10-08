@@ -1,428 +1,948 @@
-<main class="landing-grid">
-  <.flash :if={@error_message} id="login-error" kind={:error}>
-    <%= @error_message %>
-  </.flash>
-
-  <div class="news">
-    <.text size="h2" color="text-blue-100">Informações sobre os PGTR's</.text>
-
-    <div class="get-to-know">
-      <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzEucG5nIiwiaWF0IjoxNzI0MzQ2OTE1LCJleHAiOjIwMzk3MDY5MTV9.J7I7kUsYTdVVseCs6QcGXHAAXIdrSPo-vEEurvrF2Kw&t=2024-08-22T17%3A15%3A15.147Z" />
-      <div class="know-content">
-        <.text size="lg" color="text-black-80">
-          O Projeto de Educação Ambiental Pescarte (PEA Pescarte) atua no fortalecimento da organização
-          comunitária da pesca artesanal em 10 municípios da Bacia de Campos, no interior do Rio de Janeiro.
-          A organização é promovida com a mobilização e a construção das habilidades dos membros das
-          comunidades de pesca para que atuem no Projeto de Geração de Trabalho e Renda (PGTR),
-          que prevê a implantação de Unidades produtivas.
-        </.text>
-        <.text size="lg" color="text-black-80">
-          Essas unidades funcionarão como cooperativas, com o objetivo de proporcionar condições de
-          trabalho dignas e negociações justas, promovendo o aumento da renda familiar dos integrantes da
-          cadeia produtiva da pesca artesanal.
-        </.text>
-        <.text size="lg" color="text-black-80">
-          Respeitando o plano de trabalho e as fases previstas do PEA Pescarte, atualmente sete
-          municípios iniciaram a implantação dos empreendimentos. São eles: Arraial do Cabo, Cabo Frio,
-          Campos dos Goytacazes, Macaé, Quissamã, São Francisco de Itabapoana e São João da Barra.
-          As cidades de Armação dos Búzios, Carapebus e Rio das Ostras já formaram os Grupos Gestores (GG),
-          que atuarão diretamente no planejamento dos <b>PGTR</b>.
-        </.text>
-        <.text size="lg" color="text-black-80">
-          O processo educativo é realizado nos 10 municípios e se dá através de oficinas com temas diversos,
-          entre eles: economia solidária, cooperativismo, políticas públicas, licenciamento ambiental,
-          letramento digital e gestão participativa. O projeto promove, também, articulações entre os
-          pescadores e pescadoras, com reuniões do Grupo de Trabalho, Grupo Gestor, Grupo de Acompanhamento
-          de Obras e assembleias municipais.
-        </.text>
-        <.text size="lg" color="text-black-80">
-          O PEA Pescarte é uma medida de mitigação exigida pelo licenciamento ambiental federal, coordenado
-          pela Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF), conduzido pelo IBAMA e
-          financiado pela Petrobras
-        </.text>
-      </div>
-    </div>
-  </div>
-  <!-- criando os municipios -->
-  <div class="banner-container">
-    <img src={~p"/images/landing/bg_fill.png"} />
-    <h1 class="centered-text">Unidades Produtivas Previstas</h1>
-  </div>
-  <div class="phases">
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Armação dos Búzios
-      </.text>
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção de Moluscos Bivalves
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção de Sementes
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Processamento de Pescado
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-      </div>
-    </div>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
+<main>
+  <div class="lighter-banner">
+    <img src={~p"/images/light-banner-bg.png"} class="banner-img" />
+    <.text size="h2" color="text-white-100">
+      PGTR
+    </.text>
   </div>
 
-  <div class="phases">
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Arraial do Cabo
+  <div class="get-to-know-pgtr">
+    <div class="content-pgtr">
+      <.text size="h2" color="text-blue-100">O Pescarte e PGTR</.text>
+      <.text size="lg" color="text-black-80">
+        O Projeto de Educação Ambiental Pescarte (PEA Pescarte) atua no
+        fortalecimento da organização comunitária da pesca artesanal em 10
+        municípios da Bacia de Campos, no interior do Rio de Janeiro. A organização é
+        promovida com a mobilização e a construção das habilidades dos membros
+        das comunidades de pesca para que atuem no Projeto de Geração de Trabalho
+        e Renda (PGTR), que prevê a implantação de Unidades produtivas.
       </.text>
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção de Moluscos Bivalves
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Beneficiamento de Moluscos Bivalves
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção Aquícola
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Processamento de Pescado
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-      </div>
+      <.text size="lg" color="text-black-80">
+        Essas unidades funcionarão como cooperativas, com o objetivo de
+        proporcionar condições de trabalho dignas e negociações justas, promovendo
+        o aumento da renda familiar dos integrantes da cadeia produtiva da pesca
+        artesanal.
+      </.text>
+      <.text size="lg" color="text-black-80">
+        Respeitando o plano de trabalho e as fases previstas do PEA Pescarte,
+        atualmente sete municípios iniciaram a implantação dos empreendimentos.
+        São eles: Arraial do Cabo, Cabo Frio, Campos dos Goytacazes, Macaé,
+        Quissamã, São Francisco de Itabapoana e São João da Barra. As cidades de
+        Armação dos Búzios, Carapebus e Rio das Ostras já formaram os Grupos
+        Gestores (GG), que atuarão diretamente no planejamento dos PGTR.
+      </.text>
     </div>
+    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzEucG5nIiwiaWF0IjoxNzI0MzQ2OTE1LCJleHAiOjIwMzk3MDY5MTV9.J7I7kUsYTdVVseCs6QcGXHAAXIdrSPo-vEEurvrF2Kw&t=2024-08-22T17%3A15%3A15.147Z" />
   </div>
 
-  <div class="phases">
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Cabo Frio
-      </.text>
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Beneficiamento de Pescado
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-      </div>
-    </div>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-  </div>
+  <div class="production-units">
+    <.text size="h3" color="text-blue-100">Unidades produtivas previstas</.text>
 
-  <div class="phases">
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Campos dos Goytacazes
-      </.text>
+    <div class="units-accordions">
       <div class="accordion">
         <div class="accordion-bx">
           <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
             <.text size="h4" color="text-black-80">
-              Unidade de Tratamento de Resíduos
+              <strong>Armação de Búzios</strong>
             </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
           </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Beneficiamento de Pescado
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção Aquícola
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="phases">
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Carapebus
-      </.text>
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção Aquícola
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
           <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
+            <hr />
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">
+                Laboratório de Sementes
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> EVTEAS Conceitual.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Laboratório de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Restaurante Industrial</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> EVTEAS Conceitual.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Restaurante Industrial</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção de Alevinos
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-      </div>
-    </div>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-  </div>
 
-  <div class="phases">
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Macaé
-      </.text>
-      <div class="accordion">
         <div class="accordion-bx">
           <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
             <.text size="h4" color="text-black-80">
-              Unidade de Beneficiamento de Pescado
+              <strong>Arraial do Cabo</strong>
             </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
           </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="phases">
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Quissamã
-      </.text>
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção Aquícola
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
           <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
+            <hr />
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Mariscos - UPM
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Plano de Riscos.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Mariscos - UPM
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Plano de Riscos.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Projeto Básico.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Mariscos - UPM
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Projeto Básico.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Plano de Negócios.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Mariscos - UPM
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Plano de Negócios.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span>
+                Texto pendente de ser publicado!!!!.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção Aquícola - UPA</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Plano de Risco.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção Aquícola - UPA</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span>
+                Plano de Risco; Projeto Básico e Plano de Negócios.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próximas Etapas:</span>
+                Projeto Básico e Plano de Negócios.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-in-progress">Em andamento</span>
+              <.text size="h4" color="text-black-100">
+                Salga de Peixe e Beneficiamento de Molusco
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização  - EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Plano de Risco.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">
+                Salga de Peixe e Beneficiamento de Molusco
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span>
+                Plano de Risco; Projeto Básico e Plano de Negócios.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próximas Etapas:</span>
+                Projeto Básico e Plano de Negócios.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-in-progress">Em andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Processamento de Pescado - UPP
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização  - EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Plano de Risco.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Processamento de Pescado - UPP
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span>
+                Plano de Risco; Projeto Básico e Plano de Negócios.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próximas Etapas:</span>
+                Projeto Básico e Plano de Negócios.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
           </div>
         </div>
         <div class="accordion-bx">
           <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
             <.text size="h4" color="text-black-80">
-              Unidade de Beneficiamento de Pescado
+              <strong>Cabo Frio</strong>
             </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
           </div>
-          <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
-          </div>
-        </div>
-      </div>
-    </div>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-  </div>
 
-  <div class="phases">
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        Rio das Ostras
-      </.text>
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <.text size="h4" color="text-black-80">
-              Unidade de Produção Aquícola
-            </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
-          </div>
           <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
+            <hr />
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Beneficiamento de Pescado - UBP
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próximas Etapas:</span>
+                Plano de Riscos e Projeto Básico.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Beneficiamento de Pescado - UBP
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Plano de Riscos e Projeto Básico.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próximas Etapas:</span> Plano de Negócios.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Beneficiamento de Pescado - UBP
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Plano de Negócios.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span>
+                Texto pendente de ser publicado ??!!!.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Fábrica de Farinha e Ração</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Atualização - EVTEAS.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Plano de Risco.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Fábrica de Farinha e Ração</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Plano de Risco.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span>
+                Projeto Básico e Plano de Negócios.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Fábrica de Farinha e Ração</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Projeto Básico e Plano de Negócios.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto a ser elaborado???!!!!.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
           </div>
         </div>
         <div class="accordion-bx">
           <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
             <.text size="h4" color="text-black-80">
-              Unidade de Processamento de Pescado
+              <strong>Armação búzios</strong>
             </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
           </div>
+
           <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-bx">
+          <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
+            <.text size="h4" color="text-black-80">
+              <strong>Campos dos Goycatazes</strong>
             </.text>
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
+          </div>
+
+          <div class="accordion-content">
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-bx">
+          <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
+            <.text size="h4" color="text-black-80">
+              <strong>Campos dos Goycatazes e Quissamã</strong>
+            </.text>
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
+          </div>
+
+          <div class="accordion-content">
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="phases">
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        São Francisco de Itabapoana
-      </.text>
+
       <div class="accordion">
         <div class="accordion-bx">
           <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
             <.text size="h4" color="text-black-80">
-              Unidade de Beneficiamento de Pescado
+              <strong>Carapebus</strong>
             </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
           </div>
+
           <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-  </div>
-  <div class="phases">
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzIuSlBHIiwiaWF0IjoxNzI0MzQ3MDgxLCJleHAiOjIwMzk3MDcwODF9.19GdW-Pb-A5J4vF79dE9OQkI5rKLGCa4cAVkSySj4jo&t=2024-08-22T17%3A18%3A01.216Z" />
-    <div class="phase-content">
-      <.text size="h2" color="text-blue-100">
-        São João da Barra
-      </.text>
-      <div class="accordion">
         <div class="accordion-bx">
           <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
             <.text size="h4" color="text-black-80">
-              Unidade de Produção Aquícola
+              <strong>Macaé</strong>
             </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
           </div>
+
           <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
-            </.text>
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
           </div>
         </div>
         <div class="accordion-bx">
           <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
             <.text size="h4" color="text-black-80">
-              Unidade de Processamento de Pescado
+              <strong>Quissamã</strong>
             </.text>
-            <Lucideicons.chevron_down class="text-black-100 ml-auto" />
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
           </div>
+
           <div class="accordion-content">
-            <.text size="lg" color="text-black-80">
-              FALTANDO AS INFORMAÇÕES ......
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-bx">
+          <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
+            <.text size="h4" color="text-black-80">
+              <strong>Rio das Ostras</strong>
             </.text>
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
+          </div>
+
+          <div class="accordion-content">
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-bx">
+          <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
+            <.text size="h4" color="text-black-80">
+              <strong>São Francisco de Itabapoana</strong>
+            </.text>
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
+          </div>
+
+          <div class="accordion-content">
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-bx">
+          <div class="accordion-label">
+            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
+            <.text size="h4" color="text-black-80">
+              <strong>São João da Barra</strong>
+            </.text>
+            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
+          </div>
+
+          <div class="accordion-content">
+            <hr />
+            <div class="content-item">
+              <span class="status-in-progress">Em Andamento</span>
+              <.text size="h4" color="text-black-100">
+                Unidade de Produção de Moluscos Bivalves
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-pending">Pendente</span>
+              <.text size="h4" color="text-black-100">Unidade de Produção de Sementes</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+              <hr />
+            </div>
+            <div class="content-item">
+              <span class="status-done">Concluído</span>
+              <.text size="h4" color="text-black-100">Unidade de Processamento de Pescado</.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Situação:</span> Texto pendente de ser publicado.
+              </.text>
+              <.text size="lg" color="text-black-80">
+                <span class="content-title">Próxima Etapa:</span> Texto pendente de ser publicado.
+              </.text>
+              <div class="download-button">
+                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
+                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+              </div>
+            </div>
           </div>
         </div>
       </div>
