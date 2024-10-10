@@ -14,6 +14,4 @@ defmodule Pescarte.Blog.PostsTags do
     belongs_to :tag, Tag
     timestamps()
   end
-
-
 end
