@@ -1,12 +1,10 @@
 defmodule Pescarte.Database.Repo.Migrations.CreatePostTags do
-  alias Pescarte.Blog.Entity.Tag
-  alias Pescarte.Blog.Post
   use Ecto.Migration
 
   def change do
     create table(:posts_tags) do
-      add :post_id, references(Post)
-      add :tag_id, references(Tag)
+      add :post_id, references(:posts, type: :string), null: false
+      add :tag_id, references(:tag, type: :string), null: false
       timestamps()
     end
   end

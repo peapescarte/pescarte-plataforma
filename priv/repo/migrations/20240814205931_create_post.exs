@@ -2,7 +2,7 @@ defmodule Pescarte.Database.Repo.Migrations.CreatePost do
   use Ecto.Migration
 
   def change do
-    create table(:posts) do
+    create table(:posts, primary_key: false) do
       add :user_id, references(:usuario, type: :string), null: false
       add :titulo, :string
       add :conteudo, :binary
