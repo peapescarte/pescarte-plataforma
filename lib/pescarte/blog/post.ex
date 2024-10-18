@@ -2,6 +2,7 @@ defmodule Pescarte.Blog.Post do
   @moduledoc """
   Módulo que define o schema e o changeset para os posts.
   """
+  alias Pescarte.Blog.Entity.Tag
   alias Pescarte.Database
   alias Pescarte.Database.Repo
   alias Pescarte.Database.Types.PublicId
@@ -30,9 +31,7 @@ defmodule Pescarte.Blog.Post do
     field :published_at, :naive_datetime
 
     belongs_to :usuario, Usuario
-
-    # comentado enquanto o PR das tags não é aprovado
-    # many_to_many :tags, Tag, through: [:post_tags, :tag]
+    many_to_many :tags, Tag, join_through: "posts_tags"
 
     timestamps()
   end
