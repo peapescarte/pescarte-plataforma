@@ -31,12 +31,12 @@ defmodule Pescarte.Blog.Post do
     field :published_at, :naive_datetime
 
     belongs_to :usuario, Usuario
-    many_to_many :tags, Tag, join_through: "posts_tags"
+    many_to_many :blog_tags, Tag, join_through: "posts_tags"
 
     timestamps()
   end
 
-  @spec changeset(t, map) :: changeset
+  @spec changeset(Post.t(), map) :: changeset
   def changeset(post \\ %Post{}, params) do
     post
     |> cast(params, @required_params)

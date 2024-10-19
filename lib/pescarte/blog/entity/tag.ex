@@ -15,7 +15,7 @@ defmodule Pescarte.Blog.Entity.Tag do
   @primary_key {:id, PublicId, autogenerate: true}
   schema "blog_tag" do
     field :nome, :string
-    many_to_many :posts, Post, join_through: "post_tags"
+    many_to_many :blog_posts, Post, join_through: "posts_tags"
 
     timestamps()
   end
