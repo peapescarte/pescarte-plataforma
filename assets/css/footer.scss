@@ -39,9 +39,10 @@ footer {
   }
 
   @media (max-width: 767px) {
-    @apply flex flex-col absolute;
+    @apply flex flex-col relative;
+    bottom: 2.5rem;
     gap: 1.5rem;
-    padding: 2.5rem 1rem;
+    padding: 0 1rem 0 1rem;
 
     .block {
       @apply flex;
