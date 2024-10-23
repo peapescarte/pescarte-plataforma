@@ -1,32 +1,40 @@
 footer {
-  @apply flex fixed bottom-0 z-10 w-full bg-white-100;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.875rem 2.5rem;
+  @apply fixed bottom-0 z-10 w-full;
 
-  .block {
-    @apply flex flex-col;
-    align-items: flex-start;
-    gap: 0.625rem;
+  img {
+    width: 100%;
+  }
 
-    p {
-      max-width: 20.375rem;
-    }
+  .blocks {
+    @apply flex bg-white-100;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem 2.5rem;
 
-    .block-tag {
-      @apply bg-blue-100;
-      padding: 0.25rem;
-      justify-content: center;
-      align-items: center;
-      border-radius: 0.125rem;
-    }
+    .block {
+      @apply flex flex-col;
+      align-items: flex-start;
+      gap: 0.625rem;
 
-    .block-image {
-      @apply flex flex-row;
-      gap: 1rem;
+      p {
+        max-width: 20.375rem;
+      }
 
-      img {
-        height: 2rem;
+      .block-tag {
+        @apply bg-blue-100;
+        padding: 0.25rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.125rem;
+      }
+
+      .block-image {
+        @apply flex flex-row;
+        gap: 1rem;
+
+        img {
+          height: 2rem;
+        }
       }
     }
   }
@@ -39,30 +47,35 @@ footer {
   }
 
   @media (max-width: 767px) {
-    @apply flex flex-col relative;
-    bottom: 2.5rem;
-    gap: 1.5rem;
-    padding: 0 1rem 0 1rem;
+    @apply relative;
 
-    .block {
-      @apply flex;
-      align-items: center;
-      gap: 1rem;
+    .blocks {
+      @apply flex flex-col;
 
-      .block-image {
-        @apply flex flex-col;
+      bottom: 2.5rem;
+      gap: 1.5rem;
+      padding: 0 1rem 0 1rem;
+
+      .block {
+        @apply flex;
+        align-items: center;
+        gap: 1rem;
+
+        .block-image {
+          @apply flex flex-col;
+        }
+
+        .block-text {
+          text-align: center;
+        }
       }
 
-      .block-text {
-        text-align: center;
+      .divider {
+        border: none;
+        border-top: 1px solid #cce0f4;
+        width: 100%;
+        height: 1px;
       }
-    }
-
-    .divider {
-      border: none;
-      border-top: 1px solid #cce0f4;
-      width: 100%;
-      height: 1px;
     }
   }
 }

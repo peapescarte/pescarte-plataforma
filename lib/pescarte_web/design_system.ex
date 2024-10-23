@@ -155,47 +155,50 @@ defmodule PescarteWeb.DesignSystem do
   def footer(assigns) do
     ~H"""
     <footer>
-      <div class="block">
-        <.text size="base" color="text-white-100" class="block-tag">
-          Projeto de Educação Ambiental
-        </.text>
-        <div class="block-image">
-          <img src={~p"/images/pescarte_logo.svg"} />
+      <img class="waves" src={~p"/images/footer/waves.svg"} />
+      <div class="blocks">
+        <div class="block">
+          <.text size="base" color="text-white-100" class="block-tag">
+            Projeto de Educação Ambiental
+          </.text>
+          <div class="block-image">
+            <img src={~p"/images/pescarte_logo.svg"} />
+          </div>
         </div>
-      </div>
-      <div class="divider"></div>
-      <div class="block">
-        <.text size="base" color="text-white-100" class="block-tag">
-          Órgão Licenciador
-        </.text>
-        <div class="block-image">
-          <img src={~p"/images/footer/logo_ibama.svg"} />
+        <div class="divider"></div>
+        <div class="block">
+          <.text size="base" color="text-white-100" class="block-tag">
+            Órgão Licenciador
+          </.text>
+          <div class="block-image">
+            <img src={~p"/images/footer/logo_ibama.svg"} />
+          </div>
         </div>
-      </div>
-      <div class="divider"></div>
-      <div class="block">
-        <.text size="base" color="text-white-100" class="block-tag">
-          Execução
-        </.text>
-        <div class="block-image">
-          <img src={~p"/images/footer/logo_ipead.svg"} />
-          <img src={~p"/images/footer/logo_uenf.svg"} />
+        <div class="divider"></div>
+        <div class="block">
+          <.text size="base" color="text-white-100" class="block-tag">
+            Execução
+          </.text>
+          <div class="block-image">
+            <img src={~p"/images/footer/logo_ipead.svg"} />
+            <img src={~p"/images/footer/logo_uenf.svg"} />
+          </div>
         </div>
-      </div>
-      <div class="divider"></div>
-      <div class="block">
-        <.text size="base" color="text-white-100" class="block-tag">
-          Empreendedor
-        </.text>
-        <div class="block-image">
-          <img src={~p"/images/footer/logo_petrobras.svg"} />
+        <div class="divider"></div>
+        <div class="block">
+          <.text size="base" color="text-white-100" class="block-tag">
+            Empreendedor
+          </.text>
+          <div class="block-image">
+            <img src={~p"/images/footer/logo_petrobras.svg"} />
+          </div>
         </div>
-      </div>
-      <div class="divider"></div>
-      <div class="block">
-        <.text size="base" color="text-blue-100" class="block-text">
-          A realização do Projeto Pescarte é uma medida de mitigação exigida pelo licenciamento ambiental federal, conduzido pelo IBAMA.
-        </.text>
+        <div class="divider"></div>
+        <div class="block">
+          <.text size="base" color="text-blue-100" class="block-text">
+            A realização do Projeto Pescarte é uma medida de mitigação exigida pelo licenciamento ambiental federal, conduzido pelo IBAMA.
+          </.text>
+        </div>
       </div>
     </footer>
     """
