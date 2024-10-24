@@ -155,7 +155,7 @@ defmodule PescarteWeb.DesignSystem do
   def footer(assigns) do
     ~H"""
     <footer>
-      <img class="waves" src={~p"/images/footer/waves.svg"} />
+      <img class="hidden md:flex waves" src={~p"/images/footer/waves.svg"} />
       <div class="blocks">
         <div class="block">
           <.text size="base" color="text-white-100" class="block-tag">
