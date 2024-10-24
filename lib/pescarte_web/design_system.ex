@@ -168,15 +168,6 @@ defmodule PescarteWeb.DesignSystem do
         <div class="divider"></div>
         <div class="block">
           <.text size="base" color="text-white-100" class="block-tag">
-            Órgão Licenciador
-          </.text>
-          <div class="block-image">
-            <img src={~p"/images/footer/logo_ibama.svg"} />
-          </div>
-        </div>
-        <div class="divider"></div>
-        <div class="block">
-          <.text size="base" color="text-white-100" class="block-tag">
             Execução
           </.text>
           <div class="block-image">
@@ -191,6 +182,15 @@ defmodule PescarteWeb.DesignSystem do
           </.text>
           <div class="block-image">
             <img src={~p"/images/footer/logo_petrobras.svg"} />
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="block">
+          <.text size="base" color="text-white-100" class="block-tag">
+            Órgão Licenciador
+          </.text>
+          <div class="block-image">
+            <img src={~p"/images/footer/logo_ibama.svg"} />
           </div>
         </div>
         <div class="divider"></div>
