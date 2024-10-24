@@ -41,6 +41,7 @@ defmodule PescarteWeb.Router do
     get "/noticias", NoticiasController, :show
     get "/pgtrs", PGTRSController, :show
     get "/pgtr", PGTRController, :show
+    get "/naipa", NaipaController, :show
     get "/sedes", SedesController, :show
     get "/aplicativos", AplicativosController, :show
 
