@@ -2,7 +2,7 @@ defmodule Pescarte.Database.Repo.Migrations.CreatePost do
   use Ecto.Migration
 
   def change do
-    create table(:blog_post, primary_key: false) do
+    create table(:blog_posts, primary_key: false) do
       add :id, :string, primary_key: true
       add :user_id, references(:usuario, type: :string), null: false
       add :titulo, :string
@@ -13,7 +13,7 @@ defmodule Pescarte.Database.Repo.Migrations.CreatePost do
       timestamps()
   end
 
-  create unique_index(:blog_post, :titulo)
-  create index(:blog_post, :user_id)
+  create unique_index(:blog_posts, :titulo)
+  create index(:blog_posts, :user_id)
 end
 end

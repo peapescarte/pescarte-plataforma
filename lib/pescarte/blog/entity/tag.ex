@@ -64,6 +64,17 @@ defmodule Pescarte.Blog.Entity.Tag do
     end
   end
 
+  @spec upsert_tag(list(Tag.t())) :: {:ok, Tag.t()}
+  def upsert_tag(tags) do
+    for t <- tags do
+      Repo.insert!(
+        %Tag{nome: t},
+        on_conflict: [set: [nome: t]],
+        conflict_target: :nome
+      )
+    end
+  end
+
   @spec delete_tag(String.t()) :: :ok | {:error, :not_found}
   def delete_tag(id) do
     query = from(t in Tag, where: t.id == ^id)
