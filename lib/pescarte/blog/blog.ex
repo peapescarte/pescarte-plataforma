@@ -30,7 +30,7 @@ defmodule Pescarte.Blog do
   defp apply_post_search_filter(query, _), do: query
 
   defp apply_post_date_filter(query, %{start_date: start_date, end_date: end_date}) do
-    from p in query, where: p.inserted_at >= ^start_date and p.inserted_at <= ^end_date
+    from p in query, where: p.published_at >= ^start_date and p.published_at <= ^end_date
   end
   defp apply_post_date_filter(query, _), do: query
 
