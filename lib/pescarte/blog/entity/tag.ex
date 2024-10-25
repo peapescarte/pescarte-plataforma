@@ -5,7 +5,6 @@ defmodule Pescarte.Blog.Entity.Tag do
 
   use Pescarte, :model
 
-  alias Pescarte.Blog.Post
   alias Pescarte.Database.Types.PublicId
 
   @type t :: %Tag{nome: binary, id: binary}
@@ -15,7 +14,6 @@ defmodule Pescarte.Blog.Entity.Tag do
   @primary_key {:id, PublicId, autogenerate: true}
   schema "blog_tag" do
     field :nome, :string
-    many_to_many :blog_posts, Post, join_through: "posts_tags"
 
     timestamps()
   end
@@ -61,17 +59,6 @@ defmodule Pescarte.Blog.Entity.Tag do
     |> case do
       {1, [updated_tag]} -> {:ok, updated_tag}
       {_, _} -> {:error, :not_found}
-    end
-  end
-
-  @spec upsert_tag(list(Tag.t())) :: {:ok, Tag.t()}
-  def upsert_tag(tags) do
-    for t <- tags do
-      Repo.insert!(
-        %Tag{nome: t},
-        on_conflict: [set: [nome: t]],
-        conflict_target: :nome
-      )
     end
   end
 
