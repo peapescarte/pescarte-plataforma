@@ -59,6 +59,7 @@ defmodule PescarteWeb.Router do
       get "/noti7", Noti7Controller, :show
       get "/noti8", Noti8Controller, :show
       get "/noti9", Noti9Controller, :show
+      live "/:id", Blog.PostLive.Show
     end
 
     scope "/publicacoes" do

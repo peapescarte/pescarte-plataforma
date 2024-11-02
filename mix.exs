@@ -82,7 +82,8 @@ defmodule Pescarte.MixProject do
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false}
+      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false},
+      {:earmark, "~> 1.4"}
     ]
   end
 
