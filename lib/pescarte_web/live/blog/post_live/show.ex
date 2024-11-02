@@ -6,8 +6,10 @@ defmodule PescarteWeb.Blog.PostLive.Show do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
-    {status, post} = Post.get_post(id)
-    {:ok, assign(socket, :post, post)}
+    case Post.get_post(id) do
+      {:ok, post} -> {:ok, assign(socket, post: post)}
+      _ -> {:ok, push_navigate(socket, to: "/noticias")}
+    end
   end
 
   @impl true
