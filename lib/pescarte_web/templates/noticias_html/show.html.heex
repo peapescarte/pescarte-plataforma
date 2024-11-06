@@ -39,12 +39,35 @@
       </div> -->
     </div>
   </div>
-
   <div class="landing-grid">
     <div class="news">
       <.text size="h2" color="text-blue-100">Notícias</.text>
       <div class="news-cards">
-        <!-- criando noticias 25/9/2024-->
+        <!-- criando noticias 23/10/2024 - atualizando noticias-->
+        <div class="news-item">
+          <a href="/noticias/noti9">
+            <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/grupos%20focais/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL2dydXBvcyBmb2NhaXMvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjEwOTcsImV4cCI6MjAzOTc4MTA5N30.0BiAS0ILyBpEIigMQ7fxQ07zkiV5h_EsUCRQ4FpWYJE&t=2024-08-23T13%3A51%3A37.851Z" />
+          </a>
+          <div class="p-5">
+            <a href="/noticias/noti9">
+              <.text size="h4" color="text-blue-100">
+                <%= handle_notice_title_length(
+                  "Pescarte participa de plenária sudeste para a construção do Plano Nacional da Pesca Artesanal"
+                ) %>
+              </.text>
+            </a>
+            <.text size="sm" color="text-black-60">
+              <%= handle_notice_desc_length(
+                "O evento aconteceu entre 9 e 11 de outubro, no Espírito Santo. Duas integrantes do PEA foram selecionadas para representar o Sudeste"
+              ) %>
+            </.text>
+            <DesignSystem.link href="/noticias/noti9" class="text-sm font-semibold">
+              <.button style="primary">
+                <.text size="base" color="text-white-100">Ler mais</.text>
+              </.button>
+            </DesignSystem.link>
+          </div>
+        </div>
         <div class="news-item">
           <a href="/noticias/noti8">
             <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/simposio%20linguagem/simposio_uenf.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL3NpbXBvc2lvIGxpbmd1YWdlbS9zaW1wb3Npb191ZW5mLnBuZyIsImlhdCI6MTcyNzI4NDQwMiwiZXhwIjoyMDQyNjQ0NDAyfQ.4RUC5wRB-R36FbQLghcjeLOpzC_z5nmf19Qv1ZlBgh8&t=2024-09-25T17%3A13%3A22.288Z" />
