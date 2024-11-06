@@ -74,6 +74,11 @@ defmodule PescarteWeb.Router do
       get "/failed", ContactController, :failed
       post "/", ContactController, :send_email
     end
+
+    scope "/pgtr" do
+      # Considerar a necessidade de autenticacao
+      # Inserir aqui as rotas para criacao, atualizacao e remocao de regioes e unidades
+    end
   end
 
   scope "/", PescarteWeb do

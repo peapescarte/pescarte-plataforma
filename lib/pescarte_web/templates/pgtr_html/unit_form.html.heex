@@ -1,0 +1,25 @@
+<.simple_form for={@changeset |> to_form} action={~p"/pgtr"}> <!-- Considerar a necessidade de alterar action -->
+    <div>
+      <label for="unit-name">Nome da Unidade</label>
+      <input type="text" name="unit[name]" id="unit-name" required />
+    </div>
+
+    <div>
+      <label for="unit-status">Situação</label>
+      <input type="text" name="unit[status]" id="unit-status" required />
+    </div>
+
+    <div>
+      <label for="unit-next_step">Próxima Etapa</label>
+      <input type="text" name="unit[next_step]" id="unit-next_step" required />
+    </div>
+
+    <div>
+      <label for="unit-document_link">Link para Documento</label>
+      <input type="url" name="unit[document_link]" id="unit-document_link"/>
+    </div>
+
+    <div>
+      <button type="submit">Salvar</button>
+    </div>
+</.simple_form>

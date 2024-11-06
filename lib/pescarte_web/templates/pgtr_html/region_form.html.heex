@@ -1,0 +1,11 @@
+<.simple_form for={@changeset |> to_form} action={~p"/pgtr"}> <!-- Considerar a necessidade de alterar action -->
+  <div>
+    <label for="region-name">Nome da Região</label>
+    <input type="text" name="region[name]" id="region-name" required />
+  </div>
+
+  <div>
+    <input type="hidden" name="region[id]" />
+    <button type="submit">Salvar</button>
+  </div>
+</.simple_form>
