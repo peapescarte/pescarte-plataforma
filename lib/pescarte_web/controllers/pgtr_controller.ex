@@ -8,15 +8,17 @@ defmodule PescarteWeb.PGTRController do
     current_path = conn.request_path
     regions = Regions.list_regions()
     units = Regions.list_units()
-    current_user_id = get_current_user_id(conn) # Há alguma forma melhor?
     changeset = Regions.change_unit(%Unit{})
 
-    render(conn, :show, regions: regions, units: units, changeset: changeset, current_user: current_user_id, current_path: current_path, error_message: nil)
+    render(conn, :show, regions: regions, units: units, changeset: changeset, current_path: current_path, error_message: nil)
   end
 
   # Para as manejo das regiões
   # Analisar melhor os render para casos de erro
   def create_region(conn, %{"region" => region_params}) do
+    current_user_id = get_current_user_id(conn)
+    region_params = region_params |> Map.put("created_by", current_user_id)
+
     case Regions.create_region(region_params) do
       {:ok, _region} ->
         conn
@@ -30,6 +32,8 @@ defmodule PescarteWeb.PGTRController do
 
   def update_region(conn, %{"id" => id, "region" => region_params}) do
     region = Regions.get_region!(id)
+    current_user_id = get_current_user_id(conn)
+    region_params = region_params |> Map.put("updated_by", current_user_id)
 
     case Regions.update_region(region, region_params) do
       {:ok, _region} ->
@@ -53,6 +57,9 @@ defmodule PescarteWeb.PGTRController do
 
   # Para manejo das unidades
   def create_unit(conn, %{"unit" => unit_params}) do
+    current_user_id = get_current_user_id(conn)
+    unit_params = unit_params |> Map.put("created_by", current_user_id)
+
     case Regions.create_unit(unit_params) do
       {:ok, _unit} ->
         conn
@@ -66,10 +73,9 @@ defmodule PescarteWeb.PGTRController do
   end
 
   def update_unit(conn, %{"unit" => unit_params}) do
-    current_path = conn.request_path
     unit = Regions.get_unit!(unit_params["id"])
-
-    unit_params = unit_params |> Map.put("updated_by", conn.current_user_id)
+    current_user_id = get_current_user_id(conn)
+    unit_params = unit_params |> Map.put("updated_by", current_user_id)
 
     case Regions.update_unit(unit, unit_params) do
       {:ok, _unit} ->
@@ -79,7 +85,7 @@ defmodule PescarteWeb.PGTRController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         regions = Regions.list_regions()
-        render(conn, :show, regions: regions, changeset: changeset, current_path: current_path, error_message: nil)
+        render(conn, :show, regions: regions, changeset: changeset, error_message: nil)
     end
   end
 

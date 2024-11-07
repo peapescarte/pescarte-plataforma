@@ -76,8 +76,12 @@ defmodule PescarteWeb.Router do
     end
 
     scope "/pgtr" do
-      # Considerar a necessidade de autenticacao
-      # Inserir aqui as rotas para criacao, atualizacao e remocao de regioes e unidades
+      post "/regions", PGTRController, :create_region
+      put "/regions/:id", PGTRController, :update_region
+      delete "/regions/:id", PGTRController, :delete_region
+      post "/units", PGTRController, :create_unit
+      put "/units/:id", PGTRController, :update_unit
+      delete "/units/:id", PGTRController, :delete_unit
     end
   end
 

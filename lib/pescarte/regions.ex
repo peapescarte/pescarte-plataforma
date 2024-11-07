@@ -14,7 +14,9 @@ defmodule Pescarte.Regions do
     Repo.all(Region)
   end
 
-  def get_region!(id), do: Repo.get!(Region, id)
+  def get_region!(id) do
+    Repo.get!(Region, id) |> Repo.preload(:units)
+  end
 
   def create_region(attrs \\ %{}) do
     %Region{}
