@@ -43,6 +43,17 @@ defmodule Pescarte.Blog.Entity.Tag do
     Pescarte.Database.fetch_by(Tag, nome: nome)
   end
 
+  @spec upsert_tag(list(Tag.t())) :: {:ok, Tag.t()}
+  def upsert_tag(tags) do
+    for t <- tags do
+      Repo.insert!(
+        %Tag{nome: t},
+        on_conflict: [set: [nome: t]],
+        conflict_target: :nome
+      )
+    end
+  end
+
   @spec create_tag(map()) :: {:ok, Tag.t()} | {:error, changeset}
   def create_tag(attrs) do
     %Tag{}

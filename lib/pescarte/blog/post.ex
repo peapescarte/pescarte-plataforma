@@ -2,6 +2,7 @@ defmodule Pescarte.Blog.Post do
   @moduledoc """
   Módulo que define o schema e o changeset para os posts.
   """
+  alias Ecto.Multi
   alias Pescarte.Blog.Entity.Tag
   alias Pescarte.Database
   alias Pescarte.Database.Repo
@@ -54,11 +55,19 @@ defmodule Pescarte.Blog.Post do
     Database.fetch(Post, id)
   end
 
+  # @spec create_post(Post.t()) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
+  # def create_post(params) do
+  #   %Post{}
+  #   |> Post.changeset(params)
+  #   |> Repo.insert()
+  # end
+
   @spec create_post(Post.t()) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
-  def create_post(params) do
-    %Post{}
-    |> Post.changeset(params)
-    |> Repo.insert()
+  def create_post(%Post{blog_tags: tags} = params) do
+    Multi.new()
+    |> Multi.update(:blog_tag, Tag.upsert_tag(tags))
+    # fazer upload da capa da imagem via o Client da Supabase Storage a ser criado
+    |> Multi.insert(:blog_post, Post.changeset(%Post{}, params))
   end
 
   @spec delete_post(String.t()) :: {:ok, Post.t()} | {:error, :not_found}
