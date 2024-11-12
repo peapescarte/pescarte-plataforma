@@ -18,8 +18,7 @@ defmodule Pescarte.Blog.Post do
           published_at: NaiveDateTime.t(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t(),
-          usuario: Usuario.t(),
-          usuario_id: String.t()
+          usuario: Usuario.t()
         }
 
   @required_params [:titulo, :conteudo, :link_imagem_capa, :published_at]
@@ -40,9 +39,11 @@ defmodule Pescarte.Blog.Post do
   @spec changeset(Post.t(), map) :: changeset
   def changeset(post \\ %Post{}, params) do
     post
+    |>Map.put(:published_at, DateTime.utc_now())
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> unique_constraint(:titulo)
+    |> foreign_key_constraint(:user_id)
   end
 
   @spec get_posts :: list(Post.t()) | Ecto.QueryError
@@ -62,12 +63,12 @@ defmodule Pescarte.Blog.Post do
   #   |> Repo.insert()
   # end
 
-  @spec create_post(Post.t()) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
-  def create_post(%Post{blog_tags: tags} = params) do
+  @spec create_post(Map) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
+  def create_post(%{blog_tags: tags} = params) do
     Multi.new()
-    |> Multi.update(:blog_tag, Tag.upsert_tag(tags))
-    # fazer upload da capa da imagem via o Client da Supabase Storage a ser criado
+    |> Multi.insert_all(:update_tags, Tag, tags, on_conflict: :replace_all, conflict_target: :nome)
     |> Multi.insert(:blog_post, Post.changeset(%Post{}, params))
+    |> Repo.transaction()
   end
 
   @spec delete_post(String.t()) :: {:ok, Post.t()} | {:error, :not_found}
