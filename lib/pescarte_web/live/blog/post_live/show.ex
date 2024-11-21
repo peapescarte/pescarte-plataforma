@@ -15,10 +15,16 @@ defmodule PescarteWeb.Blog.PostLive.Show do
   @impl true
   def render(assigns) do
     ~H"""
-    <div>
-      <h1><%= @post.titulo %></h1>
-      <div><%= raw(Markdown.to_html(@post.conteudo)) %></div>
+    <div class="noticia">
+      <h1 class="text-4xl leading-10 font-bold text-blue-100"><%= @post.titulo %></h1>
+      <div class="noticia-descricao"><%= raw(Markdown.to_html(@post.conteudo)) %></div>
+      <DesignSystem.link href="/noticias" class="text-sm font-semibold">
+        <.button style="primary">
+          <Lucideicons.arrow_left class="text-white-100" /> Voltar para Notícias
+        </.button>
+      </DesignSystem.link>
     </div>
+    <PescarteWeb.DesignSystem.GetInTouch.render />
     """
   end
 end
