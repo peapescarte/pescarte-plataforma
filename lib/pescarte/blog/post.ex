@@ -18,10 +18,10 @@ defmodule Pescarte.Blog.Post do
           published_at: NaiveDateTime.t(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t(),
-          usuario: Usuario.t()
+          usuario_id: String.t()
         }
 
-  @required_params [:titulo, :conteudo, :link_imagem_capa, :published_at]
+  @required_params [:titulo, :conteudo, :link_imagem_capa, :published_at, :usuario_id]
 
   @primary_key {:id, PublicId, autogenerate: true}
   schema "posts" do
@@ -39,7 +39,7 @@ defmodule Pescarte.Blog.Post do
   @spec changeset(Post.t(), map) :: changeset
   def changeset(post \\ %Post{}, params) do
     post
-    |>Map.put(:published_at, DateTime.utc_now())
+    |>Map.put(:published_at, NaiveDateTime.local_now())
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> unique_constraint(:titulo)

@@ -3,11 +3,11 @@ import Config
 # -------- #
 # Database #
 # -------- #
-db_name = System.get_env("DATABASE_NAME", "peapescarte")
-db_user = System.get_env("DATABASE_USER", "peapescarte")
-db_pass = System.get_env("DATABASE_PASS", "peapescarte")
-db_port = System.get_env("DATABASE_PORT", "5432")
-db_host = System.get_env("DATABASE_HOST", "localhost")
+db_name = "postgres"
+db_user = "postgres"
+db_pass = "postgres"
+db_port = "5432"
+db_host = "localhost"
 
 database_opts = [
   username: db_user,
