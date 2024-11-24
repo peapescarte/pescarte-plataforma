@@ -7,7 +7,7 @@ defmodule Pescarte.Blog.Post do
   alias Pescarte.Database
   alias Pescarte.Database.Repo
   alias Pescarte.Database.Types.PublicId
-  alias Pescarte.Identidades.Models.Usuario
+  #alias Pescarte.Identidades.Models.Usuario
   use Pescarte, :model
 
   @type t :: %Post{
@@ -18,19 +18,19 @@ defmodule Pescarte.Blog.Post do
           published_at: NaiveDateTime.t(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t(),
-          usuario_id: String.t()
+   #       usuario_id: PublicId
         }
 
-  @required_params [:titulo, :conteudo, :link_imagem_capa, :published_at, :usuario_id]
+  @required_params [:titulo, :conteudo, :link_imagem_capa, :published_at] #, :usuario_id]
 
   @primary_key {:id, PublicId, autogenerate: true}
-  schema "posts" do
+  schema "blog_post" do
     field :titulo, :string
     field :conteudo, :binary
     field :link_imagem_capa, :string
     field :published_at, :naive_datetime
 
-    belongs_to :usuario, Usuario
+    #belongs_to :usuario, Usuario
     many_to_many :blog_tags, Tag, join_through: "posts_tags"
 
     timestamps()
@@ -43,7 +43,7 @@ defmodule Pescarte.Blog.Post do
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> unique_constraint(:titulo)
-    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:usuario_id)
   end
 
   @spec get_posts :: list(Post.t()) | Ecto.QueryError

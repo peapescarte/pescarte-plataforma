@@ -3,7 +3,7 @@ import Config
 # -------- #
 # Database #
 # -------- #
-db_name = "postgres"
+db_name = "peapescarte"
 db_user = "postgres"
 db_pass = "postgres"
 db_port = "5432"
