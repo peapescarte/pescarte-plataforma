@@ -1,28 +1,36 @@
 defmodule PescarteWeb.PGTRController do
   use PescarteWeb, :controller
 
-  alias Pescarte.Regions
-  alias Pescarte.Regions.Unit
+  alias Pescarte.Municipios
+  alias Pescarte.Municipios.Unit
 
   def show(conn, _params) do
     current_path = conn.request_path
-    regions = Regions.list_regions()
-    units = Regions.list_units()
-    changeset = Regions.change_unit(%Unit{})
+    municipios = Municipios.list_municipio()
+    units = Municipios.list_units()
+    changeset = Municipios.change_unit(%Unit{})
+    statuses = ["Concluído", "Pendente", "Em andamento"]
 
-    render(conn, :show, regions: regions, units: units, changeset: changeset, current_path: current_path, error_message: nil)
+    render(conn, :show,
+      municipios: municipios,
+      units: units,
+      statuses: statuses,
+      changeset: changeset,
+      current_path: current_path,
+      error_message: nil
+    )
   end
 
-  # Para as manejo das regiões
+  # Para as manejo das municipios
   # Analisar melhor os render para casos de erro
-  def create_region(conn, %{"region" => region_params}) do
+  def create_municipio(conn, %{"municipio" => municipio_params}) do
     current_user_id = get_current_user_id(conn)
-    region_params = region_params |> Map.put("created_by", current_user_id)
+    municipio_params = municipio_params |> Map.put("created_by", current_user_id)
 
-    case Regions.create_region(region_params) do
-      {:ok, _region} ->
+    case Municipios.create_municipio(municipio_params) do
+      {:ok, _municipio} ->
         conn
-        |> put_flash(:info, "Região criada com sucesso.")
+        |> put_flash(:info, "Município criado com sucesso.")
         |> redirect(to: ~p"/pgtr")
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -30,29 +38,20 @@ defmodule PescarteWeb.PGTRController do
     end
   end
 
-  def update_region(conn, %{"id" => id, "region" => region_params}) do
-    region = Regions.get_region!(id)
+  def update_municipio(conn, %{"id" => id, "municipio" => municipio_params}) do
+    municipio = Municipios.get_municipio!(id)
     current_user_id = get_current_user_id(conn)
-    region_params = region_params |> Map.put("updated_by", current_user_id)
+    municipio_params = municipio_params |> Map.put("updated_by", current_user_id)
 
-    case Regions.update_region(region, region_params) do
-      {:ok, _region} ->
+    case Municipios.update_municipio(municipio, municipio_params) do
+      {:ok, _municipio} ->
         conn
-        |> put_flash(:info, "Região atualizada com sucesso.")
+        |> put_flash(:info, "Município atualizado com sucesso.")
         |> redirect(to: ~p"/pgtr")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :show, region: region, changeset: changeset)
+        render(conn, :show, municipio: municipio, changeset: changeset)
     end
-  end
-
-  def delete_region(conn, %{"id" => id}) do
-    region = Regions.get_region!(id)
-    {:ok, _} = Regions.delete_region(region)
-
-    conn
-    |> put_flash(:info, "Região deletada com sucesso.")
-    |> redirect(to: ~p"/pgtr")
   end
 
   # Para manejo das unidades
@@ -60,45 +59,57 @@ defmodule PescarteWeb.PGTRController do
     current_user_id = get_current_user_id(conn)
     unit_params = unit_params |> Map.put("created_by", current_user_id)
 
-    case Regions.create_unit(unit_params) do
+    case Municipios.create_unit(unit_params) do
       {:ok, _unit} ->
         conn
         |> put_flash(:info, "Unidade criada com sucesso.")
         |> redirect(to: ~p"/pgtr")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        regions = Regions.list_regions()
-        render(conn, :show, changeset: changeset, regions: regions)
+        municipios = Municipios.list_municipio()
+        render(conn, :show, changeset: changeset, municipios: municipios)
     end
   end
 
   def update_unit(conn, %{"unit" => unit_params}) do
-    unit = Regions.get_unit!(unit_params["id"])
+    unit = Municipios.get_unit!(unit_params["id"])
     current_user_id = get_current_user_id(conn)
     unit_params = unit_params |> Map.put("updated_by", current_user_id)
 
-    case Regions.update_unit(unit, unit_params) do
+    case Municipios.update_unit(unit, unit_params) do
       {:ok, _unit} ->
         conn
         |> put_flash(:info, "Unidade atualizada com sucesso.")
         |> redirect(to: ~p"/pgtr")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        regions = Regions.list_regions()
-        render(conn, :show, regions: regions, changeset: changeset, error_message: nil)
+        municipios = Municipios.list_municipio()
+        render(conn, :show, municipios: municipios, changeset: changeset, error_message: nil)
     end
   end
 
-  def delete_unit(conn, %{"id" => id}) do
-    unit = Regions.get_unit!(id)
-    {:ok, _} = Regions.delete_unit(unit)
+  defp get_current_user_id(conn_or_socket) do
+    user =
+      case conn_or_socket do
+        %Plug.Conn{} -> conn_or_socket.assigns[:current_user]
+        %Phoenix.LiveView.Socket{} -> conn_or_socket.assigns[:current_user]
+      end
 
-    conn
-    |> put_flash(:info, "Unidade deletada com sucesso.")
-    |> redirect(to: ~p"/pgtr")
+    user && user.id
   end
 
-  defp get_current_user_id(_conn) do
-    # Não sei como funciona a autenticação certinho, vou precisar estudar melhor :)
-  end
+  # Verificar a corretude
+
+  # defp authenticate_user(conn, _opts) do
+  #   user = conn.assigns[:current_user]
+
+  #   if user && user.papel == :admin do
+  #     conn
+  #   else
+  #     conn
+  #     |> put_flash(:error, "Você não tem permissão para acessar essa página.")
+  #     |> redirect(to: ~p"/")
+  #     |> halt()
+  #   end
+  # end
 end
