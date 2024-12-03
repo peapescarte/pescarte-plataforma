@@ -80,17 +80,17 @@ defmodule Pescarte.MixProject do
       {:sentry, "~> 10.2.0"},
       {:earmark, "~> 1.4"},
       {:faker, "~> 0.18", only: :test},
-      {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.3", only: :dev, runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false}
+      {:git_hooks, "~> 0.8.0-pre0", only: :dev, runtime: false}
     ]
   end
 
   defp aliases do
     [
       dev: ["cmd --cd assets npm ci", "assets.build", "setup", "phx.server"],
-      setup: ["deps.get", "ecto.setup", "seed"],
+      setup: ["git_hooks.install --quiet", "deps.get", "ecto.setup", "seed"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
