@@ -1,7 +1,7 @@
 defmodule PescarteWeb.LoginLive do
   use PescarteWeb, :live_view
 
-  alias Pescarte.Supabase
+  alias Supabase.GoTrue
 
   @impl true
   def mount(_params, _session, socket) do
@@ -87,7 +87,8 @@ defmodule PescarteWeb.LoginLive do
 
   @impl true
   def handle_event("trigger_reset_pass", %{"key" => "Enter", "value" => email}, socket) do
-    :ok = Supabase.Auth.reset_password_for_email(email, redirect_to: ~p"/confirmar")
+    {:ok, client} = Pescarte.get_supabase_client()
+    :ok = GoTrue.reset_password_for_email(client, email, redirect_to: ~p"/confirmar")
 
     {:noreply,
      socket
@@ -96,7 +97,8 @@ defmodule PescarteWeb.LoginLive do
   end
 
   def handle_event("trigger_reset_pass", %{"reset_pass" => %{"email" => email}}, socket) do
-    :ok = Supabase.Auth.reset_password_for_email(email, redirect_to: ~p"/confirmar")
+    {:ok, client} = Pescarte.get_supabase_client()
+    :ok = GoTrue.reset_password_for_email(client, email, redirect_to: ~p"/confirmar")
 
     {:noreply,
      socket

@@ -5,6 +5,11 @@ defmodule Pescarte do
     @environment
   end
 
+  @spec get_supabase_client :: {:ok, Supabase.Client.t()} | {:error, term}
+  def get_supabase_client do
+    Pescarte.Supabase.get_client()
+  end
+
   def get_static_file_path(folder, file) do
     :pescarte
     |> :code.priv_dir()

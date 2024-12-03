@@ -5,15 +5,17 @@ defmodule Pescarte.ModuloPesquisa.RegisterPesquisador do
   alias Pescarte.Identidades.Adapters.UsuarioAdapter
   alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Supabase.Auth
+
+  alias Supabase.GoTrue
 
   def run(attrs) do
     Repo.transaction(fn ->
       with {:ok, pesquisador} <- do_create_pesquisador(attrs),
            external = UsuarioAdapter.to_external(pesquisador.usuario),
-           {:ok, external} <- Auth.Admin.create_user(external),
+           {:ok, client} <- Pescarte.get_supabase_client(),
+           {:ok, external} <- GoTrue.Admin.create_user(client, external),
            opts = [type: :signup, redirect_to: ~p"/confirmar"],
-           :ok <- Auth.resend(external.email, opts),
+           :ok <- GoTrue.resend(client, external.email, opts),
            {:ok, _} <- Usuario.link_to_external(pesquisador.usuario, external.id) do
         pesquisador
       else

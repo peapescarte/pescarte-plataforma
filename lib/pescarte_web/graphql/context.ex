@@ -4,6 +4,7 @@ defmodule PescarteWeb.GraphQL.Context do
   import Plug.Conn
 
   alias Pescarte.Identidades.Models.Usuario
+  alias Supabase.GoTrue
 
   def init(opts), do: opts
 
@@ -25,9 +26,10 @@ defmodule PescarteWeb.GraphQL.Context do
     if Pescarte.env() == :test do
       Usuario.fetch_by(id: token)
     else
-      session = %Supabase.GoTrue.Session{access_token: token}
+      session = %GoTrue.Session{access_token: token}
 
-      with {:ok, user} <- Pescarte.Supabase.Auth.get_user(session) do
+      with {:ok, client} <- Pescarte.get_supabase_client(),
+           {:ok, user} <- GoTrue.get_user(client, session) do
         Usuario.fetch_by(external_customer_id: user.id)
       end
     end

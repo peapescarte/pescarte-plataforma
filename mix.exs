@@ -78,12 +78,12 @@ defmodule Pescarte.MixProject do
       {:phoenix_html_helpers, "~> 1.0"},
       {:nimble_csv, "~> 1.1"},
       {:sentry, "~> 10.2.0"},
+      {:earmark, "~> 1.4"},
       {:faker, "~> 0.18", only: :test},
       {:dialyxir, "~> 1.3", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       # {:ex_doc, "> 0.0.0", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false},
-      {:earmark, "~> 1.4"}
+      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false}
     ]
   end
 
