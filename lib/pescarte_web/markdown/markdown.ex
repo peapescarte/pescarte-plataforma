@@ -6,6 +6,6 @@ defmodule PescarteWeb.Markdown do
   alias Earmark
 
   def to_html(markdown) do
-    Earmark.as_html!(markdown)
+    Earmark.as_html!(markdown, escape: true)
   end
 end
