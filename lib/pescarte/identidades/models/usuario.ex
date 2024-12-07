@@ -1,3 +1,175 @@
+==> file_system
+Compiling 7 files (.ex)
+Generated file_system app
+==> floki
+Compiling 2 files (.erl)
+Compiling 29 files (.ex)
+Generated floki app
+==> decimal
+Compiling 4 files (.ex)
+Generated decimal app
+==> thousand_island
+Compiling 16 files (.ex)
+Generated thousand_island app
+==> jason
+Compiling 10 files (.ex)
+Generated jason app
+==> comeonin
+Compiling 3 files (.ex)
+Generated comeonin app
+==> expo
+Compiling 2 files (.erl)
+Compiling 22 files (.ex)
+Generated expo app
+==> gettext
+Compiling 18 files (.ex)
+Generated gettext app
+==> absinthe
+Compiling 1 file (.erl)
+Compiling 260 files (.ex)
+Generated absinthe app
+==> recase
+Compiling 15 files (.ex)
+Generated recase app
+==> git_hooks
+Compiling 16 files (.ex)
+Generated git_hooks app
+==> ecto
+Compiling 56 files (.ex)
+Generated ecto app
+==> flop
+Compiling 17 files (.ex)
+Generated flop app
+==> credo
+Compiling 252 files (.ex)
+Generated credo app
+==> absinthe_plug
+Compiling 18 files (.ex)
+Generated absinthe_plug app
+==> postgrex
+Compiling 68 files (.ex)
+Generated postgrex app
+==> makeup
+Compiling 15 files (.ex)
+Generated makeup app
+==> makeup_elixir
+Compiling 6 files (.ex)
+Generated makeup_elixir app
+==> makeup_erlang
+Compiling 4 files (.ex)
+Generated makeup_erlang app
+==> ex_doc
+Compiling 26 files (.ex)
+Generated ex_doc app
+==> dialyxir
+Compiling 67 files (.ex)
+Generated dialyxir app
+==> ecto_sql
+Compiling 25 files (.ex)
+Generated ecto_sql app
+==> ex_machina
+Compiling 5 files (.ex)
+Generated ex_machina app
+==> swiss_schema
+Compiling 1 file (.ex)
+Generated swiss_schema app
+==> chromic_pdf
+Compiling 34 files (.ex)
+Generated chromic_pdf app
+==> tzdata
+Compiling 17 files (.ex)
+Generated tzdata app
+==> timex
+Compiling 62 files (.ex)
+Compiling lib/l10n/gettext.ex (it's taking more than 10s)
+Generated timex app
+==> castore
+Compiling 1 file (.ex)
+Generated castore app
+==> rustler_precompiled
+Compiling 4 files (.ex)
+Generated rustler_precompiled app
+==> explorer
+Compiling 25 files (.ex)
+
+09:30:30.593 [debug] Copying NIF from cache and extracting to /home/douglas/Projects/pescarte/pescarte-plataforma/_build/dev/lib/explorer/priv/native/libexplorer-v0.8.3-nif-2.15-x86_64-unknown-linux-gnu.so.tar.gz
+Generated explorer app
+==> mint
+Compiling 1 file (.erl)
+Compiling 20 files (.ex)
+Generated mint app
+==> finch
+Compiling 14 files (.ex)
+Generated finch app
+==> tesla
+Compiling 39 files (.ex)
+Generated tesla app
+==> supabase_potion
+Compiling 11 files (.ex)
+Generated supabase_potion app
+==> supabase_storage
+Compiling 10 files (.ex)
+Generated supabase_storage app
+==> elixir_make
+Compiling 8 files (.ex)
+Generated elixir_make app
+==> bcrypt_elixir
+mkdir -p "/home/douglas/Projects/pescarte/pescarte-plataforma/_build/dev/lib/bcrypt_elixir/priv"
+gcc -g -O3 -Wall -Wno-format-truncation -I"/nix/store/wkk3libsw0qby3kqk27c2fswkcfza87r-erlang-26.1.2/lib/erlang/erts-14.1.1/include" -Ic_src -fPIC -shared  c_src/bcrypt_nif.c c_src/blowfish.c -o "/home/douglas/Projects/pescarte/pescarte-plataforma/_build/dev/lib/bcrypt_elixir/priv/bcrypt_nif.so"
+Compiling 3 files (.ex)
+Generated bcrypt_elixir app
+==> brcpfcnpj
+Compiling 3 files (.ex)
+Generated brcpfcnpj app
+==> earmark
+Compiling 2 files (.xrl)
+Compiling 1 file (.yrl)
+Compiling 3 files (.erl)
+Compiling 61 files (.ex)
+Generated earmark app
+==> bandit
+Compiling 52 files (.ex)
+Generated bandit app
+==> websock_adapter
+Compiling 4 files (.ex)
+Generated websock_adapter app
+==> phoenix
+Compiling 71 files (.ex)
+Generated phoenix app
+==> phoenix_live_reload
+Compiling 5 files (.ex)
+Generated phoenix_live_reload app
+==> phoenix_live_view
+Compiling 39 files (.ex)
+Generated phoenix_live_view app
+==> supabase_gotrue
+Compiling 30 files (.ex)
+Generated supabase_gotrue app
+==> absinthe_phoenix
+Compiling 9 files (.ex)
+Generated absinthe_phoenix app
+==> flop_phoenix
+Compiling 7 files (.ex)
+Generated flop_phoenix app
+==> req
+Compiling 9 files (.ex)
+Generated req app
+==> swoosh
+Compiling 50 files (.ex)
+Generated swoosh app
+==> resend
+Compiling 17 files (.ex)
+Generated resend app
+==> sentry
+Compiling 30 files (.ex)
+Generated sentry app
+==> lucide_icons
+Compiling 2 files (.ex)
+Compiling lib/lucide_icons.ex (it's taking more than 10s)
+Generated lucide_icons app
+==> phoenix_ecto
+Compiling 7 files (.ex)
+Generated phoenix_ecto app
 defmodule Pescarte.Identidades.Models.Usuario do
   use Pescarte, :model
 
@@ -21,7 +193,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
           external_customer_id: String.t()
         }
 
-  @valid_roles ~w(pesquisador pescador admin)a
+  @valid_roles ~w(coletista pesquisador pescador admin)a
 
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento papel)a
   @optional_fields ~w(rg link_avatar contato_id external_customer_id)a
