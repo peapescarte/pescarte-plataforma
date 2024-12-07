@@ -5,8 +5,6 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
   alias Ecto.Multi, as: TRX
   alias Pescarte.Database.Repo
 
-  alias Pescarte.Supabase.Auth
-
   alias Pescarte.Identidades.Models.Contato
   alias Pescarte.Identidades.RegisterUsuario
 
@@ -197,7 +195,10 @@ defmodule Pescarte.Scripts.PesquisaIngestion do
           |> Map.put("phone_confirm", true)
           |> Map.put("role", "pesquisador")
           |> Map.put("app_metadata", app_metadata)
-          |> then(&Auth.Admin.create_user/1)
+          |> then(fn attrs ->
+            {:ok, client} = Pescarte.get_supabase_client()
+            Supabase.GoTrue.Admin.create_user(client, attrs)
+          end)
         end)
         |> TRX.run(key, fn _repo, state ->
           contato = state[contato_key]

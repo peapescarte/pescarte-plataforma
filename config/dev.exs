@@ -53,7 +53,7 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :git_hooks,
   verbose: false,
-  auto_install: true,
+  auto_install: false,
   branches: [
     whitelist: ["main"]
   ],

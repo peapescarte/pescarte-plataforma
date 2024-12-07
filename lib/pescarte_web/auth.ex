@@ -1,8 +1,23 @@
-defmodule PescarteWeb.Authorization do
+defmodule PescarteWeb.Auth do
+  @moduledoc """
+  Módulo responsável por controlar tanto autenticação quanto
+  autorização das "dead views" e live views, além de autenticação via API.
+  """
+  use Supabase.GoTrue.Plug,
+    client: Pescarte.Supabase,
+    endpoint: PescarteWeb.Endpoint,
+    signed_in_path: "/app/pesquisa/perfil",
+    not_authenticated_path: "/acessar"
+
+  use Supabase.GoTrue.LiveView,
+    client: Pescarte.Supabase,
+    endpoint: PescarteWeb.Endpoint,
+    signed_in_path: "/app/pesquisa/perfil",
+    not_authenticated_path: "/acessar"
+
   import Plug.Conn
 
   alias Pescarte.Identidades.Models.Usuario
-  alias Pescarte.Supabase.Auth
   alias Supabase.GoTrue
   alias Supabase.GoTrue.Session
   alias Supabase.GoTrue.User
@@ -10,7 +25,8 @@ defmodule PescarteWeb.Authorization do
   def require_admin_role(conn, _opts) do
     token = get_session(conn, :user_token)
 
-    with {:ok, user} <- Auth.get_user(%Session{access_token: token}),
+    with {:ok, client} <- Pescarte.get_supabase_client(),
+         {:ok, user} <- GoTrue.get_user(client, %Session{access_token: token}),
          {:ok, usuario} <- Usuario.fetch_by(external_customer_id: user.id) do
       (token && usuario)
       |> permit?(:admin)
@@ -30,7 +46,7 @@ defmodule PescarteWeb.Authorization do
   end
 
   def on_mount(:ensure_admin_role, _params, session, socket) do
-    socket = GoTrue.LiveView.mount_current_user(session, socket)
+    socket = mount_current_user(session, socket)
     user = socket.assigns.current_user
 
     if user && permit?(user, :admin) do
