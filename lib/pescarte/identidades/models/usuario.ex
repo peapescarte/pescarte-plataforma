@@ -3,7 +3,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
 
   import Brcpfcnpj.Changeset, only: [validate_cpf: 3]
 
-  # alias Pescarte.Blog.Post
+  alias Pescarte.Blog.Post
   alias Pescarte.Database.Types.PublicId
   alias Pescarte.Identidades.Models.Contato
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
@@ -45,7 +45,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
 
     belongs_to :contato, Contato, type: :string
 
-    has_many :blog_post, Post
+    has_many :blog_posts, Post
 
     timestamps()
   end

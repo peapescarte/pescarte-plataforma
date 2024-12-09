@@ -4,3 +4,18 @@
 2024-11-22 00:43:02.164 -03 [600000] WARNING:  could not create listen socket for "localhost"
 2024-11-22 00:43:02.164 -03 [600000] FATAL:  could not create any TCP/IP sockets
 2024-11-22 00:43:02.168 -03 [600000] LOG:  database system is shut down
+2024-12-09 11:12:16.400 -03 [66538] LOG:  starting PostgreSQL 14.6 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0, 64-bit
+2024-12-09 11:12:16.401 -03 [66538] LOG:  could not bind IPv4 address "127.0.0.1": Endereço já em uso
+2024-12-09 11:12:16.401 -03 [66538] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2024-12-09 11:12:16.401 -03 [66538] WARNING:  could not create listen socket for "localhost"
+2024-12-09 11:12:16.401 -03 [66538] FATAL:  could not create any TCP/IP sockets
+2024-12-09 11:12:16.402 -03 [66538] LOG:  database system is shut down
+2024-12-09 17:49:04.615 -03 [48679] LOG:  starting PostgreSQL 14.6 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0, 64-bit
+2024-12-09 17:49:04.615 -03 [48679] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2024-12-09 17:49:04.618 -03 [48679] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2024-12-09 17:49:04.623 -03 [48680] LOG:  database system was shut down at 2024-12-09 17:45:55 -03
+2024-12-09 17:49:04.628 -03 [48679] LOG:  database system is ready to accept connections
+2024-12-09 18:13:07.831 -03 [81937] FATAL:  role "peapescarte" does not exist
+2024-12-09 18:13:07.831 -03 [81936] FATAL:  role "peapescarte" does not exist
+2024-12-09 18:13:09.414 -03 [82013] FATAL:  role "peapescarte" does not exist
+2024-12-09 18:13:09.764 -03 [82038] FATAL:  role "peapescarte" does not exist

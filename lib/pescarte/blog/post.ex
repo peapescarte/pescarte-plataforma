@@ -18,8 +18,8 @@ defmodule Pescarte.Blog.Post do
           published_at: NaiveDateTime.t(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t(),
-          usuario_id: String.t(),
-          usuario: Usuario.t()
+          usuario: Usuario.t(),
+          usuario_id: String.t()
         }
 
   @required_params [:titulo, :conteudo, :link_imagem_capa, :published_at, :usuario_id]
@@ -30,8 +30,9 @@ defmodule Pescarte.Blog.Post do
     field :conteudo, :binary
     field :link_imagem_capa, :string
     field :published_at, :naive_datetime
+    field :usuario_id, :string
 
-    belongs_to :usuario, Usuario, foreign_key: :usuario_id
+    belongs_to :usuario, Usuario, type: :string, foreign_key: true
     many_to_many :blog_tags, Tag, join_through: "posts_tags"
 
     timestamps()
@@ -71,7 +72,7 @@ defmodule Pescarte.Blog.Post do
       on_conflict: :replace_all,
       conflict_target: :nome
     )
-    |> Multi.insert(:blog_post, Post.changeset(%Post{}, params))
+    |> Multi.insert(:blog_posts, changeset(%Post{}, params))
     |> Repo.transaction()
   end
 
