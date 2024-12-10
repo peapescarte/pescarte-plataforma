@@ -18,21 +18,19 @@ defmodule Pescarte.Blog.Post do
           published_at: NaiveDateTime.t(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t(),
-          usuario: Usuario.t(),
-          usuario_id: String.t()
+          usuario: Usuario.t()
         }
 
   @required_params [:titulo, :conteudo, :link_imagem_capa, :published_at, :usuario_id]
 
   @primary_key {:id, PublicId, autogenerate: true}
-  schema "blog_post" do
+  schema "blog_posts" do
     field :titulo, :string
     field :conteudo, :binary
     field :link_imagem_capa, :string
     field :published_at, :naive_datetime
-    field :usuario_id, :string
 
-    belongs_to :usuario, Usuario, type: :string, foreign_key: true
+    belongs_to :usuario, Usuario, type: :string
     many_to_many :blog_tags, Tag, join_through: "posts_tags"
 
     timestamps()
