@@ -224,9 +224,27 @@
           justify-content: center;
         }
 
-        a {
-          /* margin-top: auto; */
+        a.link {
+          display: flex;
+          align-items: center;
+          margin: auto 0 1.5rem 1.5rem;
 
+          button {
+            gap: 0.5rem;
+
+            p {
+              font-family: "Work Sans";
+              font-size: 1rem;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 1.125rem;
+            }
+
+            svg {
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
         }
       }
     }
@@ -306,6 +324,12 @@
 
           &:last-child {
             margin: 0;
+          }
+
+          a.link {
+            width: 100%;
+            margin-left: auto;
+            justify-content: center;
           }
         }
       }
