@@ -213,6 +213,8 @@
         img {
           border-radius: 0.5rem 0.5rem 0 0;
           width: 100%;
+          height: auto;
+          object-fit: cover;
           min-height: 242px;
           max-height: 242px;
         }
@@ -220,6 +222,11 @@
         h2 {
           display: flex;
           justify-content: center;
+        }
+
+        a {
+          /* margin-top: auto; */
+
         }
       }
     }
@@ -279,7 +286,6 @@
   }
 }
 
-
 @media (max-width: 768px) {
   .landing-grid {
     .landing-carousel {
@@ -291,13 +297,16 @@
 
     .news {
       .news-cards {
-        @apply flex-nowrap;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
+        @apply flex flex-nowrap overflow-x-auto;
+        justify-content: flex-start;
+        margin: 0 1rem;
 
         .news-item {
           margin: 0 1.5rem 0 0;
-          scroll-snap-align: start;
+
+          &:last-child {
+            margin: 0;
+          }
         }
       }
     }
@@ -467,9 +476,9 @@
   }
 }
 
-@media (min-width: 530px) and (max-width: 770px){
+@media (min-width: 530px) and (max-width: 770px) {
   .links-landing {
-    @apply flex flex-col justify-center items-center ;
+    @apply flex flex-col justify-center items-center;
     width: 100%;
 
     .links-item {
@@ -521,7 +530,7 @@
 
 }
 
-@media (min-width: 350px) and (max-width: 529px){
+@media (min-width: 350px) and (max-width: 529px) {
 
 
 
@@ -577,9 +586,9 @@
   }
 }
 
-@media (min-width: 530px) and (max-width: 770px){
+@media (min-width: 530px) and (max-width: 770px) {
   .links-landing {
-    @apply flex flex-col justify-center items-center ;
+    @apply flex flex-col justify-center items-center;
     width: 100%;
 
     .links-item {
@@ -631,7 +640,7 @@
 
 }
 
-@media (min-width: 350px) and (max-width: 529px){
+@media (min-width: 350px) and (max-width: 529px) {
 
 
 
