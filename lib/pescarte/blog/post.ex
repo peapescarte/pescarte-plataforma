@@ -56,13 +56,6 @@ defmodule Pescarte.Blog.Post do
     Database.fetch(Post, id)
   end
 
-  # @spec create_post(Post.t()) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
-  # def create_post(params) do
-  #   %Post{}
-  #   |> Post.changeset(params)
-  #   |> Repo.insert()
-  # end
-
   @spec create_post(Map) :: {:ok, Post.t()} | {:error, Ecto.Changeset.t()}
   def create_post(%{blog_tags: tags} = params) do
     Multi.new()
