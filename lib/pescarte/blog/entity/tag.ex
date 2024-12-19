@@ -43,11 +43,6 @@ defmodule Pescarte.Blog.Entity.Tag do
     Pescarte.Database.fetch_by(Tag, nome: nome)
   end
 
-  @spec to_changesets(list(Map.t()), list()) :: {:ok, list(Tag.t())}
-  def to_changesets(list, acc \\ [])
-  def to_changesets([], acc), do: {:ok, acc}
-  def to_changesets([tag | rest], acc), do: to_changesets(rest, [changeset(%Tag{}, tag) | acc])
-
   @spec create_tag(map()) :: {:ok, Tag.t()} | {:error, changeset}
   def create_tag(attrs) do
     %Tag{}
