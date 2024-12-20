@@ -2,13 +2,14 @@ defmodule Pescarte.Blog.Post do
   @moduledoc """
   Módulo que define o schema e o changeset para os posts.
   """
+  use Pescarte, :model
+
   alias Ecto.Multi
   alias Pescarte.Blog.Entity.Tag
   alias Pescarte.Database
   alias Pescarte.Database.Repo
   alias Pescarte.Database.Types.PublicId
   alias Pescarte.Identidades.Models.Usuario
-  use Pescarte, :model
 
   @type t :: %Post{
           id: String.t(),
