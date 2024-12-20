@@ -5,7 +5,7 @@ defmodule Pescarte.Database.Repo.Migrations.CreateTag do
     create table(:tag, primary_key: false) do
       add :id, :string, primary_key: true
       add :etiqueta, :string, null: false
-      add :categoria_id, references(:categoria,type: :string), null: false
+      add :categoria_id, references(:categoria, type: :string), null: false
 
       timestamps()
     end

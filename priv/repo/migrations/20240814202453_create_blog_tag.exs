@@ -8,6 +8,7 @@ defmodule Pescarte.Database.Repo.Migrations.CreateBlogTag do
 
       timestamps()
     end
+
     create unique_index(:blog_tag, [:nome])
   end
 end
