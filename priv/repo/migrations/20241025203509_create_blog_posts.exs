@@ -5,7 +5,7 @@ defmodule Pescarte.Database.Repo.Migrations.CreatePost do
   def change do
     create table(:blog_posts, primary_key: :false) do
       add :id, :string, primary_key: true
-      add :usuario_id, references(:usuario, type: :string)#, null: false
+      add :usuario_id, references(:usuario, type: :string)
       add :titulo, :string
       add :conteudo, :binary
       add :link_imagem_capa, :string
