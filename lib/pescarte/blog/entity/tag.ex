@@ -5,7 +5,6 @@ defmodule Pescarte.Blog.Entity.Tag do
 
   use Pescarte, :model
 
-  alias Pescarte.Blog.Post
   alias Pescarte.Database.Types.PublicId
 
   @type t :: %Tag{nome: binary, id: binary}
@@ -15,7 +14,6 @@ defmodule Pescarte.Blog.Entity.Tag do
   @primary_key {:id, PublicId, autogenerate: true}
   schema "blog_tag" do
     field :nome, :string
-    many_to_many :blog_posts, Post, join_through: "posts_tags"
 
     timestamps()
   end
