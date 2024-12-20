@@ -1,8 +1,7 @@
 defmodule Pescarte do
-  @environment Application.compile_env!(:pescarte, :env)
-
+  @spec env :: :dev | :test | :prod
   def env do
-    @environment
+    Application.get_env(:pescarte, :env)
   end
 
   @spec get_supabase_client :: {:ok, Supabase.Client.t()} | {:error, term}

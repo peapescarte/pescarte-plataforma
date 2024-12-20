@@ -16,7 +16,7 @@ defmodule Pescarte.ModuloPesquisa.Handlers.RelatoriosHandler do
     id
     |> Repository.list_relatorios_pesquisa_from_pesquisador()
     |> Enum.sort_by(sorter)
-    |> Enum.map(&RelatorioAdapter.internal_to_external/1)
+    |> Enum.map(&RelatorioAdapter.internal_to_external!/1)
   end
 
   @impl true
@@ -24,7 +24,7 @@ defmodule Pescarte.ModuloPesquisa.Handlers.RelatoriosHandler do
     %{}
     |> Repository.list_relatorios_pesquisa()
     |> Enum.sort_by(sorter)
-    |> Enum.map(&RelatorioAdapter.internal_to_external/1)
+    |> Enum.map(&RelatorioAdapter.internal_to_external!/1)
   end
 
   defp sort_by_periodo(relatorio) do
