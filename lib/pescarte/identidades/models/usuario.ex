@@ -45,7 +45,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
 
     belongs_to :contato, Contato, type: :string
 
-    has_many :posts, Post
+    has_many :blog_posts, Post
 
     timestamps()
   end
