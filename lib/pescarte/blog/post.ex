@@ -40,7 +40,7 @@ defmodule Pescarte.Blog.Post do
   @spec changeset(Post.t(), map) :: changeset
   def changeset(post \\ %Post{}, params) do
     post
-    |> Map.put(:published_at, NaiveDateTime.local_now())
+    |> Map.put(:published_at, NaiveDateTime.utc_now(:second))
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> unique_constraint(:titulo)
