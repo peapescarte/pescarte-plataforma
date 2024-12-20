@@ -1,5 +1,7 @@
-defmodule :"Elixir.Pescarte.Database.Repo.Migrations.Retype-ExternalCustomerIdType" do
+defmodule Elixir.Pescarte.Database.Repo.Migrations.RetypeExternalCustomerIdType do
   use Ecto.Migration
+
+  # ESSA MIGRATION É IRREVERSÍVEL
 
   def change do
     alter table(:usuario) do
