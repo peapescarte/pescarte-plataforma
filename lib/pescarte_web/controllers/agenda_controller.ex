@@ -6,7 +6,7 @@ defmodule PescarteWeb.AgendaController do
   def show(conn, _params) do
     current_month =
       "appointments_data"
-      |> Pescarte.get_static_file_path("agenda_outubro.csv")
+      |> Pescarte.get_static_file_path("agenda_dezembro.csv")
       |> File.stream!()
       |> CSV.parse_stream(skip_headers: false)
       |> Enum.take(1)
@@ -14,7 +14,7 @@ defmodule PescarteWeb.AgendaController do
 
     table_data =
       "appointments_data"
-      |> Pescarte.get_static_file_path("agenda_outubro.csv")
+      |> Pescarte.get_static_file_path("agenda_dezembro.csv")
       |> File.stream!()
       |> CSV.parse_stream()
       |> Stream.drop(1)

@@ -6,7 +6,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
   alias Pescarte.Identidades.Models.Usuario
   alias Pescarte.ModuloPesquisa.GetPesquisador
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
-  alias Pescarte.Supabase
+  alias Supabase.GoTrue
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
@@ -73,15 +73,16 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
   def handle_event("trigger_reset_pass", %{"reset_pass" => params}, socket) do
     # TODO criar função para verificar se a senha atual é correta
 
-    case recover_pass_changeset(params) do
-      {:ok, attrs} ->
-        case Supabase.Auth.update_user(socket, %{password: attrs.password}) do
-          {:ok, socket} -> {:noreply, redirect(socket, to: ~p"/app/pesquisa/perfil")}
-          {:error, error} -> {:noreply, assign_error(socket, error)}
-        end
-
-      {:error, _} ->
-        {:noreply, put_flash(socket, :error, "Os campos foram preenchidos incorretamente")}
+    with {:ok, attrs} <- recover_pass_changeset(params),
+         {:ok, client} <- Pescarte.get_supabase_client(),
+         {:ok, socket} <- GoTrue.update_user(client, socket, %{password: attrs.password}) do
+      {:noreply, redirect(socket, to: ~p"/app/pesquisa/perfil")}
+    else
+      {:error, err} ->
+        {:noreply,
+         socket
+         |> assign_error(err)
+         |> put_flash(:error, "Os campos foram preenchidos incorretamente")}
     end
   end
 

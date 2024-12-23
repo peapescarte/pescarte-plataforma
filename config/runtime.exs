@@ -6,10 +6,9 @@ config :pescarte, :pesquisa_ingestion, sheet_url: System.get_env("SHEET_URL")
 
 config :resend, Resend.Client, api_key: System.get_env("RESEND_KEY")
 
-config :supabase_potion,
-  manage_clients: true,
-  supabase_base_url: System.get_env("SUPABASE_URL"),
-  supabase_api_key: System.get_env("SUPABASE_KEY")
+config :pescarte, Pescarte.Supabase,
+  base_url: System.get_env("SUPABASE_URL"),
+  api_key: System.get_env("SUPABASE_KEY")
 
 if System.get_env("PHX_SERVER") do
   config :pescarte, PescarteWeb.Endpoint, server: true

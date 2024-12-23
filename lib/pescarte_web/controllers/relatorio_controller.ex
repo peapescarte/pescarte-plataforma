@@ -6,6 +6,8 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
   alias Pescarte.RelatorioCompiler
   alias PescarteWeb.Pesquisa.RelatorioLive
 
+  require Logger
+
   def download_pdf(conn, %{"id" => id}) do
     case RelatorioCompiler.gerar_pdf(id) do
       {:ok, pdf_filename, pdf_binary} ->
@@ -20,7 +22,8 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
         )
 
       {:error, reason} ->
-        conn |> put_status(:bad_request) |> send(inspect(reason))
+        Logger.error("failed with #{inspect(reason, pretty: true)}")
+        conn |> put_status(:internal_error) |> send_resp()
     end
   end
 
@@ -31,9 +34,16 @@ defmodule PescarteWeb.Pesquisa.RelatorioController do
            relatorios_selecionados,
            &send_relatorios_compiled(&1, conn)
          ) do
-      {:ok, {:error, reason}} -> conn |> put_status(:bad_request) |> send(inspect(reason))
-      {:ok, {:ok, conn}} -> conn
-      {:error, reason} -> conn |> put_status(:bad_request) |> send(inspect(reason))
+      {:ok, {:error, reason}} ->
+        Logger.error("failed with #{inspect(reason, pretty: true)}")
+        send_resp(conn, :internal_error, "")
+
+      {:ok, {:ok, conn}} ->
+        conn
+
+      {:error, reason} ->
+        Logger.error("failed with #{inspect(reason, pretty: true)}")
+        send_resp(conn, :internal_error, "")
     end
   end
 

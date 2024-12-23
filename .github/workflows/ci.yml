@@ -17,8 +17,8 @@ jobs:
       MIX_ENV: dev
     strategy:
       matrix:
-        otp: [26.2.5]
-        elixir: [1.16.2]
+        otp: [27.1.2]
+        elixir: [1.18.0]
     steps:
       - uses: actions/checkout@v4
       
@@ -71,8 +71,8 @@ jobs:
       MIX_ENV: test
     strategy:
       matrix:
-        otp: [26.2.5]
-        elixir: [1.16.2]
+        otp: [27.1.2]
+        elixir: [1.18.0]
     services:
       postgres:
         image: postgres:15

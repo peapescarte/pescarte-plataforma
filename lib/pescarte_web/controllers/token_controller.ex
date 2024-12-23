@@ -3,7 +3,7 @@ defmodule PescarteWeb.TokenController do
 
   import Phoenix.LiveView.Controller, only: [live_render: 2]
 
-  alias Pescarte.Supabase.Auth
+  alias PescarteWeb.Auth
   alias PescarteWeb.LoginLive
   alias Supabase.GoTrue
 
@@ -13,10 +13,12 @@ defmodule PescarteWeb.TokenController do
   @cannot_reset_err "Você não possui permissão para acessar essa página"
 
   def confirm(conn, %{"token_hash" => token, "type" => "signup"}) do
-    with {:ok, session} <- Auth.verify_otp(%{token_hash: token, type: :signup}),
-         {:ok, _} <- Auth.get_user(session) do
+    with {:ok, client} <- Pescarte.get_supabase_client(),
+         params = %{token_hash: token, type: :signup},
+         {:ok, session} <- GoTrue.verify_otp(client, params),
+         {:ok, _} <- GoTrue.get_user(client, session) do
       conn
-      |> GoTrue.Plug.put_token_in_session(session.access_token)
+      |> Auth.put_token_in_session(session.access_token)
       |> redirect(to: ~p"/app/pesquisa/perfil?type=recovery")
     else
       {:error, %{"error_code" => "otp_expired"}} ->
@@ -41,10 +43,12 @@ defmodule PescarteWeb.TokenController do
   end
 
   def confirm(conn, %{"token_hash" => token, "type" => "recovery"}) do
-    with {:ok, session} <- Auth.verify_otp(%{token_hash: token, type: :recovery}),
-         {:ok, _} <- Auth.get_user(session) do
+    with {:ok, client} <- Pescarte.get_supabase_client(),
+         params = %{token_hash: token, type: :recovery},
+         {:ok, session} <- GoTrue.verify_otp(client, params),
+         {:ok, _} <- GoTrue.get_user(client, session) do
       conn
-      |> GoTrue.Plug.put_token_in_session(session.access_token)
+      |> Auth.put_token_in_session(session.access_token)
       |> redirect(to: ~p"/app/pesquisa/perfil?type=recovery")
     else
       {:error, %{"error_code" => "otp_expired"}} ->
