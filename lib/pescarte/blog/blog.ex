@@ -4,7 +4,7 @@ defmodule Pescarte.Blog do
   """
   import Ecto.Query
   alias Pescarte.Database.Repo
-  alias Pescarte.Blog.{Post}
+  alias Pescarte.Blog.Post
 
   @type filters :: %{
           optional(:title) => String.t(),
