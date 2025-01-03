@@ -3,8 +3,8 @@ defmodule Pescarte.Blog do
   O contexto Blog é responsável por gerenciar as operações relacionadas a postagens e tags.
   """
   import Ecto.Query
-  alias Pescarte.Database.Repo
   alias Pescarte.Blog.Post
+  alias Pescarte.Database.Repo
 
   @type filters :: %{
           optional(:title) => String.t(),
