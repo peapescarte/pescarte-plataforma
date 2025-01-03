@@ -20,6 +20,7 @@ defmodule Pescarte.Blog do
     Post
     |> apply_post_search_filter(filters)
     |> apply_post_date_filter(filters)
+    |> apply_post_tag_filter(filters)
     |> apply_pagination(filters)
     |> Repo.replica().all()
   end
@@ -34,7 +35,13 @@ defmodule Pescarte.Blog do
   end
   defp apply_post_date_filter(query, _), do: query
 
-  defp apply_pagination(query, %{page, page_size}) do
+  defp apply_post_tag_filter(query, %{tags: tags}) when is_list(tags) do
+    from p in query, join: t in assoc(p, :blog_tags), where: t.nome in ^tags,
+      group_by: p.id, having: count(t.id) == ^length(tags)
+  end
+  defp apply_post_tag_filter(query, _), do: query
+
+  defp apply_pagination(query, %{page: page, page_size: page_size}) do
     offset = (page - 1) * page_size
     from p in query, limit: ^page_size, offset: ^offset
   end
