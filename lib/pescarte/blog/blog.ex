@@ -21,6 +21,7 @@ defmodule Pescarte.Blog do
     |> apply_post_search_filter(filters)
     |> apply_post_date_filter(filters)
     |> apply_post_tag_filter(filters)
+    |> apply_order_by()
     |> apply_pagination(filters)
     |> Repo.replica().all()
   end
@@ -46,6 +47,10 @@ defmodule Pescarte.Blog do
   end
 
   defp apply_post_tag_filter(query, _), do: query
+
+  defp apply_order_by(query) do
+    from p in query, order_by: [desc: p.published_at]
+  end
 
   defp apply_pagination(query, %{page: page, page_size: page_size}) do
     offset = (page - 1) * page_size
