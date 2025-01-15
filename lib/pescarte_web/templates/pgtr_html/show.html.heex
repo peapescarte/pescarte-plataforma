@@ -42,7 +42,11 @@
       <%= for municipio <- @municipios do %>
         <div class="accordion-bx">
           <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" alt="Icone de Município" />
+            <img
+              src={~p"/images/pgtr/fish-preto.png"}
+              class="label-img"
+              alt="Icone de Município"
+            />
             <.text size="h4" color="text-black-80">
               <strong><%= municipio.name %></strong>
             </.text>
@@ -53,7 +57,9 @@
             <hr />
             <%= for unit <- municipio.units do %>
               <div class="content-item">
-                <span class={"status-#{String.downcase(unit.status)}"}><%= unit.status %></span>
+                <span class={"status-#{String.downcase(unit.status)}"}>
+                  <%= unit.status %>
+                </span>
                 <.text size="h4" color="text-black-100">
                   <%= unit.name %>
                 </.text>
@@ -83,4 +89,299 @@
   </div>
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
+  <section class="units-list mt-6">
+    <h3>Unidades</h3>
+    <%= for unit <- @units do %>
+      <div class="unit-card border p-4 rounded mb-4">
+        <strong><%= unit.name %></strong>
+        - <%= unit.situation %> - <%= unit.next_step %><br />
+        Município: <%= unit.municipio.name %>
+        <ul class="mt-2">
+          <%= for doc <- unit.documents do %>
+            <li>
+              <%= doc.document_type.name %> |
+              Status: <%= doc.status |> Atom.to_string() |> String.capitalize() %> |
+              <a href={doc.document_link} target="_blank">Download</a>
+              <%= if @current_user && @current_user.papel == :admin do %>
+                <button
+                  id={"edit-document-btn-#{doc.id}"}
+                  data-doc-id={doc.id}
+                  class="btn btn-sm btn-secondary"
+                >
+                  Editar
+                </button>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <%= if @current_user && @current_user.papel == :admin do %>
+          <button
+            id={"edit-unit-btn-#{unit.id}"}
+            data-unit-id={unit.id}
+            class="btn btn-sm btn-secondary mt-2"
+          >
+            Editar Unidade
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+  <%= if @current_user && @current_user.papel == :admin do %>
+    <div class="flex flex-row space-x-2 mt-4">
+      <button id="open-municipio-modal-btn" class="btn btn-primary">
+        Novo Município
+      </button>
+
+      <button id="open-unit-modal-btn" class="btn btn-primary">
+        Nova Unidade
+      </button>
+
+      <button id="open-document-type-modal-btn" class="btn btn-primary">
+        Novo Tipo de Documento
+      </button>
+
+      <button id="open-document-modal-btn" class="btn btn-primary">
+        Novo Documento
+      </button>
+    </div>
+  <% end %>
+  <%= if @current_user && @current_user.papel == :admin do %>
+    <div id="municipio-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Novo Município</h2>
+
+          <.simple_form
+            for={@municipio_changeset |> to_form}
+            action={~p"/pgtr/create_municipio"}
+            class="form"
+          >
+            <div class="field">
+              <label for="municipio_name">Nome do Município</label>
+              <input
+                type="text"
+                id="municipio_name"
+                name="municipio[name]"
+                class="input"
+                value={@municipio_changeset.data.name || ""}
+                required
+              />
+              <%= if @municipio_changeset.errors[:name] do %>
+                <span class="error"><%= elem(@municipio_changeset.errors[:name], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <div id="unit-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Nova Unidade</h2>
+
+          <.simple_form
+            for={@unit_changeset |> to_form}
+            action={~p"/pgtr/create_unit"}
+            class="form"
+          >
+            <div class="field">
+              <label for="unit_municipio_id">Município</label>
+              <select id="unit_municipio_id" name="unit[municipio_id]" class="select" required>
+                <option value="">Selecione um Município</option>
+                <%= for municipio <- @municipios do %>
+                  <option
+                    value={municipio.id}
+                    selected={@unit_changeset.data.municipio_id == municipio.id}
+                  >
+                    <%= municipio.name %>
+                  </option>
+                <% end %>
+              </select>
+              <%= if @unit_changeset.errors[:municipio_id] do %>
+                <span class="error"><%= elem(@unit_changeset.errors[:municipio_id], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="unit_name">Nome da Unidade</label>
+              <input
+                type="text"
+                id="unit_name"
+                name="unit[name]"
+                class="input"
+                value={@unit_changeset.data.name || ""}
+                required
+              />
+              <%= if @unit_changeset.errors[:name] do %>
+                <span class="error"><%= elem(@unit_changeset.errors[:name], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="unit_situation">Situação</label>
+              <input
+                type="text"
+                id="unit_situation"
+                name="unit[situation]"
+                class="input"
+                value={@unit_changeset.data.situation || ""}
+                required
+              />
+              <%= if @unit_changeset.errors[:situation] do %>
+                <span class="error"><%= elem(@unit_changeset.errors[:situation], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="unit_next_step">Próximo Passo</label>
+              <input
+                type="text"
+                id="unit_next_step"
+                name="unit[next_step]"
+                class="input"
+                value={@unit_changeset.data.next_step || ""}
+              />
+              <%= if @unit_changeset.errors[:next_step] do %>
+                <span class="error"><%= elem(@unit_changeset.errors[:next_step], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <div id="document-type-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Novo Tipo de Documento</h2>
+
+          <.simple_form
+            for={@document_type_changeset |> to_form}
+            action={~p"/pgtr/create_document_type"}
+            class="form"
+          >
+            <div class="field">
+              <label for="document_type_name">Nome do Tipo de Documento</label>
+              <input
+                type="text"
+                id="document_type_name"
+                name="document_type[name]"
+                class="input"
+                value={@document_type_changeset.data.name || ""}
+                required
+              />
+              <%= if @document_type_changeset.errors[:name] do %>
+                <span class="error"><%= elem(@document_type_changeset.errors[:name], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <div id="document-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Novo Documento</h2>
+
+          <.simple_form
+            for={@document_changeset |> to_form}
+            action={~p"/pgtr/create_document"}
+            class="form"
+          >
+            <div class="field">
+              <label for="document_unit_id">Unidade</label>
+              <select id="document_unit_id" name="document[unit_id]" class="select" required>
+                <option value="">Selecione uma Unidade</option>
+                <%= for unit <- @units do %>
+                  <option value={unit.id} selected={@document_changeset.data.unit_id == unit.id}>
+                    <%= unit.name %>
+                  </option>
+                <% end %>
+              </select>
+              <%= if @document_changeset.errors[:unit_id] do %>
+                <span class="error"><%= elem(@document_changeset.errors[:unit_id], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="document_document_type_id">Tipo de Documento</label>
+              <select
+                id="document_document_type_id"
+                name="document[document_type_id]"
+                class="select"
+                required
+              >
+                <option value="">Selecione um Tipo de Documento</option>
+                <%= for dt <- @document_types do %>
+                  <option
+                    value={dt.id}
+                    selected={@document_changeset.data.document_type_id == dt.id}
+                  >
+                    <%= dt.name %>
+                  </option>
+                <% end %>
+              </select>
+              <%= if @document_changeset.errors[:document_type_id] do %>
+                <span class="error">
+                  <%= elem(@document_changeset.errors[:document_type_id], 0) %>
+                </span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="document_status">Status</label>
+              <select id="document_status" name="document[status]" class="select" required>
+                <option value="">Selecione um Status</option>
+                <%= for status <- @statuses do %>
+                  <option
+                    value={status.key}
+                    selected={@document_changeset.data.status == status.key}
+                  >
+                    <%= status.label %>
+                  </option>
+                <% end %>
+              </select>
+              <%= if @document_changeset.errors[:status] do %>
+                <span class="error"><%= elem(@document_changeset.errors[:status], 0) %></span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="document_document_link">Link do Documento</label>
+              <input
+                type="text"
+                id="document_document_link"
+                name="document[document_link]"
+                class="input"
+                value={@document_changeset.data.document_link || ""}
+                required
+              />
+              <%= if @document_changeset.errors[:document_link] do %>
+                <span class="error">
+                  <%= elem(@document_changeset.errors[:document_link], 0) %>
+                </span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+  <% end %>
 </main>

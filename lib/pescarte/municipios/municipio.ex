@@ -4,7 +4,8 @@ defmodule Pescarte.Municipios.Municipio do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "muncipios" do
+
+  schema "municipios" do
     field :name, :string
     field :created_by, :binary_id
     field :updated_by, :binary_id

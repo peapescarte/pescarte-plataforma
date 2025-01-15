@@ -76,12 +76,17 @@ defmodule PescarteWeb.Router do
     end
 
     scope "/pgtr" do
-      post "/regions", PGTRController, :create_region
-      put "/regions/:id", PGTRController, :update_region
-      delete "/regions/:id", PGTRController, :delete_region
-      post "/units", PGTRController, :create_unit
-      put "/units/:id", PGTRController, :update_unit
-      delete "/units/:id", PGTRController, :delete_unit
+      post "/create_municipio", PGTRController, :create_municipio
+      put "/update_municipio/:id", PGTRController, :update_municipio
+
+      post "/create_unit", PGTRController, :create_unit
+      put "/update_unit/:id", PGTRController, :update_unit
+
+      post "/create_document_type", PGTRController, :create_document_type
+      put "/update_document_type/:id", PGTRController, :update_document_type
+
+      post "/create_document", PGTRController, :create_document
+      put "/update_document/:id", PGTRController, :update_document
     end
   end
 
