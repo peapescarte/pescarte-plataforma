@@ -3,11 +3,11 @@ defmodule PescarteWeb.SessionContext do
   import Phoenix.LiveView, only: [redirect: 2, put_flash: 3]
 
   alias Pescarte.Identidades.Models.Usuario
-  alias Supabase.GoTrue
+  alias PescarteWeb.Auth
 
   def on_mount(:mount_session_from_conn, _params, session, socket) do
     session
-    |> GoTrue.LiveView.mount_current_user(socket)
+    |> Auth.mount_current_user(socket)
     |> mount_current_usuario()
   end
 

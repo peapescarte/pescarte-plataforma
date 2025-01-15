@@ -2,7 +2,7 @@
   description = "Plataforma Digital PEA Pescarte";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
   };
@@ -19,9 +19,19 @@
         system,
         ...
       }: let
-        inherit (pkgs.beam.interpreters) erlangR26;
+        inherit (pkgs.beam.interpreters) erlang_27;
         inherit (pkgs.beam) packagesWith;
-        beam = packagesWith erlangR26;
+        beam = packagesWith erlang_27;
+
+        elixir_1_18 = beam.elixir.override {
+          version = "1.18.0";
+          src = pkgs.fetchFromGitHub {
+            repo = "elixir";
+            owner = "elixir-lang";
+            rev = "v1.18.0";
+            sha256 = "fT3J8h2uuJ+dSR58kwlUkN023yFlmTwq2/O12KbjJc4=";
+          };
+        };
       in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
@@ -31,7 +41,7 @@
           mkShell {
             name = "peapescarte";
             packages = with pkgs;
-              [beam.elixir_1_16 nodejs supabase-cli ghostscript zlib postgresql flyctl pass]
+              [elixir_1_18 nodejs supabase-cli ghostscript zlib postgresql flyctl pass]
               ++ lib.optional stdenv.isLinux [inotify-tools chromium]
               ++ lib.optional stdenv.isDarwin [
                 darwin.apple_sdk.frameworks.CoreServices

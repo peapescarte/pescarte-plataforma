@@ -1,8 +1,9 @@
 defmodule PescarteWeb.Router do
   use PescarteWeb, :router
 
-  import Supabase.GoTrue.Plug
-  alias Supabase.GoTrue
+  import PescarteWeb.Auth
+
+  alias PescarteWeb.Auth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -59,6 +60,7 @@ defmodule PescarteWeb.Router do
       get "/noti7", Noti7Controller, :show
       get "/noti8", Noti8Controller, :show
       get "/noti9", Noti9Controller, :show
+      live "/:id", Blog.PostLive.Show
     end
 
     scope "/publicacoes" do
@@ -104,7 +106,7 @@ defmodule PescarteWeb.Router do
       on_mount: [
         PescarteWeb.NavbarLive,
         {PescarteWeb.SessionContext, :mount_session_from_conn},
-        {GoTrue.LiveView, :ensure_authenticated},
+        {Auth, :ensure_authenticated},
         {PescarteWeb.Flash, :flash}
       ] do
       live "/perfil", PesquisadorLive.Show, :show

@@ -4,8 +4,8 @@ defmodule PescarteWeb.LoginController do
   import Phoenix.LiveView.Controller, only: [live_render: 3]
 
   alias Pescarte.Identidades.Models.Usuario
+  alias PescarteWeb.Auth
   alias PescarteWeb.LoginLive
-  alias Supabase.GoTrue
 
   require Logger
 
@@ -23,7 +23,7 @@ defmodule PescarteWeb.LoginController do
     with {:ok, user} <- Usuario.fetch_by(cpf: cpf),
          email = user.contato.email_principal,
          params = %{email: email, password: password},
-         %Plug.Conn{} = conn <- GoTrue.Plug.log_in_with_password(conn, params) do
+         %Plug.Conn{} = conn <- Auth.log_in_with_password(conn, params) do
       conn
     else
       err ->
@@ -41,7 +41,7 @@ defmodule PescarteWeb.LoginController do
   def delete(conn, _params) do
     conn
     |> put_flash(:info, "Desconectado com sucesso")
-    |> GoTrue.Plug.log_out_user(:local)
+    |> Auth.log_out_user(:local)
   end
 
   defp to_live_view_session(conn) do
