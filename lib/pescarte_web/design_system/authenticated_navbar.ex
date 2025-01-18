@@ -27,7 +27,7 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
           <DesignSystem.link :for={{menu_name, path, icon} <- @menus} navigate={path}>
             <li class={"nav-item #{if should_activate_menu_item(path, @current_path), do: "active"}"}>
               <.icon name={icon} class="text-black-60" />
-              <.text :if={@open} size="base" color="text-black-60"><%= menu_name %></.text>
+              <.text :if={@open} size="base" color="text-black-60">{menu_name}</.text>
             </li>
           </DesignSystem.link>
         </ul>
@@ -35,7 +35,7 @@ defmodule PescarteWeb.DesignSystem.AuthenticatedNavbar do
           <Lucideicons.user :if={!@user.link_avatar} class="text-black-60" />
           <img :if={@user.link_avatar} src={@user.link_avatar} class="text-black-60" />
           <.text :if={@open} size="base" color="text-black-80">
-            <%= Usuario.build_usuario_name(@user) %>
+            {Usuario.build_usuario_name(@user)}
           </.text>
         </a>
       </nav>

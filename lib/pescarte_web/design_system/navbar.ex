@@ -92,7 +92,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
     <DesignSystem.link navigate={@navigate}>
       <li class={["nav-link ", if(@current_path == @navigate, do: "active")]} aria-expanded="false">
         <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
-          <%= @label %>
+          {@label}
         </.text>
       </li>
     </DesignSystem.link>

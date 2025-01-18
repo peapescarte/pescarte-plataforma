@@ -27,15 +27,15 @@ defmodule PescarteWeb.DesignSystem.MultipleSelectInput do
       phx-target={@myself}
     >
       <label :if={@label} for={@name}>
-        <.text size="h4"><%= @label %></.text>
+        <.text size="h4">{@label}</.text>
       </label>
       <div phx-click="toggle_dropdown" phx-target={@myself} class="dropdown-button">
         <%= if Enum.any?(@options, & &1.selected) do %>
           <span class="selection">
-            <%= Enum.map_join(Enum.filter(@options, & &1.selected), ", ", & &1.label) %>
+            {Enum.map_join(Enum.filter(@options, & &1.selected), ", ", & &1.label)}
           </span>
         <% else %>
-          <%= @prompt %>
+          {@prompt}
         <% end %>
         <div class="icon">
           <Lucideicons.chevron_down :if={!@open} />
@@ -50,12 +50,12 @@ defmodule PescarteWeb.DesignSystem.MultipleSelectInput do
           phx-value-content={opt.value}
           class={opt.selected && "selected"}
         >
-          <%= opt.label %>
+          {opt.label}
         </li>
       </ul>
       <select id={@id} name={@name} multiple>
         <option :for={opt <- @options} value={opt.value} selected={opt.selected}>
-          <%= opt.label %>
+          {opt.label}
         </option>
       </select>
     </fieldset>
