@@ -45,7 +45,7 @@ defmodule PescarteWeb.DesignSystem do
   def text(%{size: "h" <> _} = assigns) do
     ~H"""
     <%= content_tag @size, class: get_text_style(@size, @color, @class), style: @style do %>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     <% end %>
     """
   end
@@ -53,7 +53,7 @@ defmodule PescarteWeb.DesignSystem do
   def text(assigns) do
     ~H"""
     <p class={get_text_style(@size, @color, @class)} style={@style}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end
@@ -136,11 +136,11 @@ defmodule PescarteWeb.DesignSystem do
       {@rest}
     >
       <.text :if={@style == "primary"} size="base" color="text-white-100">
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </.text>
 
       <.text :if={@style != "primary"} size="base" color="text-blue-80">
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </.text>
     </button>
     """
@@ -249,7 +249,7 @@ defmodule PescarteWeb.DesignSystem do
         required={@required}
       />
       <label for={@name}>
-        <.text size="base"><%= @label %></.text>
+        <.text size="base">{@label}</.text>
       </label>
     </div>
     """
@@ -297,7 +297,7 @@ defmodule PescarteWeb.DesignSystem do
         class="radio-input"
       />
       <label for={@id} class="radio-label">
-        <.text size="base"><%= render_slot(@label) %></.text>
+        <.text size="base">{render_slot(@label)}</.text>
       </label>
     </div>
     """
@@ -350,7 +350,7 @@ defmodule PescarteWeb.DesignSystem do
     ~H"""
     <fieldset class="text-input-container">
       <label :if={@label} for={@name}>
-        <.text size="h4"><%= @label %></.text>
+        <.text size="h4">{@label}</.text>
       </label>
       <div class="input-space">
         <input
@@ -408,11 +408,11 @@ defmodule PescarteWeb.DesignSystem do
     ~H"""
     <fieldset class="select-input-container">
       <label :if={@label} for={@name}>
-        <.text size="h4"><%= @label %></.text>
+        <.text size="h4">{@label}</.text>
       </label>
       <select id={@id} name={@name} class="select-input" multiple={@multiple} {@rest}>
-        <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+        <option :if={@prompt} value="">{@prompt}</option>
+        {Phoenix.HTML.Form.options_for_select(@options, @value)}
       </select>
     </fieldset>
     """
@@ -438,7 +438,7 @@ defmodule PescarteWeb.DesignSystem do
   def text_area(assigns) do
     ~H"""
     <fieldset class={@class}>
-      <.text size="base"><%= render_slot(@label) %></.text>
+      <.text size="base">{render_slot(@label)}</.text>
       <div class="textarea-grow-wrapper">
         <textarea
           id={@id}
@@ -595,7 +595,7 @@ defmodule PescarteWeb.DesignSystem do
       phx-click={Map.get(assigns, :"on-click")}
       target={if Map.get(assigns, :"target-blank"), do: "_blank", else: "_self"}
     >
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </Phoenix.Component.link>
     """
   end
@@ -626,9 +626,9 @@ defmodule PescarteWeb.DesignSystem do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <%= render_slot(@inner_block, f) %>
+      {render_slot(@inner_block, f)}
       <%= for action <- @actions do %>
-        <%= render_slot(action, f) %>
+        {render_slot(action, f)}
       <% end %>
     </.form>
     """
@@ -665,7 +665,7 @@ defmodule PescarteWeb.DesignSystem do
         <Lucideicons.circle_check :if={@kind == :success} class="flash-icon" />
         <Lucideicons.info :if={@kind == :warning} class="flash-icon" />
         <Lucideicons.circle_x :if={@kind == :error} class="flash-icon" />
-        <.text size="lg"><%= msg %></.text>
+        <.text size="lg">{msg}</.text>
       </div>
     </div>
     """
@@ -705,7 +705,7 @@ defmodule PescarteWeb.DesignSystem do
     ~H"""
     <Flop.Phoenix.table items={@items} meta={@meta} path={@path}>
       <:col :let={data} :for={col <- @column} label={col.label} field={col.field}>
-        <%= render_slot(col, data) %>
+        {render_slot(col, data)}
       </:col>
     </Flop.Phoenix.table>
     """
@@ -727,7 +727,7 @@ defmodule PescarteWeb.DesignSystem do
   def label(assigns) do
     ~H"""
     <div class="label_component">
-      <.text size="base" color="text-white-100"><%= @message %></.text>
+      <.text size="base" color="text-white-100">{@message}</.text>
     </div>
     """
   end
@@ -739,12 +739,12 @@ defmodule PescarteWeb.DesignSystem do
     ~H"""
     <div class="profile-menu-link">
       <span class="flex items-center justify-center bg-white-100">
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </span>
       <.button style="link" class="whitespace-nowrap" click={@click} phx-target=".profile-menu-link">
         <.text size="base" color="text-blue-80">
           <Lucideicons.credit_card class="text-blue-100" />
-          <%= @label %>
+          {@label}
         </.text>
       </.button>
     </div>
@@ -819,7 +819,7 @@ defmodule PescarteWeb.DesignSystem do
                 style="top: 1.25rem; align-items: center; max-width: 442px;"
               >
                 <.text size="h2" color="black-80">
-                  <%= @title %>
+                  {@title}
                 </.text>
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
@@ -832,7 +832,7 @@ defmodule PescarteWeb.DesignSystem do
                 </button>
               </div>
               <div id={"#{@id}-content"} style="margin: 64px 0;">
-                <%= render_slot(@inner_block) %>
+                {render_slot(@inner_block)}
               </div>
               <div
                 :for={footer <- @footer}
@@ -840,7 +840,7 @@ defmodule PescarteWeb.DesignSystem do
                 class={Map.get(footer, :class)}
                 style={Map.get(footer, :style)}
               >
-                <%= render_slot(footer) %>
+                {render_slot(footer)}
               </div>
             </.focus_wrap>
           </div>

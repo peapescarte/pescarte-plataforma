@@ -13,7 +13,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
     ~H"""
     <div class="report-wrapper">
       <.text size="h1" color="text-blue-100">
-        <%= @title %>
+        {@title}
       </.text>
 
       <.form for={@form} id="report-form" phx-target={@myself} phx-change="validate" phx-submit="save">
@@ -234,7 +234,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
     >
       <:label>
         <.text size="h3" color="text-blue-100">
-          <%= @label %>
+          {@label}
         </.text>
       </:label>
     </.text_area>

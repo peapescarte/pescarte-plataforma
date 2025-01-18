@@ -54,11 +54,11 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
     ~H"""
     <div class="flex items-center profile-link">
       <span class="rounded-full bg-blue-80 h-12 w-12 flex-center">
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </span>
       <DesignSystem.link href={@href} class="w-12 text-left link">
         <.text size="base" color="text-blue-80">
-          <%= @label %>
+          {@label}
         </.text>
       </DesignSystem.link>
     </div>
