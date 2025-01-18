@@ -642,6 +642,7 @@ defmodule PescarteWeb.DesignSystem do
   attr :class, :string, default: "", doc: "the image class"
 
   def supabase_image(assigns) do
+    IO.inspect(assigns.src)
     assigns =
       with {:ok, client} <- Pescarte.Supabase.get_client(),
            {:ok, bucket} <- Supabase.Storage.BucketHandler.retrieve_info(client, "static"),
