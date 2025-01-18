@@ -40,17 +40,17 @@
         </div>
       </:column>
       <:column :let={{_, relatorio}} label="Data" field={:data_inicio}>
-        <%= "#{relatorio.data_inicio} - #{relatorio.data_fim}" %>
+        {"#{relatorio.data_inicio} - #{relatorio.data_fim}"}
       </:column>
-      <:column :let={{_, relatorio}} label="Tipo" field={:tipo}><%= relatorio.tipo %></:column>
+      <:column :let={{_, relatorio}} label="Tipo" field={:tipo}>{relatorio.tipo}</:column>
       <:column :let={{_, relatorio}} label="Mês/Ano" field={:data_fim}>
-        <%= "#{relatorio.data_fim.month}/#{relatorio.data_fim.year}" %>
+        {"#{relatorio.data_fim.month}/#{relatorio.data_fim.year}"}
       </:column>
       <:column :let={{_, relatorio}} label="Nome Pesquisador" field={:nome}>
-        <%= relatorio.pesquisador.usuario.primeiro_nome %>
+        {relatorio.pesquisador.usuario.primeiro_nome}
       </:column>
       <:column :let={{_, relatorio}} label="Status" field={:status}>
-        <%= relatorio.status %>
+        {relatorio.status}
       </:column>
       <:column :let={{id, _}} label="Baixar" field={:baixa}>
         <div class="flex-center">

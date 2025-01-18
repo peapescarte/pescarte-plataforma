@@ -1,6 +1,6 @@
 <main class="noticias-grid">
   <.flash :if={@error_message} id="login-error" kind={:error}>
-    <%= @error_message %>
+    {@error_message}
   </.flash>
 
   <div class="land-carousel">
@@ -51,15 +51,15 @@
           <div class="p-5">
             <a href="/noticias/noti9">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "Pescarte participa de plenária sudeste para a construção do Plano Nacional da Pesca Artesanal"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "O evento aconteceu entre 9 e 11 de outubro, no Espírito Santo. Duas integrantes do PEA foram selecionadas para representar o Sudeste"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti9" class="text-sm font-semibold">
               <.button style="primary">
@@ -75,15 +75,15 @@
           <div class="p-5">
             <a href="/noticias/noti8">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "PEA Pescarte realiza II Simpósio de Linguagens e Letramentos na UENF"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Evento acontece no Centro de Convenções da UENF e será transmitido pelo canal do PEA Pescarte no YouTube"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti8" class="text-sm font-semibold">
               <.button style="primary">
@@ -99,16 +99,16 @@
           <div class="p-5">
             <a href="/noticias/noti7">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "Núcleo de Autonomia e Incidência da Pesca Artesanal (NAIPA) atua com instituições ligadas à pesca"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Atividades auxiliam que os pescadores e pescadoras participem da gestão sustentável e no
               desenvolvimento de políticas públicas e privadas no país"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti7" class="text-sm font-semibold">
               <.button style="primary">
@@ -124,15 +124,15 @@
           <div class="p-5">
             <a href="/noticias/noti5">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "1ª edição do Seminário Internacional da Pesca Artesanal marca os 10 anos do PEA Pescarte e reúne mais de 500 pessoas"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Evento reuniu representantes do Ministério da Pesca, Food and Agriculture Organization, Governo Moçambique e Universidade Autônoma de Barcelona"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti5" class="text-sm font-semibold">
               <.button style="primary">
@@ -148,17 +148,17 @@
           <div class="p-5">
             <a href="/noticias/noti6">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "Núcleo de Pesquisa organiza grupos focais para levantamento de seis temáticas nas
                 comunidades de pesca da região"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Realizado nos 10 municípios no primeiro semestre de 2024, levantamento visa criar elementos
               para as pesquisas desenvolvidas no Pescarte"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti6" class="text-sm font-semibold">
               <.button style="primary">
@@ -174,15 +174,15 @@
           <div class="p-5">
             <a href="/noticias/noti4">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "Sessão de Encontro: Mulheres e Direitos promove o protagonismo feminino e o fortalecimento da pesca artesanal"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Pesquisa tem o objetivo de compreender o comportamento do consumidor e dos fornecedores para levar aos PGTR como funciona o mercado de pescados"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti4" class="text-sm font-semibold">
               <.button style="primary">
@@ -198,16 +198,16 @@
           <div class="p-5">
             <a href="/noticias/noti1">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "Tecnologia social nos empreendimentos de geração de renda na cadeia da pesca artesanal é abordado em pesquisa"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Estudo aponta tecnologias utilizadas na pesca e maricultura que auxiliem nas soluções
               de infraestrutura dos Projetos de Geração de Trabalho e Renda"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti1" class="text-sm font-semibold">
               <.button style="primary">
@@ -223,15 +223,15 @@
           <div class="p-5">
             <a href="/noticias/noti2">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   "Reunião de Avaliação e Realinhamento do Núcleo de Pesquisa promove ecologia de saberes no PEA Pescarte"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Pesquisas desenvolvidas cumprem com o desafio de mitigar os impactos das atividades de extração e produção de petróleo e gás na Bacia de Campos"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti2" class="text-sm font-semibold">
               <.button style="primary">
@@ -247,15 +247,15 @@
           <div class="p-5">
             <a href="/noticias/noti3">
               <.text size="h4" color="text-blue-100">
-                <%= handle_notice_title_length(
+                {handle_notice_title_length(
                   " Levantamento do PEA Pescarte realiza o mapeamento do mercado do pescado em cidades do Rio de Janeiro"
-                ) %>
+                )}
               </.text>
             </a>
             <.text size="sm" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "Pesquisa tem o objetivo de compreender o comportamento do consumidor e dos fornecedores para levar aos PGTR como funciona o mercado de pescados"
-              ) %>
+              )}
             </.text>
             <DesignSystem.link href="/noticias/noti3" class="text-sm font-semibold">
               <.button style="primary">

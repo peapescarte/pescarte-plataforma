@@ -99,17 +99,17 @@
       </div>
       <p style="margin-bottom: 3cm"><b>Relatório (TRIMESTRAL)<br />3° Fase</b></p>
       <p style="margin-bottom: 1.5cm;">
-        <b>LINHA DE PESQUISA:<br /><%= @pesquisador.linha_pesquisa_principal.numero %></b>
+        <b>LINHA DE PESQUISA:<br />{@pesquisador.linha_pesquisa_principal.numero}</b>
       </p>
       <p>
         <b>
-          Pesquisador (a): <br /><%= build_usuario_name(@pesquisador.usuario) %>
+          Pesquisador (a): <br />{build_usuario_name(@pesquisador.usuario)}
         </b>
       </p>
       <p class="capa__cidade_data">
         <b>
-          <%= @pesquisador.usuario.contato.endereco %>
-          <%= ~c"#{get_literal_mes(@data_fim)}/#{@data_fim.year}" %>
+          {@pesquisador.usuario.contato.endereco}
+          {~c"#{get_literal_mes(@data_fim)}/#{@data_fim.year}"}
         </b>
       </p>
     </section>
@@ -146,25 +146,25 @@
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Resumo</p>
           <p>
-            <%= @conteudo_trimestral.resumo %>
+            {@conteudo_trimestral.resumo}
           </p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Introdução</p>
           <p>
-            <%= @conteudo_trimestral.introducao %>
+            {@conteudo_trimestral.introducao}
           </p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Fundamentação teórica</p>
           <p>
-            <%= @conteudo_trimestral.embasamento_teorico %>
+            {@conteudo_trimestral.embasamento_teorico}
           </p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Resultados Preliminares</p>
           <p>
-            <%= @conteudo_trimestral.resultados_preliminares %>
+            {@conteudo_trimestral.resultados_preliminares}
           </p>
         </li>
         <li class="conteudo__list__item">
@@ -172,7 +172,7 @@
             Atividades Acadêmicas relacionadas ao PEA-Pescarte
           </p>
           <p>
-            <%= @conteudo_trimestral.atividades_academicas %>
+            {@conteudo_trimestral.atividades_academicas}
           </p>
         </li>
         <li class="conteudo__list__item">
@@ -180,12 +180,12 @@
             Atividades não acadêmicas relacionadas ao PEA-Pescarte
           </p>
           <p>
-            <%= @conteudo_trimestral.atividades_nao_academicas %>
+            {@conteudo_trimestral.atividades_nao_academicas}
           </p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">REFERÊNCIAS BIBLIOGRÁFICAS</p>
-          <p><%= @conteudo_trimestral.referencias %></p>
+          <p>{@conteudo_trimestral.referencias}</p>
         </li>
       </ol>
     </section>

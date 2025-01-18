@@ -28,14 +28,14 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title>
-      <%= assigns[:page_title] || "Plataforma PEA Pescarte" %>
+      {assigns[:page_title] || "Plataforma PEA Pescarte"}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
   <body class={if !Map.get(assigns, :current_usuario), do: "grid", else: ""}>
-    <%= @inner_content %>
+    {@inner_content}
   </body>
   <script>
     if (navigator.serviceWorker) {
