@@ -5,7 +5,7 @@
       Agenda Mensal
     </.text>
     <.text size="h4" color="text-white-100">
-      <%= @current_month %>
+      {@current_month}
     </.text>
   </div>
 
@@ -14,7 +14,7 @@
       Agenda sujeita a alterações e inscrições prévias. Entre em contato com a equipe do seu município.
     </.text>
     <%= for {_, rows} <- @mapa do %>
-      <%= table_render(rows) %>
+      {table_render(rows)}
     <% end %>
   </div>
 

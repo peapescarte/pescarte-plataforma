@@ -3,6 +3,13 @@ defmodule PescarteWeb.Auth do
   Módulo responsável por controlar tanto autenticação quanto
   autorização das "dead views" e live views, além de autenticação via API.
   """
+
+  # apenas um hotfix, pra forçar esse módulo
+  # ser compilado antes e portanto o bytecode vai existir
+  # quando a macro abaixo for executada
+  # isso deve ser resolvido na próxima release de `supabase_gotrue`
+  require Pescarte.Supabase
+
   use Supabase.GoTrue.Plug,
     client: Pescarte.Supabase,
     endpoint: PescarteWeb.Endpoint,

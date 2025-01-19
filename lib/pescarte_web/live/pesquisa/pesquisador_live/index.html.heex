@@ -17,18 +17,18 @@
 
   <.table items={@pesquisadores} meta={@meta} path={~p"/app/pesquisa/pesquisadores"}>
     <:column :let={pesquisador} label="Nome" field={:nome}>
-      <%= pesquisador.nome %>
+      {pesquisador.nome}
     </:column>
     <:column :let={pesquisador} label="CPF" field={:cpf}>
-      <%= pesquisador.cpf %>
+      {pesquisador.cpf}
     </:column>
     <:column :let={pesquisador} label="E-mail" field={:email}>
       <DesignSystem.link href={"mailto:" <> pesquisador.email}>
-        <%= pesquisador.email %>
+        {pesquisador.email}
       </DesignSystem.link>
     </:column>
     <:column :let={pesquisador} label="Participação" field={:participacao}>
-      <%= humanize_bolsa(pesquisador.participacao) %>
+      {humanize_bolsa(pesquisador.participacao)}
     </:column>
   </.table>
 </div>

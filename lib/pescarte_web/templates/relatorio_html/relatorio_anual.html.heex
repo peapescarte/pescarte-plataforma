@@ -88,16 +88,16 @@
       </div>
       <p style="margin-bottom: 3cm"><b>Relatório (ANUAL)<br />3° Fase</b></p>
       <p style="margin-bottom: 1.5cm;">
-        <b>LINHA DE PESQUISA:</b> <br /><%= @pesquisador.linha_pesquisa_principal.numero %>
+        <b>LINHA DE PESQUISA:</b> <br />{@pesquisador.linha_pesquisa_principal.numero}
       </p>
       <p>
-        <b><%= build_usuario_name(@pesquisador.usuario) %></b>
+        <b>{build_usuario_name(@pesquisador.usuario)}</b>
       </p>
       <p><b>Pesquisador (a)</b></p>
       <p class="capa__cidade_data">
         <b>
-          <%= @pesquisador.usuario.contato.endereco %>
-          <%= get_literal_mes(@data_fim) %>/<%= @data_entrega.year %>
+          {@pesquisador.usuario.contato.endereco}
+          {get_literal_mes(@data_fim)}/{@data_entrega.year}
         </b>
       </p>
     </section>
@@ -139,43 +139,43 @@
       <ol class="conteudo__list">
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Plano de trabalho</p>
-          <p><%= @conteudo_anual.plano_de_trabalho %></p>
+          <p>{@conteudo_anual.plano_de_trabalho}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Resumo</p>
-          <p><%= @conteudo_anual.resumo %></p>
+          <p>{@conteudo_anual.resumo}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Introdução</p>
-          <p><%= @conteudo_anual.introducao %></p>
+          <p>{@conteudo_anual.introducao}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Fundamentação teórica</p>
-          <p><%= @conteudo_anual.embasamento_teorico %></p>
+          <p>{@conteudo_anual.embasamento_teorico}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Resultados Preliminares</p>
-          <p><%= @conteudo_anual.resultados %></p>
+          <p>{@conteudo_anual.resultados}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">
             Atividades Acadêmicas relacionadas ao PEA-Pescarte
           </p>
-          <p><%= @conteudo_anual.atividades_academicas %></p>
+          <p>{@conteudo_anual.atividades_academicas}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">
             Atividades não acadêmicas relacionadas ao PEA-Pescarte
           </p>
-          <p><%= @conteudo_anual.atividades_nao_academicas %></p>
+          <p>{@conteudo_anual.atividades_nao_academicas}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">Conclusões ou considerações finais</p>
-          <p><%= @conteudo_anual.conclusao %></p>
+          <p>{@conteudo_anual.conclusao}</p>
         </li>
         <li class="conteudo__list__item">
           <p class="conteudo__list__item__titulo">REFERÊNCIAS BIBLIOGRÁFICAS</p>
-          <p><%= @conteudo_anual.referencias %></p>
+          <p>{@conteudo_anual.referencias}</p>
         </li>
       </ol>
     </section>
