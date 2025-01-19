@@ -16,7 +16,7 @@ defmodule Pescarte.Blog do
           optional(:page_size) => pos_integer()
         }
 
-  @spec list_posts_with_filter(filters()) ::  list(Post.t()) | {:error, term()}
+  @spec list_posts_with_filter(filters()) :: list(Post.t()) | {:error, term()}
   def list_posts_with_filter(filters \\ %{}) do
     Post
     |> apply_post_search_filter(filters)

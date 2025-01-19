@@ -46,7 +46,6 @@ defmodule PescarteWeb.Router do
     get "/aplicativos", AplicativosController, :show
     live "/noticias", Blog.NoticiasLive.Show
 
-
     delete "/acessar", LoginController, :delete
 
     get "/agenda", AgendaController, :show

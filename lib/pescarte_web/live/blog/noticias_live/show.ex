@@ -14,7 +14,6 @@ defmodule PescarteWeb.Blog.NoticiasLive.Show do
                           ])
   @impl true
   def mount(_params, _session, socket) do
-
     [main_new | news] = Blog.list_posts_with_filter()
 
     socket =
@@ -84,7 +83,7 @@ defmodule PescarteWeb.Blog.NoticiasLive.Show do
     ~H"""
     <div class="noticias-grid">
       <.flash :if={@error_message} id="login-error" kind={:error}>
-        <%= @error_message %>
+        {@error_message}
       </.flash>
       <!--<div class="land-carousel">
       <.text size="h2" color="text-blue-100">Galeria de Notícias Pescarte</.text>
@@ -151,14 +150,14 @@ defmodule PescarteWeb.Blog.NoticiasLive.Show do
           />
         </a>
         <div class="main-new-text-container">
-          <p class="news-date"><%= date_to_string(@main_new.inserted_at) %></p>
+          <p class="news-date">{date_to_string(@main_new.inserted_at)}</p>
           <a href={"noticias/#{@main_new.id}"}>
             <h3 class="news-title">
-              <%= @main_new.titulo %>
+              {@main_new.titulo}
             </h3>
           </a>
           <p class="news-description">
-            <%= handle_notice_desc_length(@main_new.conteudo) %>
+            {handle_notice_desc_length(@main_new.conteudo)}
           </p>
         </div>
       </div>
@@ -172,14 +171,14 @@ defmodule PescarteWeb.Blog.NoticiasLive.Show do
                   <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/grupos%20focais/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL2dydXBvcyBmb2NhaXMvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjEwOTcsImV4cCI6MjAzOTc4MTA5N30.0BiAS0ILyBpEIigMQ7fxQ07zkiV5h_EsUCRQ4FpWYJE&t=2024-08-23T13%3A51%3A37.851Z" />
                 </a>
                 <div class="text-container">
-                  <p class="news-date"><%= date_to_string(new.inserted_at) %></p>
+                  <p class="news-date">{date_to_string(new.inserted_at)}</p>
                   <a href={"/noticias/#{new.id}"}>
                     <.text size="h4" color="text-blue-100">
-                      <%= handle_notice_title_length(new.titulo) %>
+                      {handle_notice_title_length(new.titulo)}
                     </.text>
                   </a>
                   <.text size="base" color="text-black-60">
-                    <%= handle_notice_desc_length(new.conteudo) %>
+                    {handle_notice_desc_length(new.conteudo)}
                   </.text>
                 </div>
               </div>
@@ -409,7 +408,7 @@ defmodule PescarteWeb.Blog.NoticiasLive.Show do
       </div>
 
       <div phx-click="more_news">
-        <.button style="primary" >
+        <.button style="primary">
           <.text size="base" color="text-wite-100">Ver mais...</.text>
         </.button>
       </div>

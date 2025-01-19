@@ -67,14 +67,14 @@
       />
     </a>
     <div class="main-new-text-container">
-      <p class="news-date"><%= date_to_string(@main_new.inserted_at) %></p>
+      <p class="news-date">{date_to_string(@main_new.inserted_at)}</p>
       <a href={"noticias/#{@main_new.id}"}>
         <h3 class="news-title">
-          <%= @main_new.titulo %>
+          {@main_new.titulo}
         </h3>
       </a>
       <p class="news-description">
-        <%= handle_notice_desc_length(@main_new.conteudo) %>
+        {handle_notice_desc_length(@main_new.conteudo)}
       </p>
     </div>
   </div>
@@ -88,14 +88,14 @@
               <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/grupos%20focais/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL2dydXBvcyBmb2NhaXMvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjEwOTcsImV4cCI6MjAzOTc4MTA5N30.0BiAS0ILyBpEIigMQ7fxQ07zkiV5h_EsUCRQ4FpWYJE&t=2024-08-23T13%3A51%3A37.851Z" />
             </a>
             <div class="text-container">
-              <p class="news-date"><%= date_to_string(new.inserted_at) %></p>
+              <p class="news-date">{date_to_string(new.inserted_at)}</p>
               <a href={"/noticias/#{new.id}"}>
                 <.text size="h4" color="text-blue-100">
-                  <%= handle_notice_title_length(new.titulo) %>
+                  {handle_notice_title_length(new.titulo)}
                 </.text>
               </a>
               <.text size="base" color="text-black-60">
-                <%= handle_notice_desc_length(new.conteudo) %>
+                {handle_notice_desc_length(new.conteudo)}
               </.text>
             </div>
           </div>
@@ -115,7 +115,7 @@
               </.text>
             </a>
             <.text size="base" color="text-black-60">
-              <%= handle_notice_desc_length(
+              {handle_notice_desc_length(
                 "O evento aconteceu entre 9 e 11 de outubro, no Espírito Santo. Duas integrantes do PEA foram selecionadas para representar o Sudeste"
               )}
             </.text>
