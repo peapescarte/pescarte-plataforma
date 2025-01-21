@@ -5,31 +5,10 @@ alias Pescarte.Municipios
 alias Pescarte.Database.Repo
 
 # Carregar os seeders personalizados
-alias Seeder.MunicipiosSeeder
-alias Seeder.UnitSeeder
-alias Seeder.DocumentTypeSeeder
-alias Seeder.DocumentSeeder
+alias Seeder.{MunicipiosSeeder, UnitSeeder, DocumentTypeSeeder, DocumentSeeder, SeederRunner}
 
-# Definir uma função para facilitar o processo de inserção e captura de erros
-defmodule SeederRunner do
-  def insert_records(records, insert_fun, error_message) do
-    Enum.map(records, fn record ->
-      case insert_fun.(record) do
-        {:ok, inserted_record} ->
-          inserted_record
-
-        {:error, changeset} ->
-          IO.puts("Erro ao inserir #{error_message}: #{inspect(record)}")
-          IO.inspect(changeset.errors)
-          nil
-      end
-    end)
-    |> Enum.reject(&is_nil/1)
-  end
-end
-
-# Iniciar o SeederRunner
-import SeederRunner
+# Definir um usuário padrão para created_by e updated_by
+default_user_id = "00000000-0000-0000-0000-000000000001"
 
 # 1. Truncar as tabelas necessárias
 Repo.query!("TRUNCATE TABLE documents, units, municipios, document_types RESTART IDENTITY CASCADE")
@@ -39,8 +18,12 @@ IO.puts("Inserindo Tipos de Documento...")
 document_types = DocumentTypeSeeder.entries()
 
 inserted_document_types =
-  insert_records(document_types, fn dt ->
-    Municipios.create_document_type(%{name: dt.name})
+  SeederRunner.insert_records(document_types, fn dt ->
+    Municipios.create_document_type(%{
+      name: dt.name,
+      created_by: default_user_id,
+      updated_by: default_user_id
+    })
   end, "Tipo de Documento")
 
 # 3. Inserir Municípios
@@ -48,11 +31,11 @@ IO.puts("Inserindo Municípios...")
 municipios = MunicipiosSeeder.entries()
 
 inserted_municipios =
-  insert_records(municipios, fn municipio ->
+  SeederRunner.insert_records(municipios, fn municipio ->
     Municipios.create_municipio(%{
       name: municipio.name,
-      created_by: municipio.created_by,
-      updated_by: municipio.updated_by
+      created_by: default_user_id,
+      updated_by: default_user_id
     })
   end, "Município")
 
@@ -61,14 +44,14 @@ IO.puts("Inserindo Unidades...")
 units = UnitSeeder.entries(inserted_municipios)
 
 inserted_units =
-  insert_records(units, fn unit ->
+  SeederRunner.insert_records(units, fn unit ->
     Municipios.create_unit(%{
       municipio_id: unit.municipio_id,
       name: unit.name,
       situation: unit.situation,
       next_step: unit.next_step,
-      created_by: unit.created_by,
-      updated_by: unit.updated_by
+      created_by: default_user_id,
+      updated_by: default_user_id
     })
   end, "Unidade")
 
@@ -77,14 +60,14 @@ IO.puts("Inserindo Documentos...")
 documents = DocumentSeeder.entries(inserted_municipios, inserted_units, inserted_document_types)
 
 inserted_documents =
-  insert_records(documents, fn doc ->
+  SeederRunner.insert_records(documents, fn doc ->
     Municipios.create_document(%{
       unit_id: doc.unit_id,
       document_type_id: doc.document_type_id,
       status: doc.status,
       document_link: doc.document_link,
-      created_by: doc.created_by,
-      updated_by: doc.updated_by
+      created_by: default_user_id,
+      updated_by: default_user_id
     })
   end, "Documento")
 

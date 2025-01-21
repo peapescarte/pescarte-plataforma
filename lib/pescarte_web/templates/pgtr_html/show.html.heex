@@ -1,4 +1,5 @@
 <main>
+  <!-- Seção do Banner -->
   <div class="lighter-banner">
     <img src={~p"/images/light-banner-bg.png"} class="banner-img" />
     <.text size="h2" color="text-white-100">
@@ -6,6 +7,7 @@
     </.text>
   </div>
 
+  <!-- Seção "O Pescarte e PGTR" -->
   <div class="get-to-know-pgtr">
     <div class="content-pgtr">
       <.text size="h2" color="text-blue-100">O Pescarte e PGTR</.text>
@@ -35,60 +37,83 @@
     <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzEucG5nIiwiaWF0IjoxNzI0MzQ2OTE1LCJleHAiOjIwMzk3MDY5MTV9.J7I7kUsYTdVVseCs6QcGXHAAXIdrSPo-vEEurvrF2Kw&t=2024-08-22T17%3A15%3A15.147Z" />
   </div>
 
-  <div class="production-units">
+  <!-- Seção "Unidades Produtivas Previstas" -->
+    <div class="production-units">
     <.text size="h3" color="text-blue-100">Unidades Produtivas Previstas</.text>
 
     <div class="units-accordions">
-      <%= for municipio <- @municipios do %>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img
-              src={~p"/images/pgtr/fish-preto.png"}
-              class="label-img"
-              alt="Icone de Município"
-            />
-            <.text size="h4" color="text-black-80">
-              <strong><%= municipio.name %></strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
+      <!-- Definindo o tamanho dos chunks para dividir em 2 colunas -->
+      <% chunk_size = div(length(@municipios) + 1, 2) %>
+      <% splitted_municipios = Enum.chunk_every(@municipios, chunk_size) %>
 
-          <div class="accordion-content">
-            <hr />
-            <%= for unit <- municipio.units do %>
-              <div class="content-item">
-                <span class={"status-#{String.downcase(unit.status)}"}>
-                  <%= unit.status %>
-                </span>
-                <.text size="h4" color="text-black-100">
-                  <%= unit.name %>
+      <%= for chunk <- splitted_municipios do %>
+        <div class="accordion">
+          <%= for municipio <- chunk do %>
+            <div class="accordion-bx">
+              <div class="accordion-label">
+                <img
+                  src={~p"/images/pgtr/fish-preto.png"}
+                  class="label-img"
+                  alt="Ícone de Município"
+                />
+                <.text size="h4" color="text-black-80">
+                  <strong><%= municipio.name %></strong>
                 </.text>
-                <.text size="lg" color="text-black-80">
-                  <span class="content-title">Situação:</span> <%= unit.situation %>.
-                </.text>
-                <.text size="lg" color="text-black-80">
-                  <span class="content-title">Próximas Etapas:</span> <%= unit.next_step || "N/A" %>.
-                </.text>
-                <div class="download-button">
-                  <img src={~p"/images/pgtr/download.png"} class="download-icon" alt="Download" />
-                  <.text size="lg" color="text-white-100">
-                    <%= if unit.document_link do %>
-                      <a href={unit.document_link} target="_blank">Baixar Documentos</a>
-                    <% else %>
-                      N/A
-                    <% end %>
-                  </.text>
-                </div>
-                <hr />
+                <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
               </div>
-            <% end %>
-          </div>
+
+              <div class="accordion-content">
+                <hr />
+                <!-- Iterar sobre as unidades do município -->
+                <%= for unit <- municipio.units do %>
+                  <div class="content-item">
+                    <.text size="h4" color="text-black-100">
+                      <%= unit.name %>
+                    </.text>
+                    <.text size="lg" color="text-black-80">
+                      <span class="content-title">Situação:</span>
+                      <%= unit.situation %>
+                    </.text>
+                    <.text size="lg" color="text-black-80">
+                      <span class="content-title">Próxima Etapa:</span>
+                      <%= unit.next_step || "N/A" %>
+                    </.text>
+
+                    <!-- Iterar sobre os documentos associados, exibindo o status -->
+                    <%= for doc <- unit.documents do %>
+                      <span class={
+                        case doc.status do
+                          :concluido -> "status-done"
+                          :em_andamento -> "status-in-progress"
+                          :pendente -> "status-pending"
+                          _ -> "status-pending" # Classe padrão para status desconhecidos
+                        end
+                      }>
+                        <%= doc.document_type.name |> String.capitalize() %>:
+                        <%= case doc.status do
+                              :concluido -> "Concluído"
+                              :em_andamento -> "Em Andamento"
+                              :pendente -> "Pendente"
+                              _ -> "Pendente"
+                            end %>
+                      </span>
+                    <% end %>
+
+                    <hr />
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
   </div>
-  <!-- ONDE NOS ENCONTRAR -->
+
+  <!-- Seção "Onde Nos Encontrar" -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
+
+  <!-- Seção "Unidades" -->
   <section class="units-list mt-6">
     <h3>Unidades</h3>
     <%= for unit <- @units do %>
@@ -126,6 +151,8 @@
       </div>
     <% end %>
   </section>
+
+  <!-- Botões de Ação para Admins -->
   <%= if @current_user && @current_user.papel == :admin do %>
     <div class="flex flex-row space-x-2 mt-4">
       <button id="open-municipio-modal-btn" class="btn btn-primary">
@@ -145,7 +172,10 @@
       </button>
     </div>
   <% end %>
+
+  <!-- Modais para Admins -->
   <%= if @current_user && @current_user.papel == :admin do %>
+    <!-- Modal para Novo Município -->
     <div id="municipio-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -180,6 +210,8 @@
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
+
+    <!-- Modal para Nova Unidade -->
     <div id="unit-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -258,6 +290,8 @@
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
+
+    <!-- Modal para Novo Tipo de Documento -->
     <div id="document-type-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -292,6 +326,8 @@
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
+
+    <!-- Modal para Novo Documento -->
     <div id="document-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">

@@ -41,7 +41,5 @@ defmodule Pescarte.Municipios.Document do
     |> validate_format(:document_link, ~r/^https?:\/\/\S+$/, message: "deve ser uma URL válida")
     |> assoc_constraint(:unit)
     |> assoc_constraint(:document_type)
-
-    # |> unique_constraint([:unit_id, :document_type_id], name: :documents_unit_id_document_type_id_index)
   end
 end

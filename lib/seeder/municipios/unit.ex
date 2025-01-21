@@ -168,15 +168,23 @@ defmodule Seeder.UnitSeeder do
     ]
 
     Enum.map(units_data, fn unit ->
-      municipio = Enum.find(municipios, &(&1.name == unit.municipio))
+      # Buscar o município apenas comparando com o nome original
+      municipio =
+        Enum.find(municipios, fn m ->
+          m.name == unit.municipio
+        end)
+
+      unless municipio do
+        raise "Município '#{unit.municipio}' não encontrado após normalização."
+      end
 
       %Unit{
         municipio_id: municipio.id,
         name: unit.name,
         situation: unit.situation,
         next_step: unit.next_step,
-        created_by: Ecto.UUID.generate(),
-        updated_by: Ecto.UUID.generate()
+        created_by: "00000000-0000-0000-0000-000000000001",
+        updated_by: "00000000-0000-0000-0000-000000000001"
       }
     end)
   end

@@ -274,7 +274,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "Campos dos Goytacazes",
         unidade: "UPA - Unidade de Produção Aquícola",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :pendente,
         document_link: "https://example.com/document36.pdf"
       },
@@ -297,7 +297,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "Carapebus",
         unidade: "UPA - Unidade de Produção Aquícola",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :pendente,
         document_link: "https://example.com/document39.pdf"
       },
@@ -320,7 +320,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "Carapebus",
         unidade: "Unidade de Produção de alevinos",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :pendente,
         document_link: "https://example.com/document42.pdf"
       },
@@ -343,7 +343,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "Macaé",
         unidade: "UBP - Unidade de Beneficiamento de Pescado",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :pendente,
         document_link: "https://example.com/document45.pdf"
       },
@@ -366,7 +366,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "Quissamã",
         unidade: "UPA - Unidade de Produção Aquícola",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :concluido,
         document_link: "https://example.com/document48.pdf"
       },
@@ -435,7 +435,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "Rio das Ostras",
         unidade: "UPA - Unidade de Produção Aquícola",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :pendente,
         document_link: "https://example.com/document57.pdf"
       },
@@ -479,7 +479,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "São Francisco de Itabapoana",
         unidade: "UBP - Unidade de Beneficiamento de Pescado",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :concluido,
         document_link: "https://example.com/document63.pdf"
       },
@@ -537,7 +537,7 @@ defmodule Seeder.DocumentSeeder do
       %{
         municipio: "São João da Barra",
         unidade: "UPA - Unidade de Produção Aquícola",
-        document_type: "Plano de riscos",
+        document_type: "Plano de Riscos",
         status: :pendente,
         document_link: "https://example.com/document71.pdf"
       },
@@ -567,17 +567,34 @@ defmodule Seeder.DocumentSeeder do
     ]
 
     Enum.map(documents_data, fn doc ->
+      # Buscar o município comparando com o nome original
       municipio = Enum.find(municipios, &(&1.name == doc.municipio))
+
+      unless municipio do
+        raise "Município '#{doc.municipio}' não encontrado após normalização."
+      end
+
+      # Buscar a unidade comparando com o nome original e município_id
       unidade = Enum.find(units, &(&1.name == doc.unidade && &1.municipio_id == municipio.id))
+
+      unless unidade do
+        raise "Unidade '#{doc.unidade}' não encontrada para o município '#{doc.municipio}'."
+      end
+
+      # Buscar o tipo de documento comparando com o nome original
       doc_type = Enum.find(document_types, &(&1.name == doc.document_type))
+
+      unless doc_type do
+        raise "Tipo de documento '#{doc.document_type}' não encontrado após normalização."
+      end
 
       %Document{
         unit_id: unidade.id,
         document_type_id: doc_type.id,
         status: doc.status,
         document_link: doc.document_link,
-        created_by: Ecto.UUID.generate(),
-        updated_by: Ecto.UUID.generate()
+        created_by: "00000000-0000-0000-0000-000000000001", # Você pode manter isso ou usar Ecto.UUID.generate()
+        updated_by: "00000000-0000-0000-0000-000000000001"
       }
     end)
   end

@@ -4,41 +4,47 @@ defmodule PescarteWeb.PGTRController do
   alias Pescarte.Municipios
   alias Pescarte.Municipios.{Unit, Document, DocumentType}
 
-  # Aplica authenticate_user e authorize_admin apenas nas ações que requerem
+  # Aplicar plugs de autenticação/autorização em ações específicas
   plug :authenticate_user
        when action in [
-              :create_municipio,
-              :update_municipio,
-              :create_unit,
-              :update_unit,
-              :create_document_type,
-              :update_document_type,
-              :create_document,
-              :update_document
-            ]
+         :create_municipio,
+         :update_municipio,
+         :create_unit,
+         :update_unit,
+         :create_document_type,
+         :update_document_type,
+         :create_document,
+         :update_document
+       ]
 
   plug :authorize_admin
        when action in [
-              :create_municipio,
-              :update_municipio,
-              :create_unit,
-              :update_unit,
-              :create_document_type,
-              :update_document_type,
-              :create_document,
-              :update_document
-            ]
+         :create_municipio,
+         :update_municipio,
+         :create_unit,
+         :update_unit,
+         :create_document_type,
+         :update_document_type,
+         :create_document,
+         :update_document
+       ]
 
+  @doc """
+  Exibe a página principal de PGTR, listando municípios, unidades, etc.
+  """
   def show(conn, _params) do
-    current_path = conn.request_path
+    # Buscar tudo que o template precisa, já com preload
     municipios = Municipios.list_municipio()
     units = Municipios.list_units()
     document_types = Municipios.list_document_types()
+    documents = Municipios.list_documents()
 
+    # Changesets para formulários
     unit_changeset = Municipios.change_unit(%Unit{})
     document_changeset = Municipios.change_document(%Document{})
     document_type_changeset = Municipios.change_document_type(%DocumentType{})
 
+    # Lista de status possíveis
     statuses = [
       %{key: :concluido, label: "Concluído"},
       %{key: :pendente, label: "Pendente"},
@@ -49,13 +55,13 @@ defmodule PescarteWeb.PGTRController do
       municipios: municipios,
       units: units,
       document_types: document_types,
+      documents: documents,
       unit_changeset: unit_changeset,
       document_changeset: document_changeset,
       document_type_changeset: document_type_changeset,
       statuses: statuses,
-      current_path: current_path,
-      # Passa o usuário para a view
-      current_user: conn.assigns.current_user,
+      current_path: conn.request_path,
+      current_user: conn.assigns[:current_user],
       error_message: nil
     }
 
@@ -211,7 +217,6 @@ defmodule PescarteWeb.PGTRController do
     user && user.id
   end
 
-  # Plug para autenticação (assegura que o usuário está logado)
   defp authenticate_user(conn, _opts) do
     if conn.assigns[:current_user] do
       conn
@@ -223,7 +228,6 @@ defmodule PescarteWeb.PGTRController do
     end
   end
 
-  # Plug para autorização (assegura que o usuário é admin)
   defp authorize_admin(conn, _opts) do
     user = conn.assigns[:current_user]
 
@@ -237,13 +241,15 @@ defmodule PescarteWeb.PGTRController do
     end
   end
 
-  # Função auxiliar para renderizar a página show com os assigns necessários
+  # Render auxiliar para a página show
   defp render_show(conn, additional_assigns) do
-    # Recolhe os dados padrão
     current_path = conn.request_path
+
+    # Sempre buscamos dados atualizados aqui
     municipios = Municipios.list_municipio()
     units = Municipios.list_units()
     document_types = Municipios.list_document_types()
+    documents = Municipios.list_documents()
 
     unit_changeset = Municipios.change_unit(%Unit{})
     document_changeset = Municipios.change_document(%Document{})
@@ -255,11 +261,12 @@ defmodule PescarteWeb.PGTRController do
       %{key: :em_andamento, label: "Em andamento"}
     ]
 
-    # Define os assigns padrão
+    # Assigns padrão
     assigns = %{
       municipios: municipios,
       units: units,
       document_types: document_types,
+      documents: documents,
       unit_changeset: unit_changeset,
       document_changeset: document_changeset,
       document_type_changeset: document_type_changeset,
@@ -269,7 +276,7 @@ defmodule PescarteWeb.PGTRController do
       error_message: nil
     }
 
-    # Mescla os assigns adicionais (como changesets de erro)
+    # Mesclamos com os assigns adicionais (por ex., changeset de erro)
     assigns = Map.merge(assigns, additional_assigns)
 
     render(conn, :show, assigns)

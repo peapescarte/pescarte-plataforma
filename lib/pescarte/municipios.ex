@@ -13,14 +13,20 @@ defmodule Pescarte.Municipios do
     Document
   }
 
+  # -----------------------------------------------------------------
   # MUNICIPIOS
+  # -----------------------------------------------------------------
 
   def list_municipio do
+    # Aqui, cada Municipio vai vir com `units` e cada `unit` terá `documents` e cada `document` terá `document_type`
     Repo.all(Municipio)
+    |> Repo.preload(units: [documents: :document_type])
   end
 
   def get_municipio!(id) do
-    Repo.get!(Municipio, id) |> Repo.preload(:units)
+    Repo.get!(Municipio, id)
+    # Se você quiser o mesmo preload que no list, faça:
+    |> Repo.preload(units: [documents: :document_type])
   end
 
   def create_municipio(attrs \\ %{}) do
@@ -39,16 +45,21 @@ defmodule Pescarte.Municipios do
     Municipio.changeset(municipio, %{})
   end
 
+  # -----------------------------------------------------------------
   # UNIDADES
+  # -----------------------------------------------------------------
 
   def list_units do
+    # Se no template você acessa `unit.municipio.name` e `unit.documents`,
+    # então preparamos ambos:
     Repo.all(Unit)
-    |> Repo.preload(:municipio)
+    |> Repo.preload([:municipio, documents: :document_type])
   end
 
   def get_unit!(id) do
     Repo.get!(Unit, id)
-    |> Repo.preload([:municipio, :documents])
+    # Preload de :municipio e :documents
+    |> Repo.preload([:municipio, documents: :document_type])
   end
 
   def create_unit(attrs \\ %{}) do
@@ -67,13 +78,18 @@ defmodule Pescarte.Municipios do
     Unit.changeset(unit, %{})
   end
 
+  # -----------------------------------------------------------------
   # TIPOS DE DOCUMENTO (DOCUMENT_TYPE)
+  # -----------------------------------------------------------------
 
   def list_document_types do
     Repo.all(DocumentType)
   end
 
-  def get_document_type!(id), do: Repo.get!(DocumentType, id) |> Repo.preload(:documents)
+  def get_document_type!(id) do
+    Repo.get!(DocumentType, id)
+    |> Repo.preload(:documents)
+  end
 
   def create_document_type(attrs \\ %{}) do
     %DocumentType{}
@@ -91,16 +107,19 @@ defmodule Pescarte.Municipios do
     DocumentType.changeset(document_type, %{})
   end
 
+  # -----------------------------------------------------------------
   # DOCUMENTOS
+  # -----------------------------------------------------------------
 
   def list_documents do
+    # Se for exibir o município e a unidade do documento, preparamos a associação
     Repo.all(Document)
-    |> Repo.preload([:unit, :document_type])
+    |> Repo.preload([:document_type, unit: :municipio])
   end
 
   def get_document!(id) do
     Repo.get!(Document, id)
-    |> Repo.preload([:unit, :document_type])
+    |> Repo.preload([:document_type, unit: :municipio])
   end
 
   def create_document(attrs \\ %{}) do

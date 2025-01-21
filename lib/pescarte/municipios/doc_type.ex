@@ -7,6 +7,8 @@ defmodule Pescarte.Municipios.DocumentType do
 
   schema "document_types" do
     field :name, :string
+    field :created_by, :binary_id
+    field :updated_by, :binary_id
 
     has_many :documents, Pescarte.Municipios.Document
 
@@ -16,7 +18,7 @@ defmodule Pescarte.Municipios.DocumentType do
   @doc false
   def changeset(document_type, attrs) do
     document_type
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :created_by, :updated_by])
+    |> validate_required([:name, :created_by, :updated_by])
   end
 end

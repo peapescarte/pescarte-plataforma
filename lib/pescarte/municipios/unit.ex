@@ -13,8 +13,6 @@ defmodule Pescarte.Municipios.Unit do
     field :updated_by, :binary_id
 
     belongs_to :municipio, Pescarte.Municipios.Municipio, type: :binary_id
-
-    # Relação 1:N com Document
     has_many :documents, Pescarte.Municipios.Document
 
     timestamps()
