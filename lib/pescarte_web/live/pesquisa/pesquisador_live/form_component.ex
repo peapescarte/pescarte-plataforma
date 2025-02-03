@@ -15,7 +15,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
     ~H"""
     <div class="researcher-wrapper">
       <.text size="h1" color="text-blue-100">
-        <%= @title %>
+        {@title}
       </.text>
       <.form
         :let={f}

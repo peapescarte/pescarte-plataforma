@@ -55,13 +55,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
@@ -132,13 +132,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
@@ -225,13 +225,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
@@ -333,7 +333,7 @@
             >
               <div class="linha-pesquisa-header">
                 <.text size="h3" color="text-blue-100" class="bold">
-                  <%= key %>
+                  {key}
                 </.text>
               </div>
               <div class="membros">
@@ -350,13 +350,13 @@
                   <div :if={imagem == ""} class="membro-circle"></div>
                   <div class="membro-description">
                     <div class="membro-name">
-                      <.text size="h5" color="text-black-80"><%= nome %></.text>
+                      <.text size="h5" color="text-black-80">{nome}</.text>
                       <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                         Líder da Equipe
                       </.text>
                     </div>
                     <.text size="h5" color="text-black-80">
-                      <%= equipe %>
+                      {equipe}
                     </.text>
                   </div>
                 </div>
@@ -461,7 +461,7 @@
             >
               <div class="linha-pesquisa-header">
                 <.text size="h3" color="text-blue-100" class="bold">
-                  <%= key %>
+                  {key}
                 </.text>
               </div>
               <div class="membros">
@@ -478,13 +478,13 @@
                   <div :if={imagem == ""} class="membro-circle"></div>
                   <div class="membro-description">
                     <div class="membro-name">
-                      <.text size="h5" color="text-black-80"><%= nome %></.text>
+                      <.text size="h5" color="text-black-80">{nome}</.text>
                       <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                         Líder da Equipe
                       </.text>
                     </div>
                     <.text size="h5" color="text-black-80">
-                      <%= equipe %>
+                      {equipe}
                     </.text>
                   </div>
                 </div>
@@ -509,7 +509,7 @@
             phx-click={JS.toggle(to: "#toggle-collapse-menu-nucleo-#{nucleos["nucleo"]}")}
           >
             <.text size="h2" color="text-white-100">
-              Núcleo <%= nucleos["nucleo"] %> - <%= nucleos["subtitulo"] %>
+              Núcleo {nucleos["nucleo"]} - {nucleos["subtitulo"]}
             </.text>
             <Lucideicons.chevron_down />
           </div>
@@ -521,13 +521,13 @@
             <div :for={linha_pesquisa <- nucleos["linhas_pesquisa"]} class="linha-pesquisa">
               <div class="linha-pesquisa-header">
                 <.text size="h3" color="text-blue-100" class="bold">
-                  Linha de Pesquisa <%= linha_pesquisa["numero"] %>
+                  Linha de Pesquisa {linha_pesquisa["numero"]}
                 </.text>
                 <.text size="h3" color="text-blue-100" class="bold">
-                  <%= linha_pesquisa["titulo"] %>
+                  {linha_pesquisa["titulo"]}
                 </.text>
                 <.text size="lg" color="text-black-80">
-                  <%= linha_pesquisa["descricao"] %>
+                  {linha_pesquisa["descricao"]}
                 </.text>
               </div>
               <div class="membros">
@@ -537,7 +537,7 @@
                   </div>
                   <div class="membro-description">
                     <div class="membro-name">
-                      <.text size="h5" color="text-black-80"><%= colaborador["nome"] %></.text>
+                      <.text size="h5" color="text-black-80">{colaborador["nome"]}</.text>
                       <.text
                         :if={colaborador["lider"]}
                         size="h5"
@@ -548,7 +548,7 @@
                       </.text>
                     </div>
                     <.text size="h5" color="text-black-80">
-                      <%= colaborador["equipe"] %>
+                      {colaborador["equipe"]}
                     </.text>
                   </div>
                 </div>
@@ -638,13 +638,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
@@ -704,13 +704,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
@@ -778,13 +778,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
@@ -847,13 +847,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
@@ -929,13 +929,13 @@
                 <div :if={imagem == ""} class="membro-circle"></div>
                 <div class="membro-description">
                   <div class="membro-name">
-                    <.text size="h5" color="text-black-80"><%= nome %></.text>
+                    <.text size="h5" color="text-black-80">{nome}</.text>
                     <.text :if={lider} size="h5" color="text-blue-100" class="lider">
                       Líder da Equipe
                     </.text>
                   </div>
                   <.text size="h5" color="text-black-80">
-                    <%= equipe %>
+                    {equipe}
                   </.text>
                 </div>
               </div>
