@@ -33,7 +33,7 @@
           };
         };
 
-        supabase-cli = pkgs.supabase-cli.overrideAttrs (_old: {
+        supabase-cli = pkgs.supabase-cli.overrideAttrs (old: {
           version = "2.12.1";
           src = pkgs.fetchFromGitHub {
             owner = "supabase";
