@@ -2,7 +2,7 @@
   description = "Plataforma Digital PEA Pescarte";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
   };
@@ -24,14 +24,25 @@
         beam = packagesWith erlang_27;
 
         elixir_1_18 = beam.elixir.override {
-          version = "1.18.0";
+          version = "1.18.2";
           src = pkgs.fetchFromGitHub {
             repo = "elixir";
             owner = "elixir-lang";
-            rev = "v1.18.0";
-            sha256 = "fT3J8h2uuJ+dSR58kwlUkN023yFlmTwq2/O12KbjJc4=";
+            rev = "v1.18.2";
+            sha256 = "sha256-8FhUKAaEjBBcF0etVPdkxMfrnR5niU40U8cxDRJdEok=";
           };
         };
+
+        supabase-cli = pkgs.supabase-cli.overrideAttrs (_old: {
+          version = "2.12.1";
+          src = pkgs.fetchFromGitHub {
+            owner = "supabase";
+            repo = "cli";
+            rev = "v2.12.1";
+            hash = "sha256-0iww10Ly+Hjsg+LnrMUzf0PGTMeink2ZApx+av65PTY=";
+          };
+          vendorHash = "sha256-SBTWAu2L85K5OO1ZRcvq+noY3gROWKNusjBeUvY6j28=";
+        });
       in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
@@ -41,7 +52,7 @@
           mkShell {
             name = "peapescarte";
             packages = with pkgs;
-              [elixir_1_18 nodejs supabase-cli ghostscript zlib postgresql flyctl pass]
+              [elixir_1_18 supabase-cli nodejs ghostscript zlib postgresql flyctl pass]
               ++ lib.optional stdenv.isLinux [inotify-tools chromium]
               ++ lib.optional stdenv.isDarwin [
                 darwin.apple_sdk.frameworks.CoreServices
