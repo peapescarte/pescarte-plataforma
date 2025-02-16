@@ -1,48 +1,51 @@
 <main>
-  <!-- Seção do Banner -->
   <div class="lighter-banner">
-    <img src={~p"/images/light-banner-bg.png"} class="banner-img" />
-    <.text size="h2" color="text-white-100">
-      PGTR
-    </.text>
+    <img src={~p"/images/light-banner-bg.png"} class="banner-img" alt="Banner PGTR" />
+    <.text size="h2" color="text-white-100">PGTR</.text>
   </div>
 
-  <!-- Seção "O Pescarte e PGTR" -->
   <div class="get-to-know-pgtr">
     <div class="content-pgtr">
       <.text size="h2" color="text-blue-100">O Pescarte e PGTR</.text>
       <.text size="lg" color="text-black-80">
-        O Projeto de Educação Ambiental Pescarte (PEA Pescarte) atua no
-        fortalecimento da organização comunitária da pesca artesanal em 10
-        municípios da Bacia de Campos, no interior do Rio de Janeiro. A organização é
-        promovida com a mobilização e a construção das habilidades dos membros
-        das comunidades de pesca para que atuem no Projeto de Geração de Trabalho
-        e Renda (PGTR), que prevê a implantação de Unidades produtivas.
+        O Projeto de Educação Ambiental Pescarte (PEA Pescarte) atua no fortalecimento da organização comunitária da
+        pesca artesanal em 10 municípios da Bacia de Campos, no interior do Rio de Janeiro. A organização é promovida
+        com a mobilização e a construção das habilidades dos membros das comunidades de pesca para que atuem no
+        Projeto de Geração de Trabalho e Renda (PGTR), que prevê a implantação de Unidades produtivas.
       </.text>
       <.text size="lg" color="text-black-80">
-        Essas unidades funcionarão como cooperativas, com o objetivo de
-        proporcionar condições de trabalho dignas e negociações justas, promovendo
-        o aumento da renda familiar dos integrantes da cadeia produtiva da pesca
+        Essas unidades funcionarão como cooperativas, com o objetivo de proporcionar condições de trabalho dignas
+        e negociações justas, promovendo o aumento da renda familiar dos integrantes da cadeia produtiva da pesca
         artesanal.
       </.text>
       <.text size="lg" color="text-black-80">
-        Respeitando o plano de trabalho e as fases previstas do PEA Pescarte,
-        atualmente sete municípios iniciaram a implantação dos empreendimentos.
-        São eles: Arraial do Cabo, Cabo Frio, Campos dos Goytacazes, Macaé,
-        Quissamã, São Francisco de Itabapoana e São João da Barra. As cidades de
-        Armação dos Búzios, Carapebus e Rio das Ostras já formaram os Grupos
-        Gestores (GG), que atuarão diretamente no planejamento dos PGTR.
+        Respeitando o plano de trabalho e as fases previstas do PEA Pescarte, atualmente sete municípios iniciaram
+        a implantação dos empreendimentos. São eles: Arraial do Cabo, Cabo Frio, Campos dos Goytacazes, Macaé,
+        Quissamã, São Francisco de Itabapoana e São João da Barra. As cidades de Armação dos Búzios, Carapebus
+        e Rio das Ostras já formaram os Grupos Gestores (GG), que atuarão diretamente no planejamento dos PGTR.
       </.text>
     </div>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzEucG5nIiwiaWF0IjoxNzI0MzQ2OTE1LCJleHAiOjIwMzk3MDY5MTV9.J7I7kUsYTdVVseCs6QcGXHAAXIdrSPo-vEEurvrF2Kw&t=2024-08-22T17%3A15%3A15.147Z" />
+    <img
+      src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=..."
+      alt="Imagem do Pescarte e PGTR"
+    />
   </div>
 
-  <!-- Seção "Unidades Produtivas Previstas" -->
-    <div class="production-units">
+  <div class="production-units">
     <.text size="h3" color="text-blue-100">Unidades Produtivas Previstas</.text>
 
+    <%= if @current_user && @current_user.role == "admin" do %>
+      <div class="admin-actions flex flex-row mt-4">
+        <button id="open-municipio-modal-btn" class="btn btn-primary">Novo Município</button>
+        <button id="open-unit-modal-btn" class="btn btn-primary">Nova Unidade</button>
+        <button id="open-document-type-modal-btn" class="btn btn-primary">
+          Novo Tipo de Documento
+        </button>
+        <button id="open-document-modal-btn" class="btn btn-primary">Novo Documento</button>
+      </div>
+    <% end %>
+
     <div class="units-accordions">
-      <!-- Definindo o tamanho dos chunks para dividir em 2 colunas -->
       <% chunk_size = div(length(@municipios) + 1, 2) %>
       <% splitted_municipios = Enum.chunk_every(@municipios, chunk_size) %>
 
@@ -57,45 +60,38 @@
                   alt="Ícone de Município"
                 />
                 <.text size="h4" color="text-black-80">
-                  <strong><%= municipio.name %></strong>
+                  <strong>{municipio.name}</strong>
                 </.text>
                 <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
               </div>
 
               <div class="accordion-content">
                 <hr />
-                <!-- Iterar sobre as unidades do município -->
                 <%= for unit <- municipio.units do %>
                   <div class="content-item">
-                    <.text size="h4" color="text-black-100">
-                      <%= unit.name %>
+                    <.text size="h4" color="text-black-100">{unit.name}</.text>
+                    <.text size="lg" color="text-black-80">
+                      <span class="content-title">Situação:</span> {unit.situation}
                     </.text>
                     <.text size="lg" color="text-black-80">
-                      <span class="content-title">Situação:</span>
-                      <%= unit.situation %>
-                    </.text>
-                    <.text size="lg" color="text-black-80">
-                      <span class="content-title">Próxima Etapa:</span>
-                      <%= unit.next_step || "N/A" %>
+                      <span class="content-title">Próxima Etapa:</span> {unit.next_step || "N/A"}
                     </.text>
 
-                    <!-- Iterar sobre os documentos associados, exibindo o status -->
                     <%= for doc <- unit.documents do %>
                       <span class={
                         case doc.status do
                           :concluido -> "status-done"
                           :em_andamento -> "status-in-progress"
                           :pendente -> "status-pending"
-                          _ -> "status-pending" # Classe padrão para status desconhecidos
+                          _ -> "status-pending"
                         end
                       }>
-                        <%= doc.document_type.name |> String.capitalize() %>:
-                        <%= case doc.status do
-                              :concluido -> "Concluído"
-                              :em_andamento -> "Em Andamento"
-                              :pendente -> "Pendente"
-                              _ -> "Pendente"
-                            end %>
+                        {doc.document_type.name |> String.capitalize()}: {case doc.status do
+                          :concluido -> "Concluído"
+                          :em_andamento -> "Em Andamento"
+                          :pendente -> "Pendente"
+                          _ -> "Pendente"
+                        end}
                       </span>
                     <% end %>
 
@@ -113,77 +109,14 @@
   <!-- Seção "Onde Nos Encontrar" -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 
-  <!-- Seção "Unidades" -->
-  <section class="units-list mt-6">
-    <h3>Unidades</h3>
-    <%= for unit <- @units do %>
-      <div class="unit-card border p-4 rounded mb-4">
-        <strong><%= unit.name %></strong>
-        - <%= unit.situation %> - <%= unit.next_step %><br />
-        Município: <%= unit.municipio.name %>
-        <ul class="mt-2">
-          <%= for doc <- unit.documents do %>
-            <li>
-              <%= doc.document_type.name %> |
-              Status: <%= doc.status |> Atom.to_string() |> String.capitalize() %> |
-              <a href={doc.document_link} target="_blank">Download</a>
-              <%= if @current_user && @current_user.papel == :admin do %>
-                <button
-                  id={"edit-document-btn-#{doc.id}"}
-                  data-doc-id={doc.id}
-                  class="btn btn-sm btn-secondary"
-                >
-                  Editar
-                </button>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-        <%= if @current_user && @current_user.papel == :admin do %>
-          <button
-            id={"edit-unit-btn-#{unit.id}"}
-            data-unit-id={unit.id}
-            class="btn btn-sm btn-secondary mt-2"
-          >
-            Editar Unidade
-          </button>
-        <% end %>
-      </div>
-    <% end %>
-  </section>
-
-  <!-- Botões de Ação para Admins -->
-  <%= if @current_user && @current_user.papel == :admin do %>
-    <div class="flex flex-row space-x-2 mt-4">
-      <button id="open-municipio-modal-btn" class="btn btn-primary">
-        Novo Município
-      </button>
-
-      <button id="open-unit-modal-btn" class="btn btn-primary">
-        Nova Unidade
-      </button>
-
-      <button id="open-document-type-modal-btn" class="btn btn-primary">
-        Novo Tipo de Documento
-      </button>
-
-      <button id="open-document-modal-btn" class="btn btn-primary">
-        Novo Documento
-      </button>
-    </div>
-  <% end %>
-
-  <!-- Modais para Admins -->
-  <%= if @current_user && @current_user.papel == :admin do %>
-    <!-- Modal para Novo Município -->
+  <%= if @current_user && @current_user.role == "admin" do %>
     <div id="municipio-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title">Novo Município</h2>
-
           <.simple_form
-            for={@municipio_changeset |> to_form}
+            for={@unit_changeset |> to_form}
             action={~p"/pgtr/create_municipio"}
             class="form"
           >
@@ -198,9 +131,10 @@
                 required
               />
               <%= if @municipio_changeset.errors[:name] do %>
-                <span class="error"><%= elem(@municipio_changeset.errors[:name], 0) %></span>
+                <span class="error">{elem(@municipio_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
+
             <div class="field is-grouped is-grouped-right">
               <button type="submit" class="button is-primary">Salvar</button>
               <button type="button" class="button modal-close">Cancelar</button>
@@ -211,13 +145,11 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- Modal para Nova Unidade -->
     <div id="unit-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title">Nova Unidade</h2>
-
           <.simple_form
             for={@unit_changeset |> to_form}
             action={~p"/pgtr/create_unit"}
@@ -232,12 +164,12 @@
                     value={municipio.id}
                     selected={@unit_changeset.data.municipio_id == municipio.id}
                   >
-                    <%= municipio.name %>
+                    {municipio.name}
                   </option>
                 <% end %>
               </select>
               <%= if @unit_changeset.errors[:municipio_id] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:municipio_id], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:municipio_id], 0)}</span>
               <% end %>
             </div>
             <div class="field">
@@ -251,7 +183,7 @@
                 required
               />
               <%= if @unit_changeset.errors[:name] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:name], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
             <div class="field">
@@ -265,7 +197,7 @@
                 required
               />
               <%= if @unit_changeset.errors[:situation] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:situation], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:situation], 0)}</span>
               <% end %>
             </div>
             <div class="field">
@@ -278,7 +210,7 @@
                 value={@unit_changeset.data.next_step || ""}
               />
               <%= if @unit_changeset.errors[:next_step] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:next_step], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:next_step], 0)}</span>
               <% end %>
             </div>
             <div class="field is-grouped is-grouped-right">
@@ -291,13 +223,11 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- Modal para Novo Tipo de Documento -->
     <div id="document-type-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title">Novo Tipo de Documento</h2>
-
           <.simple_form
             for={@document_type_changeset |> to_form}
             action={~p"/pgtr/create_document_type"}
@@ -314,7 +244,7 @@
                 required
               />
               <%= if @document_type_changeset.errors[:name] do %>
-                <span class="error"><%= elem(@document_type_changeset.errors[:name], 0) %></span>
+                <span class="error">{elem(@document_type_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
             <div class="field is-grouped is-grouped-right">
@@ -327,32 +257,46 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- Modal para Novo Documento -->
     <div id="document-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title">Novo Documento</h2>
-
           <.simple_form
             for={@document_changeset |> to_form}
             action={~p"/pgtr/create_document"}
             class="form"
           >
             <div class="field">
+              <label for="document_municipio_id">Município</label>
+              <select
+                id="document_municipio_id"
+                name="document[municipio_id]"
+                class="select"
+                required
+              >
+                <option value="">Selecione um Município</option>
+                <%= for municipio <- @municipios do %>
+                  <option value={municipio.id}>{municipio.name}</option>
+                <% end %>
+              </select>
+            </div>
+
+            <div class="field">
               <label for="document_unit_id">Unidade</label>
               <select id="document_unit_id" name="document[unit_id]" class="select" required>
                 <option value="">Selecione uma Unidade</option>
                 <%= for unit <- @units do %>
-                  <option value={unit.id} selected={@document_changeset.data.unit_id == unit.id}>
-                    <%= unit.name %>
+                  <option value={unit.id} data-municipio-id={unit.municipio_id}>
+                    {unit.name}
                   </option>
                 <% end %>
               </select>
               <%= if @document_changeset.errors[:unit_id] do %>
-                <span class="error"><%= elem(@document_changeset.errors[:unit_id], 0) %></span>
+                <span class="error">{elem(@document_changeset.errors[:unit_id], 0)}</span>
               <% end %>
             </div>
+
             <div class="field">
               <label for="document_document_type_id">Tipo de Documento</label>
               <select
@@ -367,16 +311,15 @@
                     value={dt.id}
                     selected={@document_changeset.data.document_type_id == dt.id}
                   >
-                    <%= dt.name %>
+                    {dt.name}
                   </option>
                 <% end %>
               </select>
               <%= if @document_changeset.errors[:document_type_id] do %>
-                <span class="error">
-                  <%= elem(@document_changeset.errors[:document_type_id], 0) %>
-                </span>
+                <span class="error">{elem(@document_changeset.errors[:document_type_id], 0)}</span>
               <% end %>
             </div>
+
             <div class="field">
               <label for="document_status">Status</label>
               <select id="document_status" name="document[status]" class="select" required>
@@ -386,14 +329,15 @@
                     value={status.key}
                     selected={@document_changeset.data.status == status.key}
                   >
-                    <%= status.label %>
+                    {status.label}
                   </option>
                 <% end %>
               </select>
               <%= if @document_changeset.errors[:status] do %>
-                <span class="error"><%= elem(@document_changeset.errors[:status], 0) %></span>
+                <span class="error">{elem(@document_changeset.errors[:status], 0)}</span>
               <% end %>
             </div>
+
             <div class="field">
               <label for="document_document_link">Link do Documento</label>
               <input
@@ -405,11 +349,10 @@
                 required
               />
               <%= if @document_changeset.errors[:document_link] do %>
-                <span class="error">
-                  <%= elem(@document_changeset.errors[:document_link], 0) %>
-                </span>
+                <span class="error">{elem(@document_changeset.errors[:document_link], 0)}</span>
               <% end %>
             </div>
+
             <div class="field is-grouped is-grouped-right">
               <button type="submit" class="button is-primary">Salvar</button>
               <button type="button" class="button modal-close">Cancelar</button>

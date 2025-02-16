@@ -29,7 +29,9 @@ defmodule Pescarte.Municipios.Unit do
       :created_by,
       :updated_by
     ])
-    |> validate_required([:municipio_id, :name, :created_by, :updated_by])
+    |> validate_required([:municipio_id, :name, :situation, :next_step, :created_by, :updated_by],
+      message: "* Esse campo é obrigatório"
+    )
     |> assoc_constraint(:municipio)
   end
 end

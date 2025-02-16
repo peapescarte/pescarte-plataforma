@@ -593,7 +593,8 @@ defmodule Seeder.DocumentSeeder do
         document_type_id: doc_type.id,
         status: doc.status,
         document_link: doc.document_link,
-        created_by: "00000000-0000-0000-0000-000000000001", # Você pode manter isso ou usar Ecto.UUID.generate()
+        # Você pode manter isso ou usar Ecto.UUID.generate()
+        created_by: "00000000-0000-0000-0000-000000000001",
         updated_by: "00000000-0000-0000-0000-000000000001"
       }
     end)

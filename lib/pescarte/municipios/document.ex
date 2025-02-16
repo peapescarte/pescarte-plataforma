@@ -30,15 +30,18 @@ defmodule Pescarte.Municipios.Document do
       :unit_id,
       :document_type_id
     ])
-    |> validate_required([
-      :status,
-      :document_link,
-      :created_by,
-      :updated_by,
-      :unit_id,
-      :document_type_id
-    ])
-    |> validate_format(:document_link, ~r/^https?:\/\/\S+$/, message: "deve ser uma URL válida")
+    |> validate_required(
+      [
+        :status,
+        :document_link,
+        :created_by,
+        :updated_by,
+        :unit_id,
+        :document_type_id
+      ],
+      message: "* Esse campo é obrigatório"
+    )
+    |> validate_format(:document_link, ~r/^https?:\/\/\S+$/, message: "*Deve ser uma URL válida")
     |> assoc_constraint(:unit)
     |> assoc_constraint(:document_type)
   end

@@ -8,7 +8,11 @@ defmodule Pescarte.Repo.Migrations.CreateDocuments do
       add :status, :string, null: false
       add :document_link, :string, null: false
       add :unit_id, references(:units, on_delete: :delete_all, type: :binary_id), null: false
-      add :document_type_id, references(:document_types, on_delete: :delete_all, type: :binary_id), null: false
+
+      add :document_type_id,
+          references(:document_types, on_delete: :delete_all, type: :binary_id),
+          null: false
+
       add :created_by, :binary_id, null: false
       add :updated_by, :binary_id, null: false
 

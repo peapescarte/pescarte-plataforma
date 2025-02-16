@@ -19,6 +19,6 @@ defmodule Pescarte.Municipios.DocumentType do
   def changeset(document_type, attrs) do
     document_type
     |> cast(attrs, [:name, :created_by, :updated_by])
-    |> validate_required([:name, :created_by, :updated_by])
+    |> validate_required([:name, :created_by, :updated_by], message: "* Esse campo é obrigatório")
   end
 end

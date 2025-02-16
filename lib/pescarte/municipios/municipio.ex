@@ -19,6 +19,7 @@ defmodule Pescarte.Municipios.Municipio do
   def changeset(municipio, attrs) do
     municipio
     |> cast(attrs, [:name, :created_by, :updated_by])
-    |> validate_required([:name, :created_by, :updated_by])
+    |> cast_assoc(:units, with: &Pescarte.Municipios.Unit.changeset/2, required: false)
+    |> validate_required([:name, :created_by, :updated_by], message: "* Esse campo é obrigatório")
   end
 end

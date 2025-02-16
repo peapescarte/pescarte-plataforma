@@ -13,10 +13,6 @@ defmodule Pescarte.Municipios do
     Document
   }
 
-  # -----------------------------------------------------------------
-  # MUNICIPIOS
-  # -----------------------------------------------------------------
-
   def list_municipio do
     # Aqui, cada Municipio vai vir com `units` e cada `unit` terá `documents` e cada `document` terá `document_type`
     Repo.all(Municipio)
@@ -44,10 +40,6 @@ defmodule Pescarte.Municipios do
   def change_municipio(%Municipio{} = municipio) do
     Municipio.changeset(municipio, %{})
   end
-
-  # -----------------------------------------------------------------
-  # UNIDADES
-  # -----------------------------------------------------------------
 
   def list_units do
     # Se no template você acessa `unit.municipio.name` e `unit.documents`,
@@ -78,10 +70,6 @@ defmodule Pescarte.Municipios do
     Unit.changeset(unit, %{})
   end
 
-  # -----------------------------------------------------------------
-  # TIPOS DE DOCUMENTO (DOCUMENT_TYPE)
-  # -----------------------------------------------------------------
-
   def list_document_types do
     Repo.all(DocumentType)
   end
@@ -106,10 +94,6 @@ defmodule Pescarte.Municipios do
   def change_document_type(%DocumentType{} = document_type) do
     DocumentType.changeset(document_type, %{})
   end
-
-  # -----------------------------------------------------------------
-  # DOCUMENTOS
-  # -----------------------------------------------------------------
 
   def list_documents do
     # Se for exibir o município e a unidade do documento, preparamos a associação
