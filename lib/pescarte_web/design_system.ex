@@ -87,6 +87,22 @@ defmodule PescarteWeb.DesignSystem do
   end
 
   @doc """
+  Renders image from Supabase Storage
+  """
+  attr :src, :string, required: true, doc: "the image source"
+  attr :alt, :string, default: "", doc: "the image alt"
+  attr :class, :string, default: "", doc: "the image class"
+
+  def image_from_storage(assigns) do
+    {_, src_or_error} = Pescarte.Supabase.retrieve_url_from_storage(assigns.src)
+    assigns = Map.put(assigns, :src, src_or_error)
+
+    ~H"""
+    <img src={@src} alt={@alt} class={@class} />
+    """
+  end
+
+  @doc """
   Componente de botão, que representa uma ação na plataforma.
 
   Esse componente possui 2 variantes:
