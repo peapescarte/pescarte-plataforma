@@ -42,6 +42,17 @@
           Novo Tipo de Documento
         </button>
         <button id="open-document-modal-btn" class="btn btn-primary">Novo Documento</button>
+
+        <button id="open-municipio-update-modal-btn" class="btn btn-secondary">
+          Editar Município
+        </button>
+        <button id="open-unit-update-modal-btn" class="btn btn-secondary">Editar Unidade</button>
+        <button id="open-document-type-update-modal-btn" class="btn btn-secondary">
+          Editar Tipo de Documento
+        </button>
+        <button id="open-document-update-modal-btn" class="btn btn-secondary">
+          Editar Documento
+        </button>
       </div>
     <% end %>
 
@@ -105,11 +116,12 @@
       <% end %>
     </div>
   </div>
-
-  <!-- Seção "Onde Nos Encontrar" -->
+  
+<!-- Seção "Onde Nos Encontrar" -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 
   <%= if @current_user && @current_user.role == "admin" do %>
+    <!-- MODAL: Novo Município -->
     <div id="municipio-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -144,7 +156,8 @@
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
-
+    
+<!-- MODAL: Nova Unidade -->
     <div id="unit-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -172,6 +185,7 @@
                 <span class="error">{elem(@unit_changeset.errors[:municipio_id], 0)}</span>
               <% end %>
             </div>
+
             <div class="field">
               <label for="unit_name">Nome da Unidade</label>
               <input
@@ -186,6 +200,7 @@
                 <span class="error">{elem(@unit_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
+
             <div class="field">
               <label for="unit_situation">Situação</label>
               <input
@@ -200,8 +215,9 @@
                 <span class="error">{elem(@unit_changeset.errors[:situation], 0)}</span>
               <% end %>
             </div>
+
             <div class="field">
-              <label for="unit_next_step">Próximo Passo</label>
+              <label for="unit_next_step">Próxima Etapa</label>
               <input
                 type="text"
                 id="unit_next_step"
@@ -213,6 +229,7 @@
                 <span class="error">{elem(@unit_changeset.errors[:next_step], 0)}</span>
               <% end %>
             </div>
+
             <div class="field is-grouped is-grouped-right">
               <button type="submit" class="button is-primary">Salvar</button>
               <button type="button" class="button modal-close">Cancelar</button>
@@ -222,7 +239,8 @@
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
-
+    
+<!-- MODAL: Novo Tipo de Documento -->
     <div id="document-type-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -247,6 +265,7 @@
                 <span class="error">{elem(@document_type_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
+
             <div class="field is-grouped is-grouped-right">
               <button type="submit" class="button is-primary">Salvar</button>
               <button type="button" class="button modal-close">Cancelar</button>
@@ -256,7 +275,8 @@
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
-
+    
+<!-- MODAL: Novo Documento -->
     <div id="document-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -316,7 +336,9 @@
                 <% end %>
               </select>
               <%= if @document_changeset.errors[:document_type_id] do %>
-                <span class="error">{elem(@document_changeset.errors[:document_type_id], 0)}</span>
+                <span class="error">
+                  {elem(@document_changeset.errors[:document_type_id], 0)}
+                </span>
               <% end %>
             </div>
 
@@ -351,6 +373,283 @@
               <%= if @document_changeset.errors[:document_link] do %>
                 <span class="error">{elem(@document_changeset.errors[:document_link], 0)}</span>
               <% end %>
+            </div>
+
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
+<!-- MODAL: Editar Município -->
+    <div id="municipio-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Município</h2>
+          <div class="field filter-field">
+            <label for="municipio-update-select">Selecione o Município para Editar:</label>
+            <select id="municipio-update-select" class="select">
+              <option value="">Selecione</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id} data-nome={municipio.name}>
+                  {municipio.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+          <.simple_form
+            id="municipio-update-form"
+            for={@municipio_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" name="municipio_id" id="municipio_update_id" />
+
+            <div class="field">
+              <label for="municipio_name_update">Nome do Município</label>
+              <input
+                type="text"
+                id="municipio_name_update"
+                name="municipio[name]"
+                class="input"
+                required
+              />
+            </div>
+
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
+<!-- MODAL: Editar Unidade -->
+    <div id="unit-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Unidade</h2>
+
+          <div class="field filter-field">
+            <label for="unit-update-municipio-filter">Selecione o Município:</label>
+            <select id="unit-update-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="field filter-field">
+            <label for="unit-update-select">Selecione a Unidade para Editar:</label>
+            <select id="unit-update-select" class="select">
+              <option value="">Selecione</option>
+              <%= for unit <- @units do %>
+                <option
+                  value={unit.id}
+                  data-municipio-id={unit.municipio_id}
+                  data-name={unit.name}
+                  data-situation={unit.situation}
+                  data-next-step={unit.next_step || ""}
+                >
+                  {unit.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+          <.simple_form
+            id="unit-update-form"
+            for={@unit_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" name="unit[id]" id="unit_update_id" />
+
+            <div class="field">
+              <label for="unit_update_name">Nome da Unidade</label>
+              <input type="text" id="unit_update_name" name="unit[name]" class="input" required />
+            </div>
+
+            <div class="field">
+              <label for="unit_update_situation">Situação</label>
+              <input
+                type="text"
+                id="unit_update_situation"
+                name="unit[situation]"
+                class="input"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="unit_update_next_step">Próxima Etapa</label>
+              <input type="text" id="unit_update_next_step" name="unit[next_step]" class="input" />
+            </div>
+
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
+<!-- MODAL: Editar Tipo de Documento -->
+    <div id="document-type-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Tipo de Documento</h2>
+
+          <div class="field filter-field">
+            <label for="document-type-update-select">Selecione o Tipo de Documento:</label>
+            <select id="document-type-update-select" class="select">
+              <option value="">Selecione</option>
+              <%= for dt <- @document_types do %>
+                <option value={dt.id} data-name={dt.name}>
+                  {dt.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+          <.simple_form
+            id="document-type-update-form"
+            for={@document_type_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" name="document_type[id]" id="document_type_update_id" />
+
+            <div class="field">
+              <label for="document_type_name_update">Nome do Tipo de Documento</label>
+              <input
+                type="text"
+                id="document_type_name_update"
+                name="document_type[name]"
+                class="input"
+                required
+              />
+            </div>
+
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
+<!-- MODAL: Editar Documento -->
+    <div id="document-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Documento</h2>
+          
+<!-- Campos de filtragem -->
+          <div class="field filter-field">
+            <label for="document-update-municipio-filter">Selecione o Município:</label>
+            <select id="document-update-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>
+                  {municipio.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="field filter-field">
+            <label for="document-update-unit-filter">Selecione a Unidade:</label>
+            <select id="document-update-unit-filter" class="select">
+              <option value="">Selecione uma Unidade</option>
+              <%= for unit <- @units do %>
+                <option value={unit.id} data-municipio-id={unit.municipio_id}>
+                  {unit.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="field filter-field">
+            <label for="document-update-type-filter">Selecione o Tipo de Documento:</label>
+            <select id="document-update-type-filter" class="select">
+              <option value="">Selecione um Tipo</option>
+              <%= for dt <- @document_types do %>
+                <option value={dt.id}>
+                  {dt.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="field filter-field">
+            <label for="document-update-select">Selecione o Documento:</label>
+            <select id="document-update-select" class="select">
+              <option value="">Selecione o Documento</option>
+              <%= for doc <- @documents do %>
+                <option
+                  value={doc.id}
+                  data-unit-id={doc.unit_id}
+                  data-document-type-id={doc.document_type_id}
+                  data-status={doc.status}
+                  data-document-link={doc.document_link}
+                >
+                  {doc.document_type.name} – {doc.document_link}
+                </option>
+              <% end %>
+            </select>
+          </div>
+          
+<!-- Formulário de edição (PUT) para Documento -->
+          <.simple_form
+            id="document-update-form"
+            for={@document_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" id="document_update_id" name="document[id]" />
+
+            <div class="field">
+              <label for="document_update_status">Status</label>
+              <select id="document_update_status" name="document[status]" class="select" required>
+                <option value="">Selecione um Status</option>
+                <%= for status <- @statuses do %>
+                  <option value={status.key}>
+                    {status.label}
+                  </option>
+                <% end %>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="document_update_document_link">Link do Documento</label>
+              <input
+                type="text"
+                id="document_update_document_link"
+                name="document[document_link]"
+                class="input"
+                required
+              />
             </div>
 
             <div class="field is-grouped is-grouped-right">
