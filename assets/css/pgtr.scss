@@ -212,10 +212,22 @@
   }
 }
 
+/*
+   Agrupamento dos botões de ação em colunas verticais:
+   Cada grupo (.action-group) representa criação, atualização e deleção, empilhados
+*/
 .admin-actions {
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
   margin-top: 1rem;
+
+  .action-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
   .btn.btn-primary {
     font-size: 1.1rem;
@@ -226,6 +238,7 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+
     &:hover {
       background-color: #0052a5;
     }
@@ -240,8 +253,25 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+
     &:hover {
       background-color: #e0a800;
+    }
+  }
+
+  /* Botões de deleção em vermelho */
+  .btn.btn-delete {
+    font-size: 1rem;
+    padding: 12px 24px;
+    background-color: #e53935; /* vermelho */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #c62828;
     }
   }
 }
@@ -256,9 +286,11 @@
   z-index: 9999;
   align-items: center;
   justify-content: center;
+
   &.is-active {
     display: flex;
   }
+
   .modal-background {
     position: absolute;
     width: 100%;
@@ -266,6 +298,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
   }
+
   .modal-content {
     background-color: #fff;
     width: 90%;
@@ -277,6 +310,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
   }
+
   .modal-close.is-large {
     position: absolute;
     top: 1rem;
@@ -298,10 +332,12 @@
     margin-bottom: 0.2rem;
     font-weight: 500;
   }
+
   .error {
     color: red;
     font-size: 0.85rem;
   }
+
   .input,
   .select {
     width: 100%;
@@ -336,11 +372,12 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+
     &:hover {
       background-color: #0052a5;
     }
   }
-  
+
   .button.modal-close {
     background-color: #aaa;
     color: #fff;
@@ -350,6 +387,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+
     &:hover {
       background-color: #888;
     }
@@ -358,6 +396,7 @@
 
 .modal-content {
   font-size: 1.1rem;
+
   h2.title {
     margin-bottom: 1.5rem;
   }

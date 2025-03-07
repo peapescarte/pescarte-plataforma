@@ -1,46 +1,50 @@
 defmodule PescarteWeb.PGTRController do
   use PescarteWeb, :controller
 
-  # Precisamos do alias para o módulo de contexto
   alias Pescarte.Municipios
-  # Aliases para os schemas, caso você queira instanciá-los diretamente
   alias Pescarte.Municipios.{Municipio, Unit, Document, DocumentType}
 
   plug :authenticate_user
        when action in [
               :create_municipio,
               :update_municipio,
+              :delete_municipio,
               :create_unit,
               :update_unit,
+              :delete_unit,
               :create_document_type,
               :update_document_type,
+              :delete_document_type,
               :create_document,
-              :update_document
+              :update_document,
+              :delete_document
             ]
 
   plug :authorize_admin
        when action in [
               :create_municipio,
               :update_municipio,
+              :delete_municipio,
               :create_unit,
               :update_unit,
+              :delete_unit,
               :create_document_type,
               :update_document_type,
+              :delete_document_type,
               :create_document,
-              :update_document
+              :update_document,
+              :delete_document
             ]
 
   @doc """
   Exibe a página principal de PGTR, listando municípios, unidades, etc.
   """
   def show(conn, _params) do
-    # Busca de dados via contexto
     municipios = Municipios.list_municipio()
     units = Municipios.list_units()
     document_types = Municipios.list_document_types()
     documents = Municipios.list_documents()
 
-    # Instancia changesets vazios para cada tipo de entidade
     municipio_changeset = Municipios.change_municipio(%Municipio{})
     unit_changeset = Municipios.change_unit(%Unit{})
     document_changeset = Municipios.change_document(%Document{})
@@ -71,12 +75,7 @@ defmodule PescarteWeb.PGTRController do
     render(conn, :show, assigns)
   end
 
-  # -----------------------------------------------------------------
-  # CREATE / UPDATE de MUNICÍPIOS
-  # -----------------------------------------------------------------
-
   def create_municipio(conn, %{"municipio" => municipio_params}) do
-    # Insere "created_by" e "updated_by" no mapa de parâmetros
     current_user_id = get_current_user_id(conn)
 
     municipio_params =
@@ -91,15 +90,12 @@ defmodule PescarteWeb.PGTRController do
         |> redirect(to: ~p"/pgtr")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        # Renderizamos a página show novamente, porém com o changeset de erro
         render_show(conn, %{municipio_changeset: changeset})
     end
   end
 
   def update_municipio(conn, %{"id" => id, "municipio" => municipio_params}) do
     municipio = Municipios.get_municipio!(id)
-
-    # Insere "updated_by" nos parâmetros
     current_user_id = get_current_user_id(conn)
     municipio_params = Map.put(municipio_params, "updated_by", current_user_id)
 
@@ -111,6 +107,22 @@ defmodule PescarteWeb.PGTRController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render_show(conn, %{municipio_changeset: changeset})
+    end
+  end
+
+  def delete_municipio(conn, %{"id" => id}) do
+    municipio = Municipios.get_municipio!(id)
+
+    case Municipios.delete_municipio(municipio) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Município excluído com sucesso.")
+        |> redirect(to: ~p"/pgtr")
+
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Não foi possível excluir o município.")
+        |> redirect(to: ~p"/pgtr")
     end
   end
 
@@ -134,9 +146,7 @@ defmodule PescarteWeb.PGTRController do
   end
 
   def update_unit(conn, %{"unit" => unit_params}) do
-    # Para update, deve vir o ID, de modo a buscar a unidade
     unit = Municipios.get_unit!(unit_params["id"])
-
     current_user_id = get_current_user_id(conn)
     unit_params = Map.put(unit_params, "updated_by", current_user_id)
 
@@ -148,6 +158,22 @@ defmodule PescarteWeb.PGTRController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render_show(conn, %{unit_changeset: changeset})
+    end
+  end
+
+  def delete_unit(conn, %{"id" => id}) do
+    unit = Municipios.get_unit!(id)
+
+    case Municipios.delete_unit(unit) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Unidade excluída com sucesso.")
+        |> redirect(to: ~p"/pgtr")
+
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Não foi possível excluir a unidade.")
+        |> redirect(to: ~p"/pgtr")
     end
   end
 
@@ -172,7 +198,6 @@ defmodule PescarteWeb.PGTRController do
 
   def update_document_type(conn, %{"id" => id, "document_type" => dt_params}) do
     document_type = Municipios.get_document_type!(id)
-
     current_user_id = get_current_user_id(conn)
     dt_params = Map.put(dt_params, "updated_by", current_user_id)
 
@@ -184,6 +209,22 @@ defmodule PescarteWeb.PGTRController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render_show(conn, %{document_type_changeset: changeset})
+    end
+  end
+
+  def delete_document_type(conn, %{"id" => id}) do
+    document_type = Municipios.get_document_type!(id)
+
+    case Municipios.delete_document_type(document_type) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Tipo de Documento excluído com sucesso.")
+        |> redirect(to: ~p"/pgtr")
+
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Não foi possível excluir o tipo de documento.")
+        |> redirect(to: ~p"/pgtr")
     end
   end
 
@@ -208,7 +249,6 @@ defmodule PescarteWeb.PGTRController do
 
   def update_document(conn, %{"id" => id, "document" => document_params}) do
     document = Municipios.get_document!(id)
-
     current_user_id = get_current_user_id(conn)
     document_params = Map.put(document_params, "updated_by", current_user_id)
 
@@ -220,6 +260,22 @@ defmodule PescarteWeb.PGTRController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render_show(conn, %{document_changeset: changeset})
+    end
+  end
+
+  def delete_document(conn, %{"id" => id}) do
+    document = Municipios.get_document!(id)
+
+    case Municipios.delete_document(document) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Documento excluído com sucesso.")
+        |> redirect(to: ~p"/pgtr")
+
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Não foi possível excluir o documento.")
+        |> redirect(to: ~p"/pgtr")
     end
   end
 
@@ -260,7 +316,6 @@ defmodule PescarteWeb.PGTRController do
   defp render_show(conn, additional_assigns) do
     current_path = conn.request_path
 
-    # Recarrega tudo que a página show precisa
     municipios = Municipios.list_municipio()
     units = Municipios.list_units()
     document_types = Municipios.list_document_types()
@@ -277,22 +332,25 @@ defmodule PescarteWeb.PGTRController do
       %{key: :em_andamento, label: "Em andamento"}
     ]
 
-    assigns = %{
-      municipios: municipios,
-      units: units,
-      document_types: document_types,
-      documents: documents,
-      municipio_changeset: municipio_changeset,
-      unit_changeset: unit_changeset,
-      document_changeset: document_changeset,
-      document_type_changeset: document_type_changeset,
-      statuses: statuses,
-      current_path: current_path,
-      current_user: conn.assigns.current_user,
-      error_message: nil
-    }
+    assigns =
+      Map.merge(
+        %{
+          municipios: municipios,
+          units: units,
+          document_types: document_types,
+          documents: documents,
+          municipio_changeset: municipio_changeset,
+          unit_changeset: unit_changeset,
+          document_changeset: document_changeset,
+          document_type_changeset: document_type_changeset,
+          statuses: statuses,
+          current_path: current_path,
+          current_user: conn.assigns.current_user,
+          error_message: nil
+        },
+        additional_assigns
+      )
 
-    assigns = Map.merge(assigns, additional_assigns)
     render(conn, :show, assigns)
   end
 end

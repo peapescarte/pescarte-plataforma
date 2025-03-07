@@ -1,27 +1,15 @@
 defmodule Pescarte.Municipios do
-  @moduledoc """
-  Context para gerenciar Municipios, Unidades, Tipos de Documento e Documentos.
-  """
-
   import Ecto.Query, warn: false
   alias Pescarte.Database.Repo
-
-  alias Pescarte.Municipios.{
-    Municipio,
-    Unit,
-    DocumentType,
-    Document
-  }
+  alias Pescarte.Municipios.{Municipio, Unit, DocumentType, Document}
 
   def list_municipio do
-    # Aqui, cada Municipio vai vir com `units` e cada `unit` terá `documents` e cada `document` terá `document_type`
     Repo.all(Municipio)
     |> Repo.preload(units: [documents: :document_type])
   end
 
   def get_municipio!(id) do
     Repo.get!(Municipio, id)
-    # Se você quiser o mesmo preload que no list, faça:
     |> Repo.preload(units: [documents: :document_type])
   end
 
@@ -37,20 +25,21 @@ defmodule Pescarte.Municipios do
     |> Repo.update()
   end
 
+  def delete_municipio(%Municipio{} = municipio) do
+    Repo.delete(municipio)
+  end
+
   def change_municipio(%Municipio{} = municipio) do
     Municipio.changeset(municipio, %{})
   end
 
   def list_units do
-    # Se no template você acessa `unit.municipio.name` e `unit.documents`,
-    # então preparamos ambos:
     Repo.all(Unit)
     |> Repo.preload([:municipio, documents: :document_type])
   end
 
   def get_unit!(id) do
     Repo.get!(Unit, id)
-    # Preload de :municipio e :documents
     |> Repo.preload([:municipio, documents: :document_type])
   end
 
@@ -64,6 +53,10 @@ defmodule Pescarte.Municipios do
     unit
     |> Unit.changeset(attrs)
     |> Repo.update()
+  end
+
+  def delete_unit(%Unit{} = unit) do
+    Repo.delete(unit)
   end
 
   def change_unit(%Unit{} = unit) do
@@ -91,12 +84,15 @@ defmodule Pescarte.Municipios do
     |> Repo.update()
   end
 
+  def delete_document_type(%DocumentType{} = document_type) do
+    Repo.delete(document_type)
+  end
+
   def change_document_type(%DocumentType{} = document_type) do
     DocumentType.changeset(document_type, %{})
   end
 
   def list_documents do
-    # Se for exibir o município e a unidade do documento, preparamos a associação
     Repo.all(Document)
     |> Repo.preload([:document_type, unit: :municipio])
   end
@@ -116,6 +112,10 @@ defmodule Pescarte.Municipios do
     document
     |> Document.changeset(attrs)
     |> Repo.update()
+  end
+
+  def delete_document(%Document{} = document) do
+    Repo.delete(document)
   end
 
   def change_document(%Document{} = document) do
