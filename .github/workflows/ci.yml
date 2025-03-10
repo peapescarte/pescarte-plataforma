@@ -21,21 +21,21 @@ jobs:
         elixir: [1.18.0]
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{ matrix.otp }}
           elixir-version: ${{ matrix.elixir }}
 
       - name: Cache Elixir deps
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         id: deps-cache
         with:
           path: deps
           key: ${{ runner.os }}-mix-${{ env.MIX_ENV }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
 
       - name: Cache Elixir _build
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         id: build-cache
         with:
           path: _build
@@ -95,14 +95,14 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
 
       - name: Cache Elixir deps
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         id: deps-cache
         with:
           path: deps
           key: ${{ runner.os }}-mix-${{ env.MIX_ENV }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
 
       - name: Cache Elixir _build
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         id: build-cache
         with:
           path: _build
@@ -150,7 +150,7 @@ jobs:
           tags: ${{ env.TAG }}:dev
           build-args: MIX_ENV=dev
           target: builder
-      
+
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
@@ -184,7 +184,7 @@ jobs:
           context: .
           push: true
           tags: ${{ env.TAG }}:prod
-      
+
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
