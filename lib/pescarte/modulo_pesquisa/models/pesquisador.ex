@@ -25,7 +25,7 @@ defmodule Pescarte.ModuloPesquisa.Models.Pesquisador do
           midias: list(Midia.t()),
           relatorios_pesquisa: list(RelatorioPesquisa.t()),
           campus_id: Campus.t(),
-          usuario: User.t(),
+          usuario: Usuario.t(),
           anotacoes: binary
         }
 
