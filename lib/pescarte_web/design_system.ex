@@ -94,8 +94,8 @@ defmodule PescarteWeb.DesignSystem do
   attr :class, :string, default: "", doc: "the image class"
 
   def image_from_storage(assigns) do
-    {_, src_or_error} = Pescarte.Supabase.retrieve_url_from_storage(assigns.src)
-    assigns = Map.put(assigns, :src, src_or_error)
+    {:ok, src} = Pescarte.Storage.get_public_area_image_url(assigns.src)
+    assigns = Map.put(assigns, :src, src)
 
     ~H"""
     <img src={@src} alt={@alt} class={@class} />
