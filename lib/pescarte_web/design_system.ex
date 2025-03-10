@@ -98,7 +98,7 @@ defmodule PescarteWeb.DesignSystem do
     assigns = Map.put(assigns, :src, src)
 
     ~H"""
-    <img src={@src} alt={@alt} class={@class} />
+    <img src={@src} alt={@alt} class={@class} loading="lazy" />
     """
   end
 
@@ -601,6 +601,14 @@ defmodule PescarteWeb.DesignSystem do
   slot :inner_block
 
   def link(assigns) do
+    href =
+      case assigns.href do
+        {:ok, url} -> url
+        _ -> assigns.href
+      end
+
+    assigns = Map.put(assigns, :href, href)
+
     ~H"""
     <Phoenix.Component.link
       navigate={@navigate}
