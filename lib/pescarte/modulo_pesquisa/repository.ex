@@ -1,7 +1,6 @@
 defmodule Pescarte.ModuloPesquisa.Repository do
   @moduledoc false
 
-  alias Pescarte.ModuloPesquisa.Models.Celetista
   use Pescarte, :repository
 
   import Ecto.Query
@@ -9,6 +8,7 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   alias Pescarte.Database
   alias Pescarte.ModuloPesquisa.IManageRepository
   alias Pescarte.ModuloPesquisa.Models.Campus
+  alias Pescarte.ModuloPesquisa.Models.Celetista
   alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.ModuloPesquisa.Models.Midia
   alias Pescarte.ModuloPesquisa.Models.Midia.Categoria
