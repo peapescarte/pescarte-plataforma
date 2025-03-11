@@ -6,6 +6,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
   alias Pescarte.Blog.Post
   alias Pescarte.Database.Types.PublicId
   alias Pescarte.Identidades.Models.Contato
+  alias Pescarte.ModuloPesquisa.Models.Celetista
   alias Pescarte.ModuloPesquisa.Models.Pesquisador
 
   @type t :: %Usuario{
@@ -16,12 +17,13 @@ defmodule Pescarte.Identidades.Models.Usuario do
           primeiro_nome: binary,
           sobrenome: binary,
           id: binary,
+          celetista: Celetista.t(),
           pesquisador: Pesquisador.t(),
           contato: Contato.t(),
           external_customer_id: String.t()
         }
 
-  @valid_roles ~w(pesquisador pescador admin)a
+  @valid_roles ~w(celetista pesquisador pescador admin)a
 
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento papel)a
   @optional_fields ~w(rg link_avatar contato_id external_customer_id)a
@@ -41,6 +43,7 @@ defmodule Pescarte.Identidades.Models.Usuario do
     field :link_avatar, :string
     field :external_customer_id, :string
 
+    has_one :celetista, Celetista
     has_one :pesquisador, Pesquisador
 
     belongs_to :contato, Contato, type: :string
