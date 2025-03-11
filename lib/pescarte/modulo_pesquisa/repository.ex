@@ -1,6 +1,7 @@
 defmodule Pescarte.ModuloPesquisa.Repository do
   @moduledoc false
 
+  alias Pescarte.ModuloPesquisa.Models.Celetista
   use Pescarte, :repository
 
   import Ecto.Query
@@ -105,6 +106,19 @@ defmodule Pescarte.ModuloPesquisa.Repository do
       )
 
     Flop.run(query, flop, for: Pesquisador)
+  end
+
+  def list_celetista(flop) do
+    query =
+      from(p in Celetista,
+        join: u in assoc(p, :usuario),
+        as: :usuario,
+        join: c in assoc(u, :contato),
+        as: :contato,
+        preload: [usuario: {u, contato: c}]
+      )
+
+    Flop.run(query, flop, for: Celetista)
   end
 
   @impl true
