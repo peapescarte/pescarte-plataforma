@@ -601,14 +601,6 @@ defmodule PescarteWeb.DesignSystem do
   slot :inner_block
 
   def link(assigns) do
-    href =
-      case assigns.href do
-        {:ok, url} -> url
-        _ -> assigns.href
-      end
-
-    assigns = Map.put(assigns, :href, href)
-
     ~H"""
     <Phoenix.Component.link
       navigate={@navigate}

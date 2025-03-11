@@ -2,7 +2,20 @@ defmodule PescarteWeb.BoletinsController do
   use PescarteWeb, :controller
 
   def show(conn, _params) do
-    current_path = conn.request_path
-    render(conn, :show, current_path: current_path, error_message: nil)
+    pdf_paths =
+      for i <- 1..8, do: "publicacoes/boletins/boletim%20#{i}/Boletim%20Pescarte%200#{i}.pdf"
+
+    pdf_urls =
+      pdf_paths
+      |> Enum.with_index(1)
+      |> Enum.map(fn {link, index} ->
+        case Pescarte.Storage.get_public_area_image_url(link) do
+          {:ok, url} -> {"boletim#{index}", url}
+          _ -> {"boletim#{index}", ""}
+        end
+      end)
+      |> Enum.into(%{})
+
+    render(conn, :show, current_path: conn.request_path, pdf_url: pdf_urls, error_message: nil)
   end
 end
