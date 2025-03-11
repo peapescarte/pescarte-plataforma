@@ -11,7 +11,7 @@ defmodule PescarteWeb.BoletinsController do
       |> Enum.map(fn {link, index} ->
         case Pescarte.Storage.get_public_area_image_url(link) do
           {:ok, url} -> {"boletim#{index}", url}
-          _ -> {"boletim#{index}", ""}
+          _ -> {"boletim#{index}", nil}
         end
       end)
       |> Enum.into(%{})
