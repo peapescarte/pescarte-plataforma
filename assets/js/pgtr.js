@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
       defaultOption.textContent = "Selecione uma Unidade";
       unitSelectCreate.appendChild(defaultOption);
       allUnitOptions.forEach(function(option) {
-        if (option.getAttribute("data-municipio-id") === selectedMunicipio) {
+        if (String(option.getAttribute("data-municipio-id")) === selectedMunicipio) {
           unitSelectCreate.appendChild(option.cloneNode(true));
         }
       });
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
       defaultOption.textContent = "Selecione";
       unitUpdateSelect.appendChild(defaultOption);
       allUnitUpdateOptions.forEach(function(option) {
-        if (option.getAttribute("data-municipio-id") === selectedMunicipioId) {
+        if (String(option.getAttribute("data-municipio-id")) === selectedMunicipioId) {
           unitUpdateSelect.appendChild(option.cloneNode(true));
         }
       });
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
       defaultUnitOpt.textContent = "Selecione uma Unidade";
       docUpdateUnitFilter.appendChild(defaultUnitOpt);
       allUnitOptionsDocUpdate.forEach(function(opt) {
-        if (opt.getAttribute("data-municipio-id") === selectedMunicipioId) {
+        if (String(opt.getAttribute("data-municipio-id")) === selectedMunicipioId) {
           docUpdateUnitFilter.appendChild(opt.cloneNode(true));
         }
       });
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const docTypeIdsSet = new Set();
       allDocOptionsDocUpdate.forEach(function(docOpt) {
         const docUnit = docOpt.getAttribute("data-unit-id");
-        if (docUnit === selectedUnitId) {
+        if (String(docUnit) === selectedUnitId) {
           const dtId = docOpt.getAttribute("data-document-type-id");
           docTypeIdsSet.add(dtId);
         }
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function() {
       allDocOptionsDocUpdate.forEach(function(docOpt) {
         const docUnit = docOpt.getAttribute("data-unit-id");
         const docType = docOpt.getAttribute("data-document-type-id");
-        if (docUnit === selectedUnitId && docType === selectedTypeId) {
+        if (String(docUnit) === selectedUnitId && docType === selectedTypeId) {
           docUpdateSelect.appendChild(docOpt.cloneNode(true));
         }
       });
@@ -249,11 +249,28 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Deleção: Unidade
+  // Deleção: Unidade - Cascading filtro
+  const unitDeleteMunicipioFilter = document.getElementById("unit-delete-municipio-filter");
   const unitDeleteSelect = document.getElementById("unit-delete-select");
   const unitDeleteForm = document.getElementById("unit-delete-form");
   const unitDeleteHidden = document.getElementById("unit_delete_id");
-  if (unitDeleteSelect && unitDeleteForm) {
+  if (unitDeleteMunicipioFilter && unitDeleteSelect && unitDeleteForm && unitDeleteHidden) {
+    const allUnitDeleteOptions = Array.from(unitDeleteSelect.querySelectorAll("option")).filter(opt => opt.value !== "");
+    unitDeleteMunicipioFilter.addEventListener("change", function() {
+      const selectedMunicipioId = this.value;
+      unitDeleteSelect.innerHTML = "";
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = "Selecione";
+      unitDeleteSelect.appendChild(defaultOption);
+      allUnitDeleteOptions.forEach(function(option) {
+        if (String(option.getAttribute("data-municipio-id")) === selectedMunicipioId) {
+          unitDeleteSelect.appendChild(option.cloneNode(true));
+        }
+      });
+      unitDeleteHidden.value = "";
+      unitDeleteForm.action = "#";
+    });
     unitDeleteSelect.addEventListener("change", function() {
       const selectedOption = this.options[this.selectedIndex];
       const unitId = selectedOption.value;
@@ -275,11 +292,89 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Deleção: Documento
+  // Deleção: Documento - Cascading filtros
+  const docDeleteMunicipioFilter = document.getElementById("document-delete-municipio-filter");
+  const docDeleteUnitFilter = document.getElementById("document-delete-unit-filter");
+  const docDeleteTypeFilter = document.getElementById("document-delete-type-filter");
   const documentDeleteSelect = document.getElementById("document-delete-select");
   const documentDeleteForm = document.getElementById("document-delete-form");
   const documentDeleteHidden = document.getElementById("document_delete_id");
-  if (documentDeleteSelect && documentDeleteForm) {
+  if (docDeleteMunicipioFilter && docDeleteUnitFilter && docDeleteTypeFilter && documentDeleteSelect && documentDeleteForm && documentDeleteHidden) {
+    const allUnitDeleteDocOptions = Array.from(docDeleteUnitFilter.querySelectorAll("option")).filter(opt => opt.value !== "");
+    const allTypeDeleteDocOptions = Array.from(docDeleteTypeFilter.querySelectorAll("option")).filter(opt => opt.value !== "");
+    const allDocDeleteOptions = Array.from(documentDeleteSelect.querySelectorAll("option")).filter(opt => opt.value !== "");
+    docDeleteMunicipioFilter.addEventListener("change", function() {
+      const selectedMunicipioId = this.value;
+      docDeleteUnitFilter.innerHTML = "";
+      const defaultUnitOpt = document.createElement("option");
+      defaultUnitOpt.value = "";
+      defaultUnitOpt.textContent = "Selecione uma Unidade";
+      docDeleteUnitFilter.appendChild(defaultUnitOpt);
+      allUnitDeleteDocOptions.forEach(function(opt) {
+        if (String(opt.getAttribute("data-municipio-id")) === selectedMunicipioId) {
+          docDeleteUnitFilter.appendChild(opt.cloneNode(true));
+        }
+      });
+      docDeleteTypeFilter.innerHTML = "";
+      const defaultTypeOpt = document.createElement("option");
+      defaultTypeOpt.value = "";
+      defaultTypeOpt.textContent = "Selecione um Tipo";
+      docDeleteTypeFilter.appendChild(defaultTypeOpt);
+      documentDeleteSelect.innerHTML = "";
+      const defaultDocOpt = document.createElement("option");
+      defaultDocOpt.value = "";
+      defaultDocOpt.textContent = "Selecione o Documento";
+      documentDeleteSelect.appendChild(defaultDocOpt);
+      documentDeleteHidden.value = "";
+      documentDeleteForm.action = "#";
+    });
+    docDeleteUnitFilter.addEventListener("change", function() {
+      const selectedUnitId = this.value;
+      const docTypeIdsSet = new Set();
+      allDocDeleteOptions.forEach(function(docOpt) {
+        const docUnit = docOpt.getAttribute("data-unit-id");
+        if (String(docUnit) === selectedUnitId) {
+          const dtId = docOpt.getAttribute("data-document-type-id");
+          docTypeIdsSet.add(dtId);
+        }
+      });
+      docDeleteTypeFilter.innerHTML = "";
+      const defaultTypeOpt = document.createElement("option");
+      defaultTypeOpt.value = "";
+      defaultTypeOpt.textContent = "Selecione um Tipo";
+      docDeleteTypeFilter.appendChild(defaultTypeOpt);
+      allTypeDeleteDocOptions.forEach(function(typeOpt) {
+        const typeId = typeOpt.value;
+        if (docTypeIdsSet.has(typeId)) {
+          docDeleteTypeFilter.appendChild(typeOpt.cloneNode(true));
+        }
+      });
+      documentDeleteSelect.innerHTML = "";
+      const defaultDocOpt = document.createElement("option");
+      defaultDocOpt.value = "";
+      defaultDocOpt.textContent = "Selecione o Documento";
+      documentDeleteSelect.appendChild(defaultDocOpt);
+      documentDeleteHidden.value = "";
+      documentDeleteForm.action = "#";
+    });
+    docDeleteTypeFilter.addEventListener("change", function() {
+      const selectedUnitId = docDeleteUnitFilter.value;
+      const selectedTypeId = this.value;
+      documentDeleteSelect.innerHTML = "";
+      const defaultDocOpt = document.createElement("option");
+      defaultDocOpt.value = "";
+      defaultDocOpt.textContent = "Selecione o Documento";
+      documentDeleteSelect.appendChild(defaultDocOpt);
+      allDocDeleteOptions.forEach(function(docOpt) {
+        const docUnit = docOpt.getAttribute("data-unit-id");
+        const docType = docOpt.getAttribute("data-document-type-id");
+        if (String(docUnit) === selectedUnitId && docType === selectedTypeId) {
+          documentDeleteSelect.appendChild(docOpt.cloneNode(true));
+        }
+      });
+      documentDeleteHidden.value = "";
+      documentDeleteForm.action = "#";
+    });
     documentDeleteSelect.addEventListener("change", function() {
       const selectedOption = this.options[this.selectedIndex];
       const docId = selectedOption.value;

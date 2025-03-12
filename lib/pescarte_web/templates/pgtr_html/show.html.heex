@@ -46,12 +46,14 @@
           <button id="open-document-modal-btn" class="btn btn-primary">Novo Documento</button>
         </div>
 
-        <!-- Botões de edição -->
+<!-- Botões de edição -->
         <div class="action-group">
           <button id="open-municipio-update-modal-btn" class="btn btn-secondary">
             Editar Município
           </button>
-          <button id="open-unit-update-modal-btn" class="btn btn-secondary">Editar Unidade</button>
+          <button id="open-unit-update-modal-btn" class="btn btn-secondary">
+            Editar Unidade
+          </button>
           <button id="open-document-type-update-modal-btn" class="btn btn-secondary">
             Editar Tipo de Documento
           </button>
@@ -62,12 +64,16 @@
 
         <div class="action-group">
           <!-- Botões de deleção -->
-          <button id="open-municipio-delete-modal-btn" class="btn btn-delete">Deletar Município</button>
+          <button id="open-municipio-delete-modal-btn" class="btn btn-delete">
+            Deletar Município
+          </button>
           <button id="open-unit-delete-modal-btn" class="btn btn-delete">Deletar Unidade</button>
           <button id="open-document-type-delete-modal-btn" class="btn btn-delete">
             Deletar Tipo de Documento
           </button>
-          <button id="open-document-delete-modal-btn" class="btn btn-delete">Deletar Documento</button>
+          <button id="open-document-delete-modal-btn" class="btn btn-delete">
+            Deletar Documento
+          </button>
         </div>
       </div>
     <% end %>
@@ -87,7 +93,7 @@
                   alt="Ícone de Município"
                 />
                 <.text size="h4" color="text-black-80">
-                  <strong><%= municipio.name %></strong>
+                  <strong>{municipio.name}</strong>
                 </.text>
                 <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
               </div>
@@ -96,12 +102,12 @@
                 <hr />
                 <%= for unit <- municipio.units do %>
                   <div class="content-item">
-                    <.text size="h4" color="text-black-100"><%= unit.name %></.text>
+                    <.text size="h4" color="text-black-100">{unit.name}</.text>
                     <.text size="lg" color="text-black-80">
-                      <span class="content-title">Situação:</span> <%= unit.situation %>
+                      <span class="content-title">Situação:</span> {unit.situation}
                     </.text>
                     <.text size="lg" color="text-black-80">
-                      <span class="content-title">Próxima Etapa:</span> <%= unit.next_step || "N/A" %>
+                      <span class="content-title">Próxima Etapa:</span> {unit.next_step || "N/A"}
                     </.text>
 
                     <%= for doc <- unit.documents do %>
@@ -113,13 +119,12 @@
                           _ -> "status-pending"
                         end
                       }>
-                        <%= String.capitalize(doc.document_type.name) %>:
-                        <%= case doc.status do
+                        {String.capitalize(doc.document_type.name)}: {case doc.status do
                           :concluido -> "Concluído"
                           :em_andamento -> "Em Andamento"
                           :pendente -> "Pendente"
                           _ -> "Pendente"
-                        end %>
+                        end}
                       </span>
                     <% end %>
 
@@ -134,7 +139,7 @@
     </div>
   </div>
 
-  <!-- Seção "Onde Nos Encontrar" -->
+<!-- Seção "Onde Nos Encontrar" -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 
   <%= if @current_user && @current_user.role == "admin" do %>
@@ -160,7 +165,7 @@
                 required
               />
               <%= if @municipio_changeset.errors[:name] do %>
-                <span class="error"><%= elem(@municipio_changeset.errors[:name], 0) %></span>
+                <span class="error">{elem(@municipio_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
             <div class="field is-grouped is-grouped-right">
@@ -173,7 +178,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Nova Unidade -->
+<!-- MODAL: Nova Unidade -->
     <div id="unit-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -193,12 +198,12 @@
                     value={municipio.id}
                     selected={@unit_changeset.data.municipio_id == municipio.id}
                   >
-                    <%= municipio.name %>
+                    {municipio.name}
                   </option>
                 <% end %>
               </select>
               <%= if @unit_changeset.errors[:municipio_id] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:municipio_id], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:municipio_id], 0)}</span>
               <% end %>
             </div>
             <div class="field">
@@ -212,7 +217,7 @@
                 required
               />
               <%= if @unit_changeset.errors[:name] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:name], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
             <div class="field">
@@ -226,7 +231,7 @@
                 required
               />
               <%= if @unit_changeset.errors[:situation] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:situation], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:situation], 0)}</span>
               <% end %>
             </div>
             <div class="field">
@@ -239,7 +244,7 @@
                 value={@unit_changeset.data.next_step || ""}
               />
               <%= if @unit_changeset.errors[:next_step] do %>
-                <span class="error"><%= elem(@unit_changeset.errors[:next_step], 0) %></span>
+                <span class="error">{elem(@unit_changeset.errors[:next_step], 0)}</span>
               <% end %>
             </div>
             <div class="field is-grouped is-grouped-right">
@@ -252,7 +257,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Novo Tipo de Documento -->
+<!-- MODAL: Novo Tipo de Documento -->
     <div id="document-type-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -274,7 +279,7 @@
                 required
               />
               <%= if @document_type_changeset.errors[:name] do %>
-                <span class="error"><%= elem(@document_type_changeset.errors[:name], 0) %></span>
+                <span class="error">{elem(@document_type_changeset.errors[:name], 0)}</span>
               <% end %>
             </div>
             <div class="field is-grouped is-grouped-right">
@@ -287,7 +292,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Novo Documento -->
+<!-- MODAL: Novo Documento -->
     <div id="document-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -300,10 +305,15 @@
           >
             <div class="field">
               <label for="document_municipio_id">Município</label>
-              <select id="document_municipio_id" name="document[municipio_id]" class="select" required>
+              <select
+                id="document_municipio_id"
+                name="document[municipio_id]"
+                class="select"
+                required
+              >
                 <option value="">Selecione um Município</option>
                 <%= for municipio <- @municipios do %>
-                  <option value={municipio.id}><%= municipio.name %></option>
+                  <option value={municipio.id}>{municipio.name}</option>
                 <% end %>
               </select>
             </div>
@@ -313,26 +323,36 @@
                 <option value="">Selecione uma Unidade</option>
                 <%= for unit <- @units do %>
                   <option value={unit.id} data-municipio-id={unit.municipio_id}>
-                    <%= unit.name %>
+                    {unit.name}
                   </option>
                 <% end %>
               </select>
               <%= if @document_changeset.errors[:unit_id] do %>
-                <span class="error"><%= elem(@document_changeset.errors[:unit_id], 0) %></span>
+                <span class="error">{elem(@document_changeset.errors[:unit_id], 0)}</span>
               <% end %>
             </div>
             <div class="field">
               <label for="document_document_type_id">Tipo de Documento</label>
-              <select id="document_document_type_id" name="document[document_type_id]" class="select" required>
+              <select
+                id="document_document_type_id"
+                name="document[document_type_id]"
+                class="select"
+                required
+              >
                 <option value="">Selecione um Tipo de Documento</option>
                 <%= for dt <- @document_types do %>
-                  <option value={dt.id} selected={@document_changeset.data.document_type_id == dt.id}>
-                    <%= dt.name %>
+                  <option
+                    value={dt.id}
+                    selected={@document_changeset.data.document_type_id == dt.id}
+                  >
+                    {dt.name}
                   </option>
                 <% end %>
               </select>
               <%= if @document_changeset.errors[:document_type_id] do %>
-                <span class="error"><%= elem(@document_changeset.errors[:document_type_id], 0) %></span>
+                <span class="error">
+                  {elem(@document_changeset.errors[:document_type_id], 0)}
+                </span>
               <% end %>
             </div>
             <div class="field">
@@ -340,13 +360,16 @@
               <select id="document_status" name="document[status]" class="select" required>
                 <option value="">Selecione um Status</option>
                 <%= for status <- @statuses do %>
-                  <option value={status.key} selected={@document_changeset.data.status == status.key}>
-                    <%= status.label %>
+                  <option
+                    value={status.key}
+                    selected={@document_changeset.data.status == status.key}
+                  >
+                    {status.label}
                   </option>
                 <% end %>
               </select>
               <%= if @document_changeset.errors[:status] do %>
-                <span class="error"><%= elem(@document_changeset.errors[:status], 0) %></span>
+                <span class="error">{elem(@document_changeset.errors[:status], 0)}</span>
               <% end %>
             </div>
             <div class="field">
@@ -360,7 +383,7 @@
                 required
               />
               <%= if @document_changeset.errors[:document_link] do %>
-                <span class="error"><%= elem(@document_changeset.errors[:document_link], 0) %></span>
+                <span class="error">{elem(@document_changeset.errors[:document_link], 0)}</span>
               <% end %>
             </div>
             <div class="field is-grouped is-grouped-right">
@@ -373,7 +396,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Editar Município -->
+<!-- MODAL: Editar Município -->
     <div id="municipio-update-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -385,7 +408,7 @@
               <option value="">Selecione</option>
               <%= for municipio <- @municipios do %>
                 <option value={municipio.id} data-nome={municipio.name}>
-                  <%= municipio.name %>
+                  {municipio.name}
                 </option>
               <% end %>
             </select>
@@ -418,7 +441,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Editar Unidade -->
+<!-- MODAL: Editar Unidade -->
     <div id="unit-update-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -429,7 +452,7 @@
             <select id="unit-update-municipio-filter" class="select">
               <option value="">Selecione um Município</option>
               <%= for municipio <- @municipios do %>
-                <option value={municipio.id}><%= municipio.name %></option>
+                <option value={municipio.id}>{municipio.name}</option>
               <% end %>
             </select>
           </div>
@@ -445,7 +468,7 @@
                   data-situation={unit.situation}
                   data-next-step={unit.next_step || ""}
                 >
-                  <%= unit.name %>
+                  {unit.name}
                 </option>
               <% end %>
             </select>
@@ -486,7 +509,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Editar Tipo de Documento -->
+<!-- MODAL: Editar Tipo de Documento -->
     <div id="document-type-update-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -498,7 +521,7 @@
               <option value="">Selecione</option>
               <%= for dt <- @document_types do %>
                 <option value={dt.id} data-name={dt.name}>
-                  <%= dt.name %>
+                  {dt.name}
                 </option>
               <% end %>
             </select>
@@ -531,7 +554,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Editar Documento -->
+<!-- MODAL: Editar Documento -->
     <div id="document-update-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -542,7 +565,7 @@
             <select id="document-update-municipio-filter" class="select">
               <option value="">Selecione um Município</option>
               <%= for municipio <- @municipios do %>
-                <option value={municipio.id}><%= municipio.name %></option>
+                <option value={municipio.id}>{municipio.name}</option>
               <% end %>
             </select>
           </div>
@@ -552,7 +575,7 @@
               <option value="">Selecione uma Unidade</option>
               <%= for unit <- @units do %>
                 <option value={unit.id} data-municipio-id={unit.municipio_id}>
-                  <%= unit.name %>
+                  {unit.name}
                 </option>
               <% end %>
             </select>
@@ -562,7 +585,7 @@
             <select id="document-update-type-filter" class="select">
               <option value="">Selecione um Tipo</option>
               <%= for dt <- @document_types do %>
-                <option value={dt.id}><%= dt.name %></option>
+                <option value={dt.id}>{dt.name}</option>
               <% end %>
             </select>
           </div>
@@ -578,7 +601,7 @@
                   data-status={doc.status}
                   data-document-link={doc.document_link}
                 >
-                  <%= doc.document_type.name %> – <%= doc.document_link %>
+                  {doc.document_type.name} – {doc.document_link}
                 </option>
               <% end %>
             </select>
@@ -596,7 +619,7 @@
               <select id="document_update_status" name="document[status]" class="select" required>
                 <option value="">Selecione um Status</option>
                 <%= for status <- @statuses do %>
-                  <option value={status.key}><%= status.label %></option>
+                  <option value={status.key}>{status.label}</option>
                 <% end %>
               </select>
             </div>
@@ -620,7 +643,7 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Deletar Município -->
+<!-- MODAL: Deletar Município -->
     <div id="municipio-delete-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
@@ -631,7 +654,7 @@
             <select id="municipio-delete-select" class="select">
               <option value="">Selecione</option>
               <%= for municipio <- @municipios do %>
-                <option value={municipio.id}><%= municipio.name %></option>
+                <option value={municipio.id}>{municipio.name}</option>
               <% end %>
             </select>
           </div>
@@ -654,21 +677,43 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Deletar Unidade -->
     <div id="unit-delete-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title">Deletar Unidade</h2>
+
+<!-- Filtro: Município -->
+          <div class="field filter-field">
+            <label for="unit-delete-municipio-filter">Selecione o Município:</label>
+            <select id="unit-delete-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- Filtro: Unidade (apenas do município selecionado) -->
           <div class="field filter-field">
             <label for="unit-delete-select">Selecione a Unidade para Excluir:</label>
             <select id="unit-delete-select" class="select">
               <option value="">Selecione</option>
-              <%= for unit <- @units do %>
-                <option value={unit.id}><%= unit.name %></option>
+               <%= for unit <- @units do %>
+                <option
+                  value={unit.id}
+                  data-municipio-id={unit.municipio_id}
+                  data-name={unit.name}
+                  data-situation={unit.situation}
+                  data-next-step={unit.next_step || ""}
+                >
+                  {unit.name}
+                </option>
               <% end %>
             </select>
           </div>
+
+<!-- Form: deleção -->
           <.simple_form
             id="unit-delete-form"
             for={@unit_changeset |> to_form}
@@ -678,6 +723,7 @@
           >
             <input type="hidden" name="_id" id="unit_delete_id" />
             <p class="mb-3">Tem certeza de que deseja excluir esta unidade?</p>
+
             <div class="field is-grouped is-grouped-right">
               <button type="submit" class="button is-danger">Excluir</button>
               <button type="button" class="button modal-close">Cancelar</button>
@@ -688,18 +734,19 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Deletar Tipo de Documento -->
     <div id="document-type-delete-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title">Deletar Tipo de Documento</h2>
           <div class="field filter-field">
-            <label for="document-type-delete-select">Selecione o Tipo de Documento para Excluir:</label>
+            <label for="document-type-delete-select">
+              Selecione o Tipo de Documento para Excluir:
+            </label>
             <select id="document-type-delete-select" class="select">
               <option value="">Selecione</option>
               <%= for dt <- @document_types do %>
-                <option value={dt.id}><%= dt.name %></option>
+                <option value={dt.id}>{dt.name}</option>
               <% end %>
             </select>
           </div>
@@ -722,23 +769,65 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <!-- MODAL: Deletar Documento -->
     <div id="document-delete-modal" class="modal">
       <div class="modal-background modal-close"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title">Deletar Documento</h2>
+
+<!-- 1) Filtro: Município -->
+          <div class="field filter-field">
+            <label for="document-delete-municipio-filter">Selecione o Município:</label>
+            <select id="document-delete-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- 2) Filtro: Unidade (pertencente ao município) -->
+          <div class="field filter-field">
+            <label for="document-delete-unit-filter">Selecione a Unidade:</label>
+            <select id="document-delete-unit-filter" class="select">
+              <option value="">Selecione uma Unidade</option>
+              <%= for unit <- @units do %>
+                <option value={unit.id} data-municipio-id={unit.municipio_id}>
+                  {unit.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- 3) Filtro: Tipo de Documento (verifica os docs para a unit selecionada) -->
+          <div class="field filter-field">
+            <label for="document-delete-type-filter">Selecione o Tipo de Documento:</label>
+            <select id="document-delete-type-filter" class="select">
+              <option value="">Selecione um Tipo</option>
+              <%= for dt <- @document_types do %>
+                <option value={dt.id}>{dt.name}</option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- 4) Filtro: Documento final -->
           <div class="field filter-field">
             <label for="document-delete-select">Selecione o Documento para Excluir:</label>
             <select id="document-delete-select" class="select">
               <option value="">Selecione</option>
               <%= for doc <- @documents do %>
-                <option value={doc.id}>
-                  <%= doc.document_type.name %> – <%= doc.document_link %>
+                <option
+                  value={doc.id}
+                  data-unit-id={doc.unit_id}
+                  data-document-type-id={doc.document_type_id}
+                >
+                  {doc.document_type.name} – {doc.document_link}
                 </option>
               <% end %>
             </select>
           </div>
+
+<!-- Form de deleção -->
           <.simple_form
             id="document-delete-form"
             for={@document_changeset |> to_form}
@@ -748,6 +837,7 @@
           >
             <input type="hidden" name="_id" id="document_delete_id" />
             <p class="mb-3">Tem certeza de que deseja excluir este documento?</p>
+
             <div class="field is-grouped is-grouped-right">
               <button type="submit" class="button is-danger">Excluir</button>
               <button type="button" class="button modal-close">Cancelar</button>

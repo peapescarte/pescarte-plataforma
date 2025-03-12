@@ -212,10 +212,7 @@
   }
 }
 
-/*
-   Agrupamento dos botões de ação em colunas verticais:
-   Cada grupo (.action-group) representa criação, atualização e deleção, empilhados
-*/
+/* Agrupamento dos botões de ação em colunas verticais */
 .admin-actions {
   display: flex;
   justify-content: center;
@@ -238,7 +235,6 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-
     &:hover {
       background-color: #0052a5;
     }
@@ -253,23 +249,20 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-
     &:hover {
       background-color: #e0a800;
     }
   }
 
-  /* Botões de deleção em vermelho */
   .btn.btn-delete {
     font-size: 1rem;
     padding: 12px 24px;
-    background-color: #e53935; /* vermelho */
+    background-color: #e53935;
     color: #fff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-
     &:hover {
       background-color: #c62828;
     }
@@ -286,11 +279,9 @@
   z-index: 9999;
   align-items: center;
   justify-content: center;
-
   &.is-active {
     display: flex;
   }
-
   .modal-background {
     position: absolute;
     width: 100%;
@@ -298,7 +289,6 @@
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
   }
-
   .modal-content {
     background-color: #fff;
     width: 90%;
@@ -310,7 +300,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
   }
-
   .modal-close.is-large {
     position: absolute;
     top: 1rem;
@@ -326,18 +315,15 @@
 
 .form .field {
   margin-bottom: 1.5rem;
-
   label {
     display: block;
     margin-bottom: 0.2rem;
     font-weight: 500;
   }
-
   .error {
     color: red;
     font-size: 0.85rem;
   }
-
   .input,
   .select {
     width: 100%;
@@ -372,7 +358,6 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-
     &:hover {
       background-color: #0052a5;
     }
@@ -387,16 +372,29 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-
     &:hover {
       background-color: #888;
+    }
+  }
+
+  .button.is-danger {
+    background-color: #e53935;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-left: 1rem;
+    &:hover {
+      background-color: #c62828;
     }
   }
 }
 
 .modal-content {
   font-size: 1.1rem;
-
   h2.title {
     margin-bottom: 1.5rem;
   }
