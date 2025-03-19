@@ -8,6 +8,7 @@ import './accordion';
 
 import './glide';
 import "./date_input";
+import './pgtr';
 
 function onVisible(elem, callback) {
   const options = { root: document.documentElement };
