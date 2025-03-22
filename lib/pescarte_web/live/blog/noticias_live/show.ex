@@ -59,7 +59,8 @@ defmodule PescarteWeb.Blog.NoticiasLive.Show do
   end
 
   def date_to_string(date_time) do
-    DateTime.to_date(date_time)
+    date_time
+    |> DateTime.to_date()
     |> Date.to_string()
     |> String.split("-")
     |> Enum.reverse()
