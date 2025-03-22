@@ -165,7 +165,7 @@ defmodule PescarteWeb.Blog.NoticiasLive.Show do
         </div>
       <% end %>
       
-      <!-- ONDE NOS ENCONTRAR -->
+    <!-- ONDE NOS ENCONTRAR -->
       <PescarteWeb.DesignSystem.GetInTouch.render />
     </div>
     """
