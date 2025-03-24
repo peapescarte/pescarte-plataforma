@@ -4,7 +4,6 @@ defmodule PescarteWeb.GeorreferenciamentosController do
   def show(conn, _params) do
     pdf_urls = get_public_document_url()
 
-    IO.inspect(pdf_urls)
     render(conn, :show, current_path: conn.request_path, pdf_url: pdf_urls, error_message: nil)
   end
 
