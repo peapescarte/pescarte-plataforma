@@ -1,6 +1,21 @@
 defmodule PescarteWeb.GeorreferenciamentosController do
+  @moduledoc """
+  Controller responsável por gerenciar as requisições relacionadas a
+  georreferenciamentos.
+  """
+
   use PescarteWeb, :controller
 
+  @doc """
+  Exibe a página de georreferenciamentos com links para os PDFs disponíveis.
+
+  ## Parâmetros
+    - conn: conexão Phoenix
+    - _params: parâmetros da requisição (não utilizados)
+
+  ## Retorno
+    Renderiza o template :show com os links para os PDFs
+  """
   def show(conn, _params) do
     pdf_urls = get_public_document_url()
 
