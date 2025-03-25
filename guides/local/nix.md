@@ -1,13 +1,12 @@
 # Nix
 
-### Requerimentos mínimos
+### Requisitos mínimos
 
 | requirement                                               | release |
 | --------------------------------------------------------- | ------- |
 | [nix](https://nixos.org/)                                 | 2.5.1+  |
 | [direnv](https://direnv.net/)                             | 2.28.0+ |
-| [nix-direnv](https://github.com/nix-community/nix-direnv) | 1.5.1+  |
-| [supabase-cli](https://github.com/supabase/cli) | >= 1.122.0 |
+| [supabase-cli](https://github.com/supabase/cli) | >= 2.15.0 |
 
 ---
 
@@ -23,12 +22,7 @@ O ambiente local será baixado e compilado usando [nix-flakes](https://nixos.wik
 
 ### Sempre que for rodar o projeto
 
-Inicie o banco em um terminal/processo:
-```sh
-postgres
-```
-
-Inciie os serviços da supabase (precisa do docker):
+Inicie os serviços da supabase (é necessário ter o Docker instalado):
 ```sh
 supabase start
 ```
@@ -39,8 +33,6 @@ iex -S mix phx.server
 ```
 
 O servidor estará disponível em `localhost`, na porta `4000`.
-
-Lembre-se de sempre iniciar o banco de dados, caso contrário não será possível executar `mix tasks` que interajam com o banco e ao subir o servidor web ocorrerá erros de conexão.
 
 ### Para executar migrações
 
@@ -76,11 +68,8 @@ E para rodar todos os testes (`format`, `credo` e `test`) use:
 mix ci
 ```
 
-É recomendável rodar os testes unitários sem efetuar a recriação do DB, pois o tempo de execução será
-sempre menor. Porém, se o banco de testes ficar em um estado em que os dados presentes influenciem na
-execução dos testes com sucesso, é recomendado recriá-lo.
-Para recriar o banco de testes, rodar as seeds e os testes unitários
-(`ecto.drop`, `ecto.create`, `ecto.migrate`, `seeds` e `test`) execute:
+É recomendável rodar os testes unitários sem recriar o banco de dados, pois o tempo de execução será sempre menor. No entanto, se o banco de testes ficar em um estado em que os dados presentes influenciem negativamente na execução bem-sucedida dos testes, é recomendável recriá-lo.
+Para recriar o banco de testes, rodar as seeds e os testes unitários (`ecto.drop`, `ecto.create`, `ecto.migrate`, `seeds` e `test`), execute:
 
 ```sh
 mix test.reset
