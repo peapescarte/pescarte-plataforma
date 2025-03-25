@@ -92,6 +92,12 @@ Quando uma aplição Elixir/Erlang é iniciada, a BEAM cria um "Agendador" (Sche
   <img src="https://user-images.githubusercontent.com/44469426/230241258-08aeb6d8-9038-4eda-89f0-fb13de077aa9.png" />
 </p>
 
+## Por que usar LiveView?
+
+<a id="why-liveview" />
+
+O Phoenix LiveView foi escolhido por suas diversas vantagens em relação a tecnologias como [React][ react-site ] ou [Elm][ elm-guide ]. Ele simplifica o desenvolvimento ao eliminar a necessidade de APIs REST ou GraphQL, reduzindo a complexidade do código e acelerando o processo. Além disso, permite criar interfaces interativas com menor dependência de JavaScript, integrando-se perfeitamente ao ecossistema Phoenix. O LiveView oferece alto desempenho e escalabilidade por meio de WebSockets e da [BEAM][ beam-meaning ], enquanto mantém o frontend mais simples e fácil de gerenciar. Mesmo sem atualizações em tempo real, é eficiente para carregar dados e renderizar páginas dinamicamente, aumentando a produtividade ao focar na lógica de negócio.
+
 [beam-meaning]: https://www.erlang.org/blog/a-brief-beam-primer/
 [erlang-meaning]: https://coodesh.com/blog/dicionario/o-que-e-erlang/
 [immutability]: https://medium.com/opensanca/imutabilidade-eis-a-quest%C3%A3o-507fde8c6686
@@ -107,3 +113,5 @@ Quando uma aplição Elixir/Erlang é iniciada, a BEAM cria um "Agendador" (Sche
 [paralel-meaning]: https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_paralela
 [concurrency-meaning]: (https://pt.wikipedia.org/wiki/Programa%C3%A7%C3%A3o_concorrente)
 [elixir-site]: https://elixir-lang.org
+[react-site]: https://react.dev/
+[elm-guide]: https://guide.elm-lang.org/
