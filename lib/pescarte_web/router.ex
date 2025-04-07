@@ -67,7 +67,7 @@ defmodule PescarteWeb.Router do
       get "/artigos", ArticleController, :show
       get "/livros", LivrosController, :show
       get "/boletins", BoletinsController, :show
-      get "/georreferenciamento", GeorreferecimentoController, :show
+      get "/georreferenciamentos", GeorreferecimentoController, :show
       get "/relato_publico", RelatoPublicoController, :show
     end
 
