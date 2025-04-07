@@ -14,7 +14,7 @@ defmodule PescarteWeb.BoletinsController do
     pdf_paths
     |> Enum.with_index(1)
     |> Enum.map(fn {link, index} ->
-      case Pescarte.Storage.get_public_area_image_url(link) do
+      case Pescarte.Storage.get_public_area_image_url(link, 36_000, transform: nil) do
         {:ok, url} -> {"boletim#{index}", url}
         _ -> {"boletim#{index}", nil}
       end
