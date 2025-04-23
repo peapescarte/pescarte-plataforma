@@ -1,0 +1,28 @@
+<main class="georreferenciamento-wrapper">
+  <div class="publications">
+    <div class="banner-container">
+      <img src={~p"/images/landing/bg_fill.png"} />
+      <h1 class="centered-text">Geo Referenciamentos do PEA Pescarte</h1>
+    </div>
+    <section class="publications-text">
+      <!-- criando os cards dos georreferenciamentos -->
+      <div class="card-links">
+        <div class="card-item">
+          <.image_from_storage src="publicacoes/georreferenciamentos/georreferenciamento%201/Georreferenciamento%201-Capa.webp" />
+          <DesignSystem.link
+            href={@pdf_url["georreferenciamento1"]}
+            class="text-sm font-semibold"
+            target-blank
+          >
+            <.text size="h3" color="text-white-100">Geo Referenciamento 1</.text>
+            <.button style="primary">
+              Saiba mais <Lucideicons.arrow_right class="text-white-100" />
+            </.button>
+          </DesignSystem.link>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- ONDE NOS ENCONTRAR -->
+  <PescarteWeb.DesignSystem.GetInTouch.render />
+</main>

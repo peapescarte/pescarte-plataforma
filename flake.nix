@@ -33,16 +33,20 @@
           };
         };
 
-        supabase-cli = pkgs.supabase-cli.overrideAttrs (old: {
-          version = "2.15.8";
-          src = pkgs.fetchFromGitHub {
-            owner = "supabase";
-            repo = "cli";
-            rev = "v2.15.8";
-            hash = "sha256-ha3wY2uzC93LlO6a/sgHg2uvU+0+PD/982bzIo0rcBE=";
-          };
-          vendorHash = "sha256-1IVdsW8vdu2c8ht6d/+yAiHnu5Cwe46QCgUA9F8rnEM=";
-        });
+        supabase-cli =
+          (pkgs.supabase-cli.override {
+            buildGoModule = pkgs.buildGo124Module;
+          })
+          .overrideAttrs (old: {
+            version = "2.20.12";
+            src = pkgs.fetchFromGitHub {
+              owner = "supabase";
+              repo = "cli";
+              rev = "v2.20.12";
+              hash = "sha256-7zfQ7ePxCV0hkGoLnxfL2QR3qXTWoFbkVBl1jzYXpFg=";
+            };
+            vendorHash = "sha256-1zZ0UskHiyYsyi1wgTF16zj6pJ3UStLt3RKGfry7zJI=";
+          });
       in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
