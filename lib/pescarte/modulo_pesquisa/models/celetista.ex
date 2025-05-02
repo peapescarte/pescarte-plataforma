@@ -12,6 +12,32 @@ defmodule Pescarte.ModuloPesquisa.Models.Celetista do
 
   @fields ~w(equipe usuario_id)a
 
+  @derive {
+    Flop.Schema,
+    filterable: ~w(nome cpf email)a,
+    sortable: ~w(nome email)a,
+    adapter_opts: [
+      join_fields: [
+        nome: [
+          binding: :usuario,
+          field: :primeiro_nome,
+          ecto_type: :string
+        ],
+        cpf: [
+          binding: :usuario,
+          field: :cpf,
+          ecto_type: :string
+        ],
+        email: [
+          binding: :contato,
+          field: :email_principal,
+          ecto_type: :string,
+          path: [:usuario, :contato]
+        ]
+      ]
+    ]
+  }
+
   @primary_key {:id, PublicId, autogenerate: true}
   schema "celetista" do
     field :equipe, :string
