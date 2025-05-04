@@ -77,6 +77,24 @@ defmodule PescarteWeb.Router do
       get "/failed", ContactController, :failed
       post "/", ContactController, :send_email
     end
+
+    scope "/pgtr" do
+      post "/create_municipio", PGTRController, :create_municipio
+      put "/update_municipio/:id", PGTRController, :update_municipio
+      delete "/delete_municipio/:id", PGTRController, :delete_municipio
+
+      post "/create_unit", PGTRController, :create_unit
+      put "/update_unit/:id", PGTRController, :update_unit
+      delete "/delete_unit/:id", PGTRController, :delete_unit
+
+      post "/create_document_type", PGTRController, :create_document_type
+      put "/update_document_type/:id", PGTRController, :update_document_type
+      delete "/delete_document_type/:id", PGTRController, :delete_document_type
+
+      post "/create_document", PGTRController, :create_document
+      put "/update_document/:id", PGTRController, :update_document
+      delete "/delete_document/:id", PGTRController, :delete_document
+    end
   end
 
   scope "/", PescarteWeb do
