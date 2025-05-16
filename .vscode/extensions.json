@@ -2,10 +2,10 @@
   "recommendations": [
     "aaron-bond.better-comments",
     "editorconfig.editorconfig",
-    "jakebecker.elixir-ls",
+    "elixir-tools.vscode",
     "kisstkondoros.vscode-gutter-preview",
     "byi8220.indented-block-highlighting",
     "christian-kohler.path-intellisense",
     "phoenixframework.phoenix"
-  ],
+  ]
 }
