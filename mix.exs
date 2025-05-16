@@ -67,9 +67,10 @@ defmodule Pescarte.MixProject do
       {:gettext, "~> 0.24"},
       {:explorer, "~> 0.8.1"},
       {:swiss_schema, "~> 0.5"},
-      {:supabase_potion, "~> 0.6"},
-      {:supabase_gotrue, "~> 0.4"},
-      {:supabase_storage, "~> 0.4"},
+      {:supabase_potion,
+       github: "supabase-community/supabase-ex", branch: "fix/missing-api-key", override: true},
+      {:supabase_gotrue, github: "supabase-community/auth-ex"},
+      {:supabase_storage, github: "supabase-community/storage-ex"},
       {:flop, "~> 0.26"},
       {:flop_phoenix, "~> 0.23"},
       {:resend, "~> 0.4.0"},
@@ -80,6 +81,8 @@ defmodule Pescarte.MixProject do
       {:mox, "~> 1.0", only: [:test]},
       {:rewire, "~> 0.9", only: [:test]},
       {:faker, "~> 0.18", only: :test},
+      {:tailwind, "~> 0.3", runtime: Mix.env() == :dev},
+      {:esbuild, "~> 0.9", runtime: Mix.env() == :dev},
       {:dialyxir, "~> 1.3", only: :dev, runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:ex_doc, "> 0.0.0", only: :dev, runtime: false},
@@ -94,8 +97,13 @@ defmodule Pescarte.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.build": ["cmd --cd assets node build.js"],
-      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind pescarte", "esbuild pescarte"],
+      "assets.deploy": [
+        "tailwind pescarte --minify",
+        "esbuild pescarte --minify",
+        "phx.digest"
+      ],
       lint: ["compile --warning-as-errors", "clean", "format --check-formatted", "credo --strict"],
       "ci.check": ["lint", "test --only unit", "test --only integration"]
     ]

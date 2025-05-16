@@ -24,24 +24,24 @@
         beam = packagesWith erlang_27;
 
         elixir_1_18 = beam.elixir.override {
-          version = "1.18.2";
+          version = "1.18.3";
           src = pkgs.fetchFromGitHub {
             repo = "elixir";
             owner = "elixir-lang";
-            rev = "v1.18.2";
-            sha256 = "sha256-8FhUKAaEjBBcF0etVPdkxMfrnR5niU40U8cxDRJdEok=";
+            rev = "v1.18.3";
+            sha256 = "sha256-jH+1+IBWHSTyqakGClkP1Q4O2FWbHx7kd7zn6YGCog0=";
           };
         };
 
-        supabase-cli = pkgs.supabase-cli.overrideAttrs (old: {
-          version = "2.15.8";
+        supabase-cli-latest = pkgs.supabase-cli.overrideAttrs (old: {
+          version = "2.20.12";
           src = pkgs.fetchFromGitHub {
             owner = "supabase";
             repo = "cli";
-            rev = "v2.15.8";
-            hash = "sha256-ha3wY2uzC93LlO6a/sgHg2uvU+0+PD/982bzIo0rcBE=";
+            rev = "v2.20.12";
+            hash = "sha256-7zfQ7ePxCV0hkGoLnxfL2QR3qXTWoFbkVBl1jzYXpFg=";
           };
-          vendorHash = "sha256-1IVdsW8vdu2c8ht6d/+yAiHnu5Cwe46QCgUA9F8rnEM=";
+          vendorHash = "sha256-1zZ0UskHiyYsyi1wgTF16zj6pJ3UStLt3RKGfry7zJI=";
         });
       in {
         _module.args.pkgs = import inputs.nixpkgs {
@@ -52,7 +52,7 @@
           mkShell {
             name = "peapescarte";
             packages = with pkgs;
-              [elixir_1_18 supabase-cli nodejs ghostscript zlib postgresql flyctl pass]
+              [elixir_1_18 supabase-cli-latest nodejs ghostscript zlib postgresql flyctl pass]
               ++ lib.optional stdenv.isLinux [inotify-tools chromium]
               ++ lib.optional stdenv.isDarwin [
                 darwin.apple_sdk.frameworks.CoreServices

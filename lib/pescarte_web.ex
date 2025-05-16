@@ -18,7 +18,7 @@ defmodule PescarteWeb do
   """
 
   def static_paths do
-    ~w(assets fonts images favicon.ico apple-touch-icon.png favicon-32x32.png favicon-16x16.png safari-pinned-tab.svg browserconfig.xml service_worker.js cache_manifest.json manifest.json android-chrome-192x192.png android-chrome-384x384.png icons appointments_data equipes)
+    ~w(assets fonts images favicon.ico apple-touch-icon.png favicon-32x32.png favicon-16x16.png safari-pinned-tab.svg browserconfig.xml service_worker.js  manifest.json android-chrome-192x192.png android-chrome-384x384.png icons appointments_data equipes)
   end
 
   @spec controller :: Macro.t()
