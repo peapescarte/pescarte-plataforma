@@ -31,7 +31,7 @@ config :tailwind,
   version: "4.1.7",
   pescarte: [
     args: ~w(
-      --input=assets/css/app.scss
+      --input=assets/css/app.css
       --output=priv/static/assets/css/app.css
     ),
     cd: Path.expand("..", __DIR__)

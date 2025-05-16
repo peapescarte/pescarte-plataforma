@@ -1,0 +1,334 @@
+.pesquisador-form-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.pesquisador-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.pesquisador-form-header h1 {
+  color: var(--preto-100);
+}
+
+.pesquisador-form-header .back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--azul-100);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.pesquisador-form-header .back-btn:hover {
+  text-decoration: underline;
+}
+
+.pesquisador-form-container {
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 1px solid var(--preto-10);
+  overflow: hidden;
+}
+
+.pesquisador-form-nav {
+  display: flex;
+  border-bottom: 1px solid var(--preto-10);
+  overflow-x: auto;
+}
+
+.pesquisador-form-nav-item {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+  color: var(--preto-60);
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+
+.pesquisador-form-nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: transparent;
+}
+
+.pesquisador-form-nav-item:hover {
+  color: var(--azul-80);
+}
+
+.pesquisador-form-nav-item.active {
+  color: var(--azul-100);
+}
+
+.pesquisador-form-nav-item.active::after {
+  background-color: var(--azul-100);
+}
+
+.pesquisador-form-content {
+  padding: 2rem;
+}
+
+.pesquisador-form-section {
+  margin-bottom: 2.5rem;
+}
+
+.pesquisador-form-section:last-child {
+  margin-bottom: 0;
+}
+
+.pesquisador-form-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--preto-100);
+  font-size: 1.25rem;
+}
+
+.pesquisador-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.pesquisador-form-field {
+  margin-bottom: 1.5rem;
+}
+
+.pesquisador-form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--preto-80);
+  font-weight: 500;
+}
+
+.pesquisador-form-field label.required::after {
+  content: "*";
+  color: var(--vermelho-100);
+  margin-left: 0.25rem;
+}
+
+.pesquisador-form-field input,
+.pesquisador-form-field select,
+.pesquisador-form-field textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--preto-20);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.pesquisador-form-field input:focus,
+.pesquisador-form-field select:focus,
+.pesquisador-form-field textarea:focus {
+  border-color: var(--azul-80);
+  outline: none;
+}
+
+.pesquisador-form-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.pesquisador-form-field .hint {
+  margin-top: 0.25rem;
+  color: var(--preto-40);
+  font-size: 0.75rem;
+}
+
+.pesquisador-form-field .error {
+  margin-top: 0.25rem;
+  color: var(--vermelho-100);
+  font-size: 0.75rem;
+}
+
+.pesquisador-form-field.error input,
+.pesquisador-form-field.error select,
+.pesquisador-form-field.error textarea {
+  border-color: var(--vermelho-100);
+}
+
+.pesquisador-form-field-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pesquisador-form-field-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.pesquisador-form-field-checkbox label {
+  margin-bottom: 0;
+  font-weight: normal;
+  color: var(--preto-60);
+}
+
+.pesquisador-form-field-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.pesquisador-form-field-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pesquisador-form-field-radio input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.pesquisador-form-field-radio label {
+  margin-bottom: 0;
+  font-weight: normal;
+  color: var(--preto-60);
+}
+
+.pesquisador-form-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid var(--preto-10);
+  margin-top: 2rem;
+}
+
+.pesquisador-form-actions .btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pesquisador-form-actions .btn.primary {
+  background-color: var(--azul-100);
+  color: white;
+  border: none;
+}
+
+.pesquisador-form-actions .btn.primary:hover {
+  background-color: var(--azul-80);
+}
+
+.pesquisador-form-actions .btn.secondary {
+  background-color: transparent;
+  border: 1px solid var(--azul-100);
+  color: var(--azul-100);
+}
+
+.pesquisador-form-actions .btn.secondary:hover {
+  background-color: var(--azul-5);
+}
+
+.pesquisador-form-actions .btn.danger {
+  background-color: var(--vermelho-100);
+  color: white;
+  border: none;
+}
+
+.pesquisador-form-actions .btn.danger:hover {
+  background-color: var(--vermelho-80);
+}
+
+.pesquisador-form-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border: 2px dashed var(--preto-20);
+  border-radius: 0.5rem;
+  background-color: var(--preto-5);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.pesquisador-form-dropzone:hover,
+.pesquisador-form-dropzone.active {
+  border-color: var(--azul-80);
+  background-color: var(--azul-5);
+}
+
+.pesquisador-form-dropzone .icon {
+  color: var(--azul-100);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pesquisador-form-dropzone h3 {
+  margin-bottom: 0.5rem;
+  color: var(--preto-80);
+  font-size: 1.125rem;
+}
+
+.pesquisador-form-dropzone p {
+  color: var(--preto-40);
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.pesquisador-form-file-list {
+  margin-top: 1.5rem;
+}
+
+.pesquisador-form-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid var(--preto-10);
+  border-radius: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.pesquisador-form-file .info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pesquisador-form-file .info .icon {
+  color: var(--azul-100);
+}
+
+.pesquisador-form-file .info .name {
+  font-size: 0.875rem;
+  color: var(--preto-80);
+}
+
+.pesquisador-form-file .info .size {
+  font-size: 0.75rem;
+  color: var(--preto-40);
+}
+
+.pesquisador-form-file .actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pesquisador-form-file .actions button {
+  color: var(--preto-40);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.pesquisador-form-file .actions button:hover {
+  color: var(--vermelho-100);
+}

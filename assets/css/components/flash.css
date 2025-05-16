@@ -1,0 +1,75 @@
+.flash-component {
+  display: inline-flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  z-index: 30;
+  max-width: 25rem;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.75rem;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border-radius: 0.25rem;
+  background-color: #fff;
+}
+
+.flash-component .flash {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.flash-component .flash .flash-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.flash-component .flash p {
+  color: var(--preto-80);
+}
+
+.flash-component.success {
+  border: 2px solid var(--verde-40);
+}
+
+.flash-component.success .flash-icon {
+  color: var(--verde-100);
+}
+
+.flash-component.warning {
+  border: 2px solid var(--amarelo-40);
+}
+
+.flash-component.warning .flash-icon {
+  color: var(--amarelo-100);
+}
+
+.flash-component.error {
+  border: 2px solid var(--vermelho-40);
+}
+
+.flash-component.error .flash-icon {
+  color: var(--vermelho-100);
+}
+
+.flash-component.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 200ms ease-in-out,
+    transform 200ms ease-in-out;
+}
+
+#flash-group {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  align-items: flex-end;
+  top: 1.5rem;
+  right: 1.5rem;
+  gap: 0.5rem;
+}
+
+#flash-group .flash-component {
+  position: relative;
+}

@@ -1,4 +1,3 @@
-import "../css/app.scss";
 import "@glidejs/glide/dist/css/glide.core.min.css";
 
 import "phoenix_html";
