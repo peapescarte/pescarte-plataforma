@@ -23,6 +23,7 @@
     "topbar": "^3.0.0"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^0.2.36"
+    "@anthropic-ai/claude-code": "^0.2.36",
+    "prettier": "3.5.3"
   }
 }

@@ -101,7 +101,11 @@
         position: relative;
         width: 100%;
         box-sizing: border-box;
-        background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(16, 16, 16, 0) 0%,
+          #101010 100%
+        );
 
         img {
           @apply block absolute;
@@ -341,7 +345,9 @@
         width: 80%;
         height: auto;
 
-        transition: transform 0.3s ease, width 0.3s ease;
+        transition:
+          transform 0.3s ease,
+          width 0.3s ease;
         transform: scale(0.8);
         border-radius: 8px;
         overflow: hidden;
@@ -418,7 +424,6 @@
   min-height: 25rem;
   grid-area: top-banner;
 }
-
 
 .bottom-banner {
   @apply w-full;
@@ -551,13 +556,9 @@
       }
     }
   }
-
 }
 
 @media (min-width: 350px) and (max-width: 529px) {
-
-
-
   .links-landing {
     @apply flex flex-col justify-center items-center;
     width: 100%;
@@ -661,13 +662,9 @@
       }
     }
   }
-
 }
 
 @media (min-width: 350px) and (max-width: 529px) {
-
-
-
   .links-landing {
     @apply flex flex-col justify-center items-center;
     width: 100%;

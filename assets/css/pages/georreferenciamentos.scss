@@ -9,7 +9,6 @@
 }
 
 @media (min-width: 530px) and (max-width: 770px) {
-
   .georreferenciamento-wrapper {
     .card-links {
       border-radius: 8px;
@@ -20,14 +19,17 @@
         height: 16rem;
         border-radius: 8px;
         box-sizing: border-box;
-        background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(16, 16, 16, 0) 0%,
+          #101010 100%
+        );
       }
     }
   }
 }
 
 @media (min-width: 350px) and (max-width: 529px) {
-
   .georreferenciamento-wrapper {
     .card-links {
       border-radius: 8px;
@@ -38,7 +40,11 @@
         height: 15rem;
         border-radius: 8px;
         box-sizing: border-box;
-        background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(16, 16, 16, 0) 0%,
+          #101010 100%
+        );
       }
     }
   }

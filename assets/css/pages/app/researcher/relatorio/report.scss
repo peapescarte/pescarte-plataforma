@@ -1,3 +1,6 @@
+// Let's hardcode the value for now as a temporary solution
+$footer-height: 6.438rem;
+
 .report-wrapper {
   @apply w-full;
 
@@ -5,11 +8,11 @@
   overflow-y: scroll;
   height: calc(100vh - $footer-height);
 
-  >h1 {
+  > h1 {
     margin: 2.5rem 0;
   }
 
-  >form {
+  > form {
     @apply flex flex-col;
     gap: 1.5rem;
 

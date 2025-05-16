@@ -2,7 +2,7 @@ module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/pescarte_web.ex",
-    "../lib/pescarte_web/**/*.*ex"
+    "../lib/pescarte_web/**/*.*ex",
   ],
   theme: {
     colors: {
@@ -88,10 +88,22 @@ module.exports = {
     },
     container: {
       center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+      },
     },
     extend: {
-      borderWith: { 1: "1.5px" },
+      borderWidth: { 1: "1.5px" }, // Fixed typo from borderWith to borderWidth
     },
   },
-  plugins: [require('@tailwindcss/forms')]
+  plugins: [require("@tailwindcss/forms")],
+  future: {
+    // Preparing for Tailwind CSS v4 which uses standard CSS features
+    hoverOnlyWhenSupported: true,
+    respectDefaultRingColorOpacity: true,
+    disableColorOpacityUtilitiesByDefault: true,
+  },
 };

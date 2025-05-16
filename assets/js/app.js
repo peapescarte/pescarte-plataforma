@@ -1,12 +1,11 @@
 import "../css/app.scss";
-import "../node_modules/@glidejs/glide/src/assets/sass/glide.core.scss";
+import "@glidejs/glide/dist/css/glide.core.min.css";
 
 import "phoenix_html";
 import Inputmask from "inputmask";
 
-import './accordion';
-
-import './glide';
+import "./accordion";
+import "./glide";
 import "./date_input";
 
 function onVisible(elem, callback) {
@@ -25,21 +24,23 @@ if (window.location.pathname === "/acessar") {
   });
 }
 
-document.querySelectorAll(`[data-component="navbar-dropdown"]`).forEach(el => {
-  const dropdown = el.querySelector(".nav-dropdown");
+document
+  .querySelectorAll(`[data-component="navbar-dropdown"]`)
+  .forEach((el) => {
+    const dropdown = el.querySelector(".nav-dropdown");
 
-  const show = () => dropdown.classList.remove("invisible");
-  const hide = () => dropdown.classList.add("invisible");
+    const show = () => dropdown.classList.remove("invisible");
+    const hide = () => dropdown.classList.add("invisible");
 
-  el.addEventListener("mouseover", e => show());
-  dropdown.addEventListener("mouseleave", e => hide());
-});
+    el.addEventListener("mouseover", (e) => show());
+    dropdown.addEventListener("mouseleave", (e) => hide());
+  });
 
 window.addEventListener("phx:js-exec", ({ detail }) => {
-  document.querySelectorAll(detail.to).forEach(el => {
-    liveSocket.execJS(el, el.getAttribute(detail.attr))
-  })
-})
+  document.querySelectorAll(detail.to).forEach((el) => {
+    liveSocket.execJS(el, el.getAttribute(detail.attr));
+  });
+});
 
 // Phoenix Hooks
 let Hooks = {};
@@ -50,8 +51,8 @@ Hooks.CpfNumberMask = {
 
     // input masks
     if (cpf) Inputmask({ mask: "999.999.999-99" }).mask(cpf);
-  }
-}
+  },
+};
 
 Hooks.MobileMask = {
   mounted() {
@@ -59,8 +60,8 @@ Hooks.MobileMask = {
 
     // input masks
     if (mob) Inputmask({ mask: "+99 (99) 99999-9999" }).mask(mob);
-  }
-}
+  },
+};
 
 Hooks.NavbarHover = {
   mounted() {
@@ -73,7 +74,7 @@ Hooks.NavbarHover = {
     navbar.addEventListener("mouseleave", (e) => {
       this.pushEventTo(navbar, "mouseleave");
     });
-  }
+  },
 };
 
 // LIVE VIEW

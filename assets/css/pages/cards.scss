@@ -1,7 +1,6 @@
 .card-links {
   @apply flex flex-wrap justify-center;
 
-
   .card-item {
     @apply flex flex-col justify-start items-start m-8;
     width: 20.125rem;
@@ -48,30 +47,28 @@
   }
 }
 
-@media (max-width: 768px) and (min-width: 577px){
-.card-links{
-  .card-item{
-    width: 70%;
-    height: 16rem;
+@media (max-width: 768px) and (min-width: 577px) {
+  .card-links {
+    .card-item {
+      width: 70%;
+      height: 16rem;
 
-    img{
-      border-radius: 8px;
-    }
-  }
-}
-
-}
-
-@media (min-width: 350px) and (max-width: 576px){
-  .card-links{
-    .card-item{
-      width: 80%;
-      height: 14rem;
-
-      img{
+      img {
         border-radius: 8px;
       }
     }
   }
+}
 
+@media (min-width: 350px) and (max-width: 576px) {
+  .card-links {
+    .card-item {
+      width: 80%;
+      height: 14rem;
+
+      img {
+        border-radius: 8px;
+      }
+    }
+  }
 }

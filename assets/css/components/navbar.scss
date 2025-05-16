@@ -1,3 +1,5 @@
+@use "../sass_vars" as vars;
+
 .navbar {
   @apply flex justify-between items-center;
   @apply w-full border-black-10 bg-white-100;
@@ -63,7 +65,9 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
     transform: translateY(-20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
 
     .nav-menu {
       @apply flex;
@@ -99,7 +103,7 @@
 
   position: fixed;
   padding: 40px;
-  width: $nav-width;
+  width: vars.$nav-width;
   -webkit-transition: width 0.05s linear;
   transition: width 0.1s linear;
   transform: translateZ(0) scale(1, 1);
@@ -108,7 +112,6 @@
   .logo-auth {
     margin-bottom: 5rem;
   }
-
 
   .user-info {
     @apply flex justify-center;
@@ -186,7 +189,6 @@
       }
 
       &:hover {
-
         svg,
         p {
           @apply text-blue-80;

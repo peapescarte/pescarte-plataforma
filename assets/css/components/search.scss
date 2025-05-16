@@ -14,7 +14,6 @@
   @apply flex justify-between items-center border-black-10 text-black-80;
   @apply border-2 border-black-10;
 
-
   height: 3rem;
   width: inherit;
   font-size: 1rem;
@@ -33,7 +32,7 @@
       left: 50;
       width: 17rem;
       height: 1.5px;
-      margin: .75rem 0;
+      margin: 0.75rem 0;
     }
   }
 
@@ -59,7 +58,7 @@
 
   border-top: 0;
   display: none;
-  padding: .75rem;
+  padding: 0.75rem;
   width: inherit;
   height: auto;
   top: 94%;

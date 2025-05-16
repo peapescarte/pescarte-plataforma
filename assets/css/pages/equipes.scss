@@ -1,0 +1,268 @@
+.equipes-wrapper {
+  @apply flex;
+  flex-direction: column;
+  margin-top: 5rem;
+
+  .nossas-equipes-wrapper {
+    @apply flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5rem;
+
+    .nossas-equipes-container {
+      @apply flex relative;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 0 2.5rem 0 2.5rem;
+      margin-bottom: 5rem;
+      border-radius: 1.5rem;
+
+      .nossas-equipes-card {
+        @apply relative;
+
+        img {
+          @apply absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 1rem;
+          z-index: 1;
+
+          @media (max-width: 768px) {
+            height: 100%;
+            padding: 0;
+            border-radius: 1rem;
+            object-fit: cover;
+          }
+        }
+
+        // Conteúdo sobreposto à imagem
+        .nossas-equipes-content {
+          height: 12.84rem;
+          @apply flex relative;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1.5rem;
+          text-align: center;
+          z-index: 2; // Colocado acima da imagem
+          width: 100%; // Para ocupar toda a largura do pai
+
+          a,
+          div {
+            @apply flex text-white-100;
+            justify-content: center;
+            align-items: center;
+            width: 10.938rem;
+            height: 2.563rem;
+            font-size: 0.875rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            cursor: pointer;
+
+            @media (max-width: 768px) {
+              font-size: 0.75rem;
+            }
+          }
+
+          //nossas-equipes-content
+          @media (max-width: 768px) {
+            height: auto;
+            @apply flex;
+            width: fit-content;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+          }
+        }
+
+        //nossas-equipes-card
+        @media (max-width: 768px) {
+          @apply flex relative;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          margin-bottom: 0;
+
+          h2 {
+            font-size: 1.2rem;
+            padding: 0;
+          }
+        }
+      }
+
+      .nossas-equipes-content-collapsed {
+        @apply flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 2.5rem 2.5rem;
+        gap: 3rem;
+
+        .margin {
+          margin: 1rem;
+        }
+
+        .bold {
+          font-weight: 700;
+        }
+
+        h4 {
+          font-size: 16px;
+          line-height: 18px;
+        }
+
+        .collapsed-menu-wrapper {
+          @apply flex bg-blue-100;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.5rem;
+          border-radius: 8px;
+
+          svg {
+            @apply text-white-100;
+          }
+        }
+
+        .collapsed-menu-content {
+          padding: 0 1.5rem 0 1.5rem;
+
+          h4:nth-child(1) {
+            margin-bottom: 2.5rem;
+          }
+
+          .linha-pesquisa {
+            @apply flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+
+            .linha-pesquisa-header {
+              @apply flex;
+              flex-direction: column;
+              gap: 1.5rem;
+
+              //linha-pesquisa-header
+              @media (max-width: 768px) {
+                h3 {
+                  font-size: 1.2rem;
+                }
+              }
+            }
+
+            //linha-pesquisa
+            @media (max-width: 768px) {
+              h3 {
+                font-size: 1.2rem;
+              }
+            }
+
+            .membros {
+              @apply flex;
+              flex-direction: column;
+              gap: 2.5rem;
+
+              .membro-equipe {
+                @apply flex;
+                align-items: center;
+                gap: 1rem;
+
+                .membro-circle {
+                  @apply flex bg-blue-100;
+                  justify-content: center;
+                  border-radius: 50%;
+                  overflow: hidden;
+                  width: 3.75rem;
+                  height: 3.75rem;
+
+                  img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+
+                    @media (max-width: 768px) {
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                      border-radius: 50%;
+                    }
+                  }
+
+                  //membro-circle
+                  @media (max-width: 768px) {
+                    width: 4rem;
+                    height: 4rem;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                }
+
+                .membro-circle-transparent {
+                  @apply flex;
+                  justify-content: center;
+                  width: 3rem;
+                  height: auto;
+
+                  img {
+                    width: 100%;
+                  }
+                }
+
+                .membro-description {
+                  @apply flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  gap: 0.5rem;
+
+                  .membro-name {
+                    @apply flex;
+                    align-items: center;
+                    gap: 0.75rem;
+
+                    & h5:nth-child(1) {
+                      font-weight: 600;
+                    }
+
+                    .lider {
+                      @apply bg-blue-10;
+                      border-radius: 2px;
+                      padding: 0.5rem;
+                    }
+                  }
+                }
+
+                //membro-equipe
+                @media (max-width: 768px) {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 1rem;
+                }
+              }
+            }
+          }
+        }
+
+        //nossas-equipes-content-collapsed
+        @media (max-width: 768px) {
+          margin: 0.5rem 0.5rem;
+          h2 {
+            font-size: 1.2rem;
+            line-height: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1264px) {
+  .nossas-equipes-container {
+    width: 1360px;
+  }
+}

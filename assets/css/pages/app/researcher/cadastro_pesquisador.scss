@@ -1,13 +1,13 @@
 .item-secao {
-    @apply justify-between items-center;
-    @apply w-full border-black-10 bg-white-100;
+  @apply justify-between items-center;
+  @apply w-full border-black-10 bg-white-100;
 
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .item-fieldset {
-    width: 17.25rem;
-    height: 5.25rem;
+  width: 17.25rem;
+  height: 5.25rem;
 }

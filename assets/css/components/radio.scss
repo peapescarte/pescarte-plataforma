@@ -88,7 +88,9 @@ input[type="radio"] {
         scale: 1;
         opacity: 0.12;
         box-shadow: 0 0 0 13px rgba(0, 0, 0, 0.6);
-        transition: box-shadow 0.2s, transform 0.2s;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
       }
     }
   }

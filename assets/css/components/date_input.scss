@@ -1,4 +1,8 @@
-@import "~air-datepicker/air-datepicker";
+/* 
+ * Using the CSS import instead of Sass @import to avoid deprecation warnings
+ * Sass @import is deprecated and will be removed in Dart Sass 3.0.0
+ */
+@import url("air-datepicker/dist/air-datepicker.css");
 
 .air-datepicker {
   @apply text-black-80 border-black-10;
