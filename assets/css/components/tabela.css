@@ -1,57 +1,39 @@
 .tabela-container {
-  width: 100%;
-  overflow-x: auto;
+  @apply w-full overflow-x-auto;
 }
 
 .tabela {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
+  @apply w-full border-collapse border-spacing-0;
 }
 
 .tabela th {
-  background-color: var(--preto-5);
-  color: var(--preto-80);
-  font-weight: 600;
-  text-align: left;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--preto-20);
+  @apply bg-neutral-5 text-neutral-80 font-semibold text-left py-3 px-4 border-b border-neutral-20;
 }
 
 .tabela td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--preto-10);
+  @apply py-3 px-4 border-b border-neutral-10;
 }
 
 .tabela tr:hover td {
-  background-color: var(--preto-5);
+  @apply bg-neutral-5;
 }
 
 .tabela .acoes {
-  display: flex;
-  gap: 0.5rem;
+  @apply flex gap-2;
 }
 
 .tabela-paginacao {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  @apply flex justify-end items-center gap-4 mt-4;
 }
 
 .tabela-paginacao button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--azul-80);
+  @apply bg-transparent border-none cursor-pointer text-primary-80;
 }
 
 .tabela-paginacao button:disabled {
-  color: var(--preto-40);
-  cursor: not-allowed;
+  @apply text-neutral-40 cursor-not-allowed;
 }
 
 .tabela-paginacao .pagina-atual {
-  color: var(--preto-80);
+  @apply text-neutral-80;
 }

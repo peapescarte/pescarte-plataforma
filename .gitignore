@@ -48,3 +48,5 @@ result
 
 # macOS
 .DS_Store
+
+/priv/supabase/

@@ -1,74 +1,39 @@
 .multiple-select-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  @apply relative flex flex-col w-full;
 }
 
 .multiple-select-container label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+  @apply font-medium mb-2;
 }
 
 .multiple-select-container .selected-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  border: 1.5px solid var(--preto-20);
-  border-radius: 0.25rem;
-  min-height: 3rem;
+  @apply flex flex-wrap gap-2 p-2 border-[1.5px] border-neutral-20 rounded min-h-12;
 }
 
 .multiple-select-container .selected-items .item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  background-color: var(--azul-10);
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
+  @apply flex items-center gap-2 py-1 px-2 bg-primary-10 rounded text-sm;
 }
 
 .multiple-select-container .selected-items .item button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--preto-60);
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 0;
+  @apply bg-transparent border-none cursor-pointer text-neutral-60 flex items-center p-0 m-0;
 }
 
 .multiple-select-container .dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  max-height: 12rem;
-  overflow-y: auto;
-  background-color: white;
-  border: 1.5px solid var(--preto-20);
-  border-top: none;
-  border-radius: 0 0 0.25rem 0.25rem;
-  z-index: 10;
-  display: none;
+  @apply absolute top-full left-0 w-full max-h-48 overflow-y-auto bg-white-100 border-[1.5px] border-neutral-20 border-t-0 rounded-b z-10 hidden;
 }
 
 .multiple-select-container .dropdown.open {
-  display: block;
+  @apply block;
 }
 
 .multiple-select-container .dropdown .option {
-  padding: 0.75rem 1rem;
-  cursor: pointer;
+  @apply py-3 px-4 cursor-pointer;
 }
 
 .multiple-select-container .dropdown .option:hover {
-  background-color: var(--preto-5);
+  @apply bg-neutral-5;
 }
 
 .multiple-select-container .dropdown .option.selected {
-  background-color: var(--azul-10);
+  @apply bg-primary-10;
 }

@@ -1,49 +1,29 @@
 .select-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  @apply relative flex flex-col w-full;
 }
 
 .select-container label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+  @apply font-medium mb-2;
 }
 
 .select-container select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  padding-right: 2.5rem;
-  border: 1.5px solid var(--preto-20);
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  appearance: none;
+  @apply w-full px-4 py-3 pr-10 border-[1.5px] border-neutral-20 rounded text-base leading-relaxed appearance-none transition-colors duration-150;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-  background-size: 1.25rem;
-  transition: border-color 0.15s ease-in-out;
+  @apply bg-no-repeat bg-right-1/2 bg-[length:1.25rem];
 }
 
 .select-container select:hover {
-  border-color: var(--preto-40);
+  @apply border-neutral-40;
 }
 
 .select-container select:focus {
-  border-color: var(--azul-80);
-  outline: 0;
+  @apply border-primary-80 outline-none;
 }
 
 .select-container select:disabled {
-  background-color: var(--preto-5);
-  border-color: var(--preto-10);
-  color: var(--preto-60);
-  cursor: not-allowed;
+  @apply bg-neutral-5 border-neutral-5 text-neutral-60 cursor-not-allowed;
 }
 
 .select-container .error-message {
-  color: var(--vermelho-100);
-  margin-top: 0.25rem;
-  font-size: 0.875rem;
+  @apply text-error mt-1 text-sm;
 }

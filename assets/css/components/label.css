@@ -1,20 +1,12 @@
 .label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--preto-80);
-  margin-bottom: 0.5rem;
+  @apply block text-sm font-medium text-neutral-80 mb-2;
 }
 
 .label.required::after {
   content: "*";
-  color: var(--vermelho-100);
-  margin-left: 0.25rem;
+  @apply text-error ml-1;
 }
 
 .label-hint {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--preto-60);
-  margin-top: 0.25rem;
+  @apply block text-xs text-neutral-60 mt-1;
 }

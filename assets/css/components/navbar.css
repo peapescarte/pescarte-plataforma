@@ -1,222 +1,142 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  border-color: var(--preto-10);
-  background-color: #fff;
-  height: 98px;
+  @apply flex justify-between items-center w-full border-neutral-10 bg-white-100 h-[98px];
 }
 
 .navbar .logo {
-  margin: 1.5rem 0 1.5rem 6.25rem;
+  @apply m-6 ml-[6.25rem];
 }
 
 @media screen and (max-width: 768px) {
   .navbar .logo {
-    margin: 1.5rem 1.5rem;
+    @apply m-6;
   }
 }
 
 .navbar .login-button {
-  display: flex;
-  margin: 24px 100px 24px 0px;
+  @apply flex my-6 mr-[100px];
 }
 
 .navbar .nav-menu {
-  justify-content: space-between;
-  align-items: center;
-  gap: 3rem;
-  margin: 21px 0;
+  @apply justify-between items-center gap-12 my-[21px];
 }
 
 .navbar .nav-menu a:hover {
-  text-decoration: none;
+  @apply no-underline;
 }
 
 .navbar .nav-menu .nav-link {
-  padding: 16px 0px;
-  max-height: 56px;
-  max-width: 200px;
+  @apply py-4 px-0 max-h-14 max-w-[200px];
 }
 
 .navbar .nav-menu .nav-link.active {
-  border-bottom: 2px solid var(--azul-100);
+  @apply border-b-2 border-primary-100;
 }
 
 .navbar .nav-menu .nav-link:hover,
 .navbar .nav-menu .nav-link:focus-within {
-  border-bottom: 2px solid var(--azul-100);
-  cursor: pointer;
+  @apply border-b-2 border-primary-100 cursor-pointer;
 }
 
 .navbar .hamburger-button {
-  margin: 1.5rem;
+  @apply m-6;
 }
 
 @media (min-width: 768px) {
   .navbar .hamburger-button {
-    display: none;
+    @apply hidden;
   }
 }
 
 #navbar {
-  position: relative;
-  z-index: 20;
+  @apply relative z-20;
 }
 
 #navbar .hamburger-container {
-  position: absolute;
-  background-color: #fff;
-  margin-top: 8px;
-  padding: 24px 24px;
-  top: calc(100% + 8px);
-  left: 0;
-  width: 100%;
-  z-index: 10;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transform: translateY(-20px);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  @apply absolute bg-white-100 mt-2 p-6 top-[calc(100%+8px)] left-0 w-full z-10 shadow-md -translate-y-5 transition-all duration-300;
 }
 
 #navbar .hamburger-container .nav-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+  @apply flex flex-col gap-8;
 }
 
 #navbar .hamburger-container a button {
-  margin-top: 16px;
+  @apply mt-4;
 }
 
 .arrow-open,
 .arrow-close {
-  background-color: #fff;
-  color: var(--azul-100);
-  border-radius: 9999px;
-  border: 2px solid var(--preto-10);
-  height: 32px;
-  width: 32px;
-  padding: 8px;
-  z-index: 100;
-  position: fixed;
-  top: 50%;
-  right: -1rem;
+  @apply bg-white-100 text-primary-100 rounded-full border-2 border-neutral-10 h-8 w-8 p-2 z-100 fixed top-1/2 -right-4;
 }
 
 .navbar-authenticated {
-  overflow: visible;
-  border-color: var(--preto-10);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: fixed;
-  padding: 40px;
-  width: var(--nav-width);
-  -webkit-transition: width 0.05s linear;
-  transition: width 0.1s linear;
-  transform: translateZ(0) scale(1, 1);
-  border-right-width: 1px;
+  @apply overflow-visible border-neutral-10 flex flex-col items-center w-full fixed p-10 w-[var(--nav-width)] transition-[width] duration-100 translate-z-0 scale-100 border-r;
 }
 
 .navbar-authenticated .logo-auth {
-  margin-bottom: 5rem;
+  @apply mb-20;
 }
 
 .navbar-authenticated .user-info {
-  display: flex;
-  justify-content: center;
-  margin-top: 12rem;
+  @apply flex justify-center mt-48;
 }
 
 .navbar-authenticated .user-info svg {
-  width: 3.75rem;
-  height: 3.75rem;
+  @apply w-[3.75rem] h-[3.75rem];
 }
 
 .navbar-authenticated .nav-menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  height: 26.875rem;
+  @apply flex flex-col items-center justify-start h-[26.875rem];
 }
 
 .navbar-authenticated .nav-menu a {
-  display: flex;
-  justify-content: center;
+  @apply flex justify-center;
 }
 
 .navbar-authenticated .nav-menu a .nav-item {
-  display: flex;
-  color: var(--preto-60);
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0.813rem 1rem 0.813rem;
+  @apply flex text-neutral-60 items-center justify-center py-4 px-[0.813rem];
 }
 
 .navbar-authenticated .nav-menu .active svg {
-  color: var(--azul-80);
+  @apply text-primary-80;
 }
 
 .navbar-authenticated.open {
-  position: relative;
-  background-color: #fff;
-  align-items: center;
-  z-index: 10;
-  width: 20rem;
+  @apply relative bg-white-100 items-center z-10 w-80;
 }
 
 .navbar-authenticated.open .user-info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: auto;
+  @apply flex justify-center items-center mt-auto;
 }
 
 .navbar-authenticated.open .user-info svg {
-  width: 3.75rem;
-  height: 3.75rem;
-  margin-right: 0.75rem;
+  @apply w-[3.75rem] h-[3.75rem] mr-3;
 }
 
 .navbar-authenticated.open .nav-menu {
-  display: flex;
+  @apply flex;
 }
 
 .navbar-authenticated.open .nav-menu a {
-  display: flex;
-  width: 85%;
-  justify-content: flex-start;
-  align-items: center;
-  text-decoration: none;
+  @apply flex w-[85%] justify-start items-center no-underline;
 }
 
 .navbar-authenticated.open .nav-menu a .nav-item {
-  display: flex;
-  padding: 1rem 1.5rem 1rem 1.5rem;
-  justify-content: center;
-  align-items: center;
+  @apply flex py-4 px-6 justify-center items-center;
 }
 
 .navbar-authenticated.open .nav-menu a .nav-item p {
-  padding: 0.5rem;
+  @apply p-2;
 }
 
 .navbar-authenticated.open .nav-menu a:hover svg,
 .navbar-authenticated.open .nav-menu a:hover p {
-  color: var(--azul-80);
+  @apply text-primary-80;
 }
 
 .navbar-authenticated.open .active svg {
-  color: var(--preto-60);
+  @apply text-neutral-60;
 }
 
 .navbar-authenticated.open .logo {
-  margin-bottom: 5rem;
-  width: 12.25rem;
-  height: 3.8rem;
+  @apply mb-20 w-[12.25rem] h-[3.8rem];
 }

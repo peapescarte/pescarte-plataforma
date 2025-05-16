@@ -1,64 +1,35 @@
 .error-404-page {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  text-align: center;
+  @apply w-full h-screen flex flex-col justify-center items-center p-8 text-center;
 }
 
 .error-404-image {
-  max-width: 400px;
-  margin-bottom: 2rem;
+  @apply max-w-[400px] mb-8;
 }
 
 .error-404-content h1 {
-  font-size: 3rem;
-  color: var(--preto-100);
-  margin-bottom: 1rem;
+  @apply text-5xl text-neutral-100 mb-4;
 }
 
 .error-404-content p {
-  font-size: 1.25rem;
-  color: var(--preto-60);
-  margin-bottom: 2rem;
-  max-width: 600px;
+  @apply text-xl text-neutral-60 mb-8 max-w-[600px];
 }
 
 .error-404-content .actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  @apply flex justify-center gap-4;
 }
 
 .error-404-content .btn-primary {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--azul-100);
-  color: white;
-  border: none;
-  border-radius: 0.25rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
+  @apply py-3 px-6 bg-primary-100 text-white-100 border-none rounded font-medium no-underline transition-colors duration-200;
 }
 
 .error-404-content .btn-primary:hover {
-  background-color: var(--azul-80);
+  @apply bg-primary-80;
 }
 
 .error-404-content .btn-secondary {
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  border: 1px solid var(--azul-100);
-  color: var(--azul-100);
-  border-radius: 0.25rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
+  @apply py-3 px-6 bg-transparent border border-primary-100 text-primary-100 rounded font-medium no-underline transition-colors duration-200;
 }
 
 .error-404-content .btn-secondary:hover {
-  background-color: var(--azul-5);
+  @apply bg-primary-5;
 }

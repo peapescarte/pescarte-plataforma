@@ -1,67 +1,48 @@
 #login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  @apply flex justify-center items-center w-full;
 }
 
 .fish-bg {
+  @apply bg-cover bg-center bg-fixed relative;
   background-image: url("/images/fish_background.svg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  position: relative;
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff;
-  gap: 2rem;
-  height: 37.125rem;
-  width: 39.75rem;
-  border-radius: 24px;
-  padding: 4rem;
+  @apply flex flex-col justify-between items-center bg-white-100 gap-8 h-[37.125rem] w-[39.75rem] rounded-[24px] p-16;
 }
 
 .login-form h3 {
-  width: 27.25rem;
+  @apply w-[27.25rem];
 }
 
 .login-form input {
-  width: 100%;
-  height: 3rem;
-  margin-top: 0.75rem;
+  @apply w-full h-12 mt-3;
 }
 
 .login-form button {
-  width: 27.25rem;
-  height: 3.5rem;
+  @apply w-[27.25rem] h-14;
 }
 
 .login-form button p {
-  color: white;
+  @apply text-white-100;
 }
 
 .login-form div {
-  width: 27.25rem;
+  @apply w-[27.25rem];
 }
 
 .login-form div .checkbox-container {
-  max-width: 60%;
+  @apply max-w-[60%];
 }
 
 .login-form div .checkbox-container label p {
-  font-size: 14px;
+  @apply text-sm;
 }
 
 .login-form div a p {
-  font-size: 14px;
+  @apply text-sm;
 }
 
 .login-fieldset {
-  width: 27.25rem;
-  height: 5.25rem;
+  @apply w-[27.25rem] h-[5.25rem];
 }

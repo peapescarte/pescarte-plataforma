@@ -1,133 +1,81 @@
 .onde-nos-encontrar-wrapper {
-  display: flex;
-  background-color: var(--laranja-100);
+  @apply flex bg-secondary-100 flex-col justify-center items-center text-center gap-20 py-20 w-screen;
   grid-area: onde-nos-encontrar;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 5rem;
-  padding: 5rem 0 5rem 0;
-  width: 100vw;
 }
 
 .onde-nos-encontrar-wrapper .redes-sociais-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  @apply flex flex-col justify-center items-center text-center;
 }
 
 .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
-  display: grid;
+  @apply grid gap-8 pt-10;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding-top: 2.5rem;
 }
 
 .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 0 5rem 0 5rem;
+  @apply flex flex-col items-center gap-6 px-20;
 }
 
 .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link .redes-sociais-icon {
-  display: flex;
-  background-color: #fff;
-  color: var(--laranja-100);
-  justify-content: center;
-  align-items: center;
-  border-radius: 100%;
-  width: 88px;
-  height: 88px;
+  @apply flex bg-white-100 text-secondary-100 justify-center items-center rounded-full w-[88px] h-[88px];
 }
 
 .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link .redes-sociais-icon svg {
-  width: 2.5rem;
-  height: 2.5rem;
+  @apply w-10 h-10;
 }
 
 .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link p {
-  color: #fff;
+  @apply text-white-100;
 }
 
 .onde-nos-encontrar-wrapper .fale-conosco-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 2.5rem;
+  @apply flex flex-col justify-center items-center text-center gap-10;
 }
 
 .onde-nos-encontrar-wrapper .fale-conosco-wrapper .contact-btn {
-  display: flex;
-  background-color: #fff;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
-  padding: 1rem 1.5rem 1rem 1.5rem;
-  cursor: pointer;
-  text-decoration: none;
-  height: 3rem;
-  gap: 0.5rem;
+  @apply flex bg-white-100 justify-center items-center rounded px-6 py-4 cursor-pointer no-underline h-12 gap-2;
 }
 
 .onde-nos-encontrar-wrapper .fale-conosco-wrapper .contact-btn p {
-  color: var(--laranja-100);
-  font-size: 16px;
+  @apply text-secondary-100 text-base;
 }
 
 .onde-nos-encontrar-wrapper .fale-conosco-wrapper .contact-btn svg {
-  color: var(--laranja-100);
+  @apply text-secondary-100;
 }
 
 @media (max-width: 767px) {
   .onde-nos-encontrar-wrapper {
-    margin: 0;
+    @apply m-0;
   }
 
   .onde-nos-encontrar-wrapper .redes-sociais-wrapper {
-    margin: 1rem;
+    @apply m-4;
   }
 
   .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
-    display: flex;
+    @apply flex;
   }
 
   .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link {
-    padding: 0;
+    @apply p-0;
   }
 
   .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link .redes-sociais-icon {
-    width: 60px;
-    height: 60px;
+    @apply w-[60px] h-[60px];
   }
 }
 
 @media (min-width: 768px) {
   .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
     /* 2 colunas em telas médias */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    column-gap: 80px;
-    min-height: auto;
-    margin-top: 2.5rem;
+    @apply grid grid-cols-2 auto-rows-auto gap-x-20 min-h-0 mt-10;
   }
 }
 
 @media (min-width: 1024px) {
   .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
     /* 3 colunas em telas grandes */
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    column-gap: 80px;
-    min-height: auto;
-    margin-top: 2.5rem;
+    @apply grid grid-cols-3 auto-rows-auto gap-x-20 min-h-0 mt-10;
   }
 }

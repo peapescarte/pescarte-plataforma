@@ -1,52 +1,31 @@
 .date-input-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  @apply relative flex flex-col w-full;
 }
 
 .date-input-container label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+  @apply font-medium mb-2;
 }
 
 .date-input-container .date-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  padding-right: 2.5rem;
-  border: 1.5px solid var(--preto-20);
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  transition: border-color 0.15s ease-in-out;
+  @apply w-full px-4 py-3 pr-10 border-[1.5px] border-neutral-20 rounded text-base leading-relaxed transition-colors duration-150;
 }
 
 .date-input-container .date-input:hover {
-  border-color: var(--preto-40);
+  @apply border-neutral-40;
 }
 
 .date-input-container .date-input:focus {
-  border-color: var(--azul-80);
-  outline: 0;
+  @apply border-primary-80 outline-none;
 }
 
 .date-input-container .date-input:disabled {
-  background-color: var(--preto-5);
-  border-color: var(--preto-10);
-  color: var(--preto-60);
-  cursor: not-allowed;
+  @apply bg-neutral-5 border-neutral-5 text-neutral-60 cursor-not-allowed;
 }
 
 .date-input-container .icon {
-  position: absolute;
-  right: 1rem;
-  top: 2.5rem;
-  color: var(--preto-60);
-  pointer-events: none;
+  @apply absolute right-4 top-10 text-neutral-60 pointer-events-none;
 }
 
 .date-input-container .error-message {
-  color: var(--vermelho-100);
-  margin-top: 0.25rem;
-  font-size: 0.875rem;
+  @apply text-error mt-1 text-sm;
 }

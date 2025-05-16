@@ -1,5 +1,5 @@
 .landing-grid {
-  display: grid;
+  @apply grid w-full gap-20 overflow-y-scroll overflow-x-hidden;
   /* Ajuste automático das colunas */
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-template-areas:
@@ -9,148 +9,89 @@
     "news"
     "gallery-carousel"
     "onde-nos-encontrar";
-
-  width: 100%;
-  gap: 5rem;
-  overflow: scroll;
-  overflow-x: hidden;
 }
 
 .landing-grid .landing-carousel {
+  @apply col-span-full;
   grid-area: landing-carousel;
-  grid-column: 1 / -1;
 }
 
 .landing-grid .landing-carousel .glide__slides {
-  height: 30.5625rem;
+  @apply h-[30.5625rem];
 }
 
 .landing-grid .landing-carousel .glide__slides .glide__slide img {
-  background-size: cover;
-  transform: translateY(-20%);
+  @apply bg-cover -translate-y-1/5;
 }
 
 .landing-grid .landing-carousel .glide__bullets {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  @apply flex justify-center my-10;
 }
 
 .landing-grid .landing-carousel .glide__bullet {
-  background-color: var(--preto-10);
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-  margin: 0 5px;
+  @apply bg-neutral-10 h-2.5 w-2.5 rounded-full mx-[5px];
 }
 
 .landing-grid .landing-carousel .glide__bullet.active {
-  background-color: var(--azul-80);
+  @apply bg-primary-80;
 }
 
 .landing-grid .landing-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  @apply flex flex-wrap justify-center w-full gap-4;
   grid-area: landing-links;
-  width: 100%;
-  gap: 1rem;
 }
 
 .landing-grid .landing-links .links-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  background-color: var(--azul-100);
-  width: 13.333rem;
-  height: 6.5rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
+  @apply flex flex-col justify-start items-start bg-primary-100 w-[13.333rem] h-[6.5rem] p-6 rounded-lg;
 }
 
 .landing-grid .landing-links .links-item a {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  @apply flex flex-col gap-4;
 }
 
 .landing-grid .landing-links .links-item img {
-  display: none;
+  @apply hidden;
 }
 
 .landing-grid .landing-links .links-item h3 {
-  font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.75rem;
+  @apply text-2xl font-bold leading-7;
 }
 
 .landing-grid .landing-links .links-item button {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  gap: 0.5rem;
-  background-color: transparent;
+  @apply flex m-0 p-0 gap-2 bg-transparent;
 }
 
 .landing-grid .landing-links .links-item button p {
-  color: #fff;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.125rem;
+  @apply text-white-100 text-base font-medium leading-[1.125rem];
 }
 
 .landing-grid .project {
-  display: flex;
-  justify-content: space-between;
+  @apply flex justify-between px-10;
   grid-area: project;
-  /* width: 100%; */
-  padding: 0 2.5rem;
 }
 
 .landing-grid .project .project-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.94rem;
-  width: 50%;
+  @apply flex flex-col gap-[0.94rem] w-1/2;
 }
 
 .landing-grid .project .project-content p {
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.125rem;
-  color: #9f9f9f;
+  @apply text-xs font-bold leading-[1.125rem] text-[#9f9f9f];
 }
 
 .landing-grid .project .project-content .project-body {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  width: 90%;
+  @apply flex flex-col gap-10 w-[90%];
 }
 
 .landing-grid .project .project-content .project-body a button {
-  display: flex;
-  height: 3rem;
-  padding: 1rem 1.5rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  @apply flex h-12 py-4 px-6 justify-center items-center gap-2;
 }
 
 .landing-grid .project .project-content .project-body a button p {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
+  @apply text-white-100 text-base font-medium;
 }
 
 .landing-grid .project img {
-  width: 50%;
-  border-radius: 0.5rem;
+  @apply w-1/2 rounded-lg;
 }
 
 .landing-grid .news {
@@ -158,252 +99,156 @@
 }
 
 .landing-grid .news h2 {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 5rem;
+  @apply flex justify-center mt-10 mb-20;
 }
 
 .landing-grid .news .news-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  @apply flex flex-wrap justify-center;
 }
 
 .landing-grid .news .news-cards .news-item {
-  display: flex;
-  flex-direction: column;
-  max-width: 20rem;
-  border-radius: 0.5rem;
-  border: 1px solid #66a2de;
-  margin: 0 2.5rem 2.5rem 2.5rem;
-  width: 20.125rem;
+  @apply flex flex-col max-w-80 rounded-lg border border-[#66a2de] m-0 mx-10 mb-10 w-[20.125rem];
 }
 
 .landing-grid .news .news-cards .news-item img {
-  border-radius: 0.5rem 0.5rem 0 0;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  min-height: 242px;
-  max-height: 242px;
+  @apply rounded-t-lg w-full h-auto object-cover min-h-[242px] max-h-[242px];
 }
 
 .landing-grid .news .news-cards .news-item h2 {
-  display: flex;
-  justify-content: center;
+  @apply flex justify-center;
 }
 
 .landing-grid .news .news-cards .news-item a.link {
-  display: flex;
-  align-items: center;
-  margin: auto 0 1.5rem 1.5rem;
+  @apply flex items-center m-auto mb-6 ml-6;
 }
 
 .landing-grid .news .news-cards .news-item a.link button {
-  gap: 0.5rem;
+  @apply gap-2;
 }
 
 .landing-grid .news .news-cards .news-item a.link button p {
-  font-family: "Work Sans";
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.125rem;
+  @apply font-['Work_Sans'] text-base font-medium leading-[1.125rem];
 }
 
 .landing-grid .news .news-cards .news-item a.link button svg {
-  width: 1.5rem;
-  height: 1.5rem;
+  @apply w-6 h-6;
 }
 
 .landing-grid .gallery-carousel {
+  @apply col-span-full;
   grid-area: gallery-carousel;
-  grid-column: 1 / -1;
 }
 
 .landing-grid .gallery-carousel h2 {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2.5rem;
+  @apply flex justify-center mb-10;
 }
 
 .landing-grid .gallery-carousel .glide__slides {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  @apply flex justify-center items-center m-0 p-0 list-none;
 }
 
 .landing-grid .gallery-carousel .glide__slides .glide__slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 41.75rem;
-  height: auto;
-  transition: transform 0.25s ease-out;
+  @apply flex justify-center items-center max-w-[41.75rem] h-auto transition-transform duration-250 ease-out;
 }
 
 .landing-grid .gallery-carousel .glide__slides .glide__slide:not(.glide__slide--active) {
-  max-width: 33.125rem;
+  @apply max-w-[33.125rem];
 }
 
 .landing-grid .gallery-carousel .glide__slides .glide__slide img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
-  max-width: 100%;
-  max-height: 100%;
+  @apply w-full h-auto rounded-lg object-cover max-w-full max-h-full;
 }
 
 .landing-grid .gallery-carousel .glide__progress {
-  max-width: 660px;
-  margin: 56px auto 0;
-  height: 4px;
-  background-color: #ddd;
-  border-radius: 2px;
+  @apply max-w-[660px] my-0 mx-auto mt-14 h-1 bg-[#ddd] rounded-sm;
 }
 
 .landing-grid .gallery-carousel .glide__progress-bar {
-  background-color: var(--azul-80);
-  height: 4px;
-  width: 0;
-  border-radius: 2px;
+  @apply bg-primary-80 h-1 w-0 rounded-sm;
 }
 
 @media (max-width: 768px) {
   .landing-grid .landing-carousel .glide__slides {
-    height: auto;
-    max-height: 24.125rem;
+    @apply h-auto max-h-[24.125rem];
   }
   
   .landing-grid .landing-links {
-    padding: 1rem 1rem;
+    @apply p-4;
   }
   
   .landing-grid .landing-links .links-item {
-    position: relative;
-    width: 100%;
-    box-sizing: border-box;
-    background: linear-gradient(
-      180deg,
-      rgba(16, 16, 16, 0) 0%,
-      #101010 100%
-    );
+    @apply relative w-full box-border bg-gradient-to-b from-transparent from-0% to-neutral-100 to-100%;
   }
   
   .landing-grid .landing-links .links-item img {
-    display: block;
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    border-radius: 0.5rem;
-    object-fit: cover;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -10;
+    @apply block absolute w-full h-full rounded-lg object-cover inset-0 -z-10;
   }
   
   .landing-grid .project {
-    display: flex;
-    flex-direction: column-reverse;
-    padding: 0 1rem;
+    @apply flex flex-col-reverse p-0 px-4;
   }
   
   .landing-grid .project .project-content {
-    width: 100%;
+    @apply w-full;
   }
   
   .landing-grid .project .project-content .project-body {
-    width: 100%;
+    @apply w-full;
   }
   
   .landing-grid .project .project-content .project-body a button {
-    width: 100%;
+    @apply w-full;
   }
   
   .landing-grid .project img {
-    width: 100%;
-    margin-bottom: 2.5rem;
+    @apply w-full mb-10;
   }
   
   .landing-grid .news .news-cards {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: flex-start;
-    margin: 0 1rem;
+    @apply flex flex-nowrap overflow-x-auto justify-start mx-4;
   }
   
   .landing-grid .news .news-cards .news-item {
-    margin: 0 1.5rem 0 0;
+    @apply m-0 mr-6;
   }
   
   .landing-grid .news .news-cards .news-item:last-child {
-    margin: 0;
+    @apply m-0;
   }
   
   .landing-grid .news .news-cards .news-item a.link {
-    width: 100%;
-    margin-left: auto;
-    justify-content: center;
+    @apply w-full ml-auto justify-center;
   }
   
   .landing-grid .gallery-carousel .glide__slide {
-    max-width: 100%;
-    width: 80%;
-    height: auto;
-    transition:
-      transform 0.3s ease,
-      width 0.3s ease;
-    transform: scale(0.8);
-    border-radius: 8px;
-    overflow: hidden;
+    @apply max-w-full w-4/5 h-auto transition-all duration-300 scale-80 rounded-lg overflow-hidden;
   }
   
   .landing-grid .gallery-carousel .glide__slide img {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    border-radius: 8px;
+    @apply w-full h-full bg-cover rounded-lg;
   }
   
   .landing-grid .gallery-carousel .glide__slide--active {
-    width: 100%;
-    transform: scale(1.2);
-    z-index: 2;
-    border-radius: 16px;
+    @apply w-full scale-120 z-2 rounded-2xl;
   }
   
   .landing-grid .gallery-carousel .glide__bullets {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    @apply flex justify-center my-10;
   }
   
   .landing-grid .gallery-carousel .glide__bullet {
-    background-color: var(--preto-10);
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    margin: 0 5px;
+    @apply bg-neutral-10 h-2.5 w-2.5 rounded-full mx-[5px];
   }
   
   .landing-grid .gallery-carousel .glide__bullet.active {
-    background-color: var(--azul-80);
+    @apply bg-primary-80;
   }
 }
 
 @media (min-width: 768px) {
   .landing-grid {
     /* 2 colunas em telas médias */
-    grid-template-columns: repeat(2, 1fr);
+    @apply grid-cols-2;
     grid-template-areas:
       "landing-carousel landing-carousel"
       "landing-links landing-links"
@@ -417,7 +262,7 @@
 @media (min-width: 1024px) {
   .landing-grid {
     /* 3 colunas em telas grandes */
-    grid-template-columns: repeat(3, 1fr);
+    @apply grid-cols-3;
     grid-template-areas:
       "landing-carousel landing-carousel landing-carousel"
       "landing-links landing-links landing-links"
@@ -429,209 +274,137 @@
 }
 
 .top-banner {
-  width: 100%;
-  min-height: 25rem;
+  @apply w-full min-h-[25rem];
   grid-area: top-banner;
 }
 
 .bottom-banner {
-  width: 100%;
-  height: 30rem;
+  @apply w-full h-[30rem];
   grid-area: bottom-banner;
 }
 
 .about {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
+  @apply flex justify-center p-8;
 }
 
 .about .about-text {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding-right: 1rem;
-  min-height: 300px;
+  @apply flex flex-col gap-10 pr-4 min-h-[300px];
 }
 
 .about .about-text a {
-  max-width: 120px !important;
+  @apply max-w-[120px] !important;
 }
 
 .about img {
-  width: 40rem;
-  height: 30rem;
-  margin-top: 15px;
+  @apply w-[40rem] h-[30rem] mt-[15px];
 }
 
 .publications .publications-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  @apply flex flex-col items-center w-full;
 }
 
 .publications .publications-text .publications-main-text {
-  margin: 5rem 30rem;
+  @apply m-20 mx-[30rem];
 }
 
 .publications .publications-text a {
-  margin-bottom: 5rem;
+  @apply mb-20;
 }
 
 .publications .banner-container {
-  position: relative;
-  width: 100%;
-  margin: auto;
+  @apply relative w-full m-auto;
 }
 
 .publications .banner-container img {
-  width: 100%;
-  height: auto;
-  display: block;
+  @apply w-full h-auto block;
 }
 
 .publications .centered-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.875rem;
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-center font-bold text-[1.875rem];
 }
 
 .input-space {
-  display: flex;
+  @apply flex;
 }
 
 .input-space .eye-button {
-  translate: -30px 10%;
-  width: 0px !important;
-  height: auto !important;
+  @apply -translate-x-[30px] translate-y-[10%] w-0 !important h-auto !important;
 }
 
 @media (min-width: 530px) and (max-width: 770px) {
   .links-landing {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    @apply flex flex-col justify-center items-center w-full;
   }
   
   .links-landing .links-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    margin: 2rem;
-    width: 60%;
-    height: 16rem;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+    @apply flex flex-col justify-start items-start m-8 w-3/5 h-64 rounded-lg box-border;
+    @apply bg-gradient-to-b from-transparent from-0% to-neutral-100 to-100%;
   }
   
   .links-landing .links-item a {
-    display: flex;
-    flex-direction: column;
-    margin-top: auto;
+    @apply flex flex-col mt-auto;
   }
   
   .links-landing .links-item img {
-    border-radius: 8px;
-    width: inherit;
-    height: inherit;
-    position: absolute;
-    z-index: -10;
+    @apply rounded-lg w-full h-full absolute -z-10;
   }
   
   .links-landing .links-item h3 {
-    padding-left: 1rem;
+    @apply pl-4;
   }
   
   .links-landing .links-item p {
-    text-wrap: wrap;
-    margin-top: 0.5rem;
-    padding: 0 1rem 1.5rem 1rem;
+    @apply break-words mt-2 px-4 pb-6;
   }
   
   .links-landing .links-item button {
-    width: 100%;
-    padding: 0 1rem 1.5rem 0;
-    background-color: transparent;
+    @apply w-full px-4 pr-0 pb-6 bg-transparent;
   }
   
   .links-landing .links-item button p {
-    display: inline-flex;
-    width: inherit;
+    @apply inline-flex w-full;
   }
   
   .links-landing .links-item button p:hover {
-    text-decoration: underline;
+    @apply underline;
   }
 }
 
 @media (min-width: 350px) and (max-width: 529px) {
   .links-landing {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    @apply flex flex-col justify-center items-center w-full;
   }
   
   .links-landing .links-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    margin: 2rem;
-    width: 70%;
-    height: 13rem;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, #101010 100%);
+    @apply flex flex-col justify-start items-start m-8 w-[70%] h-52 rounded-lg box-border;
+    @apply bg-gradient-to-b from-transparent from-0% to-neutral-100 to-100%;
   }
   
   .links-landing .links-item a {
-    display: flex;
-    flex-direction: column;
-    margin-top: auto;
+    @apply flex flex-col mt-auto;
   }
   
   .links-landing .links-item img {
-    border-radius: 8px;
-    width: inherit;
-    height: inherit;
-    position: absolute;
-    z-index: -10;
+    @apply rounded-lg w-full h-full absolute -z-10;
   }
   
   .links-landing .links-item h3 {
-    padding-left: 1rem;
+    @apply pl-4;
   }
   
   .links-landing .links-item p {
-    text-wrap: wrap;
-    margin-top: 0.5rem;
-    padding: 0 1rem 1.5rem 1rem;
+    @apply break-words mt-2 px-4 pb-6;
   }
   
   .links-landing .links-item button {
-    width: 100%;
-    padding: 0 1rem 1.5rem 0;
-    background-color: transparent;
+    @apply w-full px-4 pr-0 pb-6 bg-transparent;
   }
   
   .links-landing .links-item button p {
-    display: inline-flex;
-    width: inherit;
+    @apply inline-flex w-full;
   }
   
   .links-landing .links-item button p:hover {
-    text-decoration: underline;
+    @apply underline;
   }
 }
