@@ -8,6 +8,7 @@ defmodule Pescarte.ModuloPesquisa.Repository do
   alias Pescarte.Database
   alias Pescarte.ModuloPesquisa.IManageRepository
   alias Pescarte.ModuloPesquisa.Models.Campus
+  alias Pescarte.ModuloPesquisa.Models.Celetista
   alias Pescarte.ModuloPesquisa.Models.LinhaPesquisa
   alias Pescarte.ModuloPesquisa.Models.Midia
   alias Pescarte.ModuloPesquisa.Models.Midia.Categoria
@@ -105,6 +106,19 @@ defmodule Pescarte.ModuloPesquisa.Repository do
       )
 
     Flop.run(query, flop, for: Pesquisador)
+  end
+
+  def list_celetista(flop) do
+    query =
+      from(p in Celetista,
+        join: u in assoc(p, :usuario),
+        as: :usuario,
+        join: c in assoc(u, :contato),
+        as: :contato,
+        preload: [usuario: {u, contato: c}]
+      )
+
+    Flop.run(query, flop, for: Celetista)
   end
 
   @impl true
