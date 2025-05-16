@@ -125,7 +125,9 @@
   border-radius: 0.5rem;
   border: 1px solid var(--preto-10);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .pesquisador-card:hover {

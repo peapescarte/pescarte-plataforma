@@ -48,7 +48,7 @@ defmodule PescarteWeb.LoginLive do
       <.flash id="login-flash" kind={:error} flash={@flash} />
 
       <.simple_form for={@form} action={~p"/acessar"} class="login-form">
-        <.text size="h3" color="text-black-80">
+        <.text size="h3" color="text-neutral-80">
           Faça login para acessar a plataforma
         </.text>
 

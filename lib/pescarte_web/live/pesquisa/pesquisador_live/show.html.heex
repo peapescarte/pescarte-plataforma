@@ -46,7 +46,7 @@
     <.form for={%{}} action="/acessar" method="delete">
       <div class="profile-menu-link">
         <span class="flex items-center justify-center bg-white-100">
-          <Lucideicons.file_pen class="text-blue-100" />
+          <Lucideicons.file_pen class="text-primary-100" />
         </span>
         <.button
           style="link"
@@ -54,14 +54,14 @@
           click="edit_profile"
           phx-target=".profile-menu-link"
         >
-          <.text size="base" color="text-blue-80" class="bg-white-100">
+          <.text size="base" color="text-primary-80" class="bg-white-100">
             Editar Perfil
           </.text>
         </.button>
       </div>
       <div class="profile-menu-link">
         <span class="flex items-center justify-center bg-white-100">
-          <Lucideicons.lock class="text-blue-100" />
+          <Lucideicons.lock class="text-primary-100" />
         </span>
         <.button
           style="link"
@@ -69,17 +69,17 @@
           click={DesignSystem.show_modal("reset-password")}
           phx-target=".profile-menu-link"
         >
-          <.text size="base" color="text-blue-80" class="bg-white-100">
+          <.text size="base" color="text-primary-80" class="bg-white-100">
             Alterar Senha
           </.text>
         </.button>
       </div>
       <div class="profile-menu-link">
         <span class="flex items-center justify-center bg-white-100">
-          <Lucideicons.log_out class="text-blue-100" />
+          <Lucideicons.log_out class="text-primary-100" />
         </span>
         <.button style="link" class="whitespace-nowrap" submit>
-          <.text size="base" color="text-blue-80" class="bg-white-100">
+          <.text size="base" color="text-primary-80" class="bg-white-100">
             Sair
           </.text>
         </.button>
@@ -88,23 +88,23 @@
   </div>
   <section class="user-profile-info" style="overflow-y: auto">
     <div class="basic-info">
-      <.text size="h2" color="text-black-80">
+      <.text size="h2" color="text-neutral-80">
         {@user_name}
       </.text>
-      <.text size="h4" color="text-black-80">
+      <.text size="h4" color="text-neutral-80">
         {@bolsa}
       </.text>
     </div>
     <hr />
     <div class="profile-about">
-      <.text size="h4" color="text-black-80">Sobre</.text>
-      <.text size="base" color="text-black-80">
+      <.text size="h4" color="text-neutral-80">Sobre</.text>
+      <.text size="base" color="text-neutral-80">
         {@minibio}
       </.text>
     </div>
     <hr />
     <div class="profile-links">
-      <.text size="lg" color="text-black-80">Links</.text>
+      <.text size="lg" color="text-neutral-80">Links</.text>
       <.profile_link href={@link_lattes} label="Lattes">
         <Lucideicons.file_text width="35" height="21" class="text-white-100" />
       </.profile_link>

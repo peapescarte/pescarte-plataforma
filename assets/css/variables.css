@@ -9,11 +9,11 @@
   /* Base grid units - dual grid system */
   --square-grid: 4px;
   --spacing-unit: 8px; /* 2x square grid */
-  
+
   /* Grid variables */
   --columns: 12;
   --gutter-width: 16px; /* 2x spacing unit */
-  
+
   /* These values are for reference only. 
    * The true source of truth for colors, typography, spacing, etc. 
    * is in the tailwind.config.js file. Use Tailwind classes in your CSS like:

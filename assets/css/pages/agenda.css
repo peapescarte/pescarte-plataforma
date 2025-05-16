@@ -60,7 +60,9 @@
   border: 1px solid var(--preto-10);
   border-radius: 0.5rem;
   background-color: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .agenda-event:hover {

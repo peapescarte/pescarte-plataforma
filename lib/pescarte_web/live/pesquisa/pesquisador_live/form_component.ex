@@ -14,7 +14,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div class="researcher-wrapper">
-      <.text size="h1" color="text-blue-100">
+      <.text size="h1" color="text-primary-100">
         {@title}
       </.text>
       <.form
@@ -26,7 +26,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
         phx-submit="save"
       >
         <div class="input-group-wrapper">
-          <.text size="h2" color="text-blue-100">
+          <.text size="h2" color="text-primary-100">
             Dados Pessoais
           </.text>
           <div class="input-group">
@@ -100,7 +100,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
         </div>
 
         <div class="input-group-wrapper">
-          <.text size="h2" color="text-blue-100">
+          <.text size="h2" color="text-primary-100">
             Endereço
           </.text>
 
@@ -116,7 +116,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
         </div>
 
         <div class="input-group-wrapper">
-          <.text size="h2" color="text-blue-100">
+          <.text size="h2" color="text-primary-100">
             Bolsa
           </.text>
 
@@ -143,7 +143,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
         </div>
 
         <div class="input-group-wrapper">
-          <.text size="h2" color="text-blue-100">
+          <.text size="h2" color="text-primary-100">
             Vínculo Institucional
           </.text>
 
@@ -160,11 +160,11 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
         </div>
 
         <div class="input-group-wrapper">
-          <.text size="h2" color="text-blue-100">
+          <.text size="h2" color="text-primary-100">
             Orientador
           </.text>
 
-          <.text size="lg" color="text-black-80">
+          <.text size="lg" color="text-neutral-80">
             Preencher somente se o cadastrado tiver orientador.
           </.text>
 
@@ -179,7 +179,7 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.FormComponent do
         </div>
 
         <div class="input-group-wrapper">
-          <.text size="h2" color="text-blue-100">
+          <.text size="h2" color="text-primary-100">
             Anotações
           </.text>
 

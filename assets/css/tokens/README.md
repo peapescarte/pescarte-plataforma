@@ -26,11 +26,13 @@ For quick reference, here are the design tokens defined in the Tailwind config:
 
 ### Typography
 
-- **Font Families:** 
+- **Font Families:**
+
   - Primary: "Work Sans", sans-serif
   - Secondary: "Inter", sans-serif
 
 - **Font Sizes:**
+
   - xs: 12px (Small caption)
   - sm: 14px (Small body)
   - base: 16px (Body)
@@ -41,6 +43,7 @@ For quick reference, here are the design tokens defined in the Tailwind config:
   - 4xl: 40px (h1)
 
 - **Font Weights:**
+
   - normal: 400
   - medium: 500
   - bold: 700
@@ -54,6 +57,7 @@ For quick reference, here are the design tokens defined in the Tailwind config:
 ### Spacing
 
 Based on 8px scale (--spacing-unit):
+
 - 0.5: 4px (Square grid unit)
 - 1: 8px (Spacing unit)
 - 2: 16px (2x spacing unit)

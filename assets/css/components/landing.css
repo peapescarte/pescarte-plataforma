@@ -75,7 +75,7 @@
 }
 
 .landing-grid .project .project-content p {
-  @apply text-xs font-bold leading-[1.125rem] text-[#9f9f9f];
+  @apply text-xs font-bold leading-[1.125rem] text-neutral-40;
 }
 
 .landing-grid .project .project-content .project-body {
@@ -107,7 +107,7 @@
 }
 
 .landing-grid .news .news-cards .news-item {
-  @apply flex flex-col max-w-80 rounded-lg border border-[#66a2de] m-0 mx-10 mb-10 w-[20.125rem];
+  @apply flex flex-col max-w-80 rounded-lg border border-primary-60 m-0 mx-10 mb-10 w-[20.125rem];
 }
 
 .landing-grid .news .news-cards .news-item img {
@@ -151,7 +151,10 @@
   @apply flex justify-center items-center max-w-[41.75rem] h-auto transition-transform duration-250 ease-out;
 }
 
-.landing-grid .gallery-carousel .glide__slides .glide__slide:not(.glide__slide--active) {
+.landing-grid
+  .gallery-carousel
+  .glide__slides
+  .glide__slide:not(.glide__slide--active) {
   @apply max-w-[33.125rem];
 }
 
@@ -160,7 +163,7 @@
 }
 
 .landing-grid .gallery-carousel .glide__progress {
-  @apply max-w-[660px] my-0 mx-auto mt-14 h-1 bg-[#ddd] rounded-sm;
+  @apply max-w-[660px] my-0 mx-auto mt-14 h-1 bg-neutral-20 rounded-sm;
 }
 
 .landing-grid .gallery-carousel .glide__progress-bar {
@@ -171,75 +174,75 @@
   .landing-grid .landing-carousel .glide__slides {
     @apply h-auto max-h-[24.125rem];
   }
-  
+
   .landing-grid .landing-links {
     @apply p-4;
   }
-  
+
   .landing-grid .landing-links .links-item {
     @apply relative w-full box-border bg-gradient-to-b from-transparent from-0% to-neutral-100 to-100%;
   }
-  
+
   .landing-grid .landing-links .links-item img {
     @apply block absolute w-full h-full rounded-lg object-cover inset-0 -z-10;
   }
-  
+
   .landing-grid .project {
     @apply flex flex-col-reverse p-0 px-4;
   }
-  
+
   .landing-grid .project .project-content {
     @apply w-full;
   }
-  
+
   .landing-grid .project .project-content .project-body {
     @apply w-full;
   }
-  
+
   .landing-grid .project .project-content .project-body a button {
     @apply w-full;
   }
-  
+
   .landing-grid .project img {
     @apply w-full mb-10;
   }
-  
+
   .landing-grid .news .news-cards {
     @apply flex flex-nowrap overflow-x-auto justify-start mx-4;
   }
-  
+
   .landing-grid .news .news-cards .news-item {
     @apply m-0 mr-6;
   }
-  
+
   .landing-grid .news .news-cards .news-item:last-child {
     @apply m-0;
   }
-  
+
   .landing-grid .news .news-cards .news-item a.link {
     @apply w-full ml-auto justify-center;
   }
-  
+
   .landing-grid .gallery-carousel .glide__slide {
     @apply max-w-full w-4/5 h-auto transition-all duration-300 scale-80 rounded-lg overflow-hidden;
   }
-  
+
   .landing-grid .gallery-carousel .glide__slide img {
     @apply w-full h-full bg-cover rounded-lg;
   }
-  
+
   .landing-grid .gallery-carousel .glide__slide--active {
     @apply w-full scale-120 z-2 rounded-2xl;
   }
-  
+
   .landing-grid .gallery-carousel .glide__bullets {
     @apply flex justify-center my-10;
   }
-  
+
   .landing-grid .gallery-carousel .glide__bullet {
     @apply bg-neutral-10 h-2.5 w-2.5 rounded-full mx-[5px];
   }
-  
+
   .landing-grid .gallery-carousel .glide__bullet.active {
     @apply bg-primary-80;
   }
@@ -335,36 +338,36 @@
   .links-landing {
     @apply flex flex-col justify-center items-center w-full;
   }
-  
+
   .links-landing .links-item {
     @apply flex flex-col justify-start items-start m-8 w-3/5 h-64 rounded-lg box-border;
     @apply bg-gradient-to-b from-transparent from-0% to-neutral-100 to-100%;
   }
-  
+
   .links-landing .links-item a {
     @apply flex flex-col mt-auto;
   }
-  
+
   .links-landing .links-item img {
     @apply rounded-lg w-full h-full absolute -z-10;
   }
-  
+
   .links-landing .links-item h3 {
     @apply pl-4;
   }
-  
+
   .links-landing .links-item p {
     @apply break-words mt-2 px-4 pb-6;
   }
-  
+
   .links-landing .links-item button {
     @apply w-full px-4 pr-0 pb-6 bg-transparent;
   }
-  
+
   .links-landing .links-item button p {
     @apply inline-flex w-full;
   }
-  
+
   .links-landing .links-item button p:hover {
     @apply underline;
   }
@@ -374,36 +377,36 @@
   .links-landing {
     @apply flex flex-col justify-center items-center w-full;
   }
-  
+
   .links-landing .links-item {
     @apply flex flex-col justify-start items-start m-8 w-[70%] h-52 rounded-lg box-border;
     @apply bg-gradient-to-b from-transparent from-0% to-neutral-100 to-100%;
   }
-  
+
   .links-landing .links-item a {
     @apply flex flex-col mt-auto;
   }
-  
+
   .links-landing .links-item img {
     @apply rounded-lg w-full h-full absolute -z-10;
   }
-  
+
   .links-landing .links-item h3 {
     @apply pl-4;
   }
-  
+
   .links-landing .links-item p {
     @apply break-words mt-2 px-4 pb-6;
   }
-  
+
   .links-landing .links-item button {
     @apply w-full px-4 pr-0 pb-6 bg-transparent;
   }
-  
+
   .links-landing .links-item button p {
     @apply inline-flex w-full;
   }
-  
+
   .links-landing .links-item button p:hover {
     @apply underline;
   }

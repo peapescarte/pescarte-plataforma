@@ -159,7 +159,12 @@
   cursor: pointer;
 }
 
-.phases .phase-content .accordion .accordion-bx .accordion-label .text-black-100 {
+.phases
+  .phase-content
+  .accordion
+  .accordion-bx
+  .accordion-label
+  .text-black-100 {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -182,7 +187,12 @@
   margin-top: 20px;
 }
 
-.phases .phase-content .accordion .accordion-bx.active .accordion-label .text-black-100 {
+.phases
+  .phase-content
+  .accordion
+  .accordion-bx.active
+  .accordion-label
+  .text-black-100 {
   transform: rotate(180deg);
 }
 

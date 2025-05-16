@@ -53,11 +53,11 @@ defmodule PescarteWeb.Pesquisa.PesquisadorLive.Show do
   def profile_link(assigns) do
     ~H"""
     <div class="flex items-center profile-link">
-      <span class="rounded-full bg-blue-80 h-12 w-12 flex-center">
+      <span class="rounded-full bg-primary-80 h-12 w-12 flex-center">
         {render_slot(@inner_block)}
       </span>
       <DesignSystem.link href={@href} class="w-12 text-left link">
-        <.text size="base" color="text-blue-80">
+        <.text size="base" color="text-primary-80">
           {@label}
         </.text>
       </DesignSystem.link>

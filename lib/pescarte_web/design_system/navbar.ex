@@ -30,7 +30,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
         style="link"
         click={JS.toggle(to: "#hamburger-container", in: "fade-in-scale", out: "fade-out-scale")}
       >
-        <.icon name={:menu} class="text-blue-100" />
+        <.icon name={:menu} class="text-primary-100" />
       </.button>
     </div>
     """
@@ -64,7 +64,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
 
       <PescarteWeb.DesignSystem.link navigate={~p"/acessar"} styless class="md:flex">
         <.button style="link" class="login-button">
-          <.text size="h4" color="text-orange-100">Acessar</.text>
+          <.text size="h4" color="text-secondary-100">Acessar</.text>
         </.button>
       </PescarteWeb.DesignSystem.link>
     </div>
@@ -91,7 +91,7 @@ defmodule PescarteWeb.DesignSystem.Navbar do
     ~H"""
     <DesignSystem.link navigate={@navigate}>
       <li class={["nav-link ", if(@current_path == @navigate, do: "active")]} aria-expanded="false">
-        <.text size="h4" color="text-blue-100" class="flex" style="gap: 8px;">
+        <.text size="h4" color="text-primary-100" class="flex" style="gap: 8px;">
           {@label}
         </.text>
       </li>

@@ -12,18 +12,18 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div class="report-wrapper">
-      <.text size="h1" color="text-blue-100">
+      <.text size="h1" color="text-primary-100">
         {@title}
       </.text>
 
       <.form for={@form} id="report-form" phx-target={@myself} phx-change="validate" phx-submit="save">
         <div class="input-date-group" style="display: flex;">
           <div class="input-date">
-            <.text size="h3" color="text-blue-100">Início período</.text>
+            <.text size="h3" color="text-primary-100">Início período</.text>
             <.text_input type="date" field={@form[:data_inicio]} />
           </div>
           <div class="input-date">
-            <.text size="h3" color="text-blue-100">Fim período</.text>
+            <.text size="h3" color="text-primary-100">Fim período</.text>
             <.text_input type="date" field={@form[:data_fim]} />
           </div>
         </div>
@@ -233,7 +233,7 @@ defmodule PescarteWeb.Pesquisa.RelatorioLive.FormComponent do
       class="report-field"
     >
       <:label>
-        <.text size="h3" color="text-blue-100">
+        <.text size="h3" color="text-primary-100">
           {@label}
         </.text>
       </:label>

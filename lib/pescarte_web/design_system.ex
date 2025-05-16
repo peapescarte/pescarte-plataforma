@@ -22,7 +22,7 @@ defmodule PescarteWeb.DesignSystem do
   Também recebe um atributo chamado `color`, que é uma classe do TailwindCSS
   que representa uma cor específica da paleta que o Design System define.
 
-  Caso o atributo `color` não seja fornecido, a cor padrão - `black-80` -
+  Caso o atributo `color` não seja fornecido, a cor padrão - `neutral-80` -
   será utilizada.
 
   Para ver as cores disponívels, execute o comando `mix tailwind.view`.
@@ -36,7 +36,7 @@ defmodule PescarteWeb.DesignSystem do
   """
 
   attr :size, :string, values: @text_sizes, required: true
-  attr :color, :string, default: "text-black-80"
+  attr :color, :string, default: "text-neutral-80"
   attr :class, :string, required: false, default: ""
   attr :style, :string, default: ""
 
@@ -160,7 +160,7 @@ defmodule PescarteWeb.DesignSystem do
         {render_slot(@inner_block)}
       </.text>
 
-      <.text :if={@style != "primary"} size="base" color="text-blue-80">
+      <.text :if={@style != "primary"} size="base" color="text-primary-80">
         {render_slot(@inner_block)}
       </.text>
     </button>
@@ -216,7 +216,7 @@ defmodule PescarteWeb.DesignSystem do
         </div>
         <div class="divider"></div>
         <div class="block">
-          <.text size="base" color="text-blue-100" class="block-text">
+          <.text size="base" color="text-primary-100" class="block-text">
             A realização do Projeto Pescarte é uma medida de mitigação exigida pelo licenciamento ambiental federal, conduzido pelo IBAMA.
           </.text>
         </div>
@@ -763,8 +763,8 @@ defmodule PescarteWeb.DesignSystem do
         {render_slot(@inner_block)}
       </span>
       <.button style="link" class="whitespace-nowrap" click={@click} phx-target=".profile-menu-link">
-        <.text size="base" color="text-blue-80">
-          <Lucideicons.credit_card class="text-blue-100" />
+        <.text size="base" color="text-primary-80">
+          <Lucideicons.credit_card class="text-primary-100" />
           {@label}
         </.text>
       </.button>
@@ -813,7 +813,7 @@ defmodule PescarteWeb.DesignSystem do
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-blue-60 fixed inset-0 transition-opacity"
+        class="bg-primary-60 fixed inset-0 transition-opacity"
         aria-hidden="true"
         style="opacity: 0.5;"
       />
@@ -839,17 +839,17 @@ defmodule PescarteWeb.DesignSystem do
                 class="w-full right-5 flex justify-between"
                 style="top: 1.25rem; align-items: center; max-width: 442px;"
               >
-                <.text size="h2" color="black-80">
+                <.text size="h2" color="neutral-80">
                   {@title}
                 </.text>
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="flex-none hover:opacity-40 border-black-80 rounded-full"
+                  class="flex-none hover:opacity-40 border-neutral-80 rounded-full"
                   style="width: 30px; height: 30px; border-width: 1.5px;"
                   aria-label="close modal button"
                 >
-                  <Lucideicons.x class="text-black-80" style="margin: auto" />
+                  <Lucideicons.x class="text-neutral-80" style="margin: auto" />
                 </button>
               </div>
               <div id={"#{@id}-content"} style="margin: 64px 0;">

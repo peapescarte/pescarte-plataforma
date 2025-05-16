@@ -255,7 +255,9 @@
   border-radius: 0.5rem;
   background-color: var(--preto-5);
   cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .pesquisador-form-dropzone:hover,

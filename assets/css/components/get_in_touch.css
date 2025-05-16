@@ -7,24 +7,42 @@
   @apply flex flex-col justify-center items-center text-center;
 }
 
-.onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
+.onde-nos-encontrar-wrapper
+  .redes-sociais-wrapper
+  .redes-sociais-links-wrapper {
   @apply grid gap-8 pt-10;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link {
+.onde-nos-encontrar-wrapper
+  .redes-sociais-wrapper
+  .redes-sociais-links-wrapper
+  .redes-sociais-link {
   @apply flex flex-col items-center gap-6 px-20;
 }
 
-.onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link .redes-sociais-icon {
+.onde-nos-encontrar-wrapper
+  .redes-sociais-wrapper
+  .redes-sociais-links-wrapper
+  .redes-sociais-link
+  .redes-sociais-icon {
   @apply flex bg-white-100 text-secondary-100 justify-center items-center rounded-full w-[88px] h-[88px];
 }
 
-.onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link .redes-sociais-icon svg {
+.onde-nos-encontrar-wrapper
+  .redes-sociais-wrapper
+  .redes-sociais-links-wrapper
+  .redes-sociais-link
+  .redes-sociais-icon
+  svg {
   @apply w-10 h-10;
 }
 
-.onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link p {
+.onde-nos-encontrar-wrapper
+  .redes-sociais-wrapper
+  .redes-sociais-links-wrapper
+  .redes-sociais-link
+  p {
   @apply text-white-100;
 }
 
@@ -53,28 +71,41 @@
     @apply m-4;
   }
 
-  .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
+  .onde-nos-encontrar-wrapper
+    .redes-sociais-wrapper
+    .redes-sociais-links-wrapper {
     @apply flex;
   }
 
-  .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link {
+  .onde-nos-encontrar-wrapper
+    .redes-sociais-wrapper
+    .redes-sociais-links-wrapper
+    .redes-sociais-link {
     @apply p-0;
   }
 
-  .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper .redes-sociais-link .redes-sociais-icon {
+  .onde-nos-encontrar-wrapper
+    .redes-sociais-wrapper
+    .redes-sociais-links-wrapper
+    .redes-sociais-link
+    .redes-sociais-icon {
     @apply w-[60px] h-[60px];
   }
 }
 
 @media (min-width: 768px) {
-  .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
+  .onde-nos-encontrar-wrapper
+    .redes-sociais-wrapper
+    .redes-sociais-links-wrapper {
     /* 2 colunas em telas médias */
     @apply grid grid-cols-2 auto-rows-auto gap-x-20 min-h-0 mt-10;
   }
 }
 
 @media (min-width: 1024px) {
-  .onde-nos-encontrar-wrapper .redes-sociais-wrapper .redes-sociais-links-wrapper {
+  .onde-nos-encontrar-wrapper
+    .redes-sociais-wrapper
+    .redes-sociais-links-wrapper {
     /* 3 colunas em telas grandes */
     @apply grid grid-cols-3 auto-rows-auto gap-x-20 min-h-0 mt-10;
   }
