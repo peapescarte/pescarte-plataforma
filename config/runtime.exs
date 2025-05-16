@@ -10,6 +10,8 @@ config :pescarte, Pescarte.Supabase,
   base_url: System.get_env("SUPABASE_URL"),
   api_key: System.get_env("SUPABASE_KEY")
 
+config :supabase_gotrue, auth_module: PescarteWeb.Auth
+
 if System.get_env("PHX_SERVER") do
   config :pescarte, PescarteWeb.Endpoint, server: true
 end

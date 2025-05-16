@@ -1,0 +1,57 @@
+.cooperativas-page {
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.cooperativas-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cooperativa-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.cooperativa-card:hover {
+  transform: translateY(-5px);
+}
+
+.cooperativa-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.cooperativa-content {
+  padding: 1.5rem;
+  background-color: white;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cooperativa-content h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--preto-100);
+}
+
+.cooperativa-content p {
+  margin-bottom: 1rem;
+  color: var(--preto-60);
+  flex-grow: 1;
+}
+
+.cooperativa-content .btn {
+  align-self: flex-start;
+  margin-top: 1rem;
+}
