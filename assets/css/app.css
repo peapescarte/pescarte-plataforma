@@ -1,24 +1,3 @@
-/* Main CSS file
--------------------------------------------
-  This file imports all CSS modules in the correct order
-  following the ITCSS methodology:
-  (Settings → Tools → Generic → Elements → Objects → Components → Utilities)
-*/
-
-/* Settings - Variables and configuration */
-@import "./variables.css";
-
-/* Base styles - Reset, typography, and base elements */
-@import "./base/index.css";
-
-/* Design system styles */
-@import "./design-system.css";
-
-/* Components - Reusable UI components */
-@import "./components/index.css";
-
-/* Pages - Page-specific styles */
-@import "./pages/index.css";
-
-/* Import Tailwind */
-@import "tailwindcss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";

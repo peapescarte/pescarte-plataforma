@@ -30,8 +30,7 @@ config :pescarte, PescarteWeb.Endpoint,
   debug_errors: true,
   reloadable_compilers: [:elixir],
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:pescarte, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:pescarte, ~w(--watch)]}
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)]
   ],
   live_reload: [
     patterns: [

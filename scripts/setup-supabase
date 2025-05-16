@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Capture the output of the 'supabase status' command
+output=$(supabase status)
+exit_status=$(echo $?)
+
+# Check if the command succeeded
+if [ $exit_status -ne 0 ]; then
+    echo "Failed to execute 'supabase status': $output"
+    exit $exit_status
+fi
+
+# Process each line from the output
+while IFS= read -r line; do
+    # Check if the line contains a colon, indicating a key-value pair
+    if [[ "$line" =~ : ]]; then
+        # Normalize the key:
+        # 1. Extract the key part before the colon
+        # 2. Convert to upper case
+        # 3. Replace spaces and hyphens with underscores
+        # 4. Remove leading and trailing spaces or underscores
+        key=$(echo "$line" | cut -d ':' -f 1 | tr '[:lower:]- ' '[:upper:]_' | sed 's/^_*//;s/_*$//')
+
+        # Extract the value, trimming leading and trailing whitespace
+        value=$(echo "$line" | cut -d ':' -f 2- | xargs)
+
+        # Export the environment variable
+        if [[ -n "$key" && -n "$value" ]]; then
+            export "SUPABASE_$key=$value"
+            echo "Exported $key"
+        else
+            echo "Warning: Skipping empty or malformed entry."
+        fi
+    fi
+done <<< "$output"

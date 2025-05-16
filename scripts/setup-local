@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Install mix dependencies
+if ! test -d deps; then
+  mix deps.get
+fi
+
+if ! test -d _build; then
+	mix compile
+fi
+
+# Install node dependencies
+if ! test -d assets/node_modules && test -f assets/package.json; then
+  npm ci -p ./assets && mix assets.build
+fi
