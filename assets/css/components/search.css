@@ -1,0 +1,32 @@
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  padding-right: 2.5rem;
+  border: 1.5px solid var(--preto-20);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.search-container input:hover {
+  border-color: var(--preto-40);
+}
+
+.search-container input:focus {
+  border-color: var(--azul-80);
+  outline: 0;
+}
+
+.search-container .search-icon {
+  position: absolute;
+  right: 1rem;
+  color: var(--preto-60);
+}

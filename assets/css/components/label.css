@@ -1,0 +1,20 @@
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--preto-80);
+  margin-bottom: 0.5rem;
+}
+
+.label.required::after {
+  content: "*";
+  color: var(--vermelho-100);
+  margin-left: 0.25rem;
+}
+
+.label-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--preto-60);
+  margin-top: 0.25rem;
+}

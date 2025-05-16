@@ -2,10 +2,10 @@ project_id = "pescarte-plataforma"
 
 [api]
 enabled = true
-port = 54321
-schemas = ["public", "graphql_public"]
+schemas = ["censo"]
 extra_search_path = ["public", "extensions"]
 max_rows = 1000
+port = 54321
 
 [db]
 port = 54322
@@ -16,8 +16,10 @@ major_version = 15
 enabled = true
 port = 54329
 pool_mode = "transaction"
-default_pool_size = 25
+default_pool_size = 20
 max_client_conn = 100
+[db.migrations]
+schema_paths = []
 
 [realtime]
 enabled = false
@@ -35,68 +37,67 @@ smtp_port = 54325
 
 [storage]
 enabled = true
-file_size_limit = "1GB"
+file_size_limit = "50MiB"
 
 [auth]
 enabled = true
-site_url = "http://127.0.0.1:4000"
-additional_redirect_urls = []
+site_url = "https://pescarte.org.br"
+additional_redirect_urls = ["https://*.pescarte.org.br", "https://pescarte.org.br/signin/otp", "https://b7ec-179-187-120-40.ngrok-free.app"]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
 refresh_token_reuse_interval = 10
 enable_signup = true
 enable_anonymous_sign_ins = false
 enable_manual_linking = false
+minimum_password_length = 12
+password_requirements = "lower_upper_letters_digits_symbols"
+jwt_secret = ""
+anon_key = ""
+service_role_key = ""
+[auth.rate_limit]
+anonymous_users = 30
+token_refresh = 200
+sign_in_sign_ups = 30
+token_verifications = 30
+email_sent = 2
 
+[auth.mfa]
+max_enrolled_factors = 10
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+[auth.mfa.phone]
+enroll_enabled = false
+verify_enabled = false
+
+[auth.sessions]
+timebox = "6m0s"
+inactivity_timeout = "0s"
 [auth.email]
 enable_signup = true
 double_confirm_changes = true
-enable_confirmations = false
-
-[auth.email.template.invite]
-subject = "You have been invited"
-content_path = "./supabase/templates/invite_user.html"
-
-[auth.email.template.recovery]
-subject = "You have been invited"
-content_path = "./supabase/templates/reset_password.html"
-
+enable_confirmations = true
+secure_password_change = true
+max_frequency = "1m0s"
+otp_length = 6
+otp_expiry = 3600
+[auth.email.template]
 [auth.email.template.confirmation]
-subject = "You have been invited"
-content_path = "./supabase/templates/confirm_signup.html"
-
+subject = "Finalize seu cadastro na Plataforma PEA Pescarte"
+content_path = "supabase/templates/confirm_signup.html"
+[auth.email.template.invite]
+subject = "Convite para cadastro na Plataforma PEA Pescarte"
+content_path = "supabase/templates/invite_user.html"
+[auth.email.template.recovery]
+subject = "Recuperação de senha da Plataforma PEA Pescarte"
+content_path = "supabase/templates/reset_password.html"
 [auth.sms]
 enable_signup = false
 enable_confirmations = false
-template = "Your code is {{ .Code }} ."
-
-# Use pre-defined map of phone number to OTP for testing.
-[auth.sms.test_otp]
-# 4152127777 = "123456"
-
-# This hook runs before a token is issued and allows you to add additional claims based on the authentication method used.
-[auth.hook.custom_access_token]
-# enabled = true
-# uri = "pg-functions://<database>/<schema>/<hook_name>"
-
-
-# Configure one of the supported SMS providers: `twilio`, `twilio_verify`, `messagebird`, `textlocal`, `vonage`.
+template = "Your code is {{ .Code }}"
+max_frequency = "5s"
 [auth.sms.twilio]
 enabled = false
-account_sid = ""
-message_service_sid = ""
-# DO NOT commit your Twilio auth token to git. Use environment variable substitution instead:
-auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
-
-# Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
-# `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
-# `twitter`, `slack`, `spotify`, `workos`, `zoom`.
-[auth.external.apple]
-enabled = false
-client_id = ""
-secret = "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)"
-redirect_uri = ""
-url = ""
 
 [analytics]
 enabled = false

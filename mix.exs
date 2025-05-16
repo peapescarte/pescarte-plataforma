@@ -81,6 +81,8 @@ defmodule Pescarte.MixProject do
       {:mox, "~> 1.0", only: [:test]},
       {:rewire, "~> 0.9", only: [:test]},
       {:faker, "~> 0.18", only: :test},
+      {:tailwind, "~> 0.3", runtime: Mix.env() == :dev},
+      {:esbuild, "~> 0.9", runtime: Mix.env() == :dev},
       {:dialyxir, "~> 1.3", only: :dev, runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:ex_doc, "> 0.0.0", only: :dev, runtime: false},
@@ -95,8 +97,13 @@ defmodule Pescarte.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "seed"],
       "ecto.reset": ["ecto.drop", "ecto.setup", "seed"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.build": ["cmd --cd assets node build.js"],
-      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind pescarte", "esbuild pescarte"],
+      "assets.deploy": [
+        "tailwind pescarte --minify",
+        "esbuild pescarte --minify",
+        "phx.digest"
+      ],
       lint: ["compile --warning-as-errors", "clean", "format --check-formatted", "credo --strict"],
       "ci.check": ["lint", "test --only unit", "test --only integration"]
     ]

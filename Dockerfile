@@ -40,6 +40,7 @@ RUN mix compile
 # compile assets
 COPY assets assets
 
+RUN mix assets.setup
 RUN npm ci --prefix assets
 RUN mix assets.deploy
 

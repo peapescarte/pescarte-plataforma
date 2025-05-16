@@ -1,0 +1,52 @@
+.date-input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.date-input-container label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.date-input-container .date-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  padding-right: 2.5rem;
+  border: 1.5px solid var(--preto-20);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.date-input-container .date-input:hover {
+  border-color: var(--preto-40);
+}
+
+.date-input-container .date-input:focus {
+  border-color: var(--azul-80);
+  outline: 0;
+}
+
+.date-input-container .date-input:disabled {
+  background-color: var(--preto-5);
+  border-color: var(--preto-10);
+  color: var(--preto-60);
+  cursor: not-allowed;
+}
+
+.date-input-container .icon {
+  position: absolute;
+  right: 1rem;
+  top: 2.5rem;
+  color: var(--preto-60);
+  pointer-events: none;
+}
+
+.date-input-container .error-message {
+  color: var(--vermelho-100);
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}

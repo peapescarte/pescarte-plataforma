@@ -1,0 +1,24 @@
+/* Non-authenticated pages */
+@import "./login.css";
+@import "./aboutus.css";
+@import "./noticias.css";
+@import "./equipes.css";
+@import "./cooperativas.css";
+@import "./sedes.css";
+@import "./pgtr.css";
+@import "./agenda.css";
+@import "./contact.css";
+@import "./article.css";
+@import "./boletins.css";
+@import "./cards.css";
+@import "./georreferenciamentos.css";
+
+/* Authenticated pages */
+@import "./app/researcher/profile.css";
+@import "./app/researcher/listagem_pesquisador.css";
+@import "./app/researcher/relatorio/list_report.css";
+@import "./app/researcher/relatorio/report.css";
+@import "./app/researcher/pesquisador/index.css";
+
+/* Error pages */
+@import "./errors/404.css";
