@@ -42,11 +42,13 @@ defmodule Pescarte.Storage do
     end
   end
 
-  @appointments_data_bucket "appointments_data"
+  @appointments_data_bucket "static"
+  @appointments_data_folder "agenda"
 
   def get_appointments_data_file_url(path) when is_binary(path) do
     with {:ok, client} <- Pescarte.Supabase.get_client() do
       storage = Supabase.Storage.from(client, @appointments_data_bucket)
+      path = Path.join(@appointments_data_folder, path)
       Supabase.Storage.File.create_signed_url(storage, path, expires_in: 60 * 60 * 24 * 365)  # link válido por um ano
     end
   end
