@@ -14,10 +14,7 @@
       Agenda sujeita a alterações e inscrições prévias. Entre em contato com a equipe do seu município.
     </.text>
 
-    <!-- Passando o mapa diretamente para o template -->
-    <%= for {_, rows} <- @mapa do %>
-      <%= table_render(rows: rows) %> <!-- Corrigido aqui para passar 'rows' -->
-    <% end %>
+    <%= table_render(rows: @rows) %>
   </div>
 
   <div class="join-us">
@@ -27,6 +24,7 @@
       <br /> <br /> <strong>Junte-se a nós nessa jornada de transformação!</strong>
     </.text>
   </div>
+  
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 </main>

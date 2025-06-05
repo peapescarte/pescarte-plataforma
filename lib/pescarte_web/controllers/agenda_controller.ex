@@ -4,69 +4,44 @@ defmodule PescarteWeb.AgendaController do
   alias NimbleCSV.RFC4180, as: CSV
 
   def show(conn, _params) do
-    # Pega a URL do arquivo CSV no Supabase e faz o download
-    file_content =
-      "agenda.csv"
-      |> Pescarte.Storage.get_appointments_data_file_url()  # A URL do arquivo CSV no Supabase
-      |> handle_url()  # Extrai a URL do tuple {:ok, url}
-      |> download_file()
+    with {:ok, file_content} <- Pescarte.Storage.fetch_appointments_csv("agenda.csv") do
+      cleaned_content = clean_bom(file_content)
 
-    # Limpeza do BOM e do conteúdo do CSV
-    cleaned_content = clean_bom(file_content)
+      [current_month | rest] =
+        cleaned_content
+        |> CSV.parse_string(skip_headers: false)
 
-    current_month =
-      cleaned_content
-      |> CSV.parse_string(skip_headers: false)  # Parse do CSV sem o BOM
-      |> Enum.take(1)
-      |> List.first()
+      [_header | data_rows] = rest
 
-    table_data =
-      cleaned_content
-      |> CSV.parse_string()
-      |> Stream.drop(1)  # Remove o cabeçalho
-      |> Stream.filter(&valid_row?/1)
-      |> Stream.map(&convert_to_map/1)
-      |> then(fn rows ->
-        total_rows = Enum.count(rows)
+      rows =
+        data_rows
+        |> Enum.filter(&valid_row?/1)
+        |> Enum.map(&convert_to_map/1)
 
-        rows
-        |> Enum.chunk_every(total_rows)
-        |> Enum.with_index()
-        |> Enum.reduce(%{}, fn {lista, index}, acc -> Map.put(acc, index, lista) end)
-      end)
-
-    current_path = conn.request_path
-
-    render(conn, :show,
-      mapa: table_data,
-      current_month: current_month,
-      current_path: current_path
-    )
+      render(conn, :show,
+        rows: rows,
+        current_month: List.first(current_month),
+        current_path: conn.request_path
+      )
+    else
+      {:error, reason} ->
+        conn
+        |> put_flash(:error, "Não foi possível carregar a agenda (#{inspect(reason)}).")
+        |> redirect(to: "/")
+    end
   end
 
-  defp handle_url({:ok, url}), do: url  # Função para extrair a URL de um tuple {:ok, "url"}
-  defp handle_url({:error, _reason}), do: nil  # Em caso de erro, você pode lidar de acordo com a necessidade
-
-  defp download_file(nil), do: {:error, :file_not_found}  # Caso a URL seja nil
-  defp download_file(url) do
-    {:ok, %{body: body}} = HTTPoison.get(url)
-    body
-  end
-
-  defp clean_bom(content) do
-    String.replace(content, "\uFEFF", "")  # Remove o BOM, se houver
-  end
+  defp clean_bom(<< "\uFEFF", rest::binary >>), do: rest
+  defp clean_bom(content),                     do: content
 
   defp convert_to_map([data, horario, atividade, local]) do
     %{
-      data: data,
-      horario: horario,
-      atividade: atividade,
-      local: local
+      data:      String.trim(data),
+      horario:   String.trim(horario),
+      atividade: String.trim(atividade),
+      local:     String.trim(local)
     }
   end
 
-  defp valid_row?(row) do
-    Enum.all?(row, fn field -> String.trim(field) != "" end)
-  end
+  defp valid_row?(row), do: Enum.all?(row, &(String.trim(&1) != ""))
 end
