@@ -3,6 +3,7 @@ defmodule PescarteWeb.AgendaHTML do
 
   embed_templates("agenda_html/*")
 
+  # Função de renderização da tabela
   def table_render(assigns) do
     ~H"""
     <div class="container mx-auto mt-8 mb-8">
@@ -17,7 +18,8 @@ defmodule PescarteWeb.AgendaHTML do
             </tr>
           </thead>
           <tbody>
-            <%= for %{data: data, horario: horario, atividade: atividade, local: local} <- assigns do %>
+            <!-- Alteração feita para acessar diretamente os dados -->
+            <%= for %{data: data, horario: horario, atividade: atividade, local: local} <- assigns[:rows] do %>
               <tr>
                 <td>{data}</td>
                 <td>{horario}</td>
@@ -34,7 +36,6 @@ defmodule PescarteWeb.AgendaHTML do
 
   def handle_event("dialog", _value, socket) do
     IO.puts("HII")
-
     {:noreply, socket}
   end
 end

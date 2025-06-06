@@ -41,4 +41,25 @@ defmodule Pescarte.Storage do
       Supabase.Storage.File.create_signed_url(storage, path, opts)
     end
   end
+
+  @spec download_file(String.t(), String.t()) :: {:ok, binary} | {:error, term}
+  def download_file(bucket, path) when is_binary(bucket) and is_binary(path) do
+    with {:ok, client} <- Pescarte.Supabase.get_client(),
+         storage      <- Supabase.Storage.from(client, bucket) do
+      Supabase.Storage.File.download(storage, path)
+    end
+  end
+
+  @appointments_data_bucket  "static"
+  @appointments_data_folder  "agenda"
+
+  @spec fetch_appointments_csv(String.t()) :: {:ok, String.t()} | {:error, term}
+  def fetch_appointments_csv(filename) when is_binary(filename) do
+    path = Path.join(@appointments_data_folder, filename)
+
+    case download_file(@appointments_data_bucket, path) do
+      {:ok, binary} -> {:ok, IO.iodata_to_binary(binary)}
+      error         -> error
+    end
+  end
 end
