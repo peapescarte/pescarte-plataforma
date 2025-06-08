@@ -1,29 +1,18 @@
 defmodule PescarteWeb.AgendaController do
   use PescarteWeb, :controller
-
   alias NimbleCSV.RFC4180, as: CSV
 
   def show(conn, _params) do
-    with {:ok, file_content} <- Pescarte.Storage.fetch_appointments_csv("agenda.csv") do
-      cleaned_content = clean_bom(file_content)
+    case Pescarte.Storage.fetch_appointments_csv("agenda.csv") do
+      {:ok, file_content} ->
+        {rows, month} = parse_appointments_csv(file_content)
 
-      [current_month | rest] =
-        cleaned_content
-        |> CSV.parse_string(skip_headers: false)
+        render(conn, :show,
+          rows: rows,
+          month: month,
+          current_path: conn.request_path
+        )
 
-      [_header | data_rows] = rest
-
-      rows =
-        data_rows
-        |> Enum.filter(&valid_row?/1)
-        |> Enum.map(&convert_to_map/1)
-
-      render(conn, :show,
-        rows: rows,
-        current_month: List.first(current_month),
-        current_path: conn.request_path
-      )
-    else
       {:error, reason} ->
         conn
         |> put_flash(:error, "Não foi possível carregar a agenda (#{inspect(reason)}).")
@@ -31,15 +20,33 @@ defmodule PescarteWeb.AgendaController do
     end
   end
 
-  defp clean_bom(<< "\uFEFF", rest::binary >>), do: rest
-  defp clean_bom(content),                     do: content
+  defp parse_appointments_csv(file_content) do
+    cleaned_content = clean_bom(file_content)
+
+    [month_line | csv_lines] =
+      cleaned_content
+      |> String.trim_trailing()
+      |> String.split("\n")
+
+    rows =
+      csv_lines
+      |> Enum.join("\n")
+      |> CSV.parse_string(skip_headers: true)
+      |> Enum.filter(&valid_row?/1)
+      |> Enum.map(&convert_to_map/1)
+
+    {rows, String.trim(month_line)}
+  end
+
+  defp clean_bom(<<"\uFEFF", rest::binary>>), do: rest
+  defp clean_bom(content), do: content
 
   defp convert_to_map([data, horario, atividade, local]) do
     %{
-      data:      String.trim(data),
-      horario:   String.trim(horario),
+      data: String.trim(data),
+      horario: String.trim(horario),
       atividade: String.trim(atividade),
-      local:     String.trim(local)
+      local: String.trim(local)
     }
   end
 
