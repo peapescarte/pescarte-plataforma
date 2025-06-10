@@ -1,715 +1,851 @@
 <main>
   <div class="lighter-banner">
-    <img src={~p"/images/light-banner-bg.png"} class="banner-img" />
-    <.text size="h2" color="text-white-100">
-      PGTR
-    </.text>
+    <img src={~p"/images/light-banner-bg.png"} class="banner-img" alt="Banner PGTR" />
+    <.text size="h2" color="text-white-100">PGTR</.text>
   </div>
 
   <div class="get-to-know-pgtr">
     <div class="content-pgtr">
       <.text size="h2" color="text-blue-100">O Pescarte e PGTR</.text>
       <.text size="lg" color="text-black-80">
-        O Projeto de Educação Ambiental Pescarte (PEA Pescarte) atua no
-        fortalecimento da organização comunitária da pesca artesanal em 10
-        municípios da Bacia de Campos, no interior do Rio de Janeiro. A organização é
-        promovida com a mobilização e a construção das habilidades dos membros
-        das comunidades de pesca para que atuem no Projeto de Geração de Trabalho
-        e Renda (PGTR), que prevê a implantação de Unidades produtivas.
+        O Projeto de Educação Ambiental Pescarte (PEA Pescarte) atua no fortalecimento da organização comunitária da
+        pesca artesanal em 10 municípios da Bacia de Campos, no interior do Rio de Janeiro. A organização é promovida
+        com a mobilização e a construção das habilidades dos membros das comunidades de pesca para que atuem no
+        Projeto de Geração de Trabalho e Renda (PGTR), que prevê a implantação de Unidades produtivas.
       </.text>
       <.text size="lg" color="text-black-80">
-        Essas unidades funcionarão como cooperativas, com o objetivo de
-        proporcionar condições de trabalho dignas e negociações justas, promovendo
-        o aumento da renda familiar dos integrantes da cadeia produtiva da pesca
+        Essas unidades funcionarão como cooperativas, com o objetivo de proporcionar condições de trabalho dignas
+        e negociações justas, promovendo o aumento da renda familiar dos integrantes da cadeia produtiva da pesca
         artesanal.
       </.text>
       <.text size="lg" color="text-black-80">
-        Respeitando o plano de trabalho e as fases previstas do PEA Pescarte,
-        atualmente sete municípios iniciaram a implantação dos empreendimentos.
-        São eles: Arraial do Cabo, Cabo Frio, Campos dos Goytacazes, Macaé,
-        Quissamã, São Francisco de Itabapoana e São João da Barra. As cidades de
-        Armação dos Búzios, Carapebus e Rio das Ostras já formaram os Grupos
-        Gestores (GG), que atuarão diretamente no planejamento dos PGTR.
+        Respeitando o plano de trabalho e as fases previstas do PEA Pescarte, atualmente sete municípios iniciaram
+        a implantação dos empreendimentos. São eles: Arraial do Cabo, Cabo Frio, Campos dos Goytacazes, Macaé,
+        Quissamã, São Francisco de Itabapoana e São João da Barra. As cidades de Armação dos Búzios, Carapebus
+        e Rio das Ostras já formaram os Grupos Gestores (GG), que atuarão diretamente no planejamento dos PGTR.
       </.text>
     </div>
-    <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL3NvYnJlL3NvYnJlXzEucG5nIiwiaWF0IjoxNzI0MzQ2OTE1LCJleHAiOjIwMzk3MDY5MTV9.J7I7kUsYTdVVseCs6QcGXHAAXIdrSPo-vEEurvrF2Kw&t=2024-08-22T17%3A15%3A15.147Z" />
+    <img
+      src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/sobre/sobre_1.png?token=..."
+      alt="Imagem do Pescarte e PGTR"
+    />
   </div>
 
   <div class="production-units">
     <.text size="h3" color="text-blue-100">Unidades Produtivas Previstas</.text>
 
+    <%= if @current_user && @current_user.role == "admin" do %>
+      <div class="admin-actions">
+        <div class="action-group">
+          <!-- Botões de criação -->
+          <button id="open-municipio-modal-btn" class="btn btn-primary">Novo Município</button>
+          <button id="open-unit-modal-btn" class="btn btn-primary">Nova Unidade</button>
+          <button id="open-document-type-modal-btn" class="btn btn-primary">
+            Novo Tipo de Documento
+          </button>
+          <button id="open-document-modal-btn" class="btn btn-primary">Novo Documento</button>
+        </div>
+
+<!-- Botões de edição -->
+        <div class="action-group">
+          <button id="open-municipio-update-modal-btn" class="btn btn-secondary">
+            Editar Município
+          </button>
+          <button id="open-unit-update-modal-btn" class="btn btn-secondary">
+            Editar Unidade
+          </button>
+          <button id="open-document-type-update-modal-btn" class="btn btn-secondary">
+            Editar Tipo de Documento
+          </button>
+          <button id="open-document-update-modal-btn" class="btn btn-secondary">
+            Editar Documento
+          </button>
+        </div>
+
+        <div class="action-group">
+          <!-- Botões de deleção -->
+          <button id="open-municipio-delete-modal-btn" class="btn btn-delete">
+            Deletar Município
+          </button>
+          <button id="open-unit-delete-modal-btn" class="btn btn-delete">Deletar Unidade</button>
+          <button id="open-document-type-delete-modal-btn" class="btn btn-delete">
+            Deletar Tipo de Documento
+          </button>
+          <button id="open-document-delete-modal-btn" class="btn btn-delete">
+            Deletar Documento
+          </button>
+        </div>
+      </div>
+    <% end %>
+
     <div class="units-accordions">
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Armação dos Búzios</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
+      <% chunk_size = div(length(@municipios) + 1, 2) %>
+      <% splitted_municipios = Enum.chunk_every(@municipios, chunk_size) %>
 
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPP - Unidade de Processamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Estudo de viabilidade social em desenvolvimento e pedente identificação de área para atualização de EVTEAS.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Finalização do EVTEAS conceitual e aprovação de atualização a partir de área definida, para iniciar elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-in-progress">EVTEAS Conceitual: Em Andamento</span>
-              <span class="status-pending">Atualização EVTEAS: Pendente</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-            </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPM - Unidade de Produção de Moluscos 3
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Atualização de estudos ambientais e sociais em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Finalização de atualização de EVTEAS, aprovação e elaboração do plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPS - Unidade de Produção de Sementes
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Elaboração do estudo de viabilidade técnica em fila para iniciar.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Atualização do EVTEAS a partir de área definida.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-pending">EVTEAS Conceitual: Pendente</span>
-              <span class="status-pending">Atualização EVTEAS: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Arraial do Cabo</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UBM - Unidade de Beneficiamento de Moluscos
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Elaboração de viabilidade técnica em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Atualização de EVTEAS a partir de área definida.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-in-progress">EVTEAS Conceitual: Em andamento</span>
-              <span class="status-pending">Atualização EVTEAS: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPP - Unidade de Processamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Elaboração de estudo social em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Finalização de atualização de EVTEAS a partir de área definida.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-in-progress">EVTEAS Conceitual: Em andamento</span>
-              <span class="status-pending">Atualização EVTEAS: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPA - Unidade de Produção Aquícola
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Elaboração de estudo social em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Finalização de atualização de EVTEAS a partir de área definida.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPM - Unidade de Produção de Moluscos 1
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Aprovação de EVTEAS pendente a partir de nova área no Saco do Cardeiro, definida.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Aprovação de atualização de EVTEAS e elaboração do plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+      <%= for chunk <- splitted_municipios do %>
+        <div class="accordion">
+          <%= for municipio <- chunk do %>
+            <div class="accordion-bx">
+              <div class="accordion-label">
+                <img
+                  src={~p"/images/pgtr/fish-preto.png"}
+                  class="label-img"
+                  alt="Ícone de Município"
+                />
+                <.text size="h4" color="text-black-80">
+                  <strong>{municipio.name}</strong>
+                </.text>
+                <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
               </div>
-              <hr /> --%>
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPM - Unidade de Produção de Moluscos 2
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Elaboração de estudo social em desenvolvimento a partir da definicação de área na Comunidade da prainha.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Aprovação de atualização de EVTEAS e elaboração do plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
+
+              <div class="accordion-content">
+                <hr />
+                <%= for unit <- municipio.units do %>
+                  <div class="content-item">
+                    <.text size="h4" color="text-black-100">{unit.name}</.text>
+                    <.text size="lg" color="text-black-80">
+                      <span class="content-title">Situação:</span> {unit.situation}
+                    </.text>
+                    <.text size="lg" color="text-black-80">
+                      <span class="content-title">Próxima Etapa:</span> {unit.next_step || "N/A"}
+                    </.text>
+
+                    <%= for doc <- unit.documents do %>
+                      <span class={
+                        case doc.status do
+                          :concluido -> "status-done"
+                          :em_andamento -> "status-in-progress"
+                          :pendente -> "status-pending"
+                          _ -> "status-pending"
+                        end
+                      }>
+                        {String.capitalize(doc.document_type.name)}: {case doc.status do
+                          :concluido -> "Concluído"
+                          :em_andamento -> "Em Andamento"
+                          :pendente -> "Pendente"
+                          _ -> "Pendente"
+                        end}
+                      </span>
+                    <% end %>
+
+                    <hr />
+                  </div>
+                <% end %>
               </div>
-              <hr /> --%>
             </div>
-          </div>
+          <% end %>
         </div>
-        <!-- class="accordion-bx" -->
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Cabo Frio</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UBP - Unidade de Beneficiamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span> Contratação de topografia e sondagem.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próximas Etapas:</span>
-                Elaboração e planejamento do projeto.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-done">Atualização EVTEAS: Concluído</span>
-              <span class="status-done">Plano de Riscos: Concluído</span>
-              <span class="status-done">Cercamento do terreno: Concluído</span>
-              <span class="status-done">Instalação de placa informativa: Concluído</span>
-              <span class="status-in-progress">Projeto Conceitual: Em andamento</span>
-              <span class="status-in-progress">Projeto Básico e Arquitetônico: Em andamento</span>
-              <span class="status-pending">
-                Licitação para projeto executivo e obra: Pendente
-              </span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Campos dos Goycatazes</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                Fábrica de ração, farinha e tratamento de conchas
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Em fila para iniciar a partir de contratação de especialista em ração e tratamento de conchas.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próximas Etapas:</span>
-                Elaboração de atualização de viabilidade técnica.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-pending">Atualização EVTEAS: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UBP - Unidade de Beneficiamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Atualização de estudo de viabilidade social em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próximas Etapas:</span>
-                Término de atualização de EVTEAS e elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div>
-              <hr /> --%>
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPA - Unidade de Produção Aquícola
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Atualização de estudo de viabilidade social em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próximas Etapas:</span>
-                Término de atualização de EVTEAS e elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Carapebus</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPA - Unidade de Produção Aquícola
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Atualização de estudo de viabilidade social em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próximas Etapas:</span>
-                Término de atualização de EVTEAS e elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPALE - Unidade de Produção de alevinos
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Término de atualização de EVTEAS e elaboração de plano de riscos.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próximas Etapas:</span>
-                Término de atualização de EVTEAS e elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-in-progress">EVTEAS Conceitual: Em andamento</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-        </div>
-        <!-- class="accordion-bx" -->
-      </div>
-      <!-- class="accordion" 1 -->
-      <div class="accordion">
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Macaé</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UBP - Unidade de Beneficiamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Atualização de estudo de viabilidade social em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Término de atualização de EVTEAS e elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-          <!-- class="accordion-content" -->
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Quissamã</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPA - Unidade de Produção Aquícola
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span> Projeto conceitual finalizado.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Término do projeto básico e assinatura do contrato.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-done">Atualização EVTEAS: Concluído</span>
-              <span class="status-done">Plano de Riscos: Concluído</span>
-              <span class="status-done">Conquista do terreno pela comunidade: Concluído</span>
-              <span class="status-done">
-                Cercamento do terreno: Concluído
-              </span>
-              <span class="status-done">Instalação de placa informativa: Concluído</span>
-              <span class="status-done">Projeto Conceitual: Concluído</span>
-              <span class="status-in-progress">Projeto Básico e Arquitetônico: Em andamento</span>
-              <span class="status-pending">
-                Licitação para projeto executivo e obra: Pendente
-              </span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-          <!-- class="accordion-content" -->
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>Rio das Ostras</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPA - Unidade de Produção Aquícola
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Atualização de estudo de viabilidade social em desenvolvimento.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Término de atualização de EVTEAS e elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPP - Unidade de Processamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Atualização de estudo de viabilidade social em desenvolvimento e pendente definição de área.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Finalização do EVTEAS conceitual e atualização a partir de área definida para iniciar elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-in-progress">EVTEAS Conceitual: Em andamento</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-          <!-- class="accordion-content" -->
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>São Francisco de Itabapoana</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UBP - Unidade de Beneficiamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span> Projeto conceitual em elaboração.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Término do projeto básico e assinatura do contrato.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-done">Atualização EVTEAS: Concluído</span>
-              <span class="status-done">Plano de Riscos: Concluído</span>
-              <span class="status-done">Conquista do terreno pela comunidade: Concluído</span>
-              <span class="status-done">Cercamento do terreno: Concluído</span>
-              <span class="status-done">Instalação de placa informativa: Concluído</span>
-              <span class="status-done">Projeto Conceitual: Concluído</span>
-              <span class="status-in-progress">Projeto Básico e Arquitetônico: Em andamento</span>
-              <span class="status-pending">
-                Licitação para projeto executivo e obra: Pendente
-              </span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-          <!-- class="accordion-content" -->
-        </div>
-        <div class="accordion-bx">
-          <div class="accordion-label">
-            <img src={~p"/images/pgtr/fish-preto.png"} class="label-img" />
-            <.text size="h4" color="text-black-80">
-              <strong>São João da Barra</strong>
-            </.text>
-            <Lucideicons.chevron_down class="text-blue-100 ml-auto" />
-          </div>
-
-          <div class="accordion-content">
-            <hr />
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPA - Unidade de Produção Aquícola
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Pendente finalização de estudo de viabilidade social e definição de área.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Finalização do EVTEAS conceitual e atualização a partir de área definida para iniciar elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-done">EVTEAS Conceitual: Concluído</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-            <div class="content-item">
-              <.text size="h4" color="text-black-100">
-                UPP - Unidade de Processamento de Pescado
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Situação:</span>
-                Pendente finalização de estudo de viabilidade social e definição de área.
-              </.text>
-              <.text size="lg" color="text-black-80">
-                <span class="content-title">Próxima Etapa:</span>
-                Finalização do EVTEAS conceitual e atualização a partir de área definida para iniciar elaboração de plano de riscos.
-              </.text>
-              <span class="status-done">
-                Escolha do Empreendimento pela comunidade: Concluído
-              </span>
-              <span class="status-in-progress">EVTEAS Conceitual: Em andamento</span>
-              <span class="status-in-progress">Atualização EVTEAS: Em andamento</span>
-              <span class="status-pending">Plano de Riscos: Pendente</span>
-              <%!-- <div class="download-button">
-                <img src={~p"/images/pgtr/download.png"} class="download-icon" />
-                <.text size="lg" color="text-white-100">Baixar Documentos</.text>
-              </div> --%>
-              <hr />
-            </div>
-          </div>
-          <!-- class="accordion-content" -->
-        </div>
-        <!-- class="accordion-bx" -->
-      </div>
-      <!-- class="accordion" 2 -->
+      <% end %>
     </div>
   </div>
-  <!-- class="production-units" -->
-  <!-- ONDE NOS ENCONTRAR -->
+
+<!-- Seção "Onde Nos Encontrar" -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
+
+  <%= if @current_user && @current_user.role == "admin" do %>
+    <!-- MODAL: Novo Município -->
+    <div id="municipio-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Novo Município</h2>
+          <.simple_form
+            for={@unit_changeset |> to_form}
+            action={~p"/pgtr/create_municipio"}
+            class="form"
+          >
+            <div class="field">
+              <label for="municipio_name">Nome do Município</label>
+              <input
+                type="text"
+                id="municipio_name"
+                name="municipio[name]"
+                class="input"
+                value={@municipio_changeset.data.name || ""}
+                required
+              />
+              <%= if @municipio_changeset.errors[:name] do %>
+                <span class="error">{elem(@municipio_changeset.errors[:name], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Nova Unidade -->
+    <div id="unit-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Nova Unidade</h2>
+          <.simple_form
+            for={@unit_changeset |> to_form}
+            action={~p"/pgtr/create_unit"}
+            class="form"
+          >
+            <div class="field">
+              <label for="unit_municipio_id">Município</label>
+              <select id="unit_municipio_id" name="unit[municipio_id]" class="select" required>
+                <option value="">Selecione um Município</option>
+                <%= for municipio <- @municipios do %>
+                  <option
+                    value={municipio.id}
+                    selected={@unit_changeset.data.municipio_id == municipio.id}
+                  >
+                    {municipio.name}
+                  </option>
+                <% end %>
+              </select>
+              <%= if @unit_changeset.errors[:municipio_id] do %>
+                <span class="error">{elem(@unit_changeset.errors[:municipio_id], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="unit_name">Nome da Unidade</label>
+              <input
+                type="text"
+                id="unit_name"
+                name="unit[name]"
+                class="input"
+                value={@unit_changeset.data.name || ""}
+                required
+              />
+              <%= if @unit_changeset.errors[:name] do %>
+                <span class="error">{elem(@unit_changeset.errors[:name], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="unit_situation">Situação</label>
+              <input
+                type="text"
+                id="unit_situation"
+                name="unit[situation]"
+                class="input"
+                value={@unit_changeset.data.situation || ""}
+                required
+              />
+              <%= if @unit_changeset.errors[:situation] do %>
+                <span class="error">{elem(@unit_changeset.errors[:situation], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="unit_next_step">Próxima Etapa</label>
+              <input
+                type="text"
+                id="unit_next_step"
+                name="unit[next_step]"
+                class="input"
+                value={@unit_changeset.data.next_step || ""}
+              />
+              <%= if @unit_changeset.errors[:next_step] do %>
+                <span class="error">{elem(@unit_changeset.errors[:next_step], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Novo Tipo de Documento -->
+    <div id="document-type-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Novo Tipo de Documento</h2>
+          <.simple_form
+            for={@document_type_changeset |> to_form}
+            action={~p"/pgtr/create_document_type"}
+            class="form"
+          >
+            <div class="field">
+              <label for="document_type_name">Nome do Tipo de Documento</label>
+              <input
+                type="text"
+                id="document_type_name"
+                name="document_type[name]"
+                class="input"
+                value={@document_type_changeset.data.name || ""}
+                required
+              />
+              <%= if @document_type_changeset.errors[:name] do %>
+                <span class="error">{elem(@document_type_changeset.errors[:name], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Novo Documento -->
+    <div id="document-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Novo Documento</h2>
+          <.simple_form
+            for={@document_changeset |> to_form}
+            action={~p"/pgtr/create_document"}
+            class="form"
+          >
+            <div class="field">
+              <label for="document_municipio_id">Município</label>
+              <select
+                id="document_municipio_id"
+                name="document[municipio_id]"
+                class="select"
+                required
+              >
+                <option value="">Selecione um Município</option>
+                <%= for municipio <- @municipios do %>
+                  <option value={municipio.id}>{municipio.name}</option>
+                <% end %>
+              </select>
+            </div>
+            <div class="field">
+              <label for="document_unit_id">Unidade</label>
+              <select id="document_unit_id" name="document[unit_id]" class="select" required>
+                <option value="">Selecione uma Unidade</option>
+                <%= for unit <- @units do %>
+                  <option value={unit.id} data-municipio-id={unit.municipio_id}>
+                    {unit.name}
+                  </option>
+                <% end %>
+              </select>
+              <%= if @document_changeset.errors[:unit_id] do %>
+                <span class="error">{elem(@document_changeset.errors[:unit_id], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="document_document_type_id">Tipo de Documento</label>
+              <select
+                id="document_document_type_id"
+                name="document[document_type_id]"
+                class="select"
+                required
+              >
+                <option value="">Selecione um Tipo de Documento</option>
+                <%= for dt <- @document_types do %>
+                  <option
+                    value={dt.id}
+                    selected={@document_changeset.data.document_type_id == dt.id}
+                  >
+                    {dt.name}
+                  </option>
+                <% end %>
+              </select>
+              <%= if @document_changeset.errors[:document_type_id] do %>
+                <span class="error">
+                  {elem(@document_changeset.errors[:document_type_id], 0)}
+                </span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="document_status">Status</label>
+              <select id="document_status" name="document[status]" class="select" required>
+                <option value="">Selecione um Status</option>
+                <%= for status <- @statuses do %>
+                  <option
+                    value={status.key}
+                    selected={@document_changeset.data.status == status.key}
+                  >
+                    {status.label}
+                  </option>
+                <% end %>
+              </select>
+              <%= if @document_changeset.errors[:status] do %>
+                <span class="error">{elem(@document_changeset.errors[:status], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field">
+              <label for="document_document_link">Link do Documento</label>
+              <input
+                type="text"
+                id="document_document_link"
+                name="document[document_link]"
+                class="input"
+                value={@document_changeset.data.document_link || ""}
+                required
+              />
+              <%= if @document_changeset.errors[:document_link] do %>
+                <span class="error">{elem(@document_changeset.errors[:document_link], 0)}</span>
+              <% end %>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Editar Município -->
+    <div id="municipio-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Município</h2>
+          <div class="field filter-field">
+            <label for="municipio-update-select">Selecione o Município para Editar:</label>
+            <select id="municipio-update-select" class="select">
+              <option value="">Selecione</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id} data-nome={municipio.name}>
+                  {municipio.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+          <.simple_form
+            id="municipio-update-form"
+            for={@municipio_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" name="municipio_id" id="municipio_update_id" />
+            <div class="field">
+              <label for="municipio_name_update">Nome do Município</label>
+              <input
+                type="text"
+                id="municipio_name_update"
+                name="municipio[name]"
+                class="input"
+                required
+              />
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Editar Unidade -->
+    <div id="unit-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Unidade</h2>
+          <div class="field filter-field">
+            <label for="unit-update-municipio-filter">Selecione o Município:</label>
+            <select id="unit-update-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+          <div class="field filter-field">
+            <label for="unit-update-select">Selecione a Unidade para Editar:</label>
+            <select id="unit-update-select" class="select">
+              <option value="">Selecione</option>
+              <%= for unit <- @units do %>
+                <option
+                  value={unit.id}
+                  data-municipio-id={unit.municipio_id}
+                  data-name={unit.name}
+                  data-situation={unit.situation}
+                  data-next-step={unit.next_step || ""}
+                >
+                  {unit.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+          <.simple_form
+            id="unit-update-form"
+            for={@unit_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" name="unit[id]" id="unit_update_id" />
+            <div class="field">
+              <label for="unit_update_name">Nome da Unidade</label>
+              <input type="text" id="unit_update_name" name="unit[name]" class="input" required />
+            </div>
+            <div class="field">
+              <label for="unit_update_situation">Situação</label>
+              <input
+                type="text"
+                id="unit_update_situation"
+                name="unit[situation]"
+                class="input"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="unit_update_next_step">Próxima Etapa</label>
+              <input type="text" id="unit_update_next_step" name="unit[next_step]" class="input" />
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Editar Tipo de Documento -->
+    <div id="document-type-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Tipo de Documento</h2>
+          <div class="field filter-field">
+            <label for="document-type-update-select">Selecione o Tipo de Documento:</label>
+            <select id="document-type-update-select" class="select">
+              <option value="">Selecione</option>
+              <%= for dt <- @document_types do %>
+                <option value={dt.id} data-name={dt.name}>
+                  {dt.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+          <.simple_form
+            id="document-type-update-form"
+            for={@document_type_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" name="document_type[id]" id="document_type_update_id" />
+            <div class="field">
+              <label for="document_type_name_update">Nome do Tipo de Documento</label>
+              <input
+                type="text"
+                id="document_type_name_update"
+                name="document_type[name]"
+                class="input"
+                required
+              />
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Editar Documento -->
+    <div id="document-update-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Editar Documento</h2>
+          <div class="field filter-field">
+            <label for="document-update-municipio-filter">Selecione o Município:</label>
+            <select id="document-update-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+          <div class="field filter-field">
+            <label for="document-update-unit-filter">Selecione a Unidade:</label>
+            <select id="document-update-unit-filter" class="select">
+              <option value="">Selecione uma Unidade</option>
+              <%= for unit <- @units do %>
+                <option value={unit.id} data-municipio-id={unit.municipio_id}>
+                  {unit.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+          <div class="field filter-field">
+            <label for="document-update-type-filter">Selecione o Tipo de Documento:</label>
+            <select id="document-update-type-filter" class="select">
+              <option value="">Selecione um Tipo</option>
+              <%= for dt <- @document_types do %>
+                <option value={dt.id}>{dt.name}</option>
+              <% end %>
+            </select>
+          </div>
+          <div class="field filter-field">
+            <label for="document-update-select">Selecione o Documento:</label>
+            <select id="document-update-select" class="select">
+              <option value="">Selecione o Documento</option>
+              <%= for doc <- @documents do %>
+                <option
+                  value={doc.id}
+                  data-unit-id={doc.unit_id}
+                  data-document-type-id={doc.document_type_id}
+                  data-status={doc.status}
+                  data-document-link={doc.document_link}
+                >
+                  {doc.document_type.name} – {doc.document_link}
+                </option>
+              <% end %>
+            </select>
+          </div>
+          <.simple_form
+            id="document-update-form"
+            for={@document_changeset |> to_form}
+            action="#"
+            method="put"
+            class="form"
+          >
+            <input type="hidden" id="document_update_id" name="document[id]" />
+            <div class="field">
+              <label for="document_update_status">Status</label>
+              <select id="document_update_status" name="document[status]" class="select" required>
+                <option value="">Selecione um Status</option>
+                <%= for status <- @statuses do %>
+                  <option value={status.key}>{status.label}</option>
+                <% end %>
+              </select>
+            </div>
+            <div class="field">
+              <label for="document_update_document_link">Link do Documento</label>
+              <input
+                type="text"
+                id="document_update_document_link"
+                name="document[document_link]"
+                class="input"
+                required
+              />
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-primary">Salvar</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+<!-- MODAL: Deletar Município -->
+    <div id="municipio-delete-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Deletar Município</h2>
+          <div class="field filter-field">
+            <label for="municipio-delete-select">Selecione o Município para Excluir:</label>
+            <select id="municipio-delete-select" class="select">
+              <option value="">Selecione</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+          <.simple_form
+            id="municipio-delete-form"
+            for={@municipio_changeset |> to_form}
+            action="#"
+            method="delete"
+            class="form"
+          >
+            <input type="hidden" name="_id" id="municipio_delete_id" />
+            <p class="mb-3">Tem certeza de que deseja excluir este município?</p>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-danger">Excluir</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div id="unit-delete-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Deletar Unidade</h2>
+
+<!-- Filtro: Município -->
+          <div class="field filter-field">
+            <label for="unit-delete-municipio-filter">Selecione o Município:</label>
+            <select id="unit-delete-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- Filtro: Unidade (apenas do município selecionado) -->
+          <div class="field filter-field">
+            <label for="unit-delete-select">Selecione a Unidade para Excluir:</label>
+            <select id="unit-delete-select" class="select">
+              <option value="">Selecione</option>
+               <%= for unit <- @units do %>
+                <option
+                  value={unit.id}
+                  data-municipio-id={unit.municipio_id}
+                  data-name={unit.name}
+                  data-situation={unit.situation}
+                  data-next-step={unit.next_step || ""}
+                >
+                  {unit.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- Form: deleção -->
+          <.simple_form
+            id="unit-delete-form"
+            for={@unit_changeset |> to_form}
+            action="#"
+            method="delete"
+            class="form"
+          >
+            <input type="hidden" name="_id" id="unit_delete_id" />
+            <p class="mb-3">Tem certeza de que deseja excluir esta unidade?</p>
+
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-danger">Excluir</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div id="document-type-delete-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Deletar Tipo de Documento</h2>
+          <div class="field filter-field">
+            <label for="document-type-delete-select">
+              Selecione o Tipo de Documento para Excluir:
+            </label>
+            <select id="document-type-delete-select" class="select">
+              <option value="">Selecione</option>
+              <%= for dt <- @document_types do %>
+                <option value={dt.id}>{dt.name}</option>
+              <% end %>
+            </select>
+          </div>
+          <.simple_form
+            id="document-type-delete-form"
+            for={@document_type_changeset |> to_form}
+            action="#"
+            method="delete"
+            class="form"
+          >
+            <input type="hidden" name="_id" id="document_type_delete_id" />
+            <p class="mb-3">Tem certeza de que deseja excluir este tipo de documento?</p>
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-danger">Excluir</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div id="document-delete-modal" class="modal">
+      <div class="modal-background modal-close"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title">Deletar Documento</h2>
+
+<!-- 1) Filtro: Município -->
+          <div class="field filter-field">
+            <label for="document-delete-municipio-filter">Selecione o Município:</label>
+            <select id="document-delete-municipio-filter" class="select">
+              <option value="">Selecione um Município</option>
+              <%= for municipio <- @municipios do %>
+                <option value={municipio.id}>{municipio.name}</option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- 2) Filtro: Unidade (pertencente ao município) -->
+          <div class="field filter-field">
+            <label for="document-delete-unit-filter">Selecione a Unidade:</label>
+            <select id="document-delete-unit-filter" class="select">
+              <option value="">Selecione uma Unidade</option>
+              <%= for unit <- @units do %>
+                <option value={unit.id} data-municipio-id={unit.municipio_id}>
+                  {unit.name}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- 3) Filtro: Tipo de Documento (verifica os docs para a unit selecionada) -->
+          <div class="field filter-field">
+            <label for="document-delete-type-filter">Selecione o Tipo de Documento:</label>
+            <select id="document-delete-type-filter" class="select">
+              <option value="">Selecione um Tipo</option>
+              <%= for dt <- @document_types do %>
+                <option value={dt.id}>{dt.name}</option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- 4) Filtro: Documento final -->
+          <div class="field filter-field">
+            <label for="document-delete-select">Selecione o Documento para Excluir:</label>
+            <select id="document-delete-select" class="select">
+              <option value="">Selecione</option>
+              <%= for doc <- @documents do %>
+                <option
+                  value={doc.id}
+                  data-unit-id={doc.unit_id}
+                  data-document-type-id={doc.document_type_id}
+                >
+                  {doc.document_type.name} – {doc.document_link}
+                </option>
+              <% end %>
+            </select>
+          </div>
+
+<!-- Form de deleção -->
+          <.simple_form
+            id="document-delete-form"
+            for={@document_changeset |> to_form}
+            action="#"
+            method="delete"
+            class="form"
+          >
+            <input type="hidden" name="_id" id="document_delete_id" />
+            <p class="mb-3">Tem certeza de que deseja excluir este documento?</p>
+
+            <div class="field is-grouped is-grouped-right">
+              <button type="submit" class="button is-danger">Excluir</button>
+              <button type="button" class="button modal-close">Cancelar</button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+  <% end %>
 </main>
