@@ -28,10 +28,6 @@ defmodule Pescarte.Identidades.Models.Usuario do
   @required_fields ~w(primeiro_nome sobrenome cpf data_nascimento papel)a
   @optional_fields ~w(rg link_avatar contato_id external_customer_id)a
 
-  @lower_pass_format ~r/[a-z]/
-  @upper_pass_format ~r/[A-Z]/
-  @special_pass_format ~r/[!?@#$%^&*_0-9]/
-
   @primary_key {:id, PublicId, autogenerate: true}
   schema "usuario" do
     field :cpf, :string
@@ -71,9 +67,9 @@ defmodule Pescarte.Identidades.Models.Usuario do
     |> validate_required([:senha])
     |> validate_confirmation(:senha, required: true)
     |> validate_length(:senha, min: 12, max: 72)
-    |> validate_format(:senha, @lower_pass_format, message: "pelo menos uma letra minúscula")
-    |> validate_format(:senha, @upper_pass_format, message: "pelo menos uma letra maiúscula")
-    |> validate_format(:senha, @special_pass_format,
+    |> validate_format(:senha, lower_pass_format(), message: "pelo menos uma letra minúscula")
+    |> validate_format(:senha, upper_pass_format(), message: "pelo menos uma letra maiúscula")
+    |> validate_format(:senha, special_pass_format(),
       message: "pelo menos um digito ou caractere digital"
     )
   end
@@ -148,5 +144,17 @@ defmodule Pescarte.Identidades.Models.Usuario do
     else
       usuario.primeiro_nome
     end
+  end
+
+  defp lower_pass_format do
+    ~r/[a-z]/
+  end
+
+  defp upper_pass_format do
+    ~r/[A-Z]/
+  end
+
+  defp special_pass_format do
+    ~r/[!?@#$%^&*_0-9]/
   end
 end

@@ -2,63 +2,39 @@
   description = "Plataforma Digital PEA Pescarte";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    systems.url = "github:nix-systems/default";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    elixir-overlay.url = "github:zoedsoupe/elixir-overlay";
   };
 
   outputs = {
-    flake-parts,
-    systems,
+    nixpkgs,
+    elixir-overlay,
     ...
-  } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = import systems;
-      perSystem = {
-        pkgs,
-        system,
-        ...
-      }: let
-        inherit (pkgs.beam.interpreters) erlang_27;
-        inherit (pkgs.beam) packagesWith;
-        beam = packagesWith erlang_27;
-
-        elixir_1_18 = beam.elixir.override {
-          version = "1.18.3";
-          src = pkgs.fetchFromGitHub {
-            repo = "elixir";
-            owner = "elixir-lang";
-            rev = "v1.18.3";
-            sha256 = "sha256-jH+1+IBWHSTyqakGClkP1Q4O2FWbHx7kd7zn6YGCog0=";
-          };
-        };
-
-        supabase-cli-latest = pkgs.supabase-cli.overrideAttrs (old: {
-          version = "2.20.12";
-          src = pkgs.fetchFromGitHub {
-            owner = "supabase";
-            repo = "cli";
-            rev = "v2.20.12";
-            hash = "sha256-7zfQ7ePxCV0hkGoLnxfL2QR3qXTWoFbkVBl1jzYXpFg=";
-          };
-          vendorHash = "sha256-1zZ0UskHiyYsyi1wgTF16zj6pJ3UStLt3RKGfry7zJI=";
-        });
-      in {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        devShells.default = with pkgs;
-          mkShell {
-            name = "peapescarte";
-            packages = with pkgs;
-              [elixir_1_18 supabase-cli-latest nodejs ghostscript zlib postgresql flyctl pass]
-              ++ lib.optional stdenv.isLinux [inotify-tools chromium]
-              ++ lib.optional stdenv.isDarwin [
-                darwin.apple_sdk.frameworks.CoreServices
-                darwin.apple_sdk.frameworks.CoreFoundation
-              ];
-          };
+  }: let
+    inherit (nixpkgs.lib) genAttrs;
+    inherit (nixpkgs.lib.systems) flakeExposed;
+    forAllSystems = f:
+      genAttrs flakeExposed (
+        system: let
+          overlays = [elixir-overlay.overlays.default];
+          pkgs = import nixpkgs {inherit system overlays;};
+        in
+          f pkgs
+      );
+  in {
+    devShells = forAllSystems (pkgs: let
+      inherit (pkgs.beam.interpreters) erlang_27;
+    in {
+      default = pkgs.mkShell {
+        name = "peapescarte";
+        packages = with pkgs;
+          [elixir-bin."1.19.0-rc.0" erlang_27 supabase-cli nodejs ghostscript zlib postgresql flyctl pass]
+          ++ lib.optional stdenv.isLinux [inotify-tools chromium]
+          ++ lib.optional stdenv.isDarwin [
+            darwin.apple_sdk.frameworks.CoreServices
+            darwin.apple_sdk.frameworks.CoreFoundation
+          ];
       };
-    };
+    });
+  };
 }
