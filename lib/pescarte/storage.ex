@@ -51,7 +51,7 @@ defmodule Pescarte.Storage do
     with {:ok, client} <- Pescarte.Supabase.get_client(),
          storage <- Supabase.Storage.from(client, bucket),
          {:ok, %{body: body}} <- Supabase.Storage.File.download(storage, path) do
-      {:ok, IO.iodata_to_binary(body)}
+      {:ok, body}
     end
   end
 
