@@ -78,7 +78,6 @@ defmodule Pescarte.MixProject do
       {:resend, "~> 0.4.0"},
       {:phoenix_html_helpers, "~> 1.0"},
       {:nimble_csv, "~> 1.1"},
-      {:httpoison, "~> 1.8"},
       {:sentry, "~> 10.8"},
       {:earmark, "~> 1.4"},
       {:mox, "~> 1.0", only: [:test]},
