@@ -2,9 +2,8 @@
   <.flash :if={@error_message} id="login-error" kind={:error}>
     {@error_message}
   </.flash>
-
-  <div class="land-carousel">
-    <!--  <.text size="h2" color="text-blue-100">Galeria de Notícias Pescarte</.text> -->
+  <!--<div class="land-carousel">
+      <.text size="h2" color="text-blue-100">Galeria de Notícias Pescarte</.text>
     <div class="glide1">
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
@@ -34,21 +33,80 @@
         <button class="glide__bullet" data-glide-dir="=1"></button>
         <button class="glide__bullet" data-glide-dir="=2"></button>
       </div>
-      <!--      <div class="glide__progress">
+            <div class="glide__progress">
         <div class="glide__progress-bar"></div>
-      </div> -->
+      </div>
+    </div>
+  </div>-->
+  <div class="phases">
+    <div class="noticia-text">
+      <.text size="h2" color="text-blue-100">
+        Notícias
+      </.text>
     </div>
   </div>
+
+  <div class="search-container">
+    <input type="text" name="search" id="search" placeholder="Faça uma pesquisa..." />
+    <ul class="tags-container">
+      <li phx-click={JS.toggle_class("active")}>Tag</li>
+      <li phx-click={JS.toggle_class("active")}>Tag</li>
+      <li class="active" phx-click={JS.toggle_class("active")}>Tag</li>
+      <li phx-click={JS.toggle_class("active")}>Tag</li>
+      <li phx-click={JS.toggle_class("active")}>Tag</li>
+      <li phx-click={JS.toggle_class("active")}>Tag</li>
+      <li phx-click={JS.toggle_class("active")}>Tag</li>
+    </ul>
+  </div>
+
+  <div class="main-new">
+    <a href={"noticias/#{@main_new.id}"}>
+      <img
+        src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/grupos%20focais/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL2dydXBvcyBmb2NhaXMvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjEwOTcsImV4cCI6MjAzOTc4MTA5N30.0BiAS0ILyBpEIigMQ7fxQ07zkiV5h_EsUCRQ4FpWYJE&t=2024-08-23T13%3A51%3A37.851Z"
+        alt=""
+      />
+    </a>
+    <div class="main-new-text-container">
+      <p class="news-date">{date_to_string(@main_new.inserted_at)}</p>
+      <a href={"noticias/#{@main_new.id}"}>
+        <h3 class="news-title">
+          {@main_new.titulo}
+        </h3>
+      </a>
+      <p class="news-description">
+        {handle_notice_desc_length(@main_new.conteudo)}
+      </p>
+    </div>
+  </div>
+
   <div class="landing-grid">
-    <div class="news">
-      <.text size="h2" color="text-blue-100">Notícias</.text>
+    <div class="news-container">
       <div class="news-cards">
-        <!-- criando noticias 23/10/2024 - atualizando noticias-->
+        <%= for new <- @news do %>
+          <div class="news-item">
+            <a href={"/noticias/#{new.id}"}>
+              <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/grupos%20focais/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL2dydXBvcyBmb2NhaXMvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjEwOTcsImV4cCI6MjAzOTc4MTA5N30.0BiAS0ILyBpEIigMQ7fxQ07zkiV5h_EsUCRQ4FpWYJE&t=2024-08-23T13%3A51%3A37.851Z" />
+            </a>
+            <div class="text-container">
+              <p class="news-date">{date_to_string(new.inserted_at)}</p>
+              <a href={"/noticias/#{new.id}"}>
+                <.text size="h4" color="text-blue-100">
+                  {handle_notice_title_length(new.titulo)}
+                </.text>
+              </a>
+              <.text size="base" color="text-black-60">
+                {handle_notice_desc_length(new.conteudo)}
+              </.text>
+            </div>
+          </div>
+        <% end %>
+        <!-- criando noticias 23/10/2024 - atualizando noticias
         <div class="news-item">
           <a href="/noticias/noti9">
             <img src="https://rrosgcmviafnxjshljoq.supabase.co/storage/v1/object/sign/static/images/noticias/grupos%20focais/capa.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdGF0aWMvaW1hZ2VzL25vdGljaWFzL2dydXBvcyBmb2NhaXMvY2FwYS5KUEciLCJpYXQiOjE3MjQ0MjEwOTcsImV4cCI6MjAzOTc4MTA5N30.0BiAS0ILyBpEIigMQ7fxQ07zkiV5h_EsUCRQ4FpWYJE&t=2024-08-23T13%3A51%3A37.851Z" />
           </a>
-          <div class="p-5">
+          <div class="text-container">
+            <p class="news-date">00/00/0000</p>
             <a href="/noticias/noti9">
               <.text size="h4" color="text-blue-100">
                 {handle_notice_title_length(
@@ -56,16 +114,11 @@
                 )}
               </.text>
             </a>
-            <.text size="sm" color="text-black-60">
+            <.text size="base" color="text-black-60">
               {handle_notice_desc_length(
                 "O evento aconteceu entre 9 e 11 de outubro, no Espírito Santo. Duas integrantes do PEA foram selecionadas para representar o Sudeste"
               )}
             </.text>
-            <DesignSystem.link href="/noticias/noti9" class="text-sm font-semibold">
-              <.button style="primary">
-                <.text size="base" color="text-white-100">Ler mais</.text>
-              </.button>
-            </DesignSystem.link>
           </div>
         </div>
         <div class="news-item">
@@ -262,11 +315,18 @@
                 <.text size="base" color="text-white-100">Ler mais</.text>
               </.button>
             </DesignSystem.link>
+            <.button style="primary">
+              <.text size="base" color="text-white-100">Ler mais</.text>
+            </.button>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
+
+  <.button style="primary" click="get_news">
+    <.text size="base" color="text-wite-100">Ver mais...</.text>
+  </.button>
   <!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 </main>
