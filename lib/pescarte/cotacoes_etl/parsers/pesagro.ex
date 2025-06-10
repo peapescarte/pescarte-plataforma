@@ -2,8 +2,6 @@ defmodule Pescarte.CotacoesETL.Parsers.Pesagro do
   @behaviour Pescarte.CotacoesETL.Parser
 
   @pescado_header "Pescados"
-  @pescado_entry_regex ~r/(\s+)([A-Z]|(\s+)|[0-9]+)(\s+(\d+,\d+))+/
-  @normalized_0_regex ~r/(?<=\s)(\b0\b)((?=\s)|$)/
   @csv_delimiter ";"
   @csv_headers ~w(pescado_codigo minima mais_comum maxima media min_max)
 
@@ -21,7 +19,7 @@ defmodule Pescarte.CotacoesETL.Parsers.Pesagro do
     |> String.split("\n")
     |> extract_pescados_rows()
     |> String.split("\r")
-    |> Enum.filter(&String.match?(&1, @pescado_entry_regex))
+    |> Enum.filter(&String.match?(&1, pescado_entry_regex()))
     |> Enum.map(&extract_pescado_fields/1)
   end
 
@@ -42,7 +40,7 @@ defmodule Pescarte.CotacoesETL.Parsers.Pesagro do
 
   defp format_pescado_fields(data) do
     data
-    |> String.replace(@normalized_0_regex, "0,00")
+    |> String.replace(normalized_0_regex(), "0,00")
     |> String.trim()
     |> String.replace(~r/\s+/, " ")
     |> String.replace(",", ".")
@@ -102,5 +100,13 @@ defmodule Pescarte.CotacoesETL.Parsers.Pesagro do
     |> ceil()
   rescue
     _ -> 0
+  end
+
+  defp pescado_entry_regex do
+    ~r/(\s+)([A-Z]|(\s+)|[0-9]+)(\s+(\d+,\d+))+/
+  end
+
+  defp normalized_0_regex do
+    ~r/(?<=\s)(\b0\b)((?=\s)|$)/
   end
 end

@@ -5,7 +5,7 @@
       Agenda Mensal
     </.text>
     <.text size="h4" color="text-white-100">
-      {@current_month}
+      {@month}
     </.text>
   </div>
 
@@ -13,9 +13,8 @@
     <.text size="lg" color="text-black-80">
       Agenda sujeita a alterações e inscrições prévias. Entre em contato com a equipe do seu município.
     </.text>
-    <%= for {_, rows} <- @mapa do %>
-      {table_render(rows)}
-    <% end %>
+
+    {table_render(rows: @rows)}
   </div>
 
   <div class="join-us">
@@ -25,6 +24,7 @@
       <br /> <br /> <strong>Junte-se a nós nessa jornada de transformação!</strong>
     </.text>
   </div>
-  <!-- ONDE NOS ENCONTRAR -->
+  
+<!-- ONDE NOS ENCONTRAR -->
   <PescarteWeb.DesignSystem.GetInTouch.render />
 </main>
