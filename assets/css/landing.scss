@@ -162,7 +162,8 @@
       }
     }
 
-    img {
+    img,
+    .youtube-player {
       width: 50%;
       border-radius: 0.5rem;
     }
@@ -183,7 +184,8 @@
         }
       }
 
-      img {
+      img,
+      .youtube-player {
         width: 100%;
         margin-bottom: 2.5rem;
       }

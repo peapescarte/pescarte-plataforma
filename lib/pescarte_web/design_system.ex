@@ -35,12 +35,12 @@ defmodule PescarteWeb.DesignSystem do
       <.text size="h1"> Lorem ipsum dolor sit amet </.text>
   """
 
-  attr :size, :string, values: @text_sizes, required: true
-  attr :color, :string, default: "text-black-80"
-  attr :class, :string, required: false, default: ""
-  attr :style, :string, default: ""
+  attr(:size, :string, values: @text_sizes, required: true)
+  attr(:color, :string, default: "text-black-80")
+  attr(:class, :string, required: false, default: "")
+  attr(:style, :string, default: "")
 
-  slot :inner_block
+  slot(:inner_block)
 
   def text(%{size: "h" <> _} = assigns) do
     ~H"""
@@ -89,9 +89,9 @@ defmodule PescarteWeb.DesignSystem do
   @doc """
   Renders image from Supabase Storage
   """
-  attr :src, :string, required: true, doc: "the image source"
-  attr :alt, :string, default: "", doc: "the image alt"
-  attr :class, :string, default: "", doc: "the image class"
+  attr(:src, :string, required: true, doc: "the image source")
+  attr(:alt, :string, default: "", doc: "the image alt")
+  attr(:class, :string, default: "", doc: "the image class")
 
   def image_from_storage(assigns) do
     src =
@@ -104,6 +104,52 @@ defmodule PescarteWeb.DesignSystem do
 
     ~H"""
     <img src={@src} alt={@alt} class={@class} loading="lazy" />
+    """
+  end
+
+  @doc """
+  Renders an embedded YouTube video.
+
+  ## Attributes
+
+    * `:video_id` - The YouTube video ID (required).
+    * `:title` - The title for accessibility (default: "").
+    * `:class` - Optional CSS classes (default: "").
+    * `:controls` - Show player controls (default: true).
+    * `:autoplay` - Autoplay the video (default: true).
+    * `:mute` - Start the video muted (default: true).
+  """
+  attr(:video_id, :string, required: true)
+  attr(:title, :string, default: "")
+  attr(:class, :string, default: "")
+  attr(:controls, :boolean, default: true)
+  attr(:autoplay, :boolean, default: true)
+  attr(:mute, :boolean, default: true)
+
+  def youtube_player(assigns) do
+    assigns =
+      assign(
+        assigns,
+        :query,
+        URI.encode_query(%{
+          autoplay: if(assigns.autoplay, do: 1, else: 0),
+          mute: if(assigns.mute, do: 1, else: 0),
+          controls: if(assigns.controls, do: 1, else: 0),
+          rel: 0
+        })
+      )
+
+    ~H"""
+    <div class={"w-full aspect-video #{@class}"}>
+      <iframe
+        class="w-full h-full rounded-lg"
+        src={"https://www.youtube.com/embed/#{@video_id}?#{@query}"}
+        title={@title}
+        allow="autoplay; encrypted-media; clipboard-write; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
     """
   end
 
@@ -134,16 +180,16 @@ defmodule PescarteWeb.DesignSystem do
       <.button style="primary" submit> Submissão </.button>
   """
 
-  attr :name, :string, default: ""
-  attr :value, :string, default: ""
-  attr :style, :string, values: ~w(primary secondary link), required: true
-  attr :submit, :boolean, default: false
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: ""
-  attr :click, :string, default: "", doc: ~s(the click event to handle)
-  attr :rest, :global, doc: ~s(used for phoenix events like "phx-target")
+  attr(:name, :string, default: "")
+  attr(:value, :string, default: "")
+  attr(:style, :string, values: ~w(primary secondary link), required: true)
+  attr(:submit, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: "")
+  attr(:click, :string, default: "", doc: ~s(the click event to handle))
+  attr(:rest, :global, doc: ~s(used for phoenix events like "phx-target"))
 
-  slot :inner_block
+  slot(:inner_block)
 
   def button(assigns) do
     ~H"""
@@ -243,13 +289,13 @@ defmodule PescarteWeb.DesignSystem do
       <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
   """
 
-  attr :id, :string, required: false
-  attr :checked, :boolean, default: false
-  attr :disabled, :boolean, default: false
-  attr :label, :string, required: false, default: ""
-  attr :field, Phoenix.HTML.FormField
-  attr :name, :string
-  attr :required, :boolean, default: false
+  attr(:id, :string, required: false)
+  attr(:checked, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:label, :string, required: false, default: "")
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:name, :string)
+  attr(:required, :boolean, default: false)
 
   def checkbox(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -292,13 +338,13 @@ defmodule PescarteWeb.DesignSystem do
       <.checkbox id="send-emails" label="Deseja receber nossos emails?" checked />
   """
 
-  attr :id, :string, required: true
-  attr :name, :string
-  attr :disabled, :boolean, default: false
-  attr :checked, :boolean, default: false
-  attr :field, Phoenix.HTML.FormField
+  attr(:id, :string, required: true)
+  attr(:name, :string)
+  attr(:disabled, :boolean, default: false)
+  attr(:checked, :boolean, default: false)
+  attr(:field, Phoenix.HTML.FormField)
 
-  slot :label, required: true
+  slot(:label, required: true)
 
   def radio(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -349,17 +395,17 @@ defmodule PescarteWeb.DesignSystem do
       <.text_input name="password" label="Senha" type="password" />
   """
 
-  attr :id, :string, default: nil
-  attr :type, :string, default: "text", values: ~w(date hidden text password email phone)
-  attr :placeholder, :string, required: false, default: ""
-  attr :value, :string, required: false
-  attr :mask, :string, required: false, default: nil
-  attr :valid, :boolean, required: false, default: nil
-  attr :label, :string, default: nil
-  attr :field, Phoenix.HTML.FormField
-  attr :name, :string
+  attr(:id, :string, default: nil)
+  attr(:type, :string, default: "text", values: ~w(date hidden text password email phone))
+  attr(:placeholder, :string, required: false, default: "")
+  attr(:value, :string, required: false)
+  attr(:mask, :string, required: false, default: nil)
+  attr(:valid, :boolean, required: false, default: nil)
+  attr(:label, :string, default: nil)
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:name, :string)
 
-  attr :rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required)
+  attr(:rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required))
 
   def text_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -409,15 +455,15 @@ defmodule PescarteWeb.DesignSystem do
   defp text_input_state(false), do: "input-error"
   defp text_input_state(true), do: "input-success"
 
-  attr :id, :string, default: nil
-  attr :name, :string, default: nil
-  attr :value, :any
-  attr :field, Phoenix.HTML.FormField
-  attr :label, :string, default: nil
-  attr :prompt, :string, default: nil
-  attr :options, :list
-  attr :multiple, :boolean, default: false
-  attr :rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required)
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: nil)
+  attr(:value, :any)
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:label, :string, default: nil)
+  attr(:prompt, :string, default: nil)
+  attr(:options, :list)
+  attr(:multiple, :boolean, default: false)
+  attr(:rest, :global, include: ~w(autocomplete disabled pattern placeholder readonly required))
 
   def select(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -439,16 +485,16 @@ defmodule PescarteWeb.DesignSystem do
     """
   end
 
-  attr :id, :string, default: nil
-  attr :name, :string, default: nil
-  attr :disabled, :boolean, default: false
-  attr :placeholder, :string, required: false, default: ""
-  attr :field, Phoenix.HTML.FormField
-  attr :value, :string, default: ""
-  attr :valid, :boolean, required: false, default: nil
-  attr :class, :string, default: ""
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: nil)
+  attr(:disabled, :boolean, default: false)
+  attr(:placeholder, :string, required: false, default: "")
+  attr(:field, Phoenix.HTML.FormField)
+  attr(:value, :string, default: "")
+  attr(:valid, :boolean, required: false, default: nil)
+  attr(:class, :string, default: "")
 
-  slot :label, required: false
+  slot(:label, required: false)
 
   def text_area(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -486,9 +532,9 @@ defmodule PescarteWeb.DesignSystem do
       <.date_input name="aniversario"/>
 
   """
-  attr :name, :string, required: true
-  attr :class, :string, default: ""
-  attr :value, :string, default: ""
+  attr(:name, :string, required: true)
+  attr(:class, :string, default: "")
+  attr(:value, :string, default: "")
 
   def date_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -528,12 +574,12 @@ defmodule PescarteWeb.DesignSystem do
       <.search_input id="teste" name="busca_cep" content=["cep1", "cep2"] size="large" />
   """
 
-  attr :id, :string, required: true
-  attr :meta, Flop.Meta, required: true
-  attr :placeholder, :string, default: "Faça uma pesquisa..."
-  attr :size, :string, values: ~w(base large), default: "base"
-  attr :patch, :string, required: true
-  attr :fields, :list, required: true
+  attr(:id, :string, required: true)
+  attr(:meta, Flop.Meta, required: true)
+  attr(:placeholder, :string, default: "Faça uma pesquisa...")
+  attr(:size, :string, values: ~w(base large), default: "base")
+  attr(:patch, :string, required: true)
+  attr(:fields, :list, required: true)
 
   def search_input(%{field: %Phoenix.HTML.FormField{}} = assigns) do
     assigns
@@ -594,16 +640,16 @@ defmodule PescarteWeb.DesignSystem do
       <.link patch={~p"/app/relatorios"} text_size="lg">Recarregar lista de relatórios</.link>
   """
 
-  attr :navigate, :string, required: false, default: nil
-  attr :patch, :string, required: false, default: nil
-  attr :href, :string, required: false, default: nil
-  attr :method, :string, default: "get", values: ~w(get put post delete patch)
-  attr :styless, :boolean, default: false
-  attr :class, :string, default: ""
-  attr :"target-blank", :boolean, default: false
-  attr :"on-click", :string, default: ""
+  attr(:navigate, :string, required: false, default: nil)
+  attr(:patch, :string, required: false, default: nil)
+  attr(:href, :string, required: false, default: nil)
+  attr(:method, :string, default: "get", values: ~w(get put post delete patch))
+  attr(:styless, :boolean, default: false)
+  attr(:class, :string, default: "")
+  attr(:"target-blank", :boolean, default: false)
+  attr(:"on-click", :string, default: "")
 
-  slot :inner_block
+  slot(:inner_block)
 
   def link(assigns) do
     ~H"""
@@ -634,15 +680,16 @@ defmodule PescarteWeb.DesignSystem do
         </:actions>
       </.simple_form>
   """
-  attr :for, :any, required: true, doc: "a entidade de dados que será usada no formulário"
-  attr :as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados"
+  attr(:for, :any, required: true, doc: "a entidade de dados que será usada no formulário")
+  attr(:as, :any, default: nil, doc: "o parâmetro do lado do servidor para ser coletado os dados")
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target),
     doc: "atributos HTML adicionais e opcionais a serem adicionados na tag do formulário"
+  )
 
-  slot :inner_block, required: true
-  slot :actions, doc: "slot para ações do formulário, como o botão de submissão"
+  slot(:inner_block, required: true)
+  slot(:actions, doc: "slot para ações do formulário, como o botão de submissão")
 
   def simple_form(assigns) do
     ~H"""
@@ -661,16 +708,17 @@ defmodule PescarteWeb.DesignSystem do
       <.flash kind={:info} flash={@flash} />
       <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
   """
-  attr :id, :string, default: "flash", doc: "the optional id of flash container"
-  attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
+  attr(:id, :string, default: "flash", doc: "the optional id of flash container")
+  attr(:flash, :map, default: %{}, doc: "the map of flash messages to display")
 
-  attr :kind, :atom,
+  attr(:kind, :atom,
     values: [:success, :warning, :error],
     doc: "used for styling and flash lookup"
+  )
 
-  attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
+  attr(:rest, :global, doc: "the arbitrary HTML attributes to add to the flash container")
 
-  slot :inner_block, doc: "the optional inner block that renders the flash message"
+  slot(:inner_block, doc: "the optional inner block that renders the flash message")
 
   def flash(assigns) do
     ~H"""
@@ -697,7 +745,7 @@ defmodule PescarteWeb.DesignSystem do
   ## Examples
       <.flash_group flash={@flash} />
   """
-  attr :flash, :map, required: true, doc: "the map of flash messages"
+  attr(:flash, :map, required: true, doc: "the map of flash messages")
 
   def flash_group(assigns) do
     ~H"""
@@ -710,16 +758,17 @@ defmodule PescarteWeb.DesignSystem do
   @doc """
   Renderiza uma tabela com diferentes colunas
   """
-  attr :items, :list, required: true, doc: "a lista de itens a serem exibidos na tabela"
-  attr :meta, :map, required: true, doc: "metadados da tabela"
+  attr(:items, :list, required: true, doc: "a lista de itens a serem exibidos na tabela")
+  attr(:meta, :map, required: true, doc: "metadados da tabela")
 
-  attr :path, :string,
+  attr(:path, :string,
     required: true,
     doc: "a uri para qual a tabela deve enviar eventos de filtro e ordenação"
+  )
 
   slot :column, doc: "Columns with column labels" do
-    attr :label, :string, required: true, doc: "O rótulo da coluna"
-    attr :field, :atom, doc: "O campo da entidade de dados a ser exibido na coluna"
+    attr(:label, :string, required: true, doc: "O rótulo da coluna")
+    attr(:field, :atom, doc: "O campo da entidade de dados a ser exibido na coluna")
   end
 
   def table(assigns) do
@@ -741,9 +790,9 @@ defmodule PescarteWeb.DesignSystem do
 
   """
 
-  attr :id, :string, default: nil
-  attr :name, :string, default: nil
-  attr :message, :string, default: nil
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: nil)
+  attr(:message, :string, default: nil)
 
   def label(assigns) do
     ~H"""
@@ -789,16 +838,16 @@ defmodule PescarteWeb.DesignSystem do
       </.modal>
 
   """
-  attr :id, :string, required: true
-  attr :show, :boolean, default: false
-  attr :on_cancel, JS, default: %JS{}
-  attr :title, :string, default: ""
+  attr(:id, :string, required: true)
+  attr(:show, :boolean, default: false)
+  attr(:on_cancel, JS, default: %JS{})
+  attr(:title, :string, default: "")
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   slot :footer, required: false do
-    attr :class, :string
-    attr :style, :string
+    attr(:class, :string)
+    attr(:style, :string)
   end
 
   def modal(assigns) do
