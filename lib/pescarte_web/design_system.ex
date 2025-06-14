@@ -127,11 +127,23 @@ defmodule PescarteWeb.DesignSystem do
   attr(:mute, :boolean, default: true)
 
   def youtube_player(assigns) do
+    assigns =
+      assign(
+        assigns,
+        :query,
+        URI.encode_query(%{
+          autoplay: if(assigns.autoplay, do: 1, else: 0),
+          mute: if(assigns.mute, do: 1, else: 0),
+          controls: if(assigns.controls, do: 1, else: 0),
+          rel: 0
+        })
+      )
+
     ~H"""
     <div class={"w-full aspect-video #{@class}"}>
       <iframe
         class="w-full h-full rounded-lg"
-        src={"https://www.youtube.com/embed/#{@video_id}?autoplay=#{if @autoplay, do: 1, else: 0}&mute=#{if @mute, do: 1, else: 0}&controls=#{if @controls, do: 1, else: 0}&rel=0"}
+        src={"https://www.youtube.com/embed/#{@video_id}?#{@query}"}
         title={@title}
         allow="autoplay; encrypted-media; clipboard-write; gyroscope; picture-in-picture; web-share"
         allowfullscreen
