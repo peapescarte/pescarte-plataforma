@@ -134,7 +134,8 @@ defmodule PescarteWeb.DesignSystem do
         src={"https://www.youtube.com/embed/#{@video_id}?autoplay=#{if @autoplay, do: 1, else: 0}&mute=#{if @mute, do: 1, else: 0}&controls=#{if @controls, do: 1, else: 0}&rel=0"}
         title={@title}
         allow="autoplay; encrypted-media; clipboard-write; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
+        allowfullscreen
+      >
       </iframe>
     </div>
     """
